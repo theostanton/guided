@@ -46,5 +46,7 @@ type User {
 
 type Query {
     allUsers: [User!]!
-    user(id:String):User
+    user(id:ID):User
+    allGuides: [Guide!]!
+    guide(id:ID):Guide
 }
