@@ -1,8 +1,8 @@
 import {DAO} from "../DAO";
-import {Stay} from "../../types";
+import {Stay, StayRow} from "../../types";
 import {Table} from "../constants";
 
-export default class StayDao extends DAO<Stay> {
+export default class StayDao extends DAO<StayRow> {
     table: Table = 'stays'
 
 }

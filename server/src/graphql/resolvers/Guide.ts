@@ -1,28 +1,16 @@
-import {Stay} from "../../types";
+import {Guide, GuideRow, Stay, StayRow, UserRow} from "../../types";
+import StayDao from "../../database/daos/StayDao";
+import UserDao from "../../database/daos/UserDao";
 
-async function stays(): Promise<Stay[]> {
-    return [{
-        id: 1,
-        locked: false,
-        spot: {
-            id: 2,
-            location: {
-                id: 5,
-                address: {
-                    address1: 'Address 1',
-                    address2: 'Address 2',
-                    city: 'City',
-                    country: 'UK',
-                    id: 3
-                },
-                label: 'Label',
-                lat: 51.1,
-                long: 0.1
-            }
-        }
-    }]
+async function stays(guide: Guide): Promise<StayRow[]> {
+    return new StayDao().findMany({'guide': guide.id})
+}
+
+async function user(guide: GuideRow): Promise<UserRow> {
+    return new UserDao().get(guide.user)
 }
 
 export default {
-    stays
+    stays,
+    user
 }

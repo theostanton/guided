@@ -5,7 +5,14 @@ import DB, {insert, update} from "./index";
 export abstract class DAO<T> {
     abstract table: Table;
 
-    async find(id: string): Promise<T | null> {
+    async get(id: number): Promise<T> {
+        return DB().one<T>(`
+            SELECT *
+            FROM public.${this.table}
+            where id = $1
+        `, [id])
+    }
+    async getOptional(id: number): Promise<T | null> {
         return DB().oneOrNone<T>(`
             SELECT *
             FROM public.${this.table}
@@ -13,15 +20,26 @@ export abstract class DAO<T> {
         `, [id])
     }
 
-    async findWhere(keyValues: { [key in string]: string }): Promise<T | null> {
+    async findOne(keyValues: { [key in string]: string | number | boolean }): Promise<T> {
         const where = Object.keys(keyValues).map(key => {
             return `${key}=${keyValues[key]}`
         }).join(' and ');
-        return DB().oneOrNone<T>(`
+        return DB().one<T>(`
             SELECT *
-            FROM $1
-            where $2
-        `, [this.table, where])
+            FROM public.${this.table}
+            where ${where}
+        `)
+    }
+
+    async findMany(keyValues: { [key in string]: string | number | boolean }): Promise<T[]> {
+        const where = Object.keys(keyValues).map(key => {
+            return `${key}=${keyValues[key]}`
+        }).join(' and ');
+        return DB().manyOrNone<T>(`
+            SELECT *
+            FROM public.${this.table}
+            where ${where}
+        `)
     }
 
     async getAll(): Promise<T[]> {

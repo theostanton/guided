@@ -28,6 +28,7 @@ type Spot {
     id:ID!
     location: Location
 }
+
 type Stay {
     id:ID!
     spot:Spot
