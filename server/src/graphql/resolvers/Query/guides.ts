@@ -1,6 +1,6 @@
-import memoize from "../../utils/memoize";
-import {Guide} from "../../types";
-import {GuideDao} from "../../database/users/GuideDao";
+import memoize from "../../../utils/memoize";
+import {Guide} from "../../../types";
+import GuideDao from "../../../database/daos/GuideDao";
 
 const dao = memoize<GuideDao>(() => {
     return new GuideDao()

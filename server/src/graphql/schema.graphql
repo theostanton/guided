@@ -45,8 +45,20 @@ type User {
 }
 
 type Query {
-    allUsers: [User!]!
-    user(id:ID):User
+    allAddresss: [Address!]!
+    address(id:ID):Address
+    allDays: [Day!]!
+    day(id:ID):Day
     allGuides: [Guide!]!
     guide(id:ID):Guide
+    allLocations: [Location!]!
+    location(id:ID):Location
+    allRides: [Ride!]!
+    ride(id:ID):Ride
+    allSpots: [Spot!]!
+    spot(id:ID):Spot
+    allStays: [Stay!]!
+    stay(id:ID):Stay
+    allUsers: [User!]!
+    user(id:ID):User
 }

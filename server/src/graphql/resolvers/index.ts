@@ -1,14 +1,10 @@
 import {IResolvers} from 'graphql-tools';
 
-import * as Users from './users'
-import * as Guides from './guides'
 import Guide from "./Guide";
+import Query from "./Query";
 
 const resolvers: IResolvers = {
-    Query: {
-        ...Users,
-        ...Guides
-    },
+    Query,
     Guide
 };
 export default resolvers;

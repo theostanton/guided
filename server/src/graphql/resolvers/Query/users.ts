@@ -1,7 +1,6 @@
-import {User} from "../../types";
-import {Resolver} from "./types";
-import memoize from "../../utils/memoize";
-import {UserDao} from "../../database/users/UserDao";
+import memoize from "../../../utils/memoize";
+import {User} from "../../../types";
+import UserDao from "../../../database/daos/UserDao";
 
 const dao = memoize<UserDao>(() => {
     return new UserDao()
