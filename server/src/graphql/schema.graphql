@@ -1,0 +1,49 @@
+const {buildSchema} = require('graphql');
+
+// language=GraphQL
+export default buildSchema(`
+    scalar Date
+    type Address{
+        id:String
+        address1:String
+        address2:String
+        city:String
+        country:String
+    }
+    type Location {
+        id:String
+        label:String
+        lat:Float
+        long:Float
+        address:Address
+    }
+    type Ride {
+        id:String
+        start:Spot
+        end:Spot
+    }
+    type Day {
+        id:String
+        date:Date
+        locked:Boolean
+    }
+    type Spot {
+        id:String
+        location: Location
+    }
+    type Stay {
+        id:String
+        spot:Spot
+        locked:Boolean
+    }
+    type Guide {
+        id:String
+        user:User
+        dailyLimitKm:Int
+        stays: [Stay]
+    }
+    type User {
+        id:String
+        email:String
+    }
+`);
