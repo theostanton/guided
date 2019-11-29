@@ -6,44 +6,45 @@ type Address{
     country:String
 }
 type Location {
-    id:String
+    id:ID!
     label:String
     lat:Float
     long:Float
     address:Address
 }
 type Ride {
-    id:String
+    id:ID!
     start:Spot
     end:Spot
 }
 type Day {
-    id:String
+    id:ID!
     date:Date
     locked:Boolean
 }
 
 scalar Date
 type Spot {
-    id:String
+    id:ID!
     location: Location
 }
 type Stay {
-    id:String
+    id:ID!
     spot:Spot
     locked:Boolean
 }
 type Guide {
-    id:String
+    id:ID!
     user:User
     dailyLimitKm:Int
     stays: [Stay]
 }
 type User {
-    id:String
+    id:ID!
     email:String
 }
 
 type Query {
-    helloWorld: String!
+    allUsers: [User!]!
+    user(id:String):User
 }

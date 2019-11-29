@@ -6,7 +6,7 @@ import {GraphQLSchema} from "graphql";
 
 const typeDefs = require('./schema.graphql');
 
-import resolvers from './resolverMap';
+import resolvers from './resolvers';
 
 const schema: GraphQLSchema = makeExecutableSchema({
     typeDefs,
