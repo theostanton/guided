@@ -7,10 +7,15 @@ const dao = memoize<UserDao>(() => {
     return new UserDao()
 });
 
-export const allUsers: Resolver<User[]> = (_: void, args: void) => {
-    return dao().getAll()
-};
-
-export const user: Resolver<User | null> = (_: void, {id}: { id: string }) => {
+function user(_: void, {id}: { id: string }): Promise<User | null> {
     return dao().find(id)
-};
+}
+
+function allUsers(_: void, args: void): Promise<User[]> {
+    return dao().getAll()
+}
+
+export {
+    user,
+    allUsers
+}

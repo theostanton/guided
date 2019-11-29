@@ -1,44 +1,44 @@
 export type Address = {
-    id: string
+    id: number
     address1: string
     address2: string
     city: string
     country: string
 }
 export type Location = {
-    id: string
+    id: number
     label: string
     lat: number
     long: number
     address: Address
 }
 export type Ride = {
-    id: string
+    id: number
     start: Spot
     end: Spot
 }
 export type Day = {
-    id: string
+    id: number
     date: Date
     locked: boolean
 }
 
 export type Spot = {
-    id: string
+    id: number
     location: Location
 }
 export type Stay = {
-    id: string
+    id: number
     spot: Spot
     locked: boolean
 }
 export type Guide = {
-    id: string
+    id: number
     user: User
     dailyLimitKm: number
     stays: [Stay]
 }
 export type User = {
-    id: string
+    id: number
     email: string
 }
