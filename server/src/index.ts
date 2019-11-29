@@ -1,22 +1,9 @@
 import {Express} from "express";
 
 const express = require('express');
-const graphqlHTTP = require('express-graphql');
-const {buildSchema} = require('graphql');
-
-// Construct a schema, using GraphQL schema language
-// language=GraphQL
-const schema = buildSchema(`
-    type Number {
-        one: Int
-        two: String
-    }
-    type Query {
-        hello: String
-        goodbye: String
-        number(base: Int):Number
-    }
-`);
+import compression from 'compression';
+import {server} from './graphql'
+import cors from 'cors';
 
 async function hello(): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -48,12 +35,10 @@ const root = {
 };
 
 const app: Express = express();
-app.use('/graphql', graphqlHTTP({
-    schema: schema,
-    rootValue: root,
-    graphiql: true,
-    pretty: true
-}));
 
-app.listen(4000, '0.0.0.0');
+app.use('*', cors());
+app.use(compression());
+server.applyMiddleware({app, path: '/graphql'});
+
+app.listen(4000);
 console.log('Running a GraphQL API server at localhost:4000/graphql');

@@ -1,9 +1,17 @@
+import 'graphql-import-node';
 
-import {ApolloServer} from 'apollo-server-express';
+import {ApolloServer, makeExecutableSchema} from 'apollo-server-express';
 import depthLimit from 'graphql-depth-limit';
+import {GraphQLSchema} from "graphql";
 
-const schema = require('./schema');
+const typeDefs = require('./schema.graphql');
 
+import resolvers from './resolverMap';
+
+const schema: GraphQLSchema = makeExecutableSchema({
+    typeDefs,
+    resolvers,
+});
 
 export const server = new ApolloServer({
     schema,
