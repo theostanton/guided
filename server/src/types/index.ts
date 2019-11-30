@@ -61,6 +61,7 @@ export type Stay = {
 export type StayRow = {
     id: number
     spot: number
+    guide: number
     locked: boolean
 }
 

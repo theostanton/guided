@@ -7,10 +7,14 @@ import {GraphQLSchema} from "graphql";
 const typeDefs = require('./schema.graphql');
 
 import resolvers from './resolvers';
+import Mutation from './mutators';
+resolvers['Mutation'] = Mutation
 
 const schema: GraphQLSchema = makeExecutableSchema({
     typeDefs,
-    resolvers,
+    resolvers: {
+        ...resolvers
+    }
 });
 
 export const server = new ApolloServer({

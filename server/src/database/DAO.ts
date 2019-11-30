@@ -12,6 +12,7 @@ export abstract class DAO<T> {
             where id = $1
         `, [id])
     }
+
     async getOptional(id: number): Promise<T | null> {
         return DB().oneOrNone<T>(`
             SELECT *
@@ -21,14 +22,17 @@ export abstract class DAO<T> {
     }
 
     async findOne(keyValues: { [key in string]: string | number | boolean }): Promise<T> {
+
         const where = Object.keys(keyValues).map(key => {
             return `${key}=${keyValues[key]}`
         }).join(' and ');
+
         return DB().one<T>(`
             SELECT *
             FROM public.${this.table}
             where ${where}
         `)
+
     }
 
     async findMany(keyValues: { [key in string]: string | number | boolean }): Promise<T[]> {
@@ -49,11 +53,11 @@ export abstract class DAO<T> {
         `)
     }
 
-    async insert(t: User): Promise<User | null> {
+    async insert(t: Partial<T>): Promise<{ id: number }> {
         return insert(t, this.table)
     }
 
-    async update(t: User): Promise<User | null> {
+    async update(t: T): Promise<{ id: number }> {
         return update(t, this.table)
     }
 }

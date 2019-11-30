@@ -5,7 +5,8 @@ import {Table} from "./constants";
 const pgp = require('pg-promise')({});
 
 export function insert(data: any | any[], table: Table, columns?: QueryColumns) {
-    const query = pgp.helpers.insert(data, columns, table);
+    let query = pgp.helpers.insert(data, columns, table);
+    query += ' RETURNING ID';
     console.log('query', query);
     return db().one(query)
 }
