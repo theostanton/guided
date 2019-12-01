@@ -19,5 +19,7 @@ const schema: GraphQLSchema = makeExecutableSchema({
 
 export const server = new ApolloServer({
     schema,
+    debug:true,
+    tracing:true,
     validationRules: [depthLimit(7)],
 });
