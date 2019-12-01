@@ -43,6 +43,7 @@ type Guide {
 type User {
     id:ID!
     email:String
+    username:String
 }
 
 input AddressInput {

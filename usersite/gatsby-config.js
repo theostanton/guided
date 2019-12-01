@@ -1,4 +1,8 @@
 /* eslint-disable quotes */
+require('dotenv').config();
+
+console.log('GATSBY_USERNAME', process.env.GATSBY_USERNAME);
+
 module.exports = {
   siteMetadata: {
     title: `My website`,
