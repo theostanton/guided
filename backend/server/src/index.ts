@@ -3,9 +3,8 @@ import {createServer} from "http";
 console.log('Starting');
 
 import {Express} from "express";
-import {SubscriptionServer} from 'subscriptions-transport-ws';
-import {execute, subscribe} from 'graphql';
 
+import arena from './events/arena'
 const express = require('express');
 import compression from 'compression';
 import {server, schema} from './graphql'
@@ -17,6 +16,7 @@ const app: Express = express();
 
 app.use('*', cors());
 app.use(compression());
+app.use('/arena',arena);
 server.applyMiddleware({app, path: '/graphql'});
 
 const subscriptionServer = createServer(app);

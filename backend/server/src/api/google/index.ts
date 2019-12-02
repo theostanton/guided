@@ -19,7 +19,5 @@ export async function directions(startLat: number, startLong: number, endLat: nu
         }
     }).asPromise()
 
-    console.log(JSON.stringify(data, null, 4))
-
     return data;
 }

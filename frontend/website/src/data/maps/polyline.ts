@@ -8,10 +8,7 @@ export function polylineToGeoJson(polyline: string): any {
         features: [
             {
                 geometry,
-                type: 'Feature',
-                properties: {
-                    stroke: 2
-                }
+                type: 'Feature'
             }
         ]
     }

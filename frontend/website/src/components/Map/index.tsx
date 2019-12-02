@@ -35,6 +35,13 @@ const QUERY = gql`{
         }
     }
     rides:allRides{
+        id
+        start{
+            id
+        }
+        end{
+            id
+        }
         route{
             overview_polyline{
                 points
@@ -58,22 +65,31 @@ class Rides extends React.Component<RidesProps> {
         if (!rides) {
             return <div/>;
         }
+        console.log('rides.length', rides.length)
 
-        const geoJson = polylineToGeoJson(rides[0].route.overview_polyline.points);
+        return (rides && rides
+            .filter(ride => {
+                return ride.route
+            })
+            .map(ride => {
 
-        // For more information on data-driven styles, see https://www.mapbox.com/help/gl-dds-ref/
-        const dataLayer = {
-            id: 'data',
-            type: 'line',
-            paint: {
-                'line-color': '#ff00ff'
-            }
-        };
+                const geoJson = polylineToGeoJson(ride.route.overview_polyline.points);
 
-        return (<Source type="geojson" data={geoJson}>
-            <Layer {...dataLayer} />
-        </Source>)
+                // For more information on data-driven styles, see https://www.mapbox.com/help/gl-dds-ref/
+                const dataLayer = {
+                    paint: {
+                        'line-color': '#ff00ff'
+                    }
+                };
 
+                const layerId = `ride-layer-${ride.id}`;
+                const sourceId = `ride-source-${ride.id}`;
+                return ([<Source key={sourceId} type="geojson" data={geoJson} id={sourceId}>
+
+                </Source>,
+                    <Layer key={layerId} id={layerId} {...dataLayer} type={'line'} source={sourceId}/>])
+
+            }))
     }
 
 }

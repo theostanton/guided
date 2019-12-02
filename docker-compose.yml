@@ -22,6 +22,15 @@ services:
       - ./backend/data/redis:/data
     restart: always
 
+  arena:
+    container_name: worker-arena
+    image: mixmaxhq/arena
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend/data/arena.json:/opt/arena/src/server/config/index.json
+
+
   server:
     container_name: "server"
     build:

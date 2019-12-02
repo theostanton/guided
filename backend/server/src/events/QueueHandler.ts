@@ -9,8 +9,12 @@ export abstract class QueueHandler<T> {
     protected constructor(queue: Queue) {
         this.queue = queue;
         this.bull = new Bull<T>(queue)
-        this.bull.process(async (job, done) => {
-            await this.handle(job.data)
+    }
+
+    async subscribe(): Promise<void> {
+        return this.bull.process(async (job, done) => {
+            await this.handle(job.data,done)
+            done()
         }).then(value => {
             console.log('onProcess')
         }).catch(err => {
@@ -19,8 +23,9 @@ export abstract class QueueHandler<T> {
     }
 
     async add(t: T) {
-        await this.bull.add(t)
+        await this.bull.add(t);
+        console.log(`count=${await this.bull.count()}`);
     }
 
-    abstract handle(t: T): Promise<void>
+    abstract handle(t: T, done: Bull.DoneCallback): Promise<void>
 }
