@@ -1,3 +1,5 @@
+console.log('Starting');
+
 import {Express} from "express";
 
 const express = require('express');

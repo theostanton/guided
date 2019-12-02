@@ -1,6 +1,6 @@
 version: "3"
-services:
 
+services:
   database:
     image: "postgres:11"
     container_name: "database"
@@ -19,10 +19,6 @@ services:
       context: backend/server
       dockerfile: Dockerfile
     working_dir: /app
-    depends_on:
-      - database
-    networks:
-      - database
     ports:
       - "4000:4000"
     volumes:
@@ -35,12 +31,8 @@ services:
       dockerfile: Dockerfile
     working_dir: /app
     command: './entrypoint.sh'
-    depends_on:
-      - server
     ports:
       - "8000:8000"
-    networks:
-      - server
     volumes:
       - ./frontend/website:/app
       - /app/node_modules/
@@ -52,12 +44,8 @@ services:
       dockerfile: Dockerfile
     working_dir: /app
     command: './entrypoint.sh'
-    depends_on:
-      - server
     ports:
       - "9000:9000"
-    networks:
-      - server
     volumes:
       - ./frontend/usersite:/app
       - /app/node_modules/

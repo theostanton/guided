@@ -53,8 +53,13 @@ input AddressInput {
     country:String
 }
 
+type ItemId {
+    id:ID
+}
+
 type Mutation {
-    addStay(guideId:ID!,locked:Boolean,label:String,address:AddressInput):Stay
+    addStayFromAddress(guideId:ID!,locked:Boolean,label:String,address:AddressInput):ItemId
+    addStayFromLagLng(guideId:ID!,locked:Boolean,label:String,lat:Float,long:Float):ItemId
 }
 
 type Query {

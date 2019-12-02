@@ -1,0 +1,31 @@
+import {Address, Stay, StayRow} from "../../types";
+import daos from '../../database/daos'
+
+export default async function (_: void, {guideId, locked, label, lat, long}: { guideId: number, locked: boolean, label: string, lat: number, long: number }): Promise<{ id: number } | null> {
+
+    console.log('guideId', guideId);
+    console.log('locked', locked);
+    console.log('label', label);
+    console.log('lat', lat);
+    console.log('long', long);
+
+    const {id: loctionId} = await daos.location.insert({
+        label,
+        lat,
+        long
+    });
+
+    const {id: spotId} = await daos.spot.insert({
+        location: loctionId
+    });
+
+    const {id: stayId} = await daos.stay.insert({
+        locked,
+        spot: spotId,
+        guide: guideId
+    });
+
+    return {
+        id: stayId
+    }
+}

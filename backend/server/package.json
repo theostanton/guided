@@ -1,7 +1,7 @@
 {
   "name": "explore-graphql",
   "scripts": {
-    "start:dev": "ts-node-dev src/index.ts --transpile-only",
+    "start:dev": "ts-node-dev src/index.ts --transpile-only --debug",
     "start:prod": "ts-node src/index.ts",
     "deploy:local": "docker run -p 4000:4000 -d theostanton1/explore-graphql",
     "deploy:build": "docker build -t theostanton1/explore-graphql ."
