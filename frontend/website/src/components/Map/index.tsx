@@ -4,7 +4,6 @@ import Pin from "./pin";
 import {Guide, Stay} from "../../types";
 import {gql} from "apollo-boost";
 import {client, addStayFromLatLong} from "../../data/graphql";
-import {useLazyQuery, useQuery} from "@apollo/react-hooks";
 import {Query} from "react-apollo";
 
 type State = {
@@ -16,23 +15,6 @@ type State = {
         zoom: number,
     },
 };
-
-const SUBSCRIPTION = gql`
-    subscription OnGuideUpdate {
-        guide{
-            stays{
-                id
-                spot{
-                    location{
-                        label
-                        lat
-                        long
-                    }
-                }
-            }
-        }
-    }
-`;
 
 const QUERY = gql`{
     guide(id:1){
@@ -50,27 +32,17 @@ const QUERY = gql`{
 }`;
 
 type MarkerProps = {
-    data?: { guide: Guide }
-    subscribeToMore: any,
+    guide?: Guide
 };
 
 class Markers extends React.Component<MarkerProps> {
 
-    componentDidUpdate(prevProps: Readonly<MarkerProps>, prevState: Readonly<{}>, snapshot?: any): void {
-        this.props.subscribeToMore();
-    }
-
-    componentDidMount(): void {
-        this.props.subscribeToMore();
-    }
-
     render() {
-        console.log("props", this.props);
-        const {data} = this.props;
-        if (!data) {
-            return "lol";
+        const {guide} = this.props;
+        if (!guide) {
+            return <div/>;
         }
-        const stays: Stay[] = data && data.guide?.stays;
+        const stays: Stay[] = guide?.stays;
         return (stays && stays.map((stay, index) => {
             return (
                 <Marker key={`marker-${index}`} longitude={stay.spot.location.long} latitude={stay.spot.location.lat}>
@@ -96,28 +68,10 @@ export default class Map extends Component<{}, State> {
     };
 
     render() {
-
         return (
-            <Query<Guide> query={QUERY} pollInterval={200}>
-                {({loading, error, data, subscribeToMore}: any) => {
-                    console.log("data", data);
+            <Query<Guide> query={QUERY} pollInterval={2000}>
+                {({loading, error, data,refetch}: any) => {
                     const guide: Guide | undefined = data && data.guide;
-
-                    const more = () => subscribeToMore({
-                        document: SUBSCRIPTION,
-
-                        updateQuery: (prev: any, {subscriptionData}: any) => {
-                            console.log("subscriptionData", subscriptionData);
-                            if (!subscriptionData.data) { return prev; }
-                            return {
-                                id: 1,
-                                guide: {
-                                    id: 1,
-                                    stays: [],
-                                },
-                            };
-                        },
-                    });
 
                     return (<ReactMapGL
                         mapboxApiAccessToken={"pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazNscGM2djAwdHYwM29vN3l6NWdyY2QxIn0.L4-DzQEX16suphipPXgDmw"}
@@ -125,6 +79,7 @@ export default class Map extends Component<{}, State> {
                         onClick={async (event) => {
                             if (guide) {
                                 await addStayFromLatLong(guide.id, event.lngLat[1], event.lngLat[0], "On click");
+                                refetch()
                             }
 
                         }}
@@ -132,7 +87,7 @@ export default class Map extends Component<{}, State> {
                         width={"100%"}
                         onViewportChange={(viewport) => this.setState({viewport})}>
 
-                        <Markers subscribeToMore={more} data={data}/>
+                        <Markers guide={data?.guide}/>
                     </ReactMapGL>);
                 }}
             </Query>
