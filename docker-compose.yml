@@ -1,0 +1,64 @@
+version: "3"
+services:
+
+  database:
+    image: "postgres:11"
+    container_name: "database"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=database
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./backend/data:/var/lib/postgresql/data
+
+  server:
+    container_name: "server"
+    build:
+      context: backend/server
+      dockerfile: Dockerfile
+    working_dir: /app
+    depends_on:
+      - database
+    networks:
+      - database
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend/server:/app
+
+  website:
+    container_name: "website"
+    build:
+      context: frontend/website
+      dockerfile: Dockerfile
+    working_dir: /app
+    command: './entrypoint.sh'
+    depends_on:
+      - server
+    ports:
+      - "8000:8000"
+    networks:
+      - server
+    volumes:
+      - ./frontend/website:/app
+      - /app/node_modules/
+
+  usersite:
+    container_name: "usersite"
+    build:
+      context: frontend/usersite
+      dockerfile: Dockerfile
+    working_dir: /app
+    command: './entrypoint.sh'
+    depends_on:
+      - server
+    ports:
+      - "9000:9000"
+    networks:
+      - server
+    volumes:
+      - ./frontend/usersite:/app
+      - /app/node_modules/
+
