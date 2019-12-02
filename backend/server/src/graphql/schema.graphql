@@ -62,6 +62,10 @@ type Mutation {
     addStayFromLagLng(guideId:ID!,locked:Boolean,label:String,lat:Float,long:Float):ItemId
 }
 
+type Subscription {
+    guide: Guide!
+}
+
 type Query {
     allAddresss: [Address!]!
     address(id:ID):Address

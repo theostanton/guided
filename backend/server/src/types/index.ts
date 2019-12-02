@@ -67,9 +67,9 @@ export type StayRow = {
 
 export type Guide = {
     id: number
-    user: User
+    user?: User
     dailyLimitKm: number
-    stays: [Stay]
+    stays: Stay[]
 }
 
 export type GuideRow = {

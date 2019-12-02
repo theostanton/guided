@@ -11,17 +11,16 @@ const MUTATION = gql`
 `;
 
 export default async function (guideId: number, lat: number, long: number, label: string | undefined = undefined, locked: boolean = false): Promise<number> {
-    console.log('addStayFromLatLong');
     const result = await client.mutate({
-        mutation:MUTATION,
+        mutation: MUTATION,
         variables: {
             guideId,
             lat,
             long,
             label,
-            locked
-        }
+            locked,
+        },
     });
-    console.log('result', result);
-    return -1
+    console.log("result", result);
+    return -1;
 }

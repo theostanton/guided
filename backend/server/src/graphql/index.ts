@@ -8,18 +8,25 @@ const typeDefs = require('./schema.graphql');
 
 import resolvers from './resolvers';
 import Mutation from './mutators';
-resolvers['Mutation'] = Mutation
+import {Subscription} from './subscriptions';
 
-const schema: GraphQLSchema = makeExecutableSchema({
+export const schema: GraphQLSchema = makeExecutableSchema({
     typeDefs,
     resolvers: {
-        ...resolvers
+        ...resolvers,
+        Mutation,
+        Subscription
     }
 });
 
 export const server = new ApolloServer({
     schema,
-    debug:true,
-    tracing:true,
+    debug: true,
+    tracing: true,
     validationRules: [depthLimit(7)],
+    subscriptions: {
+        onConnect: (connectionParams, webSocket) => {
+            console.log('onConnect connectionParams=', connectionParams)
+        }
+    }
 });

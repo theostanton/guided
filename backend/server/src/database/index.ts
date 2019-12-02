@@ -19,7 +19,7 @@ export function update(data: any | any[], table: Table, columns?: QueryColumns) 
 
 export const db = memoize<IDatabase<any>>(() => {
     return pgp({
-        host: 'database',
+        host: '127.0.0.1',
         user: 'user',
         password: 'password',
         port: 5432,

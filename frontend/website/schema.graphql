@@ -3,6 +3,7 @@
 schema {
     query: Query
     mutation: Mutation
+    subscription: Subscription
 }
 
 type Address {
@@ -77,6 +78,10 @@ type Stay {
     id: ID!
     locked: Boolean
     spot: Spot
+}
+
+type Subscription {
+    guide: Guide!
 }
 
 type User {

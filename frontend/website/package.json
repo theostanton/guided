@@ -21,6 +21,7 @@
     "codeclimate": "codeclimate-test-reporter < coverage/lcov.info"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.3",
     "@graphql-codegen/add": "^1.2.0",
     "@graphql-codegen/cli": "^1.2.0",
     "@graphql-codegen/typescript": "^1.2.0",
@@ -38,6 +39,8 @@
     "core-js": "^2.6.5",
     "disqus-react": "^1.0.5",
     "gatsby": "^2.7.5",
+    "apollo-link-ws": "^1.0.19",
+    "subscriptions-transport-ws": "^0.9.16",
     "gatsby-link": "^2.1.1",
     "gatsby-plugin-google-analytics": "^2.0.20",
     "gatsby-plugin-manifest": "^2.1.1",
@@ -61,7 +64,8 @@
     "semantic-ui-react": "^0.87.1",
     "slash": "3.0.0",
     "ts-loader": "^6.0.1",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "react-apollo": "latest"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",

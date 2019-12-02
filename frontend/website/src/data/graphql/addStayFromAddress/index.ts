@@ -17,8 +17,8 @@ export default async function (guideId: number, address: Address, label: string 
             guideId,
             address,
             label,
-            locked
-        }
+            locked,
+        },
     });
     return -1;
 }
