@@ -55,6 +55,7 @@ type Location {
 type Mutation {
     addStayFromAddress(address: AddressInput, guideId: ID!, label: String, locked: Boolean): ItemId
     addStayFromLagLng(guideId: ID!, label: String, lat: Float, locked: Boolean, long: Float): ItemId
+    moveStay(lat: Float, locationId: ID, long: Float): ItemId
 }
 
 type PolyLine {

@@ -2,8 +2,11 @@ import {QueueHandler} from "./QueueHandler";
 import daos from '../database/daos'
 import * as Google from '../api/google'
 import memoize from "../utils/memoize";
-import {RideRow} from "../types";
+import {RideRow, StayRow} from "../types";
 import Bull = require("bull");
+import executeSequentially from "../utils/executeSequentially";
+import {calculateRide} from "./index";
+import {db} from '../database'
 
 type Context = {
     startStayId: number
@@ -13,6 +16,32 @@ type Context = {
 export class CalculateRideHandler extends QueueHandler<Context> {
 
     static instance: CalculateRideHandler | undefined;
+
+    static async updateAll(): Promise<void> {
+
+        console.log('updateAll');
+
+        const ids = (await daos.stay.ids()).map(({id}) => {
+            return id
+        });
+
+        console.log('got ids', ids.length)
+
+        const handler = await CalculateRideHandler.get();
+        await handler.empty();
+
+        const indices = [];
+        for (let i = 0; i < ids.length - 1; i++) {
+            indices.push([ids[i], ids[i + 1]]);
+        }
+        console.log(JSON.stringify(indices, null, 4));
+        await executeSequentially(indices, async ([i, j]) => {
+            console.log(`index ${i},${j}`);
+            await calculateRide(i, j)
+        });
+
+        await handler.resume();
+    }
 
     static async get(): Promise<CalculateRideHandler> {
         console.log('get');
@@ -30,9 +59,7 @@ export class CalculateRideHandler extends QueueHandler<Context> {
         super('calculate-ride');
     }
 
-    async handle(context:Context, done: Bull.DoneCallback): Promise<void> {
-
-        console.log('handle',context);
+    async handle(context: Context, done: Bull.DoneCallback): Promise<void> {
 
         await daos.ride.deleteWhere({start: context.startStayId, end: context.endStayId});
 
@@ -57,15 +84,15 @@ export class CalculateRideHandler extends QueueHandler<Context> {
         };
 
         await daos.ride.insert(rideRow)
-        console.log('handled',context);
+        console.log('handled', context);
     }
 
-    async empty() :Promise<void>{
+    async empty(): Promise<void> {
         await this.bull.empty()
         console.log(`count after clear ${await this.bull.count()}`);
     }
 
-    async resume() :Promise<void>{
+    async resume(): Promise<void> {
         await this.bull.resume()
     }
 }

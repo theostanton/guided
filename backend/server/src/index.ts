@@ -9,6 +9,7 @@ const express = require('express');
 import compression from 'compression';
 import {server, schema} from './graphql'
 import cors from 'cors';
+import {subscribe} from "./events";
 
 const PORT=4000;
 
@@ -28,3 +29,5 @@ subscriptionServer.listen(PORT,()=>{
     console.log(`🚀 subscriptionServer Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`)
 });
 console.log('Running a GraphQL API server at localhost:4000/graphql');
+
+subscribe().then().catch();

@@ -68,7 +68,7 @@ export abstract class DAO<T> {
         return insert(t, this.table)
     }
 
-    async update(t: T): Promise<{ id: number }> {
+    async update(t: Partial<T>): Promise<void> {
         return update(t, this.table)
     }
 }

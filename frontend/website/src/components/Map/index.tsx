@@ -7,7 +7,7 @@ import React, {Component} from "react";
 import Pin from "./pin";
 import {Guide, Ride, Stay} from "../../types";
 import {gql} from "apollo-boost";
-import {client, addStayFromLatLong} from "../../data/graphql";
+import {moveStay, addStayFromLatLong} from "../../data/graphql";
 import {Query} from "react-apollo";
 import {polylineToGeoJson} from "../../data/maps/polyline";
 
@@ -27,6 +27,7 @@ const QUERY = gql`{
         stays{
             spot{
                 location{
+                    id
                     label
                     lat
                     long
@@ -100,6 +101,11 @@ type MarkersProps = {
 
 class Markers extends React.Component<MarkersProps> {
 
+    async onDragEnd({lngLat}: any, locationId: number) {
+        console.log('lngLat', lngLat, 'locationId', locationId)
+        await moveStay(locationId, lngLat[1], lngLat[0])
+    }
+
     render() {
         const {guide} = this.props;
         if (!guide) {
@@ -108,7 +114,14 @@ class Markers extends React.Component<MarkersProps> {
         const stays: Stay[] = guide?.stays;
         return (stays && stays.map((stay, index) => {
             return (
-                <Marker key={`marker-${index}`} longitude={stay.spot.location.long} latitude={stay.spot.location.lat}>
+                <Marker key={`marker-${index}`}
+                        longitude={stay.spot.location.long}
+                        latitude={stay.spot.location.lat}
+                        draggable
+                        onDragEnd={async (args) => {
+                            await this.onDragEnd(args, stay.spot.location.id)
+                        }}
+                >
                     <Pin size={20}
                          onClick={() => {
                              console.log("click");

@@ -12,8 +12,8 @@ export abstract class QueueHandler<T> {
     }
 
     async subscribe(): Promise<void> {
-        return this.bull.process(async (job, done) => {
-            await this.handle(job.data,done)
+        return this.bull.process(20, async (job, done) => {
+            await this.handle(job.data, done);
             done()
         }).then(value => {
             console.log('onProcess')

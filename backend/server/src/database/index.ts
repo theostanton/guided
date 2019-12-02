@@ -10,9 +10,17 @@ export function insert(data: any | any[], table: Table, columns?: QueryColumns) 
     return db().one(query)
 }
 
-export function update(data: any | any[], table: Table, columns?: QueryColumns) {
-    const query = pgp.helpers.update(data, columns, table);
-    return db().one(query)
+export async function update(data: any, table: Table):Promise<void> {
+    const columns = Object.keys(data).map(key => {
+        if (key === 'id') {
+            return '?id'
+        } else {
+            return key
+        }
+    });
+    const query = pgp.helpers.update(data, columns, table) + ` where id=${data.id}`;
+    console.log(query)
+    await db().none(query)
 }
 
 export const db = memoize<IDatabase<any>>(() => {

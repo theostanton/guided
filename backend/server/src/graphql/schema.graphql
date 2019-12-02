@@ -97,6 +97,7 @@ type ItemId {
 type Mutation {
     addStayFromAddress(guideId:ID!,locked:Boolean,label:String,address:AddressInput):ItemId
     addStayFromLagLng(guideId:ID!,locked:Boolean,label:String,lat:Float,long:Float):ItemId
+    moveStay(lat:Float,long:Float,locationId:ID):ItemId
 }
 
 type Subscription {

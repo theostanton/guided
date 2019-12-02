@@ -8,3 +8,7 @@ export async function calculateRide(startStayId: number, endStayId: number): Pro
     const handler = await CalculateRideHandler.get();
     await handler.add({startStayId, endStayId});
 }
+
+export async function subscribe():Promise<void> {
+    const handler = await CalculateRideHandler.get()
+}
