@@ -7,12 +7,16 @@
     "deploy:build": "docker build -t theostanton1/explore-graphql ."
   },
   "dependencies": {
+    "@google/maps": "^1.0.2",
+    "@types/google__maps": "^0.5.8",
     "@types/express": "^4.17.2",
     "@types/graphql": "^14.5.0",
     "@types/node": "^12.12.12",
+    "@types/bull": "^3.10.6",
     "apollo": "^2.21.1",
     "apollo-server": "^2.9.12",
     "apollo-server-express": "^2.9.12",
+    "bull": "^3.10.6",
     "compression": "^1.7.4",
     "express": "^5.0.0-alpha.7",
     "graphql": "^15.0.0-alpha.1",

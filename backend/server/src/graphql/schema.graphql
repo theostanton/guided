@@ -5,6 +5,7 @@ type Address{
     city:String
     country:String
 }
+
 type Location {
     id:ID!
     label:String
@@ -12,10 +13,46 @@ type Location {
     long:Float
     address:Address
 }
+
+type Route {
+    legs:[Leg]
+    overview_polyline: PolyLine
+}
+
+type PolyLine {
+    points: String
+}
+
+type Leg {
+    distance:Value
+    duration:Value
+    start_location:LatLng
+    end_location:LatLng
+    steps:[Step]
+}
+
+type Step{
+    distance:Value
+    duration:Value
+    start_location:LatLng
+    end_location:LatLng
+}
+
+type LatLng{
+    lat:Float
+    long:Float
+}
+
+type Value {
+    text:String
+    value:Int
+}
+
 type Ride {
     id:ID!
     start:Spot
     end:Spot
+    route:Route
 }
 type Day {
     id:ID!

@@ -1,6 +1,6 @@
-import {Address, Stay, StayRow} from "../../types";
 import daos from '../../database/daos'
 import {publishGuide} from "../subscriptions";
+import {calculateRide} from "../../events";
 
 export default async function (_: void, {guideId, locked, label, lat, long}: { guideId: number, locked: boolean, label: string, lat: number, long: number }): Promise<{ id: number } | null> {
 
@@ -31,6 +31,8 @@ export default async function (_: void, {guideId, locked, label, lat, long}: { g
     await publishGuide({
         id: guideId
     });
+
+    await calculateRide(1, stayId);
 
     return {
         id: stayId

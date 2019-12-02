@@ -27,12 +27,50 @@ export type Ride = {
     id: number
     start: Spot
     end: Spot
+    route: Route
 }
+
+
+export type Route = {
+    legs: Leg[]
+    overview_polyline: PolyLine
+}
+
+export type PolyLine = {
+    points: string
+}
+
+export type Leg = {
+    distance: Value
+    duration: Value
+    start_location: LatLng
+    end_location: LatLng
+    steps: Step[]
+}
+
+export type Step = {
+    distance: Value
+    duration: Value
+    start_location: LatLng
+    end_location: LatLng
+}
+
+export type LatLng = {
+    lat: number
+    long: number
+}
+
+export type Value = {
+    text: String
+    value: number
+}
+
 
 export type RideRow = {
     id: number
     start: number
     end: number
+    route: Route
 }
 
 export type Day = {
@@ -82,6 +120,11 @@ export type User = {
     id: number
     email: string
     username: string
+}
+
+export type LatLng = {
+    lat: number
+    long: number
 }
 
 export type UserRow = User

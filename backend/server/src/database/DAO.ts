@@ -24,7 +24,7 @@ export abstract class DAO<T> {
     async findOne(keyValues: { [key in string]: string | number | boolean }): Promise<T> {
 
         const where = Object.keys(keyValues).map(key => {
-            return `${key}=${keyValues[key]}`
+            return `"${key}"=${keyValues[key]}`
         }).join(' and ');
 
         return DB().one<T>(`
@@ -37,13 +37,24 @@ export abstract class DAO<T> {
 
     async findMany(keyValues: { [key in string]: string | number | boolean }): Promise<T[]> {
         const where = Object.keys(keyValues).map(key => {
-            return `${key}=${keyValues[key]}`
+            return `"${key}"=${keyValues[key]}`
         }).join(' and ');
         return DB().manyOrNone<T>(`
             SELECT *
             FROM public.${this.table}
             where ${where}
         `)
+    }
+
+    async deleteWhere(keyValues: { [key in string]: string | number | boolean }): Promise<any> {
+        const where = Object.keys(keyValues).map(key => {
+            return `"${key}"=${keyValues[key]}`
+        }).join(' and ');
+        let query = `
+            DELETE FROM public.${this.table}
+            where ${where}
+        `;
+        return DB().none(query)
     }
 
     async getAll(): Promise<T[]> {

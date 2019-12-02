@@ -1,10 +1,15 @@
 import ReactMapGL, {Marker} from "react-map-gl";
+
+// @ts-ignore
+import MapGL, {Source, Layer} from 'react-map-gl';
+
 import React, {Component} from "react";
 import Pin from "./pin";
-import {Guide, Stay} from "../../types";
+import {Guide, Ride, Stay} from "../../types";
 import {gql} from "apollo-boost";
 import {client, addStayFromLatLong} from "../../data/graphql";
 import {Query} from "react-apollo";
+import {polylineToGeoJson} from "../../data/maps/polyline";
 
 type State = {
     viewport: {
@@ -29,13 +34,55 @@ const QUERY = gql`{
             }
         }
     }
+    rides:allRides{
+        route{
+            overview_polyline{
+                points
+            }
+            legs{
+                distance{
+                    text
+                }
+            }
+        }
+    }
 }`;
 
-type MarkerProps = {
+type RidesProps = {
+    rides?: Ride[]
+}
+
+class Rides extends React.Component<RidesProps> {
+    render() {
+        const {rides} = this.props;
+        if (!rides) {
+            return <div/>;
+        }
+
+        const geoJson = polylineToGeoJson(rides[0].route.overview_polyline.points);
+
+        // For more information on data-driven styles, see https://www.mapbox.com/help/gl-dds-ref/
+        const dataLayer = {
+            id: 'data',
+            type: 'line',
+            paint: {
+                'line-color': '#ff00ff'
+            }
+        };
+
+        return (<Source type="geojson" data={geoJson}>
+            <Layer {...dataLayer} />
+        </Source>)
+
+    }
+
+}
+
+type MarkersProps = {
     guide?: Guide
 };
 
-class Markers extends React.Component<MarkerProps> {
+class Markers extends React.Component<MarkersProps> {
 
     render() {
         const {guide} = this.props;
@@ -46,9 +93,11 @@ class Markers extends React.Component<MarkerProps> {
         return (stays && stays.map((stay, index) => {
             return (
                 <Marker key={`marker-${index}`} longitude={stay.spot.location.long} latitude={stay.spot.location.lat}>
-                    <Pin size={20} onClick={() => {
-                        console.log("click");
-                    }}/>
+                    <Pin size={20}
+                         onClick={() => {
+                             console.log("click");
+                         }}
+                    />
 
                 </Marker>);
         }));
@@ -70,7 +119,7 @@ export default class Map extends Component<{}, State> {
     render() {
         return (
             <Query<Guide> query={QUERY} pollInterval={2000}>
-                {({loading, error, data,refetch}: any) => {
+                {({loading, error, data, refetch}: any) => {
                     const guide: Guide | undefined = data && data.guide;
 
                     return (<ReactMapGL
@@ -88,6 +137,7 @@ export default class Map extends Component<{}, State> {
                         onViewportChange={(viewport) => this.setState({viewport})}>
 
                         <Markers guide={data?.guide}/>
+                        <Rides rides={data?.rides}/>
                     </ReactMapGL>);
                 }}
             </Query>
