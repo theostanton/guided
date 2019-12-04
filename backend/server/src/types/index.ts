@@ -32,8 +32,14 @@ export type Ride = {
 
 
 export type Route = {
+    summary: string
     legs: Leg[]
     overview_polyline: PolyLine
+    bounds: Bounds
+}
+export type Bounds = {
+    northeast: LatLng
+    southwest: LatLng
 }
 
 export type PolyLine = {

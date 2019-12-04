@@ -14,6 +14,11 @@ type Address {
     id: String
 }
 
+type Bounds {
+    northeast: LatLng
+    southwest: LatLng
+}
+
 type Day {
     date: Date
     id: ID!
@@ -89,8 +94,10 @@ type Ride {
 }
 
 type Route {
+    bounds: Bounds
     legs: [Leg]
     overview_polyline: PolyLine
+    summary: String
 }
 
 type Spot {

@@ -1,15 +1,14 @@
-import ReactMapGL, {Marker} from "react-map-gl";
-
-// @ts-ignore
-import MapGL, {Source, Layer} from 'react-map-gl';
+import ReactMapGL, {FlyToInterpolator} from "react-map-gl";
 
 import React, {Component} from "react";
-import Pin from "./pin";
-import {Guide, Ride, Stay} from "../../types";
-import {gql} from "apollo-boost";
-import {moveStay, addStayFromLatLong} from "../../data/graphql";
-import {Query} from "react-apollo";
-import {polylineToGeoJson} from "../../data/maps/polyline";
+import {addStayFromLatLong} from "../../data/graphql";
+import {Markers} from "./Markers";
+import {Data} from "../../pages/index/types";
+import Rides from "./Rides";
+import {Store} from "../../stores/Store";
+import {observer} from "mobx-react";
+import WebMercatorViewport from 'viewport-mercator-project';
+
 
 type State = {
     viewport: {
@@ -18,122 +17,15 @@ type State = {
         latitude: number,
         longitude: number,
         zoom: number,
-    },
+    }
 };
 
-const QUERY = gql`{
-    guide(id:1){
-        id
-        stays{
-            spot{
-                location{
-                    id
-                    label
-                    lat
-                    long
-                }
-            }
-        }
-    }
-    rides:allRides{
-        id
-        start{
-            id
-        }
-        end{
-            id
-        }
-        route{
-            overview_polyline{
-                points
-            }
-            legs{
-                distance{
-                    text
-                }
-            }
-        }
-    }
-}`;
-
-type RidesProps = {
-    rides?: Ride[]
+type Props = {
+    store: Store
 }
 
-class Rides extends React.Component<RidesProps> {
-    render() {
-        const {rides} = this.props;
-        if (!rides) {
-            return <div/>;
-        }
-        console.log('rides.length', rides.length)
-
-        return (rides && rides
-            .filter(ride => {
-                return ride.route
-            })
-            .map(ride => {
-
-                const geoJson = polylineToGeoJson(ride.route.overview_polyline.points);
-
-                // For more information on data-driven styles, see https://www.mapbox.com/help/gl-dds-ref/
-                const dataLayer = {
-                    paint: {
-                        'line-color': '#ff00ff'
-                    }
-                };
-
-                const layerId = `ride-layer-${ride.id}`;
-                const sourceId = `ride-source-${ride.id}`;
-                return ([<Source key={sourceId} type="geojson" data={geoJson} id={sourceId}>
-
-                </Source>,
-                    <Layer key={layerId} id={layerId} {...dataLayer} type={'line'} source={sourceId}/>])
-
-            }))
-    }
-
-}
-
-type MarkersProps = {
-    guide?: Guide
-};
-
-class Markers extends React.Component<MarkersProps> {
-
-    async onDragEnd({lngLat}: any, locationId: number) {
-        console.log('lngLat', lngLat, 'locationId', locationId)
-        await moveStay(locationId, lngLat[1], lngLat[0])
-    }
-
-    render() {
-        const {guide} = this.props;
-        if (!guide) {
-            return <div/>;
-        }
-        const stays: Stay[] = guide?.stays;
-        return (stays && stays.map((stay, index) => {
-            return (
-                <Marker key={`marker-${index}`}
-                        longitude={stay.spot.location.long}
-                        latitude={stay.spot.location.lat}
-                        draggable
-                        onDragEnd={async (args) => {
-                            await this.onDragEnd(args, stay.spot.location.id)
-                        }}
-                >
-                    <Pin size={20}
-                         onClick={() => {
-                             console.log("click");
-                         }}
-                    />
-
-                </Marker>);
-        }));
-    }
-};
-
-export default class Map extends Component<{}, State> {
+@observer
+export default class Map extends Component<Props, State> {
 
     state: State = {
         viewport: {
@@ -142,34 +34,56 @@ export default class Map extends Component<{}, State> {
             latitude: 51.5007,
             longitude: -0.1246,
             zoom: 8,
-        },
+        }
     };
 
-    render() {
+    render(): React.ReactElement {
+
+        let viewport: any;
+        if (this.props.store.selectedRide) {
+            const startLat = this.props.store.selectedRide.start.location.lat;
+            const startLong = this.props.store.selectedRide.start.location.long;
+            const endLat = this.props.store.selectedRide.end.location.lat;
+            const endLong = this.props.store.selectedRide.end.location.long;
+            console.log('startLat', startLat, 'startLong', startLong)
+            const {longitude, latitude, zoom} = new WebMercatorViewport(this.state.viewport)
+                .fitBounds([[startLong, startLat], [endLong, endLat]], {
+                    padding: 20,
+                    offset: [0, -100]
+                });
+
+            viewport = {
+                ...this.state.viewport,
+                longitude,
+                latitude,
+                zoom,
+                transitionDuration: 5000,
+                transitionInterpolator: new FlyToInterpolator()
+            }
+        } else {
+            viewport = this.state.viewport;
+        }
+
         return (
-            <Query<Guide> query={QUERY} pollInterval={2000}>
-                {({loading, error, data, refetch}: any) => {
-                    const guide: Guide | undefined = data && data.guide;
+            <ReactMapGL
+                mapboxApiAccessToken={"pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazNscGM2djAwdHYwM29vN3l6NWdyY2QxIn0.L4-DzQEX16suphipPXgDmw"}
+                {...viewport}
+                // onClick={async (event) => {
+                //     console.log('event',event)
+                //     // if (guide) {
+                //     //     await addStayFromLatLong(guide.id, event.lngLat[1], event.lngLat[0], "On click");
+                //     //     this.props.store.refetch()
+                //     // }
+                //
+                // }}
+                height={"100%"}
+                width={"100%"}
+                // onViewportChange={(viewport) => this.setState({viewport})}
+            >
 
-                    return (<ReactMapGL
-                        mapboxApiAccessToken={"pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazNscGM2djAwdHYwM29vN3l6NWdyY2QxIn0.L4-DzQEX16suphipPXgDmw"}
-                        {...this.state.viewport}
-                        onClick={async (event) => {
-                            if (guide) {
-                                await addStayFromLatLong(guide.id, event.lngLat[1], event.lngLat[0], "On click");
-                                refetch()
-                            }
-
-                        }}
-                        height={"40em"}
-                        width={"100%"}
-                        onViewportChange={(viewport) => this.setState({viewport})}>
-
-                        <Markers guide={data?.guide}/>
-                        <Rides rides={data?.rides}/>
-                    </ReactMapGL>);
-                }}
-            </Query>
+                <Markers guide={this.props.store.guide}/>
+                <Rides rides={this.props.store.rides} selectedRide={this.props.store.selectedRide}/>
+            </ReactMapGL>
         );
     }
 }

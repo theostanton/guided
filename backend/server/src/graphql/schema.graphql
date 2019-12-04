@@ -15,9 +15,16 @@ type Location {
 }
 
 type Route {
+    summary:String
     legs:[Leg]
     overview_polyline: PolyLine
+    bounds:Bounds
 }
+type Bounds {
+    northeast: LatLng
+    southwest: LatLng
+}
+
 
 type PolyLine {
     points: String
