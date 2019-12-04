@@ -1,8 +1,6 @@
-import {Ride} from "../../../types";
 import React, {ReactElement} from "react";
-import {Grid, Header, Segment, Card, GridColumn, Button} from "semantic-ui-react";
-import {observable} from "mobx";
-import {Store} from "../../../stores/Store";
+import {Grid, Card, GridColumn, Button} from "semantic-ui-react";
+import {Ride} from "@guided/common";
 
 type Props = {
     ride: Ride

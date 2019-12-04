@@ -1,0 +1,27 @@
+0 silly argv {
+0 silly argv   _: [ 'run' ],
+0 silly argv   parallel: true,
+0 silly argv   ignore: 'usersite',
+0 silly argv   lernaVersion: '3.19.0',
+0 silly argv   '$0': '/Users/theostanton/Code/guided/node_modules/.bin/lerna',
+0 silly argv   script: 'start'
+0 silly argv }
+1 notice cli v3.19.0
+2 verbose rootPath /Users/theostanton/Code/guided
+3 notice filter excluding "usersite"
+4 info filter [ '!usersite' ]
+5 info Executing command in 2 packages: "yarn run start"
+6 silly npmRunScript.stream [ 'start', [], 'api' ]
+7 silly getExecOpts /Users/theostanton/Code/guided/backend/api undefined
+8 silly npmRunScript.stream [ 'start', [], 'website' ]
+9 silly getExecOpts /Users/theostanton/Code/guided/frontend/website undefined
+10 error MaxBufferError: stderr maxBuffer exceeded
+10 error     at PassThrough.<anonymous> (/Users/theostanton/Code/guided/node_modules/get-stream/index.js:41:19)
+10 error     at PassThrough.emit (events.js:215:7)
+10 error     at addChunk (_stream_readable.js:326:12)
+10 error     at readableAddChunk (_stream_readable.js:297:13)
+10 error     at PassThrough.Readable.push (_stream_readable.js:235:10)
+10 error     at PassThrough.Transform.push (_stream_transform.js:150:32)
+10 error     at PassThrough.afterTransform (_stream_transform.js:94:10)
+10 error     at PassThrough._transform (_stream_passthrough.js:44:3)
+10 error     at PassThrough.Transform._read (_stream_transform.js:189:10)

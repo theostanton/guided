@@ -1,6 +1,6 @@
 import {client} from "../index";
 import {gql} from "apollo-boost";
-import {Address} from "../../../types";
+import {Address, AddressInput, MutationToAddStayFromAddressArgs} from "@guided/common";
 
 const QUERY = gql`
     mutation AddStay($guideId:ID!,$address:AddressInput!,$label:String,$locked:Boolean){
@@ -10,15 +10,9 @@ const QUERY = gql`
     }
 `;
 
-export default async function (guideId: number, address: Address, label: string | undefined = undefined, locked: boolean = false): Promise<number> {
-    const result = await client.query({
+export default async function (input: MutationToAddStayFromAddressArgs): Promise<void> {
+    await client.query({
         query: QUERY,
-        variables: {
-            guideId,
-            address,
-            label,
-            locked,
-        },
+        variables: input,
     });
-    return -1;
 }

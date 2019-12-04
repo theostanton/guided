@@ -1,6 +1,5 @@
-import {Data} from "../types";
 import React from "react";
-import {Grid, Menu, Segment, Card} from "semantic-ui-react";
+import {Segment, Card} from "semantic-ui-react";
 import RideItem from "./RideItem";
 import {observer} from "mobx-react";
 import {Store} from "../../../stores/Store";

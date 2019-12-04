@@ -1,0 +1,4 @@
+{
+  "name": "Guided GraphQL Schema",
+  "schemaPath": "backend/common/src/schema.graphql"
+}

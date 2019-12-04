@@ -1,4 +1,4 @@
-import {Guide, Ride} from "../../types";
+import {Guide, Ride} from "@guided/common";
 
 export type Data = {
     guide: Guide

@@ -1,9 +1,6 @@
 import * as React from "react";
-import {Link} from "gatsby";
-
-import HeaderMenu from "../components/HeaderMenu/HeaderMenu";
 import Map from "../components/Map";
-import Layout, {withLayout, LayoutProps} from "../components/Layout";
+import Layout from "../components/Layout";
 import {QUERY} from './index/queries'
 import {
     Segment,
@@ -29,10 +26,7 @@ class IndexComponent extends React.Component<Props> {
         return <Query query={QUERY} pollInterval={2000}>
 
             {({loading, error, data, refetch}: any) => {
-                console.log('store!', store);
-
                 if (data) {
-                    console.log('data', Object.keys(data));
                     store.update({...data, refetch});
                 }
 

@@ -1,6 +1,5 @@
 import {observable, action, computed} from "mobx"
-import {Guide, Ride} from "../types";
-
+import {Guide, Ride} from "@guided/common";
 
 export class Store {
 

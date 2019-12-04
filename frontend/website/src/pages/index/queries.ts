@@ -9,13 +9,11 @@ export const QUERY = gql`{
             username
         }
         stays{
-            spot{
-                location{
-                    id
-                    label
-                    lat
-                    long
-                }
+            location{
+                id
+                label
+                lat
+                long
             }
         }
     }

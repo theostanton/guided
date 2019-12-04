@@ -1,8 +1,8 @@
-import {Ride} from "../../types";
 import React from "react";
 import {polylineToGeoJson} from "../../data/maps/polyline";
 // @ts-ignore
 import {Layer, Source} from "react-map-gl";
+import {Ride} from "@guided/common";
 
 type Props = {
     rides?: Ride[]

@@ -1,6 +1,5 @@
 import {client} from "../index";
 import {gql} from "apollo-boost";
-import {Address} from "../../../types";
 
 const MUTATION = gql`
     mutation AddStay($guideId:ID!,$lat:Float!,$long:Float,$label:String,$locked:Boolean){
@@ -10,7 +9,7 @@ const MUTATION = gql`
     }
 `;
 
-export default async function (guideId: number, lat: number, long: number, label: string | undefined = undefined, locked: boolean = false): Promise<number> {
+export default async function (guideId: number, lat: number, long: number, label: string | undefined = undefined, locked: boolean = false): Promise<void> {
     const result = await client.mutate({
         mutation: MUTATION,
         variables: {
@@ -22,5 +21,4 @@ export default async function (guideId: number, lat: number, long: number, label
         },
     });
     console.log("result", result);
-    return -1;
 }

@@ -1,3 +1,6 @@
-export function someFunction(): string {
-    return "Hello3"
+export * from './types'
+import schema from "./schema";
+
+export {
+    schema
 }

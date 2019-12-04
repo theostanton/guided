@@ -1,0 +1,71 @@
+Arguments: 
+  /usr/local/Cellar/node/13.1.0/bin/node /usr/local/Cellar/yarn/1.19.2/libexec/bin/yarn.js install
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.19.2
+
+Node version: 
+  13.1.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@guided%2fcommon: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.19.2/libexec/lib/cli.js:66927:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.19.2/libexec/lib/cli.js:140586:22)
+      at Request.emit (events.js:210:5)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.19.2/libexec/lib/cli.js:141558:10)
+      at Request.emit (events.js:210:5)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.19.2/libexec/lib/cli.js:141480:12)
+      at Object.onceWrapper (events.js:299:28)
+      at IncomingMessage.emit (events.js:215:7)
+      at endReadableNT (_stream_readable.js:1199:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+
+npm manifest: 
+  {
+    "name": "api",
+    "scripts": {
+      "start": "ts-node-dev src/index.ts --transpile-only --debug",
+      "start:prod": "ts-node src/index.ts",
+      "deploy:local": "docker run -p 4000:4000 -d theostanton1/explore-graphql",
+      "deploy:build": "docker build -t theostanton1/explore-graphql ."
+    },
+    "dependencies": {
+      "@guided/common": "latest",
+      "@google/maps": "^1.0.2",
+      "@types/google__maps": "^0.5.8",
+      "@types/express": "^4.17.2",
+      "@types/graphql": "^14.5.0",
+      "@types/node": "^12.12.12",
+      "@types/bull": "^3.10.6",
+      "apollo": "^2.21.1",
+      "apollo-server": "^2.9.12",
+      "bull-arena": "^2.6.4",
+      "apollo-server-express": "^2.9.12",
+      "bull": "^3.10.6",
+      "compression": "^1.7.4",
+      "express": "^5.0.0-alpha.7",
+      "graphql": "^15.0.0-alpha.1",
+      "pg-promise": "^10.3.1",
+      "graphql-depth-limit": "^1.1.0",
+      "graphql-import-node": "^0.0.4",
+      "ts-node": "^8.5.2",
+      "typescript": "^3.7.2",
+      "ts-node-dev": "^1.0.0-pre.44"
+    },
+    "devDependencies": {
+      "@types/compression": "^1.0.1",
+      "@types/graphql-depth-limit": "^1.1.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

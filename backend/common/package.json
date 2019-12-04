@@ -1,12 +1,26 @@
 {
-  "name": "@theostanton/common",
+  "name": "@guided/common",
   "version": "0.0.1",
   "main": "srv/index.js",
   "types": "srv/index.d.ts",
+  "files": [
+    "srv"
+  ],
+  "directories": {
+    "srv": "srv"
+  },
   "scripts": {
-    "build": "tsc"
+    "tsc": "tsc",
+    "build:schema": "ts-node src/buildSchema.ts && tsc"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "graphql": "^14.5.8"
+  },
+  "devDependencies": {
+    "graphql-schema-typescript": "^1.3.1"
   }
 }

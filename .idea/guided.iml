@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/frontend/usersite/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/frontend/website/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/api/srv" />
       <excludeFolder url="file://$MODULE_DIR$/backend/common/srv" />
       <excludeFolder url="file://$MODULE_DIR$/backend/data" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/usersite/public" />

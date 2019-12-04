@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Container, Label, Menu, Icon} from "semantic-ui-react";
+import {Container, Menu, Icon} from "semantic-ui-react";
 import {MenuProps} from "../Menu";
 
 interface HeaderMenuProps extends MenuProps {

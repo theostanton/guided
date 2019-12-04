@@ -1,6 +1,5 @@
 import {client} from "../index";
 import {gql} from "apollo-boost";
-import {Address} from "../../../types";
 
 const MUTATION = gql`
     mutation MoveStay($locationId:ID!,$lat:Float!,$long:Float){
@@ -10,7 +9,7 @@ const MUTATION = gql`
     }
 `;
 
-export default async function (locationId: number, lat: number, long: number): Promise<number> {
+export default async function (locationId: string, lat: number, long: number): Promise<void> {
     const result = await client.mutate({
         mutation: MUTATION,
         variables: {
@@ -20,5 +19,4 @@ export default async function (locationId: number, lat: number, long: number): P
         },
     });
     console.log("result", result);
-    return -1;
 }

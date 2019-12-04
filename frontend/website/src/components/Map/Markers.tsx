@@ -1,9 +1,9 @@
-import {Guide, Stay} from "../../types";
 import React from "react";
 import {moveStay} from "../../data/graphql";
 import {Marker} from "react-map-gl";
 import Pin from "./pin";
 import {Popup} from "semantic-ui-react";
+import {Guide, Stay} from "@guided/common";
 
 type MarkersProps = {
     guide?: Guide
@@ -11,7 +11,7 @@ type MarkersProps = {
 
 export class Markers extends React.Component<MarkersProps> {
 
-    async onDragEnd({lngLat}: any, locationId: number) {
+    async onDragEnd({lngLat}: any, locationId: string) {
         console.log('lngLat', lngLat, 'locationId', locationId)
         await moveStay(locationId, lngLat[1], lngLat[0])
     }
@@ -25,15 +25,15 @@ export class Markers extends React.Component<MarkersProps> {
         return (stays && stays.map((stay, index) => {
             return (
                 <Marker key={`marker-${index}`}
-                        longitude={stay.spot.location.long}
-                        latitude={stay.spot.location.lat}
+                        longitude={stay.location.long}
+                        latitude={stay.location.lat}
                         draggable
                         onDragEnd={async (args) => {
-                            await this.onDragEnd(args, stay.spot.location.id)
+                            await this.onDragEnd(args, stay.location.id)
                         }}
                 >
                     <Popup
-                        content={stay.spot.location.label}
+                        content={stay.location.label}
                         trigger={<Pin size={20}
                                       onClick={() => {
                                           console.log("click");
