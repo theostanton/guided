@@ -9,14 +9,12 @@ exports.QUERY = apollo_boost_1.gql `{
             username
         }
         stays{
-            spot{
                 location{
                     id
                     label
                     lat
                     long
                 }
-            }
         }
     }
     rides:allRides{

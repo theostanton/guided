@@ -1,6 +1,7 @@
 {
   "name": "guided",
   "private": true,
+  "version": "0.0.1",
   "devDependencies": {
     "lerna": "^3.19.0"
   },

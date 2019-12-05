@@ -1,0 +1,8 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: guided
+spec:
+  backend:
+    serviceName: backend
+    servicePort: 4000

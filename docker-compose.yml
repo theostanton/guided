@@ -1,6 +1,19 @@
 version: "3"
 
 services:
+
+
+  sample:
+    image: amazon/amazon-ecs-sample
+    ports:
+      - "80:80"
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: guided
+        awslogs-region: eu-west-2
+        awslogs-stream-prefix: sample
+
   database:
     image: "postgres:11"
     container_name: "database"
@@ -18,53 +31,59 @@ services:
     image: redis
     ports:
       - "6379:6379"
-    volumes:
-      - ./backend/data/redis:/data
+#    volumes:
+#      - ./backend/data/redis:/data
     restart: always
+#
+#  arena:
+#    container_name: worker-arena
+#    image: mixmaxhq/arena
+#    ports:
+#      - "4567:4567"
+#    volumes:
+#      - ./backend/data/arena.json:/opt/arena/src/api/config/index.json
 
-  arena:
-    container_name: worker-arena
-    image: mixmaxhq/arena
-    ports:
-      - "4567:4567"
-    volumes:
-      - ./backend/data/arena.json:/opt/arena/src/api/config/index.json
 
-
-  server:
-    container_name: "api"
-    build:
-      context: backend/api
-      dockerfile: Dockerfile
-    working_dir: /app
-    ports:
-      - "4000:4000"
-    volumes:
-      - ./backend/api:/app
-
-  website:
-    container_name: "website"
-    build:
-      context: frontend/website
-      dockerfile: Dockerfile
-    working_dir: /app
-    command: './entrypoint.sh'
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./frontend/website:/app
-      - /app/node_modules/
-
-  usersite:
-    container_name: "usersite"
-    build:
-      context: frontend/usersite
-      dockerfile: Dockerfile
-    working_dir: /app
-    command: './entrypoint.sh'
-    ports:
-      - "9000:9000"
-    volumes:
-      - ./frontend/usersite:/app
-      - /app/node_modules/
+#  api:
+#    container_name: "api"
+#    build:
+#      context: backend/api
+#      dockerfile: Dockerfile
+#    working_dir: /app
+#    ports:
+#      - "4000:4000"
+#    volumes:
+#      - ./backend/api:/app
+#    logging:
+#      driver: awslogs
+#      options:
+#        awslogs-group: guided
+#        awslogs-region: eu-west-2
+#        awslogs-stream-prefix: api
+#
+#  website:
+#    container_name: "website"
+#    build:
+#      context: frontend/website
+#      dockerfile: Dockerfile
+#    working_dir: /app
+#    command: './entrypoint.sh'
+#    ports:
+#      - "8000:8000"
+#    volumes:
+#      - ./frontend/website:/app
+#      - /app/node_modules/
+#
+#  usersite:
+#    container_name: "usersite"
+#    build:
+#      context: frontend/usersite
+#      dockerfile: Dockerfile
+#    working_dir: /app
+#    command: './entrypoint.sh'
+#    ports:
+#      - "9000:9000"
+#    volumes:
+#      - ./frontend/usersite:/app
+#      - /app/node_modules/
 

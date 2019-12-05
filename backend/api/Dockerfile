@@ -3,7 +3,7 @@ FROM node:12-alpine
 WORKDIR /app
 
 COPY package.json ./
-COPY yarn.lock ./
+#COPY yarn.lock ./
 
 RUN yarn
 RUN yarn global add ts-node
