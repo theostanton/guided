@@ -2,6 +2,8 @@ FROM node:12-alpine
 
 WORKDIR /app
 
+EXPOSE 4000
+
 COPY package.json ./
 #COPY yarn.lock ./
 
@@ -13,4 +15,4 @@ RUN yarn global add ts-node
 # Bundle app source
 COPY . .
 
-CMD [ "yarn", "start:dev" ]
+CMD [ "yarn", "start" ]

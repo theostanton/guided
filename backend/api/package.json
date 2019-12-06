@@ -4,13 +4,14 @@
   "scripts": {
     "start": "ts-node-dev src/index.ts --transpile-only --debug",
     "build": "tsc",
+    "deploy":"tsc && ./deploy.sh",
     "start:prod": "ts-node src/index.ts",
     "deploy:local": "docker run -p 4000:4000 -d theostanton1/explore-graphql",
     "deploy:build": "docker build -t theostanton1/explore-graphql ."
   },
   "dependencies": {
     "@google/maps": "^1.0.2",
-    "@guided/common": "^0.0.1",
+    "@guided/common": "latest",
     "@types/bull": "^3.10.6",
     "@types/express": "^4.17.2",
     "@types/google__maps": "^0.5.8",
@@ -34,5 +35,6 @@
   "devDependencies": {
     "@types/compression": "^1.0.1",
     "@types/graphql-depth-limit": "^1.1.2"
-  }
+  },
+  "gitHead": "76eb0ac75bd8b862ae8f22f5ea28d60eebadfc03"
 }
