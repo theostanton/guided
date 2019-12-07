@@ -18,7 +18,7 @@ export async function update(data: any, table: Table):Promise<void> {
             return key
         }
     });
-    const query = pgp.helpers.update(data, columns, table) + ` where id=${data.id}`;
+    const query = pgp.helpers.update(data, columns, table) + ` where id='${data.id}'`;
     console.log(query)
     await db().none(query)
 }

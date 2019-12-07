@@ -68,14 +68,20 @@ export default class Map extends Component<Props, State> {
             <ReactMapGL
                 mapboxApiAccessToken={"pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazNscGM2djAwdHYwM29vN3l6NWdyY2QxIn0.L4-DzQEX16suphipPXgDmw"}
                 {...viewport}
-                // onClick={async (event) => {
-                //     console.log('event',event)
-                //     // if (guide) {
-                //     //     await addStayFromLatLong(guide.id, event.lngLat[1], event.lngLat[0], "On click");
-                //     //     this.props.store.refetch()
-                //     // }
-                //
-                // }}
+                onClick={async (event) => {
+                    if (this.props.store.hasData()) {
+                        const guide = this.props.store.guide;
+                        await addStayFromLatLong({
+                            guideId: guide.id,
+                            lat: event.lngLat[1],
+                            long: event.lngLat[0],
+                            label: "On click",
+                            locked: false
+                        });
+                        this.props.store.refetch()
+                    }
+
+                }}
                 height={"100%"}
                 width={"100%"}
                 // onViewportChange={(viewport) => this.setState({viewport})}

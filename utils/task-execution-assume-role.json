@@ -5,7 +5,11 @@
       "Sid": "",
       "Effect": "Allow",
       "Principal": {
-        "Service": "ecs-tasks.amazonaws.com"
+        "Service": "ecs-tasks.amazonaws.com",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetAuthorizationToken"
       },
       "Action": "sts:AssumeRole"
     }

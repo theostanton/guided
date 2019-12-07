@@ -7,7 +7,7 @@ export type LocationRow = {
     label: string
     lat: number
     long: number
-    address: string
+    address?: string
 }
 
 
@@ -23,7 +23,9 @@ export type DayRow = Day
 export type GuideRow = {
     id: string
     user: string
-    dailyLimitKm: number
+    title: string
+    slug: string
+    daily_limit_meters: number
 }
 
 export type StayRow = {

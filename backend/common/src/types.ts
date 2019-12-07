@@ -48,6 +48,8 @@ export type Date = any;
 export interface Guide {
   id: string;
   user?: User;
+  title?: string;
+  slug?: string;
   dailyLimitKm?: number;
   stays?: Array<Stay | null>;
 }
@@ -124,6 +126,8 @@ export interface Mutation {
   addStayFromAddress?: ItemId;
   addStayFromLagLng?: ItemId;
   moveStay?: ItemId;
+  createUser?: ItemId;
+  createGuide?: ItemId;
 }
 
 export interface AddressInput {
@@ -216,7 +220,7 @@ export interface QueryToAllGuidesResolver<TParent = any, TResult = any> {
 }
 
 export interface QueryToGuideArgs {
-  id?: string;
+  slug: string;
 }
 export interface QueryToGuideResolver<TParent = any, TResult = any> {
   (parent: TParent, args: QueryToGuideArgs, context: any, info: GraphQLResolveInfo): TResult;
@@ -315,6 +319,8 @@ export interface DayToLockedResolver<TParent = any, TResult = any> {
 export interface GuideTypeResolver<TParent = any> {
   id?: GuideToIdResolver<TParent>;
   user?: GuideToUserResolver<TParent>;
+  title?: GuideToTitleResolver<TParent>;
+  slug?: GuideToSlugResolver<TParent>;
   dailyLimitKm?: GuideToDailyLimitKmResolver<TParent>;
   stays?: GuideToStaysResolver<TParent>;
 }
@@ -324,6 +330,14 @@ export interface GuideToIdResolver<TParent = any, TResult = any> {
 }
 
 export interface GuideToUserResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface GuideToTitleResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface GuideToSlugResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
@@ -547,6 +561,8 @@ export interface MutationTypeResolver<TParent = any> {
   addStayFromAddress?: MutationToAddStayFromAddressResolver<TParent>;
   addStayFromLagLng?: MutationToAddStayFromLagLngResolver<TParent>;
   moveStay?: MutationToMoveStayResolver<TParent>;
+  createUser?: MutationToCreateUserResolver<TParent>;
+  createGuide?: MutationToCreateGuideResolver<TParent>;
 }
 
 export interface MutationToAddStayFromAddressArgs {
@@ -561,22 +577,38 @@ export interface MutationToAddStayFromAddressResolver<TParent = any, TResult = a
 
 export interface MutationToAddStayFromLagLngArgs {
   guideId: string;
-  locked?: boolean;
-  label?: string;
-  lat?: number;
-  long?: number;
+  locked: boolean;
+  label: string;
+  lat: number;
+  long: number;
 }
 export interface MutationToAddStayFromLagLngResolver<TParent = any, TResult = any> {
   (parent: TParent, args: MutationToAddStayFromLagLngArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface MutationToMoveStayArgs {
-  lat?: number;
-  long?: number;
-  locationId?: string;
+  lat: number;
+  long: number;
+  locationId: string;
 }
 export interface MutationToMoveStayResolver<TParent = any, TResult = any> {
   (parent: TParent, args: MutationToMoveStayArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface MutationToCreateUserArgs {
+  email: string;
+  username: string;
+}
+export interface MutationToCreateUserResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: MutationToCreateUserArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface MutationToCreateGuideArgs {
+  userId: string;
+  title: string;
+}
+export interface MutationToCreateGuideResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: MutationToCreateGuideArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface ItemIdTypeResolver<TParent = any> {

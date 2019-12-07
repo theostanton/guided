@@ -1,13 +1,14 @@
 import memoize from "../../../utils/memoize";
 import GuideDao from "../../../database/daos/GuideDao";
 import {GuideRow} from "../../../database/types";
+import {QueryToGuideArgs} from "@guided/common";
 
 const dao = memoize<GuideDao>(() => {
     return new GuideDao()
 });
 
-function guide(_: void, {id}: { id: string }): Promise<GuideRow | null> {
-    return dao().get(id)
+async function guide(_: void, {slug}: QueryToGuideArgs): Promise<GuideRow | null> {
+    return  dao().getFromSlug(slug)
 }
 
 function allGuides(_: void, args: void): Promise<GuideRow[]> {

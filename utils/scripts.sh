@@ -4,8 +4,10 @@ ssh -i utils/guided.pem ec2-user@ec2-3-10-215-237.eu-west-2.compute.amazonaws.co
 ecs-cli configure --cluster guided --default-launch-type launch_type --region eu-west-2
 
 aws2 iam --region eu-west-2 create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://utils/task-execution-assume-role.json
+aws2 iam --region eu-west-2 put-role-policy --role-name ecsTaskExecutionRole --policy-document file://utils/task-execution-assume-role.json
 
 aws iam --region eu-west-2 attach-role-policy --role-name ecsTaskExecutionRole --policy-arn arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+aws iam --region eu-west-2 attach-role-policy --role-name ecsTaskExecutionRole --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role
 
 ecs-cli configure --cluster guided --default-launch-type FARGATE --config-name guided --region eu-west-2
 

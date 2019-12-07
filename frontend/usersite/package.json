@@ -24,7 +24,7 @@
     "@graphql-codegen/add": "^1.2.0",
     "@graphql-codegen/cli": "^1.2.0",
     "@graphql-codegen/typescript": "^1.2.0",
-    "@guided/common": "^0.0.1",
+    "@guided/common": "latest",
     "@types/reach__router": "^1.2.4",
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
@@ -178,5 +178,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "gitHead": "76eb0ac75bd8b862ae8f22f5ea28d60eebadfc03"
 }

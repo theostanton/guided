@@ -1,5 +1,12 @@
 import {observable, action, computed} from "mobx"
-import {Guide, Ride} from "@guided/common";
+import {Guide, Ride, Stay} from "@guided/common";
+
+export type LeftDetailPane = {
+    type: "ride" | "stay"
+    edit: boolean
+    ride?: Ride
+    stay: Stay
+}
 
 export class Store {
 
@@ -18,14 +25,13 @@ export class Store {
     @observable
     selectedRide: Ride;
 
-    // @action
-    // selectRide(ride: Ride) {
-    //     this.selectedRide = ride
-    // }
+    @observable
+    leftDetailPane?: LeftDetailPane;
 
-    @action
     update({guide, rides, refetch}: { guide: Guide, rides: Ride[], refetch: () => {} }) {
         console.log('update');
+        console.log('guide',guide)
+        console.log('rides',rides)
         this.refetch = refetch;
         this.guide = guide;
         this.rides = rides

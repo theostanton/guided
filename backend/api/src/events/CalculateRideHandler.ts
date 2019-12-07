@@ -5,6 +5,7 @@ import Bull = require("bull");
 import executeSequentially from "../utils/executeSequentially";
 import {calculateRide} from "./index";
 import {RideRow} from "../database/types";
+import {generateId} from "../database/utils";
 
 type Context = {
     startStayId: number
@@ -62,24 +63,25 @@ export class CalculateRideHandler extends QueueHandler<Context> {
         await daos.ride.deleteWhere({start: context.startStayId, end: context.endStayId});
 
         const startStay = await daos.stay.findOne({id: context.startStayId});
-        const startLocation = await daos.location.findOne({id: startStay.id});
+        const startLocation = await daos.location.findOne({id: startStay.location});
 
 
         const endStay = await daos.stay.findOne({id: context.endStayId});
-        const endLocation = await daos.location.findOne({id: endStay.id});
+        const endLocation = await daos.location.findOne({id: endStay.location});
 
         const directions = await Google.directions(startLocation.lat, startLocation.long, endLocation.lat, endLocation.long);
 
         const route = directions.routes[0];
 
-        const rideRow: Partial<RideRow> = {
+        const rideRow: RideRow = {
+            id: generateId('ride'),
             start: startStay.id,
             end: endStay.id,
             // @ts-ignore
             route: JSON.stringify(route, null, 4)
         };
 
-        await daos.ride.insert(rideRow)
+        await daos.ride.insert(rideRow);
         console.log('handled', context);
     }
 

@@ -5,7 +5,7 @@
     "deploy": "serverless deploy"
   },
   "dependencies": {
-    "@guided/common": "^0.0.1",
+    "@guided/common": "latest",
     "axios": "^0.19.0",
     "dotenv": "^8.2.0",
     "source-map-support": "^0.5.16"
@@ -19,5 +19,6 @@
     "typescript": "^3.7.2",
     "webpack": "^4.41.2",
     "webpack-node-externals": "^1.7.2"
-  }
+  },
+  "gitHead": "76eb0ac75bd8b862ae8f22f5ea28d60eebadfc03"
 }

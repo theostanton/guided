@@ -18,7 +18,7 @@ export default class Rides extends React.Component<Props> {
 
         const dataLayer = {
             paint: {
-                'line-color': '#ffff00'
+                'line-color': '#444444'
             }
         };
         const selectedDataLayer = {

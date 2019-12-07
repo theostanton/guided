@@ -11,6 +11,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/data" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/usersite/public" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/website/public" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/website/srv" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
     </content>

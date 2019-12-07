@@ -1,7 +1,7 @@
 
 node_modules
 # Created by https://www.gitignore.io/api/osx,vim,node,windows,visualstudiocode
-
+srv
 ### Node ###
 # Logs
 logs

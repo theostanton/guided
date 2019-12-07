@@ -23,31 +23,33 @@ export abstract class DAO<T> {
     async findOne(keyValues: { [key in string]: string | number | boolean }): Promise<T> {
 
         const where = Object.keys(keyValues).map(key => {
-            return `"${key}"=${keyValues[key]}`
+            return `"${key}"='${keyValues[key]}'`
         }).join(' and ');
 
-        return DB().one<T>(`
+        let query = `
             SELECT *
             FROM public.${this.table}
             where ${where}
-        `)
+        `;
+        return DB().one<T>(query)
 
     }
 
     async findMany(keyValues: { [key in string]: string | number | boolean }): Promise<T[]> {
         const where = Object.keys(keyValues).map(key => {
-            return `"${key}"=${keyValues[key]}`
+            return `"${key}"='${keyValues[key]}'`
         }).join(' and ');
-        return DB().manyOrNone<T>(`
+        let query = `
             SELECT *
             FROM public.${this.table}
             where ${where}
-        `)
+        `;
+        return DB().manyOrNone<T>(query)
     }
 
     async deleteWhere(keyValues: { [key in string]: string | number | boolean }): Promise<any> {
         const where = Object.keys(keyValues).map(key => {
-            return `"${key}"=${keyValues[key]}`
+            return `"${key}"='${keyValues[key]}'`
         }).join(' and ');
         let query = `
             DELETE FROM public.${this.table}
@@ -63,7 +65,7 @@ export abstract class DAO<T> {
         `)
     }
 
-    async insert(t: Partial<T>): Promise<{ id: string }> {
+    async insert(t: T): Promise<{ id: string }> {
         return insert(t, this.table)
     }
 

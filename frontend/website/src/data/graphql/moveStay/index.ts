@@ -2,7 +2,7 @@ import {client} from "../index";
 import {gql} from "apollo-boost";
 
 const MUTATION = gql`
-    mutation MoveStay($locationId:ID!,$lat:Float!,$long:Float){
+    mutation MoveStay($locationId:ID!,$lat:Float!,$long:Float!){
         moveStay(locationId:$locationId,lat:$lat,long:$long){
             id
         }
