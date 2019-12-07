@@ -30,7 +30,7 @@ export class RideDetailRail extends React.Component<Props> {
                     </GridColumn>
                 </GridRow>
                 <GridRow>
-                    <Header style={{width: '100%'}} attached>{ride.route.summary}</Header>
+                    <Header style={{width: '100%'}} attached>{ride.route?.summary || 'No route'}</Header>
                 </GridRow>
                 <GridRow>
                     <GridColumn width={'8'} textAlign={'center'} attached>
@@ -42,12 +42,6 @@ export class RideDetailRail extends React.Component<Props> {
                         <HeaderSubHeader>Distance</HeaderSubHeader>
                     </GridColumn>
                 </GridRow>
-                {ride.route.legs.map(leg=>{
-                    return <GridRow>
-                        <HeaderSubHeader>Lol</HeaderSubHeader>
-                        <HeaderSubHeader>{leg.start_location}</HeaderSubHeader>
-                    </GridRow>
-                })}
             </Grid>
         )
     }

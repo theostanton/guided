@@ -1,9 +1,10 @@
 import React, {ReactElement} from "react";
-import {Grid, Card, GridColumn, Button} from "semantic-ui-react";
+import {Grid, Card, GridColumn, Button, ListItem, List} from "semantic-ui-react";
 import {Ride} from "@guided/common";
 
 type Props = {
     ride: Ride
+    isSelected: boolean
     selectRide: (ride: Ride) => void
 }
 
@@ -13,7 +14,7 @@ export default class RideItem extends React.Component<Props> {
     render(): ReactElement {
         let distanceMeters: number = 0;
         let durationSeconds: number = 0;
-        this.props.ride.route.legs.forEach(leg => {
+        this.props.ride.route?.legs.forEach(leg => {
             if (leg.distance) {
                 distanceMeters += leg.distance.value;
             }
@@ -22,11 +23,13 @@ export default class RideItem extends React.Component<Props> {
             }
         });
         return (
-            <>
-                <Card.Content>
-                    <Card.Header key={this.props.ride.id} as='h5'>
-                        {this.props.ride.route.summary}
-                    </Card.Header>
+            <ListItem active={this.props.isSelected} onClick={() => {
+                this.props.selectRide(this.props.ride)
+            }}>
+                <List.Content>
+                    <List.Header key={this.props.ride.id} as='h5'>
+                        {this.props.ride.route?.summary || 'No route'}
+                    </List.Header>
                     <Grid columns={2}>
                         <GridColumn floated='left' textAlign='center'>
                             <Card.Meta>
@@ -39,22 +42,9 @@ export default class RideItem extends React.Component<Props> {
                             </Card.Meta>
                         </GridColumn>
                     </Grid>
-                </Card.Content>
-                <Card.Content>
-                    <div className='ui two buttons'>
-                        <Button onClick={() => {
-
-                        }}>
-                            Waze
-                        </Button>
-                        <Button onClick={() => {
-                            this.props.selectRide(this.props.ride)
-                        }}>
-                            Details
-                        </Button>
-                    </div>
-                </Card.Content>
-            </>)
+                </List.Content>
+            </ListItem>
+        )
     }
 
 }

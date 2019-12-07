@@ -24,7 +24,7 @@ export class CalculateRideHandler extends QueueHandler<Context> {
             return id
         });
 
-        console.log('got ids', ids.length)
+        console.log('got ids', ids.length);
 
         const handler = await CalculateRideHandler.get();
         await handler.empty();

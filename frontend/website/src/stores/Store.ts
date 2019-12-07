@@ -25,15 +25,24 @@ export class Store {
     @observable
     selectedRide: Ride;
 
+    selectRide(ride: Ride) {
+        this.selectedRide = ride
+        if (this.mapCallback) {
+            this.mapCallback()
+        }
+    }
+
     @observable
     leftDetailPane?: LeftDetailPane;
 
+    mapCallback?: () => void;
+
     update({guide, rides, refetch}: { guide: Guide, rides: Ride[], refetch: () => {} }) {
         console.log('update');
-        console.log('guide',guide)
-        console.log('rides',rides)
+        console.log('guide', guide);
+        console.log('rides', rides);
         this.refetch = refetch;
         this.guide = guide;
-        this.rides = rides
+        this.rides = rides;
     }
 }

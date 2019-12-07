@@ -10,6 +10,7 @@ import {QUERY} from "./queries";
 import RightRail from "./RightRail";
 import Layout from "../../components/Layout";
 import Map from "../../components/Map";
+import {observer} from "mobx-react";
 
 type Props = {
     store: Store
@@ -20,7 +21,7 @@ function extractSlug(pathName: string): string {
     return pathName.split('/')[2]
 }
 
-// @observer
+@observer
 class GuideComponent extends React.Component<Props> {
 
     get slug(): string {
@@ -36,7 +37,7 @@ class GuideComponent extends React.Component<Props> {
 
             {({loading, error, data, refetch}: any) => {
 
-                console.log('data',data);
+                console.log('data', data);
                 if (data) {
                     store.update({...data, refetch});
                 }

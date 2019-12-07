@@ -111,6 +111,7 @@ export default `
         addStayFromAddress(guideId:ID!,locked:Boolean,label:String,address:AddressInput):ItemId
         addStayFromLagLng(guideId:ID!,locked:Boolean!,label:String!,lat:Float!,long:Float!):ItemId
         moveStay(lat:Float!,long:Float!,locationId:ID!):ItemId
+        deleteStay(stayId:ID!):ItemId
         createUser(email:String!,username:String!):ItemId
         createGuide(userId:ID!,title:String!):ItemId
     }
