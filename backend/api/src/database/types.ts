@@ -1,4 +1,4 @@
-import {Address, Day, Route, User} from "@guided/common";
+import {Address, Route, User} from "@guided/common";
 
 export type AddressRow = Address
 
@@ -15,22 +15,23 @@ export type RideRow = {
     id: string
     start: string
     end: string
-    route: Route
+    guide: string
+    route: string
 }
-
-export type DayRow = Day
 
 export type GuideRow = {
     id: string
     user: string
     title: string
+    startDate: Date
     slug: string
-    daily_limit_meters: number
+    dailyLimitMeters: number
 }
 
 export type StayRow = {
     id: string
     location: string
+    nights: number
     guide: string
     locked: boolean
 }

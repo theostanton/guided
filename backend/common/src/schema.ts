@@ -69,47 +69,44 @@ export default `
         end:Stay
         route:Route
     }
-    type Day {
-        id:ID!
-        date:Date
-        locked:Boolean
-    }
 
     scalar Date
 
     type Stay {
         id:ID!
-        location:Location
-        locked:Boolean
+        nights:Int!
+        location:Location!
+        locked:Boolean!
     }
     type Guide {
         id:ID!
-        user:User
-        title:String
-        slug:String
-        dailyLimitKm:Int
-        stays: [Stay]
+        user:User!
+        startDate:Date!
+        title:String!
+        slug:String!
+        dailyLimitMeters:Int
+        stays: [Stay!]!
     }
     type User {
         id:ID!
-        email:String
-        username:String
+        email:String!
+        username:String!
     }
 
     input AddressInput {
-        address1:String
+        address1:String!
         address2:String
-        city:String
-        country:String
+        city:String!
+        country:String!
     }
 
     type ItemId {
-        id:ID
+        id:ID!
     }
 
     type Mutation {
-        addStayFromAddress(guideId:ID!,locked:Boolean,label:String,address:AddressInput):ItemId
-        addStayFromLagLng(guideId:ID!,locked:Boolean!,label:String!,lat:Float!,long:Float!):ItemId
+        addStayFromAddress(guideId:ID!,locked:Boolean!,label:String!,address:AddressInput!,nights:Int!):ItemId
+        addStayFromLagLng(guideId:ID!,locked:Boolean!,label:String!,lat:Float!,long:Float!,nights:Int!):ItemId
         moveStay(lat:Float!,long:Float!,locationId:ID!):ItemId
         deleteStay(stayId:ID!):ItemId
         createUser(email:String!,username:String!):ItemId
@@ -123,13 +120,11 @@ export default `
     type Query {
         allAddresss: [Address!]!
         address(id:ID):Address
-        allDays: [Day!]!
-        day(id:ID):Day
         allGuides: [Guide!]!
         guide(slug:String!):Guide
         allLocations: [Location!]!
         location(id:ID):Location
-        allRides: [Ride!]!
+        allRides(guideSlug:String!): [Ride!]!
         ride(id:ID):Ride
         allStays: [Stay!]!
         stay(id:ID):Stay

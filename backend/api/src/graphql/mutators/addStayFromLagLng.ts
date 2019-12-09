@@ -4,13 +4,7 @@ import {CalculateRideHandler} from "../../events/CalculateRideHandler";
 import {generateId} from "../../database/utils";
 import {MutationToAddStayFromLagLngArgs} from "@guided/common";
 
-export default async function (_: void, {guideId, locked, label, lat, long}: MutationToAddStayFromLagLngArgs): Promise<{ id: string } | null> {
-
-    console.log('guideId', guideId);
-    console.log('locked', locked);
-    console.log('label', label);
-    console.log('lat', lat);
-    console.log('long', long);
+export default async function (_: void, {guideId, locked, label, lat, long, nights}: MutationToAddStayFromLagLngArgs): Promise<{ id: string } | null> {
 
     const {id: loctionId} = await daos.location.insert({
         id: generateId('location'),
@@ -21,6 +15,7 @@ export default async function (_: void, {guideId, locked, label, lat, long}: Mut
 
     const {id: stayId} = await daos.stay.insert({
         id: generateId('stay'),
+        nights,
         locked,
         location: loctionId,
         guide: guideId

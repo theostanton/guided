@@ -38,7 +38,7 @@ export default class RideItem extends React.Component<Props> {
                         </GridColumn>
                         <GridColumn floated='right' textAlign='center'>
                             <Card.Meta>
-                                {Math.floor(durationSeconds / 60)} mins
+                                {Math.floor(durationSeconds / 60 / 60)} hours
                             </Card.Meta>
                         </GridColumn>
                     </Grid>

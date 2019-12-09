@@ -92,6 +92,7 @@ export default class Map extends Component<Props, State> {
                         const guide = this.props.store.guide;
                         await addStayFromLatLong({
                             guideId: guide.id,
+                            nights: 1,
                             lat: event.lngLat[1],
                             long: event.lngLat[0],
                             label: "On click",

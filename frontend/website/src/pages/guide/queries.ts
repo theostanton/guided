@@ -1,6 +1,6 @@
 import {gql} from "apollo-boost";
 
-export const QUERY = gql`    
+export const QUERY = gql`
     query Guide($slug:String!){
         guide(slug:$slug){
             id
@@ -17,7 +17,7 @@ export const QUERY = gql`
                 }
             }
         }
-        rides:allRides{
+        rides:allRides(guideSlug: $slug){
             id
             start{
                 id

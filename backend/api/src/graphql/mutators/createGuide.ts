@@ -6,7 +6,8 @@ export default async function (_: void, {userId, title}: MutationToCreateGuideAr
     const slug = generateSlug(title);
     return daos.guide.insert({
         id: generateId('guide'),
-        daily_limit_meters: 200_000,
+        dailyLimitMeters: 200_000,
+        startDate: new Date(),
         title,
         slug,
         user: userId

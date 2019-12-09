@@ -77,7 +77,7 @@ export class CalculateRideHandler extends QueueHandler<Context> {
             id: generateId('ride'),
             start: startStay.id,
             end: endStay.id,
-            // @ts-ignore
+            guide: startStay.guide,
             route: JSON.stringify(route, null, 4)
         };
 
