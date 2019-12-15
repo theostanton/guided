@@ -23,13 +23,23 @@ export class Store {
     rides: Ride[];
 
     @observable
-    selectedRide: Ride;
+    selectedRide: Ride | undefined;
 
-    selectRide(ride: Ride) {
+    selectRide(ride: Ride | undefined) {
         this.selectedRide = ride;
         if (this.mapCallback) {
             this.mapCallback()
         }
+    }
+
+    getStay(stayId: string): Stay {
+        const stay = this.guide.stays.find(stay => {
+            return stay.id === stayId
+        })
+        if (stay) {
+            return stay
+        }
+        throw new Error(`No stay for stayId=${stayId}`)
     }
 
     @observable

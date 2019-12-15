@@ -1,47 +1,85 @@
 import React from "react";
 import {moveStay} from "../../data/graphql";
-import {Marker} from "react-map-gl";
-import Pin from "./pin";
-import {Popup} from "semantic-ui-react";
+import {Marker, Popup} from "react-map-gl";
 import {Guide, Stay} from "@guided/common";
+import {Icon} from "semantic-ui-react";
 
-type MarkersProps = {
+type Props = {
     guide?: Guide
-};
+}
 
-export class Markers extends React.Component<MarkersProps> {
+type State = {
+    showPopupForId?: string
+}
+
+
+function createPopup(stay: Stay, showPopupForId: string | undefined) {
+    console.log('createPopup showPopupForId',showPopupForId)
+    console.log('createPopup stay',stay)
+    return (showPopupForId === stay.id &&
+        <Popup key={`popup-${stay.id}`} latitude={stay.location.lat} longitude={stay.location.long}><h1>{stay.id}</h1>
+        </Popup>)
+
+}
+
+export class Markers extends React.Component<Props, State> {
+
+    state = {};
+
+    createMarker(stay: Stay, index: number, onDragEnd: any): React.ReactElement {
+
+        const pinStyle = {
+            cursor: 'pointer',
+            fill: '#000',
+            stroke: 'none'
+        };
+
+        return <Marker key={`marker-${index}`}
+                       longitude={stay.location.long}
+                       latitude={stay.location.lat}
+                       draggable
+                       onDragEnd={async (args) => {
+                           await onDragEnd(args, stay.location.id)
+                       }}
+
+        >
+
+            <Icon name={'marker'}
+                  color={stay.locked ? 'black' : 'grey'}
+                // onMouseEnter={() => {
+                //     console.log('onMouseEnter')
+                // }}
+                  style={{
+                      ...pinStyle
+                  }}
+
+                  onMouseEnter={() => {
+                      this.setState({
+                          showPopupForId: stay.id
+                      })
+                  }}
+                  onMouseLeave={() => {
+                      this.setState({
+                          showPopupForId: undefined
+                      })
+                  }}
+            />
+        </Marker>
+    }
 
     async onDragEnd({lngLat}: any, locationId: string) {
-        console.log('lngLat', lngLat, 'locationId', locationId)
         await moveStay(locationId, lngLat[1], lngLat[0])
     }
 
     render() {
+
         const {guide} = this.props;
         if (!guide) {
             return <div/>;
         }
         const stays: Stay[] = guide?.stays;
         return (stays && stays.map((stay, index) => {
-            return (
-                <Marker key={`marker-${index}`}
-                        longitude={stay.location.long}
-                        latitude={stay.location.lat}
-                        draggable
-                        onDragEnd={async (args) => {
-                            await this.onDragEnd(args, stay.location.id)
-                        }}
-                >
-                    <Popup
-                        content={stay.location.label}
-                        trigger={<Pin size={20}
-                                      onClick={() => {
-                                          console.log("click");
-                                      }}
-                        />}/>
-
-
-                </Marker>);
+            return ([this.createMarker(stay, index, this.onDragEnd), createPopup(stay, this.state.showPopupForId)]);
         }));
     }
 }

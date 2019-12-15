@@ -16,7 +16,7 @@ export function insert(data: any, table: Table, columns?: QueryColumns) {
 
 export async function insertMany(data: any[], table: Table, columns?: QueryColumns): Promise<void> {
     let query = pgp.helpers.insert(data, columns, table);
-    logger.info('query', query);
+    logger.info(`insertMany: ${query}`);
     await db().none(query)
 }
 

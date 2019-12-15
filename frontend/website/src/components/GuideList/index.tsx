@@ -5,6 +5,7 @@ import {Ride} from '@guided/common'
 import {Store} from "../../stores/Store";
 import StayItem from "./StayItem";
 import RideItem from "./RideItem";
+import {store} from "../../../../usersite/src/store";
 
 type Props = {
     store: Store
@@ -18,8 +19,9 @@ export default class GuideList extends React.Component<Props> {
 
             this.props.store.rides.forEach((ride: Ride, index: number) => {
                 if (index === 0) {
+                    const start = this.props.store.getStay(ride.start.id)
                     items.push(
-                        <StayItem key={ride.start.id} stay={ride.start} isSelected={false}
+                        <StayItem key={start.id} stay={start} isSelected={false}
                                   selectStay={(stay) => {
 
                                   }}/>
@@ -30,8 +32,9 @@ export default class GuideList extends React.Component<Props> {
                         this.props.store.selectRide(ride);
                     }}/>
                 );
+                const end = this.props.store.getStay(ride.end.id);
                 items.push(
-                    <StayItem key={ride.end.id} stay={ride.end} isSelected={false}
+                    <StayItem key={end.id} stay={end} isSelected={false}
                               selectStay={(stay) => {
 
                               }}/>

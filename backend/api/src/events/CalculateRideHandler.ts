@@ -141,7 +141,8 @@ export class CalculateRideHandler extends QueueHandler<Context> {
         await daos.stay.insertMany(stayRows);
         await daos.ride.insertMany(rideRows);
 
-        logger.debug(`handled ${context}`);
+        logger.debug('Handled')
+        logger.json(context);
     }
 
     async empty(): Promise<void> {

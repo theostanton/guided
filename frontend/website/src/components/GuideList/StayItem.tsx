@@ -4,7 +4,7 @@ import {Ride, Stay} from "@guided/common";
 import {deleteStay} from "../../data/graphql";
 
 type Props = {
-    stay: Ride
+    stay: Stay
     isSelected: boolean
     selectStay: (stay: Stay) => void
 }
@@ -13,24 +13,27 @@ type Props = {
 export default class StayItem extends React.Component<Props> {
 
     render(): ReactElement {
+        let stay = this.props.stay;
         return (
             <ListItem active={this.props.isSelected} onClick={() => {
                 this.props.selectStay(this.props.stay)
             }}>
                 <Grid>
                     <GridColumn width={1}>
-                        <Icon name={'marker'}/>
+                        <Icon name={'marker'} color={stay.locked ? 'black' : 'grey'}/>
                     </GridColumn>
                     <GridColumn width={10}>
-                        <Header key={this.props.stay.id} as='h5'>
-                            {this.props.stay.id}
+                        <Header key={stay.id} as='h5'>
+                            {stay.id}
                         </Header>
                     </GridColumn>
+                    {stay.locked &&
                     <GridColumn width={1}>
                         <Icon name={'trash'} onClick={async () => {
                             await this.deleteStay()
                         }}/>
                     </GridColumn>
+                    }
                 </Grid>
             </ListItem>
         )

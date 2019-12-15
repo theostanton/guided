@@ -9,6 +9,8 @@ export const QUERY = gql`
                 username
             }
             stays{
+                id
+                locked
                 location{
                     id
                     label
@@ -21,27 +23,17 @@ export const QUERY = gql`
             id
             start{
                 id
-                location{
-                    label
-                    lat
-                    long
-                }
             }
             end{
                 id
-                location{
-                    label
-                    lat
-                    long
-                }
             }
             durationMinutes
             path{
                 lat
                 long
             }
-#            route{
-#                summary
+            route{
+                summary
 #                overview_polyline{
 #                    points
 #                }
@@ -63,7 +55,7 @@ export const QUERY = gql`
 #                        value
 #                    }
 #                }
-#            }
+            }
         }
     }
 `;

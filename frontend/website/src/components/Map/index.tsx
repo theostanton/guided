@@ -1,4 +1,4 @@
-import ReactMapGL, {FlyToInterpolator, TransitionInterpolator} from "react-map-gl";
+import ReactMapGL, {FlyToInterpolator, Popup, TransitionInterpolator} from "react-map-gl";
 
 import React, {Component} from "react";
 import {addStayFromLatLong} from "../../data/graphql";
@@ -8,6 +8,7 @@ import Rides from "./Rides";
 import {Store} from "../../stores/Store";
 import {observer} from "mobx-react";
 import WebMercatorViewport from 'viewport-mercator-project';
+import {Logger} from "@guided/common";
 
 
 type State = {
@@ -25,6 +26,8 @@ type State = {
 type Props = {
     store: Store
 }
+
+const logger = new Logger('Map');
 
 export default class Map extends Component<Props, State> {
 
@@ -102,13 +105,27 @@ export default class Map extends Component<Props, State> {
                     }
 
                 }}
+                onHover={(event) => {
+                    if (event.type === 'pointermove') {
+                        // return
+                    }
+                    // logger.debug('onHover');
+                    // event.features
+                    //     .filter(feature => {
+                    //         return !feature.layer.id.startsWith('landcover_') && !feature.layer.id.startsWith('landuse_')
+                    //     })
+                    //     .forEach(feature => {
+                    //         logger.json(feature.layer.id);
+                    //     })
+                    // logger.debug(event.target);
+                    // logger.json(event.features);
+                }}
                 height={"100%"}
                 width={"100%"}
                 onViewportChange={(viewport) => {
                     this.setState({viewport})
                 }}
             >
-
                 <Markers guide={this.props.store.guide}/>
                 <Rides rides={this.props.store.rides} selectedRide={this.props.store.selectedRide}/>
             </ReactMapGL>

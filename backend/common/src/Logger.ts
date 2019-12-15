@@ -39,26 +39,26 @@ export class Logger {
     }
 
     info(message: string) {
-        if (this.level >= Level.INFO) {
+        if (this.level <= Level.INFO) {
             console.info(this.buildMessage(message))
         }
     }
 
     debug(message: string) {
-        if (this.level >= Level.DEBUG) {
+        if (this.level <= Level.DEBUG) {
             console.log(this.buildMessage(message))
         }
     }
 
     warning(message: string) {
-        if (this.level >= Level.WARNING) {
+        if (this.level <= Level.WARNING) {
             console.warn(this.buildMessage(message))
         }
     }
 
     json(object: any) {
-        if (this.level >= Level.DEBUG) {
-            console.error(JSON.stringify(object, null, 4))
+        if (this.level <= Level.DEBUG) {
+            console.info(JSON.stringify(object, null, 4))
         }
     }
 
