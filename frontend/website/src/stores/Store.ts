@@ -10,7 +10,7 @@ export type LeftDetailPane = {
 
 export class Store {
 
-    refetch: () => {};
+    refetch: () => void;
 
     hasData(): boolean {
         return !!this.guide && !!this.rides
@@ -26,7 +26,7 @@ export class Store {
     selectedRide: Ride;
 
     selectRide(ride: Ride) {
-        this.selectedRide = ride
+        this.selectedRide = ride;
         if (this.mapCallback) {
             this.mapCallback()
         }
@@ -37,10 +37,7 @@ export class Store {
 
     mapCallback?: () => void;
 
-    update({guide, rides, refetch}: { guide: Guide, rides: Ride[], refetch: () => {} }) {
-        console.log('update');
-        console.log('guide', guide);
-        console.log('rides', rides);
+    update({guide, rides, refetch}: { guide: Guide, rides: Ride[], refetch: () => void }) {
         this.refetch = refetch;
         this.guide = guide;
         this.rides = rides;

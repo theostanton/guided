@@ -11,6 +11,8 @@ import RightRail from "./RightRail";
 import Layout from "../../components/Layout";
 import Map from "../../components/Map";
 import {observer} from "mobx-react";
+import {ReactComponentElement} from "react";
+import {Guide, Ride} from "@guided/common";
 
 type Props = {
     store: Store
@@ -21,6 +23,18 @@ function extractSlug(pathName: string): string {
     return pathName.split('/')[2]
 }
 
+type Data = {
+    guide: Guide,
+    rides: Ride[]
+}
+
+type Response = {
+    error?: any,
+    loading: boolean,
+    data?: Data,
+    refetch: () => void
+}
+
 @observer
 class GuideComponent extends React.Component<Props> {
 
@@ -28,18 +42,32 @@ class GuideComponent extends React.Component<Props> {
         return this.props.location.pathname.split('/')[2]
     }
 
+    getLeftRailSegment(response: Response): React.ReactElement {
+
+        if (response.error) {
+            return <Segment>{response.error.message}</Segment>
+        }
+
+        if (response.loading) {
+            return <Segment loading/>
+        }
+
+        return <Segment style={{height: '100%', 'overflowY': 'scroll'}}>
+            <LeftRail store={this.props.store}/>
+        </Segment>;
+
+    }
+
     render(): React.ReactElement {
 
         const store = this.props.store;
-        console.log('store', store);
         const slug = this.slug;
-        return <Query query={QUERY} variables={{slug}} pollInterval={2000}>
+        return <Query<Data> query={QUERY} variables={{slug}} pollInterval={2000}>
 
-            {({loading, error, data, refetch}: any) => {
+            {(response: Response) => {
 
-                console.log('data', data);
-                if (data) {
-                    store.update({...data, refetch});
+                if (response.data) {
+                    store.update({...response.data, refetch: response.refetch});
                 }
 
                 return (
@@ -47,9 +75,7 @@ class GuideComponent extends React.Component<Props> {
                         <Segment style={{height: '100vh', width: '100%', padding: 0, margin: 0}}>
                             <Map store={store}/>
                             <Rail internal attached position={'left'} style={{height: '100%', padding: '2em'}}>
-                                <Segment style={{height: '100%', 'overflowY': 'scroll'}}>
-                                    <LeftRail store={store}/>
-                                </Segment>
+                                {this.getLeftRailSegment(response)}
                             </Rail>
                             <Rail internal position='right' style={{height: '100%', padding: '2em'}}>
                                 <RightRail store={store}/>

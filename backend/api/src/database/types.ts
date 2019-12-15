@@ -15,8 +15,10 @@ export type RideRow = {
     id: string
     start: string
     end: string
+    durationMinutes:number
     guide: string
     route: string
+    path: string
 }
 
 export type GuideRow = {
@@ -25,7 +27,7 @@ export type GuideRow = {
     title: string
     startDate: Date
     slug: string
-    dailyLimitMeters: number
+    rideLimitMinutes: number
 }
 
 export type StayRow = {

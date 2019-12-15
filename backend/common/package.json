@@ -10,6 +10,7 @@
     "srv": "srv"
   },
   "scripts": {
+    "prepare": "tsc",
     "tsc": "tsc",
     "watch": "nodemon -e ts -w ./src --ignore src/types.ts -x yarn build:schema",
     "build:schema": "ts-node src/buildSchema.ts && tsc"

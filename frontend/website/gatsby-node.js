@@ -1,12 +1,9 @@
-exports.onCreatePage = async ({ page, actions }) => {
-    const { createPage } = actions;
+require('source-map-support').install();
+require('ts-node').register({
+    compilerOptions: {
+        module: 'commonjs',
+        target: 'es2017',
+    },
+});
 
-    // page.matchPath is a special key that's used for matching pages
-    // only on the client.
-    if (page.path.match(/^\/guide/)) {
-        page.matchPath = "/guide/*";
-
-        // Update the page.
-        createPage(page)
-    }
-}
+exports.onCreatePage = require('./src/gatsby/onCreatePage').onCreatePage;

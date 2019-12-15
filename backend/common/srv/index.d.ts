@@ -1,4 +1,5 @@
 export * from './types';
 import schema from "./schema";
-export { schema };
+import { Logger } from './Logger';
+export { schema, Logger };
 //# sourceMappingURL=index.d.ts.map

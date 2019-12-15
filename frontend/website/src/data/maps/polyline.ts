@@ -1,3 +1,5 @@
+import {LatLng} from "../../../../../backend/common/src";
+
 const {toGeoJSON} = require('@mapbox/polyline');
 
 export function polylineToGeoJson(polyline: string): any {
@@ -12,6 +14,22 @@ export function polylineToGeoJson(polyline: string): any {
             }
         ]
     }
+}
 
+export function pathToGeoJson(path: LatLng[]): any {
 
+    return {
+        type: 'FeatureCollection',
+        features: [
+            {
+                geometry: {
+                    "type": "LineString",
+                    "coordinates": path.map(latLng => {
+                        return [latLng.long, latLng.lat]
+                    })
+                },
+                type: 'Feature'
+            }
+        ]
+    }
 }

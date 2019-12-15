@@ -4,38 +4,43 @@ import * as Google from '../api/google'
 import Bull = require("bull");
 import executeSequentially from "../utils/executeSequentially";
 import {calculateRide} from "./index";
-import {RideRow} from "../database/types";
+import {LocationRow, RideRow, StayRow} from "../database/types";
 import {generateId} from "../database/utils";
+import {Logger} from "@guided/common/srv/Logger";
+import {stay} from "../graphql/resolvers/Query/stays";
+import {LatLng, Leg, Step} from "@guided/common";
+import {DirectionsStep, RouteLeg} from "@google/maps";
 
 type Context = {
-    startStayId: number
-    endStayId: number
+    startStayId: string
+    endStayId: string
 }
+
+const logger = new Logger('CalculateRideHandler');
 
 export class CalculateRideHandler extends QueueHandler<Context> {
 
     static instance: CalculateRideHandler | undefined;
 
-    static async updateAll(): Promise<void> {
+    static async updateAll(guideId: string): Promise<void> {
 
-        console.log('updateAll');
+        logger.debug(`updateAll guideId=${guideId}`);
 
-        const ids = (await daos.stay.ids()).map(({id}) => {
+        await daos.ride.deleteWhere({'guide': guideId});
+        await daos.stay.deleteWhere({'locked': false, 'guide': guideId});
+
+        const stayIds = (await daos.stay.findMany({'guide': guideId})).map(({id}) => {
             return id
         });
-
-        console.log('got ids', ids.length);
 
         const handler = await CalculateRideHandler.get();
         await handler.empty();
 
         const indices = [];
-        for (let i = 0; i < ids.length - 1; i++) {
-            indices.push([ids[i], ids[i + 1]]);
+        for (let i = 0; i < stayIds.length - 1; i++) {
+            indices.push([stayIds[i], stayIds[i + 1]]);
         }
-        console.log(JSON.stringify(indices, null, 4));
         await executeSequentially(indices, async ([i, j]) => {
-            console.log(`index ${i},${j}`);
             await calculateRide(i, j)
         });
 
@@ -43,13 +48,9 @@ export class CalculateRideHandler extends QueueHandler<Context> {
     }
 
     static async get(): Promise<CalculateRideHandler> {
-        console.log('get');
-
         if (!CalculateRideHandler.instance) {
-            console.log('init');
             CalculateRideHandler.instance = new CalculateRideHandler();
             await CalculateRideHandler.instance.subscribe();
-            console.log('subscribed')
         }
         return CalculateRideHandler.instance;
     }
@@ -60,33 +61,91 @@ export class CalculateRideHandler extends QueueHandler<Context> {
 
     async handle(context: Context, done: Bull.DoneCallback): Promise<void> {
 
-        await daos.ride.deleteWhere({start: context.startStayId, end: context.endStayId});
-
         const startStay = await daos.stay.findOne({id: context.startStayId});
         const startLocation = await daos.location.findOne({id: startStay.location});
 
 
-        const endStay = await daos.stay.findOne({id: context.endStayId});
-        const endLocation = await daos.location.findOne({id: endStay.location});
+        const lastStay = await daos.stay.findOne({id: context.endStayId});
+        const lastLocation = await daos.location.findOne({id: lastStay.location});
 
-        const directions = await Google.directions(startLocation.lat, startLocation.long, endLocation.lat, endLocation.long);
+        const {id: guideId, rideLimitMinutes} = await daos.guide.get(startStay.guide);
+
+        const directions = await Google.directions(startLocation.lat, startLocation.long, lastLocation.lat, lastLocation.long);
 
         const route = directions.routes[0];
 
-        const rideRow: RideRow = {
-            id: generateId('ride'),
-            start: startStay.id,
-            end: endStay.id,
-            guide: startStay.guide,
-            route: JSON.stringify(route, null, 4)
-        };
 
-        await daos.ride.insert(rideRow);
-        console.log('handled', context);
+        const rideRows: RideRow[] = [];
+        const locationRows: LocationRow[] = [];
+        const stayRows: StayRow[] = [];
+        let path: LatLng[] = [];
+
+        function createStay(step: DirectionsStep) {
+            const stayId = generateId('stay');
+            const locationId = generateId('location');
+            locationRows.push({
+                id: locationId,
+                lat: step.start_location!.lat!,
+                long: step.start_location!.lng!,
+                address: undefined,
+                label: stayId
+            });
+            stayRows.push({
+                id: stayId,
+                location: locationId,
+                guide: guideId,
+                nights: 1,
+                locked: false
+            });
+            rideRows.push({
+                id: generateId('ride'),
+                start: startStay.id,
+                end: stayId,
+                guide: startStay.guide,
+                durationMinutes: rideMinutes,
+                route: 'null',
+                path: JSON.stringify(path, null, 4)
+            });
+            rideMinutes = 0;
+            path = [];
+            path.push({
+                long: step.start_location.lng,
+                lat: step.start_location.lat
+            });
+        }
+
+        let rideMinutes = 0;
+        path.push({
+            lat: startLocation.lat,
+            long: startLocation.long
+        });
+        route.legs.forEach((leg: RouteLeg, legIndex: number) => {
+            leg.steps.forEach((step: DirectionsStep, stepIndex: number) => {
+                const durationMinutes = step.duration.value / 60;
+                const isLast = legIndex === route.legs.length - 1 && stepIndex === leg.steps.length - 1;
+                if (rideMinutes + durationMinutes > rideLimitMinutes) {
+                    createStay(step)
+                }
+                path.push({
+                    long: step.end_location.lng,
+                    lat: step.end_location.lat
+                });
+                rideMinutes += durationMinutes;
+                if (isLast) {
+                    createStay(step)
+                }
+            })
+        });
+
+        await daos.location.insertMany(locationRows);
+        await daos.stay.insertMany(stayRows);
+        await daos.ride.insertMany(rideRows);
+
+        logger.debug(`handled ${context}`);
     }
 
     async empty(): Promise<void> {
-        await this.bull.empty()
+        await this.bull.empty();
         console.log(`count after clear ${await this.bull.count()}`);
     }
 

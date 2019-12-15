@@ -41,7 +41,7 @@ export interface Guide {
   startDate: Date;
   title: string;
   slug: string;
-  dailyLimitMeters?: number;
+  rideLimitMinutes: number;
   stays: Array<Stay>;
 }
 
@@ -72,7 +72,9 @@ export interface Ride {
   id: string;
   start?: Stay;
   end?: Stay;
+  durationMinutes?: number;
   route?: Route;
+  path?: Array<LatLng>;
 }
 
 export interface Route {
@@ -288,7 +290,7 @@ export interface GuideTypeResolver<TParent = any> {
   startDate?: GuideToStartDateResolver<TParent>;
   title?: GuideToTitleResolver<TParent>;
   slug?: GuideToSlugResolver<TParent>;
-  dailyLimitMeters?: GuideToDailyLimitMetersResolver<TParent>;
+  rideLimitMinutes?: GuideToRideLimitMinutesResolver<TParent>;
   stays?: GuideToStaysResolver<TParent>;
 }
 
@@ -312,7 +314,7 @@ export interface GuideToSlugResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface GuideToDailyLimitMetersResolver<TParent = any, TResult = any> {
+export interface GuideToRideLimitMinutesResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
@@ -393,7 +395,9 @@ export interface RideTypeResolver<TParent = any> {
   id?: RideToIdResolver<TParent>;
   start?: RideToStartResolver<TParent>;
   end?: RideToEndResolver<TParent>;
+  durationMinutes?: RideToDurationMinutesResolver<TParent>;
   route?: RideToRouteResolver<TParent>;
+  path?: RideToPathResolver<TParent>;
 }
 
 export interface RideToIdResolver<TParent = any, TResult = any> {
@@ -408,7 +412,15 @@ export interface RideToEndResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
+export interface RideToDurationMinutesResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
 export interface RideToRouteResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface RideToPathResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 

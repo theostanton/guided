@@ -96,7 +96,7 @@ export default class Map extends Component<Props, State> {
                             lat: event.lngLat[1],
                             long: event.lngLat[0],
                             label: "On click",
-                            locked: false
+                            locked: true
                         });
                         this.props.store.refetch()
                     }

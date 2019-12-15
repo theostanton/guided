@@ -1,8 +1,13 @@
 import {Table} from "./constants";
-import DB, {insert, update} from "./index";
+import DB, {insert, insertMany, update} from "./index";
+import {Logger} from "@guided/common";
+
 
 export abstract class DAO<T> {
+
     abstract table: Table;
+
+    logger = new Logger(`DAO`);
 
     async get(id: string): Promise<T> {
         return DB().one<T>(`
@@ -49,12 +54,18 @@ export abstract class DAO<T> {
 
     async deleteWhere(keyValues: { [key in string]: string | number | boolean }): Promise<any> {
         const where = Object.keys(keyValues).map(key => {
-            return `"${key}"='${keyValues[key]}'`
+            const value = keyValues[key];
+            if (typeof value === 'boolean') {
+                return `"${key}"=${keyValues[key]}`
+            } else {
+                return `"${key}"='${keyValues[key]}'`
+            }
         }).join(' and ');
         let query = `
             DELETE FROM public.${this.table}
             where ${where}
         `;
+        this.logger.info(`deleteWhere: ${query}`);
         return DB().none(query)
     }
 
@@ -67,6 +78,11 @@ export abstract class DAO<T> {
 
     async insert(t: T): Promise<{ id: string }> {
         return insert(t, this.table)
+    }
+
+    async insertMany(ts: T[]): Promise<void> {
+        const columns = Object.keys(ts[0]);
+        return insertMany(ts, this.table, columns)
     }
 
     async update(t: Partial<T>): Promise<void> {

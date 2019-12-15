@@ -1,5 +1,5 @@
 import React from "react";
-import {polylineToGeoJson} from "../../data/maps/polyline";
+import {pathToGeoJson, polylineToGeoJson} from "../../data/maps/polyline";
 // @ts-ignore
 import {Layer, Source} from "react-map-gl";
 import {Ride} from "@guided/common";
@@ -29,12 +29,8 @@ export default class Rides extends React.Component<Props> {
 
         return (<div>
                 {rides && rides
-                    .filter(ride => {
-                        return ride.route
-                    })
-                    .map(ride => {
-
-                        const geoJson = polylineToGeoJson(ride.route.overview_polyline.points);
+                    .map((ride: Ride) => {
+                        const geoJson = pathToGeoJson(ride.path);
 
                         const isSelected = this.props.selectedRide?.id === ride.id;
 
@@ -44,7 +40,8 @@ export default class Rides extends React.Component<Props> {
                             [<Source key={sourceId} type="geojson" data={geoJson} id={sourceId}/>,
                                 <Layer key={layerId} {...dataLayer} type={'line'} source={sourceId}/>,
                                 isSelected === true &&
-                                <Layer key={`${layerId}-selected`} {...selectedDataLayer}  source={sourceId} type={'line'}/>]
+                                <Layer key={`${layerId}-selected`} {...selectedDataLayer} source={sourceId}
+                                       type={'line'}/>]
                         )
                     })
                 }

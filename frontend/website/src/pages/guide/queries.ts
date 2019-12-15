@@ -35,30 +35,35 @@ export const QUERY = gql`
                     long
                 }
             }
-            route{
-                summary
-                overview_polyline{
-                    points
-                }
-                legs{
-                    start_location{
-                        lat
-                        long
-                    }
-                    end_location{
-                        lat
-                        long
-                    }
-                    distance{
-                        text
-                        value
-                    }
-                    duration{
-                        text
-                        value
-                    }
-                }
+            durationMinutes
+            path{
+                lat
+                long
             }
+#            route{
+#                summary
+#                overview_polyline{
+#                    points
+#                }
+#                legs{
+#                    start_location{
+#                        lat
+#                        long
+#                    }
+#                    end_location{
+#                        lat
+#                        long
+#                    }
+#                    distance{
+#                        text
+#                        value
+#                    }
+#                    duration{
+#                        text
+#                        value
+#                    }
+#                }
+#            }
         }
     }
 `;

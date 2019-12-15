@@ -25,7 +25,7 @@ export default async function (_: void, {guideId, locked, label, lat, long, nigh
         id: guideId
     });
 
-    await CalculateRideHandler.updateAll();
+    await CalculateRideHandler.updateAll(guideId);
 
     return {
         id: stayId

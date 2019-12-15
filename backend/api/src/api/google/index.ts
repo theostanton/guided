@@ -17,7 +17,7 @@ export async function directions(startLat: number, startLong: number, endLat: nu
             lat: endLat,
             lng: endLong
         }
-    }).asPromise()
+    }).asPromise();
 
     return data;
 }

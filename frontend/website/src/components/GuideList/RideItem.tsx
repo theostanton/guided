@@ -12,16 +12,6 @@ type Props = {
 export default class RideItem extends React.Component<Props> {
 
     render(): ReactElement {
-        let distanceMeters: number = 0;
-        let durationSeconds: number = 0;
-        this.props.ride.route?.legs.forEach(leg => {
-            if (leg.distance) {
-                distanceMeters += leg.distance.value;
-            }
-            if (leg.duration) {
-                durationSeconds += leg.duration.value;
-            }
-        });
         return (
             <ListItem active={this.props.isSelected} onClick={() => {
                 this.props.selectRide(this.props.ride)
@@ -33,12 +23,12 @@ export default class RideItem extends React.Component<Props> {
                     <Grid columns={2}>
                         <GridColumn floated='left' textAlign='center'>
                             <Card.Meta>
-                                {Math.floor(distanceMeters / 1000)}km
+                                {Math.floor(1 / 1000)}km
                             </Card.Meta>
                         </GridColumn>
                         <GridColumn floated='right' textAlign='center'>
                             <Card.Meta>
-                                {Math.floor(durationSeconds / 60 / 60)} hours
+                                {Math.floor(this.props.ride.durationMinutes / 60)} hours
                             </Card.Meta>
                         </GridColumn>
                     </Grid>

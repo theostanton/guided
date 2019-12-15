@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`gatsby-node createPages pagination should create 1 page with 5 posts 1`] = `
+exports[`gatsby-node onCreatePage pagination should create 1 page with 5 posts 1`] = `
 Array [
   Array [
     Object {
@@ -14,7 +14,7 @@ Array [
 ]
 `;
 
-exports[`gatsby-node createPages pagination should create 2 pages with 15 posts 1`] = `
+exports[`gatsby-node onCreatePage pagination should create 2 pages with 15 posts 1`] = `
 Array [
   Array [
     Object {
@@ -37,7 +37,7 @@ Array [
 ]
 `;
 
-exports[`gatsby-node createPages pagination should create 3 pages with 30 posts 1`] = `
+exports[`gatsby-node onCreatePage pagination should create 3 pages with 30 posts 1`] = `
 Array [
   Array [
     Object {
@@ -69,7 +69,7 @@ Array [
 ]
 `;
 
-exports[`gatsby-node createPages should create blog posts 1`] = `
+exports[`gatsby-node onCreatePage should create blog posts 1`] = `
 Array [
   Array [
     Object {
@@ -110,7 +110,7 @@ Array [
 ]
 `;
 
-exports[`gatsby-node createPages should create tags pages 1`] = `
+exports[`gatsby-node onCreatePage should create tags pages 1`] = `
 Array [
   Array [
     Object {

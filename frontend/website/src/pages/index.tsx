@@ -5,12 +5,14 @@ import {Query} from "@apollo/react-components";
 import {Store} from "../stores/Store";
 import Segment from "semantic-ui-react/dist/commonjs/elements/Segment";
 import List from "semantic-ui-react/dist/commonjs/elements/List";
-import {Guide} from "@guided/common";
+import {Guide, Logger} from "@guided/common";
 import {ListItem, Grid, GridColumn} from "semantic-ui-react";
 import {Link} from "gatsby";
 
+const logger = new Logger('HomePage');
 
 class IndexComponent extends React.Component {
+
 
     render(): React.ReactElement {
 
@@ -19,10 +21,14 @@ class IndexComponent extends React.Component {
             {({loading, error, data, refetch}: any) => {
 
                 if (loading) {
+                    logger.debug('Loading');
                     return <Segment loading/>
                 }
 
-                console.log('data', data)
+                if (error) {
+                    logger.json(error)
+                    return <Segment>{error.message}</Segment>
+                }
 
                 return (
                     <Grid>

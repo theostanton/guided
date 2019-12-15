@@ -67,7 +67,9 @@ export default `
         id:ID!
         start:Stay
         end:Stay
+        durationMinutes:Int
         route:Route
+        path:[LatLng!]
     }
 
     scalar Date
@@ -84,7 +86,7 @@ export default `
         startDate:Date!
         title:String!
         slug:String!
-        dailyLimitMeters:Int
+        rideLimitMinutes:Int!
         stays: [Stay!]!
     }
     type User {
