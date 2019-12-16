@@ -1,7 +1,7 @@
 import React from "react";
-import {Segment, List, Transition} from "semantic-ui-react";
+import {Segment, List, Transition, ListItem} from "semantic-ui-react";
 import {observer} from "mobx-react";
-import {Ride} from '@guided/common'
+import {Ride, Stay} from '@guided/common'
 import {Store} from "../../stores/Store";
 import StayItem from "./StayItem";
 import RideItem from "./RideItem";
@@ -17,30 +17,47 @@ export default class GuideList extends React.Component<Props> {
 
             const items: any = [];
 
-            this.props.store.rides.forEach((ride: Ride, index: number) => {
-                if (index === 0) {
-                    const start = this.props.store.getStay(ride.start.id)
-                    items.push(
-                        <StayItem key={start.id} stay={start} isSelected={false}
-                                  selectStay={(stay) => {
 
-                                  }}/>
-                    );
-                }
+            const stays = this.props.store.guide.stays;
+            const rides = this.props.store.rides;
+            for (let i = 0; i < stays.length; i++) {
+                const stay = stays[i];
+                const next = stays.length > i ? stays[i] : null
+                console.log('stay.position',stay.position)
+                console.log('next.position',next?.position)
                 items.push(
-                    <RideItem ride={ride} isSelected={ride.id === this.props.store.selectedRide?.id} selectRide={() => {
-                        this.props.store.selectRide(ride);
-                    }}/>
-                );
-                const end = this.props.store.getStay(ride.end.id);
-                items.push(
-                    <StayItem key={end.id} stay={end} isSelected={false}
+                    <StayItem key={stay.id}
+                              store={this.props.store}
+                              stay={stay}
+                              isSelected={false}
                               selectStay={(stay) => {
 
                               }}/>
                 );
-            });
 
+                if (next) {
+                    // const ride = rides.find(ride => {
+                    //     return ride.start.id === stay.id && ride.end.id === next.id;
+                    // });
+                    const ride = rides[i];
+
+                    if (ride) {
+                        items.push(
+                            <RideItem ride={ride}
+                                      isSelected={ride.id === this.props.store.selectedRide?.id}
+                                      store={this.props.store}
+                                      selectRide={() => {
+                                          this.props.store.selectRide(ride);
+                                      }}/>
+                        );
+                    } else {
+                        items.push(
+                            <ListItem><Segment loading attached/></ListItem>
+                        )
+                    }
+                }
+
+            }
 
             return <Transition.Group
                 as={List}

@@ -6,7 +6,8 @@ import {Ride} from "@guided/common";
 
 type Props = {
     rides?: Ride[]
-    selectedRide?: Ride
+    selectedRide: Ride|undefined
+    highLightedRide: Ride|undefined
 }
 
 export default class Rides extends React.Component<Props> {
@@ -18,12 +19,20 @@ export default class Rides extends React.Component<Props> {
 
         const dataLayer = {
             paint: {
+                'line-width': 1,
                 'line-color': '#444444'
             }
         };
         const selectedDataLayer = {
             paint: {
-                'line-color': '#ff00ff'
+                'line-width': 1,
+                'line-color': '#000000'
+            }
+        };
+        const highlightedDataLayer = {
+            paint: {
+                'line-width': 3,
+                'line-color': '#444444'
             }
         };
 
@@ -33,15 +42,21 @@ export default class Rides extends React.Component<Props> {
                         const geoJson = pathToGeoJson(ride.path);
 
                         const isSelected = this.props.selectedRide?.id === ride.id;
+                        const isHighlighted = this.props.highLightedRide?.id === ride.id;
 
                         const layerId = `ride-layer-${ride.id}`;
                         const sourceId = `ride-source-${ride.id}`;
                         return (
-                            [<Source key={sourceId} type="geojson" data={geoJson} id={sourceId}/>,
-                                <Layer key={layerId} {...dataLayer} type={'line'} source={sourceId}/>,
+                            [
+                                <Source key={sourceId} type="geojson" data={geoJson} id={sourceId}/>,
+                                !isSelected && !isHighlighted && <Layer key={layerId} {...dataLayer} type={'line'} source={sourceId}/>,
                                 isSelected === true &&
                                 <Layer key={`${layerId}-selected`} {...selectedDataLayer} source={sourceId}
-                                       type={'line'}/>]
+                                       type={'line'}/>,
+                                isHighlighted === true &&
+                                <Layer key={`${layerId}-highlighted`} {...highlightedDataLayer} source={sourceId}
+                                       type={'line'}/>
+                            ]
                         )
                     })
                 }

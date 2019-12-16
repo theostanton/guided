@@ -8,13 +8,14 @@ import {LocationRow, RideRow, StayRow} from "../database/types";
 import {generateId} from "../database/utils";
 import {Logger} from "@guided/common/srv/Logger";
 import {stay} from "../graphql/resolvers/Query/stays";
-import {LatLng, Leg, Step} from "@guided/common";
+import {LatLng, Leg, Stay, Step} from "@guided/common";
 import {DirectionsStep, RouteLeg} from "@google/maps";
 import {generateLocationRow} from "../database/models/location";
 
-type Context = {
+export type Context = {
     startStayId: string
     endStayId: string
+    positionOffset: number
 }
 
 const logger = new Logger('CalculateRideHandler');
@@ -30,21 +31,24 @@ export class CalculateRideHandler extends QueueHandler<Context> {
         await daos.ride.deleteWhere({'guide': guideId});
         await daos.stay.deleteWhere({'locked': false, 'guide': guideId});
 
-        const stayIds = (await daos.stay.findMany({'guide': guideId})).map(({id}) => {
-            return id
+        const stays = (await daos.stay.findMany({'guide': guideId}));
+        stays.sort((a, b) => {
+            return (a.position || 0) + (b.position || 0)
         });
-
-        console.log('stayIds',stayIds)
 
         const handler = await CalculateRideHandler.get();
         await handler.empty();
 
-        const indices = [];
-        for (let i = 0; i < stayIds.length - 1; i++) {
-            indices.push([stayIds[i], stayIds[i + 1]]);
+        const contexts: Context[] = [];
+        for (let i = 0; i < stays.length - 1; i++) {
+            contexts.push({
+                startStayId: stays[i].id,
+                endStayId: stays[i + 1].id,
+                positionOffset: stays[i].position
+            });
         }
-        await executeSequentially(indices, async ([i, j]) => {
-            await calculateRide(i, j)
+        await executeSequentially(contexts, async (context: Context) => {
+            await calculateRide(context)
         });
 
         await handler.resume();
@@ -53,7 +57,6 @@ export class CalculateRideHandler extends QueueHandler<Context> {
     static async get(): Promise<CalculateRideHandler> {
         if (!CalculateRideHandler.instance) {
             CalculateRideHandler.instance = new CalculateRideHandler();
-            await CalculateRideHandler.instance.subscribe();
         }
         return CalculateRideHandler.instance;
     }
@@ -82,23 +85,26 @@ export class CalculateRideHandler extends QueueHandler<Context> {
         const locationRows: LocationRow[] = [];
         const stayRows: StayRow[] = [];
         let path: LatLng[] = [];
+        let position = context.positionOffset;
 
-        async function createStay(step: DirectionsStep) {
+        async function createStay(fromStayId: string, step: DirectionsStep): Promise<string> {
             const stayId = generateId('stay');
 
-            const locationRow = await generateLocationRow(step.start_location!.lat!, step.start_location!.lng!)
+            const locationRow = await generateLocationRow(step.start_location!.lat!, step.start_location!.lng!);
             locationRows.push(locationRow);
 
-            stayRows.push({
+            const toStay: StayRow = {
                 id: stayId,
                 location: locationRow.id,
                 guide: guideId,
                 nights: 1,
+                position: ++position,
                 locked: false
-            });
+            };
+            stayRows.push(toStay);
             rideRows.push({
                 id: generateId('ride'),
-                start: startStay.id,
+                start: fromStayId,
                 end: stayId,
                 guide: startStay.guide,
                 durationMinutes: rideMinutes,
@@ -111,6 +117,8 @@ export class CalculateRideHandler extends QueueHandler<Context> {
                 long: step.start_location.lng,
                 lat: step.start_location.lat
             });
+
+            return toStay.id
         }
 
         let rideMinutes = 0;
@@ -118,12 +126,13 @@ export class CalculateRideHandler extends QueueHandler<Context> {
             lat: startLocation.lat,
             long: startLocation.long
         });
+        let fromStayId = startStay.id;
         const promises = route.legs.map((leg: RouteLeg, legIndex: number) => {
             return leg.steps.map(async (step: DirectionsStep, stepIndex: number) => {
                 const durationMinutes = step.duration.value / 60;
                 const isLast = legIndex === route.legs.length - 1 && stepIndex === leg.steps.length - 1;
                 if (rideMinutes + durationMinutes > rideLimitMinutes) {
-                    await createStay(step);
+                    fromStayId = await createStay(fromStayId, step);
                 }
                 path.push({
                     long: step.end_location.lng,
@@ -131,7 +140,7 @@ export class CalculateRideHandler extends QueueHandler<Context> {
                 });
                 rideMinutes += durationMinutes;
                 if (isLast) {
-                    await createStay(step);
+                    fromStayId = await createStay(fromStayId,step);
                 }
             });
         }).flat(1);

@@ -47,10 +47,13 @@ export default class Map extends Component<Props, State> {
             console.log('callback selectedRide', this.props.store.selectedRide);
             if (this.props.store.selectedRide) {
 
-                const startLat = this.props.store.selectedRide.start.location.lat;
-                const startLong = this.props.store.selectedRide.start.location.long;
-                const endLat = this.props.store.selectedRide.end.location.lat;
-                const endLong = this.props.store.selectedRide.end.location.long;
+                const startStay = this.props.store.getStay(this.props.store.selectedRide.start.id)
+                const endStay = this.props.store.getStay(this.props.store.selectedRide.end.id)
+
+                const startLat = startStay.location.lat;
+                const startLong = startStay.location.long;
+                const endLat = endStay.location.lat;
+                const endLong = endStay.location.long;
 
                 const {longitude, latitude, zoom} = new WebMercatorViewport(this.state.viewport)
                     .fitBounds([[startLong, startLat], [endLong, endLat]], {
@@ -125,8 +128,11 @@ export default class Map extends Component<Props, State> {
                     this.setState({viewport})
                 }}
             >
-                <Markers guide={this.props.store.guide}/>
-                <Rides rides={this.props.store.rides} selectedRide={this.props.store.selectedRide}/>
+                <Markers guide={this.props.store.guide}
+                         highlightedId={this.props.store.highlightedStay?.id}/>
+                <Rides rides={this.props.store.rides}
+                       highLightedRide={this.props.store.highlightedRide}
+                       selectedRide={this.props.store.selectedRide}/>
             </ReactMapGL>
         );
     }

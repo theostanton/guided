@@ -11,6 +11,7 @@ export const QUERY = gql`
             stays{
                 id
                 locked
+                position
                 location{
                     id
                     label

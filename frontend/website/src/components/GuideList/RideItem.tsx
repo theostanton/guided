@@ -1,9 +1,11 @@
 import React, {ReactElement} from "react";
 import {Grid, Card, GridColumn, Button, ListItem, List} from "semantic-ui-react";
 import {Ride} from "@guided/common";
+import {Store} from "../../stores/Store";
 
 type Props = {
     ride: Ride
+    store: Store
     isSelected: boolean
     selectRide: (ride: Ride) => void
 }
@@ -13,9 +15,15 @@ export default class RideItem extends React.Component<Props> {
 
     render(): ReactElement {
         return (
-            <ListItem active={this.props.isSelected} onClick={() => {
-                this.props.selectRide(this.props.ride)
-            }}>
+            <ListItem active={this.props.isSelected}
+                      onClick={() => {
+                          this.props.selectRide(this.props.ride)
+                      }}
+                      onMouseEnter={() => {
+                          this.props.store.highlightRide(this.props.ride)
+                      }}
+
+            >
                 <List.Content>
                     <List.Header key={this.props.ride.id} as='h5'>
                         {this.props.ride.route?.summary || 'No route'}

@@ -25,17 +25,40 @@ export class Store {
     @observable
     selectedRide: Ride | undefined;
 
-    selectRide(ride: Ride | undefined) {
-        this.selectedRide = ride;
+    @observable
+    highlightedRide: Ride | undefined;
+
+    @observable
+    highlightedStay: Stay | undefined;
+
+    updateMap(){
         if (this.mapCallback) {
+            console.log('updateMap()');
             this.mapCallback()
         }
+    }
+
+    selectRide(ride: Ride | undefined) {
+        this.selectedRide = ride;
+        this.updateMap();
+    }
+
+    highlightRide(ride: Ride | undefined) {
+        this.highlightedRide = ride;
+        this.highlightedStay = undefined;
+        this.updateMap();
+    }
+
+    highlightStay(stay: Stay | undefined) {
+        this.highlightedRide = undefined;
+        this.highlightedStay = stay;
+        this.updateMap();
     }
 
     getStay(stayId: string): Stay {
         const stay = this.guide.stays.find(stay => {
             return stay.id === stayId
-        })
+        });
         if (stay) {
             return stay
         }

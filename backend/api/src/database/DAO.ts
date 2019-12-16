@@ -81,6 +81,9 @@ export abstract class DAO<T> {
     }
 
     async insertMany(ts: T[]): Promise<void> {
+        if (ts.length === 0) {
+            return
+        }
         const columns = Object.keys(ts[0]);
         return insertMany(ts, this.table, columns)
     }

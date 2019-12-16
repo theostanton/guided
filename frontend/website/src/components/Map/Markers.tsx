@@ -2,9 +2,10 @@ import React from "react";
 import {moveStay} from "../../data/graphql";
 import {Marker, Popup} from "react-map-gl";
 import {Guide, Stay} from "@guided/common";
-import {Icon} from "semantic-ui-react";
+import {Icon, SemanticCOLORS} from "semantic-ui-react";
 
 type Props = {
+    highlightedId: string | undefined
     guide?: Guide
 }
 
@@ -15,7 +16,8 @@ type State = {
 
 function createPopup(stay: Stay, showPopupForId: string | undefined) {
     return (showPopupForId === stay.id &&
-        <Popup key={`popup-${stay.id}`} latitude={stay.location.lat} longitude={stay.location.long}><h1>{stay.location.label}</h1>
+        <Popup key={`popup-${stay.id}`} latitude={stay.location.lat} longitude={stay.location.long}>
+            <h1>{stay.location.label}</h1>
         </Popup>)
 
 }
@@ -37,6 +39,16 @@ export class Markers extends React.Component<Props, State> {
             stroke: 'none'
         };
 
+        let color: SemanticCOLORS;
+        if (this.props.highlightedId === stay.id) {
+            color = 'red'
+        } else if (stay.locked === true) {
+            color = 'black'
+        } else {
+            color = 'grey'
+        }
+
+
         return <Marker key={`marker-${index}`}
                        longitude={stay.location.long}
                        latitude={stay.location.lat}
@@ -48,7 +60,7 @@ export class Markers extends React.Component<Props, State> {
         >
 
             <Icon name={'marker'}
-                  color={stay.locked ? 'black' : 'grey'}
+                  color={color}
                 // onMouseEnter={() => {
                 //     console.log('onMouseEnter')
                 // }}

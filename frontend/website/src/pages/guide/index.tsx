@@ -1,7 +1,9 @@
 import * as React from "react";
 import {
     Segment,
-    Rail
+    Rail,
+    Button,
+    Icon
 } from "semantic-ui-react";
 import {Query} from "@apollo/react-components";
 import {Store} from "../../stores/Store";
@@ -77,7 +79,7 @@ class GuideComponent extends React.Component<Props> {
                             <Rail internal attached position={'left'} style={{height: '100%', padding: '2em'}}>
                                 {this.getLeftRailSegment(response)}
                             </Rail>
-                            <Rail internal position='right' style={{height: '100%', padding: '2em'}}>
+                            <Rail internal position={'right'} style={{height: '100%', padding: '2em'}}>
                                 <RightRail store={store}/>
                             </Rail>
                         </Segment>

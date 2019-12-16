@@ -1,10 +1,11 @@
-import StayDao from "../../database/daos/StayDao";
+import DB from "../../database/";
 import UserDao from "../../database/daos/UserDao";
 import {GuideRow, StayRow, UserRow} from "../../database/types";
 import {Guide} from '@guided/common'
 
 async function stays(guide: Guide): Promise<StayRow[]> {
-    return new StayDao().findMany({'guide': guide.id})
+    const query = `SELECT * from stays where guide='${guide.id}' order by position asc`;
+    return  DB().query(query);
 }
 
 async function user(guide: GuideRow): Promise<UserRow> {

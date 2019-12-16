@@ -8,17 +8,22 @@ import {generateLocationRow} from "../../database/models/location";
 
 export default async function (_: void, {guideId, locked, label, lat, long, nights}: MutationToAddStayFromLagLngArgs): Promise<{ id: string } | null> {
 
+    console.log('addStayFromLagLng()');
+
     const locationRow = await generateLocationRow(lat, long, label);
 
     const {id: locationId} = await daos.location.insert(locationRow);
 
-    const {max: currentPosition} = await DB().query<{ max: number }>(`SELECT max(position) as max from stays where guide='${guideId}'`)
+    let query = `SELECT max(position) as max from stays where guide='${guideId}' and locked=true`;
+    const {max: currentPosition} = await DB().one<{ max: number }>(query)
+    console.log('query',currentPosition)
+    console.log('currentPosition',currentPosition)
 
     const {id: stayId} = await daos.stay.insert({
         id: generateId('stay'),
         nights,
         locked,
-        position: currentPosition ? currentPosition + 1 : undefined,
+        position: currentPosition ? currentPosition + 100 : 100,
         location: locationId,
         guide: guideId
     });
