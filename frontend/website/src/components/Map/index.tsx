@@ -74,15 +74,7 @@ export default class Map extends Component<Props, State> {
                     }
                 });
             } else {
-                this.setState({
-                    viewport: {
-                        width: 400,
-                        height: 400,
-                        latitude: 51.5007,
-                        longitude: -0.1246,
-                        zoom: 8
-                    }
-                })
+                this.setState({})
             }
         }
     }

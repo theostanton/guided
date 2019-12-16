@@ -1,11 +1,10 @@
 import daos from '../../database/daos'
-import {CalculateRideHandler} from "../../events/CalculateRideHandler";
+import {updateAll} from "../../events/CalculateRideHandler";
 import {MutationToDeleteStayArgs} from "@guided/common";
 
-export default async function(_: void, {stayId}: MutationToDeleteStayArgs): Promise<{ id: string } | null> {
+export default async function (_: void, {stayId}: MutationToDeleteStayArgs): Promise<{ id: string } | null> {
 
-
-    const {guide:guideId} = await daos.stay.get(stayId);
+    const {guide: guideId} = await daos.stay.get(stayId);
 
     await daos.ride.deleteWhere({end: stayId});
     await daos.ride.deleteWhere({start: stayId});
@@ -14,7 +13,7 @@ export default async function(_: void, {stayId}: MutationToDeleteStayArgs): Prom
         id: stayId
     });
 
-    await CalculateRideHandler.updateAll(guideId);
+    await updateAll(guideId);
 
     return {
         id: stayId

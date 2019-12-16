@@ -1,6 +1,6 @@
 import daos from '../../database/daos'
 import {publishGuide} from "../subscriptions";
-import {CalculateRideHandler} from "../../events/CalculateRideHandler";
+import {updateAll} from "../../events/CalculateRideHandler";
 import {generateId} from "../../database/utils";
 import {MutationToAddStayFromLagLngArgs} from "@guided/common";
 import DB from '../../database'
@@ -16,23 +16,17 @@ export default async function (_: void, {guideId, locked, label, lat, long, nigh
 
     let query = `SELECT max(position) as max from stays where guide='${guideId}' and locked=true`;
     const {max: currentPosition} = await DB().one<{ max: number }>(query)
-    console.log('query',currentPosition)
-    console.log('currentPosition',currentPosition)
 
     const {id: stayId} = await daos.stay.insert({
         id: generateId('stay'),
         nights,
         locked,
-        position: currentPosition ? currentPosition + 100 : 100,
+        position: currentPosition===undefined ? 0 : currentPosition + 100,
         location: locationId,
         guide: guideId
     });
 
-    await publishGuide({
-        id: guideId
-    });
-
-    await CalculateRideHandler.updateAll(guideId);
+    await updateAll(guideId);
 
     return {
         id: stayId

@@ -23,6 +23,7 @@ export default class RightRail extends React.Component<Props> {
                         <GridColumn>
                             <Button icon labelPosition='left' onClick={async () => {
                                 await deleteAllStays({guideId: this.props.store.guide.id})
+                                this.props.store.refetch()
                             }}>
                                 Clear
                                 <Icon name={'trash'}/>

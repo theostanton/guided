@@ -1,5 +1,5 @@
 import daos from '../../database/daos'
-import {CalculateRideHandler} from "../../events/CalculateRideHandler";
+import {CalculateRideHandler, updateAll} from "../../events/CalculateRideHandler";
 import {MutationToMoveStayArgs} from "@guided/common";
 
 export default async function (_: void, {locationId, lat, long}: MutationToMoveStayArgs): Promise<{ id: string } | null> {
@@ -11,7 +11,7 @@ export default async function (_: void, {locationId, lat, long}: MutationToMoveS
         lat
     });
 
-    await CalculateRideHandler.updateAll(guideId);
+    await updateAll(guideId);
 
     return {
         id: locationId

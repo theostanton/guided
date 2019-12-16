@@ -1,6 +1,6 @@
 import {client} from "../index";
 import {gql} from "apollo-boost";
-import {MutationToDeleteStayArgs} from "../../../../../../backend/common/src";
+import {MutationToDeleteStayArgs} from "@guided/common";
 
 const MUTATION = gql`
     mutation DeleteStay($stayId:ID!){
@@ -10,7 +10,7 @@ const MUTATION = gql`
     }
 `;
 
-export default async function (variables:MutationToDeleteStayArgs): Promise<void> {
+export default async function (variables: MutationToDeleteStayArgs): Promise<void> {
     const result = await client.mutate({
         mutation: MUTATION,
         variables,

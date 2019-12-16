@@ -23,8 +23,8 @@ export default class GuideList extends React.Component<Props> {
             for (let i = 0; i < stays.length; i++) {
                 const stay = stays[i];
                 const next = stays.length > i ? stays[i] : null
-                console.log('stay.position',stay.position)
-                console.log('next.position',next?.position)
+                console.log('stay.position', stay.position)
+                console.log('next.position', next?.position)
                 items.push(
                     <StayItem key={stay.id}
                               store={this.props.store}
@@ -35,11 +35,10 @@ export default class GuideList extends React.Component<Props> {
                               }}/>
                 );
 
-                if (next) {
-                    // const ride = rides.find(ride => {
-                    //     return ride.start.id === stay.id && ride.end.id === next.id;
-                    // });
-                    const ride = rides[i];
+                if (next && i < stays.length - 1) {
+                    const ride = rides.find(ride => {
+                        return ride.start.id === stay.id;
+                    });
 
                     if (ride) {
                         items.push(

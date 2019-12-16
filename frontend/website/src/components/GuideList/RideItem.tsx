@@ -1,5 +1,5 @@
 import React, {ReactElement} from "react";
-import {Grid, Card, GridColumn, Button, ListItem, List} from "semantic-ui-react";
+import {Grid, Card, GridColumn, Button, ListItem, List, Icon} from "semantic-ui-react";
 import {Ride} from "@guided/common";
 import {Store} from "../../stores/Store";
 
@@ -25,19 +25,14 @@ export default class RideItem extends React.Component<Props> {
 
             >
                 <List.Content>
-                    <List.Header key={this.props.ride.id} as='h5'>
-                        {this.props.ride.route?.summary || 'No route'}
-                    </List.Header>
-                    <Grid columns={2}>
-                        <GridColumn floated='left' textAlign='center'>
-                            <Card.Meta>
-                                {Math.floor(1 / 1000)}km
-                            </Card.Meta>
+                    <Grid columns={4}>
+                        <GridColumn textAlign='center'>
+                            <GridColumn>
+                                <Icon name={'road'} ><h5>{Math.floor(1 / 1000)}km</h5></Icon>
+                            </GridColumn>
                         </GridColumn>
-                        <GridColumn floated='right' textAlign='center'>
-                            <Card.Meta>
-                                {Math.floor(this.props.ride.durationMinutes / 60)} hours
-                            </Card.Meta>
+                        <GridColumn textAlign='center'>
+                            <Icon name={'clock'} ><h5>{Math.floor(this.props.ride.durationMinutes / 60)}h</h5></Icon>
                         </GridColumn>
                     </Grid>
                 </List.Content>

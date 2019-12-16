@@ -6,8 +6,8 @@ import {Ride} from "@guided/common";
 
 type Props = {
     rides?: Ride[]
-    selectedRide: Ride|undefined
-    highLightedRide: Ride|undefined
+    selectedRide: Ride | undefined
+    highLightedRide: Ride | undefined
 }
 
 export default class Rides extends React.Component<Props> {
@@ -20,19 +20,21 @@ export default class Rides extends React.Component<Props> {
         const dataLayer = {
             paint: {
                 'line-width': 1,
-                'line-color': '#444444'
+                'line-color': this.props.selectedRide ? '#999999' : '#444444'
             }
         };
+
         const selectedDataLayer = {
             paint: {
                 'line-width': 1,
                 'line-color': '#000000'
             }
         };
+
         const highlightedDataLayer = {
             paint: {
-                'line-width': 3,
-                'line-color': '#444444'
+                'line-width': 1,
+                'line-color': '#ff0000'
             }
         };
 
@@ -49,11 +51,15 @@ export default class Rides extends React.Component<Props> {
                         return (
                             [
                                 <Source key={sourceId} type="geojson" data={geoJson} id={sourceId}/>,
-                                !isSelected && !isHighlighted && <Layer key={layerId} {...dataLayer} type={'line'} source={sourceId}/>,
+
+                                !isSelected && !isHighlighted &&
+                                <Layer key={layerId} {...dataLayer} type={'line'} source={sourceId}/>,
+
                                 isSelected === true &&
                                 <Layer key={`${layerId}-selected`} {...selectedDataLayer} source={sourceId}
                                        type={'line'}/>,
-                                isHighlighted === true &&
+
+                                !this.props.selectedRide && isHighlighted === true &&
                                 <Layer key={`${layerId}-highlighted`} {...highlightedDataLayer} source={sourceId}
                                        type={'line'}/>
                             ]
