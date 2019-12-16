@@ -73,7 +73,7 @@
     "@storybook/addon-options": "^5.2.6",
     "@storybook/react": "^5.2.6",
     "@types/enzyme": "^3.9.2",
-    "@types/jest": "^24.0.13",
+    "@types/jest": "^24.0.14",
     "@types/lodash": "^4.14.130",
     "@types/node": "^12.12.7",
     "@types/react-test-renderer": "^16.8.1",

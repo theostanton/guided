@@ -1,21 +1,12 @@
-import {Address, Route, User} from "@guided/common";
+import {Location, User} from "@guided/common";
 
-export type AddressRow = Address
-
-export type LocationRow = {
-    id: string
-    label: string
-    lat: number
-    long: number
-    address?: string
-}
-
+export type LocationRow = Location & { id?: string }
 
 export type RideRow = {
     id: string
     start: string
     end: string
-    durationMinutes:number
+    durationMinutes: number
     guide: string
     route: string
     path: string
@@ -34,6 +25,7 @@ export type StayRow = {
     id: string
     location: string
     nights: number
+    position?:number
     guide: string
     locked: boolean
 }

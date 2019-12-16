@@ -9,22 +9,25 @@ type Props = {
 }
 
 type State = {
-    showPopupForId?: string
+    showPopupForId: string | undefined
 }
 
 
 function createPopup(stay: Stay, showPopupForId: string | undefined) {
-    console.log('createPopup showPopupForId',showPopupForId)
-    console.log('createPopup stay',stay)
     return (showPopupForId === stay.id &&
-        <Popup key={`popup-${stay.id}`} latitude={stay.location.lat} longitude={stay.location.long}><h1>{stay.id}</h1>
+        <Popup key={`popup-${stay.id}`} latitude={stay.location.lat} longitude={stay.location.long}><h1>{stay.location.label}</h1>
         </Popup>)
 
 }
 
 export class Markers extends React.Component<Props, State> {
 
-    state = {};
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            showPopupForId: undefined
+        }
+    }
 
     createMarker(stay: Stay, index: number, onDragEnd: any): React.ReactElement {
 

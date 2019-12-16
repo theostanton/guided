@@ -13,8 +13,6 @@ import { GraphQLResolveInfo, GraphQLScalarType } from 'graphql';
  *                             *
  *******************************/
 export interface Query {
-  allAddresss: Array<Address>;
-  address?: Address;
   allGuides: Array<Guide>;
   guide?: Guide;
   allLocations: Array<Location>;
@@ -25,14 +23,6 @@ export interface Query {
   stay?: Stay;
   allUsers: Array<User>;
   user?: User;
-}
-
-export interface Address {
-  id: string;
-  address1: string;
-  address2?: string;
-  city: string;
-  country: string;
 }
 
 export interface Guide {
@@ -57,6 +47,7 @@ export interface Stay {
   id: string;
   nights: number;
   location: Location;
+  position?: number;
   locked: boolean;
 }
 
@@ -65,7 +56,11 @@ export interface Location {
   label?: string;
   lat: number;
   long: number;
-  address?: Address;
+  address1?: string;
+  address2?: string;
+  city?: string;
+  country?: string;
+  processed: boolean;
 }
 
 export interface Ride {
@@ -98,8 +93,8 @@ export interface Value {
 }
 
 export interface LatLng {
-  lat?: number;
-  long?: number;
+  lat: number;
+  long: number;
 }
 
 export interface Step {
@@ -123,6 +118,7 @@ export interface Mutation {
   addStayFromLagLng?: ItemId;
   moveStay?: ItemId;
   deleteStay?: ItemId;
+  deleteAllStays?: ItemId;
   createUser?: ItemId;
   createGuide?: ItemId;
 }
@@ -154,7 +150,6 @@ export interface Subscription {
  */
 export interface Resolver {
   Query?: QueryTypeResolver;
-  Address?: AddressTypeResolver;
   Guide?: GuideTypeResolver;
   User?: UserTypeResolver;
   Date?: GraphQLScalarType;
@@ -173,8 +168,6 @@ export interface Resolver {
   Subscription?: SubscriptionTypeResolver;
 }
 export interface QueryTypeResolver<TParent = any> {
-  allAddresss?: QueryToAllAddresssResolver<TParent>;
-  address?: QueryToAddressResolver<TParent>;
   allGuides?: QueryToAllGuidesResolver<TParent>;
   guide?: QueryToGuideResolver<TParent>;
   allLocations?: QueryToAllLocationsResolver<TParent>;
@@ -185,17 +178,6 @@ export interface QueryTypeResolver<TParent = any> {
   stay?: QueryToStayResolver<TParent>;
   allUsers?: QueryToAllUsersResolver<TParent>;
   user?: QueryToUserResolver<TParent>;
-}
-
-export interface QueryToAllAddresssResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface QueryToAddressArgs {
-  id?: string;
-}
-export interface QueryToAddressResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: QueryToAddressArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface QueryToAllGuidesResolver<TParent = any, TResult = any> {
@@ -254,34 +236,6 @@ export interface QueryToUserArgs {
 }
 export interface QueryToUserResolver<TParent = any, TResult = any> {
   (parent: TParent, args: QueryToUserArgs, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface AddressTypeResolver<TParent = any> {
-  id?: AddressToIdResolver<TParent>;
-  address1?: AddressToAddress1Resolver<TParent>;
-  address2?: AddressToAddress2Resolver<TParent>;
-  city?: AddressToCityResolver<TParent>;
-  country?: AddressToCountryResolver<TParent>;
-}
-
-export interface AddressToIdResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface AddressToAddress1Resolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface AddressToAddress2Resolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface AddressToCityResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
-}
-
-export interface AddressToCountryResolver<TParent = any, TResult = any> {
-  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface GuideTypeResolver<TParent = any> {
@@ -344,6 +298,7 @@ export interface StayTypeResolver<TParent = any> {
   id?: StayToIdResolver<TParent>;
   nights?: StayToNightsResolver<TParent>;
   location?: StayToLocationResolver<TParent>;
+  position?: StayToPositionResolver<TParent>;
   locked?: StayToLockedResolver<TParent>;
 }
 
@@ -359,6 +314,10 @@ export interface StayToLocationResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
+export interface StayToPositionResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
 export interface StayToLockedResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
@@ -368,7 +327,11 @@ export interface LocationTypeResolver<TParent = any> {
   label?: LocationToLabelResolver<TParent>;
   lat?: LocationToLatResolver<TParent>;
   long?: LocationToLongResolver<TParent>;
-  address?: LocationToAddressResolver<TParent>;
+  address1?: LocationToAddress1Resolver<TParent>;
+  address2?: LocationToAddress2Resolver<TParent>;
+  city?: LocationToCityResolver<TParent>;
+  country?: LocationToCountryResolver<TParent>;
+  processed?: LocationToProcessedResolver<TParent>;
 }
 
 export interface LocationToIdResolver<TParent = any, TResult = any> {
@@ -387,7 +350,23 @@ export interface LocationToLongResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
-export interface LocationToAddressResolver<TParent = any, TResult = any> {
+export interface LocationToAddress1Resolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface LocationToAddress2Resolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface LocationToCityResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface LocationToCountryResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface LocationToProcessedResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
@@ -550,6 +529,7 @@ export interface MutationTypeResolver<TParent = any> {
   addStayFromLagLng?: MutationToAddStayFromLagLngResolver<TParent>;
   moveStay?: MutationToMoveStayResolver<TParent>;
   deleteStay?: MutationToDeleteStayResolver<TParent>;
+  deleteAllStays?: MutationToDeleteAllStaysResolver<TParent>;
   createUser?: MutationToCreateUserResolver<TParent>;
   createGuide?: MutationToCreateGuideResolver<TParent>;
 }
@@ -568,7 +548,7 @@ export interface MutationToAddStayFromAddressResolver<TParent = any, TResult = a
 export interface MutationToAddStayFromLagLngArgs {
   guideId: string;
   locked: boolean;
-  label: string;
+  label?: string;
   lat: number;
   long: number;
   nights: number;
@@ -591,6 +571,13 @@ export interface MutationToDeleteStayArgs {
 }
 export interface MutationToDeleteStayResolver<TParent = any, TResult = any> {
   (parent: TParent, args: MutationToDeleteStayArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface MutationToDeleteAllStaysArgs {
+  guideId: string;
+}
+export interface MutationToDeleteAllStaysResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: MutationToDeleteAllStaysArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface MutationToCreateUserArgs {

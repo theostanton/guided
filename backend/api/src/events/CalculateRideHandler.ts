@@ -10,6 +10,7 @@ import {Logger} from "@guided/common/srv/Logger";
 import {stay} from "../graphql/resolvers/Query/stays";
 import {LatLng, Leg, Step} from "@guided/common";
 import {DirectionsStep, RouteLeg} from "@google/maps";
+import {generateLocationRow} from "../database/models/location";
 
 type Context = {
     startStayId: string
@@ -32,6 +33,8 @@ export class CalculateRideHandler extends QueueHandler<Context> {
         const stayIds = (await daos.stay.findMany({'guide': guideId})).map(({id}) => {
             return id
         });
+
+        console.log('stayIds',stayIds)
 
         const handler = await CalculateRideHandler.get();
         await handler.empty();
@@ -80,19 +83,15 @@ export class CalculateRideHandler extends QueueHandler<Context> {
         const stayRows: StayRow[] = [];
         let path: LatLng[] = [];
 
-        function createStay(step: DirectionsStep) {
+        async function createStay(step: DirectionsStep) {
             const stayId = generateId('stay');
-            const locationId = generateId('location');
-            locationRows.push({
-                id: locationId,
-                lat: step.start_location!.lat!,
-                long: step.start_location!.lng!,
-                address: undefined,
-                label: stayId
-            });
+
+            const locationRow = await generateLocationRow(step.start_location!.lat!, step.start_location!.lng!)
+            locationRows.push(locationRow);
+
             stayRows.push({
                 id: stayId,
-                location: locationId,
+                location: locationRow.id,
                 guide: guideId,
                 nights: 1,
                 locked: false
@@ -119,12 +118,12 @@ export class CalculateRideHandler extends QueueHandler<Context> {
             lat: startLocation.lat,
             long: startLocation.long
         });
-        route.legs.forEach((leg: RouteLeg, legIndex: number) => {
-            leg.steps.forEach((step: DirectionsStep, stepIndex: number) => {
+        const promises = route.legs.map((leg: RouteLeg, legIndex: number) => {
+            return leg.steps.map(async (step: DirectionsStep, stepIndex: number) => {
                 const durationMinutes = step.duration.value / 60;
                 const isLast = legIndex === route.legs.length - 1 && stepIndex === leg.steps.length - 1;
                 if (rideMinutes + durationMinutes > rideLimitMinutes) {
-                    createStay(step)
+                    await createStay(step);
                 }
                 path.push({
                     long: step.end_location.lng,
@@ -132,10 +131,12 @@ export class CalculateRideHandler extends QueueHandler<Context> {
                 });
                 rideMinutes += durationMinutes;
                 if (isLast) {
-                    createStay(step)
+                    await createStay(step);
                 }
-            })
-        });
+            });
+        }).flat(1);
+
+        await Promise.all(promises);
 
         await daos.location.insertMany(locationRows);
         await daos.stay.insertMany(stayRows);

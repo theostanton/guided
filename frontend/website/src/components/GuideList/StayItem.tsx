@@ -20,11 +20,11 @@ export default class StayItem extends React.Component<Props> {
             }}>
                 <Grid>
                     <GridColumn width={1}>
-                        <Icon name={'marker'} color={stay.locked ? 'black' : 'grey'}/>
+                        <Icon name={'marker'} color={stay.locked === true ? 'red' : 'blue'}/>
                     </GridColumn>
                     <GridColumn width={10}>
                         <Header key={stay.id} as='h5'>
-                            {stay.id}
+                            {stay.location.label}
                         </Header>
                     </GridColumn>
                     {stay.locked &&

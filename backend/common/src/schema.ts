@@ -6,20 +6,16 @@ export default `
         subscription: Subscription
     }
 
-    type Address{
-        id:ID!
-        address1:String!
-        address2:String
-        city:String!
-        country:String!
-    }
-
     type Location {
         id:ID!
         label:String
         lat:Float!
         long:Float!
-        address:Address
+        address1:String
+        address2:String
+        city:String
+        country:String
+        processed:Boolean!
     }
 
     type Route {
@@ -54,8 +50,8 @@ export default `
     }
 
     type LatLng{
-        lat:Float
-        long:Float
+        lat:Float!
+        long:Float!
     }
 
     type Value {
@@ -78,6 +74,7 @@ export default `
         id:ID!
         nights:Int!
         location:Location!
+        position:Int
         locked:Boolean!
     }
     type Guide {
@@ -108,9 +105,10 @@ export default `
 
     type Mutation {
         addStayFromAddress(guideId:ID!,locked:Boolean!,label:String!,address:AddressInput!,nights:Int!):ItemId
-        addStayFromLagLng(guideId:ID!,locked:Boolean!,label:String!,lat:Float!,long:Float!,nights:Int!):ItemId
+        addStayFromLagLng(guideId:ID!,locked:Boolean!,label:String,lat:Float!,long:Float!,nights:Int!):ItemId
         moveStay(lat:Float!,long:Float!,locationId:ID!):ItemId
         deleteStay(stayId:ID!):ItemId
+        deleteAllStays(guideId:ID!):ItemId
         createUser(email:String!,username:String!):ItemId
         createGuide(userId:ID!,title:String!):ItemId
     }
@@ -120,8 +118,6 @@ export default `
     }
 
     type Query {
-        allAddresss: [Address!]!
-        address(id:ID):Address
         allGuides: [Guide!]!
         guide(slug:String!):Guide
         allLocations: [Location!]!
