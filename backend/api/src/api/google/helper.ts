@@ -16,13 +16,13 @@ export function extractLabel(result: GeocodingResult): string {
     });
 
     if (country) {
-        if (neighborhood) {
-            return `${neighborhood.long_name}, ${country.long_name}`
+        if (administrative_area_level_1) {
+            return `${administrative_area_level_1.long_name}, ${country.long_name}`
         } else if (sublocality) {
             return `${sublocality.long_name}, ${country.long_name}`
-        } else if (administrative_area_level_1) {
-            return `${administrative_area_level_1.long_name}, ${country.long_name}`
-        } else {
+        } else if (neighborhood) {
+            return `${neighborhood.long_name}, ${country.long_name}`
+        } else  {
             return country.long_name
         }
     }

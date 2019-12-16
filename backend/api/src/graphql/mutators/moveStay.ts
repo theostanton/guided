@@ -1,14 +1,24 @@
-import daos from '../../database/daos'
-import {CalculateRideHandler, updateAll} from "../../events/CalculateRideHandler";
+import {daos} from '../../database'
+import {updateAll} from "../../events/CalculateRideHandler";
 import {MutationToMoveStayArgs} from "@guided/common";
+import {generateLocationRow} from "../../database/models/location";
 
 export default async function (_: void, {locationId, lat, long}: MutationToMoveStayArgs): Promise<{ id: string } | null> {
 
-    const {guide:guideId} = await daos.stay.findOne({'location':locationId});
+    const {guide: guideId, id: stayId} = await daos.stay.findOne({'location': locationId});
+    const {label} = await daos.location.get(locationId);
+    const locationRow = await generateLocationRow(lat, long, label);
+
     await daos.location.update({
+        ...locationRow,
         id: locationId,
         long,
         lat
+    });
+
+    await daos.stay.update({
+        id: stayId,
+        locked: true
     });
 
     await updateAll(guideId);
