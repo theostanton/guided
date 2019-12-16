@@ -74,6 +74,7 @@ export default `
         id:ID!
         nights:Int!
         location:Location!
+        arrivalDate:Date
         position:Int
         locked:Boolean!
     }
@@ -109,6 +110,7 @@ export default `
         moveStay(lat:Float!,long:Float!,locationId:ID!):ItemId
         deleteStay(stayId:ID!):ItemId
         deleteAllStays(guideId:ID!):ItemId
+        updateStay(id:ID!,locked:Boolean!,label:String!,nights:Int!):ItemId
         createUser(email:String!,username:String!):ItemId
         createGuide(userId:ID!,title:String!):ItemId
     }

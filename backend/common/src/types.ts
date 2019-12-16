@@ -47,6 +47,7 @@ export interface Stay {
   id: string;
   nights: number;
   location: Location;
+  arrivalDate?: Date;
   position?: number;
   locked: boolean;
 }
@@ -119,6 +120,7 @@ export interface Mutation {
   moveStay?: ItemId;
   deleteStay?: ItemId;
   deleteAllStays?: ItemId;
+  updateStay?: ItemId;
   createUser?: ItemId;
   createGuide?: ItemId;
 }
@@ -298,6 +300,7 @@ export interface StayTypeResolver<TParent = any> {
   id?: StayToIdResolver<TParent>;
   nights?: StayToNightsResolver<TParent>;
   location?: StayToLocationResolver<TParent>;
+  arrivalDate?: StayToArrivalDateResolver<TParent>;
   position?: StayToPositionResolver<TParent>;
   locked?: StayToLockedResolver<TParent>;
 }
@@ -311,6 +314,10 @@ export interface StayToNightsResolver<TParent = any, TResult = any> {
 }
 
 export interface StayToLocationResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface StayToArrivalDateResolver<TParent = any, TResult = any> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
 }
 
@@ -530,6 +537,7 @@ export interface MutationTypeResolver<TParent = any> {
   moveStay?: MutationToMoveStayResolver<TParent>;
   deleteStay?: MutationToDeleteStayResolver<TParent>;
   deleteAllStays?: MutationToDeleteAllStaysResolver<TParent>;
+  updateStay?: MutationToUpdateStayResolver<TParent>;
   createUser?: MutationToCreateUserResolver<TParent>;
   createGuide?: MutationToCreateGuideResolver<TParent>;
 }
@@ -578,6 +586,16 @@ export interface MutationToDeleteAllStaysArgs {
 }
 export interface MutationToDeleteAllStaysResolver<TParent = any, TResult = any> {
   (parent: TParent, args: MutationToDeleteAllStaysArgs, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface MutationToUpdateStayArgs {
+  id: string;
+  locked: boolean;
+  label: string;
+  nights: number;
+}
+export interface MutationToUpdateStayResolver<TParent = any, TResult = any> {
+  (parent: TParent, args: MutationToUpdateStayArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface MutationToCreateUserArgs {

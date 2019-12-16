@@ -1,7 +1,7 @@
 import {daos} from '../../database'
-import {updateAll} from "../../events/Index";
 import {MutationToMoveStayArgs} from "@guided/common";
 import {generateLocationRow} from "../../database/models/location";
+import {updateAll} from "../../events/calculateride";
 
 export default async function (_: void, {locationId, lat, long}: MutationToMoveStayArgs): Promise<{ id: string } | null> {
 

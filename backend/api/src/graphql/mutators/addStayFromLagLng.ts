@@ -1,10 +1,9 @@
 import daos from '../../database/daos'
-import {publishGuide} from "../subscriptions";
-import {updateAll} from "../../events/Index";
 import {generateId} from "../../database/utils";
 import {MutationToAddStayFromLagLngArgs} from "@guided/common";
 import DB from '../../database'
 import {generateLocationRow} from "../../database/models/location";
+import {updateAll} from "../../events/calculateride";
 
 export default async function (_: void, {guideId, locked, label, lat, long, nights}: MutationToAddStayFromLagLngArgs): Promise<{ id: string } | null> {
 
@@ -21,7 +20,7 @@ export default async function (_: void, {guideId, locked, label, lat, long, nigh
         id: generateId('stay'),
         nights,
         locked,
-        position: currentPosition===undefined ? 0 : currentPosition + 100,
+        position: currentPosition === undefined ? 0 : currentPosition + 100,
         location: locationId,
         guide: guideId
     });

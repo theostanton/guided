@@ -4,6 +4,7 @@ import {observer} from "mobx-react";
 import {Segment, Grid, GridRow, GridColumn, Button, Icon} from "semantic-ui-react";
 import {RideDetailRail} from "../../../components/rails/RideDetailRail";
 import {deleteAllStays} from "../../../data/graphql";
+import {StayDetailRail} from "../../../components/rails/StayDetailRail";
 
 type Props = {
     store: Store
@@ -15,6 +16,11 @@ export default class RightRail extends React.Component<Props> {
     render(): React.ReactElement {
         if (this.props.store.selectedRide) {
             return <Segment style={{height: '100%', backgroundColor: '#ffffff', overflowY: 'scroll'}}>
+                <RideDetailRail store={this.props.store}/>
+            </Segment>
+        } else if (this.props.store.selectedStay) {
+            return <Segment style={{height: '100%', backgroundColor: '#ffffff', overflowY: 'scroll'}}>
+                <StayDetailRail store={this.props.store}/>
             </Segment>
         } else {
             return (

@@ -1,6 +1,6 @@
 import daos from '../../database/daos'
-import {updateAll} from "../../events/Index";
 import {MutationToDeleteStayArgs} from "@guided/common";
+import {updateAll} from "../../events/calculateride";
 
 export default async function (_: void, {stayId}: MutationToDeleteStayArgs): Promise<{ id: string } | null> {
 

@@ -25,6 +25,7 @@ export type StayRow = {
     id: string
     location: string
     nights: number
+    arrivalDate:Date
     position: number
     guide: string
     locked: boolean

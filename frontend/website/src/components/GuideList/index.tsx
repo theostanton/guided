@@ -29,10 +29,7 @@ export default class GuideList extends React.Component<Props> {
                     <StayItem key={stay.id}
                               store={this.props.store}
                               stay={stay}
-                              isSelected={false}
-                              selectStay={(stay) => {
-
-                              }}/>
+                              isSelected={false}/>
                 );
 
                 if (next && i < stays.length - 1) {

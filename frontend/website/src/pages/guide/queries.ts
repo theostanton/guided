@@ -11,6 +11,7 @@ export const QUERY = gql`
             stays{
                 id
                 locked
+                nights
                 position
                 location{
                     id

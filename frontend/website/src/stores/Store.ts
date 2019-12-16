@@ -23,6 +23,9 @@ export class Store {
     rides: Ride[];
 
     @observable
+    selectedStay: Stay | undefined;
+
+    @observable
     selectedRide: Ride | undefined;
 
     @observable
@@ -31,11 +34,17 @@ export class Store {
     @observable
     highlightedStay: Stay | undefined;
 
-    updateMap(){
+    updateMap() {
         if (this.mapCallback) {
             console.log('updateMap()');
             this.mapCallback()
         }
+    }
+
+    selectStay(stay: Stay | undefined) {
+        this.selectedRide = undefined;
+        this.selectedStay = stay;
+        this.updateMap();
     }
 
     selectRide(ride: Ride | undefined) {

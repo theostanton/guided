@@ -9,7 +9,7 @@ export {
 }
 
 const pgp = require('pg-promise')({
-    schema:'test'
+    schema:'public'
 });
 
 const logger = new Logger('Database');

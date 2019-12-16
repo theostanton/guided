@@ -5,7 +5,7 @@ import {Guide} from '@guided/common'
 
 async function stays(guide: Guide): Promise<StayRow[]> {
     const query = `SELECT * from stays where guide='${guide.id}' order by position asc`;
-    return  DB().query(query);
+    return await DB().query(query);
 }
 
 async function user(guide: GuideRow): Promise<UserRow> {
