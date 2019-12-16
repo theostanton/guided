@@ -8,7 +8,9 @@ export {
     daos
 }
 
-const pgp = require('pg-promise')({});
+const pgp = require('pg-promise')({
+    schema:'test'
+});
 
 const logger = new Logger('Database');
 

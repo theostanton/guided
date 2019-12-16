@@ -1,16 +1,14 @@
-import {QueueHandler} from "./QueueHandler";
-import daos from '../database/daos'
-import * as Google from '../api/google'
-import Bull = require("bull");
-import {LocationRow, RideRow, StayRow} from "../database/types";
-import {generateId} from "../database/utils";
-import {Logger} from "@guided/common/srv/Logger";
-import {stay} from "../graphql/resolvers/Query/stays";
-import {LatLng, Leg, Stay, Step} from "@guided/common";
-import {DirectionsStep, RouteLeg} from "@google/maps";
-import {generateLocationRow} from "../database/models/location";
-import executeSequentially from "../utils/executeSequentially";
-import {calculateRide} from "./index";
+import {LocationRow, RideRow, StayRow} from "../../database/types";
+import {DirectionsStep} from "@google/maps";
+import {generateId} from "../../database/utils";
+import {LatLng, Logger} from "@guided/common";
+import {daos} from "../../database";
+import {QueueHandler} from "../QueueHandler";
+import executeSequentially from "../../utils/executeSequentially";
+import {calculateRide} from "../index";
+import * as Google from '../../api/google'
+import {generateLocationRow} from "../../database/models/location";
+import Bull from "bull";
 
 export type Context = {
     startStayId: string
@@ -31,7 +29,7 @@ type Packet = {
     }
 }
 
-const logger = new Logger('CalculateRideHandler');
+const logger = new Logger('Index');
 
 export async function updateAll(guideId: string): Promise<void> {
 
@@ -174,7 +172,7 @@ export class CalculateRideHandler extends QueueHandler<Context> {
 
     async handle(context: Context, done: Bull.DoneCallback): Promise<void> {
 
-        const packet = await createPacket(context)
+        const packet = await createPacket(context);
 
         await daos.location.insertMany(packet.locationRows);
         await daos.stay.insertMany(packet.stayRows);

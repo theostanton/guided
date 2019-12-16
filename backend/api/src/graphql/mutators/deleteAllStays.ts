@@ -1,5 +1,5 @@
 import daos from '../../database/daos'
-import {updateAll} from "../../events/CalculateRideHandler";
+import {updateAll} from "../../events/Index";
 import {MutationToDeleteAllStaysArgs} from "@guided/common";
 
 export default async function (_: void, {guideId}: MutationToDeleteAllStaysArgs): Promise<{ id: string } | null> {

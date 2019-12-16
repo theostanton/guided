@@ -28,19 +28,11 @@ export default class StayItem extends React.Component<Props> {
                     <GridColumn width={1}>
                         <Icon name={'marker'} color={stay.locked === true ? 'black' : 'grey'}/>
                     </GridColumn>
-                    <GridColumn width={10}>
-                        <Header key={stay.id} as='h5'>
+                    <GridColumn width={11}>
+                        <Header key={stay.id} as='h5' textAlign={'left'}>
                             {stay.location.label}
                         </Header>
                     </GridColumn>
-                    {stay.locked &&
-                    <GridColumn width={1}>
-                        <Icon name={'trash'} onClick={async () => {
-                            await this.deleteStay();
-                            this.props.store.refetch()
-                        }}/>
-                    </GridColumn>
-                    }
                 </Grid>
             </ListItem>
         )

@@ -1,6 +1,6 @@
 import daos from '../../database/daos'
 import {publishGuide} from "../subscriptions";
-import {updateAll} from "../../events/CalculateRideHandler";
+import {updateAll} from "../../events/Index";
 import {generateId} from "../../database/utils";
 import {MutationToAddStayFromLagLngArgs} from "@guided/common";
 import DB from '../../database'

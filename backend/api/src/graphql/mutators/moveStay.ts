@@ -1,5 +1,5 @@
 import {daos} from '../../database'
-import {updateAll} from "../../events/CalculateRideHandler";
+import {updateAll} from "../../events/Index";
 import {MutationToMoveStayArgs} from "@guided/common";
 import {generateLocationRow} from "../../database/models/location";
 
