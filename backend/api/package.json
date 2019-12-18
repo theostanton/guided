@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "start:dev": "ts-node-dev src/index.ts --transpile-only --debug",
     "build": "tsc",
@@ -8,16 +8,16 @@
     "start:prod": "node srv/index.js"
   },
   "dependencies": {
-    "@types/compression": "^1.0.1",
-    "@types/graphql-depth-limit": "^1.1.2",
     "@google/maps": "^1.0.2",
     "@guided/common": "latest",
-    "@types/node-fetch": "^2.5.4",
     "@types/bull": "^3.10.6",
+    "@types/compression": "^1.0.1",
     "@types/express": "^4.17.2",
     "@types/google__maps": "^0.5.8",
     "@types/graphql": "^14.5.0",
+    "@types/graphql-depth-limit": "^1.1.2",
     "@types/node": "^12.12.7",
+    "@types/node-fetch": "^2.5.4",
     "apollo": "^2.21.1",
     "apollo-server": "^2.9.12",
     "apollo-server-express": "^2.9.12",
@@ -33,12 +33,12 @@
     "typescript": "^3.7.2"
   },
   "devDependencies": {
-    "jest": "^24.9.0",
+    "@types/graphql-depth-limit": "^1.1.2",
     "@types/jest": "^24.0.23",
+    "jest": "^24.9.0",
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
-    "ts-node-dev": "^1.0.0-pre.44",
-    "@types/graphql-depth-limit": "^1.1.2"
+    "ts-node-dev": "^1.0.0-pre.44"
   },
   "gitHead": "76eb0ac75bd8b862ae8f22f5ea28d60eebadfc03"
 }

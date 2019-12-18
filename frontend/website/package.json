@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build",
@@ -23,7 +23,7 @@
     "@graphql-codegen/add": "^1.2.0",
     "@graphql-codegen/cli": "^1.2.0",
     "@graphql-codegen/typescript": "^1.2.0",
-    "@guided/common": "*",
+    "@guided/common": "^0.0.4",
     "@mapbox/polyline": "^1.1.0",
     "@types/reach__router": "^1.2.4",
     "@types/react": "^16.8.19",

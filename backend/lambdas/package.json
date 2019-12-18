@@ -1,8 +1,7 @@
 {
   "name": "lambdas",
-  "version": "0.0.3",
-  "scripts": {
-  },
+  "version": "0.0.4",
+  "scripts": {},
   "dependencies": {
     "@guided/common": "latest",
     "axios": "^0.19.0",
