@@ -14,20 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require("graphql-import-node");
 var apollo_server_express_1 = require("apollo-server-express");
 var graphql_depth_limit_1 = __importDefault(require("graphql-depth-limit"));
-var typeDefs = require('@guided/common/schema.graphql');
+var common_1 = require("@guided/common");
 var resolvers_1 = __importDefault(require("./resolvers"));
 var mutators_1 = __importDefault(require("./mutators"));
 var subscriptions_1 = require("./subscriptions");
-exports.schema = apollo_server_express_1.makeExecutableSchema({
-    typeDefs: typeDefs,
+exports.executableSchema = apollo_server_express_1.makeExecutableSchema({
+    typeDefs: common_1.schema,
     resolvers: __assign(__assign({}, resolvers_1.default), { Mutation: mutators_1.default,
         Subscription: subscriptions_1.Subscription })
 });
 exports.server = new apollo_server_express_1.ApolloServer({
-    schema: exports.schema,
+    schema: exports.executableSchema,
     debug: true,
     tracing: true,
     validationRules: [graphql_depth_limit_1.default(7)],

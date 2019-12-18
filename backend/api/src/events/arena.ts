@@ -1,5 +1,4 @@
 const Arena = require('bull-arena');
-
 const express = require('express');
 
 export default Arena({

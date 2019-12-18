@@ -44,42 +44,46 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = __importStar(require("./index"));
+var common_1 = require("@guided/common");
 var DAO = (function () {
     function DAO() {
+        this.logger = new common_1.Logger("DAO");
     }
     DAO.prototype.get = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2, index_1.default().one("\n            SELECT *\n            FROM public." + this.table + "\n            where id = $1\n        ", [id])];
+                return [2, index_1.default().one("\n            SELECT *\n            FROM " + this.table + "\n            where id = $1\n        ", [id])];
             });
         });
     };
     DAO.prototype.getOptional = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2, index_1.default().oneOrNone("\n            SELECT *\n            FROM public." + this.table + "\n            where id = $1\n        ", [id])];
+                return [2, index_1.default().oneOrNone("\n            SELECT *\n            FROM " + this.table + "\n            where id = $1\n        ", [id])];
             });
         });
     };
     DAO.prototype.findOne = function (keyValues) {
         return __awaiter(this, void 0, void 0, function () {
-            var where;
+            var where, query;
             return __generator(this, function (_a) {
                 where = Object.keys(keyValues).map(function (key) {
-                    return "\"" + key + "\"=" + keyValues[key];
+                    return "\"" + key + "\"='" + keyValues[key] + "'";
                 }).join(' and ');
-                return [2, index_1.default().one("\n            SELECT *\n            FROM public." + this.table + "\n            where " + where + "\n        ")];
+                query = "\n            SELECT *\n            FROM " + this.table + "\n            where " + where + "\n        ";
+                return [2, index_1.default().one(query)];
             });
         });
     };
     DAO.prototype.findMany = function (keyValues) {
         return __awaiter(this, void 0, void 0, function () {
-            var where;
+            var where, query;
             return __generator(this, function (_a) {
                 where = Object.keys(keyValues).map(function (key) {
-                    return "\"" + key + "\"=" + keyValues[key];
+                    return "\"" + key + "\"='" + keyValues[key] + "'";
                 }).join(' and ');
-                return [2, index_1.default().manyOrNone("\n            SELECT *\n            FROM public." + this.table + "\n            where " + where + "\n        ")];
+                query = "\n            SELECT *\n            FROM " + this.table + "\n            where " + where + "\n        ";
+                return [2, index_1.default().manyOrNone(query)];
             });
         });
     };
@@ -88,9 +92,16 @@ var DAO = (function () {
             var where, query;
             return __generator(this, function (_a) {
                 where = Object.keys(keyValues).map(function (key) {
-                    return "\"" + key + "\"=" + keyValues[key];
+                    var value = keyValues[key];
+                    if (typeof value === 'boolean') {
+                        return "\"" + key + "\"=" + keyValues[key];
+                    }
+                    else {
+                        return "\"" + key + "\"='" + keyValues[key] + "'";
+                    }
                 }).join(' and ');
-                query = "\n            DELETE FROM public." + this.table + "\n            where " + where + "\n        ";
+                query = "\n            DELETE FROM " + this.table + "\n            where " + where + "\n        ";
+                this.logger.info("deleteWhere: " + query);
                 return [2, index_1.default().none(query)];
             });
         });
@@ -98,7 +109,7 @@ var DAO = (function () {
     DAO.prototype.getAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2, index_1.default().manyOrNone("\n            SELECT *\n            FROM public." + this.table + "\n        ")];
+                return [2, index_1.default().manyOrNone("\n            SELECT *\n            FROM " + this.table + "\n        ")];
             });
         });
     };
@@ -106,6 +117,18 @@ var DAO = (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2, index_1.insert(t, this.table)];
+            });
+        });
+    };
+    DAO.prototype.insertMany = function (ts) {
+        return __awaiter(this, void 0, void 0, function () {
+            var columns;
+            return __generator(this, function (_a) {
+                if (ts.length === 0) {
+                    return [2];
+                }
+                columns = Object.keys(ts[0]);
+                return [2, index_1.insertMany(ts, this.table, columns)];
             });
         });
     };

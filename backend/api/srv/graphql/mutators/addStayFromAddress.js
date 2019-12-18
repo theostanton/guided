@@ -35,44 +35,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var daos_1 = __importDefault(require("../../database/daos"));
-function default_1(_, _a) {
-    var guideId = _a.guideId, locked = _a.locked, label = _a.label, addressInput = _a.address;
+function default_1(_, args) {
     return __awaiter(this, void 0, void 0, function () {
-        var addressId, loctionId, stayId;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    console.log('guideId', guideId);
-                    console.log('locked', locked);
-                    console.log('label', label);
-                    console.log('addressInput', addressInput);
-                    return [4, daos_1.default.address.insert(addressInput)];
-                case 1:
-                    addressId = (_b.sent()).id;
-                    return [4, daos_1.default.location.insert({
-                            address: addressId,
-                            label: label,
-                            lat: 0,
-                            long: 0
-                        })];
-                case 2:
-                    loctionId = (_b.sent()).id;
-                    return [4, daos_1.default.stay.insert({
-                            locked: locked,
-                            location: loctionId,
-                            guide: guideId
-                        })];
-                case 3:
-                    stayId = (_b.sent()).id;
-                    return [2, {
-                            id: stayId
-                        }];
-            }
+        return __generator(this, function (_a) {
+            throw new Error('Stubbed');
         });
     });
 }

@@ -2,17 +2,17 @@
   "name": "api",
   "version": "0.0.3",
   "scripts": {
-    "start": "ts-node-dev src/index.ts --transpile-only --debug",
+    "start:dev": "ts-node-dev src/index.ts --transpile-only --debug",
     "build": "tsc",
     "test": "jest",
-    "deploy": "tsc && ./deploy.sh",
-    "start:prod": "ts-node src/index.ts",
-    "deploy:local": "docker run -p 4000:4000 -d theostanton1/explore-graphql",
-    "deploy:build": "docker build -t theostanton1/explore-graphql ."
+    "start:prod": "node srv/index.js"
   },
   "dependencies": {
+    "@types/compression": "^1.0.1",
+    "@types/graphql-depth-limit": "^1.1.2",
     "@google/maps": "^1.0.2",
-    "@guided/common": "*",
+    "@guided/common": "latest",
+    "@types/node-fetch": "^2.5.4",
     "@types/bull": "^3.10.6",
     "@types/express": "^4.17.2",
     "@types/google__maps": "^0.5.8",
@@ -34,7 +34,6 @@
   },
   "devDependencies": {
     "jest": "^24.9.0",
-    "@types/compression": "^1.0.1",
     "@types/jest": "^24.0.23",
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",

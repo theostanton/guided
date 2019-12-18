@@ -8,7 +8,7 @@
     "noLib": false,
     "lib": [
       "dom",
-      "es6"
+      "es2015"
     ],
     /* Specify library files to be included in the compilation. */
     // "allowJs": true,                       /* Allow javascript files to be compiled. */

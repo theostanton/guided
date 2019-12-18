@@ -10,7 +10,7 @@ export const client = googlemaps.createClient({
 export async function directions(startLat: number, startLong: number, endLat: number, endLong: number, waypoints: LatLng[]): Promise<DirectionsResponse> {
 
     const {json: data} = await client.directions({
-        waypoints: waypoints.map(waypoint => {
+        waypoints: waypoints.map((waypoint: LatLng) => {
             return {
                 lng: waypoint.long,
                 lat: waypoint.lat

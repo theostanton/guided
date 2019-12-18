@@ -6,9 +6,11 @@
     "lerna": "^3.19.0"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist",
-    "clean": "lerna clean",
+    "bootstrap": "lerna bootstrap",
+    "clean": "rm -rf node_modules && lerna clean -y",
+    "deploy": "lerna run deploy && ./deploy.sh",
     "start:all": "lerna run start --parallel",
+    "start:api:prod": "cd backend/api && yarn start:prod",
     "start:website": "lerna run start --parallel --ignore usersite",
     "start:usersite": "lerna run start --parallel --ignore website"
   }

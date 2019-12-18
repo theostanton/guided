@@ -1,8 +1,8 @@
 import memoize from "../utils/memoize";
 import {IDatabase, QueryColumns} from "pg-promise";
 import {Table} from "./constants";
-import {Logger} from "@guided/common";
 import daos from './daos'
+import {Logger} from "@guided/common";
 
 export {
     daos

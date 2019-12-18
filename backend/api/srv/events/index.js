@@ -36,18 +36,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var CalculateRideHandler_1 = require("./CalculateRideHandler");
-function calculateRide(startStayId, endStayId) {
+var calculateride_1 = require("./calculateride");
+function calculateRide(context) {
     return __awaiter(this, void 0, void 0, function () {
         var handler;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    console.log('calculateRide', startStayId, 'to', endStayId);
-                    return [4, CalculateRideHandler_1.CalculateRideHandler.get()];
+                case 0: return [4, calculateride_1.CalculateRideHandler.get()];
                 case 1:
                     handler = _a.sent();
-                    return [4, handler.add({ startStayId: startStayId, endStayId: endStayId })];
+                    return [4, handler.add(context)];
                 case 2:
                     _a.sent();
                     return [2];
@@ -61,9 +59,12 @@ function subscribe() {
         var handler;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4, CalculateRideHandler_1.CalculateRideHandler.get()];
+                case 0: return [4, calculateride_1.CalculateRideHandler.get()];
                 case 1:
                     handler = _a.sent();
+                    return [4, handler.subscribe()];
+                case 2:
+                    _a.sent();
                     return [2];
             }
         });

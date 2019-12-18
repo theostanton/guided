@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,33 +46,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var daos_1 = __importDefault(require("../../database/daos"));
-var CalculateRideHandler_1 = require("../../events/CalculateRideHandler");
+var database_1 = require("../../database");
+var location_1 = require("../../database/models/location");
+var calculateride_1 = require("../../events/calculateride");
 function default_1(_, _a) {
     var locationId = _a.locationId, lat = _a.lat, long = _a.long;
     return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var _b, guideId, stayId, label, locationRow;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    console.log('locationId!', locationId);
-                    console.log('lat', lat);
-                    console.log('long', long);
-                    return [4, daos_1.default.location.update({
-                            id: locationId,
-                            long: long,
-                            lat: lat
-                        })];
+                    console.log('moveStay');
+                    return [4, database_1.daos.stay.findOne({ 'location': locationId })];
                 case 1:
-                    _b.sent();
-                    console.log('gonna updateAll');
-                    return [4, CalculateRideHandler_1.CalculateRideHandler.updateAll()];
+                    _b = _c.sent(), guideId = _b.guide, stayId = _b.id;
+                    return [4, database_1.daos.location.get(locationId)];
                 case 2:
-                    _b.sent();
-                    console.log('updatedAll');
+                    label = (_c.sent()).label;
+                    return [4, location_1.generateLocationRow(lat, long, label)];
+                case 3:
+                    locationRow = _c.sent();
+                    return [4, database_1.daos.location.update(__assign(__assign({}, locationRow), { id: locationId, long: long,
+                            lat: lat }))];
+                case 4:
+                    _c.sent();
+                    return [4, database_1.daos.stay.update({
+                            id: stayId,
+                            locked: true
+                        })];
+                case 5:
+                    _c.sent();
+                    return [4, calculateride_1.updateAll(guideId)];
+                case 6:
+                    _c.sent();
                     return [2, {
                             id: locationId
                         }];

@@ -40,41 +40,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var daos_1 = __importDefault(require("../../database/daos"));
-var subscriptions_1 = require("../subscriptions");
-var CalculateRideHandler_1 = require("../../events/CalculateRideHandler");
+var utils_1 = require("../../database/utils");
+var database_1 = __importDefault(require("../../database"));
+var location_1 = require("../../database/models/location");
+var calculateride_1 = require("../../events/calculateride");
 function default_1(_, _a) {
-    var guideId = _a.guideId, locked = _a.locked, label = _a.label, lat = _a.lat, long = _a.long;
+    var guideId = _a.guideId, locked = _a.locked, label = _a.label, lat = _a.lat, long = _a.long, nights = _a.nights;
     return __awaiter(this, void 0, void 0, function () {
-        var loctionId, stayId;
+        var locationRow, locationId, query, currentPosition, stayId;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    console.log('guideId', guideId);
-                    console.log('locked', locked);
-                    console.log('label', label);
-                    console.log('lat', lat);
-                    console.log('long', long);
-                    return [4, daos_1.default.location.insert({
-                            label: label,
-                            lat: lat,
-                            long: long
-                        })];
+                    console.log('addStayFromLagLng()');
+                    return [4, location_1.generateLocationRow(lat, long, label)];
                 case 1:
-                    loctionId = (_b.sent()).id;
+                    locationRow = _b.sent();
+                    return [4, daos_1.default.location.insert(locationRow)];
+                case 2:
+                    locationId = (_b.sent()).id;
+                    query = "SELECT max(position) as max from stays where guide='" + guideId + "' and locked=true";
+                    return [4, database_1.default().one(query)];
+                case 3:
+                    currentPosition = (_b.sent()).max;
                     return [4, daos_1.default.stay.insert({
+                            id: utils_1.generateId('stay'),
+                            nights: nights,
                             locked: locked,
-                            location: loctionId,
+                            position: currentPosition === undefined ? 0 : currentPosition + 100,
+                            location: locationId,
                             guide: guideId
                         })];
-                case 2:
-                    stayId = (_b.sent()).id;
-                    return [4, subscriptions_1.publishGuide({
-                            id: guideId
-                        })];
-                case 3:
-                    _b.sent();
-                    return [4, CalculateRideHandler_1.CalculateRideHandler.updateAll()];
                 case 4:
+                    stayId = (_b.sent()).id;
+                    return [4, calculateride_1.updateAll(guideId)];
+                case 5:
                     _b.sent();
                     return [2, {
                             id: stayId

@@ -40,13 +40,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var memoize_1 = __importDefault(require("../utils/memoize"));
-var pgp = require('pg-promise')({});
+var common_1 = require("@guided/common");
+var daos_1 = __importDefault(require("./daos"));
+exports.daos = daos_1.default;
+var pgp = require('pg-promise')({
+    schema: 'public'
+});
+var logger = new common_1.Logger('Database');
 function insert(data, table, columns) {
     var query = pgp.helpers.insert(data, columns, table);
     query += ' RETURNING ID';
     return exports.db().one(query);
 }
 exports.insert = insert;
+function insertMany(data, table, columns) {
+    return __awaiter(this, void 0, void 0, function () {
+        var query;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    query = pgp.helpers.insert(data, columns, table);
+                    logger.info("insertMany: " + query);
+                    return [4, exports.db().none(query)];
+                case 1:
+                    _a.sent();
+                    return [2];
+            }
+        });
+    });
+}
+exports.insertMany = insertMany;
 function update(data, table) {
     return __awaiter(this, void 0, void 0, function () {
         var columns, query;
@@ -61,8 +84,8 @@ function update(data, table) {
                             return key;
                         }
                     });
-                    query = pgp.helpers.update(data, columns, table) + (" where id=" + data.id);
-                    console.log(query);
+                    query = pgp.helpers.update(data, columns, table) + (" where id='" + data.id + "'");
+                    logger.info(query);
                     return [4, exports.db().none(query)];
                 case 1:
                     _a.sent();

@@ -46,7 +46,7 @@ function default_1(params, action) {
                             case 0: return [4, previousPromise];
                             case 1:
                                 _a.sent();
-                                return [2, action(param)];
+                                return [2, action(param, index)];
                         }
                     });
                 }); }, Promise.resolve())];

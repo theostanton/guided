@@ -1,5 +1,5 @@
 import daos from '../../database/daos'
-import { MutationToAddStayFromAddressArgs} from "@guided/common";
+import {MutationToAddStayFromAddressArgs} from "@guided/common";
 import {generateId} from "../../database/utils";
 
 export default async function (_: void, args: MutationToAddStayFromAddressArgs): Promise<{ id: string } | null> {

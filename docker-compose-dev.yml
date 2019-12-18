@@ -51,12 +51,6 @@ services:
     image: 132788847502.dkr.ecr.eu-west-2.amazonaws.com/guided/api
     ports:
       - "4000:4000"
-    logging:
-      driver: awslogs
-      options:
-        awslogs-group: guided
-        awslogs-region: eu-west-2
-        awslogs-stream-prefix: api
 #
 #  website:
 #    container_name: "website"

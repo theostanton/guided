@@ -1,18 +1,34 @@
-FROM node:12-alpine
+FROM node:12-alpine as builder
+
+# Environment
 
 WORKDIR /app
 
 EXPOSE 4000
 
-COPY package.json ./
-#COPY yarn.lock ./
+# Dependencies
 
-RUN yarn
-RUN yarn global add ts-node
-# If you are building your code for production
-# RUN npm ci --only=production
+COPY package.json /app
+COPY yarn.lock /app
+COPY lerna.json /app/
 
-# Bundle app source
-COPY . .
+COPY backend/api/package.json /app/backend/api/
+COPY backend/api/yarn.lock /app/backend/api/
 
-CMD [ "yarn", "start" ]
+COPY backend/common/package.json /app/backend/common/
+COPY backend/common/yarn.lock /app/backend/common/
+
+RUN npx lerna bootstrap -- --ignore-scripts --production --no-optional --nohoist=*
+
+# Build
+
+COPY . /app
+RUN cd backend/common && npx  -p typescript tsc
+RUN cd backend/api && npx  -p typescript tsc
+
+# Serve
+
+FROM node:12-alpine
+COPY --from=builder /app/ /app
+
+CMD [ "yarn", "start:api:prod" ]

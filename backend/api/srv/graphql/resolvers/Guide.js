@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,12 +50,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var StayDao_1 = __importDefault(require("../../database/daos/StayDao"));
+var database_1 = __importDefault(require("../../database/"));
 var UserDao_1 = __importDefault(require("../../database/daos/UserDao"));
 function stays(guide) {
     return __awaiter(this, void 0, void 0, function () {
+        var query, stays, offset;
         return __generator(this, function (_a) {
-            return [2, new StayDao_1.default().findMany({ 'guide': guide.id })];
+            switch (_a.label) {
+                case 0:
+                    query = "SELECT * from stays where guide='" + guide.id + "' order by position asc";
+                    return [4, database_1.default().manyOrNone(query)];
+                case 1:
+                    stays = _a.sent();
+                    offset = 0;
+                    return [2, stays.map(function (stay) {
+                            var arrivalDate = new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * offset);
+                            offset += stay.nights;
+                            return __assign(__assign({}, stay), { arrivalDate: arrivalDate });
+                        })];
+            }
         });
     });
 }

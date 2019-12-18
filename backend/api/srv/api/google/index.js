@@ -44,12 +44,18 @@ exports.client = maps_1.default.createClient({
     key: 'AIzaSyDQFYYLKKcqmY0RWlysZOQlWPgGZEAM3po',
     Promise: Promise
 });
-function directions(startLat, startLong, endLat, endLong) {
+function directions(startLat, startLong, endLat, endLong, waypoints) {
     return __awaiter(this, void 0, void 0, function () {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4, exports.client.directions({
+                        waypoints: waypoints.map(function (waypoint) {
+                            return {
+                                lng: waypoint.long,
+                                lat: waypoint.lat
+                            };
+                        }),
                         origin: {
                             lat: startLat,
                             lng: startLong
@@ -67,3 +73,22 @@ function directions(startLat, startLong, endLat, endLong) {
     });
 }
 exports.directions = directions;
+function reverseGeocode(lat, lng) {
+    return __awaiter(this, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4, exports.client.reverseGeocode({
+                        latlng: {
+                            lat: lat,
+                            lng: lng
+                        }
+                    }).asPromise()];
+                case 1:
+                    data = (_a.sent()).json;
+                    return [2, data];
+            }
+        });
+    });
+}
+exports.reverseGeocode = reverseGeocode;
