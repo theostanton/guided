@@ -23,10 +23,10 @@ type State = {
 export class StayDetailRail extends React.Component<Props, State> {
 
     componentDidMount(): void {
-            this.setState({
-                stay: this.props.store.selectedStay,
-                loading: false
-            })
+        this.setState({
+            stay: this.props.store.selectedStay,
+            loading: false
+        })
     }
 
     componentWillUpdate(nextProps: Readonly<Props>, nextState: Readonly<State>, nextContext: any): void {
@@ -69,10 +69,6 @@ export class StayDetailRail extends React.Component<Props, State> {
     async onSubmit(): Promise<void> {
         const stay = this.state.stay;
         this.setState({
-            loading: true
-        });
-
-        this.setState({
             loading: false
         });
         await updateStay({
@@ -81,10 +77,6 @@ export class StayDetailRail extends React.Component<Props, State> {
             locked: stay.locked,
             label: stay.location.label
         });
-
-
-        await sleep(5000);
-
     }
 
     render(): React.ReactElement {
@@ -94,6 +86,13 @@ export class StayDetailRail extends React.Component<Props, State> {
         }
 
         const stay = this.state.stay;
+
+
+        const date = new Date(stay.arrivalDate);
+
+        const formattedDate = date.toISOString().substring(0,10);
+        console.log('formattedDate', formattedDate);
+
         return (
             <Grid padded={false}>
                 <GridRow stretched>
@@ -111,7 +110,7 @@ export class StayDetailRail extends React.Component<Props, State> {
                         <Form>
                             <Form.Field>
                                 <label>Label</label>
-                                <input value={stay.location.label} onChange={(event) => {
+                                <textarea rows={2} value={stay.location.label} onChange={(event) => {
                                     this.onLabelChange(event.target.value)
                                 }}/>
                             </Form.Field>
@@ -127,7 +126,7 @@ export class StayDetailRail extends React.Component<Props, State> {
                             </Form.Field>
                             <Form.Field>
                                 <label>Date</label>
-                                <input value={'1989-06-18'} type={'date'} disabled/>
+                                <input value={formattedDate} type={'date'} disabled/>
                             </Form.Field>
                             <Button type='submit' loading={this.state.loading} disabled={!this.hasChanges()}
                                     onClick={this.onSubmit.bind(this)}>Submit</Button>

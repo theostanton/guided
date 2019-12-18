@@ -17,14 +17,13 @@ export default class GuideList extends React.Component<Props> {
 
             const items: any = [];
 
-
-            const stays = this.props.store.guide.stays;
+            const stays = this.props.store.guide.stays.sort((a, b) => {
+                return a.arrivalDate - b.arrivalDate;
+            });
             const rides = this.props.store.rides;
             for (let i = 0; i < stays.length; i++) {
                 const stay = stays[i];
                 const next = stays.length > i ? stays[i] : null
-                console.log('stay.position', stay.position)
-                console.log('next.position', next?.position)
                 items.push(
                     <StayItem key={stay.id}
                               store={this.props.store}

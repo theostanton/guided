@@ -1,4 +1,5 @@
 import googlemaps, {DirectionsResponse, PlaceSearchResponse, ReverseGeocodingResponse} from '@google/maps'
+import {LatLng} from "@guided/common";
 
 export const client = googlemaps.createClient({
     key: 'AIzaSyDQFYYLKKcqmY0RWlysZOQlWPgGZEAM3po',
@@ -6,9 +7,15 @@ export const client = googlemaps.createClient({
 });
 
 
-export async function directions(startLat: number, startLong: number, endLat: number, endLong: number): Promise<DirectionsResponse> {
+export async function directions(startLat: number, startLong: number, endLat: number, endLong: number, waypoints: LatLng[]): Promise<DirectionsResponse> {
 
     const {json: data} = await client.directions({
+        waypoints: waypoints.map(waypoint => {
+            return {
+                lng: waypoint.long,
+                lat: waypoint.lat
+            }
+        }),
         origin: {
             lat: startLat,
             lng: startLong

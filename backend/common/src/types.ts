@@ -47,7 +47,7 @@ export interface Stay {
   id: string;
   nights: number;
   location: Location;
-  arrivalDate?: Date;
+  arrivalDate: Date;
   position?: number;
   locked: boolean;
 }

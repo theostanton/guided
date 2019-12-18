@@ -2,13 +2,15 @@ import {LocationRow, RideRow, StayRow} from "../../database/types";
 import {DirectionsStep} from "@google/maps";
 import {generateId} from "../../database/utils";
 import {LatLng, Logger} from "@guided/common";
-import {daos} from "../../database";
+import DB, {daos} from "../../database";
 import {QueueHandler} from "../QueueHandler";
 import executeSequentially from "../../utils/executeSequentially";
 import {calculateRide} from "../index";
 import * as Google from '../../api/google'
 import {generateLocationRow} from "../../database/models/location";
 import Bull from "bull";
+import {directions} from "../../api/google";
+import * as fs from "fs";
 
 export type Context = {
     startStayId: string
@@ -21,7 +23,7 @@ type Packet = {
     rideRows: RideRow[];
     locationRows: LocationRow[];
     stayRows: StayRow[];
-    current: {
+    current?: {
         position: number;
         path: LatLng[];
         startStayId: string;
@@ -38,20 +40,59 @@ export async function updateAll(guideId: string): Promise<void> {
     await daos.ride.deleteWhere({'guide': guideId});
     await daos.stay.deleteWhere({'locked': false, 'guide': guideId});
 
-    const stays = (await daos.stay.findMany({'guide': guideId}));
-    stays.sort((a, b) => {
-        return (a.position || 0) + (b.position || 0)
+
+    type StayInfo = {
+        id: string
+        position: number
+        lat: number
+        long: number
+    }
+
+    const query = `
+select s.id as id,
+       s.position as position,
+       l.lat as lat,
+       l.long as long
+from stays as s
+left join locations as l on s.location = l.id
+where guide='${guideId}';
+`;
+
+    let stayInfos = await DB().manyOrNone<StayInfo>(query);
+
+    console.log('stayInfos', stayInfos.length);
+
+    const waypoints = stayInfos
+        .filter((stay: StayInfo, index: number) => {
+            return !(index === 0 || index === stayInfos.length - 1);
+        });
+
+    const directionsResult = await directions(
+        stayInfos[0].lat,
+        stayInfos[0].long,
+        stayInfos[stayInfos.length - 1].lat,
+        stayInfos[stayInfos.length - 1].long,
+        waypoints
+    );
+
+    stayInfos = stayInfos.sort((a, b) => {
+        return a.position - b.position
+    });
+
+
+    fs.writeFileSync('./directions.json', JSON.stringify(directionsResult, null, 4), {
+        encoding: 'utf-8'
     });
 
     const handler = await CalculateRideHandler.get();
     await handler.empty();
 
     const contexts: Context[] = [];
-    for (let i = 0; i < stays.length - 1; i++) {
+    for (let i = 0; i < stayInfos.length - 1; i++) {
         contexts.push({
-            startStayId: stays[i].id,
-            endStayId: stays[i + 1].id,
-            positionOffset: stays[i].position
+            startStayId: stayInfos[i].id,
+            endStayId: stayInfos[i + 1].id,
+            positionOffset: stayInfos[i].position
         });
     }
     await executeSequentially(contexts, async (context: Context) => {
@@ -75,24 +116,24 @@ async function createStay(step: DirectionsStep, isLastRide: boolean, packet: Pac
             location: locationRow.id,
             guide: packet.guideId,
             nights: 1,
-            position: packet.current.position,
+            position: packet.current!.position,
             locked: false
         };
         packet.stayRows.push(toStay);
     }
     packet.rideRows.push({
         id: generateId('ride'),
-        start: packet.current.startStayId,
+        start: packet.current!.startStayId,
         end: toStayId,
         guide: packet.guideId,
-        durationMinutes: packet.current.durationMinutes,
+        durationMinutes: packet.current!.durationMinutes,
         route: 'null',
-        path: JSON.stringify(packet.current.path, null, 4)
+        path: JSON.stringify(packet.current!.path, null, 4)
     });
 
 
     packet.current = {
-        position: packet.current.position + 1,
+        position: packet.current!.position + 1,
         path: [{
             long: step.start_location.lng,
             lat: step.start_location.lat
@@ -112,7 +153,32 @@ async function createPacket(context: Context): Promise<Packet> {
 
     const {id: guideId, rideLimitMinutes} = await daos.guide.get(startStay.guide);
 
-    const directions = await Google.directions(startLocation.lat, startLocation.long, lastLocation.lat, lastLocation.long);
+    const directions = await Google.directions(startLocation.lat, startLocation.long, lastLocation.lat, lastLocation.long, []);
+
+
+    if (directions.routes.length === 0) {
+        const path: LatLng[] = [{
+            lat: startLocation.lat,
+            long: startLocation.long
+        }, {
+            lat: lastLocation.lat,
+            long: lastLocation.long
+        }];
+        return {
+            guideId,
+            locationRows: [],
+            rideRows: [{
+                id: generateId('ride'),
+                durationMinutes: 0,
+                start: context.startStayId,
+                end: context.endStayId,
+                guide: guideId,
+                path: JSON.stringify(path),
+                route: 'null'
+            }],
+            stayRows: []
+        }
+    }
 
     const route = directions.routes[0];
 
@@ -129,11 +195,10 @@ async function createPacket(context: Context): Promise<Packet> {
         }
     };
 
-    packet.current.path.push({
+    packet.current!.path.push({
         lat: startLocation.lat,
         long: startLocation.long
     });
-    let fromStayId = startStay.id;
 
     const steps = route.legs.map(leg => {
         return leg.steps;
@@ -142,14 +207,14 @@ async function createPacket(context: Context): Promise<Packet> {
     await executeSequentially(steps, async (step: DirectionsStep, index: number) => {
         const durationMinutes = step.duration.value / 60;
         const isLast = index === steps.length - 1;
-        if (packet.current.durationMinutes + durationMinutes > rideLimitMinutes || isLast) {
+        if (packet.current!.durationMinutes + durationMinutes > rideLimitMinutes || isLast) {
             await createStay(step, isLast, packet, context);
         }
-        packet.current.path.push({
+        packet.current!.path.push({
             long: step.end_location.lng,
             lat: step.end_location.lat
         });
-        packet.current.durationMinutes += durationMinutes;
+        packet.current!.durationMinutes += durationMinutes;
     });
 
     return packet;

@@ -13,6 +13,7 @@ export const QUERY = gql`
                 locked
                 nights
                 position
+                arrivalDate
                 location{
                     id
                     label
@@ -36,27 +37,27 @@ export const QUERY = gql`
             }
             route{
                 summary
-#                overview_polyline{
-#                    points
-#                }
-#                legs{
-#                    start_location{
-#                        lat
-#                        long
-#                    }
-#                    end_location{
-#                        lat
-#                        long
-#                    }
-#                    distance{
-#                        text
-#                        value
-#                    }
-#                    duration{
-#                        text
-#                        value
-#                    }
-#                }
+                #                overview_polyline{
+                #                    points
+                #                }
+                #                legs{
+                #                    start_location{
+                #                        lat
+                #                        long
+                #                    }
+                #                    end_location{
+                #                        lat
+                #                        long
+                #                    }
+                #                    distance{
+                #                        text
+                #                        value
+                #                    }
+                #                    duration{
+                #                        text
+                #                        value
+                #                    }
+                #                }
             }
         }
     }

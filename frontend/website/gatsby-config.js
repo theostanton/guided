@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 module.exports = {
   siteMetadata: {
-    title: `My website`,
+    title: `Guided`,
     googleVerification: `abcdefz`,
     disqus: `gatsby-typescript`,
     mapboxToken: 'pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazNscGM2djAwdHYwM29vN3l6NWdyY2QxIn0.L4-DzQEX16suphipPXgDmw',

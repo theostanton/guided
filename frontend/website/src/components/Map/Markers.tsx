@@ -2,7 +2,7 @@ import React from "react";
 import {moveStay} from "../../data/graphql";
 import {Marker, Popup} from "react-map-gl";
 import {Guide, Stay} from "@guided/common";
-import {Icon, SemanticCOLORS} from "semantic-ui-react";
+import {Icon, SemanticCOLORS, Header, Segment, Grid, GridColumn, GridRow} from "semantic-ui-react";
 
 type Props = {
     highlightedId: string | undefined
@@ -15,9 +15,53 @@ type State = {
 
 
 function createPopup(stay: Stay, showPopupForId: string | undefined) {
+
+
+    const date = new Date(stay.arrivalDate);
+
+    const formattedDate = new Intl.DateTimeFormat('en-GB', {
+        month: 'short',
+        day: '2-digit'
+    }).format(date);
+
+    if (stay.locked) {
+
+        return (<Popup closeButton={false} key={`popup-${stay.id}`} latitude={stay.location.lat}
+                       longitude={stay.location.long}>
+            <Segment.Inline>
+                {stay.position}
+            </Segment.Inline>
+        </Popup>)
+    }
+
     return (showPopupForId === stay.id &&
-        <Popup key={`popup-${stay.id}`} latitude={stay.location.lat} longitude={stay.location.long}>
-            <h1>{stay.location.label}</h1>
+        <Popup closeButton={false} key={`popup-${stay.id}`} latitude={stay.location.lat} longitude={stay.location.long}>
+            <Segment.Inline>
+                <Grid>
+                    <GridRow>
+                        <GridColumn>
+                            <Header>{stay.location.label}</Header>
+                        </GridColumn>
+                    </GridRow>
+                    <GridRow columns={12}>
+                        <GridColumn>
+                            <Icon name={'moon'}>
+                                <h5>{stay.nights}</h5>
+                            </Icon>
+                        </GridColumn>
+                        <GridColumn>
+                            <Icon name={'lock'}>
+                                <h5>{stay.locked ? 'Locked' : 'Unlocked'}</h5>
+                            </Icon>
+                        </GridColumn>
+                        <GridColumn>
+                            <Icon textAlign='center' name={'calendar'} style={{'white-space': 'nowrap'}}>
+                                <h5>{formattedDate}</h5>
+                            </Icon>
+                        </GridColumn>
+                    </GridRow>
+                </Grid>
+            </Segment.Inline>
         </Popup>)
 
 }

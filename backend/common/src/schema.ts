@@ -74,7 +74,7 @@ export default `
         id:ID!
         nights:Int!
         location:Location!
-        arrivalDate:Date
+        arrivalDate:Date!
         position:Int
         locked:Boolean!
     }

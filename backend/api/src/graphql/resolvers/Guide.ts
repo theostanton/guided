@@ -5,7 +5,16 @@ import {Guide} from '@guided/common'
 
 async function stays(guide: Guide): Promise<StayRow[]> {
     const query = `SELECT * from stays where guide='${guide.id}' order by position asc`;
-    return await DB().query(query);
+    const stays = await DB().manyOrNone<StayRow>(query);
+    let offset = 0;
+    return stays.map(stay => {
+        const arrivalDate = new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * offset);
+        offset += stay.nights;
+        return {
+            ...stay,
+            arrivalDate
+        }
+    });
 }
 
 async function user(guide: GuideRow): Promise<UserRow> {
