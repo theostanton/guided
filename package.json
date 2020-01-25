@@ -3,15 +3,15 @@
   "private": true,
   "version": "0.0.1",
   "devDependencies": {
-    "lerna": "^3.19.0"
+    "lerna": "^3.19.0",
+    "lerna-update-wizard": "^0.17.7"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "rm -rf node_modules && lerna clean -y",
     "deploy": "lerna run deploy && ./deploy.sh",
-    "start:all": "lerna run start --parallel",
     "start:api:prod": "cd backend/api && yarn start:prod",
-    "start:website": "lerna run start --parallel --ignore usersite",
-    "start:usersite": "lerna run start --parallel --ignore website"
+    "develop:website": "lerna run develop --parallel --ignore usersite",
+    "develop:usersite": "lerna run develop --parallel --ignore website"
   }
 }

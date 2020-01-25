@@ -2,7 +2,7 @@
   "name": "api",
   "version": "0.0.4",
   "scripts": {
-    "start:dev": "ts-node-dev src/index.ts --transpile-only --debug",
+    "develop": "ts-node-dev src/index.ts --transpile-only --debug",
     "build": "tsc",
     "test": "jest",
     "start:prod": "node srv/index.js"
