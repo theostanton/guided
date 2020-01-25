@@ -1,0 +1,17 @@
+{
+    "projectName": "guided",
+    "version": "3.0",
+    "frontend": "javascript",
+    "javascript": {
+        "framework": "react",
+        "config": {
+            "SourceDir": "frontend/website/src",
+            "DistributionDir": "frontend/website/public",
+            "BuildCommand": "yarn build:frontend",
+            "StartCommand": "yarn develop:frontend"
+        }
+    },
+    "providers": [
+        "awscloudformation"
+    ]
+}
