@@ -1,8 +1,0 @@
-{
-  "name": "guided",
-  "version": "0.0.0",
-  "scripts": {
-    "build:frontend": "cd frontend/website && yarn build",
-    "develop:frontend": "cd frontend/website && yarn develop"
-  }
-}
