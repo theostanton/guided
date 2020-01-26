@@ -7,12 +7,14 @@ import * as queries from "gql/queries"
 import { onCreateGuide } from "../../graphql/subscriptions"
 import { ListGuidesQuery } from "gql/API"
 import randomKey from "../../utils/randomKey"
+import { Guide } from "../../types"
+import { navigate } from "gatsby"
 
 type Props = {}
 
 type State = {
   showCreateModal: boolean
-  guides: any[] | undefined
+  guides: Guide[] | undefined
 }
 
 export default class GuidesComponent extends React.Component<Props, State> {
@@ -68,7 +70,9 @@ export default class GuidesComponent extends React.Component<Props, State> {
     const items = guides.map(guide => {
       const key = guide?.id || randomKey()
       return (
-        <List.Item key={key}>
+        <List.Item key={key} onClick={async () => {
+          await navigate(`/app/guides/${guide.slug}`)
+        }}>
           <List.Header>{guide ? guide.title : "Error"}</List.Header>
         </List.Item>
       )

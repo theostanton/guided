@@ -6,6 +6,7 @@ import { logout } from "utils/auth"
 import Account from "components/Account"
 import Dashboard from "components/Dashboard"
 import Guides from "components/Guides"
+import Guide from "components/Guide"
 
 export default class AppComponent extends React.Component {
 
@@ -47,6 +48,7 @@ export default class AppComponent extends React.Component {
             <Router>
               <Account path="/app/account"/>
               <Guides path="/app/guides"/>
+              <Guide path="/app/guides/:slug"/>
               <Dashboard path="/app"/>
             </Router>
           </div>

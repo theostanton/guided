@@ -47,7 +47,10 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
     let title = this.state.guideInfo.title!
     const input: CreateGuideInput = {
       title,
-      slug: slugify(title)
+      slug: slugify(title, {
+        lower: true,
+        remove: /[*+~.()'"!:@]/g,
+      }),
     }
     const { data }: { data: CreateGuideMutation } = await API.graphql(graphqlOperation(createGuide, { input }))
     console.log(data)
