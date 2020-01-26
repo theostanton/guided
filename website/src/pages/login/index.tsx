@@ -66,7 +66,6 @@ export default class LoginComponent extends React.Component<Props, State> {
             active={!error}
             loading={loading}
             onClick={async () => {
-              console.log(JSON.stringify(this.state, null, 4))
               await this.logIn()
             }
             }>Log in</Button>

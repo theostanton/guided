@@ -69,7 +69,7 @@ export default class SignupComponent extends React.Component<Props, State> {
       <Segment>
         <Form error={stage === "error"}>
           <Form.Input
-            label={"Email"}
+            label="Email"
             icon='mail'
             iconPosition='left'
             value={email}
@@ -85,7 +85,6 @@ export default class SignupComponent extends React.Component<Props, State> {
             iconPosition='left'
             type={"password"}
             onChange={(e, { value, error }) => {
-              console.log(JSON.stringify(error, null, 4))
               this.setState({ "password": value, error: undefined, stage: "enter" })
             }}/>
           <Form.Checkbox
