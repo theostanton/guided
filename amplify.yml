@@ -1,0 +1,21 @@
+version: 0.1
+backend:
+  phases:
+    build:
+      commands:
+        - amplifyPush --simple
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd frontend/website
+    build:
+      commands:
+        - yarn build
+  artifacts:
+    baseDirectory: /frontend/website/public
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
