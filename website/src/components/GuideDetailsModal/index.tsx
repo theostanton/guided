@@ -62,14 +62,13 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
   }
 
   render(): React.ReactElement {
-    const { stage, guideInfo, open } = this.state
+    const { stage, open } = this.state
     return <Modal open={open} centered={false}>
       <Modal.Header>Create Guide</Modal.Header>
       <Modal.Content>
         <Form>
           <Form.Input
             label='Title'
-            value={guideInfo.title}
             onChange={(e, { value }) => {
               this.update("title", value)
             }}

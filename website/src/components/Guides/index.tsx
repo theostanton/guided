@@ -5,6 +5,8 @@ import GuideDetailsModalComponent from "components/GuideDetailsModal"
 import { API, graphqlOperation } from "aws-amplify"
 import * as queries from "gql/queries"
 import { ListGuidesQuery } from "gql/API"
+import { randomBytes } from "crypto"
+import randomKey from "../../utils/randomKey"
 
 type Props = {}
 
@@ -21,9 +23,17 @@ export default class GuidesComponent extends React.Component<Props, State> {
   }
 
   async fetchGuides(): Promise<void> {
-    const response: { data: ListGuidesQuery } = await API.graphql(graphqlOperation(queries.listGuides))
-    console.log(response)
-    this.setState({ guides: response.data.listGuides?.items! })
+    let guides: undefined
+    try {
+      const response: { data: ListGuidesQuery } = await API.graphql(graphqlOperation(queries.listGuides))
+      console.log(response)
+      guides = response.data.listGuides?.items!
+    } catch (response) {
+      console.error("Error!?")
+      console.error(response)
+      guides = response.data.listGuides?.items!
+    }
+    this.setState({ guides })
   }
 
   componentDidMount(): void {
@@ -41,9 +51,10 @@ export default class GuidesComponent extends React.Component<Props, State> {
     }
 
     const items = guides.map(guide => {
+      const key = guide?.id || randomKey()
       return (
-        <List.Item>
-          <List.Header>{guide.title}</List.Header>
+        <List.Item key={key}>
+          <List.Header>{guide ? guide.title : "Error"}</List.Header>
         </List.Item>
       )
     })
