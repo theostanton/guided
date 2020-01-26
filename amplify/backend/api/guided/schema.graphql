@@ -1,0 +1,5 @@
+type Guide @model {
+    id: ID!
+    title: String!
+    slug: String!
+}
