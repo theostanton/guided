@@ -9,7 +9,7 @@ frontend:
     preBuild:
       commands:
         - cd frontend/website
-        - yarn 
+        - yarn
     build:
       commands:
         - yarn build

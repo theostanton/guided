@@ -3,6 +3,7 @@ import { Form, Button, Segment, Message, Modal, Input } from "semantic-ui-react"
 import Layout from "../../components/layout"
 import { Auth } from "aws-amplify"
 import { navigate } from "gatsby"
+import { fetchUser } from "../../utils/auth"
 
 type Stage = "enter" | "error" | "submitting" | "validate" | "validating"
 
@@ -53,6 +54,7 @@ export default class SignupComponent extends React.Component<Props, State> {
     const { email, validationCode } = this.state
     try {
       await Auth.confirmSignUp(email, validationCode)
+      await fetchUser()
       await navigate("/")
     } catch (e) {
       console.error(e)
