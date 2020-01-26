@@ -5,7 +5,7 @@ import GuideDetailsModalComponent from "components/GuideDetailsModal"
 import { API, graphqlOperation } from "aws-amplify"
 import * as queries from "gql/queries"
 import { onCreateGuide } from "../../graphql/subscriptions"
-import { ListGuidesQuery } from "gql/API"
+import { ListGuidesQuery, DeleteGuideInput, DeleteGuideMutationVariables } from "../../graphql/API"
 import randomKey from "../../utils/randomKey"
 import { Guide } from "../../types"
 import { navigate } from "gatsby"
@@ -27,11 +27,11 @@ export default class GuidesComponent extends React.Component<Props, State> {
 
   async fetchGuides(): Promise<void> {
 
-    let guides: undefined
+    let guides: Guide[] | undefined
     try {
       const response: { data: ListGuidesQuery } = await API.graphql(graphqlOperation(queries.listGuides))
       console.log(response)
-      guides = response.data.listGuides?.items!
+      guides = response.data.listGuides?.items! as Guide[]
     } catch (response) {
       console.error("Error!?")
       console.error(response)
@@ -70,14 +70,23 @@ export default class GuidesComponent extends React.Component<Props, State> {
     const items = guides.map(guide => {
       const key = guide?.id || randomKey()
       return (
-        <List.Item key={key} onClick={async () => {
-          await navigate(`/app/guides/${guide.slug}`)
-        }}>
-          <List.Header>{guide ? guide.title : "Error"}</List.Header>
+        <List.Item
+          link
+          key={key}
+          onClick={async () => {
+            await navigate(`/app/guides/${guide.slug}`)
+          }}
+        >
+          <List.Content>
+            <List.Header>{guide ? guide.title : "Error"}</List.Header>
+          </List.Content>
         </List.Item>
       )
     })
-    return <List items={items}/>
+    return <List
+      items={items}
+      divided
+    />
   }
 
   render(): React.ReactElement | undefined {
