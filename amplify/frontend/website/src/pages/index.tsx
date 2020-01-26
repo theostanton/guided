@@ -1,25 +1,21 @@
-import React from 'react'
-import { Link } from "gatsby"
+import * as React from "react"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
 
-import Amplify from 'aws-amplify'
-import config from '../aws-exports'
+import Amplify from "aws-amplify"
+import config from "../aws-exports"
+
 Amplify.configure(config)
 
 const IndexPage = () => (
   <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
+    {/*<SEO title="Home"/>*/}
+    {/*<Segment>*/}
+    {/*  <Link to="/login/">Login</Link>*/}
+    {/*  <Link to="/signup/">Signup</Link>*/}
+    {/*</Segment>*/}
   </Layout>
+
 )
 
 export default IndexPage

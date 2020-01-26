@@ -6,7 +6,8 @@
 
 // You can delete this file if you're not using it
 
-import Auth from '@aws-amplify/auth'
+import Auth from "@aws-amplify/auth"
+import { logout, setUser } from "./src/utils/auth"
 // import { setUser } from './src/utils/auth'
 
 export const onRouteUpdate = (state, page, pages) => {
@@ -14,14 +15,14 @@ export const onRouteUpdate = (state, page, pages) => {
     .then(user => {
       const userInfo = {
         ...user.attributes,
-        username: user.username
+        username: user.username,
       }
-      console.log('Got current authenticated user')
-      console.log(JSON.stringify(user,null,4))
-      // setUser(userInfo)
+      console.log("Got current authenticated user")
+      console.log(JSON.stringify(user, null, 4))
+      setUser(userInfo)
     })
     .catch(err => {
-      console.error('not logged in')
-      window.localStorage.setItem('gatsbyUser', null)
+      console.error("not logged in")
+      logout()
     })
 }
