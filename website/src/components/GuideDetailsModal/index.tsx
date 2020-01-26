@@ -2,7 +2,7 @@ import * as React from "react"
 import { Header, Modal, Button, Form } from "semantic-ui-react"
 import sleep from "../../utils/sleep"
 
-import Amplify, { API, graphqlOperation } from "aws-amplify"
+import { API, graphqlOperation } from "aws-amplify"
 import { CreateGuideInput, CreateGuideMutation } from "../../graphql/API"
 import { createGuide } from "../../graphql/mutations"
 import slugify from "slugify"

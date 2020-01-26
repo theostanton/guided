@@ -4,8 +4,8 @@ import GuideDetailsModalComponent from "components/GuideDetailsModal"
 
 import { API, graphqlOperation } from "aws-amplify"
 import * as queries from "gql/queries"
+import { onCreateGuide } from "../../graphql/subscriptions"
 import { ListGuidesQuery } from "gql/API"
-import { randomBytes } from "crypto"
 import randomKey from "../../utils/randomKey"
 
 type Props = {}
@@ -21,8 +21,10 @@ export default class GuidesComponent extends React.Component<Props, State> {
     showCreateModal: false,
     guides: undefined,
   }
+  private subscription: any | undefined
 
   async fetchGuides(): Promise<void> {
+
     let guides: undefined
     try {
       const response: { data: ListGuidesQuery } = await API.graphql(graphqlOperation(queries.listGuides))
@@ -37,7 +39,20 @@ export default class GuidesComponent extends React.Component<Props, State> {
   }
 
   componentDidMount(): void {
+
+    this.subscription = API.graphql(
+      graphqlOperation(onCreateGuide),
+    ).subscribe({
+      next: async () => {
+        await this.fetchGuides()
+      },
+    })
+
     this.fetchGuides().then()
+  }
+
+  componentWillUnmount(): void {
+    this.subscription?.unsubscribe()
   }
 
   guidesList(): React.ReactElement {
