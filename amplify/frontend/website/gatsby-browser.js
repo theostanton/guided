@@ -16,9 +16,12 @@ export const onRouteUpdate = (state, page, pages) => {
         ...user.attributes,
         username: user.username
       }
-      setUser(userInfo)
+      console.log('Got current authenticated user')
+      console.log(JSON.stringify(user,null,4))
+      // setUser(userInfo)
     })
     .catch(err => {
+      console.error('not logged in')
       window.localStorage.setItem('gatsbyUser', null)
     })
 }
