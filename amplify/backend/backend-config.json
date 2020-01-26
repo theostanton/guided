@@ -1,15 +1,16 @@
 {
+	"auth": {
+		"guided2fb16407": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	},
 	"hosting": {
 		"S3AndCloudFront": {
 			"service": "S3AndCloudFront",
 			"providerPlugin": "awscloudformation"
-		}
-	},
-	"auth": {
-		"guided69b5267f": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": []
 		}
 	}
 }

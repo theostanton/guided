@@ -1,0 +1,52 @@
+# Sitemap
+
+Unauthed:
+
+  Root:
+    - '/'
+    - Welcome page
+    - Menu links when unauthed:
+      - Login
+      - Signup
+    - Menu links when logged in:
+      - Dashboard -> '/app'
+      - Logout
+    - Content:
+      - Overview of product
+      - View public guides
+
+  Login:
+    - '/login'
+    - Redirect to '/app' if already logged in
+
+  Signup:
+    - '/signup'
+    - Redirect to '/app' if already logged in
+
+Authed:
+  - Redirects to '/login' when unauthed
+
+  App:
+    - '/app'
+    - Route of account login
+    - Menu Links:
+        - Your guides at '/app/guides'
+        - Your account at '/app/account'
+        - Logout
+    - Content:
+        - Stats
+        - Minimal list of your guides
+        - Account prompts
+
+  Your guides:
+    - '/app/guides'
+    Content:
+      - List of all your guides
+
+  Guide:
+    - '/app/guides/{guide-slug}'
+    - Edit page of a users guide
+
+  Account:
+    - '/app/account'
+    - Account settings page

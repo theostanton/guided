@@ -8,13 +8,13 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cd frontend/website
+        - cd website
         - yarn
     build:
       commands:
         - yarn build
   artifacts:
-    baseDirectory: /frontend/website/public
+    baseDirectory: /website/public
     files:
       - '**/*'
   cache:
