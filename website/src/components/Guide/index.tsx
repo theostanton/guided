@@ -112,7 +112,6 @@ export default class GuideComponent extends React.Component<Props, State> {
         </Map>
       </div>
 
-
       <div style={{
         position: "fixed",
         marginLeft: "2em",
@@ -120,39 +119,31 @@ export default class GuideComponent extends React.Component<Props, State> {
         top: "1em",
         left: "25%",
         right: "25%",
-        bottom: 0,
         zIndex: 3, /* Specify a stack order in case you're using a different order for other elements */
       }}>
         <AppMenuComponent/>
       </div>
+
       {guide && <div style={{
         position: "fixed",
         height: "100%",
         width: "25%",
         marginTop: "1em",
         marginLeft: "1em",
-        paddingTop: "1em",
-        paddingBottom: "1em",
+        paddingBottom: "2em",
         top: 0,
         left: 0,
         bottom: 0,
         zIndex: 3, /* Specify a stack order in case you're using a different order for other elements */
       }}>
-        <div style={{ backgroundColor: "#ffffff", height: "100%" }}>
-          <Grid>
-            <GridRow>
-              <GridColumn width={14}>
-                <Header style={{ paddingTop: "1em", paddingBottom: "0.5em" }} as='h1'>{guide!.title} </Header>
-              </GridColumn>
-              <GridColumn width={2} style={{ padding: "1em" }}>
-                <Button icon='trash' onClick={async () => {
-                  await this.deleteGuide()
-                }}/>
-              </GridColumn>
-            </GridRow>
 
-          </Grid>
-        </div>
+        <Segment padded={false} style={{ backgroundColor: "#ffffff", height: "100%" }}>
+          <Button floated={"right"} icon='trash' onClick={async () => {
+            await this.deleteGuide()
+          }}/>
+          <Header style={{ paddingTop: "1em", paddingBottom: "0.5em" }} as='h1'>{guide!.title} </Header>
+        </Segment>
+
       </div>
       }
     </div>
