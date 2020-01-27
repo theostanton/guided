@@ -5,10 +5,10 @@ import AppContainer from "components/AppContainer"
 
 import { API, graphqlOperation } from "aws-amplify"
 import * as queries from "gql/queries"
-import { onCreateGuide } from "../../graphql/subscriptions"
+import { onCreateGuide } from "gql/subscriptions"
 import { ListGuidesQuery, DeleteGuideInput, DeleteGuideMutationVariables } from "../../graphql/API"
-import randomKey from "../../utils/randomKey"
-import { Guide } from "../../types"
+import randomKey from "utils/randomKey"
+import { Guide } from "utils/types"
 import { navigate } from "gatsby"
 
 type Props = {}

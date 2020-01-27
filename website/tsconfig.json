@@ -46,7 +46,7 @@
     "baseUrl": "./src",
     "paths": {
       "components/**/*": ["src/components/**/*"],
-      "qgl/**/*": ["src/graphql/**/*"],
+      "gql/**/*": ["src/graphql/**/*"],
       "layouts/**/*": ["src/layouts/**/*"]
     },
     /* Base directory to resolve non-absolute module names. */

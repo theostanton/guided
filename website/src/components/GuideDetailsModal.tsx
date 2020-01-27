@@ -1,10 +1,10 @@
 import * as React from "react"
-import { Header, Modal, Button, Form } from "semantic-ui-react"
-import sleep from "../../utils/sleep"
+import { Modal, Button, Form } from "semantic-ui-react"
+import sleep from "utils/sleep"
 
 import { API, graphqlOperation } from "aws-amplify"
-import { CreateGuideInput, CreateGuideMutation } from "../../graphql/API"
-import { createGuide } from "../../graphql/mutations"
+import { CreateGuideInput, CreateGuideMutation } from "gql/API"
+import { createGuide } from "gql/mutations"
 import slugify from "slugify"
 
 type Props = {

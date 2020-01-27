@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Menu, Segment } from "semantic-ui-react"
 import { navigate } from "gatsby"
-import { logout } from "../../utils/auth"
+import { logout } from "utils/auth"
 
 type Props = {}
 

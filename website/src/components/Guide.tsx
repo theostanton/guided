@@ -15,14 +15,14 @@ import {
 
 import { API, graphqlOperation } from "aws-amplify"
 import * as queries from "gql/queries"
-import { deleteGuide } from "../../graphql/mutations"
-import { DeleteGuideMutationVariables, ListGuidesQuery, ListGuidesQueryVariables } from "../../graphql/API"
-import { Guide } from "../../types"
-import { onUpdateGuide } from "../../graphql/subscriptions"
-import Map from "../Map"
+import { deleteGuide } from "gql/mutations"
+import { DeleteGuideMutationVariables, ListGuidesQuery, ListGuidesQueryVariables } from "gql/API"
+import { Guide } from "utils/types"
+import { onUpdateGuide } from "gql/subscriptions"
+import Map from "components/Map"
 import { navigate } from "gatsby"
-import { logout } from "../../utils/auth"
-import AppMenuComponent from "../AppMenu"
+import { logout } from "utils/auth"
+import AppMenuComponent from "components/AppMenu"
 
 type Props = {
   slug: string

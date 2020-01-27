@@ -1,8 +1,6 @@
 import * as React from "react"
 import { Router } from "@reach/router"
-import { navigate } from "gatsby"
 import { Menu, Container } from "semantic-ui-react"
-import { logout } from "utils/auth"
 import Account from "components/Account"
 import Dashboard from "components/Dashboard"
 import Guides from "components/Guides"
