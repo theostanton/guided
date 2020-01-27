@@ -1,28 +1,19 @@
 import * as React from "react"
 import {
   Button,
-  Container,
-  Grid,
   Header,
-  Icon,
-  List,
-  MenuMenu,
   Segment,
-  GridRow,
-  GridColumn,
-  Rail, Menu,
+  Rail,
 } from "semantic-ui-react"
 
 import { API, graphqlOperation } from "aws-amplify"
-import * as queries from "gql/queries"
-import { deleteGuide } from "gql/mutations"
-import { DeleteGuideMutationVariables, ListGuidesQuery, ListGuidesQueryVariables } from "gql/API"
+
+import * as GQL from 'api'
+
 import { Guide } from "utils/types"
-import { onUpdateGuide } from "gql/subscriptions"
 import Map from "components/Map"
 import { navigate } from "gatsby"
-import { logout } from "utils/auth"
-import AppMenuComponent from "components/AppMenu"
+import AppMenu from "components/app/Menu"
 
 type Props = {
   slug: string
@@ -42,19 +33,11 @@ export default class GuideComponent extends React.Component<Props, State> {
 
   async fetchGuide(): Promise<void> {
 
-    console.log("props")
-    console.log(this.props)
-
     try {
-      const variables: ListGuidesQueryVariables = {
-        filter: {
-          slug: {
-            eq: this.props.slug,
-          },
-        },
+      const variables: GQL.Generated.GetGuideBySlugQueryVariables = {
+        slug: this.props.slug,
       }
-      const response: { data: ListGuidesQuery } = await API.graphql(graphqlOperation(queries.listGuides, variables))
-      console.log(response)
+      const response: { data: GQL.Generated.GetGuideBySlugQuery } = await API.graphql(graphqlOperation(GQL.Queries.GetGuideBySlug, variables))
       const guide: Guide = response.data.listGuides!.items![0]!
       this.setState({ guide })
     } catch (response) {
@@ -66,11 +49,10 @@ export default class GuideComponent extends React.Component<Props, State> {
   componentDidMount(): void {
 
     this.subscription = API.graphql(
-      graphqlOperation(onUpdateGuide),
+      graphqlOperation(GQL.Subscriptions.OnUpdateGuide),
     ).subscribe({
-      next: async (data: any) => {
-        console.log("onUpdateGuide")
-        console.log(data)
+      next: async () => {
+        this.fetchGuide().then()
       },
     })
 
@@ -79,12 +61,10 @@ export default class GuideComponent extends React.Component<Props, State> {
 
   async deleteGuide(): Promise<void> {
 
-    const variables: DeleteGuideMutationVariables = {
-      input: {
-        id: this.state.guide?.id!,
-      },
+    const variables: GQL.Generated.DeleteGuideMutationVariables = {
+      guideId: this.state.guide?.id!,
     }
-    const response = await API.graphql(graphqlOperation(deleteGuide, variables))
+    const response = await API.graphql(graphqlOperation(GQL.Mutations.DeleteGuide, variables))
     console.log(response)
     await navigate("app/guides")
   }
@@ -121,7 +101,7 @@ export default class GuideComponent extends React.Component<Props, State> {
         right: "25%",
         zIndex: 3, /* Specify a stack order in case you're using a different order for other elements */
       }}>
-        <AppMenuComponent/>
+        <AppMenu/>
       </div>
 
       {guide && <div style={{

@@ -3,8 +3,8 @@ import { Modal, Button, Form } from "semantic-ui-react"
 import sleep from "utils/sleep"
 
 import { API, graphqlOperation } from "aws-amplify"
-import { CreateGuideInput, CreateGuideMutation } from "gql/API"
-import { createGuide } from "gql/mutations"
+import { CreateGuideInput, CreateGuideMutation } from "api/generated"
+import { CreateGuide } from "api/mutations"
 import slugify from "slugify"
 
 type Props = {
@@ -52,7 +52,7 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
         remove: /[*+~.()'"!:@]/g,
       }),
     }
-    const { data }: { data: CreateGuideMutation } = await API.graphql(graphqlOperation(createGuide, { input }))
+    const { data }: { data: CreateGuideMutation } = await API.graphql(graphqlOperation(CreateGuide, { input }))
     console.log(data)
 
     await sleep(1000)

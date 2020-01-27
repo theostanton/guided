@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import Layout from "layouts/root"
+import Layout from "components/root/Layout"
 
 import Amplify from "aws-amplify"
 import config from "../aws-exports"

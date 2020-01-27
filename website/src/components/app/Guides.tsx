@@ -1,15 +1,14 @@
 import * as React from "react"
-import { Button, Card, Container, Header, List, Segment } from "semantic-ui-react"
-import GuideDetailsModalComponent from "components/GuideDetailsModal"
-import AppContainer from "components/AppContainer"
+import { Button, Card, List, Segment } from "semantic-ui-react"
+import GuideDetailsModalComponent from "components/app/GuideDetailsModal"
+import AppContainer from "components/app/Container"
 
 import { API, graphqlOperation } from "aws-amplify"
-import * as queries from "gql/queries"
-import { onCreateGuide } from "gql/subscriptions"
-import { ListGuidesQuery, DeleteGuideInput, DeleteGuideMutationVariables } from "../../graphql/API"
+import * as queries from "api/queries"
 import randomKey from "utils/randomKey"
 import { Guide } from "utils/types"
-import { navigate } from "gatsby"
+import { OnCreateGuide } from "api/subscriptions"
+import { AllGuideTitlesQuery } from "api/generated"
 
 type Props = {}
 
@@ -30,7 +29,7 @@ export default class GuidesComponent extends React.Component<Props, State> {
 
     let guides: Guide[] | undefined
     try {
-      const response: { data: ListGuidesQuery } = await API.graphql(graphqlOperation(queries.listGuides))
+      const response: { data: AllGuideTitlesQuery } = await API.graphql(graphqlOperation(queries.AllGuideTitles))
       console.log(response)
       guides = response.data.listGuides?.items! as Guide[]
     } catch (response) {
@@ -44,7 +43,7 @@ export default class GuidesComponent extends React.Component<Props, State> {
   componentDidMount(): void {
 
     this.subscription = API.graphql(
-      graphqlOperation(onCreateGuide),
+      graphqlOperation(OnCreateGuide),
     ).subscribe({
       next: async () => {
         await this.fetchGuides()

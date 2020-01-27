@@ -1,5 +1,5 @@
 import * as React from "react"
-import AppContainer from 'components/AppContainer'
+import AppContainer from "components/app/Container"
 import { Container, Header } from "semantic-ui-react"
 
 type Props = {}

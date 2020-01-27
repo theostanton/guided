@@ -1,11 +1,11 @@
 import * as React from "react"
 import { Router } from "@reach/router"
 import { Menu, Container } from "semantic-ui-react"
-import Account from "components/Account"
-import Dashboard from "components/Dashboard"
-import Guides from "components/Guides"
-import Guide from "components/Guide"
-import AppMenuComponent from "../../components/AppMenu"
+import Account from "components/app/Account"
+import Dashboard from "components/app/Dashboard"
+import Guides from "components/app/Guides"
+import Guide from "components/app/Guide"
+import AppMenu from "components/app/Menu"
 
 export default class AppComponent extends React.Component {
 
@@ -20,11 +20,10 @@ export default class AppComponent extends React.Component {
       return <Guide slug={slug}/>
     }
 
-
     return (
       <div style={{ margin: 20 }}>
         <Container>
-          <AppMenuComponent/>
+          <AppMenu/>
           <div>
             <Router>
               <Account path="/app/account"/>

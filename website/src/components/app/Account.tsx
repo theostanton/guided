@@ -1,6 +1,6 @@
 import * as React from "react"
 import { getCurrentUser } from "utils/auth"
-import AppContainer from "components/AppContainer"
+import AppContainer from "components/app/Container"
 import { List } from "semantic-ui-react"
 
 type Props = {}

@@ -4,7 +4,7 @@ import { Link, navigate } from "gatsby"
 import { Menu, Container } from "semantic-ui-react"
 import { isLoggedIn, logout } from "utils/auth"
 
-export default class LayoutComponent extends React.Component {
+export default class RootLayoutComponent extends React.Component {
 
   render(): React.ReactElement {
 

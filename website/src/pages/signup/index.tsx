@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Button, Container, Form, Input, Message, Modal, Segment } from "semantic-ui-react"
-import Layout from "layouts/root"
+import Layout from "components/root/Layout"
 import { Auth } from "aws-amplify"
 import { navigate } from "gatsby"
 import { fetchUser, isLoggedIn } from "utils/auth"
