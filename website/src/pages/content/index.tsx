@@ -4,10 +4,13 @@ import { Container } from "semantic-ui-react"
 import { Router } from "@reach/router"
 import PublicGuide from "components/content/Guide"
 import Profile from "components/content/Profile"
+import Amplify from "aws-amplify"
 
 type Props = {}
 
 type State = {}
+import config from "../../aws-exports"
+Amplify.configure(config)
 
 export default class ContentComponent extends React.Component<Props, State> {
 
@@ -19,7 +22,7 @@ export default class ContentComponent extends React.Component<Props, State> {
         <Container>
           <div>
             <Router>
-              <PublicGuide path="/:user/:guide"/>
+              <PublicGuide path="/:user/:slug"/>
               <Profile path="/:user"/>
             </Router>
           </div>

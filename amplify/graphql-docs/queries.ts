@@ -18,6 +18,7 @@ export const syncGuides = /* GraphQL */ `
         id
         title
         slug
+        owner
         _version
         _deleted
         _lastChangedAt
@@ -33,6 +34,7 @@ export const getGuide = /* GraphQL */ `
       id
       title
       slug
+      owner
       spots {
         nextToken
         startedAt
@@ -58,6 +60,7 @@ export const listGuides = /* GraphQL */ `
         id
         title
         slug
+        owner
         _version
         _deleted
         _lastChangedAt

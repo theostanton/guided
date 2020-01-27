@@ -2,11 +2,12 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateGuide = /* GraphQL */ `
-  subscription OnCreateGuide {
-    onCreateGuide {
+  subscription OnCreateGuide($owner: String!) {
+    onCreateGuide(owner: $owner) {
       id
       title
       slug
+      owner
       spots {
         nextToken
         startedAt
@@ -22,11 +23,12 @@ export const onCreateGuide = /* GraphQL */ `
   }
 `;
 export const onUpdateGuide = /* GraphQL */ `
-  subscription OnUpdateGuide {
-    onUpdateGuide {
+  subscription OnUpdateGuide($owner: String!) {
+    onUpdateGuide(owner: $owner) {
       id
       title
       slug
+      owner
       spots {
         nextToken
         startedAt
@@ -42,11 +44,12 @@ export const onUpdateGuide = /* GraphQL */ `
   }
 `;
 export const onDeleteGuide = /* GraphQL */ `
-  subscription OnDeleteGuide {
-    onDeleteGuide {
+  subscription OnDeleteGuide($owner: String!) {
+    onDeleteGuide(owner: $owner) {
       id
       title
       slug
+      owner
       spots {
         nextToken
         startedAt

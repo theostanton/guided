@@ -1,7 +1,13 @@
-type Guide @model {
+type Guide @model
+@auth(
+    rules: [
+        {allow: owner, ownerField: "owner", operations: [create, update, delete]},
+    ])
+{
     id: ID!
     title: String!
     slug: String!
+    owner: String!
     spots: [Spot] @connection(keyName: "byGuide", fields: ["id"])
     rides: [Ride] @connection(keyName: "byGuide", fields: ["id"])
 }

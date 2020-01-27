@@ -10,6 +10,7 @@ export const createGuide = /* GraphQL */ `
       id
       title
       slug
+      owner
       spots {
         nextToken
         startedAt
@@ -33,6 +34,7 @@ export const updateGuide = /* GraphQL */ `
       id
       title
       slug
+      owner
       spots {
         nextToken
         startedAt
@@ -56,6 +58,7 @@ export const deleteGuide = /* GraphQL */ `
       id
       title
       slug
+      owner
       spots {
         nextToken
         startedAt
