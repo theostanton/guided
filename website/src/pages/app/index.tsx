@@ -11,7 +11,7 @@ export default class AppComponent extends React.Component {
 
   render(): React.ReactElement {
 
-    console.log((this.props as any)["*"])
+    console.log(("route=" + this.props as any)["*"])
 
     const path: string = (this.props as any)["*"]
 
