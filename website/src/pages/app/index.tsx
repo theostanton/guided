@@ -6,8 +6,13 @@ import Dashboard from "components/app/Dashboard"
 import Guides from "components/app/Guides"
 import Guide from "components/app/Guide"
 import AppMenu from "components/app/Menu"
+import { withAuthenticator } from "aws-amplify-react"
+import Amplify from "aws-amplify"
+import config from "../../aws-exports"
 
-export default class AppComponent extends React.Component {
+Amplify.configure(config)
+
+class AppComponent extends React.Component {
 
   render(): React.ReactElement {
 
@@ -37,3 +42,5 @@ export default class AppComponent extends React.Component {
     )
   }
 }
+
+export default withAuthenticator(AppComponent)
