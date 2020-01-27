@@ -5,9 +5,9 @@ exports.onCreatePage = async ({ page, actions }) => {
     createPage(page)
     return
   }
-  // if (page.path.match(/^\/content/)) {
-  //   page.matchPath = "/*"
-  //   createPage(page)
-  //   return
-  // }
+  if (page.path.match(/^\/content/)) {
+    page.matchPath = "/*"
+    createPage(page)
+    return
+  }
 }

@@ -9,7 +9,7 @@ type Props = {}
 
 type State = {}
 
-export default class ProfileComponent extends React.Component<Props, State> {
+export default class ContentComponent extends React.Component<Props, State> {
 
   state: State = {}
 
