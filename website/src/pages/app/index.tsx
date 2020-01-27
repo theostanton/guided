@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Router } from "@reach/router"
-import { Menu, Container } from "semantic-ui-react"
+import { Container } from "semantic-ui-react"
 import Account from "components/app/Account"
 import Dashboard from "components/app/Dashboard"
 import Guides from "components/app/Guides"
