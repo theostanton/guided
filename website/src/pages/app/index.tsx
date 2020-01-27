@@ -6,6 +6,10 @@ import Dashboard from "components/app/Dashboard"
 import Guides from "components/app/Guides"
 import Guide from "components/app/Guide"
 import AppMenu from "components/app/Menu"
+import AmplifyRouter from "amplify-react-router"
+import awsExports from 'src/aws-exports';
+import {navigate} from 'gatsby'
+
 
 export default class AppComponent extends React.Component {
 
@@ -21,16 +25,21 @@ export default class AppComponent extends React.Component {
     }
 
     return (
-      <div style={{ margin: 20 }}>
+      <AmplifyRouter style={{ margin: 20 }}>
         <Container>
           <AppMenu/>
-          <div>
+
+          <AmplifyRouter
+            amplifyConfig={awsExports}
+            homeRoute="/home"
+            navigate={navigate}
+          >
             <Router>
               <Account path="/app/account"/>
               <Guides path="/app/guides"/>
               <Dashboard path="/app"/>
             </Router>
-          </div>
+          </AmplifyRouter>
         </Container>
       </div>
     )
