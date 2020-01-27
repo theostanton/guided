@@ -8,12 +8,14 @@ import {
 
 import { API, graphqlOperation } from "aws-amplify"
 
-import * as GQL from 'api'
+import * as GQL from "api"
 
 import { Guide } from "utils/types"
 import Map from "components/Map"
 import { navigate } from "gatsby"
 import AppMenu from "components/app/Menu"
+import { selfAsOwner } from "../../utils/auth"
+import { OnUpdateGuideSubscriptionVariables } from "../../api/generated"
 
 type Props = {
   slug?: string
@@ -35,7 +37,8 @@ export default class GuideComponent extends React.Component<Props, State> {
 
     try {
       const variables: GQL.Generated.GetGuideBySlugQueryVariables = {
-        slug: this.props.slug,
+        slug: this.props.slug!,
+        owner:selfAsOwner()
       }
       const response: { data: GQL.Generated.GetGuideBySlugQuery } = await API.graphql(graphqlOperation(GQL.Queries.GetGuideBySlug, variables))
       const guide: Guide = response.data.listGuides!.items![0]!
@@ -48,8 +51,11 @@ export default class GuideComponent extends React.Component<Props, State> {
 
   componentDidMount(): void {
 
+    const variables: OnUpdateGuideSubscriptionVariables = {
+      owner: selfAsOwner(),
+    }
     this.subscription = API.graphql(
-      graphqlOperation(GQL.Subscriptions.OnUpdateGuide),
+      graphqlOperation(GQL.Subscriptions.OnUpdateGuide, variables),
     ).subscribe({
       next: async () => {
         this.fetchGuide().then()

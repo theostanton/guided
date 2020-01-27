@@ -8,7 +8,12 @@ import * as queries from "api/queries"
 import randomKey from "utils/randomKey"
 import { Guide } from "utils/types"
 import { OnCreateGuide } from "api/subscriptions"
-import { AllGuideTitlesQuery } from "api/generated"
+import {
+  AllGuideTitlesForUserQuery,
+  AllGuideTitlesForUserQueryVariables,
+  OnCreateGuideSubscriptionVariables,
+} from "api/generated"
+import { selfAsOwner } from "../../utils/auth"
 
 type Props = {}
 
@@ -23,13 +28,17 @@ export default class GuidesComponent extends React.Component<Props, State> {
     showCreateModal: false,
     guides: undefined,
   }
+
   private subscription: any | undefined
 
   async fetchGuides(): Promise<void> {
 
     let guides: Guide[] | undefined
     try {
-      const response: { data: AllGuideTitlesQuery } = await API.graphql(graphqlOperation(queries.AllGuideTitles))
+      const variables: AllGuideTitlesForUserQueryVariables = {
+        owner: selfAsOwner(),
+      }
+      const response: { data: AllGuideTitlesForUserQuery } = await API.graphql(graphqlOperation(queries.AllGuideTitlesForUser, variables))
       console.log(response)
       guides = response.data.listGuides?.items! as Guide[]
     } catch (response) {
@@ -42,8 +51,11 @@ export default class GuidesComponent extends React.Component<Props, State> {
 
   componentDidMount(): void {
 
+    const variables: OnCreateGuideSubscriptionVariables = {
+      owner: selfAsOwner(),
+    }
     this.subscription = API.graphql(
-      graphqlOperation(OnCreateGuide),
+      graphqlOperation(OnCreateGuide, variables),
     ).subscribe({
       next: async () => {
         await this.fetchGuides()

@@ -37,7 +37,7 @@ export default class AppMenu extends React.Component<Props, State> {
           link={true}
           position='right'
           onClick={async () => {
-            logout()
+            await logout()
             await navigate("/")
           }}/>
       </Menu>

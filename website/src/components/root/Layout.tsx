@@ -30,7 +30,7 @@ export default class RootLayoutComponent extends React.Component {
             <Menu.Item
               name='Logout'
               onClick={async () => {
-                logout()
+                await logout()
                 await navigate("/")
               }
               }/>

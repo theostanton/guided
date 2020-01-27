@@ -1,8 +1,12 @@
 import gql from "graphql-tag"
 
-export const AllGuideTitles = gql`
-    query AllGuideTitles{
-        listGuides{
+export const AllGuideTitlesForUser = gql`
+    query AllGuideTitlesForUser($owner:String!){
+        listGuides(filter: {
+            owner: {
+                eq: $owner
+            }
+        }){
             items{
                 id
                 title
@@ -14,9 +18,12 @@ export const AllGuideTitles = gql`
 `
 
 export const GetGuideBySlug = gql`
-    query GetGuideBySlug($slug: String!){
+    query GetGuideBySlug($slug: String!,$owner:String!){
         listGuides(
             filter:{
+                owner: {
+                    eq: $owner
+                },
                 slug: {
                     eq:$slug
                 }

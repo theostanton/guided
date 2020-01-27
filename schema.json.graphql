@@ -11,6 +11,7 @@ type Guide {
     _lastChangedAt: AWSTimestamp!
     _version: Int!
     id: ID!
+    owner: String!
     rides(filter: ModelRideFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelRideConnection
     slug: String!
     spots(filter: ModelSpotFilterInput, label: ModelStringKeyConditionInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelSpotConnection
@@ -66,6 +67,7 @@ type Ride {
     fromSpotID: ID!
     guideID: ID!
     id: ID!
+    locked: Boolean!
     toSpotID: ID!
 }
 
@@ -76,17 +78,18 @@ type Spot {
     guideID: ID!
     id: ID!
     label: String
+    locked: Boolean!
     nights: Int!
 }
 
 type Subscription {
-    onCreateGuide: Guide
+    onCreateGuide(owner: String!): Guide
     onCreateRide: Ride
     onCreateSpot: Spot
-    onDeleteGuide: Guide
+    onDeleteGuide(owner: String!): Guide
     onDeleteRide: Ride
     onDeleteSpot: Spot
-    onUpdateGuide: Guide
+    onUpdateGuide(owner: String!): Guide
     onUpdateRide: Ride
     onUpdateSpot: Spot
 }
@@ -112,6 +115,7 @@ enum ModelSortDirection {
 input CreateGuideInput {
     _version: Int
     id: ID
+    owner: String!
     slug: String!
     title: String!
 }
@@ -121,6 +125,7 @@ input CreateRideInput {
     fromSpotID: ID!
     guideID: ID!
     id: ID
+    locked: Boolean!
     toSpotID: ID!
 }
 
@@ -129,6 +134,7 @@ input CreateSpotInput {
     guideID: ID!
     id: ID
     label: String
+    locked: Boolean!
     nights: Int!
 }
 
@@ -179,6 +185,7 @@ input ModelGuideFilterInput {
     id: ModelIDInput
     not: ModelGuideFilterInput
     or: [ModelGuideFilterInput]
+    owner: ModelStringInput
     slug: ModelStringInput
     title: ModelStringInput
 }
@@ -215,6 +222,7 @@ input ModelRideConditionInput {
     and: [ModelRideConditionInput]
     fromSpotID: ModelIDInput
     guideID: ModelIDInput
+    locked: ModelBooleanInput
     not: ModelRideConditionInput
     or: [ModelRideConditionInput]
     toSpotID: ModelIDInput
@@ -225,6 +233,7 @@ input ModelRideFilterInput {
     fromSpotID: ModelIDInput
     guideID: ModelIDInput
     id: ModelIDInput
+    locked: ModelBooleanInput
     not: ModelRideFilterInput
     or: [ModelRideFilterInput]
     toSpotID: ModelIDInput
@@ -244,6 +253,7 @@ input ModelSpotConditionInput {
     and: [ModelSpotConditionInput]
     guideID: ModelIDInput
     label: ModelStringInput
+    locked: ModelBooleanInput
     nights: ModelIntInput
     not: ModelSpotConditionInput
     or: [ModelSpotConditionInput]
@@ -254,6 +264,7 @@ input ModelSpotFilterInput {
     guideID: ModelIDInput
     id: ModelIDInput
     label: ModelStringInput
+    locked: ModelBooleanInput
     nights: ModelIntInput
     not: ModelSpotFilterInput
     or: [ModelSpotFilterInput]
@@ -288,6 +299,7 @@ input ModelStringKeyConditionInput {
 input UpdateGuideInput {
     _version: Int
     id: ID!
+    owner: String
     slug: String
     title: String
 }
@@ -297,6 +309,7 @@ input UpdateRideInput {
     fromSpotID: ID
     guideID: ID
     id: ID!
+    locked: Boolean
     toSpotID: ID
 }
 
@@ -305,6 +318,7 @@ input UpdateSpotInput {
     guideID: ID
     id: ID!
     label: String
+    locked: Boolean
     nights: Int
 }
 

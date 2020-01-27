@@ -7,7 +7,7 @@ type Guide @model
     id: ID!
     title: String!
     slug: String!
-    owner: String!
+    owner: String
     spots: [Spot] @connection(keyName: "byGuide", fields: ["id"])
     rides: [Ride] @connection(keyName: "byGuide", fields: ["id"])
 }

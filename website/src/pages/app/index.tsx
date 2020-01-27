@@ -17,13 +17,6 @@ export default class AppComponent extends React.Component {
 
     console.log(("route=" + this.props as any)["*"])
 
-    // const path: string = (this.props as any)["*"]
-    //
-    // if (path.match(/^guides\/[a-zA-Z0-9-]+/)) {
-    //   const slug = path.split("/")[1]
-    //   return <Guide slug={slug}/>
-    // }
-
     return (
       <div style={{ margin: 20 }}>
         <Container>

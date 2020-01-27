@@ -5,10 +5,15 @@ export type CreateGuideInput = {
   id?: string | null,
   title: string,
   slug: string,
+  owner?: string | null,
   _version?: number | null,
 };
 
-export type AllGuideTitlesQuery = {
+export type AllGuideTitlesForUserQueryVariables = {
+  owner: string,
+};
+
+export type AllGuideTitlesForUserQuery = {
   listGuides:  {
     __typename: "ModelGuideConnection",
     items:  Array< {
@@ -22,6 +27,7 @@ export type AllGuideTitlesQuery = {
 
 export type GetGuideBySlugQueryVariables = {
   slug: string,
+  owner: string,
 };
 
 export type GetGuideBySlugQuery = {
@@ -36,11 +42,19 @@ export type GetGuideBySlugQuery = {
   } | null,
 };
 
+export type OnCreateGuideSubscriptionVariables = {
+  owner: string,
+};
+
 export type OnCreateGuideSubscription = {
   onCreateGuide:  {
     __typename: "Guide",
     id: string,
   } | null,
+};
+
+export type OnUpdateGuideSubscriptionVariables = {
+  owner: string,
 };
 
 export type OnUpdateGuideSubscription = {

@@ -2,6 +2,7 @@ import Auth from "@aws-amplify/auth"
 
 
 type User = {
+  userId: string
   username: string
   email: string
 }
@@ -9,14 +10,23 @@ type User = {
 const isBrowser = typeof window !== `undefined`
 
 function getUser(): User | undefined {
-  if (window.localStorage.gatsbyUser) {
+  if (window.localStorage.gatsbyUser && window.localStorage.gatsbyUser !== "") {
     let user = JSON.parse(window.localStorage.gatsbyUser)
     return user ? {
+      userId:user.username,
       username: user["custom:username"],
       email: user.email,
     } : undefined
   }
   return undefined
+}
+
+export function selfAsOwner(): string {
+  const user = getUser()
+  if (user) {
+    return user.userId
+  }
+  throw new Error("Not logged in")
 }
 
 export function isLoggedIn(): boolean {
@@ -26,6 +36,7 @@ export function isLoggedIn(): boolean {
 }
 
 export function setUser(user: User) {
+  console.log("setUser", JSON.stringify(user, null, 4))
   window.localStorage.gatsbyUser = JSON.stringify(user)
 }
 
@@ -33,7 +44,8 @@ function clearUser() {
   window.localStorage.gatsbyUser = ""
 }
 
-export function logout() {
+export async function logout() {
+  await Auth.signOut()
   clearUser()
 }
 
@@ -52,6 +64,6 @@ export async function fetchUser(): Promise<void> {
     }
     setUser(userInfo)
   } catch (e) {
-    logout()
+    await logout()
   }
 }

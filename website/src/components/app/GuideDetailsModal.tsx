@@ -41,7 +41,6 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
   }
 
   async create(): Promise<void> {
-    console.log(JSON.stringify(this.state, null, 4))
     this.setState({ stage: "creating" })
 
     let title = this.state.guideInfo.title!
