@@ -26,7 +26,7 @@ export default class LoginComponent extends React.Component<Props, State> {
     const { password, email } = this.state
     this.setState({ loading: true })
     try {
-      await Auth.signIn({ username: email, password })
+      await Auth.signIn({ username:email, password })
       await navigate("/app")
     } catch (e) {
       console.error(e)
@@ -44,9 +44,8 @@ export default class LoginComponent extends React.Component<Props, State> {
             icon='mail'
             iconPosition='left'
             value={email}
-            type={"email"}
             onChange={(e, { value }) => {
-              this.setState({ "email": value, error: undefined })
+              this.setState({ email: value, error: undefined })
             }
             }/>
           <Form.Input
@@ -57,7 +56,7 @@ export default class LoginComponent extends React.Component<Props, State> {
             type={"password"}
             onChange={(e, { value, error }) => {
               console.log(JSON.stringify(error, null, 4))
-              this.setState({ "password": value, error: undefined })
+              this.setState({ password: value, error: undefined })
             }}/>
           {error && <Message error header={"Error"} content={error.message}/>}
 
