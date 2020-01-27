@@ -1,6 +1,7 @@
 import * as React from "react"
-import { Button, Container, Header, List, Segment } from "semantic-ui-react"
+import { Button, Card, Container, Header, List, Segment } from "semantic-ui-react"
 import GuideDetailsModalComponent from "components/GuideDetailsModal"
+import AppContainer from "components/AppContainer"
 
 import { API, graphqlOperation } from "aws-amplify"
 import * as queries from "gql/queries"
@@ -70,17 +71,13 @@ export default class GuidesComponent extends React.Component<Props, State> {
     const items = guides.map(guide => {
       const key = guide?.id || randomKey()
       return (
-        <List.Item
-          link
+        <Card
           key={key}
-          onClick={async () => {
-            await navigate(`/app/guides/${guide.slug}`)
-          }}
-        >
-          <List.Content>
-            <List.Header>{guide ? guide.title : "Error"}</List.Header>
-          </List.Content>
-        </List.Item>
+          href={`/app/guides/${guide.slug}`}>
+          <Card.Content>
+            <Card.Header>{guide ? guide.title : "Error"}</Card.Header>
+          </Card.Content>
+        </Card>
       )
     })
     return <List
@@ -91,8 +88,7 @@ export default class GuidesComponent extends React.Component<Props, State> {
 
   render(): React.ReactElement | undefined {
 
-    return <Container>
-      <Header>My guides</Header>
+    return <AppContainer>
       <Button
         content='Create new'
         onClick={() => {
@@ -104,7 +100,7 @@ export default class GuidesComponent extends React.Component<Props, State> {
       }}/>}
 
       {this.guidesList()}
-    </Container>
+    </AppContainer>
   }
 
 }

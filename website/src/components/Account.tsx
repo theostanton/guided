@@ -1,6 +1,7 @@
 import * as React from "react"
 import { getCurrentUser } from "utils/auth"
-import { Container, List } from "semantic-ui-react"
+import AppContainer from 'components/AppContainer'
+import { List } from "semantic-ui-react"
 
 type Props = {}
 
@@ -12,7 +13,7 @@ export default class AccountComponent extends React.Component<Props, State> {
 
   render(): React.ReactElement | undefined {
     const user = getCurrentUser()!
-    return <Container>
+    return <AppContainer>
       <List divided relaxed>
         <List.Item>
           <List.Icon name='mail' size='large' verticalAlign='middle'/>
@@ -29,7 +30,7 @@ export default class AccountComponent extends React.Component<Props, State> {
           </List.Content>
         </List.Item>
       </List>
-    </Container>
+    </AppContainer>
   }
 
 }

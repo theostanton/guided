@@ -1,5 +1,5 @@
 import * as React from "react"
-import { getCurrentUser } from "../../utils/auth"
+import AppContainer from 'components/AppContainer'
 import { Container, Header } from "semantic-ui-react"
 
 type Props = {}
@@ -11,9 +11,9 @@ export default class DashboardComponent extends React.Component<Props, State> {
   state: State = {}
 
   render(): React.ReactElement | undefined {
-    return <Container>
+    return <AppContainer>
       <Header>My Dashboard</Header>
-    </Container>
+    </AppContainer>
   }
 
 }
