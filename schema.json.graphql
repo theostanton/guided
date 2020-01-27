@@ -11,6 +11,9 @@ type Guide {
     _lastChangedAt: AWSTimestamp!
     _version: Int!
     id: ID!
+    rides(filter: ModelRideFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelRideConnection
+    slug: String!
+    spots(filter: ModelSpotFilterInput, label: ModelStringKeyConditionInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelSpotConnection
     title: String!
 }
 
@@ -20,22 +23,72 @@ type ModelGuideConnection {
     startedAt: AWSTimestamp
 }
 
+type ModelRideConnection {
+    items: [Ride]
+    nextToken: String
+    startedAt: AWSTimestamp
+}
+
+type ModelSpotConnection {
+    items: [Spot]
+    nextToken: String
+    startedAt: AWSTimestamp
+}
+
 type Mutation {
     createGuide(condition: ModelGuideConditionInput, input: CreateGuideInput!): Guide
+    createRide(condition: ModelRideConditionInput, input: CreateRideInput!): Ride
+    createSpot(condition: ModelSpotConditionInput, input: CreateSpotInput!): Spot
     deleteGuide(condition: ModelGuideConditionInput, input: DeleteGuideInput!): Guide
+    deleteRide(condition: ModelRideConditionInput, input: DeleteRideInput!): Ride
+    deleteSpot(condition: ModelSpotConditionInput, input: DeleteSpotInput!): Spot
     updateGuide(condition: ModelGuideConditionInput, input: UpdateGuideInput!): Guide
+    updateRide(condition: ModelRideConditionInput, input: UpdateRideInput!): Ride
+    updateSpot(condition: ModelSpotConditionInput, input: UpdateSpotInput!): Spot
 }
 
 type Query {
     getGuide(id: ID!): Guide
+    getRide(id: ID!): Ride
+    getSpot(id: ID!): Spot
     listGuides(filter: ModelGuideFilterInput, limit: Int, nextToken: String): ModelGuideConnection
+    listRides(filter: ModelRideFilterInput, limit: Int, nextToken: String): ModelRideConnection
+    listSpots(filter: ModelSpotFilterInput, limit: Int, nextToken: String): ModelSpotConnection
     syncGuides(filter: ModelGuideFilterInput, lastSync: AWSTimestamp, limit: Int, nextToken: String): ModelGuideConnection
+    syncRides(filter: ModelRideFilterInput, lastSync: AWSTimestamp, limit: Int, nextToken: String): ModelRideConnection
+    syncSpots(filter: ModelSpotFilterInput, lastSync: AWSTimestamp, limit: Int, nextToken: String): ModelSpotConnection
+}
+
+type Ride {
+    _deleted: Boolean
+    _lastChangedAt: AWSTimestamp!
+    _version: Int!
+    fromSpotID: ID!
+    guideID: ID!
+    id: ID!
+    toSpotID: ID!
+}
+
+type Spot {
+    _deleted: Boolean
+    _lastChangedAt: AWSTimestamp!
+    _version: Int!
+    guideID: ID!
+    id: ID!
+    label: String
+    nights: Int!
 }
 
 type Subscription {
     onCreateGuide: Guide
+    onCreateRide: Ride
+    onCreateSpot: Spot
     onDeleteGuide: Guide
+    onDeleteRide: Ride
+    onDeleteSpot: Spot
     onUpdateGuide: Guide
+    onUpdateRide: Ride
+    onUpdateSpot: Spot
 }
 
 enum ModelAttributeTypes {
@@ -59,10 +112,37 @@ enum ModelSortDirection {
 input CreateGuideInput {
     _version: Int
     id: ID
+    slug: String!
     title: String!
 }
 
+input CreateRideInput {
+    _version: Int
+    fromSpotID: ID!
+    guideID: ID!
+    id: ID
+    toSpotID: ID!
+}
+
+input CreateSpotInput {
+    _version: Int
+    guideID: ID!
+    id: ID
+    label: String
+    nights: Int!
+}
+
 input DeleteGuideInput {
+    _version: Int
+    id: ID
+}
+
+input DeleteRideInput {
+    _version: Int
+    id: ID
+}
+
+input DeleteSpotInput {
     _version: Int
     id: ID
 }
@@ -90,6 +170,7 @@ input ModelGuideConditionInput {
     and: [ModelGuideConditionInput]
     not: ModelGuideConditionInput
     or: [ModelGuideConditionInput]
+    slug: ModelStringInput
     title: ModelStringInput
 }
 
@@ -98,6 +179,7 @@ input ModelGuideFilterInput {
     id: ModelIDInput
     not: ModelGuideFilterInput
     or: [ModelGuideFilterInput]
+    slug: ModelStringInput
     title: ModelStringInput
 }
 
@@ -129,6 +211,25 @@ input ModelIntInput {
     ne: Int
 }
 
+input ModelRideConditionInput {
+    and: [ModelRideConditionInput]
+    fromSpotID: ModelIDInput
+    guideID: ModelIDInput
+    not: ModelRideConditionInput
+    or: [ModelRideConditionInput]
+    toSpotID: ModelIDInput
+}
+
+input ModelRideFilterInput {
+    and: [ModelRideFilterInput]
+    fromSpotID: ModelIDInput
+    guideID: ModelIDInput
+    id: ModelIDInput
+    not: ModelRideFilterInput
+    or: [ModelRideFilterInput]
+    toSpotID: ModelIDInput
+}
+
 input ModelSizeInput {
     between: [Int]
     eq: Int
@@ -137,6 +238,25 @@ input ModelSizeInput {
     le: Int
     lt: Int
     ne: Int
+}
+
+input ModelSpotConditionInput {
+    and: [ModelSpotConditionInput]
+    guideID: ModelIDInput
+    label: ModelStringInput
+    nights: ModelIntInput
+    not: ModelSpotConditionInput
+    or: [ModelSpotConditionInput]
+}
+
+input ModelSpotFilterInput {
+    and: [ModelSpotFilterInput]
+    guideID: ModelIDInput
+    id: ModelIDInput
+    label: ModelStringInput
+    nights: ModelIntInput
+    not: ModelSpotFilterInput
+    or: [ModelSpotFilterInput]
 }
 
 input ModelStringInput {
@@ -155,10 +275,37 @@ input ModelStringInput {
     size: ModelSizeInput
 }
 
+input ModelStringKeyConditionInput {
+    beginsWith: String
+    between: [String]
+    eq: String
+    ge: String
+    gt: String
+    le: String
+    lt: String
+}
+
 input UpdateGuideInput {
     _version: Int
     id: ID!
+    slug: String
     title: String
+}
+
+input UpdateRideInput {
+    _version: Int
+    fromSpotID: ID
+    guideID: ID
+    id: ID!
+    toSpotID: ID
+}
+
+input UpdateSpotInput {
+    _version: Int
+    guideID: ID
+    id: ID!
+    label: String
+    nights: Int
 }
 
 
