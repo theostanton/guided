@@ -3,7 +3,7 @@ import { Button, Container, Form, Input, Message, Modal, Segment } from "semanti
 import Layout from "layouts/root"
 import { Auth } from "aws-amplify"
 import { navigate } from "gatsby"
-import { fetchUser } from "utils/auth"
+import { fetchUser, isLoggedIn } from "utils/auth"
 
 type Stage = "enter" | "error" | "submitting" | "validate" | "validating"
 
@@ -131,6 +131,18 @@ export default class SignupComponent extends React.Component<Props, State> {
   }
 
   render(): React.ReactElement | undefined {
+
+
+    //TODO this smarter
+    if (isLoggedIn()) {
+      try {
+        navigate("/app").then().catch()
+        return
+      } catch (e) {
+        console.error(e)
+      }
+    }
+
     const { fields: { password, email, username }, accept, errors, stage, validationCode } = this.state
     return <Layout>
       <Container text style={{ marginTop: "2em" }}>

@@ -3,6 +3,7 @@ import { Form, Button, Segment, Message, Container } from "semantic-ui-react"
 import Layout from "layouts/root"
 import { Auth } from "aws-amplify"
 import { navigate } from "gatsby"
+import { isLoggedIn } from "../../utils/auth"
 
 type Props = {}
 
@@ -26,7 +27,7 @@ export default class LoginComponent extends React.Component<Props, State> {
     const { password, email } = this.state
     this.setState({ loading: true })
     try {
-      await Auth.signIn({ username:email, password })
+      await Auth.signIn({ username: email, password })
       await navigate("/app")
     } catch (e) {
       console.error(e)
@@ -35,6 +36,17 @@ export default class LoginComponent extends React.Component<Props, State> {
   }
 
   render(): React.ReactElement | undefined {
+
+    //TODO this smarter
+    if (isLoggedIn()) {
+      try {
+        navigate("/app").then().catch()
+        return
+      } catch (e) {
+        console.error(e)
+      }
+    }
+
     const { password, email, error, loading } = this.state
     return <Layout>
       <Container text style={{ marginTop: "2em" }}>

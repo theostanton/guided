@@ -1,6 +1,6 @@
 import * as React from "react"
 import { getCurrentUser } from "utils/auth"
-import AppContainer from 'components/AppContainer'
+import AppContainer from "components/AppContainer"
 import { List } from "semantic-ui-react"
 
 type Props = {}
@@ -23,10 +23,10 @@ export default class AccountComponent extends React.Component<Props, State> {
           </List.Content>
         </List.Item>
         <List.Item>
-          <List.Icon name='lightbulb' size='large' verticalAlign='middle'/>
+          <List.Icon name='user' size='large' verticalAlign='middle'/>
           <List.Content>
-            <List.Header>Details</List.Header>
-            <List.Description>{JSON.stringify(user, null, 4)}</List.Description>
+            <List.Header>Username</List.Header>
+            <List.Description>{user.username}</List.Description>
           </List.Content>
         </List.Item>
       </List>

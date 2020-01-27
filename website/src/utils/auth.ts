@@ -11,7 +11,10 @@ const isBrowser = typeof window !== `undefined`
 function getUser(): User | undefined {
   if (window.localStorage.gatsbyUser) {
     let user = JSON.parse(window.localStorage.gatsbyUser)
-    return user ? user : undefined
+    return user ? {
+      username: user["custom:username"],
+      email: user.email,
+    } : undefined
   }
   return undefined
 }
@@ -27,7 +30,7 @@ export function setUser(user: User) {
 }
 
 function clearUser() {
-  window.localStorage.gatsbyUser = ''
+  window.localStorage.gatsbyUser = ""
 }
 
 export function logout() {
