@@ -16,7 +16,7 @@ import { navigate } from "gatsby"
 import AppMenu from "components/app/Menu"
 
 type Props = {
-  slug: string
+  slug?: string
 }
 
 type State = {
