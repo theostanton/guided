@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Form, Button, Segment, Message } from "semantic-ui-react"
+import { Form, Button, Segment, Message, Container } from "semantic-ui-react"
 import Layout from "layouts/root"
 import { Auth } from "aws-amplify"
 import { navigate } from "gatsby"
@@ -37,7 +37,7 @@ export default class LoginComponent extends React.Component<Props, State> {
   render(): React.ReactElement | undefined {
     const { password, email, error, loading } = this.state
     return <Layout>
-      <Segment>
+      <Container text style={{ marginTop: "2em" }}>
         <Form error={error !== undefined}>
           <Form.Input
             label={"Email"}
@@ -69,7 +69,7 @@ export default class LoginComponent extends React.Component<Props, State> {
             }
             }>Log in</Button>
         </Form>
-      </Segment>
+      </Container>
     </Layout>
   }
 }

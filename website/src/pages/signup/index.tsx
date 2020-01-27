@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Button, Form, Input, Message, Modal, Segment } from "semantic-ui-react"
+import { Button, Container, Form, Input, Message, Modal, Segment } from "semantic-ui-react"
 import Layout from "layouts/root"
 import { Auth } from "aws-amplify"
 import { navigate } from "gatsby"
@@ -133,7 +133,7 @@ export default class SignupComponent extends React.Component<Props, State> {
   render(): React.ReactElement | undefined {
     const { fields: { password, email, username }, accept, errors, stage, validationCode } = this.state
     return <Layout>
-      <Segment>
+      <Container text style={{ marginTop: "2em" }}>
         <Form error={stage === "error"}>
           <Form.Input
             label="Username"
@@ -211,7 +211,7 @@ export default class SignupComponent extends React.Component<Props, State> {
             </Button>
           </Modal.Actions>
         </Modal>}
-      </Segment>
+      </Container>
     </Layout>
   }
 }
