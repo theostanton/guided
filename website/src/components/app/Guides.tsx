@@ -13,15 +13,19 @@ import {
   AllGuideTitlesForUserQueryVariables,
   OnCreateGuideSubscriptionVariables,
 } from "api/generated"
-import { selfAsOwner } from "../../utils/auth"
+import AuthStore from "../../models/AuthStore"
+import { inject } from "mobx-react"
 
-type Props = {}
+type Props = {
+  authStore:AuthStore
+}
 
 type State = {
   showCreateModal: boolean
   guides: Guide[] | undefined
 }
 
+@inject("authStore")
 export default class GuidesComponent extends React.Component<Props, State> {
 
   state: State = {
@@ -36,7 +40,7 @@ export default class GuidesComponent extends React.Component<Props, State> {
     let guides: Guide[] | undefined
     try {
       const variables: AllGuideTitlesForUserQueryVariables = {
-        owner: selfAsOwner(),
+        owner: this.props.authStore.owner,
       }
       const response: { data: AllGuideTitlesForUserQuery } = await API.graphql(graphqlOperation(queries.AllGuideTitlesForUser, variables))
       console.log(response)
@@ -52,7 +56,7 @@ export default class GuidesComponent extends React.Component<Props, State> {
   componentDidMount(): void {
 
     const variables: OnCreateGuideSubscriptionVariables = {
-      owner: selfAsOwner(),
+      owner: this.props.authStore.owner,
     }
     this.subscription = API.graphql(
       graphqlOperation(OnCreateGuide, variables),

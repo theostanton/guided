@@ -2,15 +2,22 @@ import * as React from "react"
 import { Link, navigate } from "gatsby"
 
 import { Menu, Container } from "semantic-ui-react"
-import { isLoggedIn, logout } from "utils/auth"
+import { inject, observer } from "mobx-react"
+import AuthStore from "../../models/AuthStore"
 
-export default class RootLayoutComponent extends React.Component {
+type Props={
+  authStore?:AuthStore
+}
+
+@inject("authStore")
+@observer
+export default class RootLayoutComponent extends React.Component<Props> {
 
   render(): React.ReactElement {
 
     const { children } = this.props
 
-    const loggedIn = isLoggedIn()
+    const loggedIn = this.props.authStore!.isLoggedIn
     return (
       <Container style={{ margin: 20 }}>
         <Menu attached={true} borderless={true}>
@@ -30,8 +37,7 @@ export default class RootLayoutComponent extends React.Component {
             <Menu.Item
               name='Logout'
               onClick={async () => {
-                await logout()
-                await navigate("/")
+                await this.props.authStore!.logOut()
               }
               }/>
           </Menu.Menu>

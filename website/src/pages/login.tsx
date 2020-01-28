@@ -4,8 +4,12 @@ import Layout from "components/root/Layout"
 import { Auth } from "aws-amplify"
 import { navigate } from "gatsby"
 import { isLoggedIn } from "utils/auth"
+import { inject } from "mobx-react"
+import AuthStore from "../models/AuthStore"
 
-type Props = {}
+type Props = {
+  authStore: AuthStore
+}
 
 type State = {
   email: string,
@@ -14,6 +18,8 @@ type State = {
   error: any | undefined
 }
 
+//dont observe authStore
+@inject("authStore")
 export default class LoginComponent extends React.Component<Props, State> {
 
   state: State = {
@@ -27,7 +33,7 @@ export default class LoginComponent extends React.Component<Props, State> {
     const { password, email } = this.state
     this.setState({ loading: true })
     try {
-      await Auth.signIn({ username: email, password })
+      await this.props.authStore.login(email,password)
       await navigate("/app")
     } catch (e) {
       console.error(e)
@@ -38,7 +44,7 @@ export default class LoginComponent extends React.Component<Props, State> {
   render(): React.ReactElement | undefined {
 
     //TODO this smarter
-    if (isLoggedIn()) {
+    if (this.props.authStore.isLoggedIn) {
       try {
         navigate("/app").then().catch()
         return
@@ -67,7 +73,6 @@ export default class LoginComponent extends React.Component<Props, State> {
             iconPosition='left'
             type={"password"}
             onChange={(e, { value, error }) => {
-              console.log(JSON.stringify(error, null, 4))
               this.setState({ password: value, error: undefined })
             }}/>
           {error && <Message error header={"Error"} content={error.message}/>}

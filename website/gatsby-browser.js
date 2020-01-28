@@ -1,6 +1,4 @@
-import { fetchUser } from "./src/utils/auth"
 import "./src/css/semantic.min.css"
+import wrapWithProvider from "./src/models/provider"
 
-export const onRouteUpdate = (state, page, pages) => {
-  fetchUser().then()
-}
+export const wrapRootElement = wrapWithProvider

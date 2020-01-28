@@ -1,18 +1,23 @@
 import * as React from "react"
-import { getCurrentUser } from "utils/auth"
 import AppContainer from "components/app/Container"
 import { List } from "semantic-ui-react"
+import { inject, observer } from "mobx-react"
+import AuthStore from "../../models/AuthStore"
 
-type Props = {}
+type Props = {
+  authStore:AuthStore
+}
 
 type State = {}
 
+@inject("authStore")
+@observer
 export default class AccountComponent extends React.Component<Props, State> {
 
   state: State = {}
 
   render(): React.ReactElement | undefined {
-    const user = getCurrentUser()!
+    const user = this.props.authStore.user!
     return <AppContainer>
       <List divided relaxed>
         <List.Item>

@@ -14,10 +14,12 @@ import { Guide } from "utils/types"
 import Map from "components/Map"
 import { navigate } from "gatsby"
 import AppMenu from "components/app/Menu"
-import { selfAsOwner } from "../../utils/auth"
 import { OnUpdateGuideSubscriptionVariables } from "../../api/generated"
+import AuthStore from "../../models/AuthStore"
+import { inject } from "mobx-react"
 
 type Props = {
+  authStore:AuthStore
   slug?: string
 }
 
@@ -25,6 +27,7 @@ type State = {
   guide: Guide | undefined
 }
 
+@inject("authStore")
 export default class GuideComponent extends React.Component<Props, State> {
 
   state: State = {
@@ -38,7 +41,7 @@ export default class GuideComponent extends React.Component<Props, State> {
     try {
       const variables: GQL.Generated.GetGuideBySlugQueryVariables = {
         slug: this.props.slug!,
-        owner:selfAsOwner()
+        owner:this.props.authStore.owner
       }
       const response: { data: GQL.Generated.GetGuideBySlugQuery } = await API.graphql(graphqlOperation(GQL.Queries.GetGuideBySlug, variables))
       const guide: Guide = response.data.listGuides!.items![0]!
@@ -52,7 +55,7 @@ export default class GuideComponent extends React.Component<Props, State> {
   componentDidMount(): void {
 
     const variables: OnUpdateGuideSubscriptionVariables = {
-      owner: selfAsOwner(),
+      owner: this.props.authStore.owner,
     }
     this.subscription = API.graphql(
       graphqlOperation(GQL.Subscriptions.OnUpdateGuide, variables),

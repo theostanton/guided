@@ -3,11 +3,14 @@ import { Button, Container, Form, Input, Message, Modal, Segment } from "semanti
 import Layout from "components/root/Layout"
 import { Auth } from "aws-amplify"
 import { navigate } from "gatsby"
-import { fetchUser, isLoggedIn } from "utils/auth"
+import { inject } from "mobx-react"
+import AuthStore from "../models/AuthStore"
 
 type Stage = "enter" | "error" | "submitting" | "validate" | "validating"
 
-type Props = {}
+type Props = {
+  authStore:AuthStore
+}
 
 type Errors = {
   password?: string | undefined
@@ -46,7 +49,8 @@ const PATTERNS: {
   },
 }
 
-export default class SignupComponent extends React.Component<Props, State> {
+@inject("authStore")
+export default class SignUpComponent extends React.Component<Props, State> {
 
   state: State = {
     fields: {
@@ -86,7 +90,7 @@ export default class SignupComponent extends React.Component<Props, State> {
     } else if (accept) {
       this.setState({ stage: "submitting" })
       try {
-        await Auth.signUp({ username: email, password, attributes: { "custom:username": username, email } })
+        await this.props.authStore.signUp(username,email,password)
         this.setState({ stage: "validate", errors: {} })
       } catch (e) {
         console.error(e)
@@ -120,8 +124,8 @@ export default class SignupComponent extends React.Component<Props, State> {
   async validateEmail(): Promise<void> {
     const { fields: { email }, validationCode } = this.state
     try {
-      await Auth.confirmSignUp(email, validationCode!!)
-      await fetchUser()
+      await this.props.authStore.confirmSignUp(email, validationCode!!)
+      // await fetchUser()
       await navigate("/app")
     } catch (e) {
       console.error(e)
@@ -132,9 +136,8 @@ export default class SignupComponent extends React.Component<Props, State> {
 
   render(): React.ReactElement | undefined {
 
-
     //TODO this smarter
-    if (isLoggedIn()) {
+    if (this.props.authStore.isLoggedIn) {
       try {
         navigate("/app").then().catch()
         return

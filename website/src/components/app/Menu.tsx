@@ -1,17 +1,23 @@
 import * as React from "react"
 import { Menu } from "semantic-ui-react"
 import { navigate } from "gatsby"
-import { logout } from "utils/auth"
+import { inject, observer } from "mobx-react"
+import AuthStore from "../../models/AuthStore"
 
-type Props = {}
+type Props = {
+  authStore?: AuthStore
+}
 
 type State = {}
 
+@inject("authStore")
+@observer
 export default class AppMenu extends React.Component<Props, State> {
 
   state: State = {}
 
   render(): React.ReactElement {
+    const user = this.props.authStore!.user
     return (
       <Menu attached={true} borderless={true}>
         <Menu.Item
@@ -26,20 +32,25 @@ export default class AppMenu extends React.Component<Props, State> {
           onClick={async () => {
             await navigate("/app/guides")
           }}/>
-        <Menu.Item
-          name={"My Account"}
-          link={true}
-          onClick={async () => {
-            await navigate("/app/account")
-          }}/>
-        <Menu.Item
-          name={"Log out"}
-          link={true}
+        <Menu.Menu
           position='right'
-          onClick={async () => {
-            await logout()
-            await navigate("/")
-          }}/>
+        >
+          <Menu.Item
+            name={user?.username!}
+            link={true}
+            icon='user'
+            onClick={async () => {
+              await navigate("/app/account")
+            }}
+          />
+          <Menu.Item
+            name={"Log out"}
+            link={true}
+            onClick={async () => {
+              this.props.authStore!.logOut()
+              await navigate("/")
+            }}/>
+        </Menu.Menu>
       </Menu>
     )
   }
