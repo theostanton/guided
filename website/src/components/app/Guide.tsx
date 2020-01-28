@@ -10,68 +10,36 @@ import { API, graphqlOperation } from "aws-amplify"
 
 import * as GQL from "api"
 
-import { Guide } from "utils/types"
 import Map from "components/Map"
 import { navigate } from "gatsby"
 import AppMenu from "components/app/Menu"
-import { OnUpdateGuideSubscriptionVariables } from "../../api/generated"
 import AuthStore from "../../models/AuthStore"
-import { inject } from "mobx-react"
+import { inject, observer } from "mobx-react"
+import GuideStore from "../../models/GuideStore"
 
 type Props = {
-  authStore:AuthStore
+  guideStore: GuideStore
+  authStore: AuthStore
   slug?: string
 }
 
-type State = {
-  guide: Guide | undefined
-}
+type State = {}
 
-@inject("authStore")
+@inject("authStore", "guideStore")
+@observer
 export default class GuideComponent extends React.Component<Props, State> {
 
-  state: State = {
-    guide: undefined,
-  }
-
-  private subscription: any | undefined
-
-  async fetchGuide(): Promise<void> {
-
-    try {
-      const variables: GQL.Generated.GetGuideBySlugQueryVariables = {
-        slug: this.props.slug!,
-        owner:this.props.authStore.owner
-      }
-      const response: { data: GQL.Generated.GetGuideBySlugQuery } = await API.graphql(graphqlOperation(GQL.Queries.GetGuideBySlug, variables))
-      const guide: Guide = response.data.listGuides!.items![0]!
-      this.setState({ guide })
-    } catch (response) {
-      console.error("Error!?")
-      console.error(response)
-    }
-  }
-
   componentDidMount(): void {
-
-    const variables: OnUpdateGuideSubscriptionVariables = {
-      owner: this.props.authStore.owner,
-    }
-    this.subscription = API.graphql(
-      graphqlOperation(GQL.Subscriptions.OnUpdateGuide, variables),
-    ).subscribe({
-      next: async () => {
-        this.fetchGuide().then()
-      },
-    })
-
-    this.fetchGuide().then()
+    this.props.guideStore.subscribe(
+      this.props.slug!,
+      this.props.authStore.owner,
+    )
   }
 
   async deleteGuide(): Promise<void> {
 
     const variables: GQL.Generated.DeleteGuideMutationVariables = {
-      guideId: this.state.guide?.id!,
+      guideId: this.props.guideStore.guide?.id!,
     }
     const response = await API.graphql(graphqlOperation(GQL.Mutations.DeleteGuide, variables))
     console.log(response)
@@ -79,11 +47,11 @@ export default class GuideComponent extends React.Component<Props, State> {
   }
 
   componentWillUnmount(): void {
-    this.subscription?.unsubscribe()
+    this.props.guideStore.unsubscribe()
   }
 
   render(): React.ReactElement | undefined {
-    const guide = this.state.guide
+    const guide = this.props.guideStore.guide
 
     return <div>
       <div style={{

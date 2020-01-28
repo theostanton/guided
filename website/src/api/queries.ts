@@ -28,7 +28,6 @@ export const GetGuideBySlug = gql`
                     eq:$slug
                 }
             }
-            limit: 1
         ){
             items{
                 id

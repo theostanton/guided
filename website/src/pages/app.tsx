@@ -24,7 +24,6 @@ export default class AppComponent extends React.Component<Props> {
 
   render(): React.ReactElement {
 
-    console.log(("route=" + this.props as any)["*"])
     const { isLoggedIn, user, initiating } = this.props.authStore
 
     if (!isLoggedIn && !initiating) {
