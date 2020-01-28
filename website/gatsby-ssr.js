@@ -1,10 +1,13 @@
 import React from "react"
-import { Provider } from "mobx-react"
-
 import { authStore } from "./src/models/AuthStore"
+import { Provider, useStaticRendering } from "mobx-react"
+import { renderToString } from "react-dom/server"
 
-export default function({ element }) {
-  return (
-    <Provider authStore={authStore}>{element}</Provider>
+useStaticRendering(true)
+
+export const replaceRenderer = ({ bodyComponent, replaceBodyHTMLString }) => {
+  const ProviderBody = () => (
+    <Provider authStore={authStore}>{bodyComponent}</Provider>
   )
+  replaceBodyHTMLString(renderToString(<ProviderBody/>))
 }
