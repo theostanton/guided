@@ -20,7 +20,6 @@ export default class AuthStore {
   @observable
   initiating: boolean = true
 
-  @computed
   get isLoggedIn(): boolean {
     return this.user !== undefined
   }
