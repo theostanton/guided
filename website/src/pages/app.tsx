@@ -7,7 +7,7 @@ import Guides from "components/app/Guides"
 import Guide from "components/app/Guide"
 import AppMenu from "components/app/Menu"
 import Amplify from "aws-amplify"
-import config from "../../aws-exports"
+import config from "src/aws-exports"
 
 Amplify.configure(config)
 

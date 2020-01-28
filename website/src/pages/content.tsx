@@ -9,7 +9,7 @@ import Amplify from "aws-amplify"
 type Props = {}
 
 type State = {}
-import config from "../../aws-exports"
+import config from "src/aws-exports"
 Amplify.configure(config)
 
 export default class ContentComponent extends React.Component<Props, State> {

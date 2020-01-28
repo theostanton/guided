@@ -36,7 +36,6 @@ export function isLoggedIn(): boolean {
 }
 
 export function setUser(user: User) {
-  console.log("setUser", JSON.stringify(user, null, 4))
   window.localStorage.gatsbyUser = JSON.stringify(user)
 }
 
