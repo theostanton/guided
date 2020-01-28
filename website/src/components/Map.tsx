@@ -34,7 +34,7 @@ export default class Map extends Component<Props, State> {
 
     return (
       <ReactMapGL
-        mapboxApiAccessToken={"pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazNscGM2djAwdHYwM29vN3l6NWdyY2QxIn0.L4-DzQEX16suphipPXgDmw"}
+        mapboxApiAccessToken={"sk.eyJ1IjoidGhlb2RldiIsImEiOiJjazV4bHo5MG8xYmRiM2VvMDg4bDA1M2liIn0.W4Wbygy5DJ86n6NB2VNxVg"}
         {...this.state.viewport}
         height={"100%"}
         width={"100%"}
