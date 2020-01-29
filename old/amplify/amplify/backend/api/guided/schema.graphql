@@ -1,0 +1,39 @@
+type Guide
+@aws_api_key
+@model
+@auth(
+    rules: [
+        {allow: owner, ownerField: "owner", operations: [create, update, delete]},
+    ])
+{
+    id: ID!
+    title: String!
+    slug: String!
+    owner: String
+    spots: [Spot] @connection(keyName: "byGuide", fields: ["id"])
+    rides: [Ride] @connection(keyName: "byGuide", fields: ["id"])
+}
+
+type Spot
+@model
+@aws_api_key
+@key(name: "byGuide", fields: ["guideID", "label"])
+{
+    id: ID!
+    label:String
+    guideID: ID!
+    nights:Int!
+    locked:Boolean!
+}
+
+type Ride @model
+@key(name: "byGuide", fields: ["guideID"])
+@key(name: "bySpotTo", fields: ["toSpotID"])
+@key(name: "bySpotFrom", fields: ["fromSpotID"])
+{
+    id:ID!
+    guideID: ID!
+    fromSpotID:ID!
+    toSpotID:ID!
+    locked:Boolean!
+}

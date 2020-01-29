@@ -1,4 +1,4 @@
-import { observable, action, computed, reaction, runInAction } from "mobx"
+import { observable, runInAction } from "mobx"
 import { Guide } from "utils/types"
 import * as GQL from "api"
 import { API, graphqlOperation } from "aws-amplify"
@@ -32,12 +32,8 @@ export default class GuideStore {
       slug,
       owner,
     }
-    console.log("variables")
-    console.log(variables)
     const response: { data: GQL.Generated.GetGuideBySlugQuery } = await API.graphql(graphqlOperation(GQL.Queries.GetGuideBySlug, variables))
     const guide = response.data.listGuides!.items![0]! as Guide
-    console.log("response guide=")
-    console.log(response)
     runInAction(() => {
       this.guide = guide
     })
@@ -50,7 +46,6 @@ export default class GuideStore {
 }
 
 const guideStore = new GuideStore()
-console.log("init guideStore")
 export {
   guideStore,
 }

@@ -1,0 +1,10 @@
+{
+  "name": "local",
+  "scripts": {
+    "hello": "ts-node index.ts"
+  },
+  "devDependencies": {
+    "@guided/types": "latest",
+    "ts-node": "^8.6.2"
+  }
+}

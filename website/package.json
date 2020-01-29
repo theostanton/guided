@@ -1,5 +1,6 @@
 {
-  "name": "guided-website",
+  "name": "@guided/website",
+  "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.8.3",

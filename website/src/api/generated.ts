@@ -42,28 +42,6 @@ export type GetGuideBySlugQuery = {
   } | null,
 };
 
-export type OnCreateGuideSubscriptionVariables = {
-  owner: string,
-};
-
-export type OnCreateGuideSubscription = {
-  onCreateGuide:  {
-    __typename: "Guide",
-    id: string,
-  } | null,
-};
-
-export type OnUpdateGuideSubscriptionVariables = {
-  owner: string,
-};
-
-export type OnUpdateGuideSubscription = {
-  onUpdateGuide:  {
-    __typename: "Guide",
-    id: string,
-  } | null,
-};
-
 export type CreateGuideMutationVariables = {
   input: CreateGuideInput,
 };

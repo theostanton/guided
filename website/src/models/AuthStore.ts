@@ -79,7 +79,6 @@ export default class AuthStore {
 }
 
 const authStore = new AuthStore()
-console.log("init authStore")
 export {
   authStore,
 }

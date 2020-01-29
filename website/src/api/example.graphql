@@ -1,0 +1,16 @@
+query SomeQuery{
+    allUsers{
+        totalCount
+        nodes{
+            email
+            username
+            guidesByOwner{
+                nodes{
+                    owner
+                    title
+                    slug
+                }
+            }
+        }
+    }
+}

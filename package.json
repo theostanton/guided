@@ -1,8 +1,20 @@
 {
   "name": "guided",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "build:frontend": "cd website && yarn build",
-    "develop:frontend": "cd website && yarn develop"
+    "develop:frontend": "yarn workspace @guided/website run develop",
+    "develop:types": "yarn workspace @guided/types run develop",
+    "build:types": "yarn workspace @guided/types run build",
+    "deploy:frontend:staging": "yarn workspace @guided/website run deploy:staging",
+    "deploy:backend:staging": "yarn workspace @guided/graphql run deploy:staging"
+  },
+  "workspaces": {
+    "packages": [
+      "graphql",
+      "website",
+      "types",
+      "local"
+    ]
   }
 }

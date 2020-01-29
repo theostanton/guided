@@ -1,0 +1,12 @@
+{
+  "name": "Guided Local Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Local": {
+        "url": "http://0.0.0.0:5000/graphql",
+        "introspect": false
+      }
+    }
+  }
+}
