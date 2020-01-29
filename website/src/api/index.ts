@@ -1,12 +1,12 @@
-import * as Generated from "./generated"
-import * as Mutations from "./mutations"
-import * as Subscriptions from "./subscriptions"
-import * as Queries from "./queries"
+import client from "./client"
+
+import cuid from "cuid"
+
+export function generateId(prefix: string): string {
+  return `${prefix}_${cuid.slug()}`
+}
 
 export {
-  Generated,
-  Mutations,
-  Subscriptions,
-  Queries,
+  client
 }
 

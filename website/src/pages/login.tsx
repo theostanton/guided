@@ -1,9 +1,7 @@
 import * as React from "react"
 import { Form, Button, Message, Container } from "semantic-ui-react"
 import Layout from "components/root/Layout"
-import { Auth } from "aws-amplify"
 import { navigate } from "gatsby"
-import { isLoggedIn } from "utils/auth"
 import { inject } from "mobx-react"
 import AuthStore from "../models/AuthStore"
 
@@ -18,7 +16,6 @@ type State = {
   error: any | undefined
 }
 
-//dont observe authStore
 @inject("authStore")
 export default class LoginComponent extends React.Component<Props, State> {
 

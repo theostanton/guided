@@ -1,0 +1,14 @@
+#TODO subscriptions
+
+#subscription OnCreateGuide($owner:String!){
+#
+#    onCreateGuide(owner:$owner){
+#        id
+#    }
+#}
+#
+#subscription OnUpdateGuide($owner:String!){
+#    onUpdateGuide(owner:$owner){
+#        id
+#    }
+#}

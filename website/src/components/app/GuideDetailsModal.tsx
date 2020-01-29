@@ -2,10 +2,16 @@ import * as React from "react"
 import { Modal, Button, Form } from "semantic-ui-react"
 import sleep from "utils/sleep"
 
-import { API, graphqlOperation } from "aws-amplify"
-import { CreateGuideInput, CreateGuideMutation } from "api/generated"
-import { CreateGuide } from "api/mutations"
 import slugify from "slugify"
+import {
+  GuideInput,
+  MyCreateGuideDocument,
+  MyCreateGuideMutationResult,
+  MyCreateGuideMutationVariables,
+} from "@guided/types"
+import { generateId } from "../../api"
+
+import { client } from "api"
 
 type Props = {
   onClose: () => void
@@ -14,10 +20,10 @@ type Props = {
 type State = {
   stage: "valid" | "invalid" | "creating" | "error"
   open: boolean
-  guideInfo: Partial<CreateGuideInput>
+  guideInfo: Partial<GuideInput>
 }
 
-function isValid(guideInfo: Partial<CreateGuideInput>): boolean {
+function isValid(guideInfo: Partial<GuideInput>): boolean {
   return guideInfo.title !== undefined && guideInfo.title.length > 0
 }
 
@@ -30,7 +36,7 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
   }
 
   update(key: "title", value: string) {
-    const guideInfo: Partial<CreateGuideInput> = {
+    const guideInfo: Partial<GuideInput> = {
       ...this.state.guideInfo,
       [key]: value,
     }
@@ -44,14 +50,24 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
     this.setState({ stage: "creating" })
 
     let title = this.state.guideInfo.title!
-    const input: CreateGuideInput = {
-      title,
-      slug: slugify(title, {
-        lower: true,
-        remove: /[*+~.()'"!:@]/g,
-      }),
+
+    const variables: MyCreateGuideMutationVariables = {
+      guide: {
+        id: generateId("guide"),
+        title,
+        slug: slugify(title, {
+          lower: true,
+          remove: /[*+~.()'"!:@]/g,
+        }),
+      },
     }
-    const { data }: { data: CreateGuideMutation } = await API.graphql(graphqlOperation(CreateGuide, { input }))
+
+    const response = await client.mutate<MyCreateGuideMutationResult>({
+      mutation: MyCreateGuideDocument,
+      variables,
+    })
+
+    const data = response.data!
     console.log(data)
 
     await sleep(1000)

@@ -1,13 +1,6 @@
 import { observable, action, computed } from "mobx"
-import Auth from "@aws-amplify/auth"
-import Amplify from "aws-amplify"
-import config from "../aws-exports"
-
-Amplify.configure(config)
-
 
 export type User = {
-  userId: string
   username: string
   email: string
 }
@@ -27,7 +20,7 @@ export default class AuthStore {
   @computed
   get owner(): string {
     if (this.isLoggedIn) {
-      return this.user?.userId!
+      return this.user?.username!
     }
     throw new Error("AuthStore.owner - not logged in")
   }
@@ -35,11 +28,9 @@ export default class AuthStore {
   @action
   async init(): Promise<void> {
     try {
-      const authenticatedUser = await Auth.currentAuthenticatedUser()
       this.user = {
-        userId: authenticatedUser.username,
-        username: authenticatedUser.attributes["custom:username"],
-        email: authenticatedUser.attributes.email,
+        username: "theo",
+        email: "theo@theo.dev",
       }
     } catch (e) {
       console.error("AuthStore.init error")
@@ -50,31 +41,19 @@ export default class AuthStore {
   }
 
   async login(username: string, password: string): Promise<void> {
-    await Auth.signIn({ username, password })
     await this.init()
   }
 
   async signUp(username: string, email: string, password: string): Promise<void> {
-    const signUpResult = await Auth.signUp({
-      username: email,
-      password,
-      attributes: { "custom:username": username, email },
-    })
     await this.init()
   }
 
   async confirmSignUp(email: string, code: string): Promise<void> {
-    const result = await Auth.confirmSignUp(email, code)
-    console.log("AuthStore.confirmSignUp")
-    console.log(result)
   }
 
   @action
   logOut() {
     this.user = undefined
-    Auth.signOut().then(() => {
-      console.log("Auth.logOut done")
-    })
   }
 }
 

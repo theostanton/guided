@@ -6,12 +6,8 @@ import {
   Rail,
 } from "semantic-ui-react"
 
-import { API, graphqlOperation } from "aws-amplify"
-
-import * as GQL from "api"
 
 import Map from "components/Map"
-import { navigate } from "gatsby"
 import AppMenu from "components/app/Menu"
 import AuthStore from "../../models/AuthStore"
 import { inject, observer } from "mobx-react"
@@ -38,12 +34,13 @@ export default class GuideComponent extends React.Component<Props, State> {
 
   async deleteGuide(): Promise<void> {
 
-    const variables: GQL.Generated.DeleteGuideMutationVariables = {
-      guideId: this.props.guideStore.guide?.id!,
-    }
-    const response = await API.graphql(graphqlOperation(GQL.Mutations.DeleteGuide, variables))
-    console.log(response)
-    await navigate("app/guides")
+    throw new Error("STUB")
+    // const variables: GQL.Generated.DeleteGuideMutationVariables = {
+    //   guideId: this.props.guideStore.guide?.id!,
+    // }
+    // const response = await API.graphql(graphqlOperation(GQL.Mutations.DeleteGuide, variables))
+    // console.log(response)
+    // await navigate("app/guides")
   }
 
   componentWillUnmount(): void {

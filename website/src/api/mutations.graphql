@@ -1,0 +1,17 @@
+mutation MyCreateGuide($guide:GuideInput!){
+    createGuide(input: {
+        guide: $guide
+    }){
+        guide{
+            id
+        }
+    }
+}
+
+mutation MyDeleteGuide($guideId:String!){
+    deleteGuideById(input: {
+        id: $guideId
+    }){
+        deletedGuideId
+    }
+}

@@ -861,6 +861,68 @@ export type SomeQueryQuery = (
   )> }
 );
 
+export type MyCreateGuideMutationVariables = {
+  guide: GuideInput
+};
+
+
+export type MyCreateGuideMutation = (
+  { __typename?: 'Mutation' }
+  & { createGuide: Maybe<(
+    { __typename?: 'CreateGuidePayload' }
+    & { guide: Maybe<(
+      { __typename?: 'Guide' }
+      & Pick<Guide, 'id'>
+    )> }
+  )> }
+);
+
+export type MyDeleteGuideMutationVariables = {
+  guideId: Scalars['String']
+};
+
+
+export type MyDeleteGuideMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteGuideById: Maybe<(
+    { __typename?: 'DeleteGuidePayload' }
+    & Pick<DeleteGuidePayload, 'deletedGuideId'>
+  )> }
+);
+
+export type AllGuideTitlesForUserQueryVariables = {
+  owner: Scalars['String']
+};
+
+
+export type AllGuideTitlesForUserQuery = (
+  { __typename?: 'Query' }
+  & { allGuides: Maybe<(
+    { __typename?: 'GuidesConnection' }
+    & { nodes: Array<Maybe<(
+      { __typename?: 'Guide' }
+      & Pick<Guide, 'id' | 'title' | 'slug'>
+    )>> }
+  )> }
+);
+
+export type GetGuideBySlugQueryVariables = {
+  slug: Scalars['String'],
+  owner: Scalars['String']
+};
+
+
+export type GetGuideBySlugQuery = (
+  { __typename?: 'Query' }
+  & { allGuides: Maybe<(
+    { __typename?: 'GuidesConnection' }
+    & { nodes: Array<Maybe<(
+      { __typename?: 'Guide' }
+      & Pick<Guide, 'id' | 'title' | 'slug'>
+    )>> }
+  )> }
+);
+
 
 export const SomeQueryDocument = gql`
     query SomeQuery {
@@ -905,3 +967,144 @@ export function useSomeQueryLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHo
 export type SomeQueryQueryHookResult = ReturnType<typeof useSomeQueryQuery>;
 export type SomeQueryLazyQueryHookResult = ReturnType<typeof useSomeQueryLazyQuery>;
 export type SomeQueryQueryResult = ApolloReactCommon.QueryResult<SomeQueryQuery, SomeQueryQueryVariables>;
+export const MyCreateGuideDocument = gql`
+    mutation MyCreateGuide($guide: GuideInput!) {
+  createGuide(input: {guide: $guide}) {
+    guide {
+      id
+    }
+  }
+}
+    `;
+export type MyCreateGuideMutationFn = ApolloReactCommon.MutationFunction<MyCreateGuideMutation, MyCreateGuideMutationVariables>;
+
+/**
+ * __useMyCreateGuideMutation__
+ *
+ * To run a mutation, you first call `useMyCreateGuideMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMyCreateGuideMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [myCreateGuideMutation, { data, loading, error }] = useMyCreateGuideMutation({
+ *   variables: {
+ *      guide: // value for 'guide'
+ *   },
+ * });
+ */
+export function useMyCreateGuideMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<MyCreateGuideMutation, MyCreateGuideMutationVariables>) {
+        return ApolloReactHooks.useMutation<MyCreateGuideMutation, MyCreateGuideMutationVariables>(MyCreateGuideDocument, baseOptions);
+      }
+export type MyCreateGuideMutationHookResult = ReturnType<typeof useMyCreateGuideMutation>;
+export type MyCreateGuideMutationResult = ApolloReactCommon.MutationResult<MyCreateGuideMutation>;
+export type MyCreateGuideMutationOptions = ApolloReactCommon.BaseMutationOptions<MyCreateGuideMutation, MyCreateGuideMutationVariables>;
+export const MyDeleteGuideDocument = gql`
+    mutation MyDeleteGuide($guideId: String!) {
+  deleteGuideById(input: {id: $guideId}) {
+    deletedGuideId
+  }
+}
+    `;
+export type MyDeleteGuideMutationFn = ApolloReactCommon.MutationFunction<MyDeleteGuideMutation, MyDeleteGuideMutationVariables>;
+
+/**
+ * __useMyDeleteGuideMutation__
+ *
+ * To run a mutation, you first call `useMyDeleteGuideMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMyDeleteGuideMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [myDeleteGuideMutation, { data, loading, error }] = useMyDeleteGuideMutation({
+ *   variables: {
+ *      guideId: // value for 'guideId'
+ *   },
+ * });
+ */
+export function useMyDeleteGuideMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<MyDeleteGuideMutation, MyDeleteGuideMutationVariables>) {
+        return ApolloReactHooks.useMutation<MyDeleteGuideMutation, MyDeleteGuideMutationVariables>(MyDeleteGuideDocument, baseOptions);
+      }
+export type MyDeleteGuideMutationHookResult = ReturnType<typeof useMyDeleteGuideMutation>;
+export type MyDeleteGuideMutationResult = ApolloReactCommon.MutationResult<MyDeleteGuideMutation>;
+export type MyDeleteGuideMutationOptions = ApolloReactCommon.BaseMutationOptions<MyDeleteGuideMutation, MyDeleteGuideMutationVariables>;
+export const AllGuideTitlesForUserDocument = gql`
+    query AllGuideTitlesForUser($owner: String!) {
+  allGuides(condition: {owner: $owner}) {
+    nodes {
+      id
+      title
+      slug
+    }
+  }
+}
+    `;
+
+/**
+ * __useAllGuideTitlesForUserQuery__
+ *
+ * To run a query within a React component, call `useAllGuideTitlesForUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllGuideTitlesForUserQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllGuideTitlesForUserQuery({
+ *   variables: {
+ *      owner: // value for 'owner'
+ *   },
+ * });
+ */
+export function useAllGuideTitlesForUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>) {
+        return ApolloReactHooks.useQuery<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>(AllGuideTitlesForUserDocument, baseOptions);
+      }
+export function useAllGuideTitlesForUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>(AllGuideTitlesForUserDocument, baseOptions);
+        }
+export type AllGuideTitlesForUserQueryHookResult = ReturnType<typeof useAllGuideTitlesForUserQuery>;
+export type AllGuideTitlesForUserLazyQueryHookResult = ReturnType<typeof useAllGuideTitlesForUserLazyQuery>;
+export type AllGuideTitlesForUserQueryResult = ApolloReactCommon.QueryResult<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>;
+export const GetGuideBySlugDocument = gql`
+    query GetGuideBySlug($slug: String!, $owner: String!) {
+  allGuides(condition: {owner: $owner, slug: $slug}) {
+    nodes {
+      id
+      title
+      slug
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetGuideBySlugQuery__
+ *
+ * To run a query within a React component, call `useGetGuideBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetGuideBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetGuideBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      owner: // value for 'owner'
+ *   },
+ * });
+ */
+export function useGetGuideBySlugQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>(GetGuideBySlugDocument, baseOptions);
+      }
+export function useGetGuideBySlugLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>(GetGuideBySlugDocument, baseOptions);
+        }
+export type GetGuideBySlugQueryHookResult = ReturnType<typeof useGetGuideBySlugQuery>;
+export type GetGuideBySlugLazyQueryHookResult = ReturnType<typeof useGetGuideBySlugLazyQuery>;
+export type GetGuideBySlugQueryResult = ApolloReactCommon.QueryResult<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>;
