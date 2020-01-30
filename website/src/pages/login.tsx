@@ -3,7 +3,7 @@ import { Form, Button, Message, Container } from "semantic-ui-react"
 import Layout from "components/root/Layout"
 import { navigate } from "gatsby"
 import { inject } from "mobx-react"
-import AuthStore from "../models/AuthStore"
+import AuthStore from "../model/AuthStore"
 
 type Props = {
   authStore: AuthStore

@@ -4,16 +4,29 @@
   "private": true,
   "scripts": {
     "develop:frontend": "yarn workspace @guided/website run develop",
-    "develop:types": "yarn workspace @guided/types run develop",
+    "develop:types": "yarn graphql-codegen --watch",
     "build:types": "yarn workspace @guided/types run build",
     "deploy:frontend:staging": "yarn workspace @guided/website run deploy:staging",
     "deploy:backend:staging": "yarn workspace @guided/graphql run deploy:staging"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "latest",
+    "@graphql-codegen/add": "latest",
+    "@graphql-codegen/typescript": "latest",
+    "@graphql-codegen/typescript-operations": "latest",
+    "@graphql-codegen/typescript-resolvers": "latest",
+    "@graphql-codegen/typescript-graphql-files-modules": "latest",
+    "@graphql-codegen/typescript-graphql-request": "latest",
+    "@graphql-codegen/typescript-react-apollo": "latest",
+    "@apollo/react-components": "latest",
+    "@apollo/react-hooks": "latest",
+    "apollo-client": "latest",
+    "graphql-toolkit": "^0.7.1"
   },
   "workspaces": {
     "packages": [
       "graphql",
       "website",
-      "types",
       "local"
     ]
   }

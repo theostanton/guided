@@ -1,7 +1,7 @@
 import * as React from "react"
 import AppContainer from "components/app/Container"
-import { Button, Header } from "semantic-ui-react"
-import AuthStore from "../../models/AuthStore"
+import { Header } from "semantic-ui-react"
+import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
 
 type Props = {

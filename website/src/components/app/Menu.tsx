@@ -2,7 +2,7 @@ import * as React from "react"
 import { Menu } from "semantic-ui-react"
 import { navigate } from "gatsby"
 import { inject, observer } from "mobx-react"
-import AuthStore from "../../models/AuthStore"
+import AuthStore from "model/AuthStore"
 
 type Props = {
   authStore?: AuthStore

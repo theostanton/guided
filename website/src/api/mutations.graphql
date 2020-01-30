@@ -1,4 +1,4 @@
-mutation MyCreateGuide($guide:GuideInput!){
+mutation CreateGuide($guide:GuideInput!){
     createGuide(input: {
         guide: $guide
     }){
@@ -8,7 +8,7 @@ mutation MyCreateGuide($guide:GuideInput!){
     }
 }
 
-mutation MyDeleteGuide($guideId:String!){
+mutation DeleteGuide($guideId:String!){
     deleteGuideById(input: {
         id: $guideId
     }){

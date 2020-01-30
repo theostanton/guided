@@ -7,6 +7,5 @@ export function generateId(prefix: string): string {
 }
 
 export {
-  client
+  client,
 }
-

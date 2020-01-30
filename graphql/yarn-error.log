@@ -1,0 +1,54 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.21.1/libexec/bin/yarn.js install
+
+PATH: 
+  /Users/theo/bin:/usr/local/bin:/Users/theo/Downloads/kotlin-native-macos-0.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.21.1
+
+Node version: 
+  12.14.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/theo/Code/guided/graphql/package.json: Unexpected token , in JSON at position 372
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:310:30)
+      at /usr/local/Cellar/yarn/1.21.1/libexec/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "@guided/graphql",
+    "private": true,
+    "version": "0.0.0",
+    "scripts": {
+      "webpack": "webpack",
+      "deploy:staging": "ENV_FILE=.env.staging ./deploy.sh"
+    },
+    "dependencies": {
+      "aws-serverless-express": "^3.3.5",
+      "cors": "^2.8.5",
+      "pg": "^7.17.1",
+      "postgraphile": "^4.5.5"
+    },
+    "devDependencies": {
+      "@graphile/pg-pubsub": "^4.5.0",,
+      "typescript": "^3.8.0-dev.20200130",
+      "graphql-subscriptions": "^1.1.0",
+      "aws-sdk": "^2.610.0",
+      "serverless-content-encoding": "^1.1.0",
+      "webpack": "^4.41.5",
+      "webpack-cli": "^3.3.10"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

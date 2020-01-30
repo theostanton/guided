@@ -13,6 +13,9 @@
     "postgraphile": "^4.5.5"
   },
   "devDependencies": {
+    "@graphile/pg-pubsub": "^4.5.0",
+    "typescript": "^3.8.0-dev.20200130",
+    "graphql-subscriptions": "^1.1.0",
     "aws-sdk": "^2.610.0",
     "serverless-content-encoding": "^1.1.0",
     "webpack": "^4.41.5",

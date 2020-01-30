@@ -7,6 +7,7 @@ query AllGuideTitlesForUser($owner:String!){
             id
             title
             slug
+            owner
         }
     }
 }
@@ -22,6 +23,14 @@ query GetGuideBySlug($slug: String!,$owner:String!){
             id
             title
             slug
+            owner
+            startDate
+            ridesByGuide{
+                totalCount
+            }
+            spotsByGuide{
+                totalCount
+            }
         }
     }
 }

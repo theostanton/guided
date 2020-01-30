@@ -64,6 +64,9 @@
       "api/**/*": [
         "src/api/**/*"
       ],
+      "model/**/*": [
+        "src/model/**/*"
+      ],
       "layouts/**/*": [
         "src/layouts/**/*"
       ]

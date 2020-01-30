@@ -1,8 +1,4 @@
 import * as React from "react"
-
-import * as GQL from "api"
-import { Header, Segment } from "semantic-ui-react"
-
 type Props = {
   user?: string
   slug?: string

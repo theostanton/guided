@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import Layout from "components/root/Layout"
-import AuthStore from "../models/AuthStore"
+import AuthStore from "../model/AuthStore"
 import { inject } from "mobx-react"
 
 type Props = {

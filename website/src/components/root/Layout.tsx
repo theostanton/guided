@@ -3,7 +3,7 @@ import { Link, navigate } from "gatsby"
 
 import { Menu, Container } from "semantic-ui-react"
 import { inject, observer } from "mobx-react"
-import AuthStore from "../../models/AuthStore"
+import AuthStore from "model/AuthStore"
 
 type Props={
   authStore?:AuthStore

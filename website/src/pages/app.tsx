@@ -7,7 +7,7 @@ import Guides from "components/app/Guides"
 import Guide from "components/app/Guide"
 import AppMenu from "components/app/Menu"
 import { inject, observer } from "mobx-react"
-import AuthStore from "../models/AuthStore"
+import AuthStore from "../model/AuthStore"
 import { navigate } from "gatsby"
 
 type Props = {

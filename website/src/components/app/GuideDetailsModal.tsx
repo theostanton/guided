@@ -1,19 +1,17 @@
 import * as React from "react"
 import { Modal, Button, Form } from "semantic-ui-react"
-import sleep from "utils/sleep"
 
 import slugify from "slugify"
 import {
   GuideInput,
-  MyCreateGuideDocument,
-  MyCreateGuideMutationResult,
-  MyCreateGuideMutationVariables,
-} from "@guided/types"
+  CreateGuideMutationVariables, CreateGuideMutationResult, CreateGuideDocument,
+} from "api/generated"
 import { generateId } from "../../api"
 
 import { client } from "api"
 
 type Props = {
+  owner: string,
   onClose: () => void
 }
 
@@ -51,10 +49,11 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
 
     let title = this.state.guideInfo.title!
 
-    const variables: MyCreateGuideMutationVariables = {
+    const variables: CreateGuideMutationVariables = {
       guide: {
         id: generateId("guide"),
         title,
+        owner: this.props.owner,
         slug: slugify(title, {
           lower: true,
           remove: /[*+~.()'"!:@]/g,
@@ -62,15 +61,14 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
       },
     }
 
-    const response = await client.mutate<MyCreateGuideMutationResult>({
-      mutation: MyCreateGuideDocument,
+    const response = await client.mutate<CreateGuideMutationResult>({
+      mutation: CreateGuideDocument,
       variables,
     })
 
     const data = response.data!
     console.log(data)
 
-    await sleep(1000)
     this.close()
   }
 

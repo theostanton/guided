@@ -1,10 +1,10 @@
-import { useAllGuideTitlesForUserQuery } from "@guided/types"
+import { useAllGuideTitlesForUserQuery } from "api/generated"
 import { Card, List, Message, Segment } from "semantic-ui-react"
-import randomKey from "../../../utils/randomKey"
+import randomKey from "utils/randomKey"
 import * as React from "react"
 import client from "api/client"
 
-export default function GuidesList({ owner }: { owner: string }) {
+export default function GuidesList({ owner }: { owner: string, inc: number }) {
 
   const { data, loading, error } = useAllGuideTitlesForUserQuery({
     client,
@@ -23,16 +23,17 @@ export default function GuidesList({ owner }: { owner: string }) {
     </Segment>
   }
 
-  if (data!.allGuides!.nodes.length === 0) {
+  let guides = data!.allGuides!.nodes
+  if (guides.length === 0) {
     return <Segment>No guides</Segment>
   }
 
-  const items = data!.allGuides!.nodes.map(guide => {
+  const items = guides.map(guide => {
     const key = guide!.id || randomKey()
     return (
       <Card
         key={key}
-        href={`/app/guides/${guide!.slug}`}>
+        href={`/app/guides/${guide?.slug}`}>
         <Card.Content>
           <Card.Header>{guide ? guide.title : "Error"}</Card.Header>
         </Card.Content>

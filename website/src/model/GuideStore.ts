@@ -1,11 +1,16 @@
 import { observable, runInAction } from "mobx"
-import { client } from "../api"
-import { GetGuideBySlugDocument, GetGuideBySlugQuery, GetGuideBySlugQueryVariables, Guide } from "@guided/types"
+import { client } from "api"
+import {
+  GetGuideBySlugDocument,
+  GetGuideBySlugQuery,
+  GetGuideBySlugQueryVariables,
+} from "api/generated"
+import { Guide } from "model"
 
 export default class GuideStore {
 
   @observable
-  guide: Pick<Guide, "id" | "title" | "slug"> | undefined
+  guide: Guide | undefined = undefined
 
   private subscription: any
 
@@ -28,6 +33,8 @@ export default class GuideStore {
   }
 
   private async fetch(slug: string, owner: string): Promise<void> {
+
+    console.log("fetching")
     const variables: GetGuideBySlugQueryVariables = {
       slug,
       owner,
@@ -39,6 +46,7 @@ export default class GuideStore {
     })
     const guide = data!.allGuides!.nodes![0]!
     runInAction(() => {
+      console.log("fetched")
       this.guide = guide
     })
   }

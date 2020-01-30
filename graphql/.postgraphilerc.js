@@ -31,5 +31,8 @@ module.exports = {
     allowExplain: true,
     enableQueryBatching: true,
     legacyRelations: "omit",
+    // subscriptions:true,
+    // simpleSubscriptions:true,
+    // plugins:['@graphile/pg-pubsub']
   },
 }
