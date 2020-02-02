@@ -11,6 +11,12 @@ config:
   withHooks: true
   overwrites: true
 generates:
+  plugins/src/generated.tsx:
+    documents: "plugins/src/**/*.graphql"
+    plugins:
+      - add: // tslint:disable
+      - "typescript"
+      - "typescript-operations"
   website/src/api/generated.tsx:
     documents: "website/src/**/*.graphql"
     plugins:

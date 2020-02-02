@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "webpack": "webpack",
+    "develop": "WORK_DIR=.. DOT_ENV_FILE=.env.local postgraphile --append-plugins /Users/theo/Code/guided/plugins/srv/index.js",
     "deploy:staging": "ENV_FILE=.env.staging ./deploy.sh"
   },
   "dependencies": {
@@ -13,6 +14,7 @@
     "postgraphile": "^4.5.5"
   },
   "devDependencies": {
+    "dotenv": "latest",
     "@graphile/pg-pubsub": "^4.5.0",
     "typescript": "^3.8.0-dev.20200130",
     "graphql-subscriptions": "^1.1.0",

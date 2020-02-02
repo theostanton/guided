@@ -21,9 +21,14 @@ fi
 
 CURRENT_DIR=`dirname $BASH_SOURCE`
 
+echo '$CURRENT_DIR'
+echo $CURRENT_DIR
+echo 'pwd'
+echo "$(pwd)"
+
 # Start
 
-rm -rf $CURRENT_DIR/../.serverless
+rm -rf $CURRENT_DIR/.serverless
 
 echo "Phase 1: Create serverless package"
 sls package

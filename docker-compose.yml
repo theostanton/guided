@@ -18,11 +18,11 @@ services:
     env_file:
       - ./graphql/.env.local
     volumes:
-      - ./node_modules/@graphile/pg-pubsub/:/postgraphile/node_modules/@graphile/pg-pubsub/
-      - ./node_modules/graphql-subscriptions/:/postgraphile/node_modules/graphql-subscriptions/
+      - ./plugins/:/postgraphile/plugins/
       - ./graphql/.postgraphilerc.js:/postgraphile/.postgraphilerc.js
     environment:
       - POSTGRAPHILE_HOST=0.0.0.0
+      - WORK_DIR=/postgraphile
     depends_on:
       - database
     ports:

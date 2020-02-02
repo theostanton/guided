@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "develop:frontend": "yarn workspace @guided/website run develop",
+    "develop:graphql": "yarn workspace @guided/plugins run build && yarn workspace @guided/graphql run develop",
     "develop:types": "yarn graphql-codegen --watch",
     "build:types": "yarn workspace @guided/types run build",
     "deploy:frontend:staging": "yarn workspace @guided/website run deploy:staging",
@@ -26,8 +27,8 @@
   "workspaces": {
     "packages": [
       "graphql",
-      "website",
-      "local"
+      "plugins",
+      "website"
     ]
   }
 }
