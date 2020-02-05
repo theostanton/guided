@@ -44,7 +44,7 @@ jobs:
     working_directory: ~/workspace/backend/server
     steps:
       - attach_workspace:
-          at: /workspace
+          at: ~/workspace
       - build
       - deploy
 
@@ -54,7 +54,7 @@ jobs:
     working_directory: ~/workspace/backend/server
     steps:
       - attach_workspace:
-          at: /workspace
+          at: ~/workspace
       - deploy
 
   deploy-graphql-production:
@@ -65,7 +65,7 @@ jobs:
     steps:
       - aws-cli/setup
       - attach_workspace:
-          at: /workspace
+          at: ~/workspace
 
       - build
       - deploy
@@ -78,7 +78,7 @@ jobs:
 
     steps:
       - attach_workspace:
-          at: /workspace
+          at: ~/workspace
       - build
       - deploy
 
@@ -89,7 +89,7 @@ jobs:
     working_directory: ~/workspace/website
     steps:
       - attach_workspace:
-          at: /workspace
+          at: ~/workspace
       - build
       - deploy
 
