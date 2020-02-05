@@ -57,12 +57,12 @@ jobs:
           key: static
 
 
-  deploy-graphql-staging:
+  build-graphql-staging:
     docker:
       - image: circleci/node:latest
 
     steps:
-      - checkout
+#      - checkout
       - aws-cli/setup
       - restore_cache:
           key: static
@@ -78,7 +78,7 @@ jobs:
       - image: circleci/node:latest
 
     steps:
-      - checkout
+#      - checkout
       - aws-cli/setup
       - restore_cache:
           key: static
@@ -94,7 +94,7 @@ jobs:
       - image: circleci/node:latest
 
     steps:
-      - checkout
+#      - checkout
       - restore_cache:
           key: static
 
@@ -109,7 +109,7 @@ jobs:
       - image: circleci/node:latest
 
     steps:
-      - checkout
+#      - checkout
       - restore_cache:
           key: static
 
