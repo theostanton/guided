@@ -152,7 +152,7 @@ jobs:
 
 workflows:
   version: 2
-  Deploy-Staging:
+  DeployStaging:
     filters:
       only: staging
     jobs:
@@ -164,7 +164,7 @@ workflows:
         requires:
           - deploy-graphql-staging
 
-  Deploy-Production:
+  DeployProduction:
     filters:
       only: master
     jobs:
