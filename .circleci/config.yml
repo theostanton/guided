@@ -96,7 +96,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: key-{{ checksum "yarn.lock" }}
+          key: static
 
       - build:
           directory: website
@@ -111,7 +111,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: key-{{ checksum "yarn.lock" }}
+          key: static
 
       - build:
           directory: website
