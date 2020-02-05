@@ -32,8 +32,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key:
-            - key-{{ checksum "yarn.lock" }}
+          key: {{ checksum "lock.json" }}
       - aws-cli/setup
       - run:
           name: "Build tools"
@@ -49,8 +48,7 @@ jobs:
             - ./backend/tools/node_modules
             - ./backend/tools/srv
             - ./website/node_modules
-          key:
-            - key-{{ checksum "lock.json" }}
+          key: {{ checksum "lock.json" }}
 
 
   deploy-graphql-staging:
@@ -63,8 +61,7 @@ jobs:
       - checkout
       - aws-cli/setup
       - restore_cache:
-          key:
-            - key-{{ checksum "yarn.lock" }}
+          key: {{ checksum "lock.json" }}
 
       - build:
           directory: backend/server
@@ -80,8 +77,7 @@ jobs:
       - checkout
       - aws-cli/setup
       - restore_cache:
-          key:
-            - key-{{ checksum "yarn.lock" }}
+          key: {{ checksum "lock.json" }}
 
       - build:
           directory: backend/server
@@ -96,8 +92,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key:
-            - key-{{ checksum "yarn.lock" }}
+          key: {{ checksum "lock.json" }}
 
       - build:
           directory: website
@@ -114,8 +109,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key:
-            - key-{{ checksum "yarn.lock" }}
+          key: {{ checksum "lock.json" }}
 
       - build:
           directory: website
