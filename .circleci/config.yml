@@ -152,7 +152,7 @@ jobs:
 
 workflows:
   version: 2
-  Deploy Staging:
+  Deploy_Staging:
     jobs:
     - deploy-graphql-staging:
         context: guided-staging
