@@ -6,7 +6,7 @@
     "@babel/plugin-proposal-decorators": "^7.8.3",
     "apollo-boost": "^0.4.7",
     "cuid": "^2.1.8",
-    "gatsby": "^2.18.12",
+    "gatsby": "^2.18.2",
     "gatsby-image": "^2.2.34",
     "gatsby-plugin-s3": "^0.3.2",
     "gatsby-plugin-alias-imports": "^1.0.5",
@@ -28,6 +28,7 @@
     "store": "^2.0.12"
   },
   "devDependencies": {
+    "gatsby-cli": "^2.8.29",
     "@types/store": "^2.0.2",
     "@types/node": "^13.5.0",
     "@types/react": "^16.9.19",
