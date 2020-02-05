@@ -18,15 +18,11 @@ type Props = {
 @observer
 export default class AppComponent extends React.Component<Props> {
 
-  componentDidMount(): void {
-    this.props.authStore.init().then()
-  }
-
   render(): React.ReactElement {
 
-    const { isLoggedIn, user, initiating } = this.props.authStore
+    const { isLoggedIn, user } = this.props.authStore
 
-    if (!isLoggedIn && !initiating) {
+    if (!isLoggedIn) {
       navigate?.("/")?.then()
     }
 
@@ -35,7 +31,6 @@ export default class AppComponent extends React.Component<Props> {
       <div style={{ margin: 20 }}>
         <Container>
           <AppMenu/>
-          {initiating && <Segment loading/>}
           {user &&
           <Router>
             <Account path="/app/account"/>

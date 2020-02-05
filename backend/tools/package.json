@@ -1,0 +1,19 @@
+{
+  "name": "@guided/tools",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./srv/index.js",
+  "types": "./srv/index.d.ts",
+  "scripts": {
+    "types": "sql-ts -c ./config.json",
+    "build": "tsc",
+    "develop": "tsc -w"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "pg-promise": "^10.4.2"
+  },
+  "devDependencies": {
+    "@rmp135/sql-ts": "^1.4.0-beta.0"
+  }
+}

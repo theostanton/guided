@@ -5,7 +5,13 @@
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/database</jdbc-url>
+      <jdbc-url>jdbc:postgresql://0.0.0.0:5432/database</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Guided - Staging" uuid="b9332764-aeea-45a5-a0de-0f239caea93e">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://guided-staging.cnl1a6eyfdur.eu-west-2.rds.amazonaws.com:5432/staging</jdbc-url>
     </data-source>
   </component>
 </project>

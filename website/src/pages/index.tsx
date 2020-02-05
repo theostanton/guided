@@ -11,10 +11,6 @@ type Props = {
 @inject("authStore")
 export default class RootComponent extends React.Component<Props> {
 
-  componentDidMount(): void {
-    this.props.authStore.init().then()
-  }
-
   render(): React.ReactElement {
     return <Layout/>
   }

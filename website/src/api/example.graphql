@@ -1,16 +1,9 @@
 query SomeQuery{
-    allUsers{
+    users{
         totalCount
         nodes{
             email
             username
-            guidesByOwner{
-                nodes{
-                    owner
-                    title
-                    slug
-                }
-            }
         }
     }
 }

@@ -471,8 +471,8 @@ GRANT ALL ON FUNCTION guided.authenticate(email text, password text) TO guided_u
 -- Name: FUNCTION "current_user"(); Type: ACL; Schema: guided; Owner: user
 --
 
-REVOKE ALL ON FUNCTION guided."current_user"() FROM PUBLIC;
-GRANT ALL ON FUNCTION guided."current_user"() TO guided_postgraphile;
+REVOKE ALL ON FUNCTION guided."get_current_user"() FROM PUBLIC;
+GRANT ALL ON FUNCTION guided."get_current_user"() TO guided_postgraphile;
 
 
 --

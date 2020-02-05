@@ -9,9 +9,11 @@ mutation CreateGuide($guide:GuideInput!){
 }
 
 mutation DeleteGuide($guideId:String!){
-    deleteGuideById(input: {
+    deleteGuide(input: {
         id: $guideId
     }){
-        deletedGuideId
+        guide{
+            id
+        }
     }
 }

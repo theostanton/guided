@@ -1,5 +1,5 @@
-org: theostanton
-app: guided
+#org: theostanton
+#app: guided
 service: ${env:AWS_SERVICE_NAME}
 
 plugins:

@@ -6,7 +6,7 @@ import Map from "components/Map"
 import { Rail } from "semantic-ui-react"
 import AppMenu from "components/app/Menu"
 import LeftRail from "./LeftRail"
-import { Guide } from "model/types"
+import { Guide } from "model"
 
 type Props = {
   guideStore: GuideStore

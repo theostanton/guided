@@ -2,7 +2,7 @@ import { useAllGuideTitlesForUserQuery } from "api/generated"
 import { Card, List, Message, Segment } from "semantic-ui-react"
 import randomKey from "utils/randomKey"
 import * as React from "react"
-import client from "api/client"
+import { client } from "api"
 
 export default function GuidesList({ owner }: { owner: string, inc: number }) {
 
@@ -23,7 +23,7 @@ export default function GuidesList({ owner }: { owner: string, inc: number }) {
     </Segment>
   }
 
-  let guides = data!.allGuides!.nodes
+  let guides = data!.guides!.nodes
   if (guides.length === 0) {
     return <Segment>No guides</Segment>
   }

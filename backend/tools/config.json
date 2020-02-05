@@ -1,0 +1,17 @@
+{
+  "dialect": "postgres",
+  "connection": {
+    "host": "0.0.0.0",
+    "user": "user",
+    "password": "password",
+    "database": "database"
+  },
+  "filename": "src/types",
+  "interfaceNameFormat": "${table}",
+  "columnNameCasing": "camel",
+  "singularTableNames": true,
+  "tableNameCasing": "pascal",
+  "schemas": [
+    "guided"
+  ]
+}

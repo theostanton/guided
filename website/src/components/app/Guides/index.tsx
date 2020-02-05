@@ -35,9 +35,11 @@ export default class GuidesComponent extends React.Component<Props, State> {
           this.setState({ showCreateModal: true })
         }}/>
 
-      {this.state.showCreateModal && <GuideDetailsModalComponent owner={this.props.authStore.owner} onClose={() => {
-        this.setState({ showCreateModal: false, inc: this.state.inc + 1 })
-      }}/>}
+      {this.state.showCreateModal &&
+      <GuideDetailsModalComponent owner={this.props.authStore.owner}
+                                  onClose={() => {
+                                    this.setState({ showCreateModal: false, inc: this.state.inc + 1 })
+                                  }}/>}
 
       <GuidesList owner={this.props.authStore.owner} inc={this.state.inc}/>
     </AppContainer>

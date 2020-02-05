@@ -1,5 +1,5 @@
 query AllGuideTitlesForUser($owner:String!){
-    allGuides(
+    guides(
         condition: {
             owner: $owner
         }){
@@ -13,7 +13,7 @@ query AllGuideTitlesForUser($owner:String!){
 }
 
 query GetGuideBySlug($slug: String!,$owner:String!){
-    allGuides(
+    guides(
         condition:{
             owner: $owner,
             slug: $slug
