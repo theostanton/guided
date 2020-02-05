@@ -42,6 +42,7 @@ jobs:
 
     steps:
       - checkout
+      - aws-cli/setup
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "backend/server/package.json" }}
@@ -68,6 +69,7 @@ jobs:
 
     steps:
       - checkout
+      - aws-cli/setup
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "backend/server/package.json" }}
