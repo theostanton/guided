@@ -26,6 +26,11 @@ jobs:
       - run:
           name: "Install"
           command: yarn install
+      - run:
+          name: "Build tools"
+          command: |
+            cd backend/tools
+            yarn build
       - save_cache:
           paths:
             - ./node_modules
