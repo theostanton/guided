@@ -34,7 +34,7 @@ commands:
 
 
 jobs:
-  deploy-graphql:
+  deploy-graphql-staging:
     docker:
       - image: circleci/node:latest
 
@@ -60,7 +60,64 @@ jobs:
       - deploy:
           directory: backend/server
 
-  deploy-website:
+  deploy-graphql-production:
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/graphql
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "backend/server/package.json" }}
+
+      - install:
+          directory: backend/server
+
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: v1-dependencies-{{ checksum "website/package.json" }}
+
+      - build:
+          directory: backend/server
+
+      - deploy:
+          directory: backend/server
+
+  deploy-website-staging:
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/website
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "website/package.json" }}
+
+      - install:
+          directory: website
+
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: v1-dependencies-{{ checksum "website/package.json" }}
+
+      - build:
+          directory: website
+
+      - deploy:
+          directory: website
+
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: v1-dependencies-{{ checksum "website/package.json" }}
+
+  deploy-website-production:
     docker:
       - image: circleci/node:latest
 
@@ -95,23 +152,29 @@ workflows:
   version: 2
   Deploy:
     jobs:
+
       - deploy-graphql-staging:
           context: guided-staging
           filters:
             branches:
               only: staging
+
       - deploy-website-staging:
           context: guided-staging
-#          requires:
-#            - deploy-graphql-staging
+          requires:
+            - deploy-graphql-staging
           filters:
             branches:
               only: staging
+
       - deploy-graphql-production:
+          context: guided-production
           filters:
             branches:
               only: master
+
       - deploy-website-production:
+          context: guided-production
           requires:
             - deploy-graphql-production
           filters:
