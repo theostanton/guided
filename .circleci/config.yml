@@ -5,13 +5,9 @@ orbs:
 
 commands:
   install:
-    description: "Install"
-    parameters:
-      directory:
-        type: string
+    description: "Install all"
     steps:
       - run: |
-          cd << parameters.directory >>
           yarn install
   build:
     description: "Build"
@@ -34,6 +30,31 @@ commands:
 
 
 jobs:
+
+  prepare:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - {{ checksum "yarn.lock" }}
+      - aws-cli/setup
+      - install:
+          directory: backend/tools
+      - save_cache:
+          paths:
+            - ./node_modules
+            - ./backend/codegen/node_modules
+            - ./backend/server/node_modules
+            - ./backend/spinup/node_modules
+            - ./backend/tools/node_modules
+            - ./backend/tools/srv
+            - ./website/node_modules
+          keys:
+            - {{ checksum "lock.json" }}
+
+
   deploy-graphql-staging:
     docker:
       - image: circleci/node:latest
@@ -45,15 +66,7 @@ jobs:
       - aws-cli/setup
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "backend/server/package.json" }}
-
-      - install:
-          directory: backend/server
-
-      - save_cache:
-          paths:
-            - ./node_modules
-          key: v1-dependencies-{{ checksum "website/package.json" }}
+            - {{ checksum "yarn.lock" }}
 
       - build:
           directory: backend/server
@@ -65,22 +78,12 @@ jobs:
     docker:
       - image: circleci/node:latest
 
-    working_directory: ~/graphql
-
     steps:
       - checkout
       - aws-cli/setup
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "backend/server/package.json" }}
-
-      - install:
-          directory: backend/server
-
-      - save_cache:
-          paths:
-            - ./node_modules
-          key: v1-dependencies-{{ checksum "website/package.json" }}
+            - {{ checksum "yarn.lock" }}
 
       - build:
           directory: backend/server
@@ -92,32 +95,17 @@ jobs:
     docker:
       - image: circleci/node:latest
 
-    working_directory: ~/website
-
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "website/package.json" }}
-
-      - install:
-          directory: website
-
-      - save_cache:
-          paths:
-            - ./node_modules
-          key: v1-dependencies-{{ checksum "website/package.json" }}
+            - {{ checksum "yarn.lock" }}
 
       - build:
           directory: website
 
       - deploy:
           directory: website
-
-      - save_cache:
-          paths:
-            - ./node_modules
-          key: v1-dependencies-{{ checksum "website/package.json" }}
 
   deploy-website-production:
     docker:
@@ -129,15 +117,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "website/package.json" }}
-
-      - install:
-          directory: website
-
-      - save_cache:
-          paths:
-            - ./node_modules
-          key: v1-dependencies-{{ checksum "website/package.json" }}
+            - {{ checksum "yarn.lock" }}
 
       - build:
           directory: website
@@ -145,41 +125,38 @@ jobs:
       - deploy:
           directory: website
 
-      - save_cache:
-          paths:
-            - ./node_modules
-          key: v1-dependencies-{{ checksum "website/package.json" }}
-
 workflows:
   version: 2
   Deploy Staging:
     jobs:
-    - deploy-graphql-staging:
-        context: guided-staging
-        filters:
-          branches:
-            only: staging
+      - prepare:
+          filters:
+            branches:
+              only: staging
+      - deploy-graphql-staging:
+          context: guided-staging
+          requires:
+            - prepare
 
-    - deploy-website-staging:
-        context: guided-staging
-        filters:
-          branches:
-            only: staging
-        requires:
-          - deploy-graphql-staging
+      - deploy-website-staging:
+          context: guided-staging
+          requires:
+            - prepare
+            - deploy-graphql-staging
 
   Deploy Production:
     jobs:
-      - deploy-graphql-production:
-          context: guided-production
+      - prepare:
           filters:
             branches:
               only: master
+      - deploy-graphql-production:
+          context: guided-production
+          requires:
+            - prepare
 
       - deploy-website-production:
           context: guided-production
-          filters:
-            branches:
-              only: master
           requires:
+            - prepare
             - deploy-graphql-production
