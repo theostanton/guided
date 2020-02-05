@@ -73,6 +73,8 @@ jobs:
 
 
   deploy-graphql-staging:
+    docker:
+      - image: circleci/node:latest
     steps:
       - deploy:
           directory: backend/server
