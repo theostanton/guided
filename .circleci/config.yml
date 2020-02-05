@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   deploy-website:
     docker:
-      - image: circleci/node:9.9.0
+      - image: circleci/node:latest
 
     working_directory: ~/website
 
