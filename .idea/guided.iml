@@ -10,6 +10,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/api/srv" />
       <excludeFolder url="file://$MODULE_DIR$/backend/common/srv" />
       <excludeFolder url="file://$MODULE_DIR$/backend/data" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/server/srv" />
       <excludeFolder url="file://$MODULE_DIR$/backend/tools/srv" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/usersite/public" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/website-example" />

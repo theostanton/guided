@@ -11,9 +11,12 @@ if (process.env.OWNER_USER) {
 console.log("connection=" + connection)
 console.log("ownerConnectionString=" + ownerConnectionString)
 
-let workDir = ""
-if (process.env.WORK_DIR) {
-  workDir = process.env.WORK_DIR
+let watchPg, readCache, writeCache = undefined
+if (process.env.POSTGRAPHILE_WATCH === "true") {
+  watchPg = true
+} else {
+  watchPg = false
+  readCache = writeCache = ".cache"
 }
 
 export const host = process.env.POSTGRAPHILE_HOST && process.env.POSTGRAPHILE_HOST.length > 0 ? process.env.POSTGRAPHILE_HOST : undefined
@@ -26,8 +29,9 @@ export const options: PostGraphileOptions = {
     audience: undefined,
   },
   pgDefaultRole: "guided_anonymous",
-  watchPg: true,
-  // exportGqlSchemaPath: "../schema.graphql",
+  watchPg,
+  readCache,
+  writeCache,
   enableCors: true,
   dynamicJson: true,
   showErrorStack: "json",

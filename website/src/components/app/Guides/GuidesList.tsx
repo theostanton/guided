@@ -11,6 +11,7 @@ export default function GuidesList({ owner }: { owner: string, inc: number }) {
     variables: {
       owner,
     },
+    ssr: false,
   })
 
   if (loading) {
