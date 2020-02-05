@@ -89,13 +89,9 @@ jobs:
     steps:
       - attach_workspace:
           at: /workspace
-
-      - build:
-          directory: website
-
-      - deploy:
-          directory: website
-
+      - build
+      - deploy
+      -
 workflows:
   version: 2
   Deploy Staging:
