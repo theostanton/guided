@@ -4,7 +4,7 @@
 #
 version: 2.1
 jobs:
-  build_website:
+  build-website:
     docker:
       - image: circleci/node:7.10
     working_directory: ~/website
