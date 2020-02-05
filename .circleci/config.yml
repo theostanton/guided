@@ -8,7 +8,9 @@ commands:
       directory:
         type: string
     steps:
-      - run: |
+      - run:
+        name: 'Install'
+        command: |
           cd << parameters.directory >>
           yarn install
   build:
@@ -17,18 +19,22 @@ commands:
       directory:
         type: string
     steps:
-      - run: |
-          cd << parameters.directory >>
-          yarn build
+      - run:
+          name: 'Build'
+          command: |
+            cd << parameters.directory >>
+            yarn build
   deploy:
     description: "Deploy"
     parameters:
       directory:
         type: string
     steps:
-      - run: |
-          cd << parameters.directory >>
-          yarn deploy
+      - run:
+          name: 'Deploy'
+          command: |
+            cd << parameters.directory >>
+            yarn deploy
 
 jobs:
   deploy-graphql:
@@ -71,16 +77,16 @@ jobs:
             - v1-dependencies-{{ checksum "website/package.json" }}
 
       - install:
-          directory: backend/server
+          directory: website
 
       - save_cache:
           paths:
             - ./node_modules
           key: v1-dependencies-{{ checksum "website/package.json" }}
       - build:
-          directory: backend/server
+          directory: website
       - deploy:
-          directory: backend/server
+          directory: website
 
       - save_cache:
           paths:

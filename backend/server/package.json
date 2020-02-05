@@ -18,6 +18,7 @@
     "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1"
   },
   "devDependencies": {
+    "serverless": "^1.63.0",
     "@types/aws-serverless-express": "^3.3.3",
     "@types/node": "^13.7.0",
     "eslint": "^6.8.0",
