@@ -43,7 +43,7 @@ jobs:
     docker:
       - image: circleci/node:latest
 
-    working_directory: ~/workspace/backend/server
+    working_directory: ~/workspace/backend/graphql
     steps:
       - attach_workspace:
           at: ~/workspace
@@ -52,7 +52,7 @@ jobs:
   deploy-graphql-staging:
     docker:
       - image: circleci/node:latest
-    working_directory: ~/workspace/backend/server
+    working_directory: ~/workspace/backend/graphql
     steps:
       - attach_workspace:
           at: ~/workspace
@@ -61,7 +61,7 @@ jobs:
   deploy-graphql-production:
     docker:
       - image: circleci/node:latest
-    working_directory: ~/workspace/backend/server
+    working_directory: ~/workspace/backend/graphql
 
     steps:
       - aws-cli/setup
