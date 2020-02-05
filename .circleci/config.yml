@@ -33,11 +33,15 @@ jobs:
       - restore_cache:
           key: key-{{ checksum "lock.json" }}
       - aws-cli/setup
+#      - run:
+#          name: "Build tools"
+#          command: |
+#            cd backend/tools
+#            yarn install
+#            yarn build
       - run:
-          name: "Build tools"
-          command: |
-            cd backend/tools
-            yarn install
+          name: "Install"
+          command: yarn install
       - save_cache:
           paths:
             - ./node_modules
