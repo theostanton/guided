@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require("path")
 
 module.exports = {
   siteMetadata: {
@@ -7,22 +7,22 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
-    'gatsby-plugin-less',
+    "gatsby-plugin-less",
     {
       resolve: `gatsby-plugin-alias-imports`,
       options: {
         alias: {
-          "src": path.resolve(__dirname, 'src'),
-          "components": path.resolve(__dirname, 'src/components'),
-          "model": path.resolve(__dirname, 'src/model'),
-          "api": path.resolve(__dirname, 'src/api'),
-          "layouts": path.resolve(__dirname, 'src/layouts'),
-          "utils": path.resolve(__dirname, 'src/utils'),
+          "src": path.resolve(__dirname, "src"),
+          "components": path.resolve(__dirname, "src/components"),
+          "model": path.resolve(__dirname, "src/model"),
+          "api": path.resolve(__dirname, "src/api"),
+          "layouts": path.resolve(__dirname, "src/layouts"),
+          "utils": path.resolve(__dirname, "src/utils"),
         },
         extensions: [
-          'tsx','ts','js','jsx'
-        ]
-      }
+          "tsx", "ts", "js", "jsx",
+        ],
+      },
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -32,7 +32,7 @@ module.exports = {
         start_url: `/`,
         background_color: `#999999`,
         theme_color: `#999999`,
-        display: `minimal-ui`
+        display: `minimal-ui`,
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
@@ -49,8 +49,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-s3`,
       options: {
-        bucketName: "guided-website",
-        region: 'eu-west-2',
+        bucketName: `guided-website-${process.env.STAGE}`,
+        region: "eu-west-2",
         protocol: "https",
         hostname: "ridersbible.com",
       },
