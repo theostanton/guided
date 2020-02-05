@@ -9,8 +9,8 @@ commands:
         type: string
     steps:
       - run: |
-        cd << parameters.directory >>
-        yarn install
+          cd << parameters.directory >>
+          yarn install
   build:
     description: "Build"
     parameters:
@@ -18,8 +18,8 @@ commands:
         type: string
     steps:
       - run: |
-        cd << parameters.directory >>
-        yarn build
+          cd << parameters.directory >>
+          yarn build
   deploy:
     description: "Deploy"
     parameters:
@@ -27,8 +27,8 @@ commands:
         type: string
     steps:
       - run: |
-        cd << parameters.directory >>
-        yarn deploy
+          cd << parameters.directory >>
+          yarn deploy
 
 
 jobs:
