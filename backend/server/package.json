@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "tsc",
-    "start": "node -r ts-node/register ./src/server.ts",
+    "start": "STAGE=staging node -r ts-node/register ./src/server.ts",
     "deploy": "yarn build && sls deploy"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "postgraphile": "^4.6.0",
     "dotenv": "^8.2.0",
     "serverless-content-encoding": "^1.1.0",
+    "serverless-dotenv-plugin": "^2.3.1",
     "aws-serverless-express": "^3.3.6",
     "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1"
   },

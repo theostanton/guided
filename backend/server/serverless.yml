@@ -60,10 +60,14 @@ provider:
 
 plugins:
   - serverless-content-encoding
+  - serverless-dotenv-plugin
 
 custom:
   contentEncoding:
     minimumCompressionSize: 0
+  dotenv:
+    path: ../.env.staging
+    logging: true
 
 package:
   individually: true
@@ -80,6 +84,10 @@ functions:
           method: post
           cors: true
           integration: lambda-proxy
+
+    #    Define function environment variables here
+#    environment:
+#      STAGE: ${env:STAGE}
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
@@ -108,10 +116,6 @@ functions:
 #          conditions:
 #            host: example.com
 #            path: /hello
-
-#    Define function environment variables here
-#    environment:
-#      variable2: value2
 
 # you can add CloudFormation resource templates here
 #resources:

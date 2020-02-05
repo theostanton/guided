@@ -14,9 +14,10 @@ console.log("ownerConnectionString=" + ownerConnectionString)
 let watchPg, readCache, writeCache = undefined
 if (process.env.POSTGRAPHILE_WATCH === "true") {
   watchPg = true
+  writeCache = "cache"
 } else {
+  // readCache = "cache"
   watchPg = false
-  readCache = writeCache = ".cache"
 }
 
 export const host = process.env.POSTGRAPHILE_HOST && process.env.POSTGRAPHILE_HOST.length > 0 ? process.env.POSTGRAPHILE_HOST : undefined
