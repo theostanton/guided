@@ -1,5 +1,7 @@
 version: 2.1
 
+orbs:
+  aws-cli: circleci/aws-cli@0.1.19
 
 commands:
   install:
@@ -93,7 +95,25 @@ workflows:
   version: 2
   Deploy:
     jobs:
-      - deploy-graphql
-      - deploy-website:
+      - deploy-graphql-staging:
+          context: guided-staging
+          filters:
+            branches:
+              only: staging
+      - deploy-website-staging:
+          context: guided-staging
           requires:
             - deploy-graphql
+          filters:
+            branches:
+              only: staging
+      - deploy-graphql-production:
+          filters:
+            branches:
+              only: master
+      - deploy-website-production:
+          requires:
+            - deploy-graphql
+          filters:
+            branches:
+              only: master
