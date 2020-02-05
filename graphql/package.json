@@ -8,6 +8,7 @@
     "deploy:staging": "ENV_FILE=.env.staging ./deploy.sh"
   },
   "dependencies": {
+    "@guided/tools": "*",
     "aws-serverless-express": "^3.3.5",
     "typescript": "^3.8.0-dev.20200204",
     "cors": "^2.8.5",
