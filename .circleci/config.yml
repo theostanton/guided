@@ -10,9 +10,7 @@ commands:
     steps:
       - run:
         name: 'Install'
-        command: |
-          cd << parameters.directory >>
-          yarn install
+        command: cd << parameters.directory >> && yarn install
   build:
     description: "Build"
     parameters:
@@ -21,9 +19,7 @@ commands:
     steps:
       - run:
           name: 'Build'
-          command: |
-            cd << parameters.directory >>
-            yarn build
+          command: cd << parameters.directory >> && yarn build
   deploy:
     description: "Deploy"
     parameters:
@@ -32,9 +28,7 @@ commands:
     steps:
       - run:
           name: 'Deploy'
-          command: |
-            cd << parameters.directory >>
-            yarn deploy
+          command: cd << parameters.directory >> && yarn deploy
 
 jobs:
   deploy-graphql:
@@ -45,7 +39,6 @@ jobs:
 
     steps:
       - checkout
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "backend/server/package.json" }}
@@ -60,6 +53,7 @@ jobs:
 
       - build:
           directory: backend/server
+
       - deploy:
           directory: backend/server
 
@@ -71,7 +65,6 @@ jobs:
 
     steps:
       - checkout
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "website/package.json" }}
@@ -83,8 +76,10 @@ jobs:
           paths:
             - ./node_modules
           key: v1-dependencies-{{ checksum "website/package.json" }}
+
       - build:
           directory: website
+
       - deploy:
           directory: website
 
