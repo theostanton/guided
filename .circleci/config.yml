@@ -153,31 +153,25 @@ jobs:
 workflows:
   version: 2
   Deploy_Staging:
+    filters:
+      only: staging
+      jobs:
       - deploy-graphql-staging:
           context: guided-staging
-          filters:
-            branches:
-              only: staging
 
       - deploy-website-staging:
           context: guided-staging
           requires:
             - deploy-graphql-staging
-          filters:
-            branches:
-              only: staging
 
   Deploy_Production:
-      - deploy-graphql-production:
-          context: guided-production
-          filters:
-            branches:
-              only: master
+      filters:
+        only: master
+      jobs:
+        - deploy-graphql-production:
+            context: guided-production
 
-      - deploy-website-production:
-          context: guided-production
-          requires:
-            - deploy-graphql-production
-          filters:
-            branches:
-              only: master
+        - deploy-website-production:
+            context: guided-production
+            requires:
+              - deploy-graphql-production
