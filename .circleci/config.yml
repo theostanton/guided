@@ -4,11 +4,6 @@ orbs:
   aws-cli: circleci/aws-cli@0.1.19
 
 commands:
-  install:
-    description: "Install all"
-    steps:
-      - run: |
-          yarn install
   build:
     description: "Build"
     parameters:
@@ -40,8 +35,11 @@ jobs:
           keys:
             - {{ checksum "yarn.lock" }}
       - aws-cli/setup
-      - install:
-          directory: backend/tools
+      - run:
+          name: "Build tools"
+          command: |
+            cd backend/tools
+            yarn build
       - save_cache:
           paths:
             - ./node_modules
