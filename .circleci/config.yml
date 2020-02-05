@@ -31,11 +31,8 @@ jobs:
             - ./node_modules
           key: node_modules-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
-          root: ~/workspace
-          paths:
-            - node_modules/*
-            - backend/*
-            - website/*
+          root: .
+          paths: .
 
   build-graphql-staging:
     docker:
