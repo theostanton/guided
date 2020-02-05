@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "STAGE=staging node -r ts-node/register ./src/server.ts",
-    "deploy": "yarn build && sls deploy"
+    "deploy": "sls deploy"
   },
   "dependencies": {
     "@guided/tools": "*",

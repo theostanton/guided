@@ -1,5 +1,62 @@
 version: 2.1
+
+
+commands:
+  install:
+    description: "Install"
+    parameters:
+      directory:
+        type: string
+    steps:
+      - run: |
+          cd << parameters.directory >>
+          yarn install
+  build:
+    description: "Build"
+    parameters:
+      directory:
+        type: string
+    steps:
+      - run: |
+          cd << parameters.directory >>
+          yarn build
+  deploy:
+    description: "Deploy"
+    parameters:
+      directory:
+        type: string
+    steps:
+      - run: |
+          cd << parameters.directory >>
+          yarn deploy
+
 jobs:
+  deploy-graphql:
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/graphql
+
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "backend/server/package.json" }}
+
+      - install:
+          directory: backend/server
+
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: v1-dependencies-{{ checksum "website/package.json" }}
+
+      - build:
+          directory: backend/server
+      - deploy:
+          directory: backend/server
+
   deploy-website:
     docker:
       - image: circleci/node:latest
@@ -11,30 +68,28 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-      - run:
-          name: Install dependencies
-          command: |
-            cd website
-            yarn install
-      - run:
-          name: Build
-          command: |
-            cd website
-            yarn build
-      - run:
-          name: Deploy
-          command: |
-            cd website
-            yarn deploy
+            - v1-dependencies-{{ checksum "website/package.json" }}
+
+      - install:
+          directory: backend/server
 
       - save_cache:
           paths:
             - ./node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "website/package.json" }}
+      - build:
+          directory: backend/server
+      - deploy:
+          directory: backend/server
+
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: v1-dependencies-{{ checksum "website/package.json" }}
 
 workflows:
   version: 2
-  Deploy-Website:
+  Deploy:
     jobs:
+      - deploy-graphql
       - deploy-website
