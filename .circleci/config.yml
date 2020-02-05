@@ -152,7 +152,7 @@ jobs:
 
 workflows:
   version: 2
-  Deploy-Staging:
+  Deploy_Staging:
       - deploy-graphql-staging:
           context: guided-staging
           filters:
@@ -167,7 +167,7 @@ workflows:
             branches:
               only: staging
 
-  Deploy-Production:
+  Deploy_Production:
       - deploy-graphql-production:
           context: guided-production
           filters:
