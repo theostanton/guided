@@ -14,19 +14,19 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Install dependencies
-          command:
-            - cd website
-            - yarn install
+          command: |
+            cd website
+            yarn install
       - run:
           name: Build
-          command:
-            - cd website
-            - yarn build
+          command: |
+            cd website
+            yarn build
       - run:
           name: Deploy
-          command:
-            - cd website
-            - yarn deploy
+          command: |
+            cd website
+            yarn deploy
 
       - save_cache:
           paths:
