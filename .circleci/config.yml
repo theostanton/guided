@@ -103,7 +103,7 @@ workflows:
       - deploy-website-staging:
           context: guided-staging
           requires:
-            - deploy-graphql
+            - deploy-graphql-staging
           filters:
             branches:
               only: staging
@@ -113,7 +113,7 @@ workflows:
               only: master
       - deploy-website-production:
           requires:
-            - deploy-graphql
+            - deploy-graphql-production
           filters:
             branches:
               only: master
