@@ -102,8 +102,8 @@ workflows:
               only: staging
       - deploy-website-staging:
           context: guided-staging
-          requires:
-            - deploy-graphql-staging
+#          requires:
+#            - deploy-graphql-staging
           filters:
             branches:
               only: staging
