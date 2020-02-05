@@ -43,7 +43,6 @@ jobs:
       - attach_workspace:
           at: ~/workspace
       - build
-      - deploy
 
   deploy-graphql-staging:
     docker:
@@ -67,7 +66,7 @@ jobs:
       - build
       - deploy
 
-  deploy-website-staging:
+  build-website-staging:
     docker:
       - image: circleci/node:latest
 
@@ -77,6 +76,16 @@ jobs:
       - attach_workspace:
           at: ~/workspace
       - build
+
+  deploy-website-staging:
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/workspace/website
+
+    steps:
+      - attach_workspace:
+          at: ~/workspace
       - deploy
 
   deploy-website-production:
@@ -98,19 +107,26 @@ workflows:
           filters:
             branches:
               only: staging
+
       - build-graphql-staging:
           context: guided-staging
           requires:
             - prepare
+
       - deploy-graphql-staging:
           context: guided-staging
           requires:
             - build-graphql-staging
 
-      - deploy-website-staging:
+      - build-website-staging:
           context: guided-staging
           requires:
             - prepare
+
+      - deploy-website-staging:
+          context: guided-staging
+          requires:
+            - build-website-staging
             - deploy-graphql-staging
 
   Deploy Production:
