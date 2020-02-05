@@ -8,27 +8,28 @@ commands:
       directory:
         type: string
     steps:
-      - run:
-        name: 'Install'
-        command: cd << parameters.directory >> && yarn install
+      - run: |
+        cd << parameters.directory >>
+        yarn install
   build:
     description: "Build"
     parameters:
       directory:
         type: string
     steps:
-      - run:
-          name: 'Build'
-          command: cd << parameters.directory >> && yarn build
+      - run: |
+        cd << parameters.directory >>
+        yarn build
   deploy:
     description: "Deploy"
     parameters:
       directory:
         type: string
     steps:
-      - run:
-          name: 'Deploy'
-          command: cd << parameters.directory >> && yarn deploy
+      - run: |
+        cd << parameters.directory >>
+        yarn deploy
+
 
 jobs:
   deploy-graphql:
@@ -93,4 +94,6 @@ workflows:
   Deploy:
     jobs:
       - deploy-graphql
-      - deploy-website
+      - deploy-website:
+          requires:
+            - deploy-graphql
