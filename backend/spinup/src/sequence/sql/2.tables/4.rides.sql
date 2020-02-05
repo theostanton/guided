@@ -6,6 +6,9 @@ create table guided.rides
     guide varchar(128) not null
         constraint rides_guides_id_fk
             references guided.guides,
+    owner  varchar(64)  not null
+        constraint rides_users_username_fk
+            references guided.users,
     from_spot varchar(128) not null
         constraint rides_from_spots_id_fk
             references guided.spots,
