@@ -62,14 +62,18 @@ jobs:
       - image: circleci/node:latest
 
     steps:
-#      - checkout
-      - aws-cli/setup
       - restore_cache:
           key: static
 
       - build:
           directory: backend/server
 
+      - deploy:
+          directory: backend/server
+
+
+  deploy-graphql-staging:
+    steps:
       - deploy:
           directory: backend/server
 
@@ -127,10 +131,14 @@ workflows:
           filters:
             branches:
               only: staging
-      - deploy-graphql-staging:
+      - build-graphql-staging:
           context: guided-staging
           requires:
             - prepare
+      - deploy-graphql-staging:
+          context: guided-staging
+          requires:
+            - build-graphql-staging
 
       - deploy-website-staging:
           context: guided-staging
