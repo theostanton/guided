@@ -25,14 +25,13 @@ commands:
 
 
 jobs:
-
   prepare:
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
       - restore_cache:
-          key: {{ checksum "lock.json" }}
+          key: key-{{ checksum "lock.json" }}
       - aws-cli/setup
       - run:
           name: "Build tools"
@@ -48,20 +47,18 @@ jobs:
             - ./backend/tools/node_modules
             - ./backend/tools/srv
             - ./website/node_modules
-          key: {{ checksum "lock.json" }}
+          key: key-{{ checksum "lock.json" }}
 
 
   deploy-graphql-staging:
     docker:
       - image: circleci/node:latest
 
-    working_directory: ~/graphql
-
     steps:
       - checkout
       - aws-cli/setup
       - restore_cache:
-          key: {{ checksum "lock.json" }}
+          key: key-{{ checksum "lock.json" }}
 
       - build:
           directory: backend/server
@@ -77,7 +74,7 @@ jobs:
       - checkout
       - aws-cli/setup
       - restore_cache:
-          key: {{ checksum "lock.json" }}
+          key: key-{{ checksum "lock.json" }}
 
       - build:
           directory: backend/server
@@ -92,7 +89,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: {{ checksum "lock.json" }}
+          key: key-{{ checksum "lock.json" }}
 
       - build:
           directory: website
@@ -104,12 +101,10 @@ jobs:
     docker:
       - image: circleci/node:latest
 
-    working_directory: ~/website
-
     steps:
       - checkout
       - restore_cache:
-          key: {{ checksum "lock.json" }}
+          key: key-{{ checksum "lock.json" }}
 
       - build:
           directory: website
