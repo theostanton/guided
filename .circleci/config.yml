@@ -16,6 +16,7 @@ commands:
 
 jobs:
   prepare:
+    working_directory: /workspace
     docker:
       - image: circleci/node:latest
     steps:
