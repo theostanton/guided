@@ -10,7 +10,7 @@ drop role if exists guided_postgraphile;
 -- drop owned by guided_anonymous;
 drop role if exists guided_anonymous;
 -- drop owned by guided_user;
--- drop role if exists guided_user;
+drop role if exists guided_user;
 drop extension if exists "pgcrypto";
 drop type if exists guided.jwt_token;
 drop schema if exists guided;

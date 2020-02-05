@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start:local": "tsc && STAGE=local node srv/index.js",
+    "start:production": "tsc && STAGE=production node srv/index.js",
     "start:staging": "STAGE=staging ts-node src/index.ts"
   },
   "devDependencies": {

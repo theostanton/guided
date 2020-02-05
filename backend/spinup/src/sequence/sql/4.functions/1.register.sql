@@ -15,6 +15,3 @@ $$ language plpgsql strict
                     security definer;
 
 comment on function guided.register( text, text, text) is 'Registers a single user';
-
-
--- alter function guided.register(text, text,text) owner to us;
