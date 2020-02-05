@@ -5,6 +5,7 @@
   "main": "./srv/index.js",
   "types": "./srv/index.d.ts",
   "scripts": {
+    "prepare" : "yarn build",
     "types": "sql-ts -c ./config.json",
     "build": "tsc",
     "develop": "tsc -w"
