@@ -32,7 +32,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
+          key:
             - key-{{ checksum "yarn.lock" }}
       - aws-cli/setup
       - run:
@@ -49,7 +49,7 @@ jobs:
             - ./backend/tools/node_modules
             - ./backend/tools/srv
             - ./website/node_modules
-          keys:
+          key:
             - key-{{ checksum "lock.json" }}
 
 
@@ -63,7 +63,7 @@ jobs:
       - checkout
       - aws-cli/setup
       - restore_cache:
-          keys:
+          key:
             - key-{{ checksum "yarn.lock" }}
 
       - build:
@@ -80,7 +80,7 @@ jobs:
       - checkout
       - aws-cli/setup
       - restore_cache:
-          keys:
+          key:
             - key-{{ checksum "yarn.lock" }}
 
       - build:
@@ -96,7 +96,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
+          key:
             - key-{{ checksum "yarn.lock" }}
 
       - build:
@@ -114,7 +114,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
+          key:
             - key-{{ checksum "yarn.lock" }}
 
       - build:
