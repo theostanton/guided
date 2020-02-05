@@ -4,6 +4,8 @@ jobs:
     docker:
       - image: circleci/node:7.10
 
+    working_directory: ~/website
+
     steps:
       - checkout
       # Download and cache dependencies
@@ -11,11 +13,10 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
       - run:
-          name: Set directory
-          command: cd website
-      - run:
           name: Install dependencies
-          command: yarn
+          command:
+            - cd website
+            - yarn install
       - run:
           name: PWD
           command: pwd
@@ -24,10 +25,14 @@ jobs:
           command: ls -la
       - run:
           name: Build
-          command: yarn build
+            command:
+              - cd website
+              - yarn build
       - run:
           name: Deploy
-          command: yarn deploy
+            command:
+              - cd website
+              - yarn deploy
 
       - save_cache:
           paths:
