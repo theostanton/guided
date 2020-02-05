@@ -38,22 +38,17 @@ jobs:
       - save_cache:
           paths:
             - ./node_modules
-            - ./backend/codegen/node_modules
-            - ./backend/server/node_modules
-            - ./backend/spinup/node_modules
-            - ./backend/tools/node_modules
-            - ./backend/tools/srv
-            - ./website/node_modules
           key: key-{{ checksum "yarn.lock" }}
       - save_cache:
           paths:
-            - ./node_modules
-            - ./backend/codegen/node_modules
-            - ./backend/server/node_modules
-            - ./backend/spinup/node_modules
-            - ./backend/tools/node_modules
-            - ./backend/tools/srv
-            - ./website/node_modules
+            - ./
+#            - ./node_modules
+#            - ./backend/codegen/node_modules
+#            - ./backend/server/node_modules
+#            - ./backend/spinup/node_modules
+#            - ./backend/tools/node_modules
+#            - ./backend/tools/srv
+#            - ./website/node_modules
           key: static
 
 
