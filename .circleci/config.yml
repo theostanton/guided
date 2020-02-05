@@ -6,22 +6,12 @@ orbs:
 commands:
   build:
     description: "Build"
-    parameters:
-      directory:
-        type: string
     steps:
-      - run: |
-          cd << parameters.directory >>
-          yarn build
+      - run: yarn build
   deploy:
     description: "Deploy"
-    parameters:
-      directory:
-        type: string
     steps:
-      - run: |
-          cd << parameters.directory >>
-          yarn deploy
+      - run: yarn deploy
 
 
 jobs:
@@ -39,80 +29,66 @@ jobs:
           paths:
             - ./node_modules
           key: key-{{ checksum "yarn.lock" }}
-      - save_cache:
+      - persist_to_workspace:
+          root: /workspace
           paths:
-            - ./
-#            - ./node_modules
-#            - ./backend/codegen/node_modules
-#            - ./backend/server/node_modules
-#            - ./backend/spinup/node_modules
-#            - ./backend/tools/node_modules
-#            - ./backend/tools/srv
-#            - ./website/node_modules
-          key: static
-
+            - node_modules/*
+            - backend/*
+            - website/*
 
   build-graphql-staging:
     docker:
       - image: circleci/node:latest
 
+    working_directory: /backend/server
     steps:
-      - restore_cache:
-          key: static
-
-      - build:
-          directory: backend/server
-
-      - deploy:
-          directory: backend/server
-
+      - attach_workspace:
+          at: /workspace
+      - build
+      - deploy
 
   deploy-graphql-staging:
     docker:
       - image: circleci/node:latest
+    working_directory: /backend/server
     steps:
-      - deploy:
-          directory: backend/server
+      - attach_workspace:
+          at: /workspace
+      - deploy
 
   deploy-graphql-production:
     docker:
       - image: circleci/node:latest
+    working_directory: /backend/server
 
     steps:
-#      - checkout
       - aws-cli/setup
-      - restore_cache:
-          key: static
+      - attach_workspace:
+          at: /workspace
 
-      - build:
-          directory: backend/server
-
-      - deploy:
-          directory: backend/server
+      - build
+      - deploy
 
   deploy-website-staging:
     docker:
       - image: circleci/node:latest
 
+    working_directory: /workspace/website
+
     steps:
-#      - checkout
-      - restore_cache:
-          key: static
-
-      - build:
-          directory: website
-
-      - deploy:
-          directory: website
+      - attach_workspace:
+          at: /workspace
+      - build
+      - deploy
 
   deploy-website-production:
     docker:
       - image: circleci/node:latest
 
+    working_directory: /workspace/website
     steps:
-#      - checkout
-      - restore_cache:
-          key: static
+      - attach_workspace:
+          at: /workspace
 
       - build:
           directory: website
