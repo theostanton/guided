@@ -16,22 +16,22 @@ commands:
 
 jobs:
   prepare:
-    working_directory: /workspace
+    working_directory: ~/workspace
     docker:
       - image: circleci/node:latest
     steps:
       - checkout
       - restore_cache:
-          key: key-{{ checksum "yarn.lock" }}
+          key: node_modules
       - run:
           name: "Install"
           command: yarn install
       - save_cache:
           paths:
             - ./node_modules
-          key: key-{{ checksum "yarn.lock" }}
+          key: node_modules-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
-          root: /workspace
+          root: ~/workspace
           paths:
             - node_modules/*
             - backend/*
@@ -41,7 +41,7 @@ jobs:
     docker:
       - image: circleci/node:latest
 
-    working_directory: /backend/server
+    working_directory: ~/workspace/backend/server
     steps:
       - attach_workspace:
           at: /workspace
@@ -51,7 +51,7 @@ jobs:
   deploy-graphql-staging:
     docker:
       - image: circleci/node:latest
-    working_directory: /backend/server
+    working_directory: ~/workspace/backend/server
     steps:
       - attach_workspace:
           at: /workspace
@@ -60,7 +60,7 @@ jobs:
   deploy-graphql-production:
     docker:
       - image: circleci/node:latest
-    working_directory: /backend/server
+    working_directory: ~/workspace/backend/server
 
     steps:
       - aws-cli/setup
@@ -74,7 +74,7 @@ jobs:
     docker:
       - image: circleci/node:latest
 
-    working_directory: /workspace/website
+    working_directory: ~/workspace/website
 
     steps:
       - attach_workspace:
@@ -86,7 +86,7 @@ jobs:
     docker:
       - image: circleci/node:latest
 
-    working_directory: /workspace/website
+    working_directory: ~/workspace/website
     steps:
       - attach_workspace:
           at: /workspace
