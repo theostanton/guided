@@ -7,7 +7,7 @@ jobs:
   deploy-website:
     docker:
       - image: circleci/node:7.10
-    working_directory: ~/website
+#    working_directory: ~/website
 
     steps:
       # Download and cache dependencies
