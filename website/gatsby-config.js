@@ -51,6 +51,8 @@ module.exports = {
       options: {
         bucketName: "guided-website",
         region: 'eu-west-2',
+        protocol: "https",
+        hostname: "ridersbible.com",
       },
     },
   ],
