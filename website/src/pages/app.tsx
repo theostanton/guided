@@ -18,14 +18,19 @@ type Props = {
 @observer
 export default class AppComponent extends React.Component<Props> {
 
-  render(): React.ReactElement {
+  componentDidMount(): void {
 
-    const { isLoggedIn, user } = this.props.authStore
+    const { isLoggedIn } = this.props.authStore
 
     if (!isLoggedIn) {
       navigate?.("/")?.then()
     }
 
+  }
+
+  render(): React.ReactElement | undefined {
+
+    const { user } = this.props.authStore
 
     return (
       <div style={{ margin: 20 }}>

@@ -1355,6 +1355,13 @@ export type SignUpMutationVariables = {
 
 export type SignUpMutation = { register: Maybe<{ user: Maybe<Pick<User, 'username' | 'email'>> }> };
 
+export type GetUsernameQueryVariables = {
+  email: Scalars['String']
+};
+
+
+export type GetUsernameQuery = { users: Maybe<{ nodes: Array<Maybe<Pick<User, 'username'>>> }> };
+
 
 export const SomeQueryDocument = gql`
     query SomeQuery {
@@ -1656,3 +1663,44 @@ export function useSignUpMutation(baseOptions?: ApolloReactHooks.MutationHookOpt
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = ApolloReactCommon.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = ApolloReactCommon.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
+export const GetUsernameDocument = gql`
+    query GetUsername($email: String!) {
+  users(condition: {email: $email}) {
+    nodes {
+      username
+    }
+  }
+}
+    `;
+export type GetUsernameComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetUsernameQuery, GetUsernameQueryVariables>, 'query'> & ({ variables: GetUsernameQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const GetUsernameComponent = (props: GetUsernameComponentProps) => (
+      <ApolloReactComponents.Query<GetUsernameQuery, GetUsernameQueryVariables> query={GetUsernameDocument} {...props} />
+    );
+    
+
+/**
+ * __useGetUsernameQuery__
+ *
+ * To run a query within a React component, call `useGetUsernameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUsernameQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUsernameQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useGetUsernameQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUsernameQuery, GetUsernameQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetUsernameQuery, GetUsernameQueryVariables>(GetUsernameDocument, baseOptions);
+      }
+export function useGetUsernameLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUsernameQuery, GetUsernameQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetUsernameQuery, GetUsernameQueryVariables>(GetUsernameDocument, baseOptions);
+        }
+export type GetUsernameQueryHookResult = ReturnType<typeof useGetUsernameQuery>;
+export type GetUsernameLazyQueryHookResult = ReturnType<typeof useGetUsernameLazyQuery>;
+export type GetUsernameQueryResult = ApolloReactCommon.QueryResult<GetUsernameQuery, GetUsernameQueryVariables>;

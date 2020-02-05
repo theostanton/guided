@@ -1,6 +1,7 @@
 import { observable, action, computed, runInAction } from "mobx"
 import store from "store"
 import {
+  GetUsernameDocument, GetUsernameQuery, GetUsernameQueryVariables,
   LoginDocument,
   LoginMutation,
   LoginMutationVariables, SignUpDocument, SignUpMutation,
@@ -50,10 +51,20 @@ export default class Index {
       variables,
     })
 
+    const usernameResult = await client.query<GetUsernameQuery>({
+        query: GetUsernameDocument,
+        variables: {
+          email,
+        } as GetUsernameQueryVariables,
+      },
+    )
+
+    const username = usernameResult.data!.users!.nodes[0]!.username
+
     const bearerToken = result.data!.authenticate!.jwtToken
 
     this.setUser({
-      username: "user1",
+      username,
       email,
       bearerToken,
     })

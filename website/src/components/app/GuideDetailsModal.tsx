@@ -7,7 +7,6 @@ import {
   CreateGuideMutationVariables, CreateGuideMutationResult, CreateGuideDocument,
 } from "api/generated"
 import { generateId } from "api"
-import { ApolloClient } from "apollo-boost"
 import { client } from "api"
 
 type Props = {

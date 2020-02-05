@@ -19,10 +19,8 @@ export default class ContentComponent extends React.Component<Props, State> {
         <Container>
           <div>
             <Router>
-              // @ts-ignore
-              <PublicGuide path="/:user/:slug"/>
-              // @ts-ignore
-              <Profile path="/:user"/>
+              <PublicGuide path="/content/:user/:slug"/>
+              <Profile path="/content/:user"/>
             </Router>
           </div>
         </Container>

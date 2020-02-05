@@ -46,5 +46,12 @@ module.exports = {
         allExtensions: true,
       },
     },
+    {
+      resolve: `gatsby-plugin-s3`,
+      options: {
+        bucketName: "guided-website",
+        region: 'eu-west-2',
+      },
+    },
   ],
 }

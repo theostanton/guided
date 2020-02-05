@@ -7,7 +7,7 @@ import { User } from "../model/AuthStore"
 export const USER_KEY = "guidedUser"
 
 const link = new HttpLink({
-  uri: "http://0.0.0.0:5000/graphql",
+  uri: "https://x53k07ci62.execute-api.eu-west-2.amazonaws.com/staging/graphql",
 // @ts-ignore
   fetch: fetch,
 })

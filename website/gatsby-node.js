@@ -1,13 +1,17 @@
 exports.onCreatePage = async ({ page, actions }) => {
-  const { createPage } = actions
-  if (page.path.match(/^\/app/)) {
-    page.matchPath = "/app/*"
-    createPage(page)
+  if (!page) {
     return
   }
-  if (page.path.match(/^\/content/)) {
-    page.matchPath = "/*"
-    createPage(page)
-    return
+  const { createPage } = actions
+
+  switch (true) {
+    case page.path.match(/^\/app/):
+      page.matchPath = "/app/*"
+      createPage(page)
+      break
+    case page.path.match(/^\/content/):
+      page.matchPath = "/content/*"
+      createPage(page)
+      break
   }
 }
