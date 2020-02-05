@@ -91,7 +91,7 @@ jobs:
           at: /workspace
       - build
       - deploy
-      -
+
 workflows:
   version: 2
   Deploy Staging:
