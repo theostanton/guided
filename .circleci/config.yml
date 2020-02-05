@@ -18,6 +18,12 @@ jobs:
           name: Install dependencies
           command: yarn
       - run:
+          name: PWD
+          command: pwd
+      - run:
+          name: List
+          command: ls -la
+      - run:
           name: Build
           command: yarn build
       - run:
