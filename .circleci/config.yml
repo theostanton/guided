@@ -32,7 +32,7 @@ jobs:
 #          key: node_modules
       - run:
           name: "Upgrade yarn"
-          command: yarn global upgrade yarn
+          command: npm upgrade --global yarn
       - run:
           name: "Install"
           command: yarn install
