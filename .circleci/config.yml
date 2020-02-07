@@ -28,11 +28,8 @@ jobs:
       - image: circleci/node:12.9.1
     steps:
       - checkout
-#      - restore_cache:
-#          key: node_modules
-      - run:
-          name: "Upgrade yarn"
-          command: npm upgrade --global yarn
+      - restore_cache:
+          key: node_modules
       - run:
           name: "Install"
           command: yarn install
@@ -97,6 +94,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/workspace
+      - run:
+          name: "Build"
+          command: gatsby build
       - deploy
 
   deploy-website-production:
