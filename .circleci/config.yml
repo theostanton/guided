@@ -4,10 +4,6 @@ orbs:
   aws-cli: circleci/aws-cli@0.1.19
 
 commands:
-  build:
-    description: "Build"
-    steps:
-      - run: yarn build
   deploy:
     description: "Deploy"
     steps:
@@ -27,6 +23,9 @@ jobs:
           name: "Install"
           command: yarn install
       - run:
+          name: "Build"
+          command: yarn build
+      - run:
           name: "Build tools"
           command: |
             cd backend/tools
@@ -38,16 +37,6 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-
-  build-graphql-staging:
-    docker:
-      - image: circleci/node:latest
-
-    working_directory: ~/workspace/backend/graphql
-    steps:
-      - attach_workspace:
-          at: ~/workspace
-      - build
 
   deploy-graphql-staging:
     docker:
@@ -68,7 +57,6 @@ jobs:
       - attach_workspace:
           at: ~/workspace
 
-      - build
       - deploy
 
   deploy-website-staging:
@@ -80,7 +68,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/workspace
-      - build
       - deploy
 
   deploy-website-production:
@@ -91,7 +78,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/workspace
-      - build
       - deploy
 
 workflows:
@@ -103,20 +89,20 @@ workflows:
             branches:
               only: staging
 
-      - build-graphql-staging:
+      - deploy-graphql-staging:
           context: guided-staging
           requires:
             - prepare
 
-      - deploy-graphql-staging:
+      - deploy-compute-stage-staging:
           context: guided-staging
           requires:
-            - build-graphql-staging
+            - deploy-graphql-staging
 
       - deploy-website-staging:
           context: guided-staging
           requires:
-            - deploy-graphql-staging
+            - deploy-compute-stage-staging
 
   Deploy Production:
     jobs:
