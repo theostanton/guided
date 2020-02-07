@@ -22,7 +22,8 @@
     "aws-sdk": "^2.612.0",
     "command-line-args": "^5.1.1",
     "inquirer": "^7.0.4",
-    "esm": "^3.2.25"
+    "esm": "^3.2.25",
+    "mimic-fn": "^3.0.0"
   },
   "devDependencies": {
     "@types/command-line-args": "^5.0.0",
