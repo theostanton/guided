@@ -13,6 +13,8 @@ commands:
     parameters:
       directory:
         type: string
+      name:
+        type: string
     steps:
       - run: |
           cd ~/workspace/<< parameters.directory >>
