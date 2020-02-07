@@ -31,8 +31,8 @@ jobs:
 #      - restore_cache:
 #          key: node_modules
       - run:
-          name: "Readd yarn"
-          command: yarn global add
+          name: "Upgrade yarn"
+          command: yarn global upgrade yarn
       - run:
           name: "Install"
           command: yarn install
