@@ -1,0 +1,12 @@
+{
+  "name": "@guided/plugins",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "graphile-utils": "^4.5.6",
+    "typescript": "^3.8.0-dev.20200130"
+  }
+}

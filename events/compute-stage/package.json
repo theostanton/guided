@@ -1,0 +1,15 @@
+{
+  "name": "@guided/calculate-stage",
+  "version": "0.0.0",
+  "private": true,
+  "bin": {
+    "events": "bin/cli"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

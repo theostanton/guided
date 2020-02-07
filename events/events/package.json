@@ -1,0 +1,30 @@
+{
+  "name": "@guided/events",
+  "version": "0.0.0",
+  "private": true,
+  "bin": {
+    "events": "bin/cli"
+  },
+  "main": "./srv/index.js",
+  "types": "./srv/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "create": "events create -q test",
+    "listen": "events listen -q test",
+    "send": "events send -q test -b 'lol'",
+    "list": "events list",
+    "develop": "STAGE=local node -r ts-node/register ./src/index.ts"
+  },
+  "dependencies": {
+    "@guided/envs": "*",
+    "aws-sdk": "^2.612.0",
+    "command-line-args": "^5.1.1",
+    "inquirer": "^7.0.4",
+    "esm": "^3.2.25"
+  },
+  "devDependencies": {
+    "@types/command-line-args": "^5.0.0",
+    "@types/inquirer": "^6.5.0"
+  }
+}
