@@ -25,7 +25,7 @@ jobs:
   prepare:
     working_directory: ~/workspace
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:12.9.1
     steps:
       - checkout
       - restore_cache:
@@ -57,7 +57,7 @@ jobs:
 
   deploy-compute-stage-staging:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:12.9.1
     working_directory: ~/workspace/events/compute-stage
     steps:
       - attach_workspace:
@@ -66,7 +66,7 @@ jobs:
 
   deploy-graphql-staging:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:12.9.1
     working_directory: ~/workspace/backend/graphql
     steps:
       - attach_workspace:
@@ -75,7 +75,7 @@ jobs:
 
   deploy-graphql-production:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:12.9.1
     working_directory: ~/workspace/backend/graphql
 
     steps:
@@ -87,7 +87,7 @@ jobs:
 
   deploy-website-staging:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:12.9.1
 
     working_directory: ~/workspace/website
 
@@ -98,7 +98,7 @@ jobs:
 
   deploy-website-production:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:12.9.1
 
     working_directory: ~/workspace/website
     steps:
