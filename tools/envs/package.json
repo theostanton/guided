@@ -10,6 +10,7 @@
     "watch": "tsc -w"
   },
   "dependencies": {
+    "@guided/logger": "*",
     "dotenv": "^8.2.0"
   }
 }

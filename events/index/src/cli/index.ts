@@ -11,12 +11,11 @@ const options: Options = <Options>commandLineArgs(optionDefinitions)
 process.env.STAGE = options.stage
 require("@guided/envs")
 
-import send from "./send"
 import create from "./create"
 import list from "./list"
 import listen from "./listen"
 
-type Command = "send" | "create" | "list" | "listen"
+type Command = "create" | "list" | "listen"
 
 export type Options = {
   command: Command,
@@ -26,7 +25,7 @@ export type Options = {
 }
 
 export const COMMANDS: { [key in Command]: (options: Options) => Promise<void> } = {
-  create, send, list, listen,
+  create, list, listen,
 }
 
 async function execute(): Promise<void> {
