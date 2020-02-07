@@ -14,7 +14,7 @@ commands:
       directory:
         type: string
     steps:
-      - name: build << parameters.directory >>
+#      - name: build << parameters.directory >>
       - run: |
           cd ~/workspace/<< parameters.directory >>
           yarn deploy
