@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "watch": "yarn graphql-codegen --watch"
+    "watch": "yarn graphql-codegen --watch",
+    "build": "yarn graphql-codegen"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "latest",

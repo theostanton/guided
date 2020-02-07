@@ -8,6 +8,15 @@ commands:
     description: "Deploy"
     steps:
       - run: yarn deploy
+  build:
+    description: "Build"
+    parameters:
+      directory:
+        type: string
+    steps:
+      - run: |
+          cd ~/workspace/<< parameters.directory >>
+          yarn deploy
 
 
 jobs:
@@ -22,14 +31,30 @@ jobs:
       - run:
           name: "Install"
           command: yarn install
-      - run:
-          name: "Build"
-          command: yarn build
-      - run:
-          name: "Build tools"
-          command: |
-            cd backend/tools
-            yarn build
+      - build:
+          name: "Build logger"
+          directory: tools/logger
+      - build:
+          name: "Build envs"
+          directory: tools/envs
+      - build:
+          name: "Build database"
+          directory: tools/database
+      - build:
+          name: "Build events"
+          directory: events/index
+      - build:
+          name: "Build compute-stage"
+          directory: events/compute-stage
+      - build:
+          name: "Build graphql"
+          directory: backend/graphql
+      - build:
+          name: "Build graphql"
+          directory: backend/graphql
+      - build:
+          name: "Build website"
+          directory: website
       - save_cache:
           paths:
             - ./node_modules
