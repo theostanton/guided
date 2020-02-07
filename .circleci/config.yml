@@ -38,6 +38,15 @@ jobs:
           root: .
           paths: .
 
+  deploy-compute-stage-staging:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/workspace/events/compute-stage
+    steps:
+      - attach_workspace:
+          at: ~/workspace
+      - deploy
+
   deploy-graphql-staging:
     docker:
       - image: circleci/node:latest
