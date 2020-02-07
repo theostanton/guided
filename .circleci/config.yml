@@ -31,6 +31,9 @@ jobs:
 #      - restore_cache:
 #          key: node_modules
       - run:
+          name: "Clean cache"
+          command: yarn cache clean
+      - run:
           name: "Install"
           command: yarn install
       - build:
