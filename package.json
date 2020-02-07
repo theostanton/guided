@@ -6,7 +6,7 @@
     "watch": "STAGE=local yarn wsrun watch",
     "build": "yarn workspaces run build",
     "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless)\" -exec rm -rf {} \\;",
-    "del": "find -E . -regex \".*\\/src\\/*(.js|.d.ts|.js.map)\" -exec rm -rf {} \\;",
+    "del": "find -E . -regex \".*\\/src\\/*(.d.ts|.js.map)\" -exec rm -rf {} \\;",
     "develop:frontend": "STAGE=local yarn workspace @guided/website run develop",
     "develop:graphql": "STAGE=local yarn workspace @guided/graphql run develop",
     "build:types": "STAGE=local yarn workspace @guided/types run build",
