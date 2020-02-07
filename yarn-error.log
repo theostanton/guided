@@ -2,7 +2,7 @@ Arguments:
   /usr/local/bin/node /usr/local/Cellar/yarn/1.21.1/libexec/bin/yarn.js install
 
 PATH: 
-  /Users/theo/bin:/usr/local/bin:/Users/theo/Downloads/kotlin-native-macos-0.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+  /Users/theo/bin:/usr/local/bin:/Users/theo/Downloads/kotlin-native-macos-0.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/theo/Code/guided/node_modules/.bin
 
 Yarn version: 
   1.21.1
@@ -25,6 +25,7 @@ npm manifest:
       "watch": "STAGE=local yarn wsrun watch",
       "build": "STAGE=local yarn wsrun build",
       "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless)\" -exec rm -rf {} \\;",
+      "del": "find -E . -regex \".*\\/src\\/*(.js|.d.ts|.js.map)\" -exec rm -rf {} \\;",
       "develop:frontend": "STAGE=local yarn workspace @guided/website run develop",
       "develop:graphql": "STAGE=local yarn workspace @guided/graphql run develop",
       "build:types": "STAGE=local yarn workspace @guided/types run build",
@@ -16801,10 +16802,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
     integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
   
-  typescript@rc:
-    version "3.8.1-rc"
-    resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.1-rc.tgz#f94333c14da70927ccd887be2e91be652a9a09f6"
-    integrity sha512-aOIe066DyZn2uYIiND6fXMUUJ70nxwu/lKhA92QuQzXyC86fr0ywo1qvO8l2m0EnDcfjprYPuFRgNgDj7U2GlQ==
+  typescript@^3.7.5:
+    version "3.7.5"
+    resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
+    integrity sha512-/P5lkRXkWHNAbcJIiHPfRoKqyd7bsyCma1hZNUGfn20qm64T6ZBlrzprymeu918H+mB/0rIg2gGK/BXkhhYgBw==
   
   typical@^4.0.0:
     version "4.0.0"
