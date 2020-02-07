@@ -47,8 +47,6 @@ jobs:
           directory: backend/graphql
       - build:
           directory: backend/graphql
-      - build:
-          directory: website
       - save_cache:
           paths:
             - ./node_modules
@@ -106,6 +104,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/workspace
+      - run: gatsby build
       - deploy
 
 workflows:
