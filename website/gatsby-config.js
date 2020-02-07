@@ -1,4 +1,4 @@
-require("@guided/tools")
+require("@guided/envs")
 const path = require("path")
 
 module.exports = {

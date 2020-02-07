@@ -7,6 +7,6 @@
   "scripts": {
     "prepare" : "yarn build",
     "build": "tsc",
-    "develop": "tsc -w"
+    "watch": "tsc -w"
   }
 }

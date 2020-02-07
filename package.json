@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "develop": "STAGE=local yarn wsrun develop",
+    "watch": "STAGE=local yarn wsrun watch",
+    "build": "STAGE=local yarn wsrun build",
+    "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless)\" -exec rm -rf {} \\;",
     "develop:frontend": "STAGE=local yarn workspace @guided/website run develop",
     "develop:graphql": "STAGE=local yarn workspace @guided/graphql run develop",
     "build:types": "STAGE=local yarn workspace @guided/types run build",
@@ -11,7 +13,7 @@
     "deploy:backend:staging": "yarn workspace @guided/graphql run deploy:staging"
   },
   "dependencies": {
-    "typescript": "next"
+    "typescript": "^3.7.5"
   },
   "devDependencies": {
     "wsrun": "^5.2.0"
@@ -19,6 +21,8 @@
   "workspaces": {
     "packages": [
       "backend/*",
+      "events/*",
+      "tools/*",
       "website"
     ]
   }

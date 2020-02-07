@@ -1,6 +1,6 @@
 import Listr, { ListrTask, ListrTaskWrapper } from "listr"
 import fs from "fs"
-import { database } from "@guided/tools"
+import { database } from "@guided/database"
 
 export default async function(): Promise<void> {
   const rootDirectoryName = "src/sequence/sql"

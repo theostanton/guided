@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: guided
+service: graphql
 # app and org for use with dashboard.serverless.com
 app: guided
 org: theostanton
@@ -66,7 +66,7 @@ custom:
   contentEncoding:
     minimumCompressionSize: 0
   dotenv:
-    path: ../.env.staging
+    path: ../../.env.staging
     logging: true
 
 package:

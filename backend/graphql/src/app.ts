@@ -1,4 +1,4 @@
-require("@guided/tools")
+require("@guided/envs")
 console.log(`OWNER_USER=${process.env.OWNER_USER}`)
 console.log(`POSTGRES_HOST=${process.env.POSTGRES_HOST}`)
 

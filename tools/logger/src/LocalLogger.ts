@@ -21,7 +21,10 @@ export class LocalLogger implements Logger {
     console.log(JSON.stringify(object, null, 4))
   }
 
-  log(message: string): void {
+  log(message: string, label?: string): void {
+    if (label) {
+      console.log("--" + label + "--")
+    }
     console.log(message)
   }
 

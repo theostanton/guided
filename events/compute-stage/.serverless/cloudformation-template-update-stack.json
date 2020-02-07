@@ -59,7 +59,7 @@
     "ComputeLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/sqs-dev-compute"
+        "LogGroupName": "/aws/lambda/compute-stage-staging-compute"
       }
     },
     "IamRoleLambdaExecution": {
@@ -87,8 +87,8 @@
               "Fn::Join": [
                 "-",
                 [
-                  "dev",
-                  "sqs",
+                  "staging",
+                  "compute-stage",
                   "lambda"
                 ]
               ]
@@ -104,7 +104,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sqs-dev*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/compute-stage-staging*:*"
                     }
                   ]
                 },
@@ -115,7 +115,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/sqs-dev*:*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/compute-stage-staging*:*:*"
                     }
                   ]
                 },
@@ -129,7 +129,7 @@
                   "Resource": [
                     {
                       "Fn::GetAtt": [
-                        "ComputeStageStaging",
+                        "computestage",
                         "Arn"
                       ]
                     }
@@ -144,8 +144,8 @@
           "Fn::Join": [
             "-",
             [
-              "sqs",
-              "dev",
+              "compute-stage",
+              "staging",
               {
                 "Ref": "AWS::Region"
               },
@@ -155,6 +155,52 @@
         }
       }
     },
+    "EnterpriseLogAccessIamRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::802587217904:root"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": {
+                "StringEquals": {
+                  "sts:ExternalId": "ServerlessEnterprise-8PH7JG2qyPDSQhCltX"
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "LogFilterAccess",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:FilterLogEvents"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "ComputeLogGroup",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
     "ComputeLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -162,10 +208,10 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/sqs/dev/1581063191043-2020-02-07T08:13:11.043Z/sqs.zip"
+          "S3Key": "serverless/compute-stage/staging/1581078212617-2020-02-07T12:23:32.617Z/compute-stage.zip"
         },
-        "FunctionName": "sqs-dev-compute",
-        "Handler": "handler.index",
+        "FunctionName": "compute-stage-staging-compute",
+        "Handler": "s_compute.handler",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
@@ -173,8 +219,26 @@
             "Arn"
           ]
         },
-        "Runtime": "nodejs6.10",
+        "Runtime": "nodejs12.x",
         "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "LOADED": "true",
+            "STAGE": "staging",
+            "OWNER_USER": "postgres",
+            "OWNER_PASSWORD": "password",
+            "POSTGRES_HOST": "guided-staging.cnl1a6eyfdur.eu-west-2.rds.amazonaws.com",
+            "POSTGRES_PORT": "5432",
+            "POSTGRES_USER": "guided_postgraphile",
+            "POSTGRES_PASSWORD": "postgraphile_staging",
+            "POSTGRES_DB": "database",
+            "POSTGRAPHILE_WATCH": "false",
+            "DATABASE_SCHEMA": "guided",
+            "JWT_SECRET": "5a399dba98bb6bf23bcd640d08383342549b8731c1da1a9f9af24514d607c25b",
+            "JWT_PG_TYPE_IDENTIFIER": "guided.jwt_token",
+            "QUEUE_NAME_COMPUTE_STAGE": "compute-stage-staging"
+          }
+        },
         "ReservedConcurrentExecutions": 1
       },
       "DependsOn": [
@@ -182,24 +246,24 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "ComputeLambdaVersionJI8sPkxEuLgghMpHFcV6GJuzbbsBiOADjzwBIrqg": {
+    "ComputeLambdaVersionQI1h8CICJ9wAWEdxd2YiXaHMIVnpegL9k8wjkcpvPWU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ComputeLambdaFunction"
         },
-        "CodeSha256": "Wj2KbHIkheND0cBxaasRDR3adbjbUUM7sdpcLsxZbKc="
+        "CodeSha256": "smIlbh+vAgJiWTvIuNNVxlrLHSaO4gJu4fsjgMvL+Vs="
       }
     },
-    "ComputeEventSourceMappingSQSComputeStageStaging": {
+    "ComputeEventSourceMappingSQSComputestage": {
       "Type": "AWS::Lambda::EventSourceMapping",
       "DependsOn": "IamRoleLambdaExecution",
       "Properties": {
         "BatchSize": 1,
         "EventSourceArn": {
           "Fn::GetAtt": [
-            "ComputeStageStaging",
+            "computestage",
             "Arn"
           ]
         },
@@ -212,10 +276,20 @@
         "Enabled": "True"
       }
     },
-    "MyQueue": {
+    "computestage": {
       "Type": "AWS::SQS::Queue",
       "Properties": {
-        "QueueName": "ComputeStageStaging"
+        "QueueName": "compute-stage-staging"
+      }
+    },
+    "CloudWatchLogsSubscriptionFilterComputeLogGroup": {
+      "Type": "AWS::Logs::SubscriptionFilter",
+      "Properties": {
+        "DestinationArn": "arn:aws:logs:eu-west-2:802587217904:destination:8PH7JG2qyPDSQhCltX#0RVNdcBVW71b2KfJPk#compute-stage#staging",
+        "FilterPattern": "?\"REPORT RequestId: \" ?\"SERVERLESS_ENTERPRISE\"",
+        "LogGroupName": {
+          "Ref": "ComputeLogGroup"
+        }
       }
     }
   },
@@ -225,10 +299,18 @@
         "Ref": "ServerlessDeploymentBucket"
       }
     },
+    "EnterpriseLogAccessIamRole": {
+      "Value": {
+        "Fn::GetAtt": [
+          "EnterpriseLogAccessIamRole",
+          "Arn"
+        ]
+      }
+    },
     "ComputeLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ComputeLambdaVersionJI8sPkxEuLgghMpHFcV6GJuzbbsBiOADjzwBIrqg"
+        "Ref": "ComputeLambdaVersionQI1h8CICJ9wAWEdxd2YiXaHMIVnpegL9k8wjkcpvPWU"
       }
     }
   }

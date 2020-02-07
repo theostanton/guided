@@ -1,15 +1,25 @@
 {
-  "name": "@guided/calculate-stage",
+  "name": "@guided/compute-stage",
   "version": "0.0.0",
   "private": true,
   "bin": {
     "events": "bin/cli"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "watch": "tsc -w",
+    "deploy": "sls deploy",
+    "invoke": "STAGE=staging node srv/invoke.js"
   },
   "dependencies": {
+    "@guided/events": "*",
+    "serverless-dotenv-plugin": "^2.3.1"
   },
   "devDependencies": {
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
   }
 }

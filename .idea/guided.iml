@@ -10,8 +10,10 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/api/srv" />
       <excludeFolder url="file://$MODULE_DIR$/backend/common/srv" />
       <excludeFolder url="file://$MODULE_DIR$/backend/data" />
-      <excludeFolder url="file://$MODULE_DIR$/backend/server/srv" />
-      <excludeFolder url="file://$MODULE_DIR$/backend/tools/srv" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/graphql/srv" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/queue/srv" />
+      <excludeFolder url="file://$MODULE_DIR$/events/compute-stage/srv" />
+      <excludeFolder url="file://$MODULE_DIR$/events/index/srv" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/usersite/public" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/website-example" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/website/public" />
@@ -21,9 +23,11 @@
       <excludeFolder url="file://$MODULE_DIR$/lerna" />
       <excludeFolder url="file://$MODULE_DIR$/old" />
       <excludeFolder url="file://$MODULE_DIR$/old/amplify" />
-      <excludeFolder url="file://$MODULE_DIR$/plugins/srv" />
+      <excludeFolder url="file://$MODULE_DIR$/old/plugins/srv" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/tools/database/srv" />
+      <excludeFolder url="file://$MODULE_DIR$/tools/envs/srv" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

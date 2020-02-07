@@ -1,7 +1,9 @@
 import { LocalLogger } from "./LocalLogger"
 
 export interface Logger {
-  log(message: string): void
+  log(message: string, label?: string): void
+
+  json(object: any, label?: string): void
 
   info(message: string): void
 
@@ -20,5 +22,5 @@ switch (process.env.STAGE) {
     throw new Error(`Exporting Logger with no process.env.STAGE`)
 }
 
-export const { log, error: logError, info: logInfo } = logger
+export const { log, error: logError, info: logInfo, json: logJson } = logger
 export default logger

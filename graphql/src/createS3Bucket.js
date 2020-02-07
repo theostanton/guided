@@ -1,7 +1,7 @@
 const aws = require("aws-sdk")
 const s3 = new aws.S3()
 
-const bucketName = process.env.AWS_SERVICE_NAME
+const bucketName = process.env._AWS_SERVICE_NAME
 
 async function main() {
   const { Buckets } = await s3.listBuckets().promise()

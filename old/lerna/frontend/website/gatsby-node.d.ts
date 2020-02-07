@@ -1,0 +1,2 @@
+export var onCreatePage: (<TContext = Record<string, unknown>>(args: import("gatsby").CreatePageArgs<TContext>, options?: import("gatsby").PluginOptions | undefined, callback?: import("gatsby").PluginCallback | undefined) => void) | undefined;
+//# sourceMappingURL=gatsby-node.d.ts.map

@@ -1,5 +1,5 @@
 {
-  "name": "@guided/tools",
+  "name": "@guided/database",
   "version": "0.0.0",
   "private": true,
   "main": "./srv/index.js",
@@ -8,10 +8,10 @@
     "prepare" : "yarn build",
     "types": "sql-ts -c ./config.json",
     "build": "tsc",
-    "develop": "tsc -w"
+    "watch": "tsc -w"
   },
   "dependencies": {
-    "dotenv": "^8.2.0",
+    "@guided/envs": "*",
     "pg-promise": "^10.4.2"
   },
   "devDependencies": {
