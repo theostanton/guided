@@ -13,9 +13,8 @@ commands:
     parameters:
       directory:
         type: string
-      name:
-        type: string
     steps:
+      - name: build << parameters.directory >>
       - run: |
           cd ~/workspace/<< parameters.directory >>
           yarn deploy
@@ -34,28 +33,20 @@ jobs:
           name: "Install"
           command: yarn install
       - build:
-          name: "Build logger"
           directory: tools/logger
       - build:
-          name: "Build envs"
           directory: tools/envs
       - build:
-          name: "Build database"
           directory: tools/database
       - build:
-          name: "Build events"
           directory: events/index
       - build:
-          name: "Build compute-stage"
           directory: events/compute-stage
       - build:
-          name: "Build graphql"
           directory: backend/graphql
       - build:
-          name: "Build graphql"
           directory: backend/graphql
       - build:
-          name: "Build website"
           directory: website
       - save_cache:
           paths:
