@@ -19,9 +19,6 @@ type Props = {
   guideStore?: GuideStore
 }
 
-type State = {}
-
-
 async function deleteGuide(guideId: string): Promise<void> {
   const variables: DeleteGuideMutationVariables = {
     guideId,
@@ -37,9 +34,7 @@ async function deleteGuide(guideId: string): Promise<void> {
 
 @inject("guideStore")
 @observer
-export default class LeftRailComponent extends React.Component<Props, State> {
-
-  state: State = {}
+export default class LeftRailComponent extends React.Component<Props> {
 
   get guideStore(): GuideStore {
     return this.props.guideStore!
@@ -93,6 +88,8 @@ export default class LeftRailComponent extends React.Component<Props, State> {
           </GridColumn>
         </GridRow>
         }
+
+        <Divider/>
         <SpotList
           selectSpot={(spotId: string) => {
             this.guideStore.selectSpot(spotId)

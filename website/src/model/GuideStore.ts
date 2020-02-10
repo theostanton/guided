@@ -15,6 +15,9 @@ export default class GuideStore {
   @observable
   selectedId: string | undefined = undefined
 
+  @observable
+  highlightedId: string | undefined = undefined
+
   private subscription: any
 
   @computed
@@ -57,6 +60,48 @@ export default class GuideStore {
   @action
   unselect() {
     this.selectedId = undefined
+    this.highlightedId = undefined
+  }
+
+  @computed
+  get highlightedSpot(): SpotByGuideFragment | undefined {
+    if (!this.highlightedId) {
+      return
+    }
+    const highlightedSpot = this.guide?.spotsByGuide?.nodes?.find(node => {
+      return node?.id === this.highlightedId
+    })
+    if (highlightedSpot) {
+      return highlightedSpot
+    }
+  }
+
+  @computed
+  get highlightedRide(): RideByGuideFragment | undefined {
+    if (!this.highlightedId) {
+      return
+    }
+    const highlightedRide = this.guide?.ridesByGuide?.nodes?.find(node => {
+      return node?.id === this.highlightedId
+    })
+    if (highlightedRide) {
+      return highlightedRide
+    }
+  }
+
+  @action
+  highlightRide(rideId: string) {
+    this.highlightedId = rideId
+  }
+
+  @action
+  highlightSpot(spotId: string) {
+    this.highlightedId = spotId
+  }
+
+  @action
+  unhighlight() {
+    this.highlightedId = undefined
   }
 
   subscribe(slug: string, owner: string) {

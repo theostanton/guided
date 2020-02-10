@@ -1,9 +1,10 @@
 import React from "react"
-import { Spot } from "../../api/generated"
+import { Spot, SpotByGuideFragment } from "../../api/generated"
 import { Icon, SemanticCOLORS } from "semantic-ui-react"
 import { Marker } from "react-map-gl"
 import GuideStore from "../../model/GuideStore"
 import { inject, observer } from "mobx-react"
+import { log } from "@guided/logger"
 
 type Props = {
   guideStore?: GuideStore
@@ -18,7 +19,7 @@ export class Markers extends React.Component<Props, {}> {
     return this.props.guideStore!
   }
 
-  createMarker(spot: Partial<Spot>, index: number, onDragEnd: any): React.ReactElement {
+  createMarker(spot: SpotByGuideFragment, index: number, onDragEnd: any): React.ReactElement {
 
     const pinStyle = {
       cursor: "pointer",
@@ -29,6 +30,8 @@ export class Markers extends React.Component<Props, {}> {
     let color: SemanticCOLORS
     if (this.guideStore.selectedId === spot.id) {
       color = "red"
+    } else if (this.guideStore.highlightedId === spot.id) {
+      color = "green"
     } else if (spot.locked === true) {
       color = "black"
     } else {
@@ -68,7 +71,7 @@ export class Markers extends React.Component<Props, {}> {
   render() {
 
     return this.guideStore.guide!.spotsByGuide.nodes.map((spot, index) => {
-      return (this.createMarker(spot, index, () => {
+      return (this.createMarker(spot!, index, () => {
 
       }))
     })
