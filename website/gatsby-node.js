@@ -1,15 +1,16 @@
+const { logJson, log } = require("@guided/logger")
 exports.onCreatePage = async ({ page, actions }) => {
   if (!page) {
     return
   }
   const { createPage } = actions
 
-  switch (true) {
-    case page.path.match(/^\/app/):
+  switch (page.path) {
+    case "/app/":
       page.matchPath = "/app/*"
       createPage(page)
       break
-    case page.path.match(/^\/content/):
+    case "/content/":
       page.matchPath = "/content/*"
       createPage(page)
       break

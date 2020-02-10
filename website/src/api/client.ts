@@ -1,4 +1,4 @@
-import { ApolloClient, HttpLink, InMemoryCache, Operation } from "apollo-boost"
+import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost"
 import { setContext } from "apollo-link-context"
 import fetch from "node-fetch"
 import store from "store"
@@ -7,7 +7,7 @@ import { User } from "../model/AuthStore"
 export const USER_KEY = "guidedUser"
 
 const link = new HttpLink({
-  uri: "https://7t8ksz339f.execute-api.eu-west-2.amazonaws.com/staging/graphql",
+  uri: "http://localhost:5000/graphql",
 // @ts-ignore
   fetch: fetch,
 })

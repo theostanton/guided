@@ -23,6 +23,8 @@ npm manifest:
     "private": true,
     "scripts": {
       "watch": "yarn build && yarn wsrun watch",
+      "develop:frontend": "yarn workspace @guided/website run develop",
+      "develop:backend": "yarn workspace @guided/graphql run develop",
       "build": "./build.sh",
       "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless)\" -exec rm -rf {} \\;",
       "del": "find -E . -regex \".*\\/src\\/*(.d.ts|.js.map)\" -exec rm -rf {} \\;",

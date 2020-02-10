@@ -169,9 +169,13 @@
         "version": "01d612a9cfe57e15eb9df1fc0bb8478ad917e233070ca8a19a5b57951eb3d6a0",
         "signature": "ddc4438752b468ce06ca93d28b33cc08502c3515e30a09195658c0322818a746"
       },
+      "../../tools/logger/srv/locallogger.d.ts": {
+        "version": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d",
+        "signature": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d"
+      },
       "../../tools/logger/srv/index.d.ts": {
-        "version": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f",
-        "signature": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f"
+        "version": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4",
+        "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
       },
       "./src/action.ts": {
         "version": "207aa2bf860011af06948dc9d301162a98e648124cc83b65961e665deac4cb67",
@@ -810,6 +814,7 @@
       "forceConsistentCasingInFileNames": true,
       "outDir": "./srv",
       "rootDir": "./src",
+      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -1065,7 +1070,15 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../tools/logger/srv/locallogger.d.ts": [
+        "../../tools/logger/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "../../tools/logger/srv/index.d.ts": [
+        "../../tools/logger/srv/locallogger.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2755,6 +2768,20 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../tools/logger/srv/locallogger.d.ts": [
+        "../../tools/logger/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/logger/srv/index.d.ts": [
+        "../../tools/logger/srv/locallogger.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./src/action.ts": [
         "./src/index.ts"
       ],
@@ -4165,12 +4192,6 @@
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../../tools/logger/srv/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -4368,7 +4389,8 @@
       "./node_modules/@types/lodash/ts3.1/common/util.d.ts",
       "./node_modules/@types/lodash/ts3.1/index.d.ts",
       "../../tools/logger/srv/index.d.ts",
-      "./src/action.ts"
+      "./src/action.ts",
+      "../../tools/logger/srv/locallogger.d.ts"
     ]
   },
   "version": "3.7.5"

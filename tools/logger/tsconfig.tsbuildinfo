@@ -166,8 +166,8 @@
         "signature": "b209a815904a485328677714ef8c4ddd2dcf4040154fa204d25cbf31cd4ff0f3"
       },
       "./src/index.ts": {
-        "version": "5b3f507a7150ae1916bb64c0673f243766ce56cb03e0c3907463e1ce63df916b",
-        "signature": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f"
+        "version": "6ca2004650b496178416d712311a1e09de0a36f9c3d64c35170b2bbb98f7a090",
+        "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
       },
       "./src/locallogger.ts": {
         "version": "a96e50083c36c6d149d2374dd5183ca41dea0321a529391f661a86015a937dfb",
@@ -1265,6 +1265,9 @@
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./src/index.ts": [
+        "./src/locallogger.ts"
+      ],
       "./src/locallogger.ts": [
         "./src/index.ts"
       ],
@@ -1678,7 +1681,6 @@
       "../../node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "../../node_modules/typescript/lib/lib.esnext.bigint.d.ts",
       "../../node_modules/typescript/lib/lib.esnext.full.d.ts",
-      "./src/index.ts",
       "../../node_modules/@types/node/globals.d.ts",
       "../../node_modules/@types/node/assert.d.ts",
       "../../node_modules/@types/node/async_hooks.d.ts",
@@ -1725,6 +1727,7 @@
       "../../node_modules/@types/node/ts3.5/globals.d.ts",
       "../../node_modules/@types/node/ts3.5/wasi.d.ts",
       "../../node_modules/@types/node/ts3.5/index.d.ts",
+      "./src/index.ts",
       "./src/locallogger.ts"
     ]
   },

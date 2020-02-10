@@ -909,9 +909,13 @@
         "version": "467a108d081a93ff493a934431395ef603dcc46983fc095f33735b1559315267",
         "signature": "467a108d081a93ff493a934431395ef603dcc46983fc095f33735b1559315267"
       },
+      "../../tools/logger/srv/locallogger.d.ts": {
+        "version": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d",
+        "signature": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d"
+      },
       "../../tools/logger/srv/index.d.ts": {
-        "version": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f",
-        "signature": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f"
+        "version": "1064d49a4a7e1105cc24ab781d9027ac1935ada987e228d54d2ba457bfedd791",
+        "signature": "1064d49a4a7e1105cc24ab781d9027ac1935ada987e228d54d2ba457bfedd791"
       },
       "./src/generated.ts": {
         "version": "4ffaa0be036791c14c68f3a34f4acdcb550484c7bd01876c24b0d0b84558e258",
@@ -3042,7 +3046,15 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../tools/logger/srv/locallogger.d.ts": [
+        "../../tools/logger/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "../../tools/logger/srv/index.d.ts": [
+        "../../tools/logger/srv/locallogger.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -5461,6 +5473,7 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "../../tools/logger/srv/index.d.ts": [
+        "../../tools/logger/srv/locallogger.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -5908,6 +5921,13 @@
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/logger/srv/locallogger.d.ts": [
+        "../../tools/logger/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -6138,7 +6158,6 @@
       "./node_modules/postgraphile/build/postgraphile/http/subscriptions.d.ts",
       "./node_modules/postgraphile/build/postgraphile/index.d.ts",
       "./node_modules/postgraphile/build/index.d.ts",
-      "../../tools/logger/srv/index.d.ts",
       "./src/generated.ts",
       "../../tools/envs/srv/index.d.ts",
       "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
@@ -6148,8 +6167,7 @@
       "../../tools/database/srv/types.d.ts",
       "../../tools/database/srv/extensions.d.ts",
       "../../tools/database/srv/index.d.ts",
-      "./src/plugins/index.ts",
-      "./src/options.ts",
+      "./src/plugins/types.ts",
       "./node_modules/@types/range-parser/index.d.ts",
       "./node_modules/@types/express-serve-static-core/index.d.ts",
       "./node_modules/@types/mime/index.d.ts",
@@ -6157,11 +6175,9 @@
       "./node_modules/@types/connect/index.d.ts",
       "./node_modules/@types/body-parser/index.d.ts",
       "./node_modules/@types/express/index.d.ts",
-      "./src/app.ts",
       "./node_modules/@types/aws-lambda/index.d.ts",
       "./node_modules/@types/aws-serverless-express/index.d.ts",
       "./src/lambda.ts",
-      "./src/server.ts",
       "./node_modules/@types/accepts/index.d.ts",
       "./node_modules/@types/keygrip/index.d.ts",
       "./node_modules/@types/cookies/index.d.ts",
@@ -6184,8 +6200,13 @@
       "./node_modules/@types/lodash/ts3.1/common/util.d.ts",
       "./node_modules/@types/lodash/ts3.1/index.d.ts",
       "./node_modules/@types/pg-types/index.d.ts",
-      "./src/plugins/types.ts",
-      "./src/plugins/addspotfromlatlng/index.ts"
+      "../../tools/logger/srv/index.d.ts",
+      "./src/server.ts",
+      "./src/options.ts",
+      "./src/plugins/addspotfromlatlng/index.ts",
+      "../../tools/logger/srv/locallogger.d.ts",
+      "./src/plugins/index.ts",
+      "./src/app.ts"
     ]
   },
   "version": "3.7.5"

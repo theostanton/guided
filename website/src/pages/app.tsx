@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Router } from "@reach/router"
-import { Container, Segment } from "semantic-ui-react"
+import { Container } from "semantic-ui-react"
 import Account from "components/app/Account"
 import Dashboard from "components/app/Dashboard"
 import Guides from "components/app/Guides"
@@ -36,14 +36,20 @@ export default class AppComponent extends React.Component<Props> {
       <div style={{ margin: 20 }}>
         <Container>
           <AppMenu/>
-          {user &&
+          {/*{!user &&*/}
+          {/*<Router>*/}
+          {/*  <div path="/*">*/}
+          {/*    <p>No user</p>*/}
+          {/*  </div>*/}
+          {/*</Router>}*/}
+          {/*{user &&*/}
           <Router>
             <Account path="/app/account"/>
             <Guide path="/app/guides/:slug"/>
             <Guides path="/app/guides"/>
             <Dashboard path="/app"/>
           </Router>
-          }
+          {/*}*/}
         </Container>
       </div>
     )

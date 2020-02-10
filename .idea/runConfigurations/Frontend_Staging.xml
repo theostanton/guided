@@ -8,6 +8,7 @@
     <node-interpreter value="project" />
     <envs>
       <env name="STAGE" value="staging" />
+      <env name="GATSBY_STAGE" value="staging" />
     </envs>
     <method v="2" />
   </configuration>

@@ -10,17 +10,7 @@ export interface Logger {
   error(message: string): void
 }
 
-let logger: Logger
-switch (process.env.STAGE) {
-  case "local":
-    logger = new LocalLogger()
-    break
-  case "staging":
-    logger = new LocalLogger()
-    break
-  default:
-    throw new Error(`Exporting Logger with no process.env.STAGE`)
-}
-
-export const { log, error: logError, info: logInfo, json: logJson } = logger
+const logger = new LocalLogger()
 export default logger
+const { log, error: logError, info: logInfo, json: logJson } = logger
+export { log, logError, logInfo, logJson }

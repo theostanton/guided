@@ -189,9 +189,13 @@
         "version": "671b24a6ba343ba7205e263ab60ec38118fed4626d6c4ca09dc2e6ef92dfc8f7",
         "signature": "338cf3f7ee5a2570333ee357866e2ccd5108dc0dcf02bbb050080eeb77b43afe"
       },
+      "../logger/srv/locallogger.d.ts": {
+        "version": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d",
+        "signature": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d"
+      },
       "../logger/srv/index.d.ts": {
-        "version": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f",
-        "signature": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f"
+        "version": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4",
+        "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
       },
       "./src/extensions.ts": {
         "version": "312ac428837632e47633d718aac1f413d45017fb174e827213ab46991583b387",
@@ -717,7 +721,15 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../logger/srv/locallogger.d.ts": [
+        "../logger/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "../logger/srv/index.d.ts": [
+        "../logger/srv/locallogger.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -1405,7 +1417,15 @@
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../logger/srv/locallogger.d.ts": [
+        "../logger/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "../logger/srv/index.d.ts": [
+        "../logger/srv/locallogger.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -1854,8 +1874,7 @@
       "./node_modules/spex/typescript/spex.d.ts",
       "./node_modules/pg-promise/typescript/pg-promise.d.ts",
       "./src/types.ts",
-      "../logger/srv/index.d.ts",
-      "./src/extensions.ts",
+      "./src/utils.ts",
       "../envs/srv/index.d.ts",
       "./node_modules/cuid/index.d.ts",
       "./src/index.ts",
@@ -1906,7 +1925,9 @@
       "./node_modules/@types/node/ts3.5/globals.d.ts",
       "./node_modules/@types/node/ts3.5/wasi.d.ts",
       "./node_modules/@types/node/ts3.5/index.d.ts",
-      "./src/utils.ts"
+      "../logger/srv/index.d.ts",
+      "./src/extensions.ts",
+      "../logger/srv/locallogger.d.ts"
     ]
   },
   "version": "3.7.5"
