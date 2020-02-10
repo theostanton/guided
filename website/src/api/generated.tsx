@@ -2012,31 +2012,25 @@ export type AllGuideTitlesForUserQueryVariables = {
 
 export type AllGuideTitlesForUserQuery = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id' | 'title' | 'slug' | 'owner'>>> }> };
 
-export type SpotByGuideFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'nights'>;
-
-export type RideByGuideFragment = (
-  Pick<Ride, 'id'>
-  & { readonly toSpot: Maybe<SpotByGuideFragment>, readonly fromSpot: Maybe<SpotByGuideFragment> }
-);
-
-export type GuideBySlugFragment = (
-  Pick<Guide, 'id' | 'title' | 'slug' | 'owner' | 'startDate'>
-  & { readonly ridesByGuide: (
-    Pick<RidesConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<RideByGuideFragment>> }
-  ), readonly spotsByGuide: (
-    Pick<SpotsConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<SpotByGuideFragment>> }
-  ) }
-);
-
 export type GetGuideBySlugQueryVariables = {
   slug: Scalars['String'],
   owner: Scalars['String']
 };
 
 
-export type GetGuideBySlugQuery = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideBySlugFragment>> }> };
+export type GetGuideBySlugQuery = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<(
+      Pick<Guide, 'id' | 'title' | 'slug' | 'owner' | 'startDate'>
+      & { readonly ridesByGuide: (
+        Pick<RidesConnection, 'totalCount'>
+        & { readonly nodes: ReadonlyArray<Maybe<(
+          Pick<Ride, 'id'>
+          & { readonly toSpot: Maybe<Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'nights'>>, readonly fromSpot: Maybe<Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'nights'>> }
+        )>> }
+      ), readonly spotsByGuide: (
+        Pick<SpotsConnection, 'totalCount'>
+        & { readonly nodes: ReadonlyArray<Maybe<Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'nights'>>> }
+      ) }
+    )>> }> };
 
 export type LoginMutationVariables = {
   email: Scalars['String'],
