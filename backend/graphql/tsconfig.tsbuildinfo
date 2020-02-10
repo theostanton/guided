@@ -914,8 +914,8 @@
         "signature": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d"
       },
       "../../tools/logger/srv/index.d.ts": {
-        "version": "1064d49a4a7e1105cc24ab781d9027ac1935ada987e228d54d2ba457bfedd791",
-        "signature": "1064d49a4a7e1105cc24ab781d9027ac1935ada987e228d54d2ba457bfedd791"
+        "version": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4",
+        "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
       },
       "./src/generated.ts": {
         "version": "4ffaa0be036791c14c68f3a34f4acdcb550484c7bd01876c24b0d0b84558e258",
@@ -5472,6 +5472,13 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../tools/logger/srv/locallogger.d.ts": [
+        "../../tools/logger/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "../../tools/logger/srv/index.d.ts": [
         "../../tools/logger/srv/locallogger.d.ts",
         "./node_modules/@types/node/fs.d.ts",
@@ -5921,13 +5928,6 @@
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../../tools/logger/srv/locallogger.d.ts": [
-        "../../tools/logger/srv/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -6168,6 +6168,7 @@
       "../../tools/database/srv/extensions.d.ts",
       "../../tools/database/srv/index.d.ts",
       "./src/plugins/types.ts",
+      "./src/plugins/index.ts",
       "./node_modules/@types/range-parser/index.d.ts",
       "./node_modules/@types/express-serve-static-core/index.d.ts",
       "./node_modules/@types/mime/index.d.ts",
@@ -6175,6 +6176,7 @@
       "./node_modules/@types/connect/index.d.ts",
       "./node_modules/@types/body-parser/index.d.ts",
       "./node_modules/@types/express/index.d.ts",
+      "./src/app.ts",
       "./node_modules/@types/aws-lambda/index.d.ts",
       "./node_modules/@types/aws-serverless-express/index.d.ts",
       "./src/lambda.ts",
@@ -6204,9 +6206,7 @@
       "./src/server.ts",
       "./src/options.ts",
       "./src/plugins/addspotfromlatlng/index.ts",
-      "../../tools/logger/srv/locallogger.d.ts",
-      "./src/plugins/index.ts",
-      "./src/app.ts"
+      "../../tools/logger/srv/locallogger.d.ts"
     ]
   },
   "version": "3.7.5"

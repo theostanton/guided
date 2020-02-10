@@ -96,9 +96,8 @@ export default class Index {
     })
   }
 
-  @action
   logOut() {
-    this.user = undefined
+    this.setUser(undefined)
   }
 }
 

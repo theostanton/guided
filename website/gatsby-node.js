@@ -1,4 +1,3 @@
-const { logJson, log } = require("@guided/logger")
 exports.onCreatePage = async ({ page, actions }) => {
   if (!page) {
     return
