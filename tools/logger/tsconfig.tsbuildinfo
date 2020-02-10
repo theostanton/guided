@@ -170,7 +170,7 @@
         "signature": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f"
       },
       "./src/locallogger.ts": {
-        "version": "3195a903556b1c2cffb201cf9fa61c50ece7c6d0d4aa09e475d7151acaca45a5",
+        "version": "a96e50083c36c6d149d2374dd5183ca41dea0321a529391f661a86015a937dfb",
         "signature": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d"
       },
       "../../node_modules/@types/node/globals.d.ts": {

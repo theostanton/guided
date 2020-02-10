@@ -1,6 +1,6 @@
 require("@guided/envs")
 
-import { options, connection } from "./postgraphilerc"
+import { options, connection } from "./options"
 
 import express from "express"
 import { postgraphile } from "postgraphile"

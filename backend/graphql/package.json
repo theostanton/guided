@@ -6,9 +6,11 @@
     "build": "tsc",
     "watch": "nodemon",
     "start": "node -r ts-node/register ./src/server.ts",
+    "develop": "POSTGRAPHILE_WATCH=true node -r ts-node/register ./src/server.ts",
     "deploy": "sls deploy"
   },
   "dependencies": {
+    "@guided/database": "*",
     "@guided/envs": "*",
     "@guided/logger": "*",
     "express": "^4.17.1",
@@ -38,10 +40,10 @@
     "watch": [
       "src"
     ],
-    "exec": "yarn build && yarn start",
+    "exec": "yarn build && yarn develop",
     "ext": "ts",
     "events": {
-      "restart": "osascript -e 'display notification \"Restarted\" with title \"@guided/graphql\"'"
+      "restart": "osascript -e 'display notification \"Restarting\" with title \"@guided/graphql\"'"
     }
   }
 }

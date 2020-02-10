@@ -14,7 +14,10 @@ export type Scalars = {
   Boolean: boolean,
   Int: number,
   Float: number,
-  /** A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519) which securely represents claims between two parties. */
+  /** 
+ * A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
+   * which securely represents claims between two parties.
+ */
   JwtToken: any,
   /** A location in a connection that can be used for resuming pagination. */
   Cursor: any,
@@ -109,6 +112,8 @@ export type CreateRidePayload = {
   spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
   spotByToSpot?: Maybe<Spot>,
+  /** Reads a single `User` that is related to this `Ride`. */
+  userByOwner?: Maybe<User>,
 };
 
 
@@ -143,6 +148,8 @@ export type CreateSpotPayload = {
   spot?: Maybe<Spot>,
   /** An edge for our `Spot`. May be used by Relay 1. */
   spotEdge?: Maybe<SpotsEdge>,
+  /** Reads a single `User` that is related to this `Spot`. */
+  userByOwner?: Maybe<User>,
 };
 
 
@@ -271,6 +278,8 @@ export type DeleteRidePayload = {
   spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
   spotByToSpot?: Maybe<Spot>,
+  /** Reads a single `User` that is related to this `Ride`. */
+  userByOwner?: Maybe<User>,
 };
 
 
@@ -316,6 +325,8 @@ export type DeleteSpotPayload = {
   spot?: Maybe<Spot>,
   /** An edge for our `Spot`. May be used by Relay 1. */
   spotEdge?: Maybe<SpotsEdge>,
+  /** Reads a single `User` that is related to this `Spot`. */
+  userByOwner?: Maybe<User>,
 };
 
 
@@ -477,6 +488,7 @@ export enum GuidesOrderBy {
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
+  addSpotFromLatLng: Spot,
   /** Creates a JWT token that will securely identify a person and give them certain permissions. This token expires in 2 days. */
   authenticate?: Maybe<AuthenticatePayload>,
   /** Creates a single `Guide`. */
@@ -521,6 +533,16 @@ export type Mutation = {
   updateUser?: Maybe<UpdateUserPayload>,
   /** Updates a single `User` using its globally unique id and a patch. */
   updateUserByNodeId?: Maybe<UpdateUserPayload>,
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationAddSpotFromLatLngArgs = {
+  guideId: Scalars['String'],
+  label?: Maybe<Scalars['String']>,
+  lat: Scalars['Float'],
+  long: Scalars['Float'],
+  owner?: Maybe<Scalars['String']>
 };
 
 
@@ -675,7 +697,7 @@ export type PageInfo = {
 
 /** The root query type which gives access points into the data universe. */
 export type Query = Node & {
-  currentUser?: Maybe<Scalars['JwtToken']>,
+  getCurrentUser?: Maybe<Scalars['JwtToken']>,
   guide?: Maybe<Guide>,
   /** Reads a single `Guide` using its globally unique `ID`. */
   guideByNodeId?: Maybe<Guide>,
@@ -849,11 +871,14 @@ export type Ride = Node & {
   id: Scalars['String'],
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   nodeId: Scalars['ID'],
+  owner: Scalars['String'],
   /** Reads a single `Spot` that is related to this `Ride`. */
   spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
   spotByToSpot?: Maybe<Spot>,
   toSpot: Scalars['String'],
+  /** Reads a single `User` that is related to this `Ride`. */
+  userByOwner?: Maybe<User>,
 };
 
 /** A condition to be used against `Ride` object types. All fields are tested for equality and combined with a logical ‘and.’ */
@@ -864,6 +889,8 @@ export type RideCondition = {
   guide?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `id` field. */
   id?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `owner` field. */
+  owner?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `toSpot` field. */
   toSpot?: Maybe<Scalars['String']>,
 };
@@ -873,6 +900,7 @@ export type RideInput = {
   fromSpot: Scalars['String'],
   guide: Scalars['String'],
   id: Scalars['String'],
+  owner: Scalars['String'],
   toSpot: Scalars['String'],
 };
 
@@ -881,6 +909,7 @@ export type RidePatch = {
   fromSpot?: Maybe<Scalars['String']>,
   guide?: Maybe<Scalars['String']>,
   id?: Maybe<Scalars['String']>,
+  owner?: Maybe<Scalars['String']>,
   toSpot?: Maybe<Scalars['String']>,
 };
 
@@ -913,6 +942,8 @@ export enum RidesOrderBy {
   IdAsc = 'ID_ASC',
   IdDesc = 'ID_DESC',
   Natural = 'NATURAL',
+  OwnerAsc = 'OWNER_ASC',
+  OwnerDesc = 'OWNER_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
   ToSpotAsc = 'TO_SPOT_ASC',
@@ -925,14 +956,19 @@ export type Spot = Node & {
   guideByGuide?: Maybe<Guide>,
   id: Scalars['String'],
   label?: Maybe<Scalars['String']>,
+  lat?: Maybe<Scalars['Float']>,
   locked?: Maybe<Scalars['Boolean']>,
+  long?: Maybe<Scalars['Float']>,
   nights?: Maybe<Scalars['Int']>,
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   nodeId: Scalars['ID'],
+  owner: Scalars['String'],
   /** Reads and enables pagination through a set of `Ride`. */
   ridesByFromSpot: RidesConnection,
   /** Reads and enables pagination through a set of `Ride`. */
   ridesByToSpot: RidesConnection,
+  /** Reads a single `User` that is related to this `Spot`. */
+  userByOwner?: Maybe<User>,
 };
 
 
@@ -965,10 +1001,16 @@ export type SpotCondition = {
   id?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `label` field. */
   label?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `lat` field. */
+  lat?: Maybe<Scalars['Float']>,
   /** Checks for equality with the object’s `locked` field. */
   locked?: Maybe<Scalars['Boolean']>,
+  /** Checks for equality with the object’s `long` field. */
+  long?: Maybe<Scalars['Float']>,
   /** Checks for equality with the object’s `nights` field. */
   nights?: Maybe<Scalars['Int']>,
+  /** Checks for equality with the object’s `owner` field. */
+  owner?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `Spot` */
@@ -976,8 +1018,11 @@ export type SpotInput = {
   guide: Scalars['String'],
   id: Scalars['String'],
   label?: Maybe<Scalars['String']>,
+  lat?: Maybe<Scalars['Float']>,
   locked?: Maybe<Scalars['Boolean']>,
+  long?: Maybe<Scalars['Float']>,
   nights?: Maybe<Scalars['Int']>,
+  owner: Scalars['String'],
 };
 
 /** Represents an update to a `Spot`. Fields that are set will be updated. */
@@ -985,8 +1030,11 @@ export type SpotPatch = {
   guide?: Maybe<Scalars['String']>,
   id?: Maybe<Scalars['String']>,
   label?: Maybe<Scalars['String']>,
+  lat?: Maybe<Scalars['Float']>,
   locked?: Maybe<Scalars['Boolean']>,
+  long?: Maybe<Scalars['Float']>,
   nights?: Maybe<Scalars['Int']>,
+  owner?: Maybe<Scalars['String']>,
 };
 
 /** A connection to a list of `Spot` values. */
@@ -1017,11 +1065,17 @@ export enum SpotsOrderBy {
   IdDesc = 'ID_DESC',
   LabelAsc = 'LABEL_ASC',
   LabelDesc = 'LABEL_DESC',
+  LatAsc = 'LAT_ASC',
+  LatDesc = 'LAT_DESC',
   LockedAsc = 'LOCKED_ASC',
   LockedDesc = 'LOCKED_DESC',
+  LongAsc = 'LONG_ASC',
+  LongDesc = 'LONG_DESC',
   Natural = 'NATURAL',
   NightsAsc = 'NIGHTS_ASC',
   NightsDesc = 'NIGHTS_DESC',
+  OwnerAsc = 'OWNER_ASC',
+  OwnerDesc = 'OWNER_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -1118,6 +1172,8 @@ export type UpdateRidePayload = {
   spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
   spotByToSpot?: Maybe<Spot>,
+  /** Reads a single `User` that is related to this `Ride`. */
+  userByOwner?: Maybe<User>,
 };
 
 
@@ -1166,6 +1222,8 @@ export type UpdateSpotPayload = {
   spot?: Maybe<Spot>,
   /** An edge for our `Spot`. May be used by Relay 1. */
   spotEdge?: Maybe<SpotsEdge>,
+  /** Reads a single `User` that is related to this `Spot`. */
+  userByOwner?: Maybe<User>,
 };
 
 
@@ -1227,6 +1285,10 @@ export type User = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   nodeId: Scalars['ID'],
   passwordHash: Scalars['String'],
+  /** Reads and enables pagination through a set of `Ride`. */
+  ridesByOwner: RidesConnection,
+  /** Reads and enables pagination through a set of `Spot`. */
+  spotsByOwner: SpotsConnection,
   username: Scalars['String'],
 };
 
@@ -1239,6 +1301,28 @@ export type UserGuidesByOwnerArgs = {
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
   orderBy?: Maybe<Array<GuidesOrderBy>>
+};
+
+
+export type UserRidesByOwnerArgs = {
+  after?: Maybe<Scalars['Cursor']>,
+  before?: Maybe<Scalars['Cursor']>,
+  condition?: Maybe<RideCondition>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  orderBy?: Maybe<Array<RidesOrderBy>>
+};
+
+
+export type UserSpotsByOwnerArgs = {
+  after?: Maybe<Scalars['Cursor']>,
+  before?: Maybe<Scalars['Cursor']>,
+  condition?: Maybe<SpotCondition>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  orderBy?: Maybe<Array<SpotsOrderBy>>
 };
 
 /** A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’ */

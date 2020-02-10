@@ -5,5 +5,11 @@
     "rootDir": "./src",
     "esModuleInterop": true
   },
-  "exclude": ["./srv"]
+  "exclude": [
+    "./srv",
+    "node_modules"
+  ],
+  "include": [
+    "src/**/*"
+  ]
 }

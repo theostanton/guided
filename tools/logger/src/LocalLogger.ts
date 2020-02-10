@@ -22,7 +22,6 @@ export class LocalLogger implements Logger {
   }
 
   log(message: string, label?: string): void {
-    console.log('TEST!?')
     if (label) {
       console.log("--" + label + "--")
     }

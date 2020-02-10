@@ -909,9 +909,57 @@
         "version": "467a108d081a93ff493a934431395ef603dcc46983fc095f33735b1559315267",
         "signature": "467a108d081a93ff493a934431395ef603dcc46983fc095f33735b1559315267"
       },
-      "./src/postgraphilerc.ts": {
-        "version": "b945b2d29e6a890d928c83db990eeab2d26b3248a36b7f36489b43315aeb93b1",
-        "signature": "f742f408dfb9ea2e8d3b6d2c3f12d66f51623ba8eb140359c1fb50b17bbc1591"
+      "../../tools/logger/srv/index.d.ts": {
+        "version": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f",
+        "signature": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f"
+      },
+      "./src/generated.ts": {
+        "version": "d00bf7d4f34772b9e3a5e8a81b3cc8105dd8450536a6bb552203e2174280e1d2",
+        "signature": "9f7cc214478579ff4b79d53efb770cb712ebf47ca2e12c9aaa80d918668cbc35"
+      },
+      "../../tools/envs/srv/index.d.ts": {
+        "version": "f667f6b1d66ba55f0dcd27f5ff050063fecfe289bad00e8c5d48344a775c1439",
+        "signature": "f667f6b1d66ba55f0dcd27f5ff050063fecfe289bad00e8c5d48344a775c1439"
+      },
+      "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts": {
+        "version": "c2d551451c7ddb48f776fd038ec5af7922ec0040cd82a69dad1550a697afe9f6",
+        "signature": "c2d551451c7ddb48f776fd038ec5af7922ec0040cd82a69dad1550a697afe9f6"
+      },
+      "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts": {
+        "version": "385c6a1ea7a9114811a41778bd7ec8238c5089c0b2f742479a98cd43ac5d4846",
+        "signature": "385c6a1ea7a9114811a41778bd7ec8238c5089c0b2f742479a98cd43ac5d4846"
+      },
+      "../../tools/database/node_modules/spex/typescript/spex.d.ts": {
+        "version": "81227e8224efd998d95c2eb370fc3dcf9233e2c1c01d798b720b9fbbd440457e",
+        "signature": "81227e8224efd998d95c2eb370fc3dcf9233e2c1c01d798b720b9fbbd440457e"
+      },
+      "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts": {
+        "version": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f",
+        "signature": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f"
+      },
+      "../../tools/database/srv/types.d.ts": {
+        "version": "0c80fdf63c0c747d54424d7693e889cc39d6ba4ea2568e057075e47f51c6fb0b",
+        "signature": "0c80fdf63c0c747d54424d7693e889cc39d6ba4ea2568e057075e47f51c6fb0b"
+      },
+      "../../tools/database/srv/extensions.d.ts": {
+        "version": "e9c0badeca1c28a2bb4b05a90600b291fcd3cdfc89235b5739f627d3db3b7db5",
+        "signature": "e9c0badeca1c28a2bb4b05a90600b291fcd3cdfc89235b5739f627d3db3b7db5"
+      },
+      "../../tools/database/srv/index.d.ts": {
+        "version": "d13284a0dcecdf5d421add8854f638d49e0ced967ab014c28541443c1e531335",
+        "signature": "d13284a0dcecdf5d421add8854f638d49e0ced967ab014c28541443c1e531335"
+      },
+      "./src/plugins/addspotfromlatlng/index.ts": {
+        "version": "0d6d32a0c230beae2bf3365fa67343d7b60715481dfda05a57f786702c9c764f",
+        "signature": "69a749fa927457550ae15067343e7c36dd1242cfb80936a9ca62af940f37f78a"
+      },
+      "./src/plugins/index.ts": {
+        "version": "8145606587cf60551a8b554b7d0e108b10ba52c4b2eec328a1c66335c99e3809",
+        "signature": "f73e226db69f6ca24c3ecb20da57b379d5b43523925e38abc4338d3a1cc89bf7"
+      },
+      "./src/options.ts": {
+        "version": "d7cef7899c577cd08b38e10d037cb4b5b0991961062b75471fcd2599bdebfd56",
+        "signature": "295c12556d56aff97df1b3a7f9a004383c4f1e5fd192e76e1df9ffc52514cbaa"
       },
       "./node_modules/@types/range-parser/index.d.ts": {
         "version": "4e88b833be14c7f384e0dcd57bb30acd799e8e34d212635d693e41a75a71164b",
@@ -942,7 +990,7 @@
         "signature": "6e1c6fe784daeba017901db7766e6b872f535defe33b0e0196d2a12c26f50517"
       },
       "./src/app.ts": {
-        "version": "116005ffce6948f2728b2a39bd65b60e4e50cc1616df202e5d27d982792a34af",
+        "version": "2107690cd5c7834b5e22bdb8f9e49f14caba7d5fd35a45543d44fe9852865d54",
         "signature": "6f483c1194cc69d75c5eb35aaf615dda8e73ab74bc3a7cee148f3d5606152216"
       },
       "./node_modules/@types/aws-lambda/index.d.ts": {
@@ -957,17 +1005,9 @@
         "version": "28360ac4f739608b2ad208d1225b6adadff7aac987f71c9d8ba142c29065d05d",
         "signature": "47b54ca3d46bed10ec907265e74169dcb31cdb946f24dd6f167e99fb45946460"
       },
-      "../../tools/logger/srv/index.d.ts": {
-        "version": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f",
-        "signature": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f"
-      },
       "./src/server.ts": {
-        "version": "c028ba77d2fa9fec97a7643867b39481c12165f79ff76ec56c9ad6efceb873d7",
+        "version": "4c3bb27b89a4efd24d142fc441f0cbc568df36659f550a12527639b6ae61d6af",
         "signature": "1bdaab87b793f49e745a6a1700bd74197b0a088d4e90ddc6f5bcb1a227fe826b"
-      },
-      "./src/addspotfromlatlng/index.ts": {
-        "version": "454e8e7f83b162cd7297c2000a745d9081fc64fa2155864b78dc50c7367312ad",
-        "signature": "69a749fa927457550ae15067343e7c36dd1242cfb80936a9ca62af940f37f78a"
       },
       "./node_modules/@types/accepts/index.d.ts": {
         "version": "6738101ae8e56cd3879ab3f99630ada7d78097fc9fd334df7e766216778ca219",
@@ -980,6 +1020,10 @@
       "./node_modules/@types/cookies/index.d.ts": {
         "version": "0882fadf0f47cc8d812beed6ffc85a6edc1c2b42af5fd7e0da1fa35dc1868708",
         "signature": "0882fadf0f47cc8d812beed6ffc85a6edc1c2b42af5fd7e0da1fa35dc1868708"
+      },
+      "./node_modules/@types/cuid/index.d.ts": {
+        "version": "446932680c18544bc9b3841aa506d55c271b0662111c96ea6b98d550989b0c7e",
+        "signature": "446932680c18544bc9b3841aa506d55c271b0662111c96ea6b98d550989b0c7e"
       },
       "./node_modules/@types/http-assert/index.d.ts": {
         "version": "97fd9fd06a67deac133ddeac0b4a266db5eede2e40ec6ad67b31b0b862559643",
@@ -2994,8 +3038,98 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "./src/postgraphilerc.ts": [
+      "../../tools/logger/srv/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/generated.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/envs/srv/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts": [
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/node/tls.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/node_modules/spex/typescript/spex.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts": [
+        "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
+        "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts",
+        "../../tools/database/node_modules/spex/typescript/spex.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/srv/types.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/srv/extensions.d.ts": [
+        "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
+        "../../tools/database/srv/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/srv/index.d.ts": [
+        "../../tools/envs/srv/index.d.ts",
+        "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
+        "../../tools/database/srv/extensions.d.ts",
+        "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/plugins/addspotfromlatlng/index.ts": [
+        "../../tools/logger/srv/index.d.ts",
+        "./node_modules/graphile-utils/node8plus/makeextendschemaplugin.d.ts",
+        "./src/generated.ts",
+        "../../tools/database/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/plugins/index.ts": [
+        "./src/plugins/addspotfromlatlng/index.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/options.ts": [
         "./node_modules/postgraphile/build/index.d.ts",
+        "./src/plugins/index.ts",
+        "../../tools/logger/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3058,7 +3192,7 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/app.ts": [
-        "./src/postgraphilerc.ts",
+        "./src/options.ts",
         "./node_modules/@types/express/index.d.ts",
         "./node_modules/postgraphile/build/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
@@ -3089,23 +3223,9 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/logger/srv/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
       "./src/server.ts": [
         "./src/app.ts",
         "../../tools/logger/srv/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./src/addspotfromlatlng/index.ts": [
-        "../../tools/logger/srv/index.d.ts",
-        "./node_modules/graphile-utils/node8plus/makeextendschemaplugin.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3131,6 +3251,12 @@
         "./node_modules/@types/express/index.d.ts",
         "./node_modules/@types/connect/index.d.ts",
         "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/cuid/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -5323,7 +5449,72 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "./src/postgraphilerc.ts": [
+      "../../tools/logger/srv/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/envs/srv/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts": [
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/node/tls.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/node_modules/spex/typescript/spex.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts": [
+        "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
+        "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts",
+        "../../tools/database/node_modules/spex/typescript/spex.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/srv/types.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/srv/extensions.d.ts": [
+        "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
+        "../../tools/database/srv/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/database/srv/index.d.ts": [
+        "../../tools/envs/srv/index.d.ts",
+        "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
+        "../../tools/database/srv/extensions.d.ts",
+        "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/options.ts": [
         "./node_modules/postgraphile/build/index.d.ts"
       ],
       "./node_modules/@types/range-parser/index.d.ts": [
@@ -5400,12 +5591,6 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/logger/srv/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
       "./node_modules/@types/accepts/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/ts3.5/index.d.ts",
@@ -5426,6 +5611,12 @@
         "./node_modules/@types/express/index.d.ts",
         "./node_modules/@types/connect/index.d.ts",
         "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/cuid/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -5936,7 +6127,18 @@
       "./node_modules/postgraphile/build/postgraphile/http/subscriptions.d.ts",
       "./node_modules/postgraphile/build/postgraphile/index.d.ts",
       "./node_modules/postgraphile/build/index.d.ts",
-      "./src/postgraphilerc.ts",
+      "../../tools/logger/srv/index.d.ts",
+      "./src/generated.ts",
+      "../../tools/envs/srv/index.d.ts",
+      "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
+      "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts",
+      "../../tools/database/node_modules/spex/typescript/spex.d.ts",
+      "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
+      "../../tools/database/srv/types.d.ts",
+      "../../tools/database/srv/extensions.d.ts",
+      "../../tools/database/srv/index.d.ts",
+      "./src/plugins/index.ts",
+      "./src/options.ts",
       "./node_modules/@types/range-parser/index.d.ts",
       "./node_modules/@types/express-serve-static-core/index.d.ts",
       "./node_modules/@types/mime/index.d.ts",
@@ -5944,14 +6146,15 @@
       "./node_modules/@types/connect/index.d.ts",
       "./node_modules/@types/body-parser/index.d.ts",
       "./node_modules/@types/express/index.d.ts",
+      "./src/app.ts",
       "./node_modules/@types/aws-lambda/index.d.ts",
       "./node_modules/@types/aws-serverless-express/index.d.ts",
       "./src/lambda.ts",
-      "../../tools/logger/srv/index.d.ts",
-      "./src/addspotfromlatlng/index.ts",
+      "./src/server.ts",
       "./node_modules/@types/accepts/index.d.ts",
       "./node_modules/@types/keygrip/index.d.ts",
       "./node_modules/@types/cookies/index.d.ts",
+      "./node_modules/@types/cuid/index.d.ts",
       "./node_modules/@types/http-assert/index.d.ts",
       "./node_modules/@types/json5/index.d.ts",
       "./node_modules/@types/koa-compose/index.d.ts",
@@ -5970,8 +6173,7 @@
       "./node_modules/@types/lodash/ts3.1/common/util.d.ts",
       "./node_modules/@types/lodash/ts3.1/index.d.ts",
       "./node_modules/@types/pg-types/index.d.ts",
-      "./src/app.ts",
-      "./src/server.ts"
+      "./src/plugins/addspotfromlatlng/index.ts"
     ]
   },
   "version": "3.7.5"

@@ -3,28 +3,31 @@
 * Rerun sql-ts to regenerate this file.
 */
 export interface Guide {
-  id: string | null 
-  title: string | null 
-  slug: string | null 
-  owner: string | null 
+  id: string 
+  title: string 
+  slug: string 
+  owner: string 
   startDate: Date | null 
 }
 export interface Ride {
-  id: string | null 
-  guide: string | null 
-  fromSpot: string | null 
-  toSpot: string | null 
+  id: string 
+  guide: string 
+  owner: string 
+  fromSpot: string 
+  toSpot: string 
 }
 export interface Spot {
-  id: string | null 
+  id: string 
   label: string | null 
-  guide: string | null 
+  guide: string 
+  owner: string 
   nights: number | null 
   locked: boolean | null 
+  lat: number | null 
+  long: number | null 
 }
 export interface User {
-  username: string | null 
-  email: string | null 
-  passwordHash: string | null 
+  username: string 
+  email: string 
+  passwordHash: string 
 }
-  

@@ -18,3 +18,8 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
+  ../../backend/graphql/src/generated.ts:
+    plugins:
+      - add: // tslint:disable
+      - "typescript"
+      - "typescript-operations"
