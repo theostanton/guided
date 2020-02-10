@@ -4,16 +4,18 @@ const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
 import { MutationAddSpotFromLatLngArgs, Spot } from "../../generated"
 import { database, generateId } from "@guided/database"
+import { Context } from "../types"
 
 
-async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs): Promise<Partial<Spot>> {
+async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, context: Context): Promise<Partial<Spot>> {
   logJson(args, "args")
+  logJson(context, "context")
 
   const spot = {
     id: generateId("spot"),
     guide: args.guideId,
     label: args.label ? args.label : null,
-    owner: args.owner ? args.owner : "user1",
+    owner: context.jwtClaims.username!,
     lat: args.lat,
     long: args.long,
     nights: 0,
@@ -22,7 +24,6 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs): P
 
   await database.insertSpot(spot)
 
-
   return spot
 }
 
@@ -30,7 +31,7 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs): P
 const generator: ExtensionDefinition = {
   typeDefs: gql`
       extend type Mutation {
-          addSpotFromLatLng(guideId:String!,lat:Float!,long:Float!,label:String,owner:String):Spot!
+          addSpotFromLatLng(guideId:String!,lat:Float!,long:Float!,label:String):Spot!
       }
   `,
   resolvers: {

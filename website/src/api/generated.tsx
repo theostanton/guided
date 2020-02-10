@@ -541,8 +541,7 @@ export type MutationAddSpotFromLatLngArgs = {
   guideId: Scalars['String'],
   label?: Maybe<Scalars['String']>,
   lat: Scalars['Float'],
-  long: Scalars['Float'],
-  owner?: Maybe<Scalars['String']>
+  long: Scalars['Float']
 };
 
 

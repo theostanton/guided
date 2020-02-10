@@ -914,8 +914,8 @@
         "signature": "556522386cb7407c0fd17dec545bbe13ad8d4929aae69e06e650cb2bebe7505f"
       },
       "./src/generated.ts": {
-        "version": "d00bf7d4f34772b9e3a5e8a81b3cc8105dd8450536a6bb552203e2174280e1d2",
-        "signature": "9f7cc214478579ff4b79d53efb770cb712ebf47ca2e12c9aaa80d918668cbc35"
+        "version": "4ffaa0be036791c14c68f3a34f4acdcb550484c7bd01876c24b0d0b84558e258",
+        "signature": "f301f3c5afb8f4791d3bef96123e83ed323dfcc7ccc2dd04345acdd36b5b167a"
       },
       "../../tools/envs/srv/index.d.ts": {
         "version": "f667f6b1d66ba55f0dcd27f5ff050063fecfe289bad00e8c5d48344a775c1439",
@@ -949,8 +949,12 @@
         "version": "d13284a0dcecdf5d421add8854f638d49e0ced967ab014c28541443c1e531335",
         "signature": "d13284a0dcecdf5d421add8854f638d49e0ced967ab014c28541443c1e531335"
       },
+      "./src/plugins/types.ts": {
+        "version": "da70c9f8c0483ea4a9ec0f7dd3fab6cab7c45b2ed93992423597a784ce9ed820",
+        "signature": "52335a52061e055be812154cba4411351645a9bb3a7f0217267c8da38ee374c7"
+      },
       "./src/plugins/addspotfromlatlng/index.ts": {
-        "version": "0d6d32a0c230beae2bf3365fa67343d7b60715481dfda05a57f786702c9c764f",
+        "version": "4b0e2f6ac1e5a791d1a0434e33acf65c9978ea2bb378955cc6d3e667f508d7df",
         "signature": "69a749fa927457550ae15067343e7c36dd1242cfb80936a9ca62af940f37f78a"
       },
       "./src/plugins/index.ts": {
@@ -3109,11 +3113,18 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./src/plugins/types.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./src/plugins/addspotfromlatlng/index.ts": [
         "../../tools/logger/srv/index.d.ts",
         "./node_modules/graphile-utils/node8plus/makeextendschemaplugin.d.ts",
         "./src/generated.ts",
         "../../tools/database/srv/index.d.ts",
+        "./src/plugins/types.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6173,6 +6184,7 @@
       "./node_modules/@types/lodash/ts3.1/common/util.d.ts",
       "./node_modules/@types/lodash/ts3.1/index.d.ts",
       "./node_modules/@types/pg-types/index.d.ts",
+      "./src/plugins/types.ts",
       "./src/plugins/addspotfromlatlng/index.ts"
     ]
   },
