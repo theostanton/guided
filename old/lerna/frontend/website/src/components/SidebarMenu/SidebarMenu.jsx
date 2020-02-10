@@ -23,4 +23,3 @@ exports.SidebarMenu = ({ items, pathname, Link, visible }) => {
         </semantic_ui_react_1.Sidebar>);
 };
 exports.default = exports.SidebarMenu;
-//# sourceMappingURL=SidebarMenu.jsx.map

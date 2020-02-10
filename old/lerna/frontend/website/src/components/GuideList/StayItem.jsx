@@ -47,4 +47,3 @@ class StayItem extends react_1.default.Component {
     }
 }
 exports.default = StayItem;
-//# sourceMappingURL=StayItem.jsx.map

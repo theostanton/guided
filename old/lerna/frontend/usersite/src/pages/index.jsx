@@ -104,4 +104,3 @@ const IndexPage = (props) => <div>
     </semantic_ui_react_1.Segment>
   </div>;
 exports.default = Layout_1.withLayout(IndexPage);
-//# sourceMappingURL=index.jsx.map

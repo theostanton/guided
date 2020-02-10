@@ -35,4 +35,3 @@ const AboutPage = () => {
     </semantic_ui_react_1.Container>);
 };
 exports.default = Layout_1.withLayout(AboutPage);
-//# sourceMappingURL=about.jsx.map

@@ -13,4 +13,3 @@ const store_1 = require("./src/store");
 exports.wrapRootElement = ({ element }) => <react_redux_1.Provider store={store_1.store}>
       {element}
     </react_redux_1.Provider>;
-//# sourceMappingURL=gatsby-browser.jsx.map

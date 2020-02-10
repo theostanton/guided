@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const LocalLogger_1 = require("./LocalLogger");
+const logger = new LocalLogger_1.LocalLogger();
+exports.default = logger;
+const { log, error: logError, info: logInfo, json: logJson } = logger;
+exports.log = log;
+exports.logError = logError;
+exports.logInfo = logInfo;
+exports.logJson = logJson;

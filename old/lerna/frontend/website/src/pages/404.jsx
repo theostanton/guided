@@ -22,4 +22,3 @@ const NotFoundPage = () => <semantic_ui_react_1.Grid centered verticalAlign="mid
       </semantic_ui_react_1.Grid.Column>
     </semantic_ui_react_1.Grid>;
 exports.default = Layout_1.withLayout(NotFoundPage);
-//# sourceMappingURL=404.jsx.map

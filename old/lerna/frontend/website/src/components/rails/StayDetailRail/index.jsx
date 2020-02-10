@@ -110,4 +110,3 @@ class StayDetailRail extends react_1.default.Component {
     }
 }
 exports.StayDetailRail = StayDetailRail;
-//# sourceMappingURL=index.jsx.map

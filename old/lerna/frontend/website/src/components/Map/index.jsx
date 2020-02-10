@@ -89,4 +89,3 @@ class Map extends react_1.Component {
     }
 }
 exports.default = Map;
-//# sourceMappingURL=index.jsx.map

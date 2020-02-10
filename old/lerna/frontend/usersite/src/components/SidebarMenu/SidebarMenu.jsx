@@ -27,4 +27,3 @@ const mapStateToProps = (state) => ({
     visible: state.isSidebarVisible,
 });
 exports.default = react_redux_1.connect(mapStateToProps)(exports.SidebarMenu);
-//# sourceMappingURL=SidebarMenu.jsx.map

@@ -48,4 +48,3 @@ RightRail = __decorate([
     mobx_react_1.observer
 ], RightRail);
 exports.default = RightRail;
-//# sourceMappingURL=index.jsx.map

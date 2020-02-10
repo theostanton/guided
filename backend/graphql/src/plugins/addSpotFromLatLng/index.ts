@@ -1,5 +1,7 @@
 import { logJson } from "@guided/logger"
 
+import { getLabel } from "@guided/google"
+
 const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
 import { MutationAddSpotFromLatLngArgs, Spot } from "../../generated"

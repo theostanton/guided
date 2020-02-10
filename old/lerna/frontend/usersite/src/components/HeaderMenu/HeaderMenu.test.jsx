@@ -44,4 +44,3 @@ describe("HeaderMenu component", () => {
         expect(dispatchMock.mock.calls.length).toBe(1);
     });
 });
-//# sourceMappingURL=HeaderMenu.test.jsx.map

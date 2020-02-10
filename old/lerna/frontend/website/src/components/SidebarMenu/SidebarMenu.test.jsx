@@ -25,4 +25,3 @@ describe("SidebarMenu component", () => {
         expect(wrapper).toMatchSnapshot();
     });
 });
-//# sourceMappingURL=SidebarMenu.test.jsx.map

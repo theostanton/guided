@@ -43,4 +43,3 @@ class RideItem extends react_1.default.Component {
     }
 }
 exports.default = RideItem;
-//# sourceMappingURL=RideItem.jsx.map

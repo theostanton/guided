@@ -37,4 +37,3 @@ class RideDetailRail extends react_1.default.Component {
     }
 }
 exports.RideDetailRail = RideDetailRail;
-//# sourceMappingURL=index.jsx.map

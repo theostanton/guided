@@ -22,4 +22,3 @@ exports.HeaderMenu = ({ items, pathname, Link, inverted, dispatch }) => <semanti
     </semantic_ui_react_1.Menu>
   </semantic_ui_react_1.Container>;
 exports.default = react_redux_1.connect()(exports.HeaderMenu);
-//# sourceMappingURL=HeaderMenu.jsx.map

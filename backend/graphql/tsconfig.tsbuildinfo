@@ -917,6 +917,10 @@
         "version": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4",
         "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
       },
+      "../../apis/google/srv/index.d.ts": {
+        "version": "0172c843b80d067858ded55acb4efa2f5a8c3f7f39ffdb07f40aa6c5cd2cbaf7",
+        "signature": "0172c843b80d067858ded55acb4efa2f5a8c3f7f39ffdb07f40aa6c5cd2cbaf7"
+      },
       "./src/generated.ts": {
         "version": "faaca4a3be8fb68bad9eb4645a6f16a4d92d901e51fbcd073e90ba3bcdfe757f",
         "signature": "1174ea03ce69bb5e4d3eccb9e29a94a29b9612f610161510d0690d376bb58290"
@@ -958,7 +962,7 @@
         "signature": "52335a52061e055be812154cba4411351645a9bb3a7f0217267c8da38ee374c7"
       },
       "./src/plugins/addspotfromlatlng/index.ts": {
-        "version": "856944d2b279fdb90fcb5669ea57a268f58159b14b0c7f368b87e6120e3c8d94",
+        "version": "afd0f188489599a7af87093c1eeedb3359ffe6838e8f9f97271a876589cb030f",
         "signature": "69a749fa927457550ae15067343e7c36dd1242cfb80936a9ca62af940f37f78a"
       },
       "./src/plugins/index.ts": {
@@ -3060,6 +3064,12 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../apis/google/srv/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./src/generated.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -3133,6 +3143,7 @@
       ],
       "./src/plugins/addspotfromlatlng/index.ts": [
         "../../tools/logger/srv/index.d.ts",
+        "../../apis/google/srv/index.d.ts",
         "./node_modules/graphile-utils/node8plus/makeextendschemaplugin.d.ts",
         "./src/generated.ts",
         "../../tools/database/srv/index.d.ts",
@@ -5928,6 +5939,12 @@
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../apis/google/srv/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -6206,7 +6223,21 @@
       "./node_modules/@types/lodash/ts3.1/common/util.d.ts",
       "./node_modules/@types/lodash/ts3.1/index.d.ts",
       "./node_modules/@types/pg-types/index.d.ts",
-      "./src/plugins/addspotfromlatlng/index.ts"
+      "../../apis/google/srv/index.d.ts",
+      [
+        "./src/plugins/addspotfromlatlng/index.ts",
+        [
+          {
+            "file": "./src/plugins/addspotfromlatlng/index.ts",
+            "start": 42,
+            "length": 41,
+            "messageText": "'getLabel' is declared but its value is never read.",
+            "category": 1,
+            "code": 6133,
+            "reportsUnnecessary": true
+          }
+        ]
+      ]
     ]
   },
   "version": "3.7.5"

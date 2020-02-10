@@ -41,4 +41,3 @@ class GuideList extends react_1.default.Component {
     }
 }
 exports.default = GuideList;
-//# sourceMappingURL=index.jsx.map

@@ -17,4 +17,3 @@ exports.replaceRenderer = ({ bodyComponent, replaceBodyHTMLString }) => {
     </react_redux_1.Provider>);
     replaceBodyHTMLString(server_1.renderToString(<ConnectedBody />));
 };
-//# sourceMappingURL=gatsby-ssr.jsx.map

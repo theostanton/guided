@@ -29,4 +29,3 @@ exports.withLayout = (WrappedComponent) => class WithLayout extends React.Compon
                 </Layout>);
     }
 };
-//# sourceMappingURL=Layout.jsx.map

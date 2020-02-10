@@ -34,4 +34,3 @@ exports.default = (props) => {
       </body>
     </html>);
 };
-//# sourceMappingURL=html.jsx.map

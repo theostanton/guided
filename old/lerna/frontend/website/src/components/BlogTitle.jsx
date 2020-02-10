@@ -22,4 +22,3 @@ exports.default = () => {
       </semantic_ui_react_1.Header>
     </semantic_ui_react_1.Segment>);
 };
-//# sourceMappingURL=BlogTitle.jsx.map

@@ -29,4 +29,3 @@ react_1.storiesOf("HeaderMenu", module)
     const inverted = addon_knobs_1.boolean("inverted", false);
     return (<HeaderMenu_1.HeaderMenu Link={LinkStub} items={items} pathname={pathname} inverted={inverted} dispatch={dispatchStub}/>);
 });
-//# sourceMappingURL=HeaderMenu.stories.jsx.map

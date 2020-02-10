@@ -61,4 +61,3 @@ function default_1(props) {
 }
 exports.default = default_1;
 ;
-//# sourceMappingURL=index.jsx.map

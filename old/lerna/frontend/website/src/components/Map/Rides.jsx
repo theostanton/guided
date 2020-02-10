@@ -52,4 +52,3 @@ class Rides extends react_1.default.Component {
     }
 }
 exports.default = Rides;
-//# sourceMappingURL=Rides.jsx.map

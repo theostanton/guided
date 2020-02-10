@@ -21,4 +21,3 @@ exports.HeaderMenu = ({ items, pathname, Link, inverted }) => <semantic_ui_react
         </semantic_ui_react_1.Menu>
     </semantic_ui_react_1.Container>;
 exports.default = exports.HeaderMenu;
-//# sourceMappingURL=HeaderMenu.jsx.map

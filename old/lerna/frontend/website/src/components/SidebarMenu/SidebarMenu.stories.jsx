@@ -27,4 +27,3 @@ react_1.storiesOf("SidebarMenu", module)
     const pathname = addon_knobs_1.text("pathname", "/");
     return (<SidebarMenu_1.SidebarMenu Link={LinkStub} items={items} pathname={pathname} visible/>);
 });
-//# sourceMappingURL=SidebarMenu.stories.jsx.map

@@ -9,13 +9,14 @@
     "build": "./build.sh",
     "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless)\" -exec rm -rf {} \\;",
     "build:logger": "yarn workspace @guided/logger run build",
+    "del": "find -E . -regex \".*/*(.d.ts|.d.ts.map|.js.map|.jsx.map)\" -exec rm -rf {} \\;",
     "build:envs": "yarn workspace @guided/envs run build",
     "build:database": "yarn workspace @guided/database run build",
     "build:events": "yarn workspace @guided/events run build",
+    "build:google": "yarn workspace @guided/google run build",
     "build:compute-stage": "yarn workspace @guided/compute-stage run build",
     "build:graphql": "yarn workspace @guided/graphql run build",
     "build:codegen": "yarn workspace @guided/codegen run build"
-
   },
   "dependencies": {
     "typescript": "^3.7.5",
@@ -29,6 +30,7 @@
     "packages": [
       "backend/*",
       "events/*",
+      "apis/*",
       "tools/*",
       "website"
     ],

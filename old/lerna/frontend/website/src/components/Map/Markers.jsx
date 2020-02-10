@@ -105,4 +105,3 @@ class Markers extends react_1.default.Component {
     }
 }
 exports.Markers = Markers;
-//# sourceMappingURL=Markers.jsx.map

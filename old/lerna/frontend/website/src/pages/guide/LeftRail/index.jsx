@@ -30,4 +30,3 @@ LeftRail = __decorate([
     mobx_react_1.observer
 ], LeftRail);
 exports.default = LeftRail;
-//# sourceMappingURL=index.jsx.map

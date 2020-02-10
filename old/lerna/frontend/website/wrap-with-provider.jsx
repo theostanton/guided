@@ -11,4 +11,3 @@ const mobx_react_1 = require("mobx-react");
 const React = __importStar(require("react"));
 const Store_1 = require("./src/stores/Store");
 exports.default = ({ element }) => (<mobx_react_1.Provider store={Store_1.Store}>{element}</mobx_react_1.Provider>);
-//# sourceMappingURL=wrap-with-provider.jsx.map
