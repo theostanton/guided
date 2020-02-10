@@ -3,21 +3,25 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "watch": "STAGE=local yarn wsrun watch",
-    "build": "yarn workspaces run build",
+    "watch": "yarn build && yarn wsrun watch",
+    "build": "./build.sh",
     "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless)\" -exec rm -rf {} \\;",
     "del": "find -E . -regex \".*\\/src\\/*(.d.ts|.js.map)\" -exec rm -rf {} \\;",
-    "develop:frontend": "STAGE=local yarn workspace @guided/website run develop",
-    "develop:graphql": "STAGE=local yarn workspace @guided/graphql run develop",
-    "build:types": "STAGE=local yarn workspace @guided/types run build",
-    "deploy:frontend:staging": "yarn workspace @guided/website run deploy:staging",
-    "deploy:backend:staging": "yarn workspace @guided/graphql run deploy:staging"
+    "build:logger": "yarn workspace @guided/logger run build",
+    "build:envs": "yarn workspace @guided/envs run build",
+    "build:database": "yarn workspace @guided/database run build",
+    "build:events": "yarn workspace @guided/events run build",
+    "build:compute-stage": "yarn workspace @guided/compute-stage run build",
+    "build:graphql": "yarn workspace @guided/graphql run build",
+    "build:codegen": "yarn workspace @guided/codegen run build"
+
   },
   "dependencies": {
     "typescript": "^3.7.5",
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
+    "@types/node": "^13.7.0",
     "wsrun": "^5.2.0"
   },
   "workspaces": {
@@ -26,6 +30,9 @@
       "events/*",
       "tools/*",
       "website"
+    ],
+    "nohoist": [
+      "**"
     ]
   }
 }

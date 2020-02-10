@@ -13,8 +13,7 @@
     "create": "events create -q test",
     "listen": "events listen -q test",
     "send": "events send -q test -b 'lol'",
-    "list": "events list",
-    "develop": "STAGE=local node -r ts-node/register ./src/index.ts"
+    "list": "events list"
   },
   "dependencies": {
     "@guided/envs": "*",

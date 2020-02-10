@@ -1,4 +1,5 @@
 import { PostGraphileOptions } from "postgraphile"
+// import addSpotFromLatLng from "./addSpotFromLatLng"
 
 console.log("exporting .postgraphilerc.js")
 

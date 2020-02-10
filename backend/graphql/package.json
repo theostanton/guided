@@ -4,11 +4,13 @@
   "version": "0.0.0",
   "scripts": {
     "build": "tsc",
-    "start": "STAGE=staging node -r ts-node/register ./src/server.ts",
+    "watch": "nodemon",
+    "start": "node -r ts-node/register ./src/server.ts",
     "deploy": "sls deploy"
   },
   "dependencies": {
     "@guided/envs": "*",
+    "@guided/logger": "*",
     "express": "^4.17.1",
     "postgraphile": "^4.6.0",
     "dotenv": "^8.2.0",
@@ -32,16 +34,14 @@
     ]
   },
   "nodemonConfig": {
-    "ignore": [
-      "**/*.test.ts",
-      "**/*.spec.ts",
-      ".git",
-      "node_modules"
-    ],
+    "delay": 2000,
     "watch": [
       "src"
     ],
-    "exec": "DOT_ENV_FILE=.env.local yarn start",
-    "ext": "ts"
+    "exec": "yarn build && yarn start",
+    "ext": "ts",
+    "events": {
+      "restart": "osascript -e 'display notification \"Restarted\" with title \"@guided/graphql\"'"
+    }
   }
 }
