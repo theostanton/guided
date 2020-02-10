@@ -1,8 +1,8 @@
-import { observable, runInAction } from "mobx"
+import { action, computed, observable, runInAction } from "mobx"
 import {
   GetGuideBySlugDocument,
   GetGuideBySlugQuery,
-  GetGuideBySlugQueryVariables, Guide, GuideBySlugFragment,
+  GetGuideBySlugQueryVariables, Guide, GuideBySlugFragment, RideByGuideFragment, SpotByGuideFragment,
 } from "api/generated"
 import { client } from "api"
 import { log } from "@guided/logger"
@@ -12,7 +12,52 @@ export default class GuideStore {
   @observable
   guide: GuideBySlugFragment | undefined = undefined
 
+  @observable
+  selectedId: string | undefined = undefined
+
   private subscription: any
+
+  @computed
+  get selectedSpot(): SpotByGuideFragment | undefined {
+    if (!this.selectedId) {
+      return
+    }
+    const selectedSpot = this.guide?.spotsByGuide?.nodes?.find(node => {
+      return node?.id === this.selectedId
+    })
+    if (selectedSpot) {
+      return selectedSpot
+    }
+  }
+
+  @computed
+  get selectedRide(): RideByGuideFragment | undefined {
+    if (!this.selectedId) {
+      return
+    }
+    const selectedRide = this.guide?.ridesByGuide?.nodes?.find(node => {
+      return node?.id === this.selectedId
+    })
+    if (selectedRide) {
+      return selectedRide
+    }
+  }
+
+  @action
+  selectRide(rideId: string) {
+    this.selectedId = rideId
+  }
+
+  @action
+  selectSpot(spotId: string) {
+    this.selectedId = spotId
+    log(this.selectedId, "selectedId")
+  }
+
+  @action
+  unselect() {
+    this.selectedId = undefined
+  }
 
   subscribe(slug: string, owner: string) {
 

@@ -23,6 +23,16 @@ fragment SpotByGuide on Spot{
 
 }
 
+fragment RideByGuide on Ride{
+    id
+    toSpot:spotByToSpot{
+        ...SpotByGuide
+    }
+    fromSpot:spotByFromSpot{
+        ...SpotByGuide
+    }
+}
+
 fragment GuideBySlug on Guide {
     id
     title
@@ -31,6 +41,9 @@ fragment GuideBySlug on Guide {
     startDate
     ridesByGuide{
         totalCount
+        nodes{
+            ...RideByGuide
+        }
     }
     spotsByGuide{
         totalCount

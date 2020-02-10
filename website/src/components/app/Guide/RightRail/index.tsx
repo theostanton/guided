@@ -1,7 +1,9 @@
 import { inject, observer } from "mobx-react"
 import * as React from "react"
 import GuideStore from "../../../../model/GuideStore"
-import { Grid, GridColumn, Header, Segment } from "semantic-ui-react"
+import { Icon, Segment } from "semantic-ui-react"
+import SpotDetail from "./SpotDetail"
+import RideDetail from "./RideDetail"
 
 
 type Props = {
@@ -10,7 +12,7 @@ type Props = {
 
 @inject("guideStore")
 @observer
-export default class LeftRailComponent extends React.Component<Props> {
+export default class RightRailComponent extends React.Component<Props> {
 
   get guideStore(): GuideStore {
     return this.props.guideStore!
@@ -23,14 +25,19 @@ export default class LeftRailComponent extends React.Component<Props> {
       return <Segment loading/>
     }
 
-    return <div style={{ backgroundColor: "#ffffff" }}>
-      <Grid padded={true}>
-        <Grid.Row columns='equal' stretched verticalAlign='bottom'>
-          <GridColumn>
-            <Header as='h1'>{guide.title}</Header>
-          </GridColumn>
-        </Grid.Row>
-      </Grid>
-    </div>
+    const selectedSpot = this.guideStore.selectedSpot
+    const selectedRide = this.guideStore.selectedRide
+
+    if (!selectedSpot && !selectedRide) {
+      return <div/>
+    }
+
+    return <Segment style={{ backgroundColor: "#ffffff" }}>
+      <Icon name={"close"} size={'large'} onClick={() => {
+        this.guideStore.unselect()
+      }}/>
+      {selectedSpot && <SpotDetail spot={selectedSpot}/>}
+      {selectedRide && <RideDetail ride={selectedRide}/>}
+    </Segment>
   }
 }

@@ -12,7 +12,8 @@ import { client } from "api"
 import { navigate } from "gatsby"
 import { DeleteGuideDocument, DeleteGuideMutationVariables } from "api/generated"
 import { inject, observer } from "mobx-react"
-import GuideStore from "../../../model/GuideStore"
+import GuideStore from "model/GuideStore"
+import SpotList from "./SpotList"
 
 type Props = {
   guideStore?: GuideStore
@@ -92,6 +93,13 @@ export default class LeftRailComponent extends React.Component<Props, State> {
           </GridColumn>
         </GridRow>
         }
+        <SpotList
+          selectSpot={(spotId: string) => {
+            this.guideStore.selectSpot(spotId)
+          }}
+          spots={guide?.spotsByGuide!.nodes!.map(spot => {
+            return spot!
+          })}/>
       </Grid>
     </div>
   }

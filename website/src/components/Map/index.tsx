@@ -26,7 +26,6 @@ type Props = {
 
 
 @inject("guideStore")
-@observer
 export default class Map extends Component<Props, State> {
 
   state: State = {

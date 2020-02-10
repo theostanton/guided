@@ -2014,9 +2014,17 @@ export type AllGuideTitlesForUserQuery = { readonly guides: Maybe<{ readonly nod
 
 export type SpotByGuideFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'nights'>;
 
+export type RideByGuideFragment = (
+  Pick<Ride, 'id'>
+  & { readonly toSpot: Maybe<SpotByGuideFragment>, readonly fromSpot: Maybe<SpotByGuideFragment> }
+);
+
 export type GuideBySlugFragment = (
   Pick<Guide, 'id' | 'title' | 'slug' | 'owner' | 'startDate'>
-  & { readonly ridesByGuide: Pick<RidesConnection, 'totalCount'>, readonly spotsByGuide: (
+  & { readonly ridesByGuide: (
+    Pick<RidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<RideByGuideFragment>> }
+  ), readonly spotsByGuide: (
     Pick<SpotsConnection, 'totalCount'>
     & { readonly nodes: ReadonlyArray<Maybe<SpotByGuideFragment>> }
   ) }
@@ -2064,6 +2072,17 @@ export const SpotByGuideFragmentDoc = gql`
   nights
 }
     `;
+export const RideByGuideFragmentDoc = gql`
+    fragment RideByGuide on Ride {
+  id
+  toSpot: spotByToSpot {
+    ...SpotByGuide
+  }
+  fromSpot: spotByFromSpot {
+    ...SpotByGuide
+  }
+}
+    ${SpotByGuideFragmentDoc}`;
 export const GuideBySlugFragmentDoc = gql`
     fragment GuideBySlug on Guide {
   id
@@ -2073,6 +2092,9 @@ export const GuideBySlugFragmentDoc = gql`
   startDate
   ridesByGuide {
     totalCount
+    nodes {
+      ...RideByGuide
+    }
   }
   spotsByGuide {
     totalCount
@@ -2081,7 +2103,8 @@ export const GuideBySlugFragmentDoc = gql`
     }
   }
 }
-    ${SpotByGuideFragmentDoc}`;
+    ${RideByGuideFragmentDoc}
+${SpotByGuideFragmentDoc}`;
 export const SomeQueryDocument = gql`
     query SomeQuery {
   users {

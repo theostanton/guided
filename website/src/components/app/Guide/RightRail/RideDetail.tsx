@@ -1,19 +1,20 @@
-import { SpotByGuideFragment } from "api/generated"
+import { RideByGuideFragment } from "api/generated"
 import * as React from "react"
 import { Grid, GridColumn, Header } from "semantic-ui-react"
 
 type Props = {
-  spot: SpotByGuideFragment
+  ride: RideByGuideFragment
 }
 
-export default class SpotDetail extends React.Component<Props>{
+export default class RideDetail extends React.Component<Props> {
 
   render(): React.ReactElement {
-    const spot = this.props.spot
+    const ride = this.props.ride
     return <Grid padded={true}>
       <Grid.Row columns='equal' stretched verticalAlign='bottom'>
         <GridColumn>
-          <Header as='h1'>{spot.label}</Header>
+          <Header as='h1'>From {ride.fromSpot!.label}</Header>
+          <Header as='h1'>To {ride.toSpot!.label}</Header>
         </GridColumn>
       </Grid.Row>
     </Grid>

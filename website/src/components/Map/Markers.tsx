@@ -1,16 +1,22 @@
-import { Guide } from "model"
 import React from "react"
 import { Spot } from "../../api/generated"
 import { Icon, SemanticCOLORS } from "semantic-ui-react"
 import { Marker } from "react-map-gl"
+import GuideStore from "../../model/GuideStore"
+import { inject, observer } from "mobx-react"
 
 type Props = {
-  guide: Guide
+  guideStore?: GuideStore
 }
 
-type State = {}
 
-export class Markers extends React.Component<Props, State> {
+@inject("guideStore")
+@observer
+export class Markers extends React.Component<Props, {}> {
+
+  get guideStore(): GuideStore {
+    return this.props.guideStore!
+  }
 
   createMarker(spot: Partial<Spot>, index: number, onDragEnd: any): React.ReactElement {
 
@@ -21,10 +27,9 @@ export class Markers extends React.Component<Props, State> {
     }
 
     let color: SemanticCOLORS
-    // if (this.props === spot.id) {
-    //   color = 'red'
-    // } else
-    if (spot.locked === true) {
+    if (this.guideStore.selectedId === spot.id) {
+      color = "red"
+    } else if (spot.locked === true) {
       color = "black"
     } else {
       color = "grey"
@@ -61,9 +66,8 @@ export class Markers extends React.Component<Props, State> {
   }
 
   render() {
-    const spots: Pick<Spot, "label" | "lat" | "long" | "locked" | "nights">[] = this.props.guide.spotsByGuide.nodes
 
-    return spots.map((spot, index) => {
+    return this.guideStore.guide!.spotsByGuide.nodes.map((spot, index) => {
       return (this.createMarker(spot, index, () => {
 
       }))
