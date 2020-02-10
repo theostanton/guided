@@ -8,9 +8,7 @@ import { Context } from "../types"
 
 
 async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, context: Context): Promise<Partial<Spot>> {
-  logJson(args, "args")
-  logJson(context, "context")
-
+  logJson(args, "addSpotFromLatLng args")
   const spot = {
     id: generateId("spot"),
     guide: args.guideId,

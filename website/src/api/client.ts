@@ -1,4 +1,4 @@
-import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost"
+import { ApolloClient, HttpLink, InMemoryCache, DefaultOptions } from "apollo-boost"
 import { setContext } from "apollo-link-context"
 import fetch from "node-fetch"
 import store from "store"
@@ -6,9 +6,9 @@ import { User } from "../model/AuthStore"
 
 export const USER_KEY = "guidedUser"
 
+// @ts-ignore
 const link = new HttpLink({
   uri: "http://localhost:5000/graphql",
-// @ts-ignore
   fetch: fetch,
 })
 
@@ -34,7 +34,19 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
+const defaultOptions: DefaultOptions = {
+  watchQuery: {
+    fetchPolicy: "no-cache",
+    errorPolicy: "ignore",
+  },
+  query: {
+    fetchPolicy: "no-cache",
+    errorPolicy: "all",
+  },
+}
+
 export default new ApolloClient({
   link: authLink.concat(link),
   cache: new InMemoryCache(),
+  defaultOptions,
 })

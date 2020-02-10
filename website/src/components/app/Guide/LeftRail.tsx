@@ -6,15 +6,16 @@ import {
   Statistic,
   GridRow,
   Header,
-  StatisticGroup, Divider,
+  StatisticGroup, Divider, Segment,
 } from "semantic-ui-react"
 import { client } from "api"
 import { navigate } from "gatsby"
 import { DeleteGuideDocument, DeleteGuideMutationVariables } from "api/generated"
-import { Guide } from "model"
+import { inject, observer } from "mobx-react"
+import GuideStore from "../../../model/GuideStore"
 
 type Props = {
-  guide: Guide
+  guideStore?: GuideStore
 }
 
 type State = {}
@@ -33,12 +34,23 @@ async function deleteGuide(guideId: string): Promise<void> {
   await navigate("app/guides")
 }
 
+@inject("guideStore")
+@observer
 export default class LeftRailComponent extends React.Component<Props, State> {
 
   state: State = {}
 
+  get guideStore(): GuideStore {
+    return this.props.guideStore!
+  }
+
   render(): React.ReactElement {
-    const guide = this.props.guide
+    const guide = this.guideStore.guide
+
+    if (!guide) {
+      return <Segment loading/>
+    }
+
     return <div style={{ backgroundColor: "#ffffff" }}>
       <Grid padded={true}>
 

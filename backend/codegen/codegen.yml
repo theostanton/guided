@@ -9,6 +9,8 @@ config:
   withComponent: true
   skipTypename: true
   withHooks: true
+  flattenGeneratedTypes: true
+  immutableTypes: true
   overwrites: true
 generates:
   ../../website/src/api/generated.tsx:
@@ -16,6 +18,8 @@ generates:
     plugins:
       - add: // tslint:disable
       - "typescript"
+      - "typescript-resolvers"
+      - "typescript-graphql-request"
       - "typescript-operations"
       - "typescript-react-apollo"
   ../../backend/graphql/src/generated.ts:

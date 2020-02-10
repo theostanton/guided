@@ -2,15 +2,15 @@ import { observable, runInAction } from "mobx"
 import {
   GetGuideBySlugDocument,
   GetGuideBySlugQuery,
-  GetGuideBySlugQueryVariables,
+  GetGuideBySlugQueryVariables, Guide, GuideBySlugFragment,
 } from "api/generated"
-import { Guide } from "model"
 import { client } from "api"
+import { log } from "@guided/logger"
 
 export default class GuideStore {
 
   @observable
-  guide: Guide | undefined = undefined
+  guide: GuideBySlugFragment | undefined = undefined
 
   private subscription: any
 
@@ -32,7 +32,15 @@ export default class GuideStore {
     this.fetch(slug, owner).then()
   }
 
-  private async fetch(slug: string, owner: string): Promise<void> {
+  refetch(): void {
+    if (this.guide) {
+      this.fetch(this.guide.slug!, this.guide.owner!).then()
+    } else {
+      throw new Error(`Trying to refetch but have no guide`)
+    }
+  }
+
+  async fetch(slug: string, owner: string): Promise<void> {
     const variables: GetGuideBySlugQueryVariables = {
       slug,
       owner,

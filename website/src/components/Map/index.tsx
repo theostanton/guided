@@ -1,6 +1,11 @@
 import ReactMapGL, { TransitionInterpolator } from "react-map-gl"
 
 import React, { Component } from "react"
+import { Markers } from "./Markers"
+import { AddStayFromLatLongDocument, AddStayFromLatLongMutationVariables } from "api/generated"
+import { client } from "api"
+import { inject, observer } from "mobx-react"
+import GuideStore from "../../model/GuideStore"
 
 
 type State = {
@@ -15,9 +20,13 @@ type State = {
   }
 };
 
-type Props = {}
+type Props = {
+  guideStore?: GuideStore
+}
 
 
+@inject("guideStore")
+@observer
 export default class Map extends Component<Props, State> {
 
   state: State = {
@@ -30,7 +39,12 @@ export default class Map extends Component<Props, State> {
     },
   }
 
+  get guideStore(): GuideStore {
+    return this.props.guideStore!
+  }
+
   render(): React.ReactElement {
+    const guide = this.guideStore.guide
     return (
       <ReactMapGL
         mapboxApiAccessToken="pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazYwanNzZGYwODZvM2xvYXFpdWswY2Y4In0.zcDbr2DXsYXS3p54swmrYg"
@@ -40,7 +54,25 @@ export default class Map extends Component<Props, State> {
         onViewportChange={(viewport: any) => {
           this.setState({ viewport })
         }}
+        onClick={async (event) => {
+          if (guide) {
+            const variables: AddStayFromLatLongMutationVariables = {
+              guideId: guide.id,
+              lat: event.lngLat[1],
+              long: event.lngLat[0],
+            }
+
+            await client.mutate({
+              mutation: AddStayFromLatLongDocument,
+              variables,
+            })
+
+            this.guideStore.refetch()
+          }
+
+        }}
       >
+        {guide && <Markers guide={guide}/>}
       </ReactMapGL>
     )
   }

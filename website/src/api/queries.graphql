@@ -12,6 +12,34 @@ query AllGuideTitlesForUser($owner:String!){
     }
 }
 
+
+fragment SpotByGuide on Spot{
+    id
+    label
+    lat
+    long
+    locked
+    nights
+
+}
+
+fragment GuideBySlug on Guide {
+    id
+    title
+    slug
+    owner
+    startDate
+    ridesByGuide{
+        totalCount
+    }
+    spotsByGuide{
+        totalCount
+        nodes{
+            ...SpotByGuide
+        }
+    }
+}
+
 query GetGuideBySlug($slug: String!,$owner:String!){
     guides(
         condition:{
@@ -20,17 +48,7 @@ query GetGuideBySlug($slug: String!,$owner:String!){
         }
     ){
         nodes{
-            id
-            title
-            slug
-            owner
-            startDate
-            ridesByGuide{
-                totalCount
-            }
-            spotsByGuide{
-                totalCount
-            }
+            ...GuideBySlug
         }
     }
 }

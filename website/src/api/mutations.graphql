@@ -8,6 +8,12 @@ mutation CreateGuide($guide:GuideInput!){
     }
 }
 
+mutation AddStayFromLatLong($guideId:String!,$lat:Float!,$long:Float!){
+    addSpotFromLatLng(guideId: $guideId,lat:$lat,long: $long){
+        id
+    }
+}
+
 mutation DeleteGuide($guideId:String!){
     deleteGuide(input: {
         id: $guideId

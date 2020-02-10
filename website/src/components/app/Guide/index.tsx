@@ -1,12 +1,12 @@
 import * as React from "react"
 import AuthStore from "model/AuthStore"
-import { inject, observer } from "mobx-react"
-import GuideStore  from "model/GuideStore"
+import { inject } from "mobx-react"
+import GuideStore from "model/GuideStore"
 import Map from "components/Map"
-import { Rail } from "semantic-ui-react"
 import AppMenu from "components/app/Menu"
 import LeftRail from "./LeftRail"
-import { Guide } from "model"
+import RightRail from "./RightRail"
+import { GuideBySlugFragment } from "api/generated"
 
 type Props = {
   guideStore: GuideStore
@@ -16,8 +16,8 @@ type Props = {
 
 type State = {}
 
+
 @inject("authStore", "guideStore")
-@observer
 export default class GuideComponent extends React.Component<Props, State> {
 
   componentDidMount(): void {
@@ -32,7 +32,7 @@ export default class GuideComponent extends React.Component<Props, State> {
   }
 
   render(): React.ReactElement | undefined {
-    const guide: Guide | undefined = this.props.guideStore.guide
+    const guide: GuideBySlugFragment | undefined = this.props.guideStore.guide
     return (
       <div>
         <div style={{
@@ -45,9 +45,7 @@ export default class GuideComponent extends React.Component<Props, State> {
           bottom: 0,
           zIndex: 2, /* Specify a stack order in case you're using a different order for other elements */
         }}>
-          <Map>
-            <Rail position='left'>LEFT</Rail>
-          </Map>
+          <Map/>
         </div>
 
         <div style={{
@@ -57,29 +55,45 @@ export default class GuideComponent extends React.Component<Props, State> {
           top: "1em",
           left: "25%",
           right: "25%",
-          zIndex: 3
+          zIndex: 3,
         }}>
           <AppMenu/>
         </div>
 
-        {guide && <div style={{
+        <div style={{
           position: "fixed",
           height: "100%",
           width: "25%",
           paddingTop: "1em",
           paddingLeft: "1em",
           paddingBottom: "2em",
-          margin:0,
+          margin: 0,
           top: 0,
           left: 0,
           bottom: 0,
-          zIndex: 3
+          zIndex: 3,
         }}>
-
-          <LeftRail guide={guide!}/>
-
+          <LeftRail/>
         </div>
-        }
+
+
+        <div style={{
+          position: "fixed",
+          height: "100%",
+          width: "25%",
+          paddingTop: "1em",
+          paddingRight: "1em",
+          paddingBottom: "2em",
+          margin: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 3,
+        }}>
+          <RightRail/>
+        </div>
+
+
       </div>
     )
   }

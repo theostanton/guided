@@ -14,3 +14,6 @@ create table guided.guides
 create unique index guides_id_uindex
     on guided.guides (id);
 
+create index guides_slug_index
+    on guided.guides (slug);
+

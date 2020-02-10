@@ -25,9 +25,9 @@ export type AuthenticateInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  email: Scalars['String'],
-  password: Scalars['String'],
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly email: Scalars['String'],
+  readonly password: Scalars['String'],
 };
 
 /** The output of our `authenticate` mutation. */
@@ -36,10 +36,10 @@ export type AuthenticatePayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  jwtToken?: Maybe<Scalars['JwtToken']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly jwtToken?: Maybe<Scalars['JwtToken']>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
 };
 
 /** All input for the create `Guide` mutation. */
@@ -48,9 +48,9 @@ export type CreateGuideInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The `Guide` to be created by this mutation. */
-  guide: GuideInput,
+  readonly guide: GuideInput,
 };
 
 /** The output of our create `Guide` mutation. */
@@ -59,21 +59,21 @@ export type CreateGuidePayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The `Guide` that was created by this mutation. */
-  guide?: Maybe<Guide>,
+  readonly guide?: Maybe<Guide>,
   /** An edge for our `Guide`. May be used by Relay 1. */
-  guideEdge?: Maybe<GuidesEdge>,
+  readonly guideEdge?: Maybe<GuidesEdge>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** Reads a single `User` that is related to this `Guide`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
 /** The output of our create `Guide` mutation. */
 export type CreateGuidePayloadGuideEdgeArgs = {
-  orderBy?: Maybe<Array<GuidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>
 };
 
 /** All input for the create `Ride` mutation. */
@@ -82,9 +82,9 @@ export type CreateRideInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The `Ride` to be created by this mutation. */
-  ride: RideInput,
+  readonly ride: RideInput,
 };
 
 /** The output of our create `Ride` mutation. */
@@ -93,27 +93,27 @@ export type CreateRidePayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** Reads a single `Guide` that is related to this `Ride`. */
-  guideByGuide?: Maybe<Guide>,
+  readonly guideByGuide?: Maybe<Guide>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** The `Ride` that was created by this mutation. */
-  ride?: Maybe<Ride>,
+  readonly ride?: Maybe<Ride>,
   /** An edge for our `Ride`. May be used by Relay 1. */
-  rideEdge?: Maybe<RidesEdge>,
+  readonly rideEdge?: Maybe<RidesEdge>,
   /** Reads a single `Spot` that is related to this `Ride`. */
-  spotByFromSpot?: Maybe<Spot>,
+  readonly spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
-  spotByToSpot?: Maybe<Spot>,
+  readonly spotByToSpot?: Maybe<Spot>,
   /** Reads a single `User` that is related to this `Ride`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
 /** The output of our create `Ride` mutation. */
 export type CreateRidePayloadRideEdgeArgs = {
-  orderBy?: Maybe<Array<RidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>
 };
 
 /** All input for the create `Spot` mutation. */
@@ -122,9 +122,9 @@ export type CreateSpotInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The `Spot` to be created by this mutation. */
-  spot: SpotInput,
+  readonly spot: SpotInput,
 };
 
 /** The output of our create `Spot` mutation. */
@@ -133,23 +133,23 @@ export type CreateSpotPayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** Reads a single `Guide` that is related to this `Spot`. */
-  guideByGuide?: Maybe<Guide>,
+  readonly guideByGuide?: Maybe<Guide>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** The `Spot` that was created by this mutation. */
-  spot?: Maybe<Spot>,
+  readonly spot?: Maybe<Spot>,
   /** An edge for our `Spot`. May be used by Relay 1. */
-  spotEdge?: Maybe<SpotsEdge>,
+  readonly spotEdge?: Maybe<SpotsEdge>,
   /** Reads a single `User` that is related to this `Spot`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
 /** The output of our create `Spot` mutation. */
 export type CreateSpotPayloadSpotEdgeArgs = {
-  orderBy?: Maybe<Array<SpotsOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
 };
 
 /** All input for the create `User` mutation. */
@@ -158,9 +158,9 @@ export type CreateUserInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The `User` to be created by this mutation. */
-  user: UserInput,
+  readonly user: UserInput,
 };
 
 /** The output of our create `User` mutation. */
@@ -169,19 +169,19 @@ export type CreateUserPayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** The `User` that was created by this mutation. */
-  user?: Maybe<User>,
+  readonly user?: Maybe<User>,
   /** An edge for our `User`. May be used by Relay 1. */
-  userEdge?: Maybe<UsersEdge>,
+  readonly userEdge?: Maybe<UsersEdge>,
 };
 
 
 /** The output of our create `User` mutation. */
 export type CreateUserPayloadUserEdgeArgs = {
-  orderBy?: Maybe<Array<UsersOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>
 };
 
 
@@ -192,9 +192,9 @@ export type DeleteGuideByNodeIdInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The globally unique `ID` which will identify a single `Guide` to be deleted. */
-  nodeId: Scalars['ID'],
+  readonly nodeId: Scalars['ID'],
 };
 
 /** All input for the `deleteGuide` mutation. */
@@ -203,8 +203,8 @@ export type DeleteGuideInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  id: Scalars['String'],
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
 };
 
 /** The output of our delete `Guide` mutation. */
@@ -213,22 +213,22 @@ export type DeleteGuidePayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  deletedGuideNodeId?: Maybe<Scalars['ID']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly deletedGuideNodeId?: Maybe<Scalars['ID']>,
   /** The `Guide` that was deleted by this mutation. */
-  guide?: Maybe<Guide>,
+  readonly guide?: Maybe<Guide>,
   /** An edge for our `Guide`. May be used by Relay 1. */
-  guideEdge?: Maybe<GuidesEdge>,
+  readonly guideEdge?: Maybe<GuidesEdge>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** Reads a single `User` that is related to this `Guide`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
 /** The output of our delete `Guide` mutation. */
 export type DeleteGuidePayloadGuideEdgeArgs = {
-  orderBy?: Maybe<Array<GuidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>
 };
 
 /** All input for the `deleteRideByNodeId` mutation. */
@@ -237,9 +237,9 @@ export type DeleteRideByNodeIdInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The globally unique `ID` which will identify a single `Ride` to be deleted. */
-  nodeId: Scalars['ID'],
+  readonly nodeId: Scalars['ID'],
 };
 
 /** All input for the `deleteRide` mutation. */
@@ -248,8 +248,8 @@ export type DeleteRideInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  id: Scalars['String'],
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
 };
 
 /** The output of our delete `Ride` mutation. */
@@ -258,28 +258,28 @@ export type DeleteRidePayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  deletedRideNodeId?: Maybe<Scalars['ID']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly deletedRideNodeId?: Maybe<Scalars['ID']>,
   /** Reads a single `Guide` that is related to this `Ride`. */
-  guideByGuide?: Maybe<Guide>,
+  readonly guideByGuide?: Maybe<Guide>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** The `Ride` that was deleted by this mutation. */
-  ride?: Maybe<Ride>,
+  readonly ride?: Maybe<Ride>,
   /** An edge for our `Ride`. May be used by Relay 1. */
-  rideEdge?: Maybe<RidesEdge>,
+  readonly rideEdge?: Maybe<RidesEdge>,
   /** Reads a single `Spot` that is related to this `Ride`. */
-  spotByFromSpot?: Maybe<Spot>,
+  readonly spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
-  spotByToSpot?: Maybe<Spot>,
+  readonly spotByToSpot?: Maybe<Spot>,
   /** Reads a single `User` that is related to this `Ride`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
 /** The output of our delete `Ride` mutation. */
 export type DeleteRidePayloadRideEdgeArgs = {
-  orderBy?: Maybe<Array<RidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>
 };
 
 /** All input for the `deleteSpotByNodeId` mutation. */
@@ -288,9 +288,9 @@ export type DeleteSpotByNodeIdInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The globally unique `ID` which will identify a single `Spot` to be deleted. */
-  nodeId: Scalars['ID'],
+  readonly nodeId: Scalars['ID'],
 };
 
 /** All input for the `deleteSpot` mutation. */
@@ -299,8 +299,8 @@ export type DeleteSpotInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  id: Scalars['String'],
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
 };
 
 /** The output of our delete `Spot` mutation. */
@@ -309,24 +309,24 @@ export type DeleteSpotPayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  deletedSpotNodeId?: Maybe<Scalars['ID']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly deletedSpotNodeId?: Maybe<Scalars['ID']>,
   /** Reads a single `Guide` that is related to this `Spot`. */
-  guideByGuide?: Maybe<Guide>,
+  readonly guideByGuide?: Maybe<Guide>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** The `Spot` that was deleted by this mutation. */
-  spot?: Maybe<Spot>,
+  readonly spot?: Maybe<Spot>,
   /** An edge for our `Spot`. May be used by Relay 1. */
-  spotEdge?: Maybe<SpotsEdge>,
+  readonly spotEdge?: Maybe<SpotsEdge>,
   /** Reads a single `User` that is related to this `Spot`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
 /** The output of our delete `Spot` mutation. */
 export type DeleteSpotPayloadSpotEdgeArgs = {
-  orderBy?: Maybe<Array<SpotsOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
 };
 
 /** All input for the `deleteUserByNodeId` mutation. */
@@ -335,9 +335,9 @@ export type DeleteUserByNodeIdInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The globally unique `ID` which will identify a single `User` to be deleted. */
-  nodeId: Scalars['ID'],
+  readonly nodeId: Scalars['ID'],
 };
 
 /** All input for the `deleteUser` mutation. */
@@ -346,8 +346,8 @@ export type DeleteUserInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  username: Scalars['String'],
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly username: Scalars['String'],
 };
 
 /** The output of our delete `User` mutation. */
@@ -356,36 +356,36 @@ export type DeleteUserPayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  deletedUserNodeId?: Maybe<Scalars['ID']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly deletedUserNodeId?: Maybe<Scalars['ID']>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** The `User` that was deleted by this mutation. */
-  user?: Maybe<User>,
+  readonly user?: Maybe<User>,
   /** An edge for our `User`. May be used by Relay 1. */
-  userEdge?: Maybe<UsersEdge>,
+  readonly userEdge?: Maybe<UsersEdge>,
 };
 
 
 /** The output of our delete `User` mutation. */
 export type DeleteUserPayloadUserEdgeArgs = {
-  orderBy?: Maybe<Array<UsersOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>
 };
 
 export type Guide = Node & {
-  id: Scalars['String'],
+  readonly id: Scalars['String'],
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
-  nodeId: Scalars['ID'],
-  owner: Scalars['String'],
+  readonly nodeId: Scalars['ID'],
+  readonly owner: Scalars['String'],
   /** Reads and enables pagination through a set of `Ride`. */
-  ridesByGuide: RidesConnection,
-  slug: Scalars['String'],
+  readonly ridesByGuide: RidesConnection,
+  readonly slug: Scalars['String'],
   /** Reads and enables pagination through a set of `Spot`. */
-  spotsByGuide: SpotsConnection,
-  startDate?: Maybe<Scalars['Date']>,
-  title: Scalars['String'],
+  readonly spotsByGuide: SpotsConnection,
+  readonly startDate?: Maybe<Scalars['Date']>,
+  readonly title: Scalars['String'],
   /** Reads a single `User` that is related to this `Guide`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
@@ -396,7 +396,7 @@ export type GuideRidesByGuideArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<RidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>
 };
 
 
@@ -407,59 +407,59 @@ export type GuideSpotsByGuideArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<SpotsOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
 };
 
 /** A condition to be used against `Guide` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type GuideCondition = {
   /** Checks for equality with the object’s `id` field. */
-  id?: Maybe<Scalars['String']>,
+  readonly id?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `owner` field. */
-  owner?: Maybe<Scalars['String']>,
+  readonly owner?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `slug` field. */
-  slug?: Maybe<Scalars['String']>,
+  readonly slug?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `startDate` field. */
-  startDate?: Maybe<Scalars['Date']>,
+  readonly startDate?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `title` field. */
-  title?: Maybe<Scalars['String']>,
+  readonly title?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `Guide` */
 export type GuideInput = {
-  id: Scalars['String'],
-  owner: Scalars['String'],
-  slug: Scalars['String'],
-  startDate?: Maybe<Scalars['Date']>,
-  title: Scalars['String'],
+  readonly id: Scalars['String'],
+  readonly owner: Scalars['String'],
+  readonly slug: Scalars['String'],
+  readonly startDate?: Maybe<Scalars['Date']>,
+  readonly title: Scalars['String'],
 };
 
 /** Represents an update to a `Guide`. Fields that are set will be updated. */
 export type GuidePatch = {
-  id?: Maybe<Scalars['String']>,
-  owner?: Maybe<Scalars['String']>,
-  slug?: Maybe<Scalars['String']>,
-  startDate?: Maybe<Scalars['Date']>,
-  title?: Maybe<Scalars['String']>,
+  readonly id?: Maybe<Scalars['String']>,
+  readonly owner?: Maybe<Scalars['String']>,
+  readonly slug?: Maybe<Scalars['String']>,
+  readonly startDate?: Maybe<Scalars['Date']>,
+  readonly title?: Maybe<Scalars['String']>,
 };
 
 /** A connection to a list of `Guide` values. */
 export type GuidesConnection = {
   /** A list of edges which contains the `Guide` and cursor to aid in pagination. */
-  edges: Array<GuidesEdge>,
+  readonly edges: ReadonlyArray<GuidesEdge>,
   /** A list of `Guide` objects. */
-  nodes: Array<Maybe<Guide>>,
+  readonly nodes: ReadonlyArray<Maybe<Guide>>,
   /** Information to aid in pagination. */
-  pageInfo: PageInfo,
+  readonly pageInfo: PageInfo,
   /** The count of *all* `Guide` you could get from the connection. */
-  totalCount: Scalars['Int'],
+  readonly totalCount: Scalars['Int'],
 };
 
 /** A `Guide` edge in the connection. */
 export type GuidesEdge = {
   /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>,
+  readonly cursor?: Maybe<Scalars['Cursor']>,
   /** The `Guide` at the end of the edge. */
-  node?: Maybe<Guide>,
+  readonly node?: Maybe<Guide>,
 };
 
 /** Methods to use when ordering `Guide`. */
@@ -482,51 +482,51 @@ export enum GuidesOrderBy {
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
-  addSpotFromLatLng: Spot,
+  readonly addSpotFromLatLng: Spot,
   /** Creates a JWT token that will securely identify a person and give them certain permissions. This token expires in 2 days. */
-  authenticate?: Maybe<AuthenticatePayload>,
+  readonly authenticate?: Maybe<AuthenticatePayload>,
   /** Creates a single `Guide`. */
-  createGuide?: Maybe<CreateGuidePayload>,
+  readonly createGuide?: Maybe<CreateGuidePayload>,
   /** Creates a single `Ride`. */
-  createRide?: Maybe<CreateRidePayload>,
+  readonly createRide?: Maybe<CreateRidePayload>,
   /** Creates a single `Spot`. */
-  createSpot?: Maybe<CreateSpotPayload>,
+  readonly createSpot?: Maybe<CreateSpotPayload>,
   /** Creates a single `User`. */
-  createUser?: Maybe<CreateUserPayload>,
+  readonly createUser?: Maybe<CreateUserPayload>,
   /** Deletes a single `Guide` using a unique key. */
-  deleteGuide?: Maybe<DeleteGuidePayload>,
+  readonly deleteGuide?: Maybe<DeleteGuidePayload>,
   /** Deletes a single `Guide` using its globally unique id. */
-  deleteGuideByNodeId?: Maybe<DeleteGuidePayload>,
+  readonly deleteGuideByNodeId?: Maybe<DeleteGuidePayload>,
   /** Deletes a single `Ride` using a unique key. */
-  deleteRide?: Maybe<DeleteRidePayload>,
+  readonly deleteRide?: Maybe<DeleteRidePayload>,
   /** Deletes a single `Ride` using its globally unique id. */
-  deleteRideByNodeId?: Maybe<DeleteRidePayload>,
+  readonly deleteRideByNodeId?: Maybe<DeleteRidePayload>,
   /** Deletes a single `Spot` using a unique key. */
-  deleteSpot?: Maybe<DeleteSpotPayload>,
+  readonly deleteSpot?: Maybe<DeleteSpotPayload>,
   /** Deletes a single `Spot` using its globally unique id. */
-  deleteSpotByNodeId?: Maybe<DeleteSpotPayload>,
+  readonly deleteSpotByNodeId?: Maybe<DeleteSpotPayload>,
   /** Deletes a single `User` using a unique key. */
-  deleteUser?: Maybe<DeleteUserPayload>,
+  readonly deleteUser?: Maybe<DeleteUserPayload>,
   /** Deletes a single `User` using its globally unique id. */
-  deleteUserByNodeId?: Maybe<DeleteUserPayload>,
+  readonly deleteUserByNodeId?: Maybe<DeleteUserPayload>,
   /** Registers a single user */
-  register?: Maybe<RegisterPayload>,
+  readonly register?: Maybe<RegisterPayload>,
   /** Updates a single `Guide` using a unique key and a patch. */
-  updateGuide?: Maybe<UpdateGuidePayload>,
+  readonly updateGuide?: Maybe<UpdateGuidePayload>,
   /** Updates a single `Guide` using its globally unique id and a patch. */
-  updateGuideByNodeId?: Maybe<UpdateGuidePayload>,
+  readonly updateGuideByNodeId?: Maybe<UpdateGuidePayload>,
   /** Updates a single `Ride` using a unique key and a patch. */
-  updateRide?: Maybe<UpdateRidePayload>,
+  readonly updateRide?: Maybe<UpdateRidePayload>,
   /** Updates a single `Ride` using its globally unique id and a patch. */
-  updateRideByNodeId?: Maybe<UpdateRidePayload>,
+  readonly updateRideByNodeId?: Maybe<UpdateRidePayload>,
   /** Updates a single `Spot` using a unique key and a patch. */
-  updateSpot?: Maybe<UpdateSpotPayload>,
+  readonly updateSpot?: Maybe<UpdateSpotPayload>,
   /** Updates a single `Spot` using its globally unique id and a patch. */
-  updateSpotByNodeId?: Maybe<UpdateSpotPayload>,
+  readonly updateSpotByNodeId?: Maybe<UpdateSpotPayload>,
   /** Updates a single `User` using a unique key and a patch. */
-  updateUser?: Maybe<UpdateUserPayload>,
+  readonly updateUser?: Maybe<UpdateUserPayload>,
   /** Updates a single `User` using its globally unique id and a patch. */
-  updateUserByNodeId?: Maybe<UpdateUserPayload>,
+  readonly updateUserByNodeId?: Maybe<UpdateUserPayload>,
 };
 
 
@@ -673,53 +673,53 @@ export type MutationUpdateUserByNodeIdArgs = {
 /** An object with a globally unique `ID`. */
 export type Node = {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
-  nodeId: Scalars['ID'],
+  readonly nodeId: Scalars['ID'],
 };
 
 /** Information about pagination in a connection. */
 export type PageInfo = {
   /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['Cursor']>,
+  readonly endCursor?: Maybe<Scalars['Cursor']>,
   /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean'],
+  readonly hasNextPage: Scalars['Boolean'],
   /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean'],
+  readonly hasPreviousPage: Scalars['Boolean'],
   /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['Cursor']>,
+  readonly startCursor?: Maybe<Scalars['Cursor']>,
 };
 
 /** The root query type which gives access points into the data universe. */
 export type Query = Node & {
-  getCurrentUser?: Maybe<Scalars['JwtToken']>,
-  guide?: Maybe<Guide>,
+  readonly getCurrentUser?: Maybe<Scalars['JwtToken']>,
+  readonly guide?: Maybe<Guide>,
   /** Reads a single `Guide` using its globally unique `ID`. */
-  guideByNodeId?: Maybe<Guide>,
+  readonly guideByNodeId?: Maybe<Guide>,
   /** Reads and enables pagination through a set of `Guide`. */
-  guides?: Maybe<GuidesConnection>,
+  readonly guides?: Maybe<GuidesConnection>,
   /** Fetches an object given its globally unique `ID`. */
-  node?: Maybe<Node>,
+  readonly node?: Maybe<Node>,
   /** The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`. */
-  nodeId: Scalars['ID'],
+  readonly nodeId: Scalars['ID'],
   /** 
  * Exposes the root query type nested one level down. This is helpful for Relay 1
    * which can only query top level fields if they are in a particular form.
  */
-  query: Query,
-  ride?: Maybe<Ride>,
+  readonly query: Query,
+  readonly ride?: Maybe<Ride>,
   /** Reads a single `Ride` using its globally unique `ID`. */
-  rideByNodeId?: Maybe<Ride>,
+  readonly rideByNodeId?: Maybe<Ride>,
   /** Reads and enables pagination through a set of `Ride`. */
-  rides?: Maybe<RidesConnection>,
-  spot?: Maybe<Spot>,
+  readonly rides?: Maybe<RidesConnection>,
+  readonly spot?: Maybe<Spot>,
   /** Reads a single `Spot` using its globally unique `ID`. */
-  spotByNodeId?: Maybe<Spot>,
+  readonly spotByNodeId?: Maybe<Spot>,
   /** Reads and enables pagination through a set of `Spot`. */
-  spots?: Maybe<SpotsConnection>,
-  user?: Maybe<User>,
+  readonly spots?: Maybe<SpotsConnection>,
+  readonly user?: Maybe<User>,
   /** Reads a single `User` using its globally unique `ID`. */
-  userByNodeId?: Maybe<User>,
+  readonly userByNodeId?: Maybe<User>,
   /** Reads and enables pagination through a set of `User`. */
-  users?: Maybe<UsersConnection>,
+  readonly users?: Maybe<UsersConnection>,
 };
 
 
@@ -743,7 +743,7 @@ export type QueryGuidesArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<GuidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>
 };
 
 
@@ -773,7 +773,7 @@ export type QueryRidesArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<RidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>
 };
 
 
@@ -797,7 +797,7 @@ export type QuerySpotsArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<SpotsOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
 };
 
 
@@ -821,19 +821,19 @@ export type QueryUsersArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<UsersOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>
 };
 
 /** All input for the `register` mutation. */
 export type RegisterInput = {
-  _email: Scalars['String'],
-  _password: Scalars['String'],
-  _username: Scalars['String'],
+  readonly _email: Scalars['String'],
+  readonly _password: Scalars['String'],
+  readonly _username: Scalars['String'],
   /** 
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
 };
 
 /** The output of our `register` mutation. */
@@ -842,88 +842,88 @@ export type RegisterPayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
-  user?: Maybe<User>,
+  readonly query?: Maybe<Query>,
+  readonly user?: Maybe<User>,
   /** An edge for our `User`. May be used by Relay 1. */
-  userEdge?: Maybe<UsersEdge>,
+  readonly userEdge?: Maybe<UsersEdge>,
 };
 
 
 /** The output of our `register` mutation. */
 export type RegisterPayloadUserEdgeArgs = {
-  orderBy?: Maybe<Array<UsersOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>
 };
 
 export type Ride = Node & {
-  fromSpot: Scalars['String'],
-  guide: Scalars['String'],
+  readonly fromSpot: Scalars['String'],
+  readonly guide: Scalars['String'],
   /** Reads a single `Guide` that is related to this `Ride`. */
-  guideByGuide?: Maybe<Guide>,
-  id: Scalars['String'],
+  readonly guideByGuide?: Maybe<Guide>,
+  readonly id: Scalars['String'],
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
-  nodeId: Scalars['ID'],
-  owner: Scalars['String'],
+  readonly nodeId: Scalars['ID'],
+  readonly owner: Scalars['String'],
   /** Reads a single `Spot` that is related to this `Ride`. */
-  spotByFromSpot?: Maybe<Spot>,
+  readonly spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
-  spotByToSpot?: Maybe<Spot>,
-  toSpot: Scalars['String'],
+  readonly spotByToSpot?: Maybe<Spot>,
+  readonly toSpot: Scalars['String'],
   /** Reads a single `User` that is related to this `Ride`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 /** A condition to be used against `Ride` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type RideCondition = {
   /** Checks for equality with the object’s `fromSpot` field. */
-  fromSpot?: Maybe<Scalars['String']>,
+  readonly fromSpot?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `guide` field. */
-  guide?: Maybe<Scalars['String']>,
+  readonly guide?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `id` field. */
-  id?: Maybe<Scalars['String']>,
+  readonly id?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `owner` field. */
-  owner?: Maybe<Scalars['String']>,
+  readonly owner?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `toSpot` field. */
-  toSpot?: Maybe<Scalars['String']>,
+  readonly toSpot?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `Ride` */
 export type RideInput = {
-  fromSpot: Scalars['String'],
-  guide: Scalars['String'],
-  id: Scalars['String'],
-  owner: Scalars['String'],
-  toSpot: Scalars['String'],
+  readonly fromSpot: Scalars['String'],
+  readonly guide: Scalars['String'],
+  readonly id: Scalars['String'],
+  readonly owner: Scalars['String'],
+  readonly toSpot: Scalars['String'],
 };
 
 /** Represents an update to a `Ride`. Fields that are set will be updated. */
 export type RidePatch = {
-  fromSpot?: Maybe<Scalars['String']>,
-  guide?: Maybe<Scalars['String']>,
-  id?: Maybe<Scalars['String']>,
-  owner?: Maybe<Scalars['String']>,
-  toSpot?: Maybe<Scalars['String']>,
+  readonly fromSpot?: Maybe<Scalars['String']>,
+  readonly guide?: Maybe<Scalars['String']>,
+  readonly id?: Maybe<Scalars['String']>,
+  readonly owner?: Maybe<Scalars['String']>,
+  readonly toSpot?: Maybe<Scalars['String']>,
 };
 
 /** A connection to a list of `Ride` values. */
 export type RidesConnection = {
   /** A list of edges which contains the `Ride` and cursor to aid in pagination. */
-  edges: Array<RidesEdge>,
+  readonly edges: ReadonlyArray<RidesEdge>,
   /** A list of `Ride` objects. */
-  nodes: Array<Maybe<Ride>>,
+  readonly nodes: ReadonlyArray<Maybe<Ride>>,
   /** Information to aid in pagination. */
-  pageInfo: PageInfo,
+  readonly pageInfo: PageInfo,
   /** The count of *all* `Ride` you could get from the connection. */
-  totalCount: Scalars['Int'],
+  readonly totalCount: Scalars['Int'],
 };
 
 /** A `Ride` edge in the connection. */
 export type RidesEdge = {
   /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>,
+  readonly cursor?: Maybe<Scalars['Cursor']>,
   /** The `Ride` at the end of the edge. */
-  node?: Maybe<Ride>,
+  readonly node?: Maybe<Ride>,
 };
 
 /** Methods to use when ordering `Ride`. */
@@ -944,24 +944,24 @@ export enum RidesOrderBy {
 }
 
 export type Spot = Node & {
-  guide: Scalars['String'],
+  readonly guide: Scalars['String'],
   /** Reads a single `Guide` that is related to this `Spot`. */
-  guideByGuide?: Maybe<Guide>,
-  id: Scalars['String'],
-  label?: Maybe<Scalars['String']>,
-  lat?: Maybe<Scalars['Float']>,
-  locked?: Maybe<Scalars['Boolean']>,
-  long?: Maybe<Scalars['Float']>,
-  nights?: Maybe<Scalars['Int']>,
+  readonly guideByGuide?: Maybe<Guide>,
+  readonly id: Scalars['String'],
+  readonly label?: Maybe<Scalars['String']>,
+  readonly lat?: Maybe<Scalars['Float']>,
+  readonly locked?: Maybe<Scalars['Boolean']>,
+  readonly long?: Maybe<Scalars['Float']>,
+  readonly nights?: Maybe<Scalars['Int']>,
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
-  nodeId: Scalars['ID'],
-  owner: Scalars['String'],
+  readonly nodeId: Scalars['ID'],
+  readonly owner: Scalars['String'],
   /** Reads and enables pagination through a set of `Ride`. */
-  ridesByFromSpot: RidesConnection,
+  readonly ridesByFromSpot: RidesConnection,
   /** Reads and enables pagination through a set of `Ride`. */
-  ridesByToSpot: RidesConnection,
+  readonly ridesByToSpot: RidesConnection,
   /** Reads a single `User` that is related to this `Spot`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
@@ -972,7 +972,7 @@ export type SpotRidesByFromSpotArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<RidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>
 };
 
 
@@ -983,71 +983,71 @@ export type SpotRidesByToSpotArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<RidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>
 };
 
 /** A condition to be used against `Spot` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type SpotCondition = {
   /** Checks for equality with the object’s `guide` field. */
-  guide?: Maybe<Scalars['String']>,
+  readonly guide?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `id` field. */
-  id?: Maybe<Scalars['String']>,
+  readonly id?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `label` field. */
-  label?: Maybe<Scalars['String']>,
+  readonly label?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `lat` field. */
-  lat?: Maybe<Scalars['Float']>,
+  readonly lat?: Maybe<Scalars['Float']>,
   /** Checks for equality with the object’s `locked` field. */
-  locked?: Maybe<Scalars['Boolean']>,
+  readonly locked?: Maybe<Scalars['Boolean']>,
   /** Checks for equality with the object’s `long` field. */
-  long?: Maybe<Scalars['Float']>,
+  readonly long?: Maybe<Scalars['Float']>,
   /** Checks for equality with the object’s `nights` field. */
-  nights?: Maybe<Scalars['Int']>,
+  readonly nights?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `owner` field. */
-  owner?: Maybe<Scalars['String']>,
+  readonly owner?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `Spot` */
 export type SpotInput = {
-  guide: Scalars['String'],
-  id: Scalars['String'],
-  label?: Maybe<Scalars['String']>,
-  lat?: Maybe<Scalars['Float']>,
-  locked?: Maybe<Scalars['Boolean']>,
-  long?: Maybe<Scalars['Float']>,
-  nights?: Maybe<Scalars['Int']>,
-  owner: Scalars['String'],
+  readonly guide: Scalars['String'],
+  readonly id: Scalars['String'],
+  readonly label?: Maybe<Scalars['String']>,
+  readonly lat?: Maybe<Scalars['Float']>,
+  readonly locked?: Maybe<Scalars['Boolean']>,
+  readonly long?: Maybe<Scalars['Float']>,
+  readonly nights?: Maybe<Scalars['Int']>,
+  readonly owner: Scalars['String'],
 };
 
 /** Represents an update to a `Spot`. Fields that are set will be updated. */
 export type SpotPatch = {
-  guide?: Maybe<Scalars['String']>,
-  id?: Maybe<Scalars['String']>,
-  label?: Maybe<Scalars['String']>,
-  lat?: Maybe<Scalars['Float']>,
-  locked?: Maybe<Scalars['Boolean']>,
-  long?: Maybe<Scalars['Float']>,
-  nights?: Maybe<Scalars['Int']>,
-  owner?: Maybe<Scalars['String']>,
+  readonly guide?: Maybe<Scalars['String']>,
+  readonly id?: Maybe<Scalars['String']>,
+  readonly label?: Maybe<Scalars['String']>,
+  readonly lat?: Maybe<Scalars['Float']>,
+  readonly locked?: Maybe<Scalars['Boolean']>,
+  readonly long?: Maybe<Scalars['Float']>,
+  readonly nights?: Maybe<Scalars['Int']>,
+  readonly owner?: Maybe<Scalars['String']>,
 };
 
 /** A connection to a list of `Spot` values. */
 export type SpotsConnection = {
   /** A list of edges which contains the `Spot` and cursor to aid in pagination. */
-  edges: Array<SpotsEdge>,
+  readonly edges: ReadonlyArray<SpotsEdge>,
   /** A list of `Spot` objects. */
-  nodes: Array<Maybe<Spot>>,
+  readonly nodes: ReadonlyArray<Maybe<Spot>>,
   /** Information to aid in pagination. */
-  pageInfo: PageInfo,
+  readonly pageInfo: PageInfo,
   /** The count of *all* `Spot` you could get from the connection. */
-  totalCount: Scalars['Int'],
+  readonly totalCount: Scalars['Int'],
 };
 
 /** A `Spot` edge in the connection. */
 export type SpotsEdge = {
   /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>,
+  readonly cursor?: Maybe<Scalars['Cursor']>,
   /** The `Spot` at the end of the edge. */
-  node?: Maybe<Spot>,
+  readonly node?: Maybe<Spot>,
 };
 
 /** Methods to use when ordering `Spot`. */
@@ -1079,11 +1079,11 @@ export type UpdateGuideByNodeIdInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The globally unique `ID` which will identify a single `Guide` to be updated. */
-  nodeId: Scalars['ID'],
+  readonly nodeId: Scalars['ID'],
   /** An object where the defined keys will be set on the `Guide` being updated. */
-  patch: GuidePatch,
+  readonly patch: GuidePatch,
 };
 
 /** All input for the `updateGuide` mutation. */
@@ -1092,10 +1092,10 @@ export type UpdateGuideInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  id: Scalars['String'],
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
   /** An object where the defined keys will be set on the `Guide` being updated. */
-  patch: GuidePatch,
+  readonly patch: GuidePatch,
 };
 
 /** The output of our update `Guide` mutation. */
@@ -1104,21 +1104,21 @@ export type UpdateGuidePayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The `Guide` that was updated by this mutation. */
-  guide?: Maybe<Guide>,
+  readonly guide?: Maybe<Guide>,
   /** An edge for our `Guide`. May be used by Relay 1. */
-  guideEdge?: Maybe<GuidesEdge>,
+  readonly guideEdge?: Maybe<GuidesEdge>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** Reads a single `User` that is related to this `Guide`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
 /** The output of our update `Guide` mutation. */
 export type UpdateGuidePayloadGuideEdgeArgs = {
-  orderBy?: Maybe<Array<GuidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>
 };
 
 /** All input for the `updateRideByNodeId` mutation. */
@@ -1127,11 +1127,11 @@ export type UpdateRideByNodeIdInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The globally unique `ID` which will identify a single `Ride` to be updated. */
-  nodeId: Scalars['ID'],
+  readonly nodeId: Scalars['ID'],
   /** An object where the defined keys will be set on the `Ride` being updated. */
-  patch: RidePatch,
+  readonly patch: RidePatch,
 };
 
 /** All input for the `updateRide` mutation. */
@@ -1140,10 +1140,10 @@ export type UpdateRideInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  id: Scalars['String'],
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
   /** An object where the defined keys will be set on the `Ride` being updated. */
-  patch: RidePatch,
+  readonly patch: RidePatch,
 };
 
 /** The output of our update `Ride` mutation. */
@@ -1152,27 +1152,27 @@ export type UpdateRidePayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** Reads a single `Guide` that is related to this `Ride`. */
-  guideByGuide?: Maybe<Guide>,
+  readonly guideByGuide?: Maybe<Guide>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** The `Ride` that was updated by this mutation. */
-  ride?: Maybe<Ride>,
+  readonly ride?: Maybe<Ride>,
   /** An edge for our `Ride`. May be used by Relay 1. */
-  rideEdge?: Maybe<RidesEdge>,
+  readonly rideEdge?: Maybe<RidesEdge>,
   /** Reads a single `Spot` that is related to this `Ride`. */
-  spotByFromSpot?: Maybe<Spot>,
+  readonly spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
-  spotByToSpot?: Maybe<Spot>,
+  readonly spotByToSpot?: Maybe<Spot>,
   /** Reads a single `User` that is related to this `Ride`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
 /** The output of our update `Ride` mutation. */
 export type UpdateRidePayloadRideEdgeArgs = {
-  orderBy?: Maybe<Array<RidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>
 };
 
 /** All input for the `updateSpotByNodeId` mutation. */
@@ -1181,11 +1181,11 @@ export type UpdateSpotByNodeIdInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The globally unique `ID` which will identify a single `Spot` to be updated. */
-  nodeId: Scalars['ID'],
+  readonly nodeId: Scalars['ID'],
   /** An object where the defined keys will be set on the `Spot` being updated. */
-  patch: SpotPatch,
+  readonly patch: SpotPatch,
 };
 
 /** All input for the `updateSpot` mutation. */
@@ -1194,10 +1194,10 @@ export type UpdateSpotInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
-  id: Scalars['String'],
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
   /** An object where the defined keys will be set on the `Spot` being updated. */
-  patch: SpotPatch,
+  readonly patch: SpotPatch,
 };
 
 /** The output of our update `Spot` mutation. */
@@ -1206,23 +1206,23 @@ export type UpdateSpotPayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** Reads a single `Guide` that is related to this `Spot`. */
-  guideByGuide?: Maybe<Guide>,
+  readonly guideByGuide?: Maybe<Guide>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** The `Spot` that was updated by this mutation. */
-  spot?: Maybe<Spot>,
+  readonly spot?: Maybe<Spot>,
   /** An edge for our `Spot`. May be used by Relay 1. */
-  spotEdge?: Maybe<SpotsEdge>,
+  readonly spotEdge?: Maybe<SpotsEdge>,
   /** Reads a single `User` that is related to this `Spot`. */
-  userByOwner?: Maybe<User>,
+  readonly userByOwner?: Maybe<User>,
 };
 
 
 /** The output of our update `Spot` mutation. */
 export type UpdateSpotPayloadSpotEdgeArgs = {
-  orderBy?: Maybe<Array<SpotsOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
 };
 
 /** All input for the `updateUserByNodeId` mutation. */
@@ -1231,11 +1231,11 @@ export type UpdateUserByNodeIdInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** The globally unique `ID` which will identify a single `User` to be updated. */
-  nodeId: Scalars['ID'],
+  readonly nodeId: Scalars['ID'],
   /** An object where the defined keys will be set on the `User` being updated. */
-  patch: UserPatch,
+  readonly patch: UserPatch,
 };
 
 /** All input for the `updateUser` mutation. */
@@ -1244,10 +1244,10 @@ export type UpdateUserInput = {
  * An arbitrary string value with no semantic meaning. Will be included in the
    * payload verbatim. May be used to track mutations by the client.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** An object where the defined keys will be set on the `User` being updated. */
-  patch: UserPatch,
-  username: Scalars['String'],
+  readonly patch: UserPatch,
+  readonly username: Scalars['String'],
 };
 
 /** The output of our update `User` mutation. */
@@ -1256,33 +1256,33 @@ export type UpdateUserPayload = {
  * The exact same `clientMutationId` that was provided in the mutation input,
    * unchanged and unused. May be used by a client to track mutations.
  */
-  clientMutationId?: Maybe<Scalars['String']>,
+  readonly clientMutationId?: Maybe<Scalars['String']>,
   /** Our root query field type. Allows us to run any query from our mutation payload. */
-  query?: Maybe<Query>,
+  readonly query?: Maybe<Query>,
   /** The `User` that was updated by this mutation. */
-  user?: Maybe<User>,
+  readonly user?: Maybe<User>,
   /** An edge for our `User`. May be used by Relay 1. */
-  userEdge?: Maybe<UsersEdge>,
+  readonly userEdge?: Maybe<UsersEdge>,
 };
 
 
 /** The output of our update `User` mutation. */
 export type UpdateUserPayloadUserEdgeArgs = {
-  orderBy?: Maybe<Array<UsersOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>
 };
 
 export type User = Node & {
-  email: Scalars['String'],
+  readonly email: Scalars['String'],
   /** Reads and enables pagination through a set of `Guide`. */
-  guidesByOwner: GuidesConnection,
+  readonly guidesByOwner: GuidesConnection,
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
-  nodeId: Scalars['ID'],
-  passwordHash: Scalars['String'],
+  readonly nodeId: Scalars['ID'],
+  readonly passwordHash: Scalars['String'],
   /** Reads and enables pagination through a set of `Ride`. */
-  ridesByOwner: RidesConnection,
+  readonly ridesByOwner: RidesConnection,
   /** Reads and enables pagination through a set of `Spot`. */
-  spotsByOwner: SpotsConnection,
-  username: Scalars['String'],
+  readonly spotsByOwner: SpotsConnection,
+  readonly username: Scalars['String'],
 };
 
 
@@ -1293,7 +1293,7 @@ export type UserGuidesByOwnerArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<GuidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>
 };
 
 
@@ -1304,7 +1304,7 @@ export type UserRidesByOwnerArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<RidesOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>
 };
 
 
@@ -1315,51 +1315,51 @@ export type UserSpotsByOwnerArgs = {
   first?: Maybe<Scalars['Int']>,
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
-  orderBy?: Maybe<Array<SpotsOrderBy>>
+  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
 };
 
 /** A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type UserCondition = {
   /** Checks for equality with the object’s `email` field. */
-  email?: Maybe<Scalars['String']>,
+  readonly email?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `passwordHash` field. */
-  passwordHash?: Maybe<Scalars['String']>,
+  readonly passwordHash?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `username` field. */
-  username?: Maybe<Scalars['String']>,
+  readonly username?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `User` */
 export type UserInput = {
-  email: Scalars['String'],
-  passwordHash: Scalars['String'],
-  username: Scalars['String'],
+  readonly email: Scalars['String'],
+  readonly passwordHash: Scalars['String'],
+  readonly username: Scalars['String'],
 };
 
 /** Represents an update to a `User`. Fields that are set will be updated. */
 export type UserPatch = {
-  email?: Maybe<Scalars['String']>,
-  passwordHash?: Maybe<Scalars['String']>,
-  username?: Maybe<Scalars['String']>,
+  readonly email?: Maybe<Scalars['String']>,
+  readonly passwordHash?: Maybe<Scalars['String']>,
+  readonly username?: Maybe<Scalars['String']>,
 };
 
 /** A connection to a list of `User` values. */
 export type UsersConnection = {
   /** A list of edges which contains the `User` and cursor to aid in pagination. */
-  edges: Array<UsersEdge>,
+  readonly edges: ReadonlyArray<UsersEdge>,
   /** A list of `User` objects. */
-  nodes: Array<Maybe<User>>,
+  readonly nodes: ReadonlyArray<Maybe<User>>,
   /** Information to aid in pagination. */
-  pageInfo: PageInfo,
+  readonly pageInfo: PageInfo,
   /** The count of *all* `User` you could get from the connection. */
-  totalCount: Scalars['Int'],
+  readonly totalCount: Scalars['Int'],
 };
 
 /** A `User` edge in the connection. */
 export type UsersEdge = {
   /** A cursor for use in pagination. */
-  cursor?: Maybe<Scalars['Cursor']>,
+  readonly cursor?: Maybe<Scalars['Cursor']>,
   /** The `User` at the end of the edge. */
-  node?: Maybe<User>,
+  readonly node?: Maybe<User>,
 };
 
 /** Methods to use when ordering `User`. */

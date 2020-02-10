@@ -918,8 +918,8 @@
         "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
       },
       "./src/generated.ts": {
-        "version": "4ffaa0be036791c14c68f3a34f4acdcb550484c7bd01876c24b0d0b84558e258",
-        "signature": "f301f3c5afb8f4791d3bef96123e83ed323dfcc7ccc2dd04345acdd36b5b167a"
+        "version": "faaca4a3be8fb68bad9eb4645a6f16a4d92d901e51fbcd073e90ba3bcdfe757f",
+        "signature": "1174ea03ce69bb5e4d3eccb9e29a94a29b9612f610161510d0690d376bb58290"
       },
       "../../tools/envs/srv/index.d.ts": {
         "version": "f667f6b1d66ba55f0dcd27f5ff050063fecfe289bad00e8c5d48344a775c1439",
@@ -958,7 +958,7 @@
         "signature": "52335a52061e055be812154cba4411351645a9bb3a7f0217267c8da38ee374c7"
       },
       "./src/plugins/addspotfromlatlng/index.ts": {
-        "version": "4b0e2f6ac1e5a791d1a0434e33acf65c9978ea2bb378955cc6d3e667f508d7df",
+        "version": "856944d2b279fdb90fcb5669ea57a268f58159b14b0c7f368b87e6120e3c8d94",
         "signature": "69a749fa927457550ae15067343e7c36dd1242cfb80936a9ca62af940f37f78a"
       },
       "./src/plugins/index.ts": {
@@ -6158,6 +6158,8 @@
       "./node_modules/postgraphile/build/postgraphile/http/subscriptions.d.ts",
       "./node_modules/postgraphile/build/postgraphile/index.d.ts",
       "./node_modules/postgraphile/build/index.d.ts",
+      "../../tools/logger/srv/locallogger.d.ts",
+      "../../tools/logger/srv/index.d.ts",
       "./src/generated.ts",
       "../../tools/envs/srv/index.d.ts",
       "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
@@ -6169,6 +6171,7 @@
       "../../tools/database/srv/index.d.ts",
       "./src/plugins/types.ts",
       "./src/plugins/index.ts",
+      "./src/options.ts",
       "./node_modules/@types/range-parser/index.d.ts",
       "./node_modules/@types/express-serve-static-core/index.d.ts",
       "./node_modules/@types/mime/index.d.ts",
@@ -6180,6 +6183,7 @@
       "./node_modules/@types/aws-lambda/index.d.ts",
       "./node_modules/@types/aws-serverless-express/index.d.ts",
       "./src/lambda.ts",
+      "./src/server.ts",
       "./node_modules/@types/accepts/index.d.ts",
       "./node_modules/@types/keygrip/index.d.ts",
       "./node_modules/@types/cookies/index.d.ts",
@@ -6202,11 +6206,7 @@
       "./node_modules/@types/lodash/ts3.1/common/util.d.ts",
       "./node_modules/@types/lodash/ts3.1/index.d.ts",
       "./node_modules/@types/pg-types/index.d.ts",
-      "../../tools/logger/srv/index.d.ts",
-      "./src/server.ts",
-      "./src/options.ts",
-      "./src/plugins/addspotfromlatlng/index.ts",
-      "../../tools/logger/srv/locallogger.d.ts"
+      "./src/plugins/addspotfromlatlng/index.ts"
     ]
   },
   "version": "3.7.5"
