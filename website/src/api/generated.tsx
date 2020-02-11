@@ -526,8 +526,10 @@ export type Mutation = {
   readonly deleteUser?: Maybe<DeleteUserPayload>,
   /** Deletes a single `User` using its globally unique id. */
   readonly deleteUserByNodeId?: Maybe<DeleteUserPayload>,
+  readonly moveSpot: Spot,
   /** Registers a single user */
   readonly register?: Maybe<RegisterPayload>,
+  readonly removeSpot: Spot,
   /** Updates a single `Guide` using a unique key and a patch. */
   readonly updateGuide?: Maybe<UpdateGuidePayload>,
   /** Updates a single `Guide` using its globally unique id and a patch. */
@@ -641,8 +643,22 @@ export type MutationDeleteUserByNodeIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationMoveSpotArgs = {
+  lat: Scalars['Float'],
+  long: Scalars['Float'],
+  spotId: Scalars['String']
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationRegisterArgs = {
   input: RegisterInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationRemoveSpotArgs = {
+  spotId: Scalars['String']
 };
 
 
@@ -987,6 +1003,7 @@ export type Spot = Node & {
   readonly id: Scalars['String'],
   readonly label?: Maybe<Scalars['String']>,
   readonly lat: Scalars['Float'],
+  readonly location?: Maybe<Scalars['String']>,
   readonly locked: Scalars['Boolean'],
   readonly long: Scalars['Float'],
   readonly nights?: Maybe<Scalars['Int']>,
@@ -1034,6 +1051,8 @@ export type SpotCondition = {
   readonly label?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `lat` field. */
   readonly lat?: Maybe<Scalars['Float']>,
+  /** Checks for equality with the object’s `location` field. */
+  readonly location?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `locked` field. */
   readonly locked?: Maybe<Scalars['Boolean']>,
   /** Checks for equality with the object’s `long` field. */
@@ -1052,6 +1071,7 @@ export type SpotInput = {
   readonly id: Scalars['String'],
   readonly label?: Maybe<Scalars['String']>,
   readonly lat: Scalars['Float'],
+  readonly location?: Maybe<Scalars['String']>,
   readonly locked: Scalars['Boolean'],
   readonly long: Scalars['Float'],
   readonly nights?: Maybe<Scalars['Int']>,
@@ -1065,6 +1085,7 @@ export type SpotPatch = {
   readonly id?: Maybe<Scalars['String']>,
   readonly label?: Maybe<Scalars['String']>,
   readonly lat?: Maybe<Scalars['Float']>,
+  readonly location?: Maybe<Scalars['String']>,
   readonly locked?: Maybe<Scalars['Boolean']>,
   readonly long?: Maybe<Scalars['Float']>,
   readonly nights?: Maybe<Scalars['Int']>,
@@ -1102,6 +1123,8 @@ export enum SpotsOrderBy {
   LabelDesc = 'LABEL_DESC',
   LatAsc = 'LAT_ASC',
   LatDesc = 'LAT_DESC',
+  LocationAsc = 'LOCATION_ASC',
+  LocationDesc = 'LOCATION_DESC',
   LockedAsc = 'LOCKED_ASC',
   LockedDesc = 'LOCKED_DESC',
   LongAsc = 'LONG_ASC',
@@ -1801,7 +1824,9 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteSpotByNodeId?: Resolver<Maybe<ResolversTypes['DeleteSpotPayload']>, ParentType, ContextType, RequireFields<MutationDeleteSpotByNodeIdArgs, 'input'>>,
   deleteUser?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'input'>>,
   deleteUserByNodeId?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserByNodeIdArgs, 'input'>>,
+  moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'lat' | 'long' | 'spotId'>>,
   register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
+  removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
   updateGuide?: Resolver<Maybe<ResolversTypes['UpdateGuidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, 'input'>>,
   updateGuideByNodeId?: Resolver<Maybe<ResolversTypes['UpdateGuidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateGuideByNodeIdArgs, 'input'>>,
   updateRide?: Resolver<Maybe<ResolversTypes['UpdateRidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateRideArgs, 'input'>>,
@@ -1888,6 +1913,7 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   lat?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   locked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   long?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
   nights?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
@@ -2053,12 +2079,21 @@ export type DeleteGuideMutationVariables = {
 
 export type DeleteGuideMutation = { readonly deleteGuide: Maybe<{ readonly guide: Maybe<Pick<Guide, 'id'>> }> };
 
-export type DeleteSpotMutationVariables = {
+export type RemoveSpotMutationVariables = {
   spotId: Scalars['String']
 };
 
 
-export type DeleteSpotMutation = { readonly deleteSpot: Maybe<{ readonly spot: Maybe<Pick<Spot, 'id'>> }> };
+export type RemoveSpotMutation = { readonly removeSpot: Pick<Spot, 'id'> };
+
+export type MoveSpotMutationVariables = {
+  spotId: Scalars['String'],
+  lat: Scalars['Float'],
+  long: Scalars['Float']
+};
+
+
+export type MoveSpotMutation = { readonly moveSpot: Pick<Spot, 'id'> };
 
 export type AllGuideTitlesForUserQueryVariables = {
   owner: Scalars['String']
@@ -2333,46 +2368,84 @@ export function useDeleteGuideMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type DeleteGuideMutationHookResult = ReturnType<typeof useDeleteGuideMutation>;
 export type DeleteGuideMutationResult = ApolloReactCommon.MutationResult<DeleteGuideMutation>;
 export type DeleteGuideMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteGuideMutation, DeleteGuideMutationVariables>;
-export const DeleteSpotDocument = gql`
-    mutation DeleteSpot($spotId: String!) {
-  deleteSpot(input: {id: $spotId}) {
-    spot {
-      id
-    }
+export const RemoveSpotDocument = gql`
+    mutation RemoveSpot($spotId: String!) {
+  removeSpot(spotId: $spotId) {
+    id
   }
 }
     `;
-export type DeleteSpotMutationFn = ApolloReactCommon.MutationFunction<DeleteSpotMutation, DeleteSpotMutationVariables>;
-export type DeleteSpotComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<DeleteSpotMutation, DeleteSpotMutationVariables>, 'mutation'>;
+export type RemoveSpotMutationFn = ApolloReactCommon.MutationFunction<RemoveSpotMutation, RemoveSpotMutationVariables>;
+export type RemoveSpotComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<RemoveSpotMutation, RemoveSpotMutationVariables>, 'mutation'>;
 
-    export const DeleteSpotComponent = (props: DeleteSpotComponentProps) => (
-      <ApolloReactComponents.Mutation<DeleteSpotMutation, DeleteSpotMutationVariables> mutation={DeleteSpotDocument} {...props} />
+    export const RemoveSpotComponent = (props: RemoveSpotComponentProps) => (
+      <ApolloReactComponents.Mutation<RemoveSpotMutation, RemoveSpotMutationVariables> mutation={RemoveSpotDocument} {...props} />
     );
     
 
 /**
- * __useDeleteSpotMutation__
+ * __useRemoveSpotMutation__
  *
- * To run a mutation, you first call `useDeleteSpotMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteSpotMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useRemoveSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveSpotMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [deleteSpotMutation, { data, loading, error }] = useDeleteSpotMutation({
+ * const [removeSpotMutation, { data, loading, error }] = useRemoveSpotMutation({
  *   variables: {
  *      spotId: // value for 'spotId'
  *   },
  * });
  */
-export function useDeleteSpotMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteSpotMutation, DeleteSpotMutationVariables>) {
-        return ApolloReactHooks.useMutation<DeleteSpotMutation, DeleteSpotMutationVariables>(DeleteSpotDocument, baseOptions);
+export function useRemoveSpotMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveSpotMutation, RemoveSpotMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemoveSpotMutation, RemoveSpotMutationVariables>(RemoveSpotDocument, baseOptions);
       }
-export type DeleteSpotMutationHookResult = ReturnType<typeof useDeleteSpotMutation>;
-export type DeleteSpotMutationResult = ApolloReactCommon.MutationResult<DeleteSpotMutation>;
-export type DeleteSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteSpotMutation, DeleteSpotMutationVariables>;
+export type RemoveSpotMutationHookResult = ReturnType<typeof useRemoveSpotMutation>;
+export type RemoveSpotMutationResult = ApolloReactCommon.MutationResult<RemoveSpotMutation>;
+export type RemoveSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveSpotMutation, RemoveSpotMutationVariables>;
+export const MoveSpotDocument = gql`
+    mutation MoveSpot($spotId: String!, $lat: Float!, $long: Float!) {
+  moveSpot(spotId: $spotId, lat: $lat, long: $long) {
+    id
+  }
+}
+    `;
+export type MoveSpotMutationFn = ApolloReactCommon.MutationFunction<MoveSpotMutation, MoveSpotMutationVariables>;
+export type MoveSpotComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<MoveSpotMutation, MoveSpotMutationVariables>, 'mutation'>;
+
+    export const MoveSpotComponent = (props: MoveSpotComponentProps) => (
+      <ApolloReactComponents.Mutation<MoveSpotMutation, MoveSpotMutationVariables> mutation={MoveSpotDocument} {...props} />
+    );
+    
+
+/**
+ * __useMoveSpotMutation__
+ *
+ * To run a mutation, you first call `useMoveSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMoveSpotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [moveSpotMutation, { data, loading, error }] = useMoveSpotMutation({
+ *   variables: {
+ *      spotId: // value for 'spotId'
+ *      lat: // value for 'lat'
+ *      long: // value for 'long'
+ *   },
+ * });
+ */
+export function useMoveSpotMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<MoveSpotMutation, MoveSpotMutationVariables>) {
+        return ApolloReactHooks.useMutation<MoveSpotMutation, MoveSpotMutationVariables>(MoveSpotDocument, baseOptions);
+      }
+export type MoveSpotMutationHookResult = ReturnType<typeof useMoveSpotMutation>;
+export type MoveSpotMutationResult = ApolloReactCommon.MutationResult<MoveSpotMutation>;
+export type MoveSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<MoveSpotMutation, MoveSpotMutationVariables>;
 export const AllGuideTitlesForUserDocument = gql`
     query AllGuideTitlesForUser($owner: String!) {
   guides(condition: {owner: $owner}) {

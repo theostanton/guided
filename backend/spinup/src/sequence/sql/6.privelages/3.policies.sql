@@ -25,29 +25,28 @@ create policy delete_guide on guided.guides for delete to guided_user
 alter table guided.rides
     enable row level security;
 
-create policy create_ride on guided.rides for insert
-    with check (owner = nullif(current_setting('jwt.claims.username', true), '')::text);
+create policy create_ride on guided.rides for insert;
 
 create policy select_rides on guided.rides for select
-    using (true);
+    using (rides.owner = nullif(current_setting('jwt.claims.username', true), '')::text);
 
 create policy update_ride on guided.rides for update
-    using (true);
+    using (rides.owner = nullif(current_setting('jwt.claims.username', true), '')::text);
 
 create policy delete_ride on guided.rides for delete
-    using (true);
+    using (rides.owner = nullif(current_setting('jwt.claims.username', true), '')::text);
 
 -- spots
 alter table guided.spots
     enable row level security;
 
-create policy create_spot on guided.spots for insert
-    with check (owner = nullif(current_setting('jwt.claims.username', true), '')::text);
+create policy create_spot on guided.spots for insert;
 
 create policy select_spots on guided.spots for select
-    using (true);
+    using (owner = nullif(current_setting('jwt.claims.username', true), '')::text);
 
 create policy update_spot on guided.spots for update
-    using (true);
+    using (owner = nullif(current_setting('jwt.claims.username', true), '')::text);
 
 create policy delete_spot on guided.spots for delete
+    using (owner = nullif(current_setting('jwt.claims.username', true), '')::text);

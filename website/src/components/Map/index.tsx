@@ -6,7 +6,6 @@ import { AddStayFromLatLongDocument, AddStayFromLatLongMutationVariables } from 
 import { client } from "api"
 import { inject, observer } from "mobx-react"
 import GuideStore from "../../model/GuideStore"
-import { logJson } from "@guided/logger"
 import { Rides } from "./Rides"
 
 
@@ -57,7 +56,6 @@ export default class Map extends Component<Props, State> {
           this.setState({ viewport })
         }}
         onClick={async (event) => {
-          logJson(event.features, "features")
           if (guide) {
             const variables: AddStayFromLatLongMutationVariables = {
               guideId: guide.id,

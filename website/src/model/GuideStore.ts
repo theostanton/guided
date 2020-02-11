@@ -63,6 +63,21 @@ export default class GuideStore {
     this.highlightedId = undefined
   }
 
+
+  @computed
+  get spots(): SpotByGuideFragment[] {
+    return this.guide?.spotsByGuide!.nodes!.map(spot => {
+      return spot!
+    })
+  }
+
+  @computed
+  get rides(): RideByGuideFragment[] {
+    return this.guide?.ridesByGuide!.nodes!.map(ride => {
+      return ride!
+    })
+  }
+
   @computed
   get highlightedSpot(): SpotByGuideFragment | undefined {
     if (!this.highlightedId) {

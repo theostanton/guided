@@ -29,6 +29,7 @@ export interface Spot {
   lat: number 
   long: number 
   position: string | null 
+  location: string | null 
 }
 export interface User {
   username: string 

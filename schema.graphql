@@ -692,6 +692,7 @@ type Mutation {
     """
     input: DeleteUserByNodeIdInput!
   ): DeleteUserPayload
+  moveSpot(lat: Float!, long: Float!, spotId: String!): Spot!
 
   """Registers a single user"""
   register(
@@ -700,6 +701,7 @@ type Mutation {
     """
     input: RegisterInput!
   ): RegisterPayload
+  removeSpot(spotId: String!): Spot!
 
   """Updates a single `Guide` using a unique key and a patch."""
   updateGuide(
@@ -1119,6 +1121,7 @@ type Spot implements Node {
   id: String!
   label: String
   lat: Float!
+  location: String
   locked: Boolean!
   long: Float!
   nights: Int
@@ -1208,6 +1211,9 @@ input SpotCondition {
   """Checks for equality with the object’s `lat` field."""
   lat: Float
 
+  """Checks for equality with the object’s `location` field."""
+  location: String
+
   """Checks for equality with the object’s `locked` field."""
   locked: Boolean
 
@@ -1230,6 +1236,7 @@ input SpotInput {
   id: String!
   label: String
   lat: Float!
+  location: String
   locked: Boolean!
   long: Float!
   nights: Int
@@ -1243,6 +1250,7 @@ input SpotPatch {
   id: String
   label: String
   lat: Float
+  location: String
   locked: Boolean
   long: Float
   nights: Int
@@ -1286,6 +1294,8 @@ enum SpotsOrderBy {
   LABEL_DESC
   LAT_ASC
   LAT_DESC
+  LOCATION_ASC
+  LOCATION_DESC
   LOCKED_ASC
   LOCKED_DESC
   LONG_ASC

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "watch": "yarn build && yarn wsrun watch",
-    "develop:frontend": "yarn workspace @guided/website run develop",
+    "develop:frontend": "STAGE=local yarn workspace @guided/website run develop",
     "develop:backend": "STAGE=local yarn workspace @guided/graphql run develop",
     "build": "./build.sh",
     "install:all": "yarn install",

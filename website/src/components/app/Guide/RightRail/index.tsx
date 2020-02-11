@@ -33,10 +33,13 @@ export default class RightRailComponent extends React.Component<Props> {
     }
 
     return <Segment style={{ backgroundColor: "#ffffff" }}>
-      <Icon name={"close"} size={'large'} onClick={() => {
+      <Icon name={"close"} size={"large"} onClick={() => {
         this.guideStore.unselect()
       }}/>
-      {selectedSpot && <SpotDetail spot={selectedSpot}/>}
+      {selectedSpot && <SpotDetail spot={selectedSpot} close={() => {
+        this.guideStore.unselect()
+        this.guideStore.refetch()
+      }}/>}
       {selectedRide && <RideDetail ride={selectedRide}/>}
     </Segment>
   }

@@ -520,8 +520,10 @@ export type Mutation = {
   readonly deleteUser?: Maybe<DeleteUserPayload>,
   /** Deletes a single `User` using its globally unique id. */
   readonly deleteUserByNodeId?: Maybe<DeleteUserPayload>,
+  readonly moveSpot: Spot,
   /** Registers a single user */
   readonly register?: Maybe<RegisterPayload>,
+  readonly removeSpot: Spot,
   /** Updates a single `Guide` using a unique key and a patch. */
   readonly updateGuide?: Maybe<UpdateGuidePayload>,
   /** Updates a single `Guide` using its globally unique id and a patch. */
@@ -635,8 +637,22 @@ export type MutationDeleteUserByNodeIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationMoveSpotArgs = {
+  lat: Scalars['Float'],
+  long: Scalars['Float'],
+  spotId: Scalars['String']
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationRegisterArgs = {
   input: RegisterInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationRemoveSpotArgs = {
+  spotId: Scalars['String']
 };
 
 
@@ -981,6 +997,7 @@ export type Spot = Node & {
   readonly id: Scalars['String'],
   readonly label?: Maybe<Scalars['String']>,
   readonly lat: Scalars['Float'],
+  readonly location?: Maybe<Scalars['String']>,
   readonly locked: Scalars['Boolean'],
   readonly long: Scalars['Float'],
   readonly nights?: Maybe<Scalars['Int']>,
@@ -1028,6 +1045,8 @@ export type SpotCondition = {
   readonly label?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `lat` field. */
   readonly lat?: Maybe<Scalars['Float']>,
+  /** Checks for equality with the object’s `location` field. */
+  readonly location?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `locked` field. */
   readonly locked?: Maybe<Scalars['Boolean']>,
   /** Checks for equality with the object’s `long` field. */
@@ -1046,6 +1065,7 @@ export type SpotInput = {
   readonly id: Scalars['String'],
   readonly label?: Maybe<Scalars['String']>,
   readonly lat: Scalars['Float'],
+  readonly location?: Maybe<Scalars['String']>,
   readonly locked: Scalars['Boolean'],
   readonly long: Scalars['Float'],
   readonly nights?: Maybe<Scalars['Int']>,
@@ -1059,6 +1079,7 @@ export type SpotPatch = {
   readonly id?: Maybe<Scalars['String']>,
   readonly label?: Maybe<Scalars['String']>,
   readonly lat?: Maybe<Scalars['Float']>,
+  readonly location?: Maybe<Scalars['String']>,
   readonly locked?: Maybe<Scalars['Boolean']>,
   readonly long?: Maybe<Scalars['Float']>,
   readonly nights?: Maybe<Scalars['Int']>,
@@ -1096,6 +1117,8 @@ export enum SpotsOrderBy {
   LabelDesc = 'LABEL_DESC',
   LatAsc = 'LAT_ASC',
   LatDesc = 'LAT_DESC',
+  LocationAsc = 'LOCATION_ASC',
+  LocationDesc = 'LOCATION_DESC',
   LockedAsc = 'LOCKED_ASC',
   LockedDesc = 'LOCKED_DESC',
   LongAsc = 'LONG_ASC',
@@ -1795,7 +1818,9 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteSpotByNodeId?: Resolver<Maybe<ResolversTypes['DeleteSpotPayload']>, ParentType, ContextType, RequireFields<MutationDeleteSpotByNodeIdArgs, 'input'>>,
   deleteUser?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'input'>>,
   deleteUserByNodeId?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserByNodeIdArgs, 'input'>>,
+  moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'lat' | 'long' | 'spotId'>>,
   register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
+  removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
   updateGuide?: Resolver<Maybe<ResolversTypes['UpdateGuidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, 'input'>>,
   updateGuideByNodeId?: Resolver<Maybe<ResolversTypes['UpdateGuidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateGuideByNodeIdArgs, 'input'>>,
   updateRide?: Resolver<Maybe<ResolversTypes['UpdateRidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateRideArgs, 'input'>>,
@@ -1882,6 +1907,7 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   lat?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   locked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   long?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
   nights?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,

@@ -24,12 +24,14 @@ mutation DeleteGuide($guideId:String!){
     }
 }
 
-mutation DeleteSpot($spotId:String!){
-    deleteSpot(input: {
-        id: $spotId
-    }){
-        spot{
-            id
-        }
+mutation RemoveSpot($spotId:String!){
+    removeSpot(spotId: $spotId){
+        id
+    }
+}
+
+mutation MoveSpot($spotId:String!,$lat:Float!,$long:Float!){
+    moveSpot(spotId: $spotId,lat:$lat,long:$long){
+        id
     }
 }

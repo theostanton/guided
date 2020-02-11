@@ -14,9 +14,14 @@ import { DeleteGuideDocument, DeleteGuideMutationVariables } from "api/generated
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import SpotList from "./SpotList"
+import RideList from "./RideList"
 
 type Props = {
   guideStore?: GuideStore
+}
+
+type State = {
+  selected: "rides" | "spots"
 }
 
 async function deleteGuide(guideId: string): Promise<void> {
@@ -34,7 +39,11 @@ async function deleteGuide(guideId: string): Promise<void> {
 
 @inject("guideStore")
 @observer
-export default class LeftRailComponent extends React.Component<Props> {
+export default class LeftRailComponent extends React.Component<Props, State> {
+
+  state: State = {
+    selected: "rides",
+  }
 
   get guideStore(): GuideStore {
     return this.props.guideStore!
@@ -74,8 +83,16 @@ export default class LeftRailComponent extends React.Component<Props> {
         <GridRow>
           <GridColumn>
             <StatisticGroup widths='2' size={"tiny"}>
-              <Statistic label='Rides' value={guide.ridesByGuide.totalCount}/>
-              <Statistic label='Spots' value={guide.spotsByGuide.totalCount}/>
+              <Statistic as='a' label='Rides' value={guide.ridesByGuide.totalCount} onClick={() => {
+                this.setState({
+                  selected: "rides",
+                })
+              }}/>
+              <Statistic label='Spots' value={guide.spotsByGuide.totalCount} onClick={() => {
+                this.setState({
+                  selected: "spots",
+                })
+              }}/>
             </StatisticGroup>
           </GridColumn>
         </GridRow>
@@ -90,13 +107,8 @@ export default class LeftRailComponent extends React.Component<Props> {
         }
 
         <Divider/>
-        <SpotList
-          selectSpot={(spotId: string) => {
-            this.guideStore.selectSpot(spotId)
-          }}
-          spots={guide?.spotsByGuide!.nodes!.map(spot => {
-            return spot!
-          })}/>
+        {this.state.selected === "spots" && <SpotList/>}
+        {this.state.selected === "rides" && <RideList/>}
       </Grid>
     </div>
   }

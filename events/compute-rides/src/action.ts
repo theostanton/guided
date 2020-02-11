@@ -1,8 +1,7 @@
-import { log, logJson } from "@guided/logger"
-import fs from "fs"
+import { logJson } from "@guided/logger"
 import Dao from "./dao"
 import { ComputeRidesMessageBody, ComputeRidesResult } from "./types"
-import { client, key } from "@guided/google"
+import { client, getLabel, key } from "@guided/google"
 import * as geojson from "@guided/geojson"
 import {
   DirectionsRoute,
@@ -71,7 +70,7 @@ function computeStage(leg: RouteLeg, startSpot: Spot, endSpot: Spot, guide: Guid
     newRides.push(newRide)
   }
 
-  leg.steps.forEach((step: DirectionsStep, index: number) => {
+  leg.steps.forEach(async (step: DirectionsStep, index: number) => {
 
     if ((duration + step.duration.value) > maxDurationPerRide) {
       const position = `${startSpot.position}.${newSpots.length + 1}`
@@ -81,6 +80,7 @@ function computeStage(leg: RouteLeg, startSpot: Spot, endSpot: Spot, guide: Guid
         lat: step.start_location.lat,
         long: step.start_location.lng,
         nights: 1,
+        location: await getLabel(step.start_location.lat, step.start_location.lng),
         owner: guide.owner,
         label: `Spot ${position}`,
         locked: false,
@@ -120,22 +120,11 @@ export default async function(body: ComputeRidesMessageBody): Promise<ComputeRid
 
   const guide = await dao.guide()
 
-  logJson(guide, "guide")
-
   await dao.deleteUnlocked()
 
   const spots = await dao.spots()
-  logJson(spots, "spots")
 
   const route = await getRoute(spots)
-
-  route.legs.forEach((leg: RouteLeg, index: number) => {
-    log(`${index}. From ${leg.start_address} to ${leg.end_address}`)
-  })
-
-  logJson(route.waypoint_order, "route.waypoint_order")
-
-  fs.writeFileSync("route.json", JSON.stringify(route, null, 4))
 
   const stages: Stage[] = []
   route.legs.forEach((leg, index) => {

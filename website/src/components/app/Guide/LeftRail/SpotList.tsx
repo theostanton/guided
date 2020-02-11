@@ -7,8 +7,6 @@ import GuideStore from "../../../../model/GuideStore"
 
 type Props = {
   guideStore?: GuideStore
-  spots: SpotByGuideFragment[]
-  selectSpot: (spotId: string) => void
 }
 
 @inject("guideStore")
@@ -19,8 +17,8 @@ export default class SpotList extends React.Component<Props> {
     return this.props.guideStore!
   }
 
-  render(): React.ReactElement[] {
-    const spots = this.props.spots
+  render(): React.ReactElement {
+    const spots: SpotByGuideFragment[] = this.guideStore.spots
     const items = spots.map(spot => {
       const isSelected = spot.id === this.guideStore.selectedId
       return <List.Item
@@ -42,23 +40,16 @@ export default class SpotList extends React.Component<Props> {
         </List.Content>
       </List.Item>
     })
-    return [(
-      <Grid.Row>
-        <Segment basic><Header>Spots</Header></Segment>
-      </Grid.Row>
-    ), (
-      <Grid.Row columns='equal'>
-        <GridColumn>
-          <List items={items}
-                selection={true}
-                relaxed={true}
-                onItemClick={(event, data) => {
-                  // logJson(event, "event")
-                  logJson(data.value, "data")
-                  this.props.selectSpot(data.value!)
-                }}/>
-        </GridColumn>
-      </Grid.Row>
-    )]
+    return <Grid.Row columns='equal'>
+      <GridColumn>
+        <List items={items}
+              selection={true}
+              relaxed={true}
+              onItemClick={(event, data) => {
+                this.guideStore.selectSpot(data.value!)
+              }}/>
+      </GridColumn>
+    </Grid.Row>
+
   }
 }
