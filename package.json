@@ -19,6 +19,7 @@
     "build:compute-stage": "yarn workspace @guided/compute-stage run build",
     "build:compute-rides": "yarn workspace @guided/compute-rides run build",
     "build:graphql": "yarn workspace @guided/graphql run build",
+    "build:website": "yarn workspace @guided/website run build",
     "build:codegen": "yarn workspace @guided/codegen run build"
   },
   "dependencies": {

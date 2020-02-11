@@ -33,20 +33,15 @@ jobs:
       - run:
           name: "Install"
           command: yarn install
-      - build:
-          directory: tools/logger
-      - build:
-          directory: tools/envs
-      - build:
-          directory: tools/database
-      - build:
-          directory: events/index
-      - build:
-          directory: events/compute-stage
-      - build:
-          directory: backend/graphql
-      - build:
-          directory: backend/graphql
+      - run:
+          name: "Build common"
+          command: yarn build
+      - run:
+          name: "Build Backend"
+          command: yarn build:graphql
+      - run:
+          name: "Build Website"
+          command: yarn build:website
       - save_cache:
           paths:
             - ./node_modules
