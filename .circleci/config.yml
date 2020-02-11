@@ -18,6 +18,7 @@ commands:
           name: build << parameters.directory >>
           command: |
             cd ~/workspace/<< parameters.directory >>
+            yarn install
             yarn build
 
 
@@ -33,8 +34,6 @@ jobs:
       - run:
           name: "Install"
           command: yarn install
-      - run:
-          command: yarn build
       - build:
           directory: tools/logger
       - build:
