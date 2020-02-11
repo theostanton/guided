@@ -34,6 +34,9 @@ jobs:
           name: "Install"
           command: yarn install
       - run:
+          name: "Install again"
+          command: yarn install
+      - run:
           name: "Build common"
           command: yarn build
       - run:
