@@ -8,6 +8,7 @@ export interface Guide {
   slug: string 
   owner: string 
   startDate: Date | null 
+  maxHoursPerRide?: number 
 }
 export interface Ride {
   id: string 

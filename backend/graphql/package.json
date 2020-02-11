@@ -12,6 +12,7 @@
     "@guided/database": "*",
     "@guided/google": "*",
     "@guided/envs": "*",
+    "@guided/compute-rides": "*",
     "@guided/logger": "*",
     "express": "^4.17.1",
     "postgraphile": "^4.6.0",

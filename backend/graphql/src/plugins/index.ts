@@ -1,3 +1,4 @@
-import addSpotFromLatLng from './addSpotFromLatLng'
+import addSpotFromLatLng from "./addSpotFromLatLng"
+import computeRides from "./computeRides"
 
-export default [addSpotFromLatLng]
+export default [addSpotFromLatLng, computeRides]

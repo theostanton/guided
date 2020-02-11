@@ -1,8 +1,8 @@
 {
   "dialect": "postgres",
   "connection": {
-    "host": "guided-staging.cnl1a6eyfdur.eu-west-2.rds.amazonaws.com",
-    "user": "postgres",
+    "host": "localhost",
+    "user": "superuser",
     "password": "password",
     "database": "database"
   },

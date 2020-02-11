@@ -2,10 +2,8 @@
   "name": "@guided/compute-stage",
   "version": "0.0.0",
   "private": true,
-  "bin": {
-    "events": "bin/cli"
-  },
   "scripts": {
+    "prepare": "yarn build",
     "build": "tsc",
     "watch": "tsc -w",
     "deploy": "sls deploy",

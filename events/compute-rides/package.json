@@ -1,0 +1,28 @@
+{
+  "name": "@guided/compute-rides",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./srv/index.js",
+  "types": "./srv/index.d.ts",
+  "scripts": {
+    "prepare": "yarn build",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "deploy": "sls deploy",
+    "invoke": "STAGE=local GUIDE_ID=guide_7w03ul3 node srv/invoke.js"
+  },
+  "dependencies": {
+    "@guided/google": "*",
+    "@guided/events": "*",
+    "serverless": "^1.63.0",
+    "@googlemaps/google-maps-services-js": "^2.0.2",
+    "serverless-dotenv-plugin": "^2.3.1"
+  },
+  "devDependencies": {
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
+  }
+}

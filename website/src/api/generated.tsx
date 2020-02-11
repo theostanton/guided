@@ -380,6 +380,7 @@ export type DeleteUserPayloadUserEdgeArgs = {
 
 export type Guide = Node & {
   readonly id: Scalars['String'],
+  readonly maxHoursPerRide: Scalars['Int'],
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'],
   readonly owner: Scalars['String'],
@@ -420,6 +421,8 @@ export type GuideSpotsByGuideArgs = {
 export type GuideCondition = {
   /** Checks for equality with the object’s `id` field. */
   readonly id?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `maxHoursPerRide` field. */
+  readonly maxHoursPerRide?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `owner` field. */
   readonly owner?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `slug` field. */
@@ -433,6 +436,7 @@ export type GuideCondition = {
 /** An input for mutations affecting `Guide` */
 export type GuideInput = {
   readonly id: Scalars['String'],
+  readonly maxHoursPerRide?: Maybe<Scalars['Int']>,
   readonly owner: Scalars['String'],
   readonly slug: Scalars['String'],
   readonly startDate?: Maybe<Scalars['Date']>,
@@ -442,6 +446,7 @@ export type GuideInput = {
 /** Represents an update to a `Guide`. Fields that are set will be updated. */
 export type GuidePatch = {
   readonly id?: Maybe<Scalars['String']>,
+  readonly maxHoursPerRide?: Maybe<Scalars['Int']>,
   readonly owner?: Maybe<Scalars['String']>,
   readonly slug?: Maybe<Scalars['String']>,
   readonly startDate?: Maybe<Scalars['Date']>,
@@ -472,6 +477,8 @@ export type GuidesEdge = {
 export enum GuidesOrderBy {
   IdAsc = 'ID_ASC',
   IdDesc = 'ID_DESC',
+  MaxHoursPerRideAsc = 'MAX_HOURS_PER_RIDE_ASC',
+  MaxHoursPerRideDesc = 'MAX_HOURS_PER_RIDE_DESC',
   Natural = 'NATURAL',
   OwnerAsc = 'OWNER_ASC',
   OwnerDesc = 'OWNER_DESC',
@@ -491,6 +498,7 @@ export type Mutation = {
   readonly addSpotFromLatLng: Spot,
   /** Creates a JWT token that will securely identify a person and give them certain permissions. This token expires in 2 days. */
   readonly authenticate?: Maybe<AuthenticatePayload>,
+  readonly computeRides: Scalars['String'],
   /** Creates a single `Guide`. */
   readonly createGuide?: Maybe<CreateGuidePayload>,
   /** Creates a single `Ride`. */
@@ -548,6 +556,12 @@ export type MutationAddSpotFromLatLngArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationAuthenticateArgs = {
   input: AuthenticateInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationComputeRidesArgs = {
+  guideId: Scalars['String']
 };
 
 
@@ -1460,9 +1474,9 @@ export type ResolversTypes = {
   JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Guide: ResolverTypeWrapper<Guide>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
   Cursor: ResolverTypeWrapper<Scalars['Cursor']>,
   RideCondition: RideCondition,
-  Int: ResolverTypeWrapper<Scalars['Int']>,
   RidesOrderBy: RidesOrderBy,
   RidesConnection: ResolverTypeWrapper<RidesConnection>,
   RidesEdge: ResolverTypeWrapper<RidesEdge>,
@@ -1540,9 +1554,9 @@ export type ResolversParentTypes = {
   JwtToken: Scalars['JwtToken'],
   String: Scalars['String'],
   Guide: Guide,
+  Int: Scalars['Int'],
   Cursor: Scalars['Cursor'],
   RideCondition: RideCondition,
-  Int: Scalars['Int'],
   RidesOrderBy: RidesOrderBy,
   RidesConnection: RidesConnection,
   RidesEdge: RidesEdge,
@@ -1711,6 +1725,7 @@ export type DeleteUserPayloadResolvers<ContextType = any, ParentType extends Res
 
 export type GuideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Guide'] = ResolversParentTypes['Guide']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  maxHoursPerRide?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   ridesByGuide?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<GuideRidesByGuideArgs, 'orderBy'>>,
@@ -1743,6 +1758,7 @@ export interface JwtTokenScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long'>>,
   authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
+  computeRides?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationComputeRidesArgs, 'guideId'>>,
   createGuide?: Resolver<Maybe<ResolversTypes['CreateGuidePayload']>, ParentType, ContextType, RequireFields<MutationCreateGuideArgs, 'input'>>,
   createRide?: Resolver<Maybe<ResolversTypes['CreateRidePayload']>, ParentType, ContextType, RequireFields<MutationCreateRideArgs, 'input'>>,
   createSpot?: Resolver<Maybe<ResolversTypes['CreateSpotPayload']>, ParentType, ContextType, RequireFields<MutationCreateSpotArgs, 'input'>>,

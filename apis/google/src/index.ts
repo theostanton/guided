@@ -22,7 +22,6 @@ const client = new Client({})
 //   lng: -0.3259,
 // }
 
-
 export async function getLabel(lat: number, lng: number): Promise<string> {
 
   const result = await client.reverseGeocode({
@@ -49,4 +48,8 @@ export async function getLabel(lat: number, lng: number): Promise<string> {
   }).find(value => {
     return value
   }) || "Label"
+}
+
+export {
+  client,
 }

@@ -2,9 +2,6 @@
   "name": "@guided/events",
   "version": "0.0.0",
   "private": true,
-  "bin": {
-    "events": "bin/cli"
-  },
   "main": "./srv/index.js",
   "types": "./srv/index.d.ts",
   "scripts": {
@@ -19,15 +16,10 @@
     "@guided/envs": "*",
     "@guided/logger": "*",
     "aws-sdk": "^2.612.0",
-    "command-line-args": "^5.1.1",
-    "inquirer": "^7.0.4",
-    "esm": "^3.2.25",
-    "onetime": "^5.1.0",
-    "mimic-fn": "^3.0.0"
+    "command-line-args": "^5.1.1"
   },
   "devDependencies": {
-    "@types/command-line-args": "^5.0.0",
-    "@types/inquirer": "^6.5.0"
+    "@types/command-line-args": "^5.0.0"
   },
   "workspaces": {
     "nohoist": [
