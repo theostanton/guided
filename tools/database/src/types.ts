@@ -7,28 +7,31 @@ export interface Guide {
   title: string 
   slug: string 
   owner: string 
-  startDate: Date | null 
-  maxHoursPerRide?: number 
+  start_date: Date | null 
+  max_hours_per_ride?: number 
 }
 export interface Ride {
   id: string 
   guide: string 
   owner: string 
-  fromSpot: string 
-  toSpot: string 
+  from_spot: string 
+  to_spot: string 
+  path: Object | null 
+  duration_seconds: number | null 
 }
 export interface Spot {
   id: string 
   label: string | null 
   guide: string 
   owner: string 
-  nights: number | null 
-  locked: boolean | null 
-  lat: number | null 
-  long: number | null 
+  nights?: number | null 
+  locked: boolean 
+  lat: number 
+  long: number 
+  position: string | null 
 }
 export interface User {
   username: string 
   email: string 
-  passwordHash: string 
+  password_hash: string 
 }

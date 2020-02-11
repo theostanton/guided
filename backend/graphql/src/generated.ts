@@ -15,6 +15,8 @@ export type Scalars = {
   JwtToken: any,
   /** A location in a connection that can be used for resuming pagination. */
   Cursor: any,
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSON: { [key: string]: any },
   /** The day, does not include a time. */
   Date: any,
 };
@@ -487,6 +489,7 @@ export enum GuidesOrderBy {
 }
 
 
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
   readonly addSpotFromLatLng: Spot,
@@ -879,6 +882,7 @@ export type Ride = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'],
   readonly owner: Scalars['String'],
+  readonly path?: Maybe<Scalars['JSON']>,
   /** Reads a single `Spot` that is related to this `Ride`. */
   readonly spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
@@ -898,6 +902,8 @@ export type RideCondition = {
   readonly id?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `owner` field. */
   readonly owner?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `path` field. */
+  readonly path?: Maybe<Scalars['JSON']>,
   /** Checks for equality with the object’s `toSpot` field. */
   readonly toSpot?: Maybe<Scalars['String']>,
 };
@@ -908,6 +914,7 @@ export type RideInput = {
   readonly guide: Scalars['String'],
   readonly id: Scalars['String'],
   readonly owner: Scalars['String'],
+  readonly path?: Maybe<Scalars['JSON']>,
   readonly toSpot: Scalars['String'],
 };
 
@@ -917,6 +924,7 @@ export type RidePatch = {
   readonly guide?: Maybe<Scalars['String']>,
   readonly id?: Maybe<Scalars['String']>,
   readonly owner?: Maybe<Scalars['String']>,
+  readonly path?: Maybe<Scalars['JSON']>,
   readonly toSpot?: Maybe<Scalars['String']>,
 };
 
@@ -951,6 +959,8 @@ export enum RidesOrderBy {
   Natural = 'NATURAL',
   OwnerAsc = 'OWNER_ASC',
   OwnerDesc = 'OWNER_DESC',
+  PathAsc = 'PATH_ASC',
+  PathDesc = 'PATH_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
   ToSpotAsc = 'TO_SPOT_ASC',
@@ -963,12 +973,13 @@ export type Spot = Node & {
   readonly guideByGuide?: Maybe<Guide>,
   readonly id: Scalars['String'],
   readonly label?: Maybe<Scalars['String']>,
-  readonly lat?: Maybe<Scalars['Float']>,
-  readonly locked?: Maybe<Scalars['Boolean']>,
-  readonly long?: Maybe<Scalars['Float']>,
+  readonly lat: Scalars['Float'],
+  readonly locked: Scalars['Boolean'],
+  readonly long: Scalars['Float'],
   readonly nights?: Maybe<Scalars['Int']>,
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'],
+  readonly order?: Maybe<Scalars['Int']>,
   readonly owner: Scalars['String'],
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByFromSpot: RidesConnection,
@@ -1016,6 +1027,8 @@ export type SpotCondition = {
   readonly long?: Maybe<Scalars['Float']>,
   /** Checks for equality with the object’s `nights` field. */
   readonly nights?: Maybe<Scalars['Int']>,
+  /** Checks for equality with the object’s `order` field. */
+  readonly order?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `owner` field. */
   readonly owner?: Maybe<Scalars['String']>,
 };
@@ -1025,10 +1038,11 @@ export type SpotInput = {
   readonly guide: Scalars['String'],
   readonly id: Scalars['String'],
   readonly label?: Maybe<Scalars['String']>,
-  readonly lat?: Maybe<Scalars['Float']>,
-  readonly locked?: Maybe<Scalars['Boolean']>,
-  readonly long?: Maybe<Scalars['Float']>,
+  readonly lat: Scalars['Float'],
+  readonly locked: Scalars['Boolean'],
+  readonly long: Scalars['Float'],
   readonly nights?: Maybe<Scalars['Int']>,
+  readonly order?: Maybe<Scalars['Int']>,
   readonly owner: Scalars['String'],
 };
 
@@ -1041,6 +1055,7 @@ export type SpotPatch = {
   readonly locked?: Maybe<Scalars['Boolean']>,
   readonly long?: Maybe<Scalars['Float']>,
   readonly nights?: Maybe<Scalars['Int']>,
+  readonly order?: Maybe<Scalars['Int']>,
   readonly owner?: Maybe<Scalars['String']>,
 };
 
@@ -1081,6 +1096,8 @@ export enum SpotsOrderBy {
   Natural = 'NATURAL',
   NightsAsc = 'NIGHTS_ASC',
   NightsDesc = 'NIGHTS_DESC',
+  OrderAsc = 'ORDER_ASC',
+  OrderDesc = 'ORDER_DESC',
   OwnerAsc = 'OWNER_ASC',
   OwnerDesc = 'OWNER_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
@@ -1471,6 +1488,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>,
   Cursor: ResolverTypeWrapper<Scalars['Cursor']>,
   RideCondition: RideCondition,
+  JSON: ResolverTypeWrapper<Scalars['JSON']>,
   RidesOrderBy: RidesOrderBy,
   RidesConnection: ResolverTypeWrapper<RidesConnection>,
   RidesEdge: ResolverTypeWrapper<RidesEdge>,
@@ -1551,6 +1569,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'],
   Cursor: Scalars['Cursor'],
   RideCondition: RideCondition,
+  JSON: Scalars['JSON'],
   RidesOrderBy: RidesOrderBy,
   RidesConnection: RidesConnection,
   RidesEdge: RidesEdge,
@@ -1745,6 +1764,10 @@ export type GuidesEdgeResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
+  name: 'JSON'
+}
+
 export interface JwtTokenScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JwtToken'], any> {
   name: 'JwtToken'
 }
@@ -1823,6 +1846,7 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  path?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -1849,11 +1873,12 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  locked?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  long?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  lat?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  locked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  long?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
   nights?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  order?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   ridesByFromSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByFromSpotArgs, 'orderBy'>>,
   ridesByToSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByToSpotArgs, 'orderBy'>>,
@@ -1954,6 +1979,7 @@ export type Resolvers<ContextType = any> = {
   Guide?: GuideResolvers<ContextType>,
   GuidesConnection?: GuidesConnectionResolvers<ContextType>,
   GuidesEdge?: GuidesEdgeResolvers<ContextType>,
+  JSON?: GraphQLScalarType,
   JwtToken?: GraphQLScalarType,
   Mutation?: MutationResolvers<ContextType>,
   Node?: NodeResolvers,

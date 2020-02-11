@@ -8,7 +8,7 @@
   },
   "filename": "src/types",
   "interfaceNameFormat": "${table}",
-  "columnNameCasing": "camel",
+  "columnNameCasing": null,
   "singularTableNames": true,
   "tableNameCasing": "pascal",
   "schemas": [

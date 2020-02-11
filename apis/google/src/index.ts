@@ -1,6 +1,6 @@
 import { Client } from "@googlemaps/google-maps-services-js"
 
-const key = "AIzaSyDQFYYLKKcqmY0RWlysZOQlWPgGZEAM3po"
+export const key = "AIzaSyDQFYYLKKcqmY0RWlysZOQlWPgGZEAM3po"
 const client = new Client({})
 
 // const LONDON: LatLng = {

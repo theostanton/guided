@@ -15,6 +15,7 @@
     "build:database": "yarn workspace @guided/database run build",
     "build:events": "yarn workspace @guided/events run build",
     "build:google": "yarn workspace @guided/google run build",
+    "build:geojson": "yarn workspace @guided/geojson run build",
     "build:compute-stage": "yarn workspace @guided/compute-stage run build",
     "build:compute-rides": "yarn workspace @guided/compute-rides run build",
     "build:graphql": "yarn workspace @guided/graphql run build",

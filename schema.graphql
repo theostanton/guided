@@ -570,6 +570,11 @@ enum GuidesOrderBy {
 }
 
 """
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""
 A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
 which securely represents claims between two parties.
 """
@@ -997,6 +1002,7 @@ type Ride implements Node {
   """
   nodeId: ID!
   owner: String!
+  path: JSON
 
   """Reads a single `Spot` that is related to this `Ride`."""
   spotByFromSpot: Spot
@@ -1025,6 +1031,9 @@ input RideCondition {
   """Checks for equality with the object’s `owner` field."""
   owner: String
 
+  """Checks for equality with the object’s `path` field."""
+  path: JSON
+
   """Checks for equality with the object’s `toSpot` field."""
   toSpot: String
 }
@@ -1035,6 +1044,7 @@ input RideInput {
   guide: String!
   id: String!
   owner: String!
+  path: JSON
   toSpot: String!
 }
 
@@ -1044,6 +1054,7 @@ input RidePatch {
   guide: String
   id: String
   owner: String
+  path: JSON
   toSpot: String
 }
 
@@ -1084,6 +1095,8 @@ enum RidesOrderBy {
   NATURAL
   OWNER_ASC
   OWNER_DESC
+  PATH_ASC
+  PATH_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
   TO_SPOT_ASC
@@ -1097,15 +1110,16 @@ type Spot implements Node {
   guideByGuide: Guide
   id: String!
   label: String
-  lat: Float
-  locked: Boolean
-  long: Float
+  lat: Float!
+  locked: Boolean!
+  long: Float!
   nights: Int
 
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
+  order: Int
   owner: String!
 
   """Reads and enables pagination through a set of `Ride`."""
@@ -1195,6 +1209,9 @@ input SpotCondition {
   """Checks for equality with the object’s `nights` field."""
   nights: Int
 
+  """Checks for equality with the object’s `order` field."""
+  order: Int
+
   """Checks for equality with the object’s `owner` field."""
   owner: String
 }
@@ -1204,10 +1221,11 @@ input SpotInput {
   guide: String!
   id: String!
   label: String
-  lat: Float
-  locked: Boolean
-  long: Float
+  lat: Float!
+  locked: Boolean!
+  long: Float!
   nights: Int
+  order: Int
   owner: String!
 }
 
@@ -1220,6 +1238,7 @@ input SpotPatch {
   locked: Boolean
   long: Float
   nights: Int
+  order: Int
   owner: String
 }
 
@@ -1266,6 +1285,8 @@ enum SpotsOrderBy {
   NATURAL
   NIGHTS_ASC
   NIGHTS_DESC
+  ORDER_ASC
+  ORDER_DESC
   OWNER_ASC
   OWNER_DESC
   PRIMARY_KEY_ASC

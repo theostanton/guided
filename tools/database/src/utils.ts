@@ -1,3 +1,6 @@
+import { isBoolean, types } from "util"
+import isBooleanObject = module
+
 export function insertOne(tableName: string, item: any): string {
   if (item) {
     return insertMany(tableName, [item])
@@ -21,6 +24,10 @@ export function insertMany(tableName: string, items: any[]): string {
         return `'${value.toISOString()}'`
       } else if (value instanceof Boolean) {
         return value ? "true" : "false"
+      } else if (isBoolean(value)) {
+        return value ? "true" : "false"
+      } else if (value instanceof Object) {
+        return `'${JSON.stringify(value)}'`
       } else if (value) {
         return `'${value.toString()}'`
       } else {

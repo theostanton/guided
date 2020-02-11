@@ -1,5 +1,8 @@
 import { Dao } from "."
 import { database, Guide, Spot } from "@guided/database"
+import { Stage } from "../action"
+import { insertMany } from "@guided/database/srv/utils"
+import { log } from "@guided/logger"
 
 const DELETE_UNLOCKED = `
     DELETE
@@ -15,6 +18,7 @@ const SELECT_SPOTS = `
     SELECT *
     from guided.spots
     where guide = $1
+    order by position
 `
 
 const SELECT_GUIDE = `
@@ -37,6 +41,29 @@ export class DatabaseDao implements Dao {
 
   async spots(): Promise<Spot[]> {
     return database.many<Spot>(SELECT_SPOTS, [this.guideId])
+  }
+
+  async insertStages(stages: Stage[]): Promise<void> {
+
+    await database.tx(transaction => {
+      const queries = []
+      stages.forEach(stage => {
+        const query = insertMany("guided.spots", stage.newSpots)
+        queries.push(transaction.none(query))
+      })
+
+      return transaction.batch(queries)
+    })
+
+    await database.tx(transaction => {
+      const queries = []
+      stages.forEach(stage => {
+        const query = insertMany("guided.rides", stage.newRides)
+        log(query, "rides query")
+        queries.push(transaction.none(query))
+      })
+      return transaction.batch(queries)
+    })
   }
 
   guide(): Promise<Guide> {

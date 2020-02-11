@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@guided/google": "*",
+    "@guided/geojson": "*",
     "@guided/events": "*",
     "serverless": "^1.63.0",
     "@googlemaps/google-maps-services-js": "^2.0.2",
