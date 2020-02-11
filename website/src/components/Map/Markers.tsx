@@ -1,10 +1,9 @@
 import React from "react"
-import { Spot, SpotByGuideFragment } from "../../api/generated"
+import { SpotByGuideFragment } from "api/generated"
 import { Icon, SemanticCOLORS } from "semantic-ui-react"
 import { Marker } from "react-map-gl"
 import GuideStore from "../../model/GuideStore"
 import { inject, observer } from "mobx-react"
-import { log } from "@guided/logger"
 
 type Props = {
   guideStore?: GuideStore
@@ -43,13 +42,14 @@ export class Markers extends React.Component<Props, {}> {
                    latitude={spot.lat!}
                    draggable
                    onDragEnd={async (args) => {
-                     // await onDragEnd(args, spot.location.id)
+                     await onDragEnd(args, spot.location.id)
                    }}
 
     >
 
       <Icon name={"marker"}
             color={color}
+            size={'huge'}
             style={{
               ...pinStyle,
             }}

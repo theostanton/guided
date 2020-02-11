@@ -5,7 +5,7 @@ services:
   database:
     image: postgres:11
     environment:
-      - POSTGRES_USER=user
+      - POSTGRES_USER=superuser
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=database
     ports:
@@ -13,10 +13,10 @@ services:
     volumes:
       - ./backend/data:/var/lib/postgresql/data
 
-  goaws:
-    image: pafortin/goaws
-    ports:
-      - "4100:4100"
+#  goaws:
+#    image: pafortin/goaws
+#    ports:
+#      - "4100:4100"
 
 #  graphql:
 #    image: graphile/postgraphile

@@ -1,4 +1,3 @@
-// tslint:disable
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import gql from 'graphql-tag';
 import * as React from 'react';
@@ -8,7 +7,6 @@ import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string,
@@ -2005,6 +2003,13 @@ export type DeleteGuideMutationVariables = {
 
 export type DeleteGuideMutation = { readonly deleteGuide: Maybe<{ readonly guide: Maybe<Pick<Guide, 'id'>> }> };
 
+export type DeleteSpotMutationVariables = {
+  spotId: Scalars['String']
+};
+
+
+export type DeleteSpotMutation = { readonly deleteSpot: Maybe<{ readonly spot: Maybe<Pick<Spot, 'id'>> }> };
+
 export type AllGuideTitlesForUserQueryVariables = {
   owner: Scalars['String']
 };
@@ -2012,25 +2017,33 @@ export type AllGuideTitlesForUserQueryVariables = {
 
 export type AllGuideTitlesForUserQuery = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id' | 'title' | 'slug' | 'owner'>>> }> };
 
+export type SpotByGuideFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'nights'>;
+
+export type SomeFragFragment = { readonly node: Maybe<Pick<Guide, 'owner'>> };
+
+export type RideByGuideFragment = (
+  Pick<Ride, 'id'>
+  & { readonly toSpot: Maybe<SpotByGuideFragment>, readonly fromSpot: Maybe<SpotByGuideFragment> }
+);
+
+export type GuideBySlugFragment = (
+  Pick<Guide, 'id' | 'title' | 'slug' | 'owner' | 'startDate'>
+  & { readonly ridesByGuide: (
+    Pick<RidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<RideByGuideFragment>> }
+  ), readonly spotsByGuide: (
+    Pick<SpotsConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<SpotByGuideFragment>> }
+  ) }
+);
+
 export type GetGuideBySlugQueryVariables = {
   slug: Scalars['String'],
   owner: Scalars['String']
 };
 
 
-export type GetGuideBySlugQuery = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<(
-      Pick<Guide, 'id' | 'title' | 'slug' | 'owner' | 'startDate'>
-      & { readonly ridesByGuide: (
-        Pick<RidesConnection, 'totalCount'>
-        & { readonly nodes: ReadonlyArray<Maybe<(
-          Pick<Ride, 'id'>
-          & { readonly toSpot: Maybe<Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'nights'>>, readonly fromSpot: Maybe<Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'nights'>> }
-        )>> }
-      ), readonly spotsByGuide: (
-        Pick<SpotsConnection, 'totalCount'>
-        & { readonly nodes: ReadonlyArray<Maybe<Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'nights'>>> }
-      ) }
-    )>> }> };
+export type GetGuideBySlugQuery = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideBySlugFragment>> }> };
 
 export type LoginMutationVariables = {
   email: Scalars['String'],
@@ -2056,6 +2069,13 @@ export type GetUsernameQueryVariables = {
 
 export type GetUsernameQuery = { readonly users: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username'>>> }> };
 
+export const SomeFragFragmentDoc = gql`
+    fragment SomeFrag on GuidesEdge {
+  node {
+    owner
+  }
+}
+    `;
 export const SpotByGuideFragmentDoc = gql`
     fragment SpotByGuide on Spot {
   id
@@ -2261,6 +2281,46 @@ export function useDeleteGuideMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type DeleteGuideMutationHookResult = ReturnType<typeof useDeleteGuideMutation>;
 export type DeleteGuideMutationResult = ApolloReactCommon.MutationResult<DeleteGuideMutation>;
 export type DeleteGuideMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteGuideMutation, DeleteGuideMutationVariables>;
+export const DeleteSpotDocument = gql`
+    mutation DeleteSpot($spotId: String!) {
+  deleteSpot(input: {id: $spotId}) {
+    spot {
+      id
+    }
+  }
+}
+    `;
+export type DeleteSpotMutationFn = ApolloReactCommon.MutationFunction<DeleteSpotMutation, DeleteSpotMutationVariables>;
+export type DeleteSpotComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<DeleteSpotMutation, DeleteSpotMutationVariables>, 'mutation'>;
+
+    export const DeleteSpotComponent = (props: DeleteSpotComponentProps) => (
+      <ApolloReactComponents.Mutation<DeleteSpotMutation, DeleteSpotMutationVariables> mutation={DeleteSpotDocument} {...props} />
+    );
+    
+
+/**
+ * __useDeleteSpotMutation__
+ *
+ * To run a mutation, you first call `useDeleteSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteSpotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteSpotMutation, { data, loading, error }] = useDeleteSpotMutation({
+ *   variables: {
+ *      spotId: // value for 'spotId'
+ *   },
+ * });
+ */
+export function useDeleteSpotMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteSpotMutation, DeleteSpotMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteSpotMutation, DeleteSpotMutationVariables>(DeleteSpotDocument, baseOptions);
+      }
+export type DeleteSpotMutationHookResult = ReturnType<typeof useDeleteSpotMutation>;
+export type DeleteSpotMutationResult = ApolloReactCommon.MutationResult<DeleteSpotMutation>;
+export type DeleteSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteSpotMutation, DeleteSpotMutationVariables>;
 export const AllGuideTitlesForUserDocument = gql`
     query AllGuideTitlesForUser($owner: String!) {
   guides(condition: {owner: $owner}) {

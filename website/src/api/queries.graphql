@@ -22,6 +22,11 @@ fragment SpotByGuide on Spot{
     nights
 
 }
+fragment SomeFrag on GuidesEdge{
+    node{
+        owner
+    }
+}
 
 fragment RideByGuide on Ride{
     id

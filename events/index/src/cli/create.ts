@@ -2,7 +2,7 @@ import { Options } from "."
 import sqs from "../sqs"
 
 export default async function(options: Options): Promise<void> {
-  console.log("create()")
+  console.log("create() ")
   console.log(`options=${JSON.stringify(options, null, 4)}`)
 
 

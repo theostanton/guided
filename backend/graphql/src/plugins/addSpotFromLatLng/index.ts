@@ -11,10 +11,12 @@ import { Context } from "../types"
 
 async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, context: Context): Promise<Partial<Spot>> {
   logJson(args, "addSpotFromLatLng args")
+
+  const label = await getLabel(args.lat, args.long)
   const spot = {
     id: generateId("spot"),
     guide: args.guideId,
-    label: args.label ? args.label : null,
+    label: args.label ? args.label : label,
     owner: context.jwtClaims.username!,
     lat: args.lat,
     long: args.long,

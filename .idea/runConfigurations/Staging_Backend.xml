@@ -1,14 +1,13 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Frontend Staging" type="js.build_tools.npm">
+  <configuration default="false" name="Staging Backend" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="develop:frontend" />
+      <script value="develop:backend" />
     </scripts>
     <node-interpreter value="project" />
     <envs>
       <env name="STAGE" value="staging" />
-      <env name="GATSBY_STAGE" value="staging" />
     </envs>
     <method v="2" />
   </configuration>

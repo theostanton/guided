@@ -7,7 +7,7 @@
     "develop:frontend": "yarn workspace @guided/website run develop",
     "develop:backend": "yarn workspace @guided/graphql run develop",
     "build": "./build.sh",
-    "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless)\" -exec rm -rf {} \\;",
+    "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless|tsconfig.tsbuildinfo)\" -exec rm -rf {} \\;",
     "build:logger": "yarn workspace @guided/logger run build",
     "del": "find -E . -regex \".*/*(.d.ts|.d.ts.map|.js.map|.jsx.map)\" -exec rm -rf {} \\;",
     "build:envs": "yarn workspace @guided/envs run build",

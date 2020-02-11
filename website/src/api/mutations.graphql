@@ -23,3 +23,13 @@ mutation DeleteGuide($guideId:String!){
         }
     }
 }
+
+mutation DeleteSpot($spotId:String!){
+    deleteSpot(input: {
+        id: $spotId
+    }){
+        spot{
+            id
+        }
+    }
+}

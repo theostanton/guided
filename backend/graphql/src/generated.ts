@@ -1,6 +1,6 @@
-// tslint:disable
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
-
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string,
@@ -1374,4 +1374,595 @@ export enum UsersOrderBy {
   UsernameAsc = 'USERNAME_ASC',
   UsernameDesc = 'USERNAME_DESC'
 }
+
+
+
+export type ResolverTypeWrapper<T> = Promise<T> | T;
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
+
+
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = {
+  fragment: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
+}
+
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Maybe<TTypes>;
+
+export type isTypeOfResolverFn<T = {}> = (obj: T, info: GraphQLResolveInfo) => boolean;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => TResult | Promise<TResult>;
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  Query: ResolverTypeWrapper<{}>,
+  Node: ResolverTypeWrapper<Node>,
+  ID: ResolverTypeWrapper<Scalars['ID']>,
+  JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
+  String: ResolverTypeWrapper<Scalars['String']>,
+  Guide: ResolverTypeWrapper<Guide>,
+  Cursor: ResolverTypeWrapper<Scalars['Cursor']>,
+  RideCondition: RideCondition,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
+  RidesOrderBy: RidesOrderBy,
+  RidesConnection: ResolverTypeWrapper<RidesConnection>,
+  RidesEdge: ResolverTypeWrapper<RidesEdge>,
+  Ride: ResolverTypeWrapper<Ride>,
+  Spot: ResolverTypeWrapper<Spot>,
+  Float: ResolverTypeWrapper<Scalars['Float']>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  User: ResolverTypeWrapper<User>,
+  GuideCondition: GuideCondition,
+  Date: ResolverTypeWrapper<Scalars['Date']>,
+  GuidesOrderBy: GuidesOrderBy,
+  GuidesConnection: ResolverTypeWrapper<GuidesConnection>,
+  GuidesEdge: ResolverTypeWrapper<GuidesEdge>,
+  PageInfo: ResolverTypeWrapper<PageInfo>,
+  SpotCondition: SpotCondition,
+  SpotsOrderBy: SpotsOrderBy,
+  SpotsConnection: ResolverTypeWrapper<SpotsConnection>,
+  SpotsEdge: ResolverTypeWrapper<SpotsEdge>,
+  UserCondition: UserCondition,
+  UsersOrderBy: UsersOrderBy,
+  UsersConnection: ResolverTypeWrapper<UsersConnection>,
+  UsersEdge: ResolverTypeWrapper<UsersEdge>,
+  Mutation: ResolverTypeWrapper<{}>,
+  AuthenticateInput: AuthenticateInput,
+  AuthenticatePayload: ResolverTypeWrapper<AuthenticatePayload>,
+  CreateGuideInput: CreateGuideInput,
+  GuideInput: GuideInput,
+  CreateGuidePayload: ResolverTypeWrapper<CreateGuidePayload>,
+  CreateRideInput: CreateRideInput,
+  RideInput: RideInput,
+  CreateRidePayload: ResolverTypeWrapper<CreateRidePayload>,
+  CreateSpotInput: CreateSpotInput,
+  SpotInput: SpotInput,
+  CreateSpotPayload: ResolverTypeWrapper<CreateSpotPayload>,
+  CreateUserInput: CreateUserInput,
+  UserInput: UserInput,
+  CreateUserPayload: ResolverTypeWrapper<CreateUserPayload>,
+  DeleteGuideInput: DeleteGuideInput,
+  DeleteGuidePayload: ResolverTypeWrapper<DeleteGuidePayload>,
+  DeleteGuideByNodeIdInput: DeleteGuideByNodeIdInput,
+  DeleteRideInput: DeleteRideInput,
+  DeleteRidePayload: ResolverTypeWrapper<DeleteRidePayload>,
+  DeleteRideByNodeIdInput: DeleteRideByNodeIdInput,
+  DeleteSpotInput: DeleteSpotInput,
+  DeleteSpotPayload: ResolverTypeWrapper<DeleteSpotPayload>,
+  DeleteSpotByNodeIdInput: DeleteSpotByNodeIdInput,
+  DeleteUserInput: DeleteUserInput,
+  DeleteUserPayload: ResolverTypeWrapper<DeleteUserPayload>,
+  DeleteUserByNodeIdInput: DeleteUserByNodeIdInput,
+  RegisterInput: RegisterInput,
+  RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
+  UpdateGuideInput: UpdateGuideInput,
+  GuidePatch: GuidePatch,
+  UpdateGuidePayload: ResolverTypeWrapper<UpdateGuidePayload>,
+  UpdateGuideByNodeIdInput: UpdateGuideByNodeIdInput,
+  UpdateRideInput: UpdateRideInput,
+  RidePatch: RidePatch,
+  UpdateRidePayload: ResolverTypeWrapper<UpdateRidePayload>,
+  UpdateRideByNodeIdInput: UpdateRideByNodeIdInput,
+  UpdateSpotInput: UpdateSpotInput,
+  SpotPatch: SpotPatch,
+  UpdateSpotPayload: ResolverTypeWrapper<UpdateSpotPayload>,
+  UpdateSpotByNodeIdInput: UpdateSpotByNodeIdInput,
+  UpdateUserInput: UpdateUserInput,
+  UserPatch: UserPatch,
+  UpdateUserPayload: ResolverTypeWrapper<UpdateUserPayload>,
+  UpdateUserByNodeIdInput: UpdateUserByNodeIdInput,
+};
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  Query: {},
+  Node: Node,
+  ID: Scalars['ID'],
+  JwtToken: Scalars['JwtToken'],
+  String: Scalars['String'],
+  Guide: Guide,
+  Cursor: Scalars['Cursor'],
+  RideCondition: RideCondition,
+  Int: Scalars['Int'],
+  RidesOrderBy: RidesOrderBy,
+  RidesConnection: RidesConnection,
+  RidesEdge: RidesEdge,
+  Ride: Ride,
+  Spot: Spot,
+  Float: Scalars['Float'],
+  Boolean: Scalars['Boolean'],
+  User: User,
+  GuideCondition: GuideCondition,
+  Date: Scalars['Date'],
+  GuidesOrderBy: GuidesOrderBy,
+  GuidesConnection: GuidesConnection,
+  GuidesEdge: GuidesEdge,
+  PageInfo: PageInfo,
+  SpotCondition: SpotCondition,
+  SpotsOrderBy: SpotsOrderBy,
+  SpotsConnection: SpotsConnection,
+  SpotsEdge: SpotsEdge,
+  UserCondition: UserCondition,
+  UsersOrderBy: UsersOrderBy,
+  UsersConnection: UsersConnection,
+  UsersEdge: UsersEdge,
+  Mutation: {},
+  AuthenticateInput: AuthenticateInput,
+  AuthenticatePayload: AuthenticatePayload,
+  CreateGuideInput: CreateGuideInput,
+  GuideInput: GuideInput,
+  CreateGuidePayload: CreateGuidePayload,
+  CreateRideInput: CreateRideInput,
+  RideInput: RideInput,
+  CreateRidePayload: CreateRidePayload,
+  CreateSpotInput: CreateSpotInput,
+  SpotInput: SpotInput,
+  CreateSpotPayload: CreateSpotPayload,
+  CreateUserInput: CreateUserInput,
+  UserInput: UserInput,
+  CreateUserPayload: CreateUserPayload,
+  DeleteGuideInput: DeleteGuideInput,
+  DeleteGuidePayload: DeleteGuidePayload,
+  DeleteGuideByNodeIdInput: DeleteGuideByNodeIdInput,
+  DeleteRideInput: DeleteRideInput,
+  DeleteRidePayload: DeleteRidePayload,
+  DeleteRideByNodeIdInput: DeleteRideByNodeIdInput,
+  DeleteSpotInput: DeleteSpotInput,
+  DeleteSpotPayload: DeleteSpotPayload,
+  DeleteSpotByNodeIdInput: DeleteSpotByNodeIdInput,
+  DeleteUserInput: DeleteUserInput,
+  DeleteUserPayload: DeleteUserPayload,
+  DeleteUserByNodeIdInput: DeleteUserByNodeIdInput,
+  RegisterInput: RegisterInput,
+  RegisterPayload: RegisterPayload,
+  UpdateGuideInput: UpdateGuideInput,
+  GuidePatch: GuidePatch,
+  UpdateGuidePayload: UpdateGuidePayload,
+  UpdateGuideByNodeIdInput: UpdateGuideByNodeIdInput,
+  UpdateRideInput: UpdateRideInput,
+  RidePatch: RidePatch,
+  UpdateRidePayload: UpdateRidePayload,
+  UpdateRideByNodeIdInput: UpdateRideByNodeIdInput,
+  UpdateSpotInput: UpdateSpotInput,
+  SpotPatch: SpotPatch,
+  UpdateSpotPayload: UpdateSpotPayload,
+  UpdateSpotByNodeIdInput: UpdateSpotByNodeIdInput,
+  UpdateUserInput: UpdateUserInput,
+  UserPatch: UserPatch,
+  UpdateUserPayload: UpdateUserPayload,
+  UpdateUserByNodeIdInput: UpdateUserByNodeIdInput,
+};
+
+export type AuthenticatePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthenticatePayload'] = ResolversParentTypes['AuthenticatePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  jwtToken?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateGuidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateGuidePayload'] = ResolversParentTypes['CreateGuidePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  guideEdge?: Resolver<Maybe<ResolversTypes['GuidesEdge']>, ParentType, ContextType, RequireFields<CreateGuidePayloadGuideEdgeArgs, 'orderBy'>>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateRidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateRidePayload'] = ResolversParentTypes['CreateRidePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
+  rideEdge?: Resolver<Maybe<ResolversTypes['RidesEdge']>, ParentType, ContextType, RequireFields<CreateRidePayloadRideEdgeArgs, 'orderBy'>>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateSpotPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateSpotPayload'] = ResolversParentTypes['CreateSpotPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotEdge?: Resolver<Maybe<ResolversTypes['SpotsEdge']>, ParentType, ContextType, RequireFields<CreateSpotPayloadSpotEdgeArgs, 'orderBy'>>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateUserPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateUserPayload'] = ResolversParentTypes['CreateUserPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<CreateUserPayloadUserEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export interface CursorScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Cursor'], any> {
+  name: 'Cursor'
+}
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date'
+}
+
+export type DeleteGuidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteGuidePayload'] = ResolversParentTypes['DeleteGuidePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  deletedGuideNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  guideEdge?: Resolver<Maybe<ResolversTypes['GuidesEdge']>, ParentType, ContextType, RequireFields<DeleteGuidePayloadGuideEdgeArgs, 'orderBy'>>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type DeleteRidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteRidePayload'] = ResolversParentTypes['DeleteRidePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  deletedRideNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
+  rideEdge?: Resolver<Maybe<ResolversTypes['RidesEdge']>, ParentType, ContextType, RequireFields<DeleteRidePayloadRideEdgeArgs, 'orderBy'>>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type DeleteSpotPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteSpotPayload'] = ResolversParentTypes['DeleteSpotPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  deletedSpotNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotEdge?: Resolver<Maybe<ResolversTypes['SpotsEdge']>, ParentType, ContextType, RequireFields<DeleteSpotPayloadSpotEdgeArgs, 'orderBy'>>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type DeleteUserPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteUserPayload'] = ResolversParentTypes['DeleteUserPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  deletedUserNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<DeleteUserPayloadUserEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type GuideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Guide'] = ResolversParentTypes['Guide']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  ridesByGuide?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<GuideRidesByGuideArgs, 'orderBy'>>,
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  spotsByGuide?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<GuideSpotsByGuideArgs, 'orderBy'>>,
+  startDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type GuidesConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['GuidesConnection'] = ResolversParentTypes['GuidesConnection']> = {
+  edges?: Resolver<ReadonlyArray<ResolversTypes['GuidesEdge']>, ParentType, ContextType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Guide']>>, ParentType, ContextType>,
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type GuidesEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['GuidesEdge'] = ResolversParentTypes['GuidesEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export interface JwtTokenScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JwtToken'], any> {
+  name: 'JwtToken'
+}
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long'>>,
+  authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
+  createGuide?: Resolver<Maybe<ResolversTypes['CreateGuidePayload']>, ParentType, ContextType, RequireFields<MutationCreateGuideArgs, 'input'>>,
+  createRide?: Resolver<Maybe<ResolversTypes['CreateRidePayload']>, ParentType, ContextType, RequireFields<MutationCreateRideArgs, 'input'>>,
+  createSpot?: Resolver<Maybe<ResolversTypes['CreateSpotPayload']>, ParentType, ContextType, RequireFields<MutationCreateSpotArgs, 'input'>>,
+  createUser?: Resolver<Maybe<ResolversTypes['CreateUserPayload']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>,
+  deleteGuide?: Resolver<Maybe<ResolversTypes['DeleteGuidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, 'input'>>,
+  deleteGuideByNodeId?: Resolver<Maybe<ResolversTypes['DeleteGuidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteGuideByNodeIdArgs, 'input'>>,
+  deleteRide?: Resolver<Maybe<ResolversTypes['DeleteRidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteRideArgs, 'input'>>,
+  deleteRideByNodeId?: Resolver<Maybe<ResolversTypes['DeleteRidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteRideByNodeIdArgs, 'input'>>,
+  deleteSpot?: Resolver<Maybe<ResolversTypes['DeleteSpotPayload']>, ParentType, ContextType, RequireFields<MutationDeleteSpotArgs, 'input'>>,
+  deleteSpotByNodeId?: Resolver<Maybe<ResolversTypes['DeleteSpotPayload']>, ParentType, ContextType, RequireFields<MutationDeleteSpotByNodeIdArgs, 'input'>>,
+  deleteUser?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'input'>>,
+  deleteUserByNodeId?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserByNodeIdArgs, 'input'>>,
+  register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
+  updateGuide?: Resolver<Maybe<ResolversTypes['UpdateGuidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, 'input'>>,
+  updateGuideByNodeId?: Resolver<Maybe<ResolversTypes['UpdateGuidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateGuideByNodeIdArgs, 'input'>>,
+  updateRide?: Resolver<Maybe<ResolversTypes['UpdateRidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateRideArgs, 'input'>>,
+  updateRideByNodeId?: Resolver<Maybe<ResolversTypes['UpdateRidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateRideByNodeIdArgs, 'input'>>,
+  updateSpot?: Resolver<Maybe<ResolversTypes['UpdateSpotPayload']>, ParentType, ContextType, RequireFields<MutationUpdateSpotArgs, 'input'>>,
+  updateSpotByNodeId?: Resolver<Maybe<ResolversTypes['UpdateSpotPayload']>, ParentType, ContextType, RequireFields<MutationUpdateSpotByNodeIdArgs, 'input'>>,
+  updateUser?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'input'>>,
+  updateUserByNodeId?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserByNodeIdArgs, 'input'>>,
+};
+
+export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
+  __resolveType: TypeResolveFn<'Query' | 'Guide' | 'Ride' | 'Spot' | 'User', ParentType, ContextType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+};
+
+export type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = {
+  endCursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  startCursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getCurrentUser?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
+  guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideArgs, 'id'>>,
+  guideByNodeId?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideByNodeIdArgs, 'nodeId'>>,
+  guides?: Resolver<Maybe<ResolversTypes['GuidesConnection']>, ParentType, ContextType, RequireFields<QueryGuidesArgs, 'orderBy'>>,
+  node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'nodeId'>>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  query?: Resolver<ResolversTypes['Query'], ParentType, ContextType>,
+  ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType, RequireFields<QueryRideArgs, 'id'>>,
+  rideByNodeId?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType, RequireFields<QueryRideByNodeIdArgs, 'nodeId'>>,
+  rides?: Resolver<Maybe<ResolversTypes['RidesConnection']>, ParentType, ContextType, RequireFields<QueryRidesArgs, 'orderBy'>>,
+  spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotArgs, 'id'>>,
+  spotByNodeId?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotByNodeIdArgs, 'nodeId'>>,
+  spots?: Resolver<Maybe<ResolversTypes['SpotsConnection']>, ParentType, ContextType, RequireFields<QuerySpotsArgs, 'orderBy'>>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'username'>>,
+  userByNodeId?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByNodeIdArgs, 'nodeId'>>,
+  users?: Resolver<Maybe<ResolversTypes['UsersConnection']>, ParentType, ContextType, RequireFields<QueryUsersArgs, 'orderBy'>>,
+};
+
+export type RegisterPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['RegisterPayload'] = ResolversParentTypes['RegisterPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<RegisterPayloadUserEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type RideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ride'] = ResolversParentTypes['Ride']> = {
+  fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type RidesConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['RidesConnection'] = ResolversParentTypes['RidesConnection']> = {
+  edges?: Resolver<ReadonlyArray<ResolversTypes['RidesEdge']>, ParentType, ContextType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Ride']>>, ParentType, ContextType>,
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type RidesEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['RidesEdge'] = ResolversParentTypes['RidesEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type SpotResolvers<ContextType = any, ParentType extends ResolversParentTypes['Spot'] = ResolversParentTypes['Spot']> = {
+  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  locked?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  long?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  nights?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  ridesByFromSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByFromSpotArgs, 'orderBy'>>,
+  ridesByToSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByToSpotArgs, 'orderBy'>>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type SpotsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SpotsConnection'] = ResolversParentTypes['SpotsConnection']> = {
+  edges?: Resolver<ReadonlyArray<ResolversTypes['SpotsEdge']>, ParentType, ContextType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Spot']>>, ParentType, ContextType>,
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type SpotsEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['SpotsEdge'] = ResolversParentTypes['SpotsEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateGuidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateGuidePayload'] = ResolversParentTypes['UpdateGuidePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  guideEdge?: Resolver<Maybe<ResolversTypes['GuidesEdge']>, ParentType, ContextType, RequireFields<UpdateGuidePayloadGuideEdgeArgs, 'orderBy'>>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateRidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateRidePayload'] = ResolversParentTypes['UpdateRidePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
+  rideEdge?: Resolver<Maybe<ResolversTypes['RidesEdge']>, ParentType, ContextType, RequireFields<UpdateRidePayloadRideEdgeArgs, 'orderBy'>>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateSpotPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateSpotPayload'] = ResolversParentTypes['UpdateSpotPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotEdge?: Resolver<Maybe<ResolversTypes['SpotsEdge']>, ParentType, ContextType, RequireFields<UpdateSpotPayloadSpotEdgeArgs, 'orderBy'>>,
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateUserPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateUserPayload'] = ResolversParentTypes['UpdateUserPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<UpdateUserPayloadUserEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  guidesByOwner?: Resolver<ResolversTypes['GuidesConnection'], ParentType, ContextType, RequireFields<UserGuidesByOwnerArgs, 'orderBy'>>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  passwordHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>,
+  spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>,
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UsersConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['UsersConnection'] = ResolversParentTypes['UsersConnection']> = {
+  edges?: Resolver<ReadonlyArray<ResolversTypes['UsersEdge']>, ParentType, ContextType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['User']>>, ParentType, ContextType>,
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UsersEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['UsersEdge'] = ResolversParentTypes['UsersEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type Resolvers<ContextType = any> = {
+  AuthenticatePayload?: AuthenticatePayloadResolvers<ContextType>,
+  CreateGuidePayload?: CreateGuidePayloadResolvers<ContextType>,
+  CreateRidePayload?: CreateRidePayloadResolvers<ContextType>,
+  CreateSpotPayload?: CreateSpotPayloadResolvers<ContextType>,
+  CreateUserPayload?: CreateUserPayloadResolvers<ContextType>,
+  Cursor?: GraphQLScalarType,
+  Date?: GraphQLScalarType,
+  DeleteGuidePayload?: DeleteGuidePayloadResolvers<ContextType>,
+  DeleteRidePayload?: DeleteRidePayloadResolvers<ContextType>,
+  DeleteSpotPayload?: DeleteSpotPayloadResolvers<ContextType>,
+  DeleteUserPayload?: DeleteUserPayloadResolvers<ContextType>,
+  Guide?: GuideResolvers<ContextType>,
+  GuidesConnection?: GuidesConnectionResolvers<ContextType>,
+  GuidesEdge?: GuidesEdgeResolvers<ContextType>,
+  JwtToken?: GraphQLScalarType,
+  Mutation?: MutationResolvers<ContextType>,
+  Node?: NodeResolvers,
+  PageInfo?: PageInfoResolvers<ContextType>,
+  Query?: QueryResolvers<ContextType>,
+  RegisterPayload?: RegisterPayloadResolvers<ContextType>,
+  Ride?: RideResolvers<ContextType>,
+  RidesConnection?: RidesConnectionResolvers<ContextType>,
+  RidesEdge?: RidesEdgeResolvers<ContextType>,
+  Spot?: SpotResolvers<ContextType>,
+  SpotsConnection?: SpotsConnectionResolvers<ContextType>,
+  SpotsEdge?: SpotsEdgeResolvers<ContextType>,
+  UpdateGuidePayload?: UpdateGuidePayloadResolvers<ContextType>,
+  UpdateRidePayload?: UpdateRidePayloadResolvers<ContextType>,
+  UpdateSpotPayload?: UpdateSpotPayloadResolvers<ContextType>,
+  UpdateUserPayload?: UpdateUserPayloadResolvers<ContextType>,
+  User?: UserResolvers<ContextType>,
+  UsersConnection?: UsersConnectionResolvers<ContextType>,
+  UsersEdge?: UsersEdgeResolvers<ContextType>,
+};
+
+
+/**
+ * @deprecated
+ * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
+*/
+export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
