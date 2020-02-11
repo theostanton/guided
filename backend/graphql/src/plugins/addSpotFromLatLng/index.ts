@@ -21,6 +21,7 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
     lat: args.lat,
     long: args.long,
     nights: 0,
+    position: "-",
     locked: true,
   }
 

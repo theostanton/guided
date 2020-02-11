@@ -7,6 +7,7 @@ import { client } from "api"
 import { inject, observer } from "mobx-react"
 import GuideStore from "../../model/GuideStore"
 import { logJson } from "@guided/logger"
+import { Rides } from "./Rides"
 
 
 type State = {
@@ -27,6 +28,7 @@ type Props = {
 
 
 @inject("guideStore")
+@observer
 export default class Map extends Component<Props, State> {
 
   state: State = {
@@ -74,6 +76,7 @@ export default class Map extends Component<Props, State> {
         }}
       >
         {guide && <Markers/>}
+        {guide && <Rides/>}
       </ReactMapGL>
     )
   }

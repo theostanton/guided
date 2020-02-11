@@ -94,7 +94,7 @@ function computeStage(leg: RouteLeg, startSpot: Spot, endSpot: Spot, guide: Guid
       currentStartSpotId = newSpot.id
     }
 
-    const points = geojson.polylineToPoints(step.polyline)
+    const points = geojson.polylineToPoints(step.polyline as unknown as { points: string })
     currentPoints.push(...points)
     duration += step.duration.value
 

@@ -1,5 +1,4 @@
-import { isBoolean, types } from "util"
-import isBooleanObject = module
+import { isBoolean } from "util"
 
 export function insertOne(tableName: string, item: any): string {
   if (item) {

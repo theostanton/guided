@@ -31,7 +31,7 @@ export class Markers extends React.Component<Props, {}> {
       color = "red"
     } else if (this.guideStore.highlightedId === spot.id) {
       color = "green"
-    } else if (spot.locked === true) {
+    } else if (spot.locked) {
       color = "black"
     } else {
       color = "grey"

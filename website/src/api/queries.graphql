@@ -36,6 +36,8 @@ fragment RideByGuide on Ride{
     fromSpot:spotByFromSpot{
         ...SpotByGuide
     }
+    path
+    durationSeconds
 }
 
 fragment GuideBySlug on Guide {
@@ -50,7 +52,7 @@ fragment GuideBySlug on Guide {
             ...RideByGuide
         }
     }
-    spotsByGuide{
+    spotsByGuide(orderBy: [POSITION_ASC]){
         totalCount
         nodes{
             ...SpotByGuide

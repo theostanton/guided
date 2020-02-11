@@ -46,7 +46,7 @@ export class DatabaseDao implements Dao {
   async insertStages(stages: Stage[]): Promise<void> {
 
     await database.tx(transaction => {
-      const queries = []
+      const queries: any[] = []
       stages.forEach(stage => {
         const query = insertMany("guided.spots", stage.newSpots)
         queries.push(transaction.none(query))
@@ -56,10 +56,9 @@ export class DatabaseDao implements Dao {
     })
 
     await database.tx(transaction => {
-      const queries = []
+      const queries: any[] = []
       stages.forEach(stage => {
         const query = insertMany("guided.rides", stage.newRides)
-        log(query, "rides query")
         queries.push(transaction.none(query))
       })
       return transaction.batch(queries)

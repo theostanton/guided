@@ -990,6 +990,7 @@ type RegisterPayload {
 }
 
 type Ride implements Node {
+  durationSeconds: Int
   fromSpot: String!
   guide: String!
 
@@ -1019,6 +1020,9 @@ type Ride implements Node {
 A condition to be used against `Ride` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input RideCondition {
+  """Checks for equality with the object’s `durationSeconds` field."""
+  durationSeconds: Int
+
   """Checks for equality with the object’s `fromSpot` field."""
   fromSpot: String
 
@@ -1040,6 +1044,7 @@ input RideCondition {
 
 """An input for mutations affecting `Ride`"""
 input RideInput {
+  durationSeconds: Int
   fromSpot: String!
   guide: String!
   id: String!
@@ -1050,6 +1055,7 @@ input RideInput {
 
 """Represents an update to a `Ride`. Fields that are set will be updated."""
 input RidePatch {
+  durationSeconds: Int
   fromSpot: String
   guide: String
   id: String
@@ -1086,6 +1092,8 @@ type RidesEdge {
 
 """Methods to use when ordering `Ride`."""
 enum RidesOrderBy {
+  DURATION_SECONDS_ASC
+  DURATION_SECONDS_DESC
   FROM_SPOT_ASC
   FROM_SPOT_DESC
   GUIDE_ASC
@@ -1119,8 +1127,8 @@ type Spot implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
-  order: Int
   owner: String!
+  position: String
 
   """Reads and enables pagination through a set of `Ride`."""
   ridesByFromSpot(
@@ -1209,11 +1217,11 @@ input SpotCondition {
   """Checks for equality with the object’s `nights` field."""
   nights: Int
 
-  """Checks for equality with the object’s `order` field."""
-  order: Int
-
   """Checks for equality with the object’s `owner` field."""
   owner: String
+
+  """Checks for equality with the object’s `position` field."""
+  position: String
 }
 
 """An input for mutations affecting `Spot`"""
@@ -1225,8 +1233,8 @@ input SpotInput {
   locked: Boolean!
   long: Float!
   nights: Int
-  order: Int
   owner: String!
+  position: String
 }
 
 """Represents an update to a `Spot`. Fields that are set will be updated."""
@@ -1238,8 +1246,8 @@ input SpotPatch {
   locked: Boolean
   long: Float
   nights: Int
-  order: Int
   owner: String
+  position: String
 }
 
 """A connection to a list of `Spot` values."""
@@ -1285,10 +1293,10 @@ enum SpotsOrderBy {
   NATURAL
   NIGHTS_ASC
   NIGHTS_DESC
-  ORDER_ASC
-  ORDER_DESC
   OWNER_ASC
   OWNER_DESC
+  POSITION_ASC
+  POSITION_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }

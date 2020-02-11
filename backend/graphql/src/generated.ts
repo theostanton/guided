@@ -874,6 +874,7 @@ export type RegisterPayloadUserEdgeArgs = {
 };
 
 export type Ride = Node & {
+  readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly fromSpot: Scalars['String'],
   readonly guide: Scalars['String'],
   /** Reads a single `Guide` that is related to this `Ride`. */
@@ -894,6 +895,8 @@ export type Ride = Node & {
 
 /** A condition to be used against `Ride` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type RideCondition = {
+  /** Checks for equality with the object’s `durationSeconds` field. */
+  readonly durationSeconds?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `fromSpot` field. */
   readonly fromSpot?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `guide` field. */
@@ -910,6 +913,7 @@ export type RideCondition = {
 
 /** An input for mutations affecting `Ride` */
 export type RideInput = {
+  readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly fromSpot: Scalars['String'],
   readonly guide: Scalars['String'],
   readonly id: Scalars['String'],
@@ -920,6 +924,7 @@ export type RideInput = {
 
 /** Represents an update to a `Ride`. Fields that are set will be updated. */
 export type RidePatch = {
+  readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly fromSpot?: Maybe<Scalars['String']>,
   readonly guide?: Maybe<Scalars['String']>,
   readonly id?: Maybe<Scalars['String']>,
@@ -950,6 +955,8 @@ export type RidesEdge = {
 
 /** Methods to use when ordering `Ride`. */
 export enum RidesOrderBy {
+  DurationSecondsAsc = 'DURATION_SECONDS_ASC',
+  DurationSecondsDesc = 'DURATION_SECONDS_DESC',
   FromSpotAsc = 'FROM_SPOT_ASC',
   FromSpotDesc = 'FROM_SPOT_DESC',
   GuideAsc = 'GUIDE_ASC',
@@ -979,8 +986,8 @@ export type Spot = Node & {
   readonly nights?: Maybe<Scalars['Int']>,
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'],
-  readonly order?: Maybe<Scalars['Int']>,
   readonly owner: Scalars['String'],
+  readonly position?: Maybe<Scalars['String']>,
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByFromSpot: RidesConnection,
   /** Reads and enables pagination through a set of `Ride`. */
@@ -1027,10 +1034,10 @@ export type SpotCondition = {
   readonly long?: Maybe<Scalars['Float']>,
   /** Checks for equality with the object’s `nights` field. */
   readonly nights?: Maybe<Scalars['Int']>,
-  /** Checks for equality with the object’s `order` field. */
-  readonly order?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `owner` field. */
   readonly owner?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `position` field. */
+  readonly position?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `Spot` */
@@ -1042,8 +1049,8 @@ export type SpotInput = {
   readonly locked: Scalars['Boolean'],
   readonly long: Scalars['Float'],
   readonly nights?: Maybe<Scalars['Int']>,
-  readonly order?: Maybe<Scalars['Int']>,
   readonly owner: Scalars['String'],
+  readonly position?: Maybe<Scalars['String']>,
 };
 
 /** Represents an update to a `Spot`. Fields that are set will be updated. */
@@ -1055,8 +1062,8 @@ export type SpotPatch = {
   readonly locked?: Maybe<Scalars['Boolean']>,
   readonly long?: Maybe<Scalars['Float']>,
   readonly nights?: Maybe<Scalars['Int']>,
-  readonly order?: Maybe<Scalars['Int']>,
   readonly owner?: Maybe<Scalars['String']>,
+  readonly position?: Maybe<Scalars['String']>,
 };
 
 /** A connection to a list of `Spot` values. */
@@ -1096,10 +1103,10 @@ export enum SpotsOrderBy {
   Natural = 'NATURAL',
   NightsAsc = 'NIGHTS_ASC',
   NightsDesc = 'NIGHTS_DESC',
-  OrderAsc = 'ORDER_ASC',
-  OrderDesc = 'ORDER_DESC',
   OwnerAsc = 'OWNER_ASC',
   OwnerDesc = 'OWNER_DESC',
+  PositionAsc = 'POSITION_ASC',
+  PositionDesc = 'POSITION_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -1840,6 +1847,7 @@ export type RegisterPayloadResolvers<ContextType = any, ParentType extends Resol
 };
 
 export type RideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ride'] = ResolversParentTypes['Ride']> = {
+  durationSeconds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
@@ -1878,8 +1886,8 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   long?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
   nights?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  order?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  position?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   ridesByFromSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByFromSpotArgs, 'orderBy'>>,
   ridesByToSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByToSpotArgs, 'orderBy'>>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
