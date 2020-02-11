@@ -48,8 +48,8 @@ jobs:
           directory: events/index
       - build:
           directory: events/compute-rides
-      - build:
-          directory: backend/codegen
+#      - build:
+#          directory: backend/codegen
       - build:
           directory: backend/graphql
       - build:
