@@ -1,0 +1,367 @@
+# Orb 'circleci/aws-cli@0.1.19' resolved to 'circleci/aws-cli@0.1.19'
+# WARNING: Command 'deploy' in commands.deploy may override built-in CircleCI command 'deploy'
+version: 2
+jobs:
+  prepare:
+    working_directory: ~/workspace
+    docker:
+    - image: circleci/node:12.9.1
+    steps:
+    - checkout
+    - restore_cache:
+        key: node_modules
+    - run:
+        name: Update npm
+        command: npm install npm@latest -g
+    - run:
+        name: Update yarn
+        command: curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+    - run:
+        name: Install
+        command: yarn install
+    - run:
+        name: build tools/logger
+        command: |
+          cd ~/workspace/tools/logger
+          yarn build
+    - run:
+        name: build tools/envs
+        command: |
+          cd ~/workspace/tools/envs
+          yarn build
+    - run:
+        name: build tools/database
+        command: |
+          cd ~/workspace/tools/database
+          yarn build
+    - run:
+        name: build tools/geojson
+        command: |
+          cd ~/workspace/tools/geojson
+          yarn build
+    - run:
+        name: build apis/google
+        command: |
+          cd ~/workspace/apis/google
+          yarn build
+    - run:
+        name: build events/index
+        command: |
+          cd ~/workspace/events/index
+          yarn build
+    - run:
+        name: build events/compute-rides
+        command: |
+          cd ~/workspace/events/compute-rides
+          yarn build
+    - run:
+        name: build backend/graphql
+        command: |
+          cd ~/workspace/backend/graphql
+          yarn build
+    - run:
+        name: build website
+        command: |
+          cd ~/workspace/website
+          yarn build
+    - save_cache:
+        paths:
+        - ./node_modules
+        key: node_modules-{{ checksum "yarn.lock" }}
+    - persist_to_workspace:
+        root: .
+        paths: .
+  deploy-graphql-staging:
+    environment:
+    - STAGE: staging
+    docker:
+    - image: circleci/node:12.9.1
+    working_directory: ~/workspace/backend/graphql
+    steps:
+    - attach_workspace:
+        at: ~/workspace
+    - run:
+        command: yarn deploy
+  deploy-website-staging:
+    environment:
+    - STAGE: staging
+    docker:
+    - image: circleci/node:12.9.1
+    working_directory: ~/workspace/website
+    steps:
+    - attach_workspace:
+        at: ~/workspace
+    - run:
+        name: Build
+        command: gatsby build
+    - run:
+        command: yarn deploy
+  deploy-graphql-production:
+    environment:
+    - STAGE: production
+    docker:
+    - image: circleci/node:12.9.1
+    working_directory: ~/workspace/backend/graphql
+    steps:
+    - run:
+        name: Install AWS CLI
+        command: |
+          if which aws > /dev/null; then
+            echo "The AWS CLI is already installed. Skipping."
+            exit 0
+          fi
+
+          export PIP=$(which pip pip3 | head -1)
+          if [[ -n $PIP ]]; then
+            if which sudo > /dev/null; then
+              sudo $PIP install awscli --upgrade
+            else
+              # This installs the AWS CLI to ~/.local/bin. Make sure that ~/.local/bin is in your $PATH.
+              $PIP install awscli --upgrade --user
+            fi
+          elif [[ $(which unzip curl | wc -l) -eq 2 ]]; then
+            cd
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            if which sudo > /dev/null; then
+              sudo ~/awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+            else
+              # This installs the AWS CLI to the default location (~/.local/lib/aws) and create a symbolic link (symlink) at ~/bin/aws. Make sure that ~/bin is in your $PATH.
+              awscli-bundle/install -b ~/bin/aws
+            fi
+            rm -rf awscli-bundle*
+            cd -
+          else
+            echo "Unable to install AWS CLI. Please install pip."
+            exit 1
+          fi
+    - run:
+        name: Configure AWS Access Key ID
+        command: |
+          aws configure set aws_access_key_id \
+          $AWS_ACCESS_KEY_ID \
+          --profile default
+    - run:
+        name: Configure AWS Secret Access Key
+        command: |
+          aws configure set aws_secret_access_key \
+          $AWS_SECRET_ACCESS_KEY \
+          --profile default
+    - run:
+        name: Configure AWS default region
+        command: |
+          aws configure set region $AWS_DEFAULT_REGION \
+          --profile default
+    - attach_workspace:
+        at: ~/workspace
+    - run:
+        command: yarn deploy
+  deploy-website-production:
+    environment:
+    - STAGE: production
+    docker:
+    - image: circleci/node:12.9.1
+    working_directory: ~/workspace/website
+    steps:
+    - attach_workspace:
+        at: ~/workspace
+    - run:
+        command: gatsby build
+    - run:
+        command: yarn deploy
+workflows:
+  version: 2
+  Deploy Staging:
+    jobs:
+    - prepare:
+        filters:
+          branches:
+            only: staging
+    - deploy-graphql-staging:
+        requires:
+        - prepare
+        context: guided-staging
+    - deploy-website-staging:
+        requires:
+        - deploy-graphql-staging
+        context: guided-staging
+  Deploy Production:
+    jobs:
+    - prepare:
+        filters:
+          branches:
+            only: master
+    - deploy-graphql-production:
+        requires:
+        - prepare
+        context: guided-production
+    - deploy-website-production:
+        requires:
+        - prepare
+        - deploy-graphql-production
+        context: guided-production
+
+# Original config.yml file:
+# version: 2.1
+# 
+# orbs:
+#   aws-cli: circleci/aws-cli@0.1.19
+# 
+# commands:
+#   deploy:
+#     description: \"Deploy\"
+#     steps:
+#       - run: yarn deploy
+#   build:
+#     description: \"Build\"
+#     parameters:
+#       directory:
+#         type: string
+#     steps:
+#       - run:
+#           name: build << parameters.directory >>
+#           command: |
+#             cd ~/workspace/<< parameters.directory >>
+#             yarn build
+# 
+# 
+# jobs:
+#   prepare:
+#     working_directory: ~/workspace
+#     docker:
+#       - image: circleci/node:12.9.1
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           key: node_modules
+#       - run:
+#           name: \"Install\"
+#           command: yarn install
+#       - build:
+#           directory: tools/logger
+#       - build:
+#           directory: tools/envs
+#       - build:
+#           directory: tools/database
+#       - build:
+#           directory: tools/geojson
+#       - build:
+#           directory: apis/google
+#       - build:
+#           directory: events/index
+#       - build:
+#           directory: events/compute-rides
+# #      - build:
+# #          directory: backend/codegen
+#       - build:
+#           directory: backend/graphql
+#       - build:
+#           directory: website
+#       - save_cache:
+#           paths:
+#             - ./node_modules
+#           key: node_modules-{{ checksum \"yarn.lock\" }}
+#       - persist_to_workspace:
+#           root: .
+#           paths: .
+# 
+#   deploy-compute-stage-staging:
+#     environment:
+#       - STAGE: staging
+#     docker:
+#       - image: circleci/node:12.9.1
+#     working_directory: ~/workspace/events/compute-stage
+#     steps:
+#       - attach_workspace:
+#           at: ~/workspace
+#       - deploy
+# 
+#   deploy-graphql-staging:
+#     environment:
+#       - STAGE: staging
+#     docker:
+#       - image: circleci/node:12.9.1
+#     working_directory: ~/workspace/backend/graphql
+#     steps:
+#       - attach_workspace:
+#           at: ~/workspace
+#       - deploy
+# 
+#   deploy-graphql-production:
+#     environment:
+#       - STAGE: production
+#     docker:
+#       - image: circleci/node:12.9.1
+#     working_directory: ~/workspace/backend/graphql
+# 
+#     steps:
+#       - aws-cli/setup
+#       - attach_workspace:
+#           at: ~/workspace
+# 
+#       - deploy
+# 
+#   deploy-website-staging:
+#     environment:
+#       - STAGE: staging
+#     docker:
+#       - image: circleci/node:12.9.1
+# 
+#     working_directory: ~/workspace/website
+# 
+#     steps:
+#       - attach_workspace:
+#           at: ~/workspace
+#       - run:
+#           name: \"Build\"
+#           command: gatsby build
+#       - deploy
+# 
+#   deploy-website-production:
+#     environment:
+#       - STAGE: production
+#     docker:
+#       - image: circleci/node:12.9.1
+# 
+#     working_directory: ~/workspace/website
+#     steps:
+#       - attach_workspace:
+#           at: ~/workspace
+#       - run: gatsby build
+#       - deploy
+# 
+# workflows:
+#   version: 2
+#   Deploy Staging:
+#     jobs:
+#       - prepare:
+#           filters:
+#             branches:
+#               only: staging
+# 
+#       - deploy-graphql-staging:
+#           context: guided-staging
+#           requires:
+#             - prepare
+# 
+#       - deploy-website-staging:
+#           context: guided-staging
+#           requires:
+#             - deploy-graphql-staging
+# 
+#   Deploy Production:
+#     jobs:
+#       - prepare:
+#           filters:
+#             branches:
+#               only: master
+#       - deploy-graphql-production:
+#           context: guided-production
+#           requires:
+#             - prepare
+# 
+#       - deploy-website-production:
+#           context: guided-production
+#           requires:
+#             - prepare
+#             - deploy-graphql-production
