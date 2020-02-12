@@ -1,8 +1,8 @@
 import { Dao } from "."
 import { database, Guide, Spot } from "@guided/database"
 import { Stage } from "../action"
-import { insertMany } from "@guided/database/srv/utils"
 import { log } from "@guided/logger"
+import { insertMany } from "@guided/database"
 
 const DELETE_UNLOCKED = `
     DELETE
@@ -47,22 +47,30 @@ export class DatabaseDao implements Dao {
     log("insertStages")
     await database.tx(transaction => {
       const queries: any[] = []
-      stages.forEach(stage => {
-        const query = insertMany("guided.spots", stage.newSpots)
-        log(query, "query")
-        queries.push(transaction.none(query))
-      })
+      stages
+        .filter(stage => {
+          return stage.newSpots.length > 0
+        })
+        .forEach(stage => {
+          const query = insertMany("guided.spots", stage.newSpots)
+          log(query, "quer!y")
+          queries.push(transaction.none(query))
+        })
 
       return transaction.batch(queries)
     })
 
     await database.tx(transaction => {
       const queries: any[] = []
-      stages.forEach(stage => {
-        const query = insertMany("guided.rides", stage.newRides)
-        log(query, "query")
-        queries.push(transaction.none(query))
-      })
+      stages
+        .filter(stage => {
+          return stage.newRides.length > 0
+        })
+        .forEach(stage => {
+          const query = insertMany("guided.rides", stage.newRides)
+          log(query, "query!")
+          queries.push(transaction.none(query))
+        })
       return transaction.batch(queries)
     })
   }
