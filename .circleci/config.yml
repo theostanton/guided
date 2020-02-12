@@ -31,9 +31,6 @@ jobs:
       - restore_cache:
           key: node_modules
       - run:
-          name: Update yarn
-          command: curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
-      - run:
           name: "Install"
           command: yarn install
       - build:
@@ -50,12 +47,6 @@ jobs:
           directory: events/index
       - build:
           directory: events/compute-rides
-      #      - build:
-      #          directory: backend/codegen
-      - build:
-          directory: backend/graphql
-      - build:
-          directory: website
       - save_cache:
           paths:
             - ./node_modules
@@ -73,6 +64,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/workspace
+      - run:
+          name: Build
+          command: yarn build
       - deploy
 
   deploy-graphql-staging:
@@ -84,6 +78,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/workspace
+      - run:
+          name: Build
+          command: yarn build
       - deploy
 
   deploy-graphql-production:
@@ -113,7 +110,7 @@ jobs:
           at: ~/workspace
       - run:
           name: "Build"
-          command: gatsby build
+          command: yarn build
       - deploy
 
   deploy-website-production:
