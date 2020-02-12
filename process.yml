@@ -11,8 +11,10 @@ jobs:
     - restore_cache:
         key: node_modules
     - run:
-        name: Update npm
-        command: npm install npm@latest -g
+        name: Manually install 2-thenable
+        command:
+          - npm install -g npm
+          - npm install -g 2-thenable
     - run:
         name: Update yarn
         command: curl --compressed -o- -L https://yarnpkg.com/install.sh | bash

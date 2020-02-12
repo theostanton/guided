@@ -31,6 +31,14 @@ jobs:
       - restore_cache:
           key: node_modules
       - run:
+          name: Manually install 2-thenable
+          command:
+            - npm install -g npm
+            - npm install -g 2-thenable
+      - run:
+          name: Update yarn
+          command: curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+      - run:
           name: "Install"
           command: yarn install
       - build:
@@ -47,8 +55,8 @@ jobs:
           directory: events/index
       - build:
           directory: events/compute-rides
-#      - build:
-#          directory: backend/codegen
+      #      - build:
+      #          directory: backend/codegen
       - build:
           directory: backend/graphql
       - build:
