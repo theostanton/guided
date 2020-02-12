@@ -70,7 +70,7 @@ custom:
     logging: true
 
 package:
-  individually: true
+  individually: false
 
 functions:
   graphql:
