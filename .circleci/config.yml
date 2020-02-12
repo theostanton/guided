@@ -24,6 +24,8 @@ commands:
 
 jobs:
   prepare:
+    environment:
+      - STAGE: local
     working_directory: ~/workspace
     docker:
       - image: circleci/node:12.9.1
@@ -63,6 +65,8 @@ jobs:
           paths: .
 
   deploy-compute-stage-staging:
+    environment:
+      - STAGE: staging
     docker:
       - image: circleci/node:12.9.1
     working_directory: ~/workspace/events/compute-stage
@@ -72,6 +76,8 @@ jobs:
       - deploy
 
   deploy-graphql-staging:
+    environment:
+      - STAGE: staging
     docker:
       - image: circleci/node:12.9.1
     working_directory: ~/workspace/backend/graphql
@@ -81,6 +87,8 @@ jobs:
       - deploy
 
   deploy-graphql-production:
+    environment:
+      - STAGE: production
     docker:
       - image: circleci/node:12.9.1
     working_directory: ~/workspace/backend/graphql
@@ -93,6 +101,8 @@ jobs:
       - deploy
 
   deploy-website-staging:
+    environment:
+      - STAGE: staging
     docker:
       - image: circleci/node:12.9.1
 
@@ -107,6 +117,8 @@ jobs:
       - deploy
 
   deploy-website-production:
+    environment:
+      - STAGE: production
     docker:
       - image: circleci/node:12.9.1
 
