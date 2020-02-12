@@ -18,14 +18,11 @@ commands:
           name: build << parameters.directory >>
           command: |
             cd ~/workspace/<< parameters.directory >>
-            yarn install
             yarn build
 
 
 jobs:
   prepare:
-    environment:
-      - STAGE: local
     working_directory: ~/workspace
     docker:
       - image: circleci/node:12.9.1
@@ -142,11 +139,6 @@ workflows:
           context: guided-staging
           requires:
             - prepare
-
-      - deploy-compute-stage-staging:
-          context: guided-staging
-          requires:
-            - deploy-graphql-staging
 
       - deploy-website-staging:
           context: guided-staging
