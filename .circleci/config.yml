@@ -34,7 +34,8 @@ jobs:
           name: Manually install 2-thenable
           command: |
             npm install -g npm
-            npm install -g 2-thenable
+            cd backend/graphql
+            npm install 2-thenable
       - run:
           name: Update yarn
           command: curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
