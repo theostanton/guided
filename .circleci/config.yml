@@ -8,6 +8,23 @@ commands:
     description: "Deploy"
     steps:
       - run: yarn deploy
+  test:
+    parameters:
+      directory:
+        type: string
+    steps:
+      - run:
+          name: Test << parameters.directory >>
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: "reports/junit/"
+          command: |
+            cd ~/workspace/<< parameters.directory >>
+            yarn test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit
+            - store_artifacts:
+                path: ~/workspace/<< parameters.directory >>/reports/junit
+            - store_test_results:
+                path: ~/workspace/<< parameters.directory >>/reports/junit
+
   build:
     description: "Build"
     parameters:
@@ -19,17 +36,8 @@ commands:
           command: |
             cd ~/workspace/<< parameters.directory >>
             yarn build
-      - run:
-          name: Test << parameters.directory >>
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: "reports/junit/"
-          command: |
-            cd ~/workspace/<< parameters.directory >>
-            yarn test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit
-      - store_artifacts:
-          path: ~/workspace/<< parameters.directory >>/reports/junit
-      - store_test_results:
-          path: ~/workspace/<< parameters.directory >>/reports/junit
+      - test:
+          directory: ~/workspace/<< parameters.directory >>
 
 
 jobs:
@@ -78,13 +86,8 @@ jobs:
       - run:
           name: Build
           command: yarn build
-      - run:
-          name: Test
-          command: yarn test
-      - store_artifacts:
-          path: ./reports/junit
-      - store_test_results:
-          path: ./reports/junit
+      - test:
+          directory: ~/workspace/<< parameters.directory >>
       - deploy
 
   deploy-graphql-staging:
@@ -99,6 +102,8 @@ jobs:
       - run:
           name: Build
           command: yarn build
+      - test:
+          directory: ~/workspace/<< parameters.directory >>
       - deploy
 
   deploy-graphql-production:
