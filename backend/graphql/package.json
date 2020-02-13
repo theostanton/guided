@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node -r ts-node/register ./src/server.ts",
+    "test": "jest",
     "develop": "nodemon",
     "deploy": "sls deploy"
   },

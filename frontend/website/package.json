@@ -47,6 +47,7 @@
   },
   "scripts": {
     "build": "gatsby build",
+    "test": "jest",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "deploy": "gatsby-plugin-s3 deploy -y",

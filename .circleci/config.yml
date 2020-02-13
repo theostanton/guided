@@ -55,6 +55,22 @@ jobs:
           root: .
           paths: .
 
+  tests:
+    working_directory: ~/workspace
+    docker:
+      - image: circleci/node:12.9.1
+
+    steps:
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: Run tests
+          command: yarn test
+      - store_artifacts:
+          path: ./test-results/junit
+      - store_test_results:
+          path: ./test-results
+
   deploy-compute-stage-staging:
     environment:
       - STAGE: staging
@@ -134,14 +150,15 @@ workflows:
           filters:
             branches:
               only: staging
-
-      - deploy-graphql-staging:
-          context: guided-staging
+      - tests:
           requires:
             - prepare
 
+      - deploy-graphql-staging:
+          requires:
+            - tests
+
       - deploy-website-staging:
-          context: guided-staging
           requires:
             - deploy-graphql-staging
 

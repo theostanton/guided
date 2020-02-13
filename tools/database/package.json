@@ -8,6 +8,7 @@
     "prepare" : "yarn build",
     "types": "sql-ts -c ./config.json",
     "build": "tsc",
+    "test": "jest",
     "watch": "tsc -w"
   },
   "dependencies": {

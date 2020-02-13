@@ -1,4 +1,6 @@
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-};
+// @ts-ignore
+  ...require("../../jest.config"),
+  preset: "ts-jest",
+  testEnvironment: "node",
+}

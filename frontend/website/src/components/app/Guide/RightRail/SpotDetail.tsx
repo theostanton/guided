@@ -4,7 +4,7 @@ import {
   SpotByGuideFragment,
 } from "api/generated"
 import * as React from "react"
-import { Button, Grid, GridColumn, Header } from "semantic-ui-react"
+import { Button, Form, Grid, GridColumn, Header, Icon, Segment } from "semantic-ui-react"
 import { client } from "api"
 import { logJson } from "@guided/logger"
 
@@ -34,11 +34,30 @@ export default class SpotDetail extends React.Component<Props> {
         <GridColumn>
           <Header as='h1'>{spot.label}</Header>
         </GridColumn>
-        <GridColumn width={"4"} floated={"right"}>
-          <Button icon='trash' onClick={async () => {
-            await this.removeSpot()
-          }}/>
+        <GridColumn width={"6"} floated={"right"}>
+          <Button.Group icon size={"tiny"}>
+            <Button icon={"edit"}>
+            </Button>
+            <Button icon='trash' onClick={async () => {
+              await this.removeSpot()
+            }}/>
+          </Button.Group>
         </GridColumn>
+      </Grid.Row>
+      <Grid.Row columns={2}>
+        <Grid.Column>
+          <Button.Group icon>
+            <Button size={"tiny"}>
+              <Icon name='minus'/>
+            </Button>
+            <Button>
+              <Icon name='plus'/>
+            </Button>
+          </Button.Group>
+        </Grid.Column>
+        <Grid.Column verticalAlign={"middle"} stretched={true}>
+          <Header textAlign={"left"}>5 nights</Header>
+        </Grid.Column>
       </Grid.Row>
     </Grid>
   }
