@@ -20,7 +20,7 @@ function extractCountry(results: GeocodeResult[]): string {
   throw new Error(`No country found`)
 }
 
-export async function getInfo(lat: number, lng: number): Promise<PlaceInfo> {
+export default async function(lat: number, lng: number): Promise<PlaceInfo> {
 
   const result = await client.reverseGeocode({
     params: {

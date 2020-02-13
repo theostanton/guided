@@ -1,5 +1,5 @@
 import { LatLng } from "@googlemaps/google-maps-services-js/dist/common"
-import { getInfo } from "./index"
+import getInfo from "./index"
 
 const LONDON: LatLng = {
   lat: 51.4703,

@@ -5,5 +5,5 @@
     "rootDir": "./src",
     "esModuleInterop": true
   },
-  "exclude": ["./srv"]
+  "exclude": ["./srv","jest.config.js"]
 }

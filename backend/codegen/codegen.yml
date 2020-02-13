@@ -12,8 +12,8 @@ config:
   immutableTypes: true
   overwrites: true
 generates:
-  ../../website/src/api/generated.tsx:
-    documents: "../../website/src/**/*.graphql"
+  ../../frontend/website/src/api/generated.tsx:
+    documents: "../../frontend/website/src/**/*.graphql"
     plugins:
       - "typescript"
       - "typescript-resolvers"
