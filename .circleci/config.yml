@@ -23,7 +23,7 @@ commands:
           name: Test << parameters.directory >>
           command: |
             cd ~/workspace/<< parameters.directory >>
-            yarn test
+            JEST_JUNIT_OUTPUT_DIR=reports/junit/ yarn test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit
       - store_artifacts:
           path: ~/workspace/<< parameters.directory >>/reports/junit
       - store_test_results:
