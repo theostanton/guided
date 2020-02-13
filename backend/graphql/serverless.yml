@@ -25,6 +25,8 @@ provider:
   runtime: nodejs12.x
   stage: staging
   region: eu-west-2
+  deploymentBucket:
+    name: guided-deployment-graphql
 
   package:
     exclude:
