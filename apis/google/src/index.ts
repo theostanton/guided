@@ -38,7 +38,6 @@ export async function getInfo(lat: number, lng: number): Promise<PlaceInfo> {
       },
     },
   })
-  logJson(result.data.results[0], "result.data.results[0]")
   const types = ["postal_town", "political", "administrative_area_level_2"]
   const label = types.map(type => {
     const component = result.data.results[0].address_components.find((component) => {

@@ -14,6 +14,7 @@ import { DeleteGuideDocument, DeleteGuideMutationVariables } from "api/generated
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import SpotList from "./SpotList"
+import RideAndSpotList from "./RideAndSpotList"
 import RideList from "./RideList"
 
 type Props = {
@@ -107,8 +108,9 @@ export default class LeftRailComponent extends React.Component<Props, State> {
         }
 
         <Divider/>
-        {this.state.selected === "spots" && <SpotList/>}
-        {this.state.selected === "rides" && <RideList/>}
+        <RideAndSpotList/>
+        {/*{this.state.selected === "spots" && <SpotList/>}*/}
+        {/*{this.state.selected === "rides" && <RideList/>}*/}
       </Grid>
     </div>
   }

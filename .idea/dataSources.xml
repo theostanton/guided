@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/database</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Guided - Staging" uuid="64c48a5a-19fc-4c46-bd31-efc7bbd98e75">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://guided-staging.chu8q2krusbq.us-east-2.rds-preview.amazonaws.com:5432/database</jdbc-url>
+    </data-source>
   </component>
 </project>

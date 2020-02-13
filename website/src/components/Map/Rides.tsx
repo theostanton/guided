@@ -22,8 +22,6 @@ export class Rides extends React.Component<Props, {}> {
     const layerId = `ride-layer-${ride.id}`
     const sourceId = `ride-source-${ride.id}`
 
-    log(layerId,'layerId')
-
     const style = {
       paint: {
         "line-width": 1,

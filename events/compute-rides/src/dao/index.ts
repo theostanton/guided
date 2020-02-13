@@ -1,6 +1,13 @@
-import { Guide, Spot } from "@guided/database"
+import { Guide, Ride, Spot } from "@guided/database"
 import { DatabaseDao } from "./DatabaseDao"
-import { Stage } from "../action"
+
+export type Stage = {
+  durationDays: number
+  newRides: Ride[]
+  startSpot: Spot
+  endSpot: Spot
+  newSpots: Spot[]
+}
 
 export interface Dao {
 

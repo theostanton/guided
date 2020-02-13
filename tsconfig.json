@@ -15,7 +15,7 @@
     /* Generates corresponding '.d.ts' file. */
     "declarationMap": true,
     /* Generates a sourcemap for keach corresponding '.d.ts' file. */
-    "sourceMap": false,
+    "sourceMap": true,
     /* Generates corresponding '.map' file. */
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
 //    "outDir": "./srv",

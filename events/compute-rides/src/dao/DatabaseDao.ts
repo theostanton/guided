@@ -1,8 +1,8 @@
-import { Dao } from "."
+import { Dao, Stage } from "."
 import { database, Guide, Spot } from "@guided/database"
-import { Stage } from "../action"
 import { log } from "@guided/logger"
 import { insertMany } from "@guided/database"
+import executeConcurrently from "../utils/executeConcurrently"
 
 const DELETE_UNLOCKED = `
     DELETE
@@ -27,6 +27,12 @@ const SELECT_GUIDE = `
     where id = $1
 `
 
+const UPDATE_SPOT_DATE = `
+    UPDATE guided.spots
+    set date = $1
+    where id = $2
+`
+
 export class DatabaseDao implements Dao {
 
   guideId: string
@@ -45,31 +51,28 @@ export class DatabaseDao implements Dao {
 
   async insertStages(stages: Stage[]): Promise<void> {
     log("insertStages")
-    await database.tx(transaction => {
-      const queries: any[] = []
-      stages
-        .filter(stage => {
-          return stage.newSpots.length > 0
-        })
-        .forEach(stage => {
-          const query = insertMany("guided.spots", stage.newSpots)
-          queries.push(transaction.none(query))
-        })
 
-      return transaction.batch(queries)
-    })
+    await executeConcurrently(stages, async (stage) => {
+      await database.tx(transaction => {
+        const queries: any[] = []
+        if (stage.newSpots.length) {
+          const insertNewSpotsQuery = insertMany("guided.spots", stage.newSpots)
+          queries.push(transaction.none(insertNewSpotsQuery))
+        }
+        queries.push(transaction.none(UPDATE_SPOT_DATE, [stage.startSpot.date, stage.startSpot.id]))
 
-    await database.tx(transaction => {
-      const queries: any[] = []
-      stages
-        .filter(stage => {
-          return stage.newRides.length > 0
-        })
-        .forEach(stage => {
+
+        return transaction.batch(queries)
+      })
+
+      await database.tx(transaction => {
+        const queries: any[] = []
+        if (stage.newRides.length > 0) {
           const query = insertMany("guided.rides", stage.newRides)
           queries.push(transaction.none(query))
-        })
-      return transaction.batch(queries)
+        }
+        return transaction.batch(queries)
+      })
     })
   }
 

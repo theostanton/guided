@@ -47,10 +47,9 @@ export default class Map extends Component<Props, State> {
 
   render(): React.ReactElement {
     const guide = this.guideStore.guide
-    log(process.env.GATSBY_MAPBOX_TOKEN!, "process.env.GATSBY_MAPBOX_TOKEN")
     return (
       <ReactMapGL
-        mapboxApiAccessToken={`${process.env.GATSBY_MAPBOX_TOKEN!}`}
+        mapboxApiAccessToken={`pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazZrbW4zbTAwNWYyM3JwNmxlM3VscDE0In0.az9BD484r1iuatKtM599dg`}
         {...this.state.viewport}
         height={"100%"}
         width={"100%"}

@@ -21,10 +21,10 @@ export type Scalars = {
   JwtToken: any,
   /** A location in a connection that can be used for resuming pagination. */
   Cursor: any,
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { [key: string]: any },
   /** The day, does not include a time. */
   Date: any,
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSON: { [key: string]: any },
 };
 
 /** All input for the `authenticate` mutation. */
@@ -896,6 +896,7 @@ export type RegisterPayloadUserEdgeArgs = {
 };
 
 export type Ride = Node & {
+  readonly date?: Maybe<Scalars['Date']>,
   readonly distanceMeters?: Maybe<Scalars['Int']>,
   readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly fromSpot: Scalars['String'],
@@ -918,6 +919,8 @@ export type Ride = Node & {
 
 /** A condition to be used against `Ride` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type RideCondition = {
+  /** Checks for equality with the object’s `date` field. */
+  readonly date?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `distanceMeters` field. */
   readonly distanceMeters?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `durationSeconds` field. */
@@ -938,6 +941,7 @@ export type RideCondition = {
 
 /** An input for mutations affecting `Ride` */
 export type RideInput = {
+  readonly date?: Maybe<Scalars['Date']>,
   readonly distanceMeters?: Maybe<Scalars['Int']>,
   readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly fromSpot: Scalars['String'],
@@ -950,6 +954,7 @@ export type RideInput = {
 
 /** Represents an update to a `Ride`. Fields that are set will be updated. */
 export type RidePatch = {
+  readonly date?: Maybe<Scalars['Date']>,
   readonly distanceMeters?: Maybe<Scalars['Int']>,
   readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly fromSpot?: Maybe<Scalars['String']>,
@@ -982,6 +987,8 @@ export type RidesEdge = {
 
 /** Methods to use when ordering `Ride`. */
 export enum RidesOrderBy {
+  DateAsc = 'DATE_ASC',
+  DateDesc = 'DATE_DESC',
   DistanceMetersAsc = 'DISTANCE_METERS_ASC',
   DistanceMetersDesc = 'DISTANCE_METERS_DESC',
   DurationSecondsAsc = 'DURATION_SECONDS_ASC',
@@ -1005,6 +1012,7 @@ export enum RidesOrderBy {
 
 export type Spot = Node & {
   readonly country?: Maybe<Scalars['String']>,
+  readonly date?: Maybe<Scalars['Date']>,
   readonly guide: Scalars['String'],
   /** Reads a single `Guide` that is related to this `Spot`. */
   readonly guideByGuide?: Maybe<Guide>,
@@ -1053,6 +1061,8 @@ export type SpotRidesByToSpotArgs = {
 export type SpotCondition = {
   /** Checks for equality with the object’s `country` field. */
   readonly country?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `date` field. */
+  readonly date?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `guide` field. */
   readonly guide?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `id` field. */
@@ -1078,6 +1088,7 @@ export type SpotCondition = {
 /** An input for mutations affecting `Spot` */
 export type SpotInput = {
   readonly country?: Maybe<Scalars['String']>,
+  readonly date?: Maybe<Scalars['Date']>,
   readonly guide: Scalars['String'],
   readonly id: Scalars['String'],
   readonly label?: Maybe<Scalars['String']>,
@@ -1093,6 +1104,7 @@ export type SpotInput = {
 /** Represents an update to a `Spot`. Fields that are set will be updated. */
 export type SpotPatch = {
   readonly country?: Maybe<Scalars['String']>,
+  readonly date?: Maybe<Scalars['Date']>,
   readonly guide?: Maybe<Scalars['String']>,
   readonly id?: Maybe<Scalars['String']>,
   readonly label?: Maybe<Scalars['String']>,
@@ -1129,6 +1141,8 @@ export type SpotsEdge = {
 export enum SpotsOrderBy {
   CountryAsc = 'COUNTRY_ASC',
   CountryDesc = 'COUNTRY_DESC',
+  DateAsc = 'DATE_ASC',
+  DateDesc = 'DATE_DESC',
   GuideAsc = 'GUIDE_ASC',
   GuideDesc = 'GUIDE_DESC',
   IdAsc = 'ID_ASC',
@@ -1538,6 +1552,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>,
   Cursor: ResolverTypeWrapper<Scalars['Cursor']>,
   RideCondition: RideCondition,
+  Date: ResolverTypeWrapper<Scalars['Date']>,
   JSON: ResolverTypeWrapper<Scalars['JSON']>,
   RidesOrderBy: RidesOrderBy,
   RidesConnection: ResolverTypeWrapper<RidesConnection>,
@@ -1548,7 +1563,6 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   User: ResolverTypeWrapper<User>,
   GuideCondition: GuideCondition,
-  Date: ResolverTypeWrapper<Scalars['Date']>,
   GuidesOrderBy: GuidesOrderBy,
   GuidesConnection: ResolverTypeWrapper<GuidesConnection>,
   GuidesEdge: ResolverTypeWrapper<GuidesEdge>,
@@ -1619,6 +1633,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'],
   Cursor: Scalars['Cursor'],
   RideCondition: RideCondition,
+  Date: Scalars['Date'],
   JSON: Scalars['JSON'],
   RidesOrderBy: RidesOrderBy,
   RidesConnection: RidesConnection,
@@ -1629,7 +1644,6 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'],
   User: User,
   GuideCondition: GuideCondition,
-  Date: Scalars['Date'],
   GuidesOrderBy: GuidesOrderBy,
   GuidesConnection: GuidesConnection,
   GuidesEdge: GuidesEdge,
@@ -1892,6 +1906,7 @@ export type RegisterPayloadResolvers<ContextType = any, ParentType extends Resol
 };
 
 export type RideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ride'] = ResolversParentTypes['Ride']> = {
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   distanceMeters?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   durationSeconds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -1924,6 +1939,7 @@ export type RidesEdgeResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type SpotResolvers<ContextType = any, ParentType extends ResolversParentTypes['Spot'] = ResolversParentTypes['Spot']> = {
   country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -2118,12 +2134,12 @@ export type AllGuideTitlesForUserQueryVariables = {
 
 export type AllGuideTitlesForUserQuery = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id' | 'title' | 'slug' | 'owner'>>> }> };
 
-export type SpotByGuideFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'nights'>;
+export type SpotByGuideFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'location' | 'country' | 'nights'>;
 
 export type SomeFragFragment = { readonly node: Maybe<Pick<Guide, 'owner'>> };
 
 export type RideByGuideFragment = (
-  Pick<Ride, 'id' | 'path' | 'durationSeconds'>
+  Pick<Ride, 'id' | 'path' | 'distanceMeters' | 'durationSeconds'>
   & { readonly toSpot: Maybe<SpotByGuideFragment>, readonly fromSpot: Maybe<SpotByGuideFragment> }
 );
 
@@ -2184,6 +2200,8 @@ export const SpotByGuideFragmentDoc = gql`
   lat
   long
   locked
+  location
+  country
   nights
 }
     `;
@@ -2197,6 +2215,7 @@ export const RideByGuideFragmentDoc = gql`
     ...SpotByGuide
   }
   path
+  distanceMeters
   durationSeconds
 }
     ${SpotByGuideFragmentDoc}`;

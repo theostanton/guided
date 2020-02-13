@@ -19,8 +19,9 @@ fragment SpotByGuide on Spot{
     lat
     long
     locked
+    location
+    country
     nights
-
 }
 fragment SomeFrag on GuidesEdge{
     node{
@@ -37,6 +38,7 @@ fragment RideByGuide on Ride{
         ...SpotByGuide
     }
     path
+    distanceMeters
     durationSeconds
 }
 

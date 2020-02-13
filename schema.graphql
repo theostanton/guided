@@ -992,6 +992,7 @@ type RegisterPayload {
 }
 
 type Ride implements Node {
+  date: Date
   distanceMeters: Int
   durationSeconds: Int
   fromSpot: String!
@@ -1023,6 +1024,9 @@ type Ride implements Node {
 A condition to be used against `Ride` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input RideCondition {
+  """Checks for equality with the object’s `date` field."""
+  date: Date
+
   """Checks for equality with the object’s `distanceMeters` field."""
   distanceMeters: Int
 
@@ -1050,6 +1054,7 @@ input RideCondition {
 
 """An input for mutations affecting `Ride`"""
 input RideInput {
+  date: Date
   distanceMeters: Int
   durationSeconds: Int
   fromSpot: String!
@@ -1062,6 +1067,7 @@ input RideInput {
 
 """Represents an update to a `Ride`. Fields that are set will be updated."""
 input RidePatch {
+  date: Date
   distanceMeters: Int
   durationSeconds: Int
   fromSpot: String
@@ -1100,6 +1106,8 @@ type RidesEdge {
 
 """Methods to use when ordering `Ride`."""
 enum RidesOrderBy {
+  DATE_ASC
+  DATE_DESC
   DISTANCE_METERS_ASC
   DISTANCE_METERS_DESC
   DURATION_SECONDS_ASC
@@ -1123,6 +1131,7 @@ enum RidesOrderBy {
 
 type Spot implements Node {
   country: String
+  date: Date
   guide: String!
 
   """Reads a single `Guide` that is related to this `Spot`."""
@@ -1211,6 +1220,9 @@ input SpotCondition {
   """Checks for equality with the object’s `country` field."""
   country: String
 
+  """Checks for equality with the object’s `date` field."""
+  date: Date
+
   """Checks for equality with the object’s `guide` field."""
   guide: String
 
@@ -1245,6 +1257,7 @@ input SpotCondition {
 """An input for mutations affecting `Spot`"""
 input SpotInput {
   country: String
+  date: Date
   guide: String!
   id: String!
   label: String
@@ -1260,6 +1273,7 @@ input SpotInput {
 """Represents an update to a `Spot`. Fields that are set will be updated."""
 input SpotPatch {
   country: String
+  date: Date
   guide: String
   id: String
   label: String
@@ -1302,6 +1316,8 @@ type SpotsEdge {
 enum SpotsOrderBy {
   COUNTRY_ASC
   COUNTRY_DESC
+  DATE_ASC
+  DATE_DESC
   GUIDE_ASC
   GUIDE_DESC
   ID_ASC

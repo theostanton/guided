@@ -12,6 +12,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/data" />
       <excludeFolder url="file://$MODULE_DIR$/backend/graphql/srv" />
       <excludeFolder url="file://$MODULE_DIR$/backend/queue/srv" />
+      <excludeFolder url="file://$MODULE_DIR$/events/compute-rides/srv" />
       <excludeFolder url="file://$MODULE_DIR$/events/compute-stage/srv" />
       <excludeFolder url="file://$MODULE_DIR$/events/index/srv" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/usersite/public" />
