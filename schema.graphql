@@ -992,6 +992,7 @@ type RegisterPayload {
 }
 
 type Ride implements Node {
+  distanceMeters: Int
   durationSeconds: Int
   fromSpot: String!
   guide: String!
@@ -1022,6 +1023,9 @@ type Ride implements Node {
 A condition to be used against `Ride` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input RideCondition {
+  """Checks for equality with the object’s `distanceMeters` field."""
+  distanceMeters: Int
+
   """Checks for equality with the object’s `durationSeconds` field."""
   durationSeconds: Int
 
@@ -1046,6 +1050,7 @@ input RideCondition {
 
 """An input for mutations affecting `Ride`"""
 input RideInput {
+  distanceMeters: Int
   durationSeconds: Int
   fromSpot: String!
   guide: String!
@@ -1057,6 +1062,7 @@ input RideInput {
 
 """Represents an update to a `Ride`. Fields that are set will be updated."""
 input RidePatch {
+  distanceMeters: Int
   durationSeconds: Int
   fromSpot: String
   guide: String
@@ -1094,6 +1100,8 @@ type RidesEdge {
 
 """Methods to use when ordering `Ride`."""
 enum RidesOrderBy {
+  DISTANCE_METERS_ASC
+  DISTANCE_METERS_DESC
   DURATION_SECONDS_ASC
   DURATION_SECONDS_DESC
   FROM_SPOT_ASC
@@ -1114,6 +1122,7 @@ enum RidesOrderBy {
 }
 
 type Spot implements Node {
+  country: String
   guide: String!
 
   """Reads a single `Guide` that is related to this `Spot`."""
@@ -1199,6 +1208,9 @@ type Spot implements Node {
 A condition to be used against `Spot` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input SpotCondition {
+  """Checks for equality with the object’s `country` field."""
+  country: String
+
   """Checks for equality with the object’s `guide` field."""
   guide: String
 
@@ -1232,6 +1244,7 @@ input SpotCondition {
 
 """An input for mutations affecting `Spot`"""
 input SpotInput {
+  country: String
   guide: String!
   id: String!
   label: String
@@ -1246,6 +1259,7 @@ input SpotInput {
 
 """Represents an update to a `Spot`. Fields that are set will be updated."""
 input SpotPatch {
+  country: String
   guide: String
   id: String
   label: String
@@ -1286,6 +1300,8 @@ type SpotsEdge {
 
 """Methods to use when ordering `Spot`."""
 enum SpotsOrderBy {
+  COUNTRY_ASC
+  COUNTRY_DESC
   GUIDE_ASC
   GUIDE_DESC
   ID_ASC

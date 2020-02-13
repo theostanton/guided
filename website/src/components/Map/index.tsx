@@ -50,7 +50,7 @@ export default class Map extends Component<Props, State> {
     log(process.env.GATSBY_MAPBOX_TOKEN!, "process.env.GATSBY_MAPBOX_TOKEN")
     return (
       <ReactMapGL
-        mapboxApiAccessToken={process.env.GATSBY_MAPBOX_TOKEN}
+        mapboxApiAccessToken={`${process.env.GATSBY_MAPBOX_TOKEN!}`}
         {...this.state.viewport}
         height={"100%"}
         width={"100%"}

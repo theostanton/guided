@@ -18,6 +18,7 @@ export interface Ride {
   to_spot: string 
   path: Object | null 
   duration_seconds: number | null 
+  distance_meters: number | null 
 }
 export interface Spot {
   id: string 
@@ -30,6 +31,7 @@ export interface Spot {
   long: number 
   position: string | null 
   location: string | null 
+  country: string | null 
 }
 export interface User {
   username: string 

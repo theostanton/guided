@@ -1,4 +1,5 @@
 import { Client } from "@googlemaps/google-maps-services-js"
+import { logJson } from "@guided/logger"
 
 export const key = "AIzaSyDQFYYLKKcqmY0RWlysZOQlWPgGZEAM3po"
 const client = new Client({})
@@ -22,7 +23,12 @@ const client = new Client({})
 //   lng: -0.3259,
 // }
 
-export async function getLabel(lat: number, lng: number): Promise<string> {
+export type PlaceInfo = {
+  label: string
+  countryCode: string
+}
+
+export async function getInfo(lat: number, lng: number): Promise<PlaceInfo> {
 
   const result = await client.reverseGeocode({
     params: {
@@ -32,9 +38,9 @@ export async function getLabel(lat: number, lng: number): Promise<string> {
       },
     },
   })
-
+  logJson(result.data.results[0], "result.data.results[0]")
   const types = ["postal_town", "political", "administrative_area_level_2"]
-  return types.map(type => {
+  const label = types.map(type => {
     const component = result.data.results[0].address_components.find((component) => {
       return component.types.some(componentType => {
         return componentType === type
@@ -48,6 +54,11 @@ export async function getLabel(lat: number, lng: number): Promise<string> {
   }).find(value => {
     return value
   }) || "Label"
+
+  return {
+    label,
+    countryCode: "NA",
+  }
 }
 
 export {

@@ -11,11 +11,15 @@ create table guided.rides
             references guided.users,
     from_spot varchar(128) not null
         constraint rides_from_spots_id_fk
-            references guided.spots,
+            references guided.spots
+            on delete cascade,
     to_spot varchar(128) not null
         constraint rides_to_spots_id_fk
-            references guided.spots,
-    path json
+            references guided.spots
+            on delete cascade,
+    path json,
+    duration_seconds integer,
+    distance_meters integer
 );
 
 create unique index rides_id_uindex

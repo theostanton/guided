@@ -896,6 +896,7 @@ export type RegisterPayloadUserEdgeArgs = {
 };
 
 export type Ride = Node & {
+  readonly distanceMeters?: Maybe<Scalars['Int']>,
   readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly fromSpot: Scalars['String'],
   readonly guide: Scalars['String'],
@@ -917,6 +918,8 @@ export type Ride = Node & {
 
 /** A condition to be used against `Ride` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type RideCondition = {
+  /** Checks for equality with the object’s `distanceMeters` field. */
+  readonly distanceMeters?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `durationSeconds` field. */
   readonly durationSeconds?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `fromSpot` field. */
@@ -935,6 +938,7 @@ export type RideCondition = {
 
 /** An input for mutations affecting `Ride` */
 export type RideInput = {
+  readonly distanceMeters?: Maybe<Scalars['Int']>,
   readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly fromSpot: Scalars['String'],
   readonly guide: Scalars['String'],
@@ -946,6 +950,7 @@ export type RideInput = {
 
 /** Represents an update to a `Ride`. Fields that are set will be updated. */
 export type RidePatch = {
+  readonly distanceMeters?: Maybe<Scalars['Int']>,
   readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly fromSpot?: Maybe<Scalars['String']>,
   readonly guide?: Maybe<Scalars['String']>,
@@ -977,6 +982,8 @@ export type RidesEdge = {
 
 /** Methods to use when ordering `Ride`. */
 export enum RidesOrderBy {
+  DistanceMetersAsc = 'DISTANCE_METERS_ASC',
+  DistanceMetersDesc = 'DISTANCE_METERS_DESC',
   DurationSecondsAsc = 'DURATION_SECONDS_ASC',
   DurationSecondsDesc = 'DURATION_SECONDS_DESC',
   FromSpotAsc = 'FROM_SPOT_ASC',
@@ -997,6 +1004,7 @@ export enum RidesOrderBy {
 }
 
 export type Spot = Node & {
+  readonly country?: Maybe<Scalars['String']>,
   readonly guide: Scalars['String'],
   /** Reads a single `Guide` that is related to this `Spot`. */
   readonly guideByGuide?: Maybe<Guide>,
@@ -1043,6 +1051,8 @@ export type SpotRidesByToSpotArgs = {
 
 /** A condition to be used against `Spot` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type SpotCondition = {
+  /** Checks for equality with the object’s `country` field. */
+  readonly country?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `guide` field. */
   readonly guide?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `id` field. */
@@ -1067,6 +1077,7 @@ export type SpotCondition = {
 
 /** An input for mutations affecting `Spot` */
 export type SpotInput = {
+  readonly country?: Maybe<Scalars['String']>,
   readonly guide: Scalars['String'],
   readonly id: Scalars['String'],
   readonly label?: Maybe<Scalars['String']>,
@@ -1081,6 +1092,7 @@ export type SpotInput = {
 
 /** Represents an update to a `Spot`. Fields that are set will be updated. */
 export type SpotPatch = {
+  readonly country?: Maybe<Scalars['String']>,
   readonly guide?: Maybe<Scalars['String']>,
   readonly id?: Maybe<Scalars['String']>,
   readonly label?: Maybe<Scalars['String']>,
@@ -1115,6 +1127,8 @@ export type SpotsEdge = {
 
 /** Methods to use when ordering `Spot`. */
 export enum SpotsOrderBy {
+  CountryAsc = 'COUNTRY_ASC',
+  CountryDesc = 'COUNTRY_DESC',
   GuideAsc = 'GUIDE_ASC',
   GuideDesc = 'GUIDE_DESC',
   IdAsc = 'ID_ASC',
@@ -1878,6 +1892,7 @@ export type RegisterPayloadResolvers<ContextType = any, ParentType extends Resol
 };
 
 export type RideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ride'] = ResolversParentTypes['Ride']> = {
+  distanceMeters?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   durationSeconds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -1908,6 +1923,7 @@ export type RidesEdgeResolvers<ContextType = any, ParentType extends ResolversPa
 };
 
 export type SpotResolvers<ContextType = any, ParentType extends ResolversParentTypes['Spot'] = ResolversParentTypes['Spot']> = {
+  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,

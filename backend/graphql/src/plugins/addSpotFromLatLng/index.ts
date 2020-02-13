@@ -1,6 +1,6 @@
 import { logJson } from "@guided/logger"
 
-import { getLabel } from "@guided/google"
+import { getInfo } from "@guided/google"
 
 const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
@@ -18,7 +18,8 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
                                             where guide = $1`, [args.guideId])
   logJson(spotCount, "spotCount")
 
-  const location = await getLabel(args.lat, args.long)
+  const { label: location, countryCode: country } = await getInfo(args.lat, args.long)
+
   const spot: Spot = {
     id: generateId("spot"),
     guide: args.guideId,
@@ -28,7 +29,8 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
     long: args.long,
     nights: 0,
     position: `${parseInt(spotCount) + 1}`,
-    location: location,
+    location,
+    country,
     locked: true,
   }
 

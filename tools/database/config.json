@@ -1,7 +1,7 @@
 {
   "dialect": "postgres",
   "connection": {
-    "host": "localhost",
+    "host": "guided-staging.chu8q2krusbq.us-east-2.rds-preview.amazonaws.com",
     "user": "superuser",
     "password": "password",
     "database": "database"

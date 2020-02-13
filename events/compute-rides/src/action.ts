@@ -1,7 +1,7 @@
 import { logJson } from "@guided/logger"
 import Dao from "./dao"
 import { ComputeRidesMessageBody, ComputeRidesResult } from "./types"
-import { client, getLabel, key } from "@guided/google"
+import { client, getInfo, key } from "@guided/google"
 import * as geojson from "@guided/geojson"
 import {
   DirectionsRoute,
@@ -54,6 +54,7 @@ function computeStage(leg: RouteLeg, startSpot: Spot, endSpot: Spot, guide: Guid
   const maxDurationPerRide = guide.max_hours_per_ride! * 60 * 60
   let currentStartSpotId: string = startSpot.id
   let duration: number = 0
+  let distance: number = 0
   let currentPoints: number[][] = []
 
   function append(spot: Spot) {
@@ -62,6 +63,7 @@ function computeStage(leg: RouteLeg, startSpot: Spot, endSpot: Spot, guide: Guid
       id: generateId("ride"),
       from_spot: currentStartSpotId,
       duration_seconds: duration,
+      distance_meters: distance,
       path: geojson.pointsToGeoJson(currentPoints),
       guide: guide.id,
       to_spot: spot.id,
@@ -74,13 +76,15 @@ function computeStage(leg: RouteLeg, startSpot: Spot, endSpot: Spot, guide: Guid
 
     if ((duration + step.duration.value) > maxDurationPerRide) {
       const position = `${startSpot.position}.${newSpots.length + 1}`
+      const placeInfo = await getInfo(step.start_location.lat, step.start_location.lng)
       const newSpot: Spot = {
         id: generateId("spot"),
         guide: guide.id,
         lat: step.start_location.lat,
         long: step.start_location.lng,
         nights: 1,
-        location: await getLabel(step.start_location.lat, step.start_location.lng),
+        location: placeInfo.label,
+        country: placeInfo.countryCode,
         owner: guide.owner,
         label: `Spot ${position}`,
         locked: false,
@@ -97,6 +101,7 @@ function computeStage(leg: RouteLeg, startSpot: Spot, endSpot: Spot, guide: Guid
     const points = geojson.polylineToPoints(step.polyline as unknown as { points: string })
     currentPoints.push(...points)
     duration += step.duration.value
+    distance += step.distance.value
 
     if (index === leg.steps.length - 1) {
       append(endSpot)

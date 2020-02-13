@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "watch": "yarn build && yarn wsrun watch",
-    "develop:frontend": "STAGE=local yarn workspace @guided/website run develop",
-    "develop:backend": "STAGE=local yarn workspace @guided/graphql run develop",
+    "develop:frontend": "yarn workspace @guided/website run develop",
+    "develop:backend": "yarn workspace @guided/graphql run develop",
     "build": "./build.sh",
     "install:all": "yarn install",
     "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless|tsconfig.tsbuildinfo|yarn.lock)\" -exec rm -rf {} \\;",
