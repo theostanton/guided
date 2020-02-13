@@ -21,9 +21,11 @@ commands:
             yarn build
       - run:
           name: Test << parameters.directory >>
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: "reports/junit/"
           command: |
             cd ~/workspace/<< parameters.directory >>
-            JEST_JUNIT_OUTPUT_DIR=reports/junit/ yarn test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit
+            yarn test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit
       - store_artifacts:
           path: ~/workspace/<< parameters.directory >>/reports/junit
       - store_test_results:
