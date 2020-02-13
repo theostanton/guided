@@ -7,6 +7,7 @@ import { client } from "api"
 import { inject, observer } from "mobx-react"
 import GuideStore from "../../model/GuideStore"
 import { Rides } from "./Rides"
+import { log } from "@guided/logger"
 
 
 type State = {
@@ -46,9 +47,10 @@ export default class Map extends Component<Props, State> {
 
   render(): React.ReactElement {
     const guide = this.guideStore.guide
+    log(process.env.GATSBY_MAPBOX_TOKEN!, "process.env.GATSBY_MAPBOX_TOKEN")
     return (
       <ReactMapGL
-        mapboxApiAccessToken="pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazYwanNzZGYwODZvM2xvYXFpdWswY2Y4In0.zcDbr2DXsYXS3p54swmrYg"
+        mapboxApiAccessToken={process.env.GATSBY_MAPBOX_TOKEN}
         {...this.state.viewport}
         height={"100%"}
         width={"100%"}

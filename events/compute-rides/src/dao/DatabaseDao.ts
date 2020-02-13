@@ -53,7 +53,6 @@ export class DatabaseDao implements Dao {
         })
         .forEach(stage => {
           const query = insertMany("guided.spots", stage.newSpots)
-          log(query, "quer!y")
           queries.push(transaction.none(query))
         })
 
@@ -68,7 +67,6 @@ export class DatabaseDao implements Dao {
         })
         .forEach(stage => {
           const query = insertMany("guided.rides", stage.newRides)
-          log(query, "query!")
           queries.push(transaction.none(query))
         })
       return transaction.batch(queries)
