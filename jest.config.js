@@ -1,3 +1,5 @@
+console.log(process.env, "process.env")
+
 module.exports = {
   "roots": [
     "<rootDir>/src",
