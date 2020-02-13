@@ -48,3 +48,8 @@ test("Fail to handle Horsham,England lat long", async () => {
   expect(info.label).toBe("Horsham")
   expect(info.countryCode).toBe("FR")
 })
+test("Fail agin to handle London,England lat long", async () => {
+  const info = await getInfo(LONDON.lat, LONDON.lng)
+  expect(info.label).toBe("Paris")
+  expect(info.countryCode).toBe("FR")
+})
