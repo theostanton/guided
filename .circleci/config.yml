@@ -18,11 +18,12 @@ commands:
           environment:
             JEST_JUNIT_OUTPUT_DIR: "reports/junit/"
           command: |
+            cd ~/workspace/<< parameters.directory >>
             yarn test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit
-            - store_artifacts:
-                path: ~/workspace/<< parameters.directory >>/reports/junit
-            - store_test_results:
-                path: ~/workspace/<< parameters.directory >>/reports/junit
+      - store_artifacts:
+          path: ~/workspace/<< parameters.directory >>/reports/junit
+      - store_test_results:
+          path: ~/workspace/<< parameters.directory >>/reports/junit
 
   build:
     description: "Build"
