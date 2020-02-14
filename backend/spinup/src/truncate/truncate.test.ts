@@ -1,9 +1,20 @@
-import execute from "../."
+import { actions } from "../."
+import { cleanDatabase } from "../index.test"
+import { database } from "@guided/database"
+
+beforeEach(cleanDatabase)
 
 describe("product ", () => {
   it("test that needs data", async () => {
-    console.log("execute in sequence test")
-    await execute("truncate")
-    expect(2001).toBe(2002)
+    const usersBefore = await database.manyOrNone(`SELECT *
+                                                   from users`)
+
+    expect(usersBefore.length).toBeGreaterThan(0)
+
+    await actions.truncate()
+
+    const usersAfter = await database.manyOrNone(`SELECT *
+                                                  from users`)
+    expect(usersAfter.length).toBe(0)
   })
 })
