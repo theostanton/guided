@@ -1,12 +1,8 @@
-import truncate from "../truncate"
 import { log } from "@guided/logger"
 import { database, insertOne, User } from "@guided/database"
 
 export default async function(): Promise<void> {
   log("exampling")
-  await truncate()
-
-
   const user: User = {
     email: "user2@email.com",
     username: "user2",

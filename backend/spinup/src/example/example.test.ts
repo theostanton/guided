@@ -4,9 +4,12 @@ import { cleanDatabase } from "../index.test"
 
 
 beforeEach(cleanDatabase)
-test("Clean database", async () => {
+test("Simple add 1 user", async () => {
+  const usersBefore = await database.manyOrNone(`SELECT *
+                                                 from users`)
+  expect(usersBefore.length).toBe(1)
   await execute()
-  const users = await database.manyOrNone(`SELECT *
-                                           from users`)
-  expect(users.length).toBe(1)
+  const usersAfter = await database.manyOrNone(`SELECT *
+                                                from users`)
+  expect(usersAfter.length).toBe(2)
 })
