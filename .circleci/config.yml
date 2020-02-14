@@ -107,7 +107,7 @@ jobs:
           name: Build
           command: yarn build
       - test:
-          directory: ~/workspace/<< parameters.directory >>
+          directory: ~/workspace/backend/graphql
       - deploy
 
   deploy-graphql-production:
