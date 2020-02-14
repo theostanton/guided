@@ -91,7 +91,7 @@ jobs:
           name: Build
           command: yarn build
       - test:
-          directory: ~/workspace/<< parameters.directory >>
+          directory: ~/workspace/events/compute-stage
       - deploy
 
   deploy-graphql-staging:
