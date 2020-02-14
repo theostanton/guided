@@ -1,9 +1,9 @@
 import { database } from "@guided/database"
 import { executeFile } from "../sequence"
-import { cleanDatabase } from "../tests"
+import { dropTables } from "../tests"
 
 
-beforeAll(cleanDatabase)
+beforeAll(dropTables)
 
 describe("Drop individually", () => {
 

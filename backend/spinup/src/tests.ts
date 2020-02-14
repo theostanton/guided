@@ -28,22 +28,29 @@ export async function truncateTables() {
   expect(total).toBe(0)
 }
 
-export async function clearDatabase() {
-  try {
-    await actions.drop()
-  } catch (e) {
-    console.error(e)
-  }
-  const { countAfter } = await database.one<{ countAfter: number }>(`SELECT count(1) as "countAfter"
-                                                                     FROM information_schema.tables
-                                                                     WHERE table_schema = 'guided'`)
-  expect(countAfter).toEqual(0!.toString())
-}
-
-export async function cleanDatabase() {
+export async function dropTables() {
   try {
     await actions.truncate()
     await actions.drop()
+  } catch (e) {
+  }
+
+  const { countBefore } = await database.one<{ countBefore: number }>(`SELECT count(1) as "countBefore"
+                                                                       FROM information_schema.tables
+                                                                       WHERE table_schema = 'guided'`)
+  expect(countBefore).toBe(0!.toString())
+  await actions.create()
+  const { countAfter } = await database.one<{ countAfter: number }>(`SELECT count(1) as "countAfter"
+                                                                     FROM information_schema.tables
+                                                                     WHERE table_schema = 'guided'`)
+  expect(countAfter).toBe(5!.toString())
+}
+
+export async function populateTables() {
+  try {
+    await actions.truncate()
+    await actions.drop()
+    await actions.populate()
   } catch (e) {
   }
 

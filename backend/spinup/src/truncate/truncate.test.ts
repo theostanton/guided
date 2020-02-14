@@ -1,18 +1,15 @@
 import { actions } from "../."
-import { cleanDatabase } from "../tests"
+import { dropTables } from "../tests"
 import { database } from "@guided/database"
 
-beforeEach(cleanDatabase)
+beforeAll(async () => {
+  await dropTables()
+  await actions.truncate()
+})
 
-describe("product ", () => {
-  it("test that needs data", async () => {
-    const usersBefore = await database.manyOrNone(`SELECT *
-                                                   from users`)
-
-    expect(usersBefore.length).toBeGreaterThan(0)
-
+describe("Truncate ", () => {
+  it("removes all users", async () => {
     await actions.truncate()
-
     const usersAfter = await database.manyOrNone(`SELECT *
                                                   from users`)
     expect(usersAfter.length).toBe(0)

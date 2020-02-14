@@ -1,9 +1,9 @@
 import execute from "./."
 import { database } from "@guided/database"
-import { cleanDatabase } from "../tests"
+import { populateTables } from "../tests"
 
 
-beforeEach(cleanDatabase)
+beforeEach(populateTables)
 test("Simple add 1 user", async () => {
   const usersBefore = await database.manyOrNone(`SELECT *
                                                  from users`)

@@ -1,8 +1,8 @@
 import { actions } from "../."
-import { clearDatabase } from "../tests"
+import { dropTables } from "../tests"
 
 beforeAll(async () => {
-  await clearDatabase()
+  await dropTables()
   await actions.create()
 })
 
