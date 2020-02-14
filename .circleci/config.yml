@@ -42,9 +42,14 @@ commands:
 
 jobs:
   prepare:
+    environment:
+      - STAGE: test
     working_directory: ~/workspace
     docker:
       - image: circleci/node:12.9.1
+          environment:
+            DATABASE_URL: postgresql://root@localhost/circle_test
+      - image: circleci/postgres:9.6-alpine-ram
     steps:
       - checkout
       - restore_cache:

@@ -3,7 +3,7 @@ import { Action } from "./index"
 import execute from "./."
 
 const optionDefinitions: OptionDefinition[] = [
-  { name: "action", defaultOption: true, type: String },
+  { name: "action", defaultOption: true, type: String }
 ]
 
 type Options = {

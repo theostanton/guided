@@ -1,37 +1,40 @@
 import Listr, { ListrTask, ListrTaskWrapper } from "listr"
 import fs from "fs"
 import { database } from "@guided/database"
-import { log } from "@guided/logger"
 
 function getDirectoryNames(parentDirectoryName: string): string[] {
-  const directories = fs.readdirSync(parentDirectoryName)
-  const directoriNames: string[] = []
-  directories.forEach(directory => {
-    if (directory.includes(".")) {
-      directoriNames.push(directory.toString())
-    }
+  const files = fs.readdirSync(parentDirectoryName, {
+    withFileTypes: true,
   })
-  return directoriNames
+  return files.filter(file => {
+    return file.isDirectory() && file.name.includes(".")
+  }).map(file => {
+    return file.name
+  })
 }
 
 function getFileNames(directoryName: string): string[] {
-  const directories = fs.readdirSync(directoryName)
-  const directoriNames: string[] = []
-  directories.forEach(directory => {
-    if (directory.includes(".")) {
-      directoriNames.push(directory.toString())
-    }
+  const files = fs.readdirSync(directoryName, {
+    withFileTypes: true,
   })
-  return directoriNames
+  return files.filter(file => {
+    return file.isFile() && file.name.includes(".sql")
+  }).map(file => {
+    return file.name
+  })
+}
+
+export async function executeFile(fileName: string): Promise<void> {
+  const file = fs.readFileSync(fileName)
+  await database.query(file.toString())
 }
 
 function createTask(fileName: string): ListrTask {
   return {
     title: fileName.split(".")[1],
     task: async (_, task: ListrTaskWrapper) => {
-      const file = fs.readFileSync(fileName)
       task.output = `fileName=${fileName}`
-      await database.query(file.toString())
+      await executeFile(fileName)
     },
   }
 }
@@ -41,21 +44,16 @@ export default async function(directory: string): Promise<void> {
   const tasks: ListrTask[] = []
 
   const directoryNames = getDirectoryNames(rootDirectoryName)
-  log(rootDirectoryName, "rootDirectoryName")
-  log(directoryNames.length.toString(), "directoryNames")
-
   if (directoryNames.length > 0) {
     directoryNames.forEach(directoryName => {
-      const filenames = getFileNames(directoryName)
-      log(directoryName, "directoryName")
-      log(filenames.length.toString(), "filenames")
+      const filenames = getFileNames(`${rootDirectoryName}/${directoryName}`)
       const subtasks: ListrTask[] = []
       filenames.forEach(filename => {
-        subtasks.push(createTask(`${rootDirectoryName}/${filename}`))
+        subtasks.push(createTask(`${rootDirectoryName}/${directoryName}/${filename}`))
       })
       const task: ListrTask = {
         title: directoryName.split(".")[1],
-        skip: () => subtasks.length > 0,
+        skip: () => subtasks.length === 0,
         task: () => {
           return new Listr(subtasks, {
             exitOnError: true,

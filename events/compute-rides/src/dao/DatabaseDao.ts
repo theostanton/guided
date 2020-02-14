@@ -7,24 +7,24 @@ import { Stage } from "@guided/database/srv/types"
 
 const DELETE_UNLOCKED = `
     DELETE
-    from guided.rides
+    from rides
     where guide = $1;
     DELETE
-    from guided.spots
+    from spots
     where guide = $1
       and locked = false
 `
 
 const SELECT_SPOTS = `
     SELECT *
-    from guided.spots
+    from spots
     where guide = $1
     order by position
 `
 
 const SELECT_GUIDE = `
     SELECT *
-    from guided.guides
+    from guides
     where id = $1
 `
 

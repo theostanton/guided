@@ -1,27 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="2" failures="2" time="1.432">
-  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2020-02-13T23:56:08" time="0.91" tests="1">
-    <testcase classname=" Executes in sequence" name=" Executes in sequence" time="0.005">
-      <failure>Error: expect(received).toMatchObject(expected)
-
-Matcher error: received value must be a non-null object
-
-Received has type:  boolean
-Received has value: true
-    at Object.&lt;anonymous&gt; (/Users/theo/Code/guided/backend/spinup/src/sequence.test.ts:5:16)
-    at processTicksAndRejections (internal/process/task_queues.js:94:5)</failure>
+<testsuites name="jest tests" tests="7" failures="6" time="4.303">
+  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2020-02-14T12:58:53" time="1.705" tests="1">
+    <testcase classname=" Executes in sequence" name=" Executes in sequence" time="0.073">
+      <failure>error: relation &quot;rides&quot; does not exist
+    at Connection.parseE (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:614:13)
+    at Connection.parseMessage (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:413:19)
+    at Socket.&lt;anonymous&gt; (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:129:22)
+    at Socket.emit (events.js:223:5)
+    at addChunk (_stream_readable.js:309:12)
+    at readableAddChunk (_stream_readable.js:290:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:181:23)</failure>
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2020-02-13T23:56:08" time="0.926" tests="1">
-    <testcase classname=" Executes in sequence" name=" Executes in sequence" time="0.005">
-      <failure>Error: expect(received).toMatchObject(expected)
+  <testsuite name="product " errors="0" failures="1" skipped="0" timestamp="2020-02-14T12:58:53" time="1.719" tests="1">
+    <testcase classname="product  test that needs data" name="product  test that needs data" time="0.119">
+      <failure>error: relation &quot;rides&quot; does not exist
+    at Connection.parseE (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:614:13)
+    at Connection.parseMessage (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:413:19)
+    at Socket.&lt;anonymous&gt; (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:129:22)
+    at Socket.emit (events.js:223:5)
+    at addChunk (_stream_readable.js:309:12)
+    at readableAddChunk (_stream_readable.js:290:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:181:23)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Drop individually" errors="0" failures="4" skipped="0" timestamp="2020-02-14T12:58:53" time="2.177" tests="4">
+    <testcase classname="Drop individually Drop functions" name="Drop individually Drop functions" time="0.006">
+      <failure>error: could not open relation with OID 25852
+    at Connection.parseE (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:614:13)
+    at Connection.parseMessage (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:413:19)
+    at Socket.&lt;anonymous&gt; (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:129:22)
+    at Socket.emit (events.js:223:5)
+    at addChunk (_stream_readable.js:309:12)
+    at readableAddChunk (_stream_readable.js:290:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:181:23)</failure>
+    </testcase>
+    <testcase classname="Drop individually Drop tables" name="Drop individually Drop tables" time="0.018">
+      <failure>error: could not open relation with OID 25852
+    at Connection.parseE (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:614:13)
+    at Connection.parseMessage (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:413:19)
+    at Socket.&lt;anonymous&gt; (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:129:22)
+    at Socket.emit (events.js:223:5)
+    at addChunk (_stream_readable.js:309:12)
+    at readableAddChunk (_stream_readable.js:290:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:181:23)</failure>
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
 
-Matcher error: received value must be a non-null object
-
-Received has type:  boolean
-Received has value: true
-    at Object.&lt;anonymous&gt; (/Users/theo/Code/guided/backend/spinup/src/truncate/test.ts:5:16)
+Expected: &quot;5&quot;
+Received: &quot;0&quot;
+    at Object.&lt;anonymous&gt; (/Users/theo/Code/guided/backend/spinup/src/drop/drop.test.ts:19:25)
     at processTicksAndRejections (internal/process/task_queues.js:94:5)</failure>
+    </testcase>
+    <testcase classname="Drop individually Drop roles" name="Drop individually Drop roles" time="0.002">
+      <failure>error: could not open relation with OID 25852
+    at Connection.parseE (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:614:13)
+    at Connection.parseMessage (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:413:19)
+    at Socket.&lt;anonymous&gt; (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:129:22)
+    at Socket.emit (events.js:223:5)
+    at addChunk (_stream_readable.js:309:12)
+    at readableAddChunk (_stream_readable.js:290:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:181:23)</failure>
+    </testcase>
+    <testcase classname="Drop individually Drop rest" name="Drop individually Drop rest" time="0.006">
+      <failure>error: could not open relation with OID 25852
+    at Connection.parseE (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:614:13)
+    at Connection.parseMessage (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:413:19)
+    at Socket.&lt;anonymous&gt; (/Users/theo/Code/guided/tools/database/node_modules/pg/lib/connection.js:129:22)
+    at Socket.emit (events.js:223:5)
+    at addChunk (_stream_readable.js:309:12)
+    at readableAddChunk (_stream_readable.js:290:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:181:23)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Create tables" errors="0" failures="0" skipped="0" timestamp="2020-02-14T12:58:53" time="2.329" tests="1">
+    <testcase classname="Create tables Creates users" name="Create tables Creates users" time="0.001">
     </testcase>
   </testsuite>
 </testsuites>

@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "watch": "yarn build && yarn wsrun watch",
+    "watch": "yarn wsrun --stages --fast-exit watch",
     "test": "JEST_JUNIT_OUTPUT_DIR=reports/junit/ yarn workspaces run test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit",
     "develop:frontend": "STAGE=staging yarn workspace @guided/website run develop",
-    "start": "yarn workspace @guided/graphql run develop",
     "develop:backend": "nodemon",
+    "start": "yarn workspace @guided/graphql run develop",
     "build": "./build.sh",
     "install:all": "yarn install",
     "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless|tsconfig.tsbuildinfo|yarn.lock|reports|junit.xml)\" -exec rm -rf {} \\;",

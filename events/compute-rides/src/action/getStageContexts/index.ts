@@ -15,7 +15,7 @@ export default async function(spots: Spot[], guide: Guide): Promise<StageContext
 
   const existingStages = await database.manyOrNone<Stage>(
       `SELECT id, to_spot, from_spot
-       FROM guided.stages
+       from stages
        where guide = $1`, [guide.id])
 
   const actions: Promise<StageContext>[] = []

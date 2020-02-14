@@ -1,4 +1,4 @@
-create type guided.jwt_token as
+create type jwt_token as
 (
     role     text,
     username text,

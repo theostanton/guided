@@ -1,21 +1,21 @@
-create table guided.rides
+create table rides
 (
     id varchar(128) not null
         constraint rides_pk
             primary key,
     guide varchar(128) not null
         constraint rides_guides_id_fk
-            references guided.guides,
+            references guides,
     owner varchar(64) not null
         constraint rides_users_username_fk
-            references guided.users,
+            references users,
     from_spot varchar(128) not null
         constraint rides_from_spots_id_fk
-            references guided.spots
+            references spots
             on delete cascade,
     to_spot varchar(128) not null
         constraint rides_to_spots_id_fk
-            references guided.spots
+            references spots
             on delete cascade,
     path json,
     duration_seconds integer,
@@ -23,5 +23,5 @@ create table guided.rides
 );
 
 create unique index rides_id_uindex
-    on guided.rides (id);
+    on rides (id);
 

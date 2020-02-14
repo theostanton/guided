@@ -9,7 +9,7 @@ import { getInfo } from "@guided/google"
 import { executeConcurrently } from "@guided/utils"
 
 async function deleteStaleStages(spotId: string): Promise<void> {
-  const rides = await database.manyOrNone<Ride>("SELECT stage FROM guided.rides where from_spot=$1 or to_spot=$1", [spotId])
+  const rides = await database.manyOrNone<Ride>("SELECT stage from rides where from_spot=$1 or to_spot=$1", [spotId])
   let oldStageIds = rides.map((ride: Ride) => {
     return ride.stage
   })
@@ -19,9 +19,9 @@ async function deleteStaleStages(spotId: string): Promise<void> {
     await database.tx(transaction => {
       return transaction.batch(
         [
-          database.none("DELETE FROM guided.rides where stage=$1", [stageId]),
-          database.none("DELETE FROM guided.spots where stage=$1", [stageId]),
-          database.none("DELETE FROM guided.stages where id=$1", [stageId]),
+          database.none("DELETE from rides where stage=$1", [stageId]),
+          database.none("DELETE from spots where stage=$1", [stageId]),
+          database.none("DELETE from stages where id=$1", [stageId]),
         ],
       )
     })
@@ -35,7 +35,7 @@ async function moveSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<Spo
 
   await deleteStaleStages(spotId)
 
-  const spot = await database.one<Spot>("SELECT * FROM guided.spots where id=$1", [spotId])
+  const spot = await database.one<Spot>("SELECT * from spots where id=$1", [spotId])
 
   const { label, countryCode } = await getInfo(lat, long)
 

@@ -13,7 +13,7 @@ async function removeSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<S
 
   const { guideId, locked } = await database.one<{ guideId: string, locked: boolean }>(
       `SELECT guide as "guideId", locked
-       from guided.spots
+       from spots
        where id = $1`, [spotId])
 
   if (!locked) {
@@ -21,7 +21,7 @@ async function removeSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<S
   }
 
   await database.none(`DELETE
-                       from guided.spots
+                       from spots
                        where id = $1`, [spotId])
 
   await computeRides.execute({

@@ -14,7 +14,7 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
   logJson(args, "addSpotFromLatLng args")
 
   const { spotCount } = await database.one(`SELECT count(1) as "spotCount"
-                                            from guided.spots
+                                            from spots
                                             where guide = $1`, [args.guideId])
   logJson(spotCount, "spotCount")
 

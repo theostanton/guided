@@ -1,4 +1,4 @@
-create table guided.spots
+create table spots
 (
     id       varchar(128)     not null
         constraint spots_pk
@@ -6,10 +6,10 @@ create table guided.spots
     label    varchar(128),
     guide    varchar(128)     not null
         constraint spots_guides_id_fk
-            references guided.guides,
+            references guides,
     owner    varchar(64)      not null
         constraint spots_users_username_fk
-            references guided.users,
+            references users,
     nights   integer default 0,
     locked   boolean          not null,
     lat      double precision not null,
@@ -20,5 +20,5 @@ create table guided.spots
 );
 
 create unique index spots_id_uindex
-    on guided.spots (id);
+    on spots (id);
 

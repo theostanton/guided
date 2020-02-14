@@ -96,7 +96,7 @@ declare
 begin
     select *
     into userInfo
-    from guided.users as u
+    from users as u
     where u.email = $1;
 
     if userInfo.password_hash = crypt(password, userInfo.password_hash) then

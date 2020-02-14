@@ -8,7 +8,12 @@ import {
   insertOne, insertMany,
 } from "./utils"
 
-export const DATABASE_URL = `postgres://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+export let DATABASE_URL: string
+if (process.env.DATABASE_URL) {
+  DATABASE_URL = process.env.DATABASE_URL
+} else {
+  DATABASE_URL = `postgres://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+}
 
 
 export {

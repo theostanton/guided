@@ -1,0 +1,6 @@
+-- drop owned by guided_postgraphile;
+-- drop role if exists guided_postgraphile;
+-- drop owned by guided_anonymous;
+-- drop role if exists guided_anonymous;
+-- drop owned by guided_user;
+-- drop role if exists guided_user;
