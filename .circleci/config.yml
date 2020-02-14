@@ -63,6 +63,8 @@ jobs:
       - build:
           directory: tools/database
       - build:
+          directory: backend/spinup
+      - build:
           directory: tools/geojson
       - build:
           directory: apis/google
