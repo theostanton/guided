@@ -1,10 +1,10 @@
 import execute from "./."
-import { executeBeforeEach } from "../index.test"
 import { database } from "@guided/database"
+import { cleanDatabase } from "../index.test"
 
-beforeEach(executeBeforeEach)
 
-test("Executes in sequence", async () => {
+beforeEach(cleanDatabase)
+test("Clean database", async () => {
   await execute()
   const users = await database.manyOrNone(`SELECT *
                                            from users`)
