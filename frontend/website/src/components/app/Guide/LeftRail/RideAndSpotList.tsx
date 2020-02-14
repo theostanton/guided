@@ -26,8 +26,8 @@ export default class RideAndSpotList extends React.Component<Props> {
 
     rides.forEach(ride => {
       const spot: SpotByGuideFragment = ride.fromSpot!
-      items.push(<SpotItem spot={spot} guideStore={this.guideStore}/>)
-      items.push(<RideItem ride={ride} guideStore={this.guideStore}/>)
+      items.push(<SpotItem key={spot.id} spot={spot} guideStore={this.guideStore}/>)
+      items.push(<RideItem key={ride.id} ride={ride} guideStore={this.guideStore}/>)
     })
 
     return items
@@ -36,18 +36,12 @@ export default class RideAndSpotList extends React.Component<Props> {
   render(): React.ReactElement {
 
     const items: ReactElement[] = this.generateListItems()
-
     return <Grid.Row columns='equal'>
       <GridColumn>
         <List items={items}
+              celled={true}
               selection={true}
               relaxed={true}
-          // onItemClick={(event, data) => {
-          //   switch (data.value.split("_")) {
-          //     case "ride":
-          //   }
-          //   this.guideStore.selectRide(data.value!)
-          // }}
         />
       </GridColumn>
     </Grid.Row>

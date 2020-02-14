@@ -5,7 +5,7 @@
   "main": "./srv/index.js",
   "types": "./srv/index.d.ts",
   "scripts": {
-    "prepare" : "yarn build",
+    "prepare": "yarn build",
     "types": "sql-ts -c ./config.json",
     "build": "tsc",
     "test": "jest",

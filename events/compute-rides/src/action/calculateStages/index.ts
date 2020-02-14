@@ -3,13 +3,14 @@ import { StageContext } from "../getStageContexts"
 import { DirectionsStep } from "@googlemaps/google-maps-services-js/dist/common"
 import * as geojson from "@guided/geojson"
 import addDays from "date-fns/addDays"
-import executeWithContext from "../../utils/executeWithContext"
-import { Stage } from "../../dao"
+import { executeWithContext } from "@guided/utils"
+import { StageData } from "../../dao"
 import { getInfo } from "@guided/google"
 
 
 type SubContext = {
   stage: {
+    stageId: string
     stepsCount: number
     guide: Guide
     startSpot: Spot
@@ -46,6 +47,7 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
       guide: stage.guide.id,
       to_spot: spot.id,
       owner: stage.guide.owner,
+      stage: stage.stageId,
     }
     context.result.newRides.push(newRide)
   }
@@ -66,6 +68,7 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
       owner: stage.guide.owner,
       label: `Spot ${position}`,
       locked: false,
+      stage: stage.stageId,
       position,
     }
     context.result.newSpots.push(newSpot)
@@ -103,7 +106,8 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
   return context
 }
 
-async function computeStage(startDate: Date | null, { startSpot, guide, endSpot, route }: StageContext): Promise<Stage> {
+async function computeStage(startDate: Date | null, { startSpot, guide, endSpot, route }: StageContext): Promise<StageData> {
+  const stageId = generateId("stage")
   let currentDate: Date | null = startDate
   let currentStartSpotId: string = startSpot.id
 
@@ -124,9 +128,11 @@ async function computeStage(startDate: Date | null, { startSpot, guide, endSpot,
       guide: guide.id,
       to_spot: endSpot.id,
       owner: guide.owner,
+      stage: stageId,
     }
 
     return {
+      stageId,
       endSpot,
       startSpot: {
         ...startSpot,
@@ -143,6 +149,7 @@ async function computeStage(startDate: Date | null, { startSpot, guide, endSpot,
 
   const initial: SubContext = {
     stage: {
+      stageId,
       guide,
       startSpot,
       endSpot,
@@ -165,6 +172,7 @@ async function computeStage(startDate: Date | null, { startSpot, guide, endSpot,
   const { result } = await executeWithContext(leg.steps, subaction, initial)
 
   return {
+    stageId,
     endSpot,
     startSpot: {
       ...startSpot,
@@ -176,7 +184,7 @@ async function computeStage(startDate: Date | null, { startSpot, guide, endSpot,
 
 type Context = {
   currentDate: Date | null
-  stages: Stage[]
+  stages: StageData[]
 }
 
 async function action(stageContext: StageContext, context: Context): Promise<Context> {
@@ -188,7 +196,7 @@ async function action(stageContext: StageContext, context: Context): Promise<Con
   }
 }
 
-export default async function(startDate: Date | null, stageContexts: StageContext[]): Promise<Stage[]> {
+export default async function(startDate: Date | null, stageContexts: StageContext[]): Promise<StageData[]> {
 
   const context: Context = {
     currentDate: startDate,

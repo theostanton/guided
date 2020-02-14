@@ -34,6 +34,7 @@ export const options: PostGraphileOptions = {
   jwtVerifyOptions: {
     audience: undefined,
   },
+  disableQueryLog:false,
   exportGqlSchemaPath:"../../schema.graphql",
   sortExport:true,
   pgDefaultRole: "guided_anonymous",

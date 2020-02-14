@@ -3,7 +3,7 @@ import * as pgPromise from "pg-promise"
 import PgPromise from "pg-promise"
 import cuid from "cuid"
 import Extensions, { extend } from "./extensions"
-import { Spot, User, Guide, Ride } from "./types"
+import { Spot, User, Guide, Ride, Stage } from "./types"
 import {
   insertOne, insertMany,
 } from "./utils"
@@ -25,7 +25,7 @@ const options: pgPromise.IInitOptions<Extensions> = {
   extend,
 }
 
-export { Spot, User, Guide, Ride }
+export { Spot, User, Guide, Ride, Stage }
 const pgp = PgPromise(options)
 
 export const database = pgp(DATABASE_URL)

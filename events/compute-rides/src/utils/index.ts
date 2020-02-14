@@ -7,7 +7,3 @@ export function toLatLng(spot: Spot): LatLngLiteral {
     lng: spot.long,
   }
 }
-
-export default function sleep(ms: number): Promise<number> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}

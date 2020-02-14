@@ -1,4 +1,5 @@
 yarn build:logger
+yarn build:utils
 yarn build:envs
 yarn build:database
 yarn build:geojson

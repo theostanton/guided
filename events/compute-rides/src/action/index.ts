@@ -13,8 +13,6 @@ export default async function(body: ComputeRidesMessageBody): Promise<ComputeRid
 
   const guide = await dao.guide()
 
-  await dao.deleteUnlocked()
-
   const spots = await dao.spots()
 
   const contexts = await getStageContexts(spots, guide)

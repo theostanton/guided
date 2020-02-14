@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import GuideStore from "../../model/GuideStore"
 import { inject, observer } from "mobx-react"
 import { RideByGuideFragment } from "../../api/generated"
@@ -25,14 +25,42 @@ export class Rides extends React.Component<Props, {}> {
     const style = {
       paint: {
         "line-width": 1,
-        "line-color": "#444444",
+        "line-color": "black",
       },
+    }
+    const highlightedStyle = {
+      paint: {
+        "line-width": 5,
+        "line-color": "green",
+      },
+    }
+    const selectedStyle = {
+      paint: {
+        "line-width": 5,
+        "line-color": "red",
+      },
+    }
+
+    const isHighlighted = this.guideStore.highlightedId === ride.id
+    const isSelected = this.guideStore.selectedId === ride.id
+
+    let layer: ReactElement
+
+    switch (true) {
+      case isSelected:
+        layer = <Layer key={layerId} type={"line"} source={sourceId} {...selectedStyle}/>
+        break
+      case isHighlighted:
+        layer = <Layer key={layerId} type={"line"} source={sourceId} {...highlightedStyle}/>
+        break
+      default:
+        layer = <Layer key={layerId} type={"line"} source={sourceId} {...style}/>
     }
 
     return (
       [
         <Source key={sourceId} id={sourceId} type='geojson' data={ride.path}/>,
-        <Layer key={layerId} type={"line"} source={sourceId} {...style}/>,
+        layer,
       ]
     )
   }

@@ -1,7 +1,8 @@
 import { Guide, Ride, Spot } from "@guided/database"
 import { DatabaseDao } from "./DatabaseDao"
 
-export type Stage = {
+export type StageData = {
+  stageId: string
   durationDays: number
   newRides: Ride[]
   startSpot: Spot
@@ -19,7 +20,7 @@ export interface Dao {
 
   guide(): Promise<Guide>
 
-  insertStages(stage: Stage[]): Promise<void>
+  insertStages(stage: StageData[]): Promise<void>
 }
 
 export default DatabaseDao

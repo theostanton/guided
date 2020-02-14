@@ -14,6 +14,7 @@
     "@guided/google": "*",
     "@guided/envs": "*",
     "@guided/logger": "*",
+    "@guided/utils": "*",
     "express": "^4.17.1",
     "postgraphile": "^4.6.0",
     "dotenv": "^8.2.0",

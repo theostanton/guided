@@ -1,4 +1,4 @@
-console.log(process.env, "process.env")
+process.env.STAGE = "test"
 
 module.exports = {
   "roots": [

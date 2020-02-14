@@ -13,6 +13,7 @@
     "invoke": "STAGE=staging GUIDE_ID=guide_vc03u7q ts-node src/invoke.ts"
   },
   "dependencies": {
+    "@guided/utils": "*",
     "@guided/google": "*",
     "@guided/geojson": "*",
     "date-fns": "^2.9.0",

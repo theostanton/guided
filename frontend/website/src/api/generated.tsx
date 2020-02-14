@@ -114,6 +114,8 @@ export type CreateRidePayload = {
   readonly spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
   readonly spotByToSpot?: Maybe<Spot>,
+  /** Reads a single `Stage` that is related to this `Ride`. */
+  readonly stageByStage?: Maybe<Stage>,
   /** Reads a single `User` that is related to this `Ride`. */
   readonly userByOwner?: Maybe<User>,
 };
@@ -150,6 +152,8 @@ export type CreateSpotPayload = {
   readonly spot?: Maybe<Spot>,
   /** An edge for our `Spot`. May be used by Relay 1. */
   readonly spotEdge?: Maybe<SpotsEdge>,
+  /** Reads a single `Stage` that is related to this `Spot`. */
+  readonly stageByStage?: Maybe<Stage>,
   /** Reads a single `User` that is related to this `Spot`. */
   readonly userByOwner?: Maybe<User>,
 };
@@ -158,6 +162,44 @@ export type CreateSpotPayload = {
 /** The output of our create `Spot` mutation. */
 export type CreateSpotPayloadSpotEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
+};
+
+/** All input for the create `Stage` mutation. */
+export type CreateStageInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The `Stage` to be created by this mutation. */
+  readonly stage: StageInput,
+};
+
+/** The output of our create `Stage` mutation. */
+export type CreateStagePayload = {
+  /** 
+ * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** Reads a single `Guide` that is related to this `Stage`. */
+  readonly guideByGuide?: Maybe<Guide>,
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>,
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByFromSpot?: Maybe<Spot>,
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByToSpot?: Maybe<Spot>,
+  /** The `Stage` that was created by this mutation. */
+  readonly stage?: Maybe<Stage>,
+  /** An edge for our `Stage`. May be used by Relay 1. */
+  readonly stageEdge?: Maybe<StagesEdge>,
+};
+
+
+/** The output of our create `Stage` mutation. */
+export type CreateStagePayloadStageEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>
 };
 
 /** All input for the create `User` mutation. */
@@ -280,6 +322,8 @@ export type DeleteRidePayload = {
   readonly spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
   readonly spotByToSpot?: Maybe<Spot>,
+  /** Reads a single `Stage` that is related to this `Ride`. */
+  readonly stageByStage?: Maybe<Stage>,
   /** Reads a single `User` that is related to this `Ride`. */
   readonly userByOwner?: Maybe<User>,
 };
@@ -327,6 +371,8 @@ export type DeleteSpotPayload = {
   readonly spot?: Maybe<Spot>,
   /** An edge for our `Spot`. May be used by Relay 1. */
   readonly spotEdge?: Maybe<SpotsEdge>,
+  /** Reads a single `Stage` that is related to this `Spot`. */
+  readonly stageByStage?: Maybe<Stage>,
   /** Reads a single `User` that is related to this `Spot`. */
   readonly userByOwner?: Maybe<User>,
 };
@@ -335,6 +381,55 @@ export type DeleteSpotPayload = {
 /** The output of our delete `Spot` mutation. */
 export type DeleteSpotPayloadSpotEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
+};
+
+/** All input for the `deleteStageByNodeId` mutation. */
+export type DeleteStageByNodeIdInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The globally unique `ID` which will identify a single `Stage` to be deleted. */
+  readonly nodeId: Scalars['ID'],
+};
+
+/** All input for the `deleteStage` mutation. */
+export type DeleteStageInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
+};
+
+/** The output of our delete `Stage` mutation. */
+export type DeleteStagePayload = {
+  /** 
+ * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly deletedStageNodeId?: Maybe<Scalars['ID']>,
+  /** Reads a single `Guide` that is related to this `Stage`. */
+  readonly guideByGuide?: Maybe<Guide>,
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>,
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByFromSpot?: Maybe<Spot>,
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByToSpot?: Maybe<Spot>,
+  /** The `Stage` that was deleted by this mutation. */
+  readonly stage?: Maybe<Stage>,
+  /** An edge for our `Stage`. May be used by Relay 1. */
+  readonly stageEdge?: Maybe<StagesEdge>,
+};
+
+
+/** The output of our delete `Stage` mutation. */
+export type DeleteStagePayloadStageEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>
 };
 
 /** All input for the `deleteUserByNodeId` mutation. */
@@ -391,6 +486,8 @@ export type Guide = Node & {
   readonly slug: Scalars['String'],
   /** Reads and enables pagination through a set of `Spot`. */
   readonly spotsByGuide: SpotsConnection,
+  /** Reads and enables pagination through a set of `Stage`. */
+  readonly stagesByGuide: StagesConnection,
   readonly startDate?: Maybe<Scalars['Date']>,
   readonly title: Scalars['String'],
   /** Reads a single `User` that is related to this `Guide`. */
@@ -417,6 +514,17 @@ export type GuideSpotsByGuideArgs = {
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
   orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
+};
+
+
+export type GuideStagesByGuideArgs = {
+  after?: Maybe<Scalars['Cursor']>,
+  before?: Maybe<Scalars['Cursor']>,
+  condition?: Maybe<StageCondition>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>
 };
 
 /** A condition to be used against `Guide` object types. All fields are tested for equality and combined with a logical ‘and.’ */
@@ -508,6 +616,8 @@ export type Mutation = {
   readonly createRide?: Maybe<CreateRidePayload>,
   /** Creates a single `Spot`. */
   readonly createSpot?: Maybe<CreateSpotPayload>,
+  /** Creates a single `Stage`. */
+  readonly createStage?: Maybe<CreateStagePayload>,
   /** Creates a single `User`. */
   readonly createUser?: Maybe<CreateUserPayload>,
   /** Deletes a single `Guide` using a unique key. */
@@ -522,6 +632,10 @@ export type Mutation = {
   readonly deleteSpot?: Maybe<DeleteSpotPayload>,
   /** Deletes a single `Spot` using its globally unique id. */
   readonly deleteSpotByNodeId?: Maybe<DeleteSpotPayload>,
+  /** Deletes a single `Stage` using a unique key. */
+  readonly deleteStage?: Maybe<DeleteStagePayload>,
+  /** Deletes a single `Stage` using its globally unique id. */
+  readonly deleteStageByNodeId?: Maybe<DeleteStagePayload>,
   /** Deletes a single `User` using a unique key. */
   readonly deleteUser?: Maybe<DeleteUserPayload>,
   /** Deletes a single `User` using its globally unique id. */
@@ -542,6 +656,10 @@ export type Mutation = {
   readonly updateSpot?: Maybe<UpdateSpotPayload>,
   /** Updates a single `Spot` using its globally unique id and a patch. */
   readonly updateSpotByNodeId?: Maybe<UpdateSpotPayload>,
+  /** Updates a single `Stage` using a unique key and a patch. */
+  readonly updateStage?: Maybe<UpdateStagePayload>,
+  /** Updates a single `Stage` using its globally unique id and a patch. */
+  readonly updateStageByNodeId?: Maybe<UpdateStagePayload>,
   /** Updates a single `User` using a unique key and a patch. */
   readonly updateUser?: Maybe<UpdateUserPayload>,
   /** Updates a single `User` using its globally unique id and a patch. */
@@ -589,6 +707,12 @@ export type MutationCreateSpotArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateStageArgs = {
+  input: CreateStageInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateUserArgs = {
   input: CreateUserInput
 };
@@ -627,6 +751,18 @@ export type MutationDeleteSpotArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteSpotByNodeIdArgs = {
   input: DeleteSpotByNodeIdInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteStageArgs = {
+  input: DeleteStageInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteStageByNodeIdArgs = {
+  input: DeleteStageByNodeIdInput
 };
 
 
@@ -699,6 +835,18 @@ export type MutationUpdateSpotByNodeIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateStageArgs = {
+  input: UpdateStageInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateStageByNodeIdArgs = {
+  input: UpdateStageByNodeIdInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateUserArgs = {
   input: UpdateUserInput
 };
@@ -754,6 +902,11 @@ export type Query = Node & {
   readonly spotByNodeId?: Maybe<Spot>,
   /** Reads and enables pagination through a set of `Spot`. */
   readonly spots?: Maybe<SpotsConnection>,
+  readonly stage?: Maybe<Stage>,
+  /** Reads a single `Stage` using its globally unique `ID`. */
+  readonly stageByNodeId?: Maybe<Stage>,
+  /** Reads and enables pagination through a set of `Stage`. */
+  readonly stages?: Maybe<StagesConnection>,
   readonly user?: Maybe<User>,
   /** Reads a single `User` using its globally unique `ID`. */
   readonly userByNodeId?: Maybe<User>,
@@ -841,6 +994,30 @@ export type QuerySpotsArgs = {
 
 
 /** The root query type which gives access points into the data universe. */
+export type QueryStageArgs = {
+  id: Scalars['String']
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryStageByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryStagesArgs = {
+  after?: Maybe<Scalars['Cursor']>,
+  before?: Maybe<Scalars['Cursor']>,
+  condition?: Maybe<StageCondition>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>
+};
+
+
+/** The root query type which gives access points into the data universe. */
 export type QueryUserArgs = {
   username: Scalars['String']
 };
@@ -912,6 +1089,9 @@ export type Ride = Node & {
   readonly spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
   readonly spotByToSpot?: Maybe<Spot>,
+  readonly stage: Scalars['String'],
+  /** Reads a single `Stage` that is related to this `Ride`. */
+  readonly stageByStage?: Maybe<Stage>,
   readonly toSpot: Scalars['String'],
   /** Reads a single `User` that is related to this `Ride`. */
   readonly userByOwner?: Maybe<User>,
@@ -935,6 +1115,8 @@ export type RideCondition = {
   readonly owner?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `path` field. */
   readonly path?: Maybe<Scalars['JSON']>,
+  /** Checks for equality with the object’s `stage` field. */
+  readonly stage?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `toSpot` field. */
   readonly toSpot?: Maybe<Scalars['String']>,
 };
@@ -949,6 +1131,7 @@ export type RideInput = {
   readonly id: Scalars['String'],
   readonly owner: Scalars['String'],
   readonly path?: Maybe<Scalars['JSON']>,
+  readonly stage: Scalars['String'],
   readonly toSpot: Scalars['String'],
 };
 
@@ -962,6 +1145,7 @@ export type RidePatch = {
   readonly id?: Maybe<Scalars['String']>,
   readonly owner?: Maybe<Scalars['String']>,
   readonly path?: Maybe<Scalars['JSON']>,
+  readonly stage?: Maybe<Scalars['String']>,
   readonly toSpot?: Maybe<Scalars['String']>,
 };
 
@@ -1006,6 +1190,8 @@ export enum RidesOrderBy {
   PathDesc = 'PATH_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  StageAsc = 'STAGE_ASC',
+  StageDesc = 'STAGE_DESC',
   ToSpotAsc = 'TO_SPOT_ASC',
   ToSpotDesc = 'TO_SPOT_DESC'
 }
@@ -1031,6 +1217,13 @@ export type Spot = Node & {
   readonly ridesByFromSpot: RidesConnection,
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByToSpot: RidesConnection,
+  readonly stage?: Maybe<Scalars['String']>,
+  /** Reads a single `Stage` that is related to this `Spot`. */
+  readonly stageByStage?: Maybe<Stage>,
+  /** Reads and enables pagination through a set of `Stage`. */
+  readonly stagesByFromSpot: StagesConnection,
+  /** Reads and enables pagination through a set of `Stage`. */
+  readonly stagesByToSpot: StagesConnection,
   /** Reads a single `User` that is related to this `Spot`. */
   readonly userByOwner?: Maybe<User>,
 };
@@ -1055,6 +1248,28 @@ export type SpotRidesByToSpotArgs = {
   last?: Maybe<Scalars['Int']>,
   offset?: Maybe<Scalars['Int']>,
   orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>
+};
+
+
+export type SpotStagesByFromSpotArgs = {
+  after?: Maybe<Scalars['Cursor']>,
+  before?: Maybe<Scalars['Cursor']>,
+  condition?: Maybe<StageCondition>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>
+};
+
+
+export type SpotStagesByToSpotArgs = {
+  after?: Maybe<Scalars['Cursor']>,
+  before?: Maybe<Scalars['Cursor']>,
+  condition?: Maybe<StageCondition>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>
 };
 
 /** A condition to be used against `Spot` object types. All fields are tested for equality and combined with a logical ‘and.’ */
@@ -1083,6 +1298,8 @@ export type SpotCondition = {
   readonly owner?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `position` field. */
   readonly position?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `stage` field. */
+  readonly stage?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `Spot` */
@@ -1099,6 +1316,7 @@ export type SpotInput = {
   readonly nights?: Maybe<Scalars['Int']>,
   readonly owner: Scalars['String'],
   readonly position?: Maybe<Scalars['String']>,
+  readonly stage?: Maybe<Scalars['String']>,
 };
 
 /** Represents an update to a `Spot`. Fields that are set will be updated. */
@@ -1115,6 +1333,7 @@ export type SpotPatch = {
   readonly nights?: Maybe<Scalars['Int']>,
   readonly owner?: Maybe<Scalars['String']>,
   readonly position?: Maybe<Scalars['String']>,
+  readonly stage?: Maybe<Scalars['String']>,
 };
 
 /** A connection to a list of `Spot` values. */
@@ -1165,7 +1384,127 @@ export enum SpotsOrderBy {
   PositionAsc = 'POSITION_ASC',
   PositionDesc = 'POSITION_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
-  PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  StageAsc = 'STAGE_ASC',
+  StageDesc = 'STAGE_DESC'
+}
+
+export type Stage = Node & {
+  readonly created?: Maybe<Scalars['Date']>,
+  readonly fromSpot: Scalars['String'],
+  readonly guide: Scalars['String'],
+  /** Reads a single `Guide` that is related to this `Stage`. */
+  readonly guideByGuide?: Maybe<Guide>,
+  readonly id: Scalars['String'],
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  readonly nodeId: Scalars['ID'],
+  /** Reads and enables pagination through a set of `Ride`. */
+  readonly ridesByStage: RidesConnection,
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByFromSpot?: Maybe<Spot>,
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByToSpot?: Maybe<Spot>,
+  /** Reads and enables pagination through a set of `Spot`. */
+  readonly spotsByStage: SpotsConnection,
+  readonly toSpot: Scalars['String'],
+  readonly updated?: Maybe<Scalars['Date']>,
+};
+
+
+export type StageRidesByStageArgs = {
+  after?: Maybe<Scalars['Cursor']>,
+  before?: Maybe<Scalars['Cursor']>,
+  condition?: Maybe<RideCondition>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>
+};
+
+
+export type StageSpotsByStageArgs = {
+  after?: Maybe<Scalars['Cursor']>,
+  before?: Maybe<Scalars['Cursor']>,
+  condition?: Maybe<SpotCondition>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
+};
+
+/** A condition to be used against `Stage` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type StageCondition = {
+  /** Checks for equality with the object’s `created` field. */
+  readonly created?: Maybe<Scalars['Date']>,
+  /** Checks for equality with the object’s `fromSpot` field. */
+  readonly fromSpot?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `guide` field. */
+  readonly guide?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `id` field. */
+  readonly id?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `toSpot` field. */
+  readonly toSpot?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `updated` field. */
+  readonly updated?: Maybe<Scalars['Date']>,
+};
+
+/** An input for mutations affecting `Stage` */
+export type StageInput = {
+  readonly created?: Maybe<Scalars['Date']>,
+  readonly fromSpot: Scalars['String'],
+  readonly guide: Scalars['String'],
+  readonly id: Scalars['String'],
+  readonly toSpot: Scalars['String'],
+  readonly updated?: Maybe<Scalars['Date']>,
+};
+
+/** Represents an update to a `Stage`. Fields that are set will be updated. */
+export type StagePatch = {
+  readonly created?: Maybe<Scalars['Date']>,
+  readonly fromSpot?: Maybe<Scalars['String']>,
+  readonly guide?: Maybe<Scalars['String']>,
+  readonly id?: Maybe<Scalars['String']>,
+  readonly toSpot?: Maybe<Scalars['String']>,
+  readonly updated?: Maybe<Scalars['Date']>,
+};
+
+/** A connection to a list of `Stage` values. */
+export type StagesConnection = {
+  /** A list of edges which contains the `Stage` and cursor to aid in pagination. */
+  readonly edges: ReadonlyArray<StagesEdge>,
+  /** A list of `Stage` objects. */
+  readonly nodes: ReadonlyArray<Maybe<Stage>>,
+  /** Information to aid in pagination. */
+  readonly pageInfo: PageInfo,
+  /** The count of *all* `Stage` you could get from the connection. */
+  readonly totalCount: Scalars['Int'],
+};
+
+/** A `Stage` edge in the connection. */
+export type StagesEdge = {
+  /** A cursor for use in pagination. */
+  readonly cursor?: Maybe<Scalars['Cursor']>,
+  /** The `Stage` at the end of the edge. */
+  readonly node?: Maybe<Stage>,
+};
+
+/** Methods to use when ordering `Stage`. */
+export enum StagesOrderBy {
+  CreatedAsc = 'CREATED_ASC',
+  CreatedDesc = 'CREATED_DESC',
+  FromSpotAsc = 'FROM_SPOT_ASC',
+  FromSpotDesc = 'FROM_SPOT_DESC',
+  GuideAsc = 'GUIDE_ASC',
+  GuideDesc = 'GUIDE_DESC',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  ToSpotAsc = 'TO_SPOT_ASC',
+  ToSpotDesc = 'TO_SPOT_DESC',
+  UpdatedAsc = 'UPDATED_ASC',
+  UpdatedDesc = 'UPDATED_DESC'
 }
 
 /** All input for the `updateGuideByNodeId` mutation. */
@@ -1260,6 +1599,8 @@ export type UpdateRidePayload = {
   readonly spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
   readonly spotByToSpot?: Maybe<Spot>,
+  /** Reads a single `Stage` that is related to this `Ride`. */
+  readonly stageByStage?: Maybe<Stage>,
   /** Reads a single `User` that is related to this `Ride`. */
   readonly userByOwner?: Maybe<User>,
 };
@@ -1310,6 +1651,8 @@ export type UpdateSpotPayload = {
   readonly spot?: Maybe<Spot>,
   /** An edge for our `Spot`. May be used by Relay 1. */
   readonly spotEdge?: Maybe<SpotsEdge>,
+  /** Reads a single `Stage` that is related to this `Spot`. */
+  readonly stageByStage?: Maybe<Stage>,
   /** Reads a single `User` that is related to this `Spot`. */
   readonly userByOwner?: Maybe<User>,
 };
@@ -1318,6 +1661,58 @@ export type UpdateSpotPayload = {
 /** The output of our update `Spot` mutation. */
 export type UpdateSpotPayloadSpotEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>
+};
+
+/** All input for the `updateStageByNodeId` mutation. */
+export type UpdateStageByNodeIdInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The globally unique `ID` which will identify a single `Stage` to be updated. */
+  readonly nodeId: Scalars['ID'],
+  /** An object where the defined keys will be set on the `Stage` being updated. */
+  readonly patch: StagePatch,
+};
+
+/** All input for the `updateStage` mutation. */
+export type UpdateStageInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
+  /** An object where the defined keys will be set on the `Stage` being updated. */
+  readonly patch: StagePatch,
+};
+
+/** The output of our update `Stage` mutation. */
+export type UpdateStagePayload = {
+  /** 
+ * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** Reads a single `Guide` that is related to this `Stage`. */
+  readonly guideByGuide?: Maybe<Guide>,
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>,
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByFromSpot?: Maybe<Spot>,
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByToSpot?: Maybe<Spot>,
+  /** The `Stage` that was updated by this mutation. */
+  readonly stage?: Maybe<Stage>,
+  /** An edge for our `Stage`. May be used by Relay 1. */
+  readonly stageEdge?: Maybe<StagesEdge>,
+};
+
+
+/** The output of our update `Stage` mutation. */
+export type UpdateStagePayloadStageEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>
 };
 
 /** All input for the `updateUserByNodeId` mutation. */
@@ -1367,6 +1762,7 @@ export type UpdateUserPayloadUserEdgeArgs = {
 };
 
 export type User = Node & {
+  readonly created?: Maybe<Scalars['Date']>,
   readonly email: Scalars['String'],
   /** Reads and enables pagination through a set of `Guide`. */
   readonly guidesByOwner: GuidesConnection,
@@ -1377,6 +1773,7 @@ export type User = Node & {
   readonly ridesByOwner: RidesConnection,
   /** Reads and enables pagination through a set of `Spot`. */
   readonly spotsByOwner: SpotsConnection,
+  readonly updated?: Maybe<Scalars['Date']>,
   readonly username: Scalars['String'],
 };
 
@@ -1415,25 +1812,33 @@ export type UserSpotsByOwnerArgs = {
 
 /** A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type UserCondition = {
+  /** Checks for equality with the object’s `created` field. */
+  readonly created?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `email` field. */
   readonly email?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `passwordHash` field. */
   readonly passwordHash?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `updated` field. */
+  readonly updated?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `username` field. */
   readonly username?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `User` */
 export type UserInput = {
+  readonly created?: Maybe<Scalars['Date']>,
   readonly email: Scalars['String'],
   readonly passwordHash: Scalars['String'],
+  readonly updated?: Maybe<Scalars['Date']>,
   readonly username: Scalars['String'],
 };
 
 /** Represents an update to a `User`. Fields that are set will be updated. */
 export type UserPatch = {
+  readonly created?: Maybe<Scalars['Date']>,
   readonly email?: Maybe<Scalars['String']>,
   readonly passwordHash?: Maybe<Scalars['String']>,
+  readonly updated?: Maybe<Scalars['Date']>,
   readonly username?: Maybe<Scalars['String']>,
 };
 
@@ -1459,6 +1864,8 @@ export type UsersEdge = {
 
 /** Methods to use when ordering `User`. */
 export enum UsersOrderBy {
+  CreatedAsc = 'CREATED_ASC',
+  CreatedDesc = 'CREATED_DESC',
   EmailAsc = 'EMAIL_ASC',
   EmailDesc = 'EMAIL_DESC',
   Natural = 'NATURAL',
@@ -1466,6 +1873,8 @@ export enum UsersOrderBy {
   PasswordHashDesc = 'PASSWORD_HASH_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  UpdatedAsc = 'UPDATED_ASC',
+  UpdatedDesc = 'UPDATED_DESC',
   UsernameAsc = 'USERNAME_ASC',
   UsernameDesc = 'USERNAME_DESC'
 }
@@ -1561,16 +1970,21 @@ export type ResolversTypes = {
   Spot: ResolverTypeWrapper<Spot>,
   Float: ResolverTypeWrapper<Scalars['Float']>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  Stage: ResolverTypeWrapper<Stage>,
+  SpotCondition: SpotCondition,
+  SpotsOrderBy: SpotsOrderBy,
+  SpotsConnection: ResolverTypeWrapper<SpotsConnection>,
+  SpotsEdge: ResolverTypeWrapper<SpotsEdge>,
+  PageInfo: ResolverTypeWrapper<PageInfo>,
+  StageCondition: StageCondition,
+  StagesOrderBy: StagesOrderBy,
+  StagesConnection: ResolverTypeWrapper<StagesConnection>,
+  StagesEdge: ResolverTypeWrapper<StagesEdge>,
   User: ResolverTypeWrapper<User>,
   GuideCondition: GuideCondition,
   GuidesOrderBy: GuidesOrderBy,
   GuidesConnection: ResolverTypeWrapper<GuidesConnection>,
   GuidesEdge: ResolverTypeWrapper<GuidesEdge>,
-  PageInfo: ResolverTypeWrapper<PageInfo>,
-  SpotCondition: SpotCondition,
-  SpotsOrderBy: SpotsOrderBy,
-  SpotsConnection: ResolverTypeWrapper<SpotsConnection>,
-  SpotsEdge: ResolverTypeWrapper<SpotsEdge>,
   UserCondition: UserCondition,
   UsersOrderBy: UsersOrderBy,
   UsersConnection: ResolverTypeWrapper<UsersConnection>,
@@ -1587,6 +2001,9 @@ export type ResolversTypes = {
   CreateSpotInput: CreateSpotInput,
   SpotInput: SpotInput,
   CreateSpotPayload: ResolverTypeWrapper<CreateSpotPayload>,
+  CreateStageInput: CreateStageInput,
+  StageInput: StageInput,
+  CreateStagePayload: ResolverTypeWrapper<CreateStagePayload>,
   CreateUserInput: CreateUserInput,
   UserInput: UserInput,
   CreateUserPayload: ResolverTypeWrapper<CreateUserPayload>,
@@ -1599,6 +2016,9 @@ export type ResolversTypes = {
   DeleteSpotInput: DeleteSpotInput,
   DeleteSpotPayload: ResolverTypeWrapper<DeleteSpotPayload>,
   DeleteSpotByNodeIdInput: DeleteSpotByNodeIdInput,
+  DeleteStageInput: DeleteStageInput,
+  DeleteStagePayload: ResolverTypeWrapper<DeleteStagePayload>,
+  DeleteStageByNodeIdInput: DeleteStageByNodeIdInput,
   DeleteUserInput: DeleteUserInput,
   DeleteUserPayload: ResolverTypeWrapper<DeleteUserPayload>,
   DeleteUserByNodeIdInput: DeleteUserByNodeIdInput,
@@ -1616,6 +2036,10 @@ export type ResolversTypes = {
   SpotPatch: SpotPatch,
   UpdateSpotPayload: ResolverTypeWrapper<UpdateSpotPayload>,
   UpdateSpotByNodeIdInput: UpdateSpotByNodeIdInput,
+  UpdateStageInput: UpdateStageInput,
+  StagePatch: StagePatch,
+  UpdateStagePayload: ResolverTypeWrapper<UpdateStagePayload>,
+  UpdateStageByNodeIdInput: UpdateStageByNodeIdInput,
   UpdateUserInput: UpdateUserInput,
   UserPatch: UserPatch,
   UpdateUserPayload: ResolverTypeWrapper<UpdateUserPayload>,
@@ -1642,16 +2066,21 @@ export type ResolversParentTypes = {
   Spot: Spot,
   Float: Scalars['Float'],
   Boolean: Scalars['Boolean'],
+  Stage: Stage,
+  SpotCondition: SpotCondition,
+  SpotsOrderBy: SpotsOrderBy,
+  SpotsConnection: SpotsConnection,
+  SpotsEdge: SpotsEdge,
+  PageInfo: PageInfo,
+  StageCondition: StageCondition,
+  StagesOrderBy: StagesOrderBy,
+  StagesConnection: StagesConnection,
+  StagesEdge: StagesEdge,
   User: User,
   GuideCondition: GuideCondition,
   GuidesOrderBy: GuidesOrderBy,
   GuidesConnection: GuidesConnection,
   GuidesEdge: GuidesEdge,
-  PageInfo: PageInfo,
-  SpotCondition: SpotCondition,
-  SpotsOrderBy: SpotsOrderBy,
-  SpotsConnection: SpotsConnection,
-  SpotsEdge: SpotsEdge,
   UserCondition: UserCondition,
   UsersOrderBy: UsersOrderBy,
   UsersConnection: UsersConnection,
@@ -1668,6 +2097,9 @@ export type ResolversParentTypes = {
   CreateSpotInput: CreateSpotInput,
   SpotInput: SpotInput,
   CreateSpotPayload: CreateSpotPayload,
+  CreateStageInput: CreateStageInput,
+  StageInput: StageInput,
+  CreateStagePayload: CreateStagePayload,
   CreateUserInput: CreateUserInput,
   UserInput: UserInput,
   CreateUserPayload: CreateUserPayload,
@@ -1680,6 +2112,9 @@ export type ResolversParentTypes = {
   DeleteSpotInput: DeleteSpotInput,
   DeleteSpotPayload: DeleteSpotPayload,
   DeleteSpotByNodeIdInput: DeleteSpotByNodeIdInput,
+  DeleteStageInput: DeleteStageInput,
+  DeleteStagePayload: DeleteStagePayload,
+  DeleteStageByNodeIdInput: DeleteStageByNodeIdInput,
   DeleteUserInput: DeleteUserInput,
   DeleteUserPayload: DeleteUserPayload,
   DeleteUserByNodeIdInput: DeleteUserByNodeIdInput,
@@ -1697,6 +2132,10 @@ export type ResolversParentTypes = {
   SpotPatch: SpotPatch,
   UpdateSpotPayload: UpdateSpotPayload,
   UpdateSpotByNodeIdInput: UpdateSpotByNodeIdInput,
+  UpdateStageInput: UpdateStageInput,
+  StagePatch: StagePatch,
+  UpdateStagePayload: UpdateStagePayload,
+  UpdateStageByNodeIdInput: UpdateStageByNodeIdInput,
   UpdateUserInput: UpdateUserInput,
   UserPatch: UserPatch,
   UpdateUserPayload: UpdateUserPayload,
@@ -1727,6 +2166,7 @@ export type CreateRidePayloadResolvers<ContextType = any, ParentType extends Res
   rideEdge?: Resolver<Maybe<ResolversTypes['RidesEdge']>, ParentType, ContextType, RequireFields<CreateRidePayloadRideEdgeArgs, 'orderBy'>>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -1737,7 +2177,19 @@ export type CreateSpotPayloadResolvers<ContextType = any, ParentType extends Res
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
   spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotEdge?: Resolver<Maybe<ResolversTypes['SpotsEdge']>, ParentType, ContextType, RequireFields<CreateSpotPayloadSpotEdgeArgs, 'orderBy'>>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateStagePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateStagePayload'] = ResolversParentTypes['CreateStagePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  stageEdge?: Resolver<Maybe<ResolversTypes['StagesEdge']>, ParentType, ContextType, RequireFields<CreateStagePayloadStageEdgeArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -1776,6 +2228,7 @@ export type DeleteRidePayloadResolvers<ContextType = any, ParentType extends Res
   rideEdge?: Resolver<Maybe<ResolversTypes['RidesEdge']>, ParentType, ContextType, RequireFields<DeleteRidePayloadRideEdgeArgs, 'orderBy'>>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -1787,7 +2240,20 @@ export type DeleteSpotPayloadResolvers<ContextType = any, ParentType extends Res
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
   spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotEdge?: Resolver<Maybe<ResolversTypes['SpotsEdge']>, ParentType, ContextType, RequireFields<DeleteSpotPayloadSpotEdgeArgs, 'orderBy'>>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type DeleteStagePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteStagePayload'] = ResolversParentTypes['DeleteStagePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  deletedStageNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  stageEdge?: Resolver<Maybe<ResolversTypes['StagesEdge']>, ParentType, ContextType, RequireFields<DeleteStagePayloadStageEdgeArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -1808,6 +2274,7 @@ export type GuideResolvers<ContextType = any, ParentType extends ResolversParent
   ridesByGuide?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<GuideRidesByGuideArgs, 'orderBy'>>,
   slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   spotsByGuide?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<GuideSpotsByGuideArgs, 'orderBy'>>,
+  stagesByGuide?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<GuideStagesByGuideArgs, 'orderBy'>>,
   startDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
@@ -1843,6 +2310,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createGuide?: Resolver<Maybe<ResolversTypes['CreateGuidePayload']>, ParentType, ContextType, RequireFields<MutationCreateGuideArgs, 'input'>>,
   createRide?: Resolver<Maybe<ResolversTypes['CreateRidePayload']>, ParentType, ContextType, RequireFields<MutationCreateRideArgs, 'input'>>,
   createSpot?: Resolver<Maybe<ResolversTypes['CreateSpotPayload']>, ParentType, ContextType, RequireFields<MutationCreateSpotArgs, 'input'>>,
+  createStage?: Resolver<Maybe<ResolversTypes['CreateStagePayload']>, ParentType, ContextType, RequireFields<MutationCreateStageArgs, 'input'>>,
   createUser?: Resolver<Maybe<ResolversTypes['CreateUserPayload']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>,
   deleteGuide?: Resolver<Maybe<ResolversTypes['DeleteGuidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, 'input'>>,
   deleteGuideByNodeId?: Resolver<Maybe<ResolversTypes['DeleteGuidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteGuideByNodeIdArgs, 'input'>>,
@@ -1850,6 +2318,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteRideByNodeId?: Resolver<Maybe<ResolversTypes['DeleteRidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteRideByNodeIdArgs, 'input'>>,
   deleteSpot?: Resolver<Maybe<ResolversTypes['DeleteSpotPayload']>, ParentType, ContextType, RequireFields<MutationDeleteSpotArgs, 'input'>>,
   deleteSpotByNodeId?: Resolver<Maybe<ResolversTypes['DeleteSpotPayload']>, ParentType, ContextType, RequireFields<MutationDeleteSpotByNodeIdArgs, 'input'>>,
+  deleteStage?: Resolver<Maybe<ResolversTypes['DeleteStagePayload']>, ParentType, ContextType, RequireFields<MutationDeleteStageArgs, 'input'>>,
+  deleteStageByNodeId?: Resolver<Maybe<ResolversTypes['DeleteStagePayload']>, ParentType, ContextType, RequireFields<MutationDeleteStageByNodeIdArgs, 'input'>>,
   deleteUser?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'input'>>,
   deleteUserByNodeId?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserByNodeIdArgs, 'input'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'lat' | 'long' | 'spotId'>>,
@@ -1861,12 +2331,14 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateRideByNodeId?: Resolver<Maybe<ResolversTypes['UpdateRidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateRideByNodeIdArgs, 'input'>>,
   updateSpot?: Resolver<Maybe<ResolversTypes['UpdateSpotPayload']>, ParentType, ContextType, RequireFields<MutationUpdateSpotArgs, 'input'>>,
   updateSpotByNodeId?: Resolver<Maybe<ResolversTypes['UpdateSpotPayload']>, ParentType, ContextType, RequireFields<MutationUpdateSpotByNodeIdArgs, 'input'>>,
+  updateStage?: Resolver<Maybe<ResolversTypes['UpdateStagePayload']>, ParentType, ContextType, RequireFields<MutationUpdateStageArgs, 'input'>>,
+  updateStageByNodeId?: Resolver<Maybe<ResolversTypes['UpdateStagePayload']>, ParentType, ContextType, RequireFields<MutationUpdateStageByNodeIdArgs, 'input'>>,
   updateUser?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'input'>>,
   updateUserByNodeId?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserByNodeIdArgs, 'input'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Query' | 'Guide' | 'Ride' | 'Spot' | 'User', ParentType, ContextType>,
+  __resolveType: TypeResolveFn<'Query' | 'Guide' | 'Ride' | 'Spot' | 'Stage' | 'User', ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
 };
 
@@ -1892,6 +2364,9 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotArgs, 'id'>>,
   spotByNodeId?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotByNodeIdArgs, 'nodeId'>>,
   spots?: Resolver<Maybe<ResolversTypes['SpotsConnection']>, ParentType, ContextType, RequireFields<QuerySpotsArgs, 'orderBy'>>,
+  stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageArgs, 'id'>>,
+  stageByNodeId?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageByNodeIdArgs, 'nodeId'>>,
+  stages?: Resolver<Maybe<ResolversTypes['StagesConnection']>, ParentType, ContextType, RequireFields<QueryStagesArgs, 'orderBy'>>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'username'>>,
   userByNodeId?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByNodeIdArgs, 'nodeId'>>,
   users?: Resolver<Maybe<ResolversTypes['UsersConnection']>, ParentType, ContextType, RequireFields<QueryUsersArgs, 'orderBy'>>,
@@ -1918,6 +2393,8 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   path?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  stage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
@@ -1954,6 +2431,10 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   position?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   ridesByFromSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByFromSpotArgs, 'orderBy'>>,
   ridesByToSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByToSpotArgs, 'orderBy'>>,
+  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  stagesByFromSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByFromSpotArgs, 'orderBy'>>,
+  stagesByToSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByToSpotArgs, 'orderBy'>>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -1969,6 +2450,36 @@ export type SpotsConnectionResolvers<ContextType = any, ParentType extends Resol
 export type SpotsEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['SpotsEdge'] = ResolversParentTypes['SpotsEdge']> = {
   cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
   node?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type StageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Stage'] = ResolversParentTypes['Stage']> = {
+  created?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  ridesByStage?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<StageRidesByStageArgs, 'orderBy'>>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotsByStage?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<StageSpotsByStageArgs, 'orderBy'>>,
+  toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  updated?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type StagesConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['StagesConnection'] = ResolversParentTypes['StagesConnection']> = {
+  edges?: Resolver<ReadonlyArray<ResolversTypes['StagesEdge']>, ParentType, ContextType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Stage']>>, ParentType, ContextType>,
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type StagesEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['StagesEdge'] = ResolversParentTypes['StagesEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -1989,6 +2500,7 @@ export type UpdateRidePayloadResolvers<ContextType = any, ParentType extends Res
   rideEdge?: Resolver<Maybe<ResolversTypes['RidesEdge']>, ParentType, ContextType, RequireFields<UpdateRidePayloadRideEdgeArgs, 'orderBy'>>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -1999,7 +2511,19 @@ export type UpdateSpotPayloadResolvers<ContextType = any, ParentType extends Res
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
   spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotEdge?: Resolver<Maybe<ResolversTypes['SpotsEdge']>, ParentType, ContextType, RequireFields<UpdateSpotPayloadSpotEdgeArgs, 'orderBy'>>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateStagePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateStagePayload'] = ResolversParentTypes['UpdateStagePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  stageEdge?: Resolver<Maybe<ResolversTypes['StagesEdge']>, ParentType, ContextType, RequireFields<UpdateStagePayloadStageEdgeArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -2012,12 +2536,14 @@ export type UpdateUserPayloadResolvers<ContextType = any, ParentType extends Res
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  created?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   guidesByOwner?: Resolver<ResolversTypes['GuidesConnection'], ParentType, ContextType, RequireFields<UserGuidesByOwnerArgs, 'orderBy'>>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   passwordHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>,
   spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>,
+  updated?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -2041,12 +2567,14 @@ export type Resolvers<ContextType = any> = {
   CreateGuidePayload?: CreateGuidePayloadResolvers<ContextType>,
   CreateRidePayload?: CreateRidePayloadResolvers<ContextType>,
   CreateSpotPayload?: CreateSpotPayloadResolvers<ContextType>,
+  CreateStagePayload?: CreateStagePayloadResolvers<ContextType>,
   CreateUserPayload?: CreateUserPayloadResolvers<ContextType>,
   Cursor?: GraphQLScalarType,
   Date?: GraphQLScalarType,
   DeleteGuidePayload?: DeleteGuidePayloadResolvers<ContextType>,
   DeleteRidePayload?: DeleteRidePayloadResolvers<ContextType>,
   DeleteSpotPayload?: DeleteSpotPayloadResolvers<ContextType>,
+  DeleteStagePayload?: DeleteStagePayloadResolvers<ContextType>,
   DeleteUserPayload?: DeleteUserPayloadResolvers<ContextType>,
   Guide?: GuideResolvers<ContextType>,
   GuidesConnection?: GuidesConnectionResolvers<ContextType>,
@@ -2064,9 +2592,13 @@ export type Resolvers<ContextType = any> = {
   Spot?: SpotResolvers<ContextType>,
   SpotsConnection?: SpotsConnectionResolvers<ContextType>,
   SpotsEdge?: SpotsEdgeResolvers<ContextType>,
+  Stage?: StageResolvers<ContextType>,
+  StagesConnection?: StagesConnectionResolvers<ContextType>,
+  StagesEdge?: StagesEdgeResolvers<ContextType>,
   UpdateGuidePayload?: UpdateGuidePayloadResolvers<ContextType>,
   UpdateRidePayload?: UpdateRidePayloadResolvers<ContextType>,
   UpdateSpotPayload?: UpdateSpotPayloadResolvers<ContextType>,
+  UpdateStagePayload?: UpdateStagePayloadResolvers<ContextType>,
   UpdateUserPayload?: UpdateUserPayloadResolvers<ContextType>,
   User?: UserResolvers<ContextType>,
   UsersConnection?: UsersConnectionResolvers<ContextType>,
@@ -2134,7 +2666,7 @@ export type AllGuideTitlesForUserQueryVariables = {
 
 export type AllGuideTitlesForUserQuery = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id' | 'title' | 'slug' | 'owner'>>> }> };
 
-export type SpotByGuideFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'location' | 'country' | 'nights'>;
+export type SpotByGuideFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'location' | 'position' | 'country' | 'nights'>;
 
 export type SomeFragFragment = { readonly node: Maybe<Pick<Guide, 'owner'>> };
 
@@ -2201,6 +2733,7 @@ export const SpotByGuideFragmentDoc = gql`
   long
   locked
   location
+  position
   country
   nights
 }
@@ -2226,7 +2759,7 @@ export const GuideBySlugFragmentDoc = gql`
   slug
   owner
   startDate
-  ridesByGuide {
+  ridesByGuide(orderBy: [DATE_ASC]) {
     totalCount
     nodes {
       ...RideByGuide

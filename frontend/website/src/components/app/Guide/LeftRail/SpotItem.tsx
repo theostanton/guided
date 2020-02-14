@@ -1,6 +1,6 @@
 import { SpotByGuideFragment } from "api/generated"
 import React from "react"
-import { List } from "semantic-ui-react"
+import { Flag, Grid, List, Label, Icon, Divider, FlagNameValues } from "semantic-ui-react"
 import GuideStore from "model/GuideStore"
 
 type Props = {
@@ -26,13 +26,18 @@ export default class SpotItem extends React.Component<Props> {
         guideStore.unhighlight()
       }}
       active={isSelected}>
-      <List.Icon name='marker' size='large' verticalAlign='middle'/>
+      <List.Icon size='large' verticalAlign='top'>
+        <Flag name={spot.country!.toLowerCase() as FlagNameValues}/>
+      </List.Icon>
       <List.Content>
         <List.Header
           content={`${spot.label || spot.location}`}
         />
         {spot.label && <List.Description content={spot.location}/>}
       </List.Content>
+      <Label>
+        <Icon name='moon'/>{spot.nights}
+      </Label>
     </List.Item>
   }
 }

@@ -1,7 +1,7 @@
 import { DirectionsRoute, LatLng } from "@googlemaps/google-maps-services-js/dist/common"
 import { client, key } from "@guided/google"
 import { log } from "@guided/logger"
-import { Guide, Spot } from "@guided/database"
+import { database, Guide, Spot, Stage } from "@guided/database"
 import { toLatLng } from "../../utils"
 
 export type StageContext = {
@@ -13,13 +13,24 @@ export type StageContext = {
 
 export default async function(spots: Spot[], guide: Guide): Promise<StageContext[]> {
 
+  const existingStages = await database.manyOrNone<Stage>(
+      `SELECT id, to_spot, from_spot
+       FROM guided.stages
+       where guide = $1`, [guide.id])
+
   const actions: Promise<StageContext>[] = []
   const circular = true // TODO guide.circular
   let stages = spots.length - (circular ? 0 : 1)
   for (let i = 0; i < stages; i++) {
     const startSpot = spots[i]
     const endSpot = spots[(i + 1) % spots.length]
-    actions.push(getStageContext(startSpot, endSpot, guide))
+
+    const stageExists = existingStages.some(stage => {
+      return stage.from_spot === startSpot.id && stage.to_spot === endSpot.id
+    })
+    if (!stageExists) {
+      actions.push(getStageContext(startSpot, endSpot, guide))
+    }
   }
 
   const contexts: StageContext[] = await Promise.all(actions)

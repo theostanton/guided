@@ -1,7 +1,5 @@
 import { client, key, PlaceInfo } from "../index"
 import { GeocodeResult } from "@googlemaps/google-maps-services-js/dist/common"
-import { log } from "@guided/logger"
-
 
 function extractCountry(results: GeocodeResult[]): string {
   for (let i = 0; i < results.length - 1; i++) {
@@ -10,14 +8,13 @@ function extractCountry(results: GeocodeResult[]): string {
       const component = result.address_components[j]
       for (let k = 0; k < component.types.length - 1; k++) {
         const type = component.types[k]
-        log(type)
         if (type === "country") {
           return component.short_name
         }
       }
     }
   }
-  throw new Error(`No country found`)
+  return "NA"
 }
 
 export default async function(lat: number, lng: number): Promise<PlaceInfo> {

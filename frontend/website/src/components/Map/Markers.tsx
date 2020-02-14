@@ -53,6 +53,8 @@ export class Markers extends React.Component<Props, {}> {
                    longitude={spot.long!}
                    latitude={spot.lat!}
                    draggable
+                   offsetLeft={-30}
+                   offsetTop={-53}
                    onDragEnd={async (args) => {
                      await this.moveSpot(spot.id, args.lngLat[1], args.lngLat[0])
                    }}

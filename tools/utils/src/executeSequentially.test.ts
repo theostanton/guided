@@ -1,4 +1,4 @@
-import sleep from "./index"
+import { sleep } from "./index"
 import executeSequentially from "./executeSequentially"
 
 async function testDelayFunction(delayMs: number): Promise<number> {

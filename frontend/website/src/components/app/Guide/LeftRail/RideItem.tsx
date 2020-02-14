@@ -1,6 +1,6 @@
 import { RideByGuideFragment } from "api/generated"
 import React from "react"
-import { List } from "semantic-ui-react"
+import { Grid, GridRow, Header, ItemDescription, List } from "semantic-ui-react"
 import GuideStore from "model/GuideStore"
 import { humanDistance, humanDuration } from "utils/human"
 
@@ -29,11 +29,19 @@ export default class RideItem extends React.Component<Props> {
       }}
       active={isSelected}
     >
-      <List.Icon name='motorcycle' size='large' verticalAlign='middle'/>
-      <List.Content>
-        <List.Header content={duration}/>
-        <List.Description content={distance}/>
-      </List.Content>
+      <Grid columns={2} padded={"vertically"}>
+        <GridRow textAlign={"center"}>
+            {ride.fromSpot!.label} to {ride.toSpot!.label}
+        </GridRow>
+        <GridRow>
+          <Grid.Column textAlign='right'>
+            <Header content={duration}/>
+          </Grid.Column>
+          <Grid.Column textAlign='left'>
+            <Header content={distance}/>
+          </Grid.Column>
+        </GridRow>
+      </Grid>
     </List.Item>
   }
 }

@@ -1,8 +1,9 @@
-import { Dao, Stage } from "."
-import { database, Guide, Spot } from "@guided/database"
+import { Dao, StageData } from "."
+import { database, Guide, insertOne, Spot } from "@guided/database"
 import { log } from "@guided/logger"
 import { insertMany } from "@guided/database"
-import executeConcurrently from "../utils/executeConcurrently"
+import { executeConcurrently } from "@guided/utils"
+import { Stage } from "@guided/database/srv/types"
 
 const DELETE_UNLOCKED = `
     DELETE
@@ -49,10 +50,20 @@ export class DatabaseDao implements Dao {
     return database.many<Spot>(SELECT_SPOTS, [this.guideId])
   }
 
-  async insertStages(stages: Stage[]): Promise<void> {
+  async insertStages(stages: StageData[]): Promise<void> {
     log("insertStages")
 
     await executeConcurrently(stages, async (stage) => {
+
+      const insertStage = insertOne("guided.stages", {
+        id: stage.stageId,
+        from_spot: stage.startSpot.id,
+        to_spot: stage.endSpot.id,
+        guide: this.guideId,
+      } as Stage)
+
+      await database.none(insertStage)
+
       await database.tx(transaction => {
         const queries: any[] = []
         if (stage.newSpots.length) {
@@ -60,8 +71,6 @@ export class DatabaseDao implements Dao {
           queries.push(transaction.none(insertNewSpotsQuery))
         }
         queries.push(transaction.none(UPDATE_SPOT_DATE, [stage.startSpot.date, stage.startSpot.id]))
-
-
         return transaction.batch(queries)
       })
 

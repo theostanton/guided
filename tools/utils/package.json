@@ -1,0 +1,13 @@
+{
+  "name": "@guided/utils",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./srv/index.js",
+  "types": "./srv/index.d.ts",
+  "scripts": {
+    "prepare" : "yarn build",
+    "build": "tsc",
+    "test": "jest",
+    "watch": "tsc -w"
+  }
+}

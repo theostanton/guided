@@ -3,7 +3,7 @@ import * as React from "react"
 import Layout from "components/root/Layout"
 import { Header } from "semantic-ui-react"
 
-const version = require("../../../package.json").version
+const version = require("../../package.json").version
 
 type Props = {}
 

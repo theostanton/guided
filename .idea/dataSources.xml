@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Guided - Local" uuid="b9332764-aeea-45a5-a0de-0f239caea93e">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/database</jdbc-url>
-    </data-source>
     <data-source source="LOCAL" name="Guided - Staging" uuid="64c48a5a-19fc-4c46-bd31-efc7bbd98e75">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>

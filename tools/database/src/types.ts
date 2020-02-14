@@ -20,6 +20,7 @@ export interface Ride {
   duration_seconds: number | null 
   distance_meters: number | null 
   date: Date | null 
+  stage: string 
 }
 export interface Spot {
   id: string 
@@ -34,6 +35,13 @@ export interface Spot {
   location: string | null 
   country: string | null 
   date: Date | null 
+  stage: string | null 
+}
+export interface Stage {
+  id: string 
+  guide: string 
+  from_spot: string 
+  to_spot: string 
 }
 export interface User {
   username: string 

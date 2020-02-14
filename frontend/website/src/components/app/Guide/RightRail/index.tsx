@@ -14,6 +14,7 @@ type Props = {
 @observer
 export default class RightRailComponent extends React.Component<Props> {
 
+
   get guideStore(): GuideStore {
     return this.props.guideStore!
   }

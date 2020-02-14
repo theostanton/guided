@@ -80,7 +80,7 @@ export default class GuideComponent extends React.Component<Props, State> {
 
         <div style={{
           position: "fixed",
-          height: "100%",
+          height: "auto",
           width: "25%",
           paddingTop: "1em",
           paddingRight: "1em",

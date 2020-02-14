@@ -20,6 +20,7 @@ fragment SpotByGuide on Spot{
     long
     locked
     location
+    position
     country
     nights
 }
@@ -48,7 +49,7 @@ fragment GuideBySlug on Guide {
     slug
     owner
     startDate
-    ridesByGuide{
+    ridesByGuide(orderBy: [DATE_ASC]){
         totalCount
         nodes{
             ...RideByGuide

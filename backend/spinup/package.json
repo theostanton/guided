@@ -5,12 +5,17 @@
   "scripts": {
     "build": "echo spinup",
     "test": "jest",
+    "invoke": "ts-node src/invoke.ts somearg",
     "start:local": "tsc && STAGE=local node srv/index.js",
     "start:production": "tsc && STAGE=production node srv/index.js",
     "start:staging": "STAGE=staging ts-node src/index.ts"
   },
+  "dependencies": {
+    "command-line-args": "^5.1.1"
+  },
   "devDependencies": {
     "@guided/database": "*",
+    "@types/command-line-args": "^5.0.0",
     "@types/listr": "^0.14.2",
     "listr": "^0.14.3",
     "ts-node": "^8.6.2"
