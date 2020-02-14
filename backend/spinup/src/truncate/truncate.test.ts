@@ -1,5 +1,5 @@
 import { actions } from "../."
-import { cleanDatabase } from "../index.test"
+import { cleanDatabase } from "../tests"
 import { database } from "@guided/database"
 
 beforeEach(cleanDatabase)

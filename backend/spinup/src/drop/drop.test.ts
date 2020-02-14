@@ -1,6 +1,6 @@
 import { database } from "@guided/database"
 import { executeFile } from "../sequence"
-import { cleanDatabase } from "../index.test"
+import { cleanDatabase } from "../tests"
 
 
 beforeAll(cleanDatabase)

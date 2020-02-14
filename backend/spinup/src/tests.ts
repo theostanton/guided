@@ -45,7 +45,6 @@ export async function cleanDatabase() {
     await actions.truncate()
     await actions.drop()
   } catch (e) {
-    console.error(e)
   }
 
   const { countBefore } = await database.one<{ countBefore: number }>(`SELECT count(1) as "countBefore"

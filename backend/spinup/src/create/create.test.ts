@@ -1,5 +1,5 @@
 import { actions } from "../."
-import { clearDatabase } from "../index.test"
+import { clearDatabase } from "../tests"
 
 beforeAll(async () => {
   await clearDatabase()
@@ -8,6 +8,5 @@ beforeAll(async () => {
 
 describe("Create tables", () => {
   it("Creates users", async () => {
-
   })
 })

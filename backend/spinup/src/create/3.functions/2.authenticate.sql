@@ -13,9 +13,10 @@ begin
     where u.email = $1;
 
     if userInfo.password_hash = crypt(password, userInfo.password_hash) then
-        return ('guided_user', userInfo.username, extract(epoch from (now() + interval '2 days')))::jwt_token;
+        return ('guided_user'::text, userInfo.username,
+                extract(epoch from (now() + interval '2 days'))::bigint)::jwt_token;
     else
-        return null;
+        return null::jwt_token;
     end if;
 end;
 $$;

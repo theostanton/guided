@@ -1,6 +1,6 @@
 import execute from "./."
 import { database } from "@guided/database"
-import { cleanDatabase } from "../index.test"
+import { cleanDatabase } from "../tests"
 
 
 beforeEach(cleanDatabase)
