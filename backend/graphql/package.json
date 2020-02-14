@@ -36,16 +36,5 @@
     "nohoist": [
       "**"
     ]
-  },
-  "nodemonConfig": {
-    "delay": 2000,
-    "watch": [
-      "src"
-    ],
-    "exec": "yarn build && POSTGRAPHILE_WATCH=true node -r ts-node/register ./src/server.ts",
-    "ext": "ts",
-    "events": {
-      "restart": "osascript -e 'display notification \"Restarting\" with title \"@guided/graphql\"'"
-    }
   }
 }

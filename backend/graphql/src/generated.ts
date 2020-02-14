@@ -1192,6 +1192,7 @@ export enum RidesOrderBy {
 
 export type Spot = Node & {
   readonly country?: Maybe<Scalars['String']>,
+  readonly created?: Maybe<Scalars['Date']>,
   readonly date?: Maybe<Scalars['Date']>,
   readonly guide: Scalars['String'],
   /** Reads a single `Guide` that is related to this `Spot`. */
@@ -1218,6 +1219,7 @@ export type Spot = Node & {
   readonly stagesByFromSpot: StagesConnection,
   /** Reads and enables pagination through a set of `Stage`. */
   readonly stagesByToSpot: StagesConnection,
+  readonly updated?: Maybe<Scalars['Date']>,
   /** Reads a single `User` that is related to this `Spot`. */
   readonly userByOwner?: Maybe<User>,
 };
@@ -1270,6 +1272,8 @@ export type SpotStagesByToSpotArgs = {
 export type SpotCondition = {
   /** Checks for equality with the object’s `country` field. */
   readonly country?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `created` field. */
+  readonly created?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `date` field. */
   readonly date?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `guide` field. */
@@ -1294,11 +1298,14 @@ export type SpotCondition = {
   readonly position?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `stage` field. */
   readonly stage?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `updated` field. */
+  readonly updated?: Maybe<Scalars['Date']>,
 };
 
 /** An input for mutations affecting `Spot` */
 export type SpotInput = {
   readonly country?: Maybe<Scalars['String']>,
+  readonly created?: Maybe<Scalars['Date']>,
   readonly date?: Maybe<Scalars['Date']>,
   readonly guide: Scalars['String'],
   readonly id: Scalars['String'],
@@ -1311,11 +1318,13 @@ export type SpotInput = {
   readonly owner: Scalars['String'],
   readonly position?: Maybe<Scalars['String']>,
   readonly stage?: Maybe<Scalars['String']>,
+  readonly updated?: Maybe<Scalars['Date']>,
 };
 
 /** Represents an update to a `Spot`. Fields that are set will be updated. */
 export type SpotPatch = {
   readonly country?: Maybe<Scalars['String']>,
+  readonly created?: Maybe<Scalars['Date']>,
   readonly date?: Maybe<Scalars['Date']>,
   readonly guide?: Maybe<Scalars['String']>,
   readonly id?: Maybe<Scalars['String']>,
@@ -1328,6 +1337,7 @@ export type SpotPatch = {
   readonly owner?: Maybe<Scalars['String']>,
   readonly position?: Maybe<Scalars['String']>,
   readonly stage?: Maybe<Scalars['String']>,
+  readonly updated?: Maybe<Scalars['Date']>,
 };
 
 /** A connection to a list of `Spot` values. */
@@ -1354,6 +1364,8 @@ export type SpotsEdge = {
 export enum SpotsOrderBy {
   CountryAsc = 'COUNTRY_ASC',
   CountryDesc = 'COUNTRY_DESC',
+  CreatedAsc = 'CREATED_ASC',
+  CreatedDesc = 'CREATED_DESC',
   DateAsc = 'DATE_ASC',
   DateDesc = 'DATE_DESC',
   GuideAsc = 'GUIDE_ASC',
@@ -1380,7 +1392,9 @@ export enum SpotsOrderBy {
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
   StageAsc = 'STAGE_ASC',
-  StageDesc = 'STAGE_DESC'
+  StageDesc = 'STAGE_DESC',
+  UpdatedAsc = 'UPDATED_ASC',
+  UpdatedDesc = 'UPDATED_DESC'
 }
 
 export type Stage = Node & {
@@ -2410,6 +2424,7 @@ export type RidesEdgeResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type SpotResolvers<ContextType = any, ParentType extends ResolversParentTypes['Spot'] = ResolversParentTypes['Spot']> = {
   country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  created?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
@@ -2429,6 +2444,7 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   stagesByFromSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByFromSpotArgs, 'orderBy'>>,
   stagesByToSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByToSpotArgs, 'orderBy'>>,
+  updated?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };

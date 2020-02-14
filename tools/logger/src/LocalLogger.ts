@@ -1,4 +1,5 @@
 import { Logger } from "."
+import chalk from "chalk"
 
 export class LocalLogger implements Logger {
 
@@ -16,14 +17,14 @@ export class LocalLogger implements Logger {
 
   json(object: any, label?: string): void {
     if (label) {
-      console.log(label)
+      console.log(chalk.keyword("orange")(label))
     }
     console.log(JSON.stringify(object, null, 4))
   }
 
   log(message: string, label?: string): void {
     if (label) {
-      console.log("--" + label + "--")
+      console.log(chalk.keyword("orange")(label))
     }
     console.log(message)
   }

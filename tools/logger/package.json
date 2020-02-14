@@ -9,5 +9,8 @@
     "build": "tsc",
     "test": "jest",
     "watch": "tsc -w"
+  },
+  "dependencies": {
+    "chalk": "^3.0.0"
   }
 }
