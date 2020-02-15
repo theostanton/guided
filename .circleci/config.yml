@@ -19,7 +19,7 @@ commands:
             JEST_JUNIT_OUTPUT_DIR: "reports/junit/"
           command: |
             cd << parameters.directory >>
-            yarn test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit
+#            yarn test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit
       - store_artifacts:
           path: << parameters.directory >>/reports/junit
       - store_test_results:
