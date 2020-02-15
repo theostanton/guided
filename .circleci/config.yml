@@ -63,6 +63,8 @@ jobs:
       - build:
           directory: tools/envs
       - build:
+          directory: tools/utils
+      - build:
           directory: tools/database
       - build:
           directory: backend/spinup

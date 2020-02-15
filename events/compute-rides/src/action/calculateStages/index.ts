@@ -68,6 +68,8 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
       owner: stage.guide.owner,
       label: `Spot ${position}`,
       locked: false,
+      created: new Date(),
+      updated: null,
       stage: stage.stageId,
       position,
     }

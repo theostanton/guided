@@ -30,7 +30,8 @@ const SELECT_GUIDE = `
 
 const UPDATE_SPOT_DATE = `
     UPDATE guided.spots
-    set date = $1
+    set date   = $1,
+        updated=$3
     where id = $2
 `
 
@@ -53,7 +54,7 @@ export class DatabaseDao implements Dao {
   async insertStages(stages: StageData[]): Promise<void> {
     log("insertStages")
 
-    await executeConcurrently(stages, async (stage) => {
+    await executeConcurrently(stages, async (stage: StageData) => {
 
       const insertStage = insertOne("guided.stages", {
         id: stage.stageId,
@@ -72,7 +73,7 @@ export class DatabaseDao implements Dao {
           const insertNewSpotsQuery = insertMany("guided.spots", stage.newSpots)
           queries.push(transaction.none(insertNewSpotsQuery))
         }
-        queries.push(transaction.none(UPDATE_SPOT_DATE, [stage.startSpot.date, stage.startSpot.id]))
+        queries.push(transaction.none(UPDATE_SPOT_DATE, [stage.startSpot.date, stage.startSpot.id, new Date()]))
         return transaction.batch(queries)
       })
 

@@ -49,9 +49,10 @@ async function moveSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<Spo
           country=$4,
           id=$5,
           stage=null,
-          locked = true
+          locked = true,
+          updated=$7
       where id = $6
-  `, [lat, long, label, countryCode, newId, spotId])
+  `, [lat, long, label, countryCode, newId, spotId, new Date()])
 
   await computeRides.execute({
     guideId: spot.guide,
