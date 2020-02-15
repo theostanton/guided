@@ -1,4 +1,4 @@
-import ReactMapGL, { TransitionInterpolator } from "react-map-gl"
+import ReactMapGL, { FlyToInterpolator, TransitionInterpolator } from "react-map-gl"
 
 import React, { Component } from "react"
 import { Markers } from "./Markers"
@@ -22,6 +22,8 @@ type ViewPort = {
 
 type State = {
   viewport?: ViewPort
+  selectedRideId?: string
+  selectedSpotId?: string
 };
 
 type Props = {
@@ -40,26 +42,57 @@ export default class Map extends Component<Props, State> {
   }
 
   get viewport(): ViewPort | undefined {
-    if (this.state.viewport) {
-      logJson(this.state.viewport, "this.state.viewport")
-      return this.state.viewport
-    }
-    const guide = this.guideStore.guide
-    if (guide) {
-      const viewport = new WebMercatorViewport({ width: 400, height: 400 })
-      return viewport.fitBounds(
+
+    if (this.guideStore.selectedType === "ride" && this.state.selectedRideId != this.guideStore.selectedId) {
+      this.state.selectedRideId = this.guideStore.selectedId
+      const selectedRide = this.guideStore.selectedRide
+
+      const north = Math.max(selectedRide!.fromSpot!.lat!, selectedRide!.toSpot!.lat!)
+      const east = Math.max(selectedRide!.fromSpot!.long!, selectedRide!.toSpot!.long!)
+      const south = Math.min(selectedRide!.fromSpot!.lat!, selectedRide!.toSpot!.lat!)
+      const west = Math.min(selectedRide!.fromSpot!.long!, selectedRide!.toSpot!.long!)
+
+      try {
+        const { longitude, latitude, zoom } = new WebMercatorViewport(this.state.viewport)
+          .fitBounds([[west, south], [east, north]], {
+            padding: {
+              right: 200,
+              left: 200,
+              top: 200,
+              bottom: 200,
+            },
+          })
+
+        this.state.viewport = {
+          width: this.state.viewport ? this.state.viewport.width : 400,
+          height: this.state.viewport ? this.state.viewport.height : 400,
+          longitude,
+          latitude,
+          zoom,
+          transitionDuration: 1000,
+          transitionInterpolator: new FlyToInterpolator(),
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    } else if (!this.state.viewport && this.guideStore.guide) {
+      const guide = this.guideStore.guide
+      const viewport = new WebMercatorViewport()
+      this.state.viewport = viewport.fitBounds(
         [
           [guide.bounds!.west!, guide.bounds!.south!], [
           guide.bounds!.east!, guide.bounds!.north!]],
       )
+    } else if (!this.state.viewport) {
+      this.state.viewport = {
+        width: 400,
+        height: 400,
+        latitude: 51.5007,
+        longitude: -0.1246,
+        zoom: 8w,
+      }
     }
-    return {
-      width: 400,
-      height: 400,
-      latitude: 51.5007,
-      longitude: -0.1246,
-      zoom: 8,
-    }
+    return this.state.viewport
   }
 
   render(): React.ReactElement {

@@ -34,6 +34,16 @@ export default class GuideStore {
   }
 
   @computed
+  get selectedType(): "ride" | "spot" | undefined {
+    if (this.selectedId?.startsWith("ride")) {
+      return "ride"
+    }
+    if (this.selectedId?.startsWith("spot")) {
+      return "spot"
+    }
+  }
+
+  @computed
   get selectedRide(): RideByGuideFragment | undefined {
     if (!this.selectedId) {
       return

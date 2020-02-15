@@ -25,7 +25,7 @@ export class Rides extends React.Component<Props, {}> {
     const style = {
       paint: {
         "line-width": 1,
-        "line-color": "black",
+        "line-color": "#0000ff",
       },
     }
     const highlightedStyle = {
@@ -66,7 +66,18 @@ export class Rides extends React.Component<Props, {}> {
   }
 
   render() {
+    const distinctIds: string[] = []
     return this.guideStore.guide!.ridesByGuide!.nodes
+      .filter(ride => {
+        if (!ride) {
+          return false
+        }
+        if (distinctIds.includes(ride.id)) {
+          return false
+        }
+        distinctIds.push(ride.id)
+        return true
+      })
       .map(ride => {
         return this.createLayer(ride!)
       })
