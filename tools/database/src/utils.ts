@@ -27,7 +27,7 @@ export function insertMany(tableName: string, items: any[]): string {
         return value ? "true" : "false"
       } else if (value instanceof Object) {
         return `'${JSON.stringify(value)}'`
-      } else if (value) {
+      } else if (value != undefined) {
         return `'${value.toString()}'`
       } else {
         return "null"

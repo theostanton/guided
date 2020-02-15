@@ -60,6 +60,8 @@ export class DatabaseDao implements Dao {
         from_spot: stage.startSpot.id,
         to_spot: stage.endSpot.id,
         guide: this.guideId,
+        created: new Date(),
+        updated: null,
       } as Stage)
 
       await database.none(insertStage)

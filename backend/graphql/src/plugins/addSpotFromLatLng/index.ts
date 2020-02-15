@@ -34,6 +34,8 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
     country,
     locked: true,
     stage: null,
+    created: new Date(),
+    updated: null,
   }
 
   await database.insertSpot(spot)

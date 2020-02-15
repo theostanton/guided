@@ -21,6 +21,8 @@ fragment SpotByGuide on Spot{
     locked
     location
     position
+    date
+    temperature
     country
     nights
 }
@@ -39,6 +41,9 @@ fragment RideByGuide on Ride{
         ...SpotByGuide
     }
     path
+    hasBorder
+    name
+    date
     distanceMeters
     durationSeconds
 }
@@ -55,7 +60,7 @@ fragment GuideBySlug on Guide {
             ...RideByGuide
         }
     }
-    spotsByGuide(orderBy: [POSITION_ASC]){
+    spotsByGuide(orderBy: [DATE_ASC]){
         totalCount
         nodes{
             ...SpotByGuide

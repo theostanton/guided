@@ -3,48 +3,63 @@
 * Rerun sql-ts to regenerate this file.
 */
 export interface Guide {
-  id: string 
-  title: string 
-  slug: string 
-  owner: string 
-  start_date: Date | null 
-  max_hours_per_ride?: number 
+  id: string
+  title: string
+  slug: string
+  owner: string
+  start_date: Date | null
+  max_hours_per_ride?: number
 }
+
 export interface Ride {
-  id: string 
-  guide: string 
-  owner: string 
-  from_spot: string 
-  to_spot: string 
-  path: Object | null 
-  duration_seconds: number | null 
-  distance_meters: number | null 
-  date: Date | null 
-  stage: string 
+  id: string
+  guide: string
+  owner: string
+  from_spot: string
+  to_spot: string
+  path: Object | null
+  duration_seconds: number | null
+  distance_meters: number | null
+  date: Date | null
+  stage: string
 }
+
 export interface Spot {
-  id: string 
-  label: string | null 
-  guide: string 
-  owner: string 
-  nights?: number | null 
-  locked: boolean 
-  lat: number 
-  long: number 
-  position: string | null 
-  location: string | null 
-  country: string | null 
-  date: Date | null 
-  stage: string | null 
+  id: string
+  label: string | null
+  guide: string
+  owner: string
+  nights?: number | null
+  locked: boolean
+  lat: number
+  long: number
+  position: string | null
+  location: string | null
+  country: string | null
+  date: Date | null
+  created: Date | null
+  updated: Date | null
+  stage: string | null
 }
+
 export interface Stage {
-  id: string 
-  guide: string 
-  from_spot: string 
-  to_spot: string 
+  id: string
+  guide: string
+  from_spot: string
+  to_spot: string
+  created: Date | null
+  updated: Date | null
 }
+
+export interface Temperature {
+  id: string
+  country: string
+  month: number
+  temperature: number
+}
+
 export interface User {
-  username: string 
-  email: string 
-  password_hash: string 
+  username: string
+  email: string
+  password_hash: string
 }

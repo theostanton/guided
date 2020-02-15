@@ -196,6 +196,38 @@ export type CreateStagePayloadStageEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>
 };
 
+/** All input for the create `Temperature` mutation. */
+export type CreateTemperatureInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The `Temperature` to be created by this mutation. */
+  readonly temperature: TemperatureInput,
+};
+
+/** The output of our create `Temperature` mutation. */
+export type CreateTemperaturePayload = {
+  /** 
+ * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>,
+  /** The `Temperature` that was created by this mutation. */
+  readonly temperature?: Maybe<Temperature>,
+  /** An edge for our `Temperature`. May be used by Relay 1. */
+  readonly temperatureEdge?: Maybe<TemperaturesEdge>,
+};
+
+
+/** The output of our create `Temperature` mutation. */
+export type CreateTemperaturePayloadTemperatureEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<TemperaturesOrderBy>>
+};
+
 /** All input for the create `User` mutation. */
 export type CreateUserInput = {
   /** 
@@ -426,6 +458,49 @@ export type DeleteStagePayloadStageEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>
 };
 
+/** All input for the `deleteTemperatureByNodeId` mutation. */
+export type DeleteTemperatureByNodeIdInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The globally unique `ID` which will identify a single `Temperature` to be deleted. */
+  readonly nodeId: Scalars['ID'],
+};
+
+/** All input for the `deleteTemperature` mutation. */
+export type DeleteTemperatureInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
+};
+
+/** The output of our delete `Temperature` mutation. */
+export type DeleteTemperaturePayload = {
+  /** 
+ * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly deletedTemperatureNodeId?: Maybe<Scalars['ID']>,
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>,
+  /** The `Temperature` that was deleted by this mutation. */
+  readonly temperature?: Maybe<Temperature>,
+  /** An edge for our `Temperature`. May be used by Relay 1. */
+  readonly temperatureEdge?: Maybe<TemperaturesEdge>,
+};
+
+
+/** The output of our delete `Temperature` mutation. */
+export type DeleteTemperaturePayloadTemperatureEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<TemperaturesOrderBy>>
+};
+
 /** All input for the `deleteUserByNodeId` mutation. */
 export type DeleteUserByNodeIdInput = {
   /** 
@@ -612,6 +687,8 @@ export type Mutation = {
   readonly createSpot?: Maybe<CreateSpotPayload>,
   /** Creates a single `Stage`. */
   readonly createStage?: Maybe<CreateStagePayload>,
+  /** Creates a single `Temperature`. */
+  readonly createTemperature?: Maybe<CreateTemperaturePayload>,
   /** Creates a single `User`. */
   readonly createUser?: Maybe<CreateUserPayload>,
   /** Deletes a single `Guide` using a unique key. */
@@ -630,6 +707,10 @@ export type Mutation = {
   readonly deleteStage?: Maybe<DeleteStagePayload>,
   /** Deletes a single `Stage` using its globally unique id. */
   readonly deleteStageByNodeId?: Maybe<DeleteStagePayload>,
+  /** Deletes a single `Temperature` using a unique key. */
+  readonly deleteTemperature?: Maybe<DeleteTemperaturePayload>,
+  /** Deletes a single `Temperature` using its globally unique id. */
+  readonly deleteTemperatureByNodeId?: Maybe<DeleteTemperaturePayload>,
   /** Deletes a single `User` using a unique key. */
   readonly deleteUser?: Maybe<DeleteUserPayload>,
   /** Deletes a single `User` using its globally unique id. */
@@ -654,6 +735,10 @@ export type Mutation = {
   readonly updateStage?: Maybe<UpdateStagePayload>,
   /** Updates a single `Stage` using its globally unique id and a patch. */
   readonly updateStageByNodeId?: Maybe<UpdateStagePayload>,
+  /** Updates a single `Temperature` using a unique key and a patch. */
+  readonly updateTemperature?: Maybe<UpdateTemperaturePayload>,
+  /** Updates a single `Temperature` using its globally unique id and a patch. */
+  readonly updateTemperatureByNodeId?: Maybe<UpdateTemperaturePayload>,
   /** Updates a single `User` using a unique key and a patch. */
   readonly updateUser?: Maybe<UpdateUserPayload>,
   /** Updates a single `User` using its globally unique id and a patch. */
@@ -703,6 +788,12 @@ export type MutationCreateSpotArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateStageArgs = {
   input: CreateStageInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateTemperatureArgs = {
+  input: CreateTemperatureInput
 };
 
 
@@ -757,6 +848,18 @@ export type MutationDeleteStageArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteStageByNodeIdArgs = {
   input: DeleteStageByNodeIdInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteTemperatureArgs = {
+  input: DeleteTemperatureInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteTemperatureByNodeIdArgs = {
+  input: DeleteTemperatureByNodeIdInput
 };
 
 
@@ -841,6 +944,18 @@ export type MutationUpdateStageByNodeIdArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateTemperatureArgs = {
+  input: UpdateTemperatureInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateTemperatureByNodeIdArgs = {
+  input: UpdateTemperatureByNodeIdInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateUserArgs = {
   input: UpdateUserInput
 };
@@ -901,6 +1016,11 @@ export type Query = Node & {
   readonly stageByNodeId?: Maybe<Stage>,
   /** Reads and enables pagination through a set of `Stage`. */
   readonly stages?: Maybe<StagesConnection>,
+  readonly temperature?: Maybe<Temperature>,
+  /** Reads a single `Temperature` using its globally unique `ID`. */
+  readonly temperatureByNodeId?: Maybe<Temperature>,
+  /** Reads and enables pagination through a set of `Temperature`. */
+  readonly temperatures?: Maybe<TemperaturesConnection>,
   readonly user?: Maybe<User>,
   /** Reads a single `User` using its globally unique `ID`. */
   readonly userByNodeId?: Maybe<User>,
@@ -1012,6 +1132,30 @@ export type QueryStagesArgs = {
 
 
 /** The root query type which gives access points into the data universe. */
+export type QueryTemperatureArgs = {
+  id: Scalars['String']
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryTemperatureByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryTemperaturesArgs = {
+  after?: Maybe<Scalars['Cursor']>,
+  before?: Maybe<Scalars['Cursor']>,
+  condition?: Maybe<TemperatureCondition>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  orderBy?: Maybe<ReadonlyArray<TemperaturesOrderBy>>
+};
+
+
+/** The root query type which gives access points into the data universe. */
 export type QueryUserArgs = {
   username: Scalars['String']
 };
@@ -1074,7 +1218,9 @@ export type Ride = Node & {
   readonly guide: Scalars['String'],
   /** Reads a single `Guide` that is related to this `Ride`. */
   readonly guideByGuide?: Maybe<Guide>,
+  readonly hasBorder?: Maybe<Scalars['Boolean']>,
   readonly id: Scalars['String'],
+  readonly name?: Maybe<Scalars['String']>,
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'],
   readonly owner: Scalars['String'],
@@ -1219,6 +1365,7 @@ export type Spot = Node & {
   readonly stagesByFromSpot: StagesConnection,
   /** Reads and enables pagination through a set of `Stage`. */
   readonly stagesByToSpot: StagesConnection,
+  readonly temperature?: Maybe<Scalars['Float']>,
   readonly updated?: Maybe<Scalars['Date']>,
   /** Reads a single `User` that is related to this `Spot`. */
   readonly userByOwner?: Maybe<User>,
@@ -1515,6 +1662,81 @@ export enum StagesOrderBy {
   UpdatedDesc = 'UPDATED_DESC'
 }
 
+export type Temperature = Node & {
+  readonly country: Scalars['String'],
+  readonly id: Scalars['String'],
+  readonly month: Scalars['Int'],
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  readonly nodeId: Scalars['ID'],
+  readonly temperature: Scalars['Float'],
+};
+
+/** 
+ * A condition to be used against `Temperature` object types. All fields are tested
+ * for equality and combined with a logical ‘and.’
+ */
+export type TemperatureCondition = {
+  /** Checks for equality with the object’s `country` field. */
+  readonly country?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `id` field. */
+  readonly id?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `month` field. */
+  readonly month?: Maybe<Scalars['Int']>,
+  /** Checks for equality with the object’s `temperature` field. */
+  readonly temperature?: Maybe<Scalars['Float']>,
+};
+
+/** An input for mutations affecting `Temperature` */
+export type TemperatureInput = {
+  readonly country: Scalars['String'],
+  readonly id: Scalars['String'],
+  readonly month: Scalars['Int'],
+  readonly temperature: Scalars['Float'],
+};
+
+/** Represents an update to a `Temperature`. Fields that are set will be updated. */
+export type TemperaturePatch = {
+  readonly country?: Maybe<Scalars['String']>,
+  readonly id?: Maybe<Scalars['String']>,
+  readonly month?: Maybe<Scalars['Int']>,
+  readonly temperature?: Maybe<Scalars['Float']>,
+};
+
+/** A connection to a list of `Temperature` values. */
+export type TemperaturesConnection = {
+  /** A list of edges which contains the `Temperature` and cursor to aid in pagination. */
+  readonly edges: ReadonlyArray<TemperaturesEdge>,
+  /** A list of `Temperature` objects. */
+  readonly nodes: ReadonlyArray<Maybe<Temperature>>,
+  /** Information to aid in pagination. */
+  readonly pageInfo: PageInfo,
+  /** The count of *all* `Temperature` you could get from the connection. */
+  readonly totalCount: Scalars['Int'],
+};
+
+/** A `Temperature` edge in the connection. */
+export type TemperaturesEdge = {
+  /** A cursor for use in pagination. */
+  readonly cursor?: Maybe<Scalars['Cursor']>,
+  /** The `Temperature` at the end of the edge. */
+  readonly node?: Maybe<Temperature>,
+};
+
+/** Methods to use when ordering `Temperature`. */
+export enum TemperaturesOrderBy {
+  CountryAsc = 'COUNTRY_ASC',
+  CountryDesc = 'COUNTRY_DESC',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  MonthAsc = 'MONTH_ASC',
+  MonthDesc = 'MONTH_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  TemperatureAsc = 'TEMPERATURE_ASC',
+  TemperatureDesc = 'TEMPERATURE_DESC'
+}
+
 /** All input for the `updateGuideByNodeId` mutation. */
 export type UpdateGuideByNodeIdInput = {
   /** 
@@ -1723,6 +1945,52 @@ export type UpdateStagePayloadStageEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>
 };
 
+/** All input for the `updateTemperatureByNodeId` mutation. */
+export type UpdateTemperatureByNodeIdInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The globally unique `ID` which will identify a single `Temperature` to be updated. */
+  readonly nodeId: Scalars['ID'],
+  /** An object where the defined keys will be set on the `Temperature` being updated. */
+  readonly patch: TemperaturePatch,
+};
+
+/** All input for the `updateTemperature` mutation. */
+export type UpdateTemperatureInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
+  /** An object where the defined keys will be set on the `Temperature` being updated. */
+  readonly patch: TemperaturePatch,
+};
+
+/** The output of our update `Temperature` mutation. */
+export type UpdateTemperaturePayload = {
+  /** 
+ * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>,
+  /** The `Temperature` that was updated by this mutation. */
+  readonly temperature?: Maybe<Temperature>,
+  /** An edge for our `Temperature`. May be used by Relay 1. */
+  readonly temperatureEdge?: Maybe<TemperaturesEdge>,
+};
+
+
+/** The output of our update `Temperature` mutation. */
+export type UpdateTemperaturePayloadTemperatureEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<TemperaturesOrderBy>>
+};
+
 /** All input for the `updateUserByNodeId` mutation. */
 export type UpdateUserByNodeIdInput = {
   /** 
@@ -1770,7 +2038,6 @@ export type UpdateUserPayloadUserEdgeArgs = {
 };
 
 export type User = Node & {
-  readonly created?: Maybe<Scalars['Date']>,
   readonly email: Scalars['String'],
   /** Reads and enables pagination through a set of `Guide`. */
   readonly guidesByOwner: GuidesConnection,
@@ -1781,7 +2048,6 @@ export type User = Node & {
   readonly ridesByOwner: RidesConnection,
   /** Reads and enables pagination through a set of `Spot`. */
   readonly spotsByOwner: SpotsConnection,
-  readonly updated?: Maybe<Scalars['Date']>,
   readonly username: Scalars['String'],
 };
 
@@ -1820,33 +2086,25 @@ export type UserSpotsByOwnerArgs = {
 
 /** A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type UserCondition = {
-  /** Checks for equality with the object’s `created` field. */
-  readonly created?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `email` field. */
   readonly email?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `passwordHash` field. */
   readonly passwordHash?: Maybe<Scalars['String']>,
-  /** Checks for equality with the object’s `updated` field. */
-  readonly updated?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `username` field. */
   readonly username?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `User` */
 export type UserInput = {
-  readonly created?: Maybe<Scalars['Date']>,
   readonly email: Scalars['String'],
   readonly passwordHash: Scalars['String'],
-  readonly updated?: Maybe<Scalars['Date']>,
   readonly username: Scalars['String'],
 };
 
 /** Represents an update to a `User`. Fields that are set will be updated. */
 export type UserPatch = {
-  readonly created?: Maybe<Scalars['Date']>,
   readonly email?: Maybe<Scalars['String']>,
   readonly passwordHash?: Maybe<Scalars['String']>,
-  readonly updated?: Maybe<Scalars['Date']>,
   readonly username?: Maybe<Scalars['String']>,
 };
 
@@ -1872,8 +2130,6 @@ export type UsersEdge = {
 
 /** Methods to use when ordering `User`. */
 export enum UsersOrderBy {
-  CreatedAsc = 'CREATED_ASC',
-  CreatedDesc = 'CREATED_DESC',
   EmailAsc = 'EMAIL_ASC',
   EmailDesc = 'EMAIL_DESC',
   Natural = 'NATURAL',
@@ -1881,8 +2137,6 @@ export enum UsersOrderBy {
   PasswordHashDesc = 'PASSWORD_HASH_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
-  UpdatedAsc = 'UPDATED_ASC',
-  UpdatedDesc = 'UPDATED_DESC',
   UsernameAsc = 'USERNAME_ASC',
   UsernameDesc = 'USERNAME_DESC'
 }
@@ -1975,9 +2229,9 @@ export type ResolversTypes = {
   RidesConnection: ResolverTypeWrapper<RidesConnection>,
   RidesEdge: ResolverTypeWrapper<RidesEdge>,
   Ride: ResolverTypeWrapper<Ride>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Spot: ResolverTypeWrapper<Spot>,
   Float: ResolverTypeWrapper<Scalars['Float']>,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Stage: ResolverTypeWrapper<Stage>,
   SpotCondition: SpotCondition,
   SpotsOrderBy: SpotsOrderBy,
@@ -1993,6 +2247,11 @@ export type ResolversTypes = {
   GuidesOrderBy: GuidesOrderBy,
   GuidesConnection: ResolverTypeWrapper<GuidesConnection>,
   GuidesEdge: ResolverTypeWrapper<GuidesEdge>,
+  Temperature: ResolverTypeWrapper<Temperature>,
+  TemperatureCondition: TemperatureCondition,
+  TemperaturesOrderBy: TemperaturesOrderBy,
+  TemperaturesConnection: ResolverTypeWrapper<TemperaturesConnection>,
+  TemperaturesEdge: ResolverTypeWrapper<TemperaturesEdge>,
   UserCondition: UserCondition,
   UsersOrderBy: UsersOrderBy,
   UsersConnection: ResolverTypeWrapper<UsersConnection>,
@@ -2012,6 +2271,9 @@ export type ResolversTypes = {
   CreateStageInput: CreateStageInput,
   StageInput: StageInput,
   CreateStagePayload: ResolverTypeWrapper<CreateStagePayload>,
+  CreateTemperatureInput: CreateTemperatureInput,
+  TemperatureInput: TemperatureInput,
+  CreateTemperaturePayload: ResolverTypeWrapper<CreateTemperaturePayload>,
   CreateUserInput: CreateUserInput,
   UserInput: UserInput,
   CreateUserPayload: ResolverTypeWrapper<CreateUserPayload>,
@@ -2027,6 +2289,9 @@ export type ResolversTypes = {
   DeleteStageInput: DeleteStageInput,
   DeleteStagePayload: ResolverTypeWrapper<DeleteStagePayload>,
   DeleteStageByNodeIdInput: DeleteStageByNodeIdInput,
+  DeleteTemperatureInput: DeleteTemperatureInput,
+  DeleteTemperaturePayload: ResolverTypeWrapper<DeleteTemperaturePayload>,
+  DeleteTemperatureByNodeIdInput: DeleteTemperatureByNodeIdInput,
   DeleteUserInput: DeleteUserInput,
   DeleteUserPayload: ResolverTypeWrapper<DeleteUserPayload>,
   DeleteUserByNodeIdInput: DeleteUserByNodeIdInput,
@@ -2048,6 +2313,10 @@ export type ResolversTypes = {
   StagePatch: StagePatch,
   UpdateStagePayload: ResolverTypeWrapper<UpdateStagePayload>,
   UpdateStageByNodeIdInput: UpdateStageByNodeIdInput,
+  UpdateTemperatureInput: UpdateTemperatureInput,
+  TemperaturePatch: TemperaturePatch,
+  UpdateTemperaturePayload: ResolverTypeWrapper<UpdateTemperaturePayload>,
+  UpdateTemperatureByNodeIdInput: UpdateTemperatureByNodeIdInput,
   UpdateUserInput: UpdateUserInput,
   UserPatch: UserPatch,
   UpdateUserPayload: ResolverTypeWrapper<UpdateUserPayload>,
@@ -2071,9 +2340,9 @@ export type ResolversParentTypes = {
   RidesConnection: RidesConnection,
   RidesEdge: RidesEdge,
   Ride: Ride,
+  Boolean: Scalars['Boolean'],
   Spot: Spot,
   Float: Scalars['Float'],
-  Boolean: Scalars['Boolean'],
   Stage: Stage,
   SpotCondition: SpotCondition,
   SpotsOrderBy: SpotsOrderBy,
@@ -2089,6 +2358,11 @@ export type ResolversParentTypes = {
   GuidesOrderBy: GuidesOrderBy,
   GuidesConnection: GuidesConnection,
   GuidesEdge: GuidesEdge,
+  Temperature: Temperature,
+  TemperatureCondition: TemperatureCondition,
+  TemperaturesOrderBy: TemperaturesOrderBy,
+  TemperaturesConnection: TemperaturesConnection,
+  TemperaturesEdge: TemperaturesEdge,
   UserCondition: UserCondition,
   UsersOrderBy: UsersOrderBy,
   UsersConnection: UsersConnection,
@@ -2108,6 +2382,9 @@ export type ResolversParentTypes = {
   CreateStageInput: CreateStageInput,
   StageInput: StageInput,
   CreateStagePayload: CreateStagePayload,
+  CreateTemperatureInput: CreateTemperatureInput,
+  TemperatureInput: TemperatureInput,
+  CreateTemperaturePayload: CreateTemperaturePayload,
   CreateUserInput: CreateUserInput,
   UserInput: UserInput,
   CreateUserPayload: CreateUserPayload,
@@ -2123,6 +2400,9 @@ export type ResolversParentTypes = {
   DeleteStageInput: DeleteStageInput,
   DeleteStagePayload: DeleteStagePayload,
   DeleteStageByNodeIdInput: DeleteStageByNodeIdInput,
+  DeleteTemperatureInput: DeleteTemperatureInput,
+  DeleteTemperaturePayload: DeleteTemperaturePayload,
+  DeleteTemperatureByNodeIdInput: DeleteTemperatureByNodeIdInput,
   DeleteUserInput: DeleteUserInput,
   DeleteUserPayload: DeleteUserPayload,
   DeleteUserByNodeIdInput: DeleteUserByNodeIdInput,
@@ -2144,6 +2424,10 @@ export type ResolversParentTypes = {
   StagePatch: StagePatch,
   UpdateStagePayload: UpdateStagePayload,
   UpdateStageByNodeIdInput: UpdateStageByNodeIdInput,
+  UpdateTemperatureInput: UpdateTemperatureInput,
+  TemperaturePatch: TemperaturePatch,
+  UpdateTemperaturePayload: UpdateTemperaturePayload,
+  UpdateTemperatureByNodeIdInput: UpdateTemperatureByNodeIdInput,
   UpdateUserInput: UpdateUserInput,
   UserPatch: UserPatch,
   UpdateUserPayload: UpdateUserPayload,
@@ -2198,6 +2482,14 @@ export type CreateStagePayloadResolvers<ContextType = any, ParentType extends Re
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   stageEdge?: Resolver<Maybe<ResolversTypes['StagesEdge']>, ParentType, ContextType, RequireFields<CreateStagePayloadStageEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateTemperaturePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateTemperaturePayload'] = ResolversParentTypes['CreateTemperaturePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>,
+  temperatureEdge?: Resolver<Maybe<ResolversTypes['TemperaturesEdge']>, ParentType, ContextType, RequireFields<CreateTemperaturePayloadTemperatureEdgeArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -2265,6 +2557,15 @@ export type DeleteStagePayloadResolvers<ContextType = any, ParentType extends Re
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type DeleteTemperaturePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteTemperaturePayload'] = ResolversParentTypes['DeleteTemperaturePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  deletedTemperatureNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>,
+  temperatureEdge?: Resolver<Maybe<ResolversTypes['TemperaturesEdge']>, ParentType, ContextType, RequireFields<DeleteTemperaturePayloadTemperatureEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type DeleteUserPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteUserPayload'] = ResolversParentTypes['DeleteUserPayload']> = {
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   deletedUserNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
@@ -2319,6 +2620,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createRide?: Resolver<Maybe<ResolversTypes['CreateRidePayload']>, ParentType, ContextType, RequireFields<MutationCreateRideArgs, 'input'>>,
   createSpot?: Resolver<Maybe<ResolversTypes['CreateSpotPayload']>, ParentType, ContextType, RequireFields<MutationCreateSpotArgs, 'input'>>,
   createStage?: Resolver<Maybe<ResolversTypes['CreateStagePayload']>, ParentType, ContextType, RequireFields<MutationCreateStageArgs, 'input'>>,
+  createTemperature?: Resolver<Maybe<ResolversTypes['CreateTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationCreateTemperatureArgs, 'input'>>,
   createUser?: Resolver<Maybe<ResolversTypes['CreateUserPayload']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>,
   deleteGuide?: Resolver<Maybe<ResolversTypes['DeleteGuidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, 'input'>>,
   deleteGuideByNodeId?: Resolver<Maybe<ResolversTypes['DeleteGuidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteGuideByNodeIdArgs, 'input'>>,
@@ -2328,6 +2630,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteSpotByNodeId?: Resolver<Maybe<ResolversTypes['DeleteSpotPayload']>, ParentType, ContextType, RequireFields<MutationDeleteSpotByNodeIdArgs, 'input'>>,
   deleteStage?: Resolver<Maybe<ResolversTypes['DeleteStagePayload']>, ParentType, ContextType, RequireFields<MutationDeleteStageArgs, 'input'>>,
   deleteStageByNodeId?: Resolver<Maybe<ResolversTypes['DeleteStagePayload']>, ParentType, ContextType, RequireFields<MutationDeleteStageByNodeIdArgs, 'input'>>,
+  deleteTemperature?: Resolver<Maybe<ResolversTypes['DeleteTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationDeleteTemperatureArgs, 'input'>>,
+  deleteTemperatureByNodeId?: Resolver<Maybe<ResolversTypes['DeleteTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationDeleteTemperatureByNodeIdArgs, 'input'>>,
   deleteUser?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'input'>>,
   deleteUserByNodeId?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserByNodeIdArgs, 'input'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'lat' | 'long' | 'spotId'>>,
@@ -2341,12 +2645,14 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateSpotByNodeId?: Resolver<Maybe<ResolversTypes['UpdateSpotPayload']>, ParentType, ContextType, RequireFields<MutationUpdateSpotByNodeIdArgs, 'input'>>,
   updateStage?: Resolver<Maybe<ResolversTypes['UpdateStagePayload']>, ParentType, ContextType, RequireFields<MutationUpdateStageArgs, 'input'>>,
   updateStageByNodeId?: Resolver<Maybe<ResolversTypes['UpdateStagePayload']>, ParentType, ContextType, RequireFields<MutationUpdateStageByNodeIdArgs, 'input'>>,
+  updateTemperature?: Resolver<Maybe<ResolversTypes['UpdateTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationUpdateTemperatureArgs, 'input'>>,
+  updateTemperatureByNodeId?: Resolver<Maybe<ResolversTypes['UpdateTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationUpdateTemperatureByNodeIdArgs, 'input'>>,
   updateUser?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'input'>>,
   updateUserByNodeId?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserByNodeIdArgs, 'input'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Query' | 'Guide' | 'Ride' | 'Spot' | 'Stage' | 'User', ParentType, ContextType>,
+  __resolveType: TypeResolveFn<'Query' | 'Guide' | 'Ride' | 'Spot' | 'Stage' | 'User' | 'Temperature', ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
 };
 
@@ -2375,6 +2681,9 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageArgs, 'id'>>,
   stageByNodeId?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageByNodeIdArgs, 'nodeId'>>,
   stages?: Resolver<Maybe<ResolversTypes['StagesConnection']>, ParentType, ContextType, RequireFields<QueryStagesArgs, 'orderBy'>>,
+  temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureArgs, 'id'>>,
+  temperatureByNodeId?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureByNodeIdArgs, 'nodeId'>>,
+  temperatures?: Resolver<Maybe<ResolversTypes['TemperaturesConnection']>, ParentType, ContextType, RequireFields<QueryTemperaturesArgs, 'orderBy'>>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'username'>>,
   userByNodeId?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByNodeIdArgs, 'nodeId'>>,
   users?: Resolver<Maybe<ResolversTypes['UsersConnection']>, ParentType, ContextType, RequireFields<QueryUsersArgs, 'orderBy'>>,
@@ -2395,7 +2704,9 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  hasBorder?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   path?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>,
@@ -2444,6 +2755,7 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   stagesByFromSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByFromSpotArgs, 'orderBy'>>,
   stagesByToSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByToSpotArgs, 'orderBy'>>,
+  temperature?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   updated?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
@@ -2493,6 +2805,29 @@ export type StagesEdgeResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type TemperatureResolvers<ContextType = any, ParentType extends ResolversParentTypes['Temperature'] = ResolversParentTypes['Temperature']> = {
+  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  month?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  temperature?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type TemperaturesConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemperaturesConnection'] = ResolversParentTypes['TemperaturesConnection']> = {
+  edges?: Resolver<ReadonlyArray<ResolversTypes['TemperaturesEdge']>, ParentType, ContextType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Temperature']>>, ParentType, ContextType>,
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type TemperaturesEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemperaturesEdge'] = ResolversParentTypes['TemperaturesEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type UpdateGuidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateGuidePayload'] = ResolversParentTypes['UpdateGuidePayload']> = {
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
@@ -2537,6 +2872,14 @@ export type UpdateStagePayloadResolvers<ContextType = any, ParentType extends Re
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type UpdateTemperaturePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateTemperaturePayload'] = ResolversParentTypes['UpdateTemperaturePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>,
+  temperatureEdge?: Resolver<Maybe<ResolversTypes['TemperaturesEdge']>, ParentType, ContextType, RequireFields<UpdateTemperaturePayloadTemperatureEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type UpdateUserPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateUserPayload'] = ResolversParentTypes['UpdateUserPayload']> = {
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
@@ -2546,14 +2889,12 @@ export type UpdateUserPayloadResolvers<ContextType = any, ParentType extends Res
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  created?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   guidesByOwner?: Resolver<ResolversTypes['GuidesConnection'], ParentType, ContextType, RequireFields<UserGuidesByOwnerArgs, 'orderBy'>>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   passwordHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>,
   spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>,
-  updated?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -2578,6 +2919,7 @@ export type Resolvers<ContextType = any> = {
   CreateRidePayload?: CreateRidePayloadResolvers<ContextType>,
   CreateSpotPayload?: CreateSpotPayloadResolvers<ContextType>,
   CreateStagePayload?: CreateStagePayloadResolvers<ContextType>,
+  CreateTemperaturePayload?: CreateTemperaturePayloadResolvers<ContextType>,
   CreateUserPayload?: CreateUserPayloadResolvers<ContextType>,
   Cursor?: GraphQLScalarType,
   Date?: GraphQLScalarType,
@@ -2585,6 +2927,7 @@ export type Resolvers<ContextType = any> = {
   DeleteRidePayload?: DeleteRidePayloadResolvers<ContextType>,
   DeleteSpotPayload?: DeleteSpotPayloadResolvers<ContextType>,
   DeleteStagePayload?: DeleteStagePayloadResolvers<ContextType>,
+  DeleteTemperaturePayload?: DeleteTemperaturePayloadResolvers<ContextType>,
   DeleteUserPayload?: DeleteUserPayloadResolvers<ContextType>,
   Guide?: GuideResolvers<ContextType>,
   GuidesConnection?: GuidesConnectionResolvers<ContextType>,
@@ -2605,10 +2948,14 @@ export type Resolvers<ContextType = any> = {
   Stage?: StageResolvers<ContextType>,
   StagesConnection?: StagesConnectionResolvers<ContextType>,
   StagesEdge?: StagesEdgeResolvers<ContextType>,
+  Temperature?: TemperatureResolvers<ContextType>,
+  TemperaturesConnection?: TemperaturesConnectionResolvers<ContextType>,
+  TemperaturesEdge?: TemperaturesEdgeResolvers<ContextType>,
   UpdateGuidePayload?: UpdateGuidePayloadResolvers<ContextType>,
   UpdateRidePayload?: UpdateRidePayloadResolvers<ContextType>,
   UpdateSpotPayload?: UpdateSpotPayloadResolvers<ContextType>,
   UpdateStagePayload?: UpdateStagePayloadResolvers<ContextType>,
+  UpdateTemperaturePayload?: UpdateTemperaturePayloadResolvers<ContextType>,
   UpdateUserPayload?: UpdateUserPayloadResolvers<ContextType>,
   User?: UserResolvers<ContextType>,
   UsersConnection?: UsersConnectionResolvers<ContextType>,

@@ -1,8 +1,8 @@
 import { RideByGuideFragment } from "api/generated"
 import React from "react"
-import { Grid, GridRow, Header, ItemDescription, List } from "semantic-ui-react"
+import { Flag, FlagNameValues, Grid, GridRow, Header, Icon, ItemDescription, Label, List } from "semantic-ui-react"
 import GuideStore from "model/GuideStore"
-import { humanDistance, humanDuration } from "utils/human"
+import { humanDate, humanDistance, humanDuration } from "utils/human"
 
 type Props = {
   ride: RideByGuideFragment
@@ -13,8 +13,6 @@ export default class RideItem extends React.Component<Props> {
   render(): React.ReactElement {
     const { ride, guideStore } = this.props
     const isSelected = guideStore.selectedId === ride.id
-    const duration = humanDuration(ride.durationSeconds!)
-    const distance = humanDistance(ride.distanceMeters!)
     return <List.Item
       key={ride.id}
       value={ride.id}
@@ -29,19 +27,26 @@ export default class RideItem extends React.Component<Props> {
       }}
       active={isSelected}
     >
-      <Grid columns={2} padded={"vertically"}>
-        <GridRow textAlign={"center"}>
-            {ride.fromSpot!.label} to {ride.toSpot!.label}
-        </GridRow>
-        <GridRow>
-          <Grid.Column textAlign='right'>
-            <Header content={duration}/>
-          </Grid.Column>
-          <Grid.Column textAlign='left'>
-            <Header content={distance}/>
-          </Grid.Column>
-        </GridRow>
-      </Grid>
+      <List.Icon size='large' verticalAlign='top'>
+        <Icon name='motorcycle'/>
+      </List.Icon>
+      <List.Content>
+        <List.Header>
+          {ride.name}
+        </List.Header>
+        {ride.date && <Label>
+          <Icon name='calendar'/>{`${humanDate(ride.date)}`}
+        </Label>}
+        <Label>
+          <Icon name='clock'/>{`${humanDuration(ride.durationSeconds!)}`}
+        </Label>
+        <Label>
+          <Icon name='road'/>{`${humanDistance(ride.distanceMeters!)}`}
+        </Label>
+        {ride.hasBorder && <Label>
+          <Icon name='address card'/>Border
+        </Label>}
+      </List.Content>
     </List.Item>
   }
 }

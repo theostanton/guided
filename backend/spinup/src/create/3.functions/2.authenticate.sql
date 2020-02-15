@@ -1,22 +1,22 @@
-create function authenticate(email text, password text) returns jwt_token
+create or replace function guided.authenticate(email text, password text) returns guided.jwt_token
     strict
     security definer
     language plpgsql
 as
 $$
 declare
-    userInfo users;
+    userInfo guided.users;
 begin
     select *
     into userInfo
-    from users as u
+    from guided.users as u
     where u.email = $1;
 
-    if userInfo.password_hash = crypt(password, userInfo.password_hash) then
+    if userInfo.password_hash = guided.crypt(password, userInfo.password_hash) then
         return ('guided_user'::text, userInfo.username,
-                extract(epoch from (now() + interval '2 days'))::bigint)::jwt_token;
+                extract(epoch from (now() + interval '2 days'))::bigint)::guided.jwt_token;
     else
-        return null::jwt_token;
+        return null;
     end if;
 end;
 $$;

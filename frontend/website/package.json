@@ -12,6 +12,7 @@
     "apollo-link-context": "^1.0.19",
     "cuid": "^2.1.8",
     "gatsby": "^2.18.2",
+    "date-fns": "^2.9.0",
     "gatsby-cli": "^2.8.29",
     "gatsby-image": "^2.2.34",
     "gatsby-plugin-alias-imports": "^1.0.5",
@@ -35,6 +36,7 @@
     "store": "^2.0.12"
   },
   "devDependencies": {
+    "@types/date-fns": "^2.6.0",
     "@types/node": "^13.5.0",
     "@types/node-fetch": "^2.5.4",
     "@types/react": "^16.9.19",

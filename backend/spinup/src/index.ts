@@ -4,11 +4,12 @@ import truncate from "./truncate"
 import privelages from "./privelages"
 import populate from "./populate"
 import drop from "./drop"
+import load_temperatures from "./load_temperatures"
 
-export type Action = "create" | "truncate" | "example" | "privelages" | "populate" | "drop"
+export type Action = "create" | "truncate" | "example" | "privelages" | "populate" | "drop" | "load_temperatures"
 
 export const actions: { [action in Action]: () => Promise<void> } = {
-  create, truncate, example, privelages, populate, drop,
+  create, truncate, example, privelages, populate, drop, load_temperatures,
 }
 
 export default async function(action: Action): Promise<void> {

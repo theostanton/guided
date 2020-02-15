@@ -1,4 +1,4 @@
-process.env.STAGE = "test"
+process.env.STAGE = "development"
 
 module.exports = {
   "roots": [

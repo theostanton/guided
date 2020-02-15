@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "watch": "yarn wsrun --stages --fast-exit watch",
+    "watch": "yarn wsrun watch",
     "test": "JEST_JUNIT_OUTPUT_DIR=reports/junit/ yarn workspaces run test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit",
-    "develop:frontend": "STAGE=staging yarn workspace @guided/website run develop",
+    "develop:frontend": "STAGE=development yarn workspace @guided/website run develop",
     "develop:backend": "nodemon",
     "start": "yarn workspace @guided/graphql run develop",
     "build": "./build.sh",

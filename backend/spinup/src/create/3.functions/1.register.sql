@@ -1,12 +1,12 @@
 create function register(_username text,
-                                _email text,
-                                _password text) returns users as
+                         _email text,
+                         _password text) returns guided.users as
 $$
 declare
     user_info users;
 begin
-    insert into users (username, email, password_hash)
-    values (_username, _email, crypt(_password, gen_salt('bf')))
+    insert into guided.users (username, email, password_hash)
+    values (_username, _email, guided.crypt(_password, guided.gen_salt('bf')))
     returning * into user_info;
 
     return user_info;

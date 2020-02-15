@@ -33,34 +33,26 @@ export async function dropTables() {
     await actions.truncate()
     await actions.drop()
   } catch (e) {
+    console.error(e)
   }
-
-  const { countBefore } = await database.one<{ countBefore: number }>(`SELECT count(1) as "countBefore"
-                                                                       FROM information_schema.tables
-                                                                       WHERE table_schema = 'guided'`)
-  expect(countBefore).toBe(0!.toString())
-  await actions.create()
-  const { countAfter } = await database.one<{ countAfter: number }>(`SELECT count(1) as "countAfter"
-                                                                     FROM information_schema.tables
-                                                                     WHERE table_schema = 'guided'`)
-  expect(countAfter).toBe(5!.toString())
 }
 
 export async function populateTables() {
   try {
     await actions.truncate()
     await actions.drop()
-    await actions.populate()
+    await actions.create()
   } catch (e) {
   }
 
-  const { countBefore } = await database.one<{ countBefore: number }>(`SELECT count(1) as "countBefore"
-                                                                       FROM information_schema.tables
-                                                                       WHERE table_schema = 'guided'`)
-  expect(countBefore).toBe(0!.toString())
-  await actions.create()
-  const { countAfter } = await database.one<{ countAfter: number }>(`SELECT count(1) as "countAfter"
-                                                                     FROM information_schema.tables
-                                                                     WHERE table_schema = 'guided'`)
-  expect(countAfter).toBe(5!.toString())
+  const usersBefore = await database.manyOrNone(`SELECT username
+                                                 from users`)
+  expect(usersBefore.length).toBe(0)
+
+  await actions.populate()
+
+  const usersAfter = await database.manyOrNone(`SELECT username
+                                                from users`)
+
+  expect(usersAfter.length).toBe(1)
 }
