@@ -13,6 +13,7 @@
     "@guided/database": "*",
     "@guided/google": "*",
     "@guided/envs": "*",
+    "@guided/compute-rides": "*",
     "@guided/logger": "*",
     "@guided/utils": "*",
     "express": "^4.17.1",
