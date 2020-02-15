@@ -53,8 +53,8 @@ jobs:
           POSTGRES_USER: postgres
     steps:
       - checkout
-      - restore_cache:
-          key: node_modules
+#      - restore_cache:
+#          key: node_modules
       - run:
           name: "Install"
           command: yarn install
