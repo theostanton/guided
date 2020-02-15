@@ -24,6 +24,13 @@ type AuthenticatePayload {
   query: Query
 }
 
+type Bound {
+  east: Float
+  north: Float
+  south: Float
+  west: Float
+}
+
 """All input for the create `Guide` mutation."""
 input CreateGuideInput {
   """
@@ -601,6 +608,7 @@ type DeleteUserPayload {
 }
 
 type Guide implements Node {
+  bounds: Bound
   id: String!
   maxHoursPerRide: Int!
 

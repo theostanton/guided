@@ -54,6 +54,12 @@ fragment GuideBySlug on Guide {
     slug
     owner
     startDate
+    bounds{
+        north
+        east
+        south
+        west
+    }
     ridesByGuide(orderBy: [DATE_ASC]){
         totalCount
         nodes{

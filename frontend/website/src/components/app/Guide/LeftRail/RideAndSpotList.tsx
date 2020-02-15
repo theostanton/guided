@@ -26,8 +26,8 @@ export default class RideAndSpotList extends React.Component<Props> {
 
     rides.forEach(ride => {
       const spot: SpotByGuideFragment = ride.fromSpot!
-      items.push(<SpotItem key={spot.id} spot={spot} guideStore={this.guideStore}/>)
-      items.push(<RideItem key={ride.id} ride={ride} guideStore={this.guideStore}/>)
+      items.push(<SpotItem key={`${spot.id}`} spot={spot} guideStore={this.guideStore}/>)
+      items.push(<RideItem key={`${ride.id}`} ride={ride} guideStore={this.guideStore}/>)
     })
 
     return items

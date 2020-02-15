@@ -34,19 +34,19 @@ export default class RideItem extends React.Component<Props> {
         <List.Header>
           {ride.name}
         </List.Header>
-        {ride.date && <Label>
-          <Icon name='calendar'/>{`${humanDate(ride.date)}`}
-        </Label>}
-        <Label>
-          <Icon name='clock'/>{`${humanDuration(ride.durationSeconds!)}`}
-        </Label>
-        <Label>
-          <Icon name='road'/>{`${humanDistance(ride.distanceMeters!)}`}
-        </Label>
-        {ride.hasBorder && <Label>
-          <Icon name='address card'/>Border
-        </Label>}
       </List.Content>
+      {ride.date && <Label>
+        <Icon name='calendar'/>{`${humanDate(ride.date)}`}
+      </Label>}
+      <Label>
+        <Icon name='clock'/>{`${humanDuration(ride.durationSeconds!)}`}
+      </Label>
+      <Label>
+        <Icon name='road'/>{`${humanDistance(ride.distanceMeters!)}`}
+      </Label>
+      {ride.hasBorder && <Label>
+        <Icon name='address card'/>Border
+      </Label>}
     </List.Item>
   }
 }

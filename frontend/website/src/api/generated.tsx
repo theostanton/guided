@@ -50,6 +50,13 @@ export type AuthenticatePayload = {
   readonly query?: Maybe<Query>,
 };
 
+export type Bound = {
+  readonly east?: Maybe<Scalars['Float']>,
+  readonly north?: Maybe<Scalars['Float']>,
+  readonly south?: Maybe<Scalars['Float']>,
+  readonly west?: Maybe<Scalars['Float']>,
+};
+
 /** All input for the create `Guide` mutation. */
 export type CreateGuideInput = {
   /** 
@@ -551,6 +558,7 @@ export type DeleteUserPayloadUserEdgeArgs = {
 };
 
 export type Guide = Node & {
+  readonly bounds?: Maybe<Bound>,
   readonly id: Scalars['String'],
   readonly maxHoursPerRide: Scalars['Int'],
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
@@ -2226,6 +2234,8 @@ export type ResolversTypes = {
   JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Guide: ResolverTypeWrapper<Guide>,
+  Bound: ResolverTypeWrapper<Bound>,
+  Float: ResolverTypeWrapper<Scalars['Float']>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   Cursor: ResolverTypeWrapper<Scalars['Cursor']>,
   RideCondition: RideCondition,
@@ -2237,7 +2247,6 @@ export type ResolversTypes = {
   Ride: ResolverTypeWrapper<Ride>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Spot: ResolverTypeWrapper<Spot>,
-  Float: ResolverTypeWrapper<Scalars['Float']>,
   Stage: ResolverTypeWrapper<Stage>,
   SpotCondition: SpotCondition,
   SpotsOrderBy: SpotsOrderBy,
@@ -2337,6 +2346,8 @@ export type ResolversParentTypes = {
   JwtToken: Scalars['JwtToken'],
   String: Scalars['String'],
   Guide: Guide,
+  Bound: Bound,
+  Float: Scalars['Float'],
   Int: Scalars['Int'],
   Cursor: Scalars['Cursor'],
   RideCondition: RideCondition,
@@ -2348,7 +2359,6 @@ export type ResolversParentTypes = {
   Ride: Ride,
   Boolean: Scalars['Boolean'],
   Spot: Spot,
-  Float: Scalars['Float'],
   Stage: Stage,
   SpotCondition: SpotCondition,
   SpotsOrderBy: SpotsOrderBy,
@@ -2444,6 +2454,14 @@ export type AuthenticatePayloadResolvers<ContextType = any, ParentType extends R
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   jwtToken?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type BoundResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bound'] = ResolversParentTypes['Bound']> = {
+  east?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  north?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  south?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  west?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -2582,6 +2600,7 @@ export type DeleteUserPayloadResolvers<ContextType = any, ParentType extends Res
 };
 
 export type GuideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Guide'] = ResolversParentTypes['Guide']> = {
+  bounds?: Resolver<Maybe<ResolversTypes['Bound']>, ParentType, ContextType>,
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   maxHoursPerRide?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
@@ -2921,6 +2940,7 @@ export type UsersEdgeResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type Resolvers<ContextType = any> = {
   AuthenticatePayload?: AuthenticatePayloadResolvers<ContextType>,
+  Bound?: BoundResolvers<ContextType>,
   CreateGuidePayload?: CreateGuidePayloadResolvers<ContextType>,
   CreateRidePayload?: CreateRidePayloadResolvers<ContextType>,
   CreateSpotPayload?: CreateSpotPayloadResolvers<ContextType>,
@@ -3040,7 +3060,7 @@ export type RideByGuideFragment = (
 
 export type GuideBySlugFragment = (
   Pick<Guide, 'id' | 'title' | 'slug' | 'owner' | 'startDate'>
-  & { readonly ridesByGuide: (
+  & { readonly bounds: Maybe<Pick<Bound, 'north' | 'east' | 'south' | 'west'>>, readonly ridesByGuide: (
     Pick<RidesConnection, 'totalCount'>
     & { readonly nodes: ReadonlyArray<Maybe<RideByGuideFragment>> }
   ), readonly spotsByGuide: (
@@ -3127,6 +3147,12 @@ export const GuideBySlugFragmentDoc = gql`
   slug
   owner
   startDate
+  bounds {
+    north
+    east
+    south
+    west
+  }
   ridesByGuide(orderBy: [DATE_ASC]) {
     totalCount
     nodes {

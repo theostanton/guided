@@ -15,7 +15,6 @@ export default class SpotItem extends React.Component<Props> {
   render(): React.ReactElement {
 
     const { spot, guideStore } = this.props
-    logJson(spot.date, "spot.date")
     const isSelected = guideStore.selectedId === spot.id
     return <List.Item
       key={spot.id}
