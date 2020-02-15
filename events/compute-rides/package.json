@@ -17,11 +17,11 @@
     "@guided/google": "*",
     "@guided/geojson": "*",
     "date-fns": "^2.9.0",
-    "serverless": "^1.63.0",
-    "@googlemaps/google-maps-services-js": "^2.0.2",
-    "serverless-dotenv-plugin": "^2.3.1"
+    "@googlemaps/google-maps-services-js": "^2.0.2"
   },
   "devDependencies": {
+    "serverless-dotenv-plugin": "^2.3.1",
+    "serverless": "^1.63.0",
     "jest": "^25.1.0",
     "@types/jest": "^25.1.2",
     "ts-jest": "^25.2.0",
