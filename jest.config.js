@@ -1,4 +1,4 @@
-process.env.STAGE = "development"
+process.env.STAGE = "circle_test"
 
 module.exports = {
   "roots": [

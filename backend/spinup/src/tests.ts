@@ -41,6 +41,9 @@ export async function populateTables() {
   try {
     await actions.truncate()
     await actions.drop()
+  } catch (e) {
+  }
+  try {
     await actions.create()
   } catch (e) {
   }
