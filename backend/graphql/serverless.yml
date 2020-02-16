@@ -28,13 +28,17 @@ provider:
   deploymentBucket:
     name: guided-deployment-graphql
 
-  package:
-    exclude:
-      - src/**
+#  package:
+#    exclude:
+#      - node_modules/@guided/**
 
 plugins:
   - serverless-content-encoding
   - serverless-dotenv-plugin
+#  - serverless-webpack
+  - serverless-plugin-typescript
+  - serverless-plugin-monorepo
+  - serverless-offline
 
 custom:
   contentEncoding:
@@ -42,13 +46,17 @@ custom:
   dotenv:
     path: ../../.env.staging
     logging: true
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    packager: 'yarn'
+    includeModules: true
 
 package:
-  individually: false
+  individually: true
 
 functions:
   graphql:
-    handler: srv/lambda.handler
+    handler: src/lambda.handler
     events:
       - http:
           path: graphql

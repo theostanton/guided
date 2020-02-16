@@ -4,38 +4,50 @@
   "version": "0.0.0",
   "scripts": {
     "build": "tsc",
+    "pack": "webpack",
     "start": "node -r ts-node/register ./src/server.ts",
     "test": "jest",
     "develop": "nodemon",
     "deploy": "sls deploy"
   },
   "dependencies": {
-    "@guided/database": "*",
-    "@guided/google": "*",
-    "@guided/envs": "*",
+    "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
     "@guided/compute-rides": "*",
+    "@guided/database": "*",
+    "@guided/envs": "*",
+    "@guided/google": "*",
     "@guided/logger": "*",
     "@guided/utils": "*",
-    "express": "^4.17.1",
-    "postgraphile": "^4.6.0",
-    "dotenv": "^8.2.0",
-    "serverless-content-encoding": "^1.1.0",
-    "serverless-dotenv-plugin": "^2.3.1",
     "aws-serverless-express": "^3.3.6",
-    "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "postgraphile": "^4.6.0"
   },
   "devDependencies": {
-    "serverless": "^1.63.0",
+    "@types/webpack": "^4.41.6",
+    "@types/tapable": "^1.0.5",
+    "serverless-content-encoding": "^1.1.0",
+    "serverless-webpack": "^5.3.1",
+    "serverless-plugin-monorepo": "^0.8.0",
+    "serverless-offline": "^5.12.1",
+    "serverless-plugin-typescript": "1.1.7",
+    "serverless-dotenv-plugin": "^2.3.1",
     "@types/aws-serverless-express": "^3.3.3",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "babel-loader": "^8.0.6",
+    "cache-loader": "^4.1.0",
+    "fork-ts-checker-webpack-plugin": "latest",
     "@types/node": "^13.7.0",
     "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.20.1",
     "nodemon": "^2.0.2",
-    "ts-node": "^8.6.2"
-  },
-  "workspaces": {
-    "nohoist": [
-      "**"
-    ]
+    "serverless": "^1.63.0",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.6.2",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^1.7.2"
   }
 }
