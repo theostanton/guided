@@ -1,3 +1,4 @@
+require("dotenv").config()
 import action from "./action"
 
 async function execute() {

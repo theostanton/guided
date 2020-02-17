@@ -1,6 +1,8 @@
 // @ts-ignore
 import pirxpilot from "@pirxpilot/google-polyline"
 import { FeatureCollection } from "geojson"
+// @ts-ignore
+import simplify from "simplify-geojson"
 
 export function polylineToPoints(polyline: { points: string }): number[][] {
   return pirxpilot.decode(polyline.points)

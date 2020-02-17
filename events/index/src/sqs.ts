@@ -1,4 +1,3 @@
-import "@guided/envs"
 import AWS from "aws-sdk"
 
 if (!process.env._AWS_REGION) {

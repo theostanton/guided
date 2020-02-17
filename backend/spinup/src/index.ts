@@ -5,6 +5,12 @@ import privelages from "./privelages"
 import populate from "./populate"
 import drop from "./drop"
 import load_temperatures from "./load_temperatures"
+import spinup from "./spinup"
+import { Builder, Contents } from "./builder"
+
+export {
+  spinup, Contents, Builder,
+}
 
 export type Action = "create" | "truncate" | "example" | "privelages" | "populate" | "drop" | "load_temperatures"
 

@@ -1,15 +1,16 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": ".build",
-    "rootDir": "./",
+    "outDir": "./srv",
+    "rootDir": "./src",
     "esModuleInterop": true
-  }
-//  "exclude": [
-//    "./srv",
-//    "node_modules"
-//  ],
-//  "include": [
-//    "src/**/*"
-//  ]
+  },
+  "exclude": [
+    "./srv",
+    "node_modules",
+    "jest.config.js"
+  ]
+  //  "include": [
+  //    "src/**/*"
+  //  ]
 }

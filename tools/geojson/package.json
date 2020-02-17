@@ -11,7 +11,9 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@pirxpilot/google-polyline": "^3.0.1"
+    "@pirxpilot/google-polyline": "^3.0.1",
+    "simplify-geojson": "^1.0.3",
+    "topojson-simplify": "^3.0.3"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.7",

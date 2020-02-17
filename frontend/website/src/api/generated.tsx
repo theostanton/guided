@@ -23,8 +23,6 @@ export type Scalars = {
   Cursor: any,
   /** The day, does not include a time. */
   Date: any,
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { [key: string]: any },
 };
 
 /** All input for the `authenticate` mutation. */
@@ -686,7 +684,6 @@ export enum GuidesOrderBy {
 }
 
 
-
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
   readonly addSpotFromLatLng: Spot,
@@ -1238,7 +1235,7 @@ export type Ride = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'],
   readonly owner: Scalars['String'],
-  readonly path?: Maybe<Scalars['JSON']>,
+  readonly pathUrl?: Maybe<Scalars['String']>,
   /** Reads a single `Spot` that is related to this `Ride`. */
   readonly spotByFromSpot?: Maybe<Spot>,
   /** Reads a single `Spot` that is related to this `Ride`. */
@@ -1267,8 +1264,8 @@ export type RideCondition = {
   readonly id?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `owner` field. */
   readonly owner?: Maybe<Scalars['String']>,
-  /** Checks for equality with the object’s `path` field. */
-  readonly path?: Maybe<Scalars['JSON']>,
+  /** Checks for equality with the object’s `pathUrl` field. */
+  readonly pathUrl?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `stage` field. */
   readonly stage?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `toSpot` field. */
@@ -1284,7 +1281,7 @@ export type RideInput = {
   readonly guide: Scalars['String'],
   readonly id: Scalars['String'],
   readonly owner: Scalars['String'],
-  readonly path?: Maybe<Scalars['JSON']>,
+  readonly pathUrl?: Maybe<Scalars['String']>,
   readonly stage: Scalars['String'],
   readonly toSpot: Scalars['String'],
 };
@@ -1298,7 +1295,7 @@ export type RidePatch = {
   readonly guide?: Maybe<Scalars['String']>,
   readonly id?: Maybe<Scalars['String']>,
   readonly owner?: Maybe<Scalars['String']>,
-  readonly path?: Maybe<Scalars['JSON']>,
+  readonly pathUrl?: Maybe<Scalars['String']>,
   readonly stage?: Maybe<Scalars['String']>,
   readonly toSpot?: Maybe<Scalars['String']>,
 };
@@ -1340,8 +1337,8 @@ export enum RidesOrderBy {
   Natural = 'NATURAL',
   OwnerAsc = 'OWNER_ASC',
   OwnerDesc = 'OWNER_DESC',
-  PathAsc = 'PATH_ASC',
-  PathDesc = 'PATH_DESC',
+  PathUrlAsc = 'PATH_URL_ASC',
+  PathUrlDesc = 'PATH_URL_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
   StageAsc = 'STAGE_ASC',
@@ -2240,7 +2237,6 @@ export type ResolversTypes = {
   Cursor: ResolverTypeWrapper<Scalars['Cursor']>,
   RideCondition: RideCondition,
   Date: ResolverTypeWrapper<Scalars['Date']>,
-  JSON: ResolverTypeWrapper<Scalars['JSON']>,
   RidesOrderBy: RidesOrderBy,
   RidesConnection: ResolverTypeWrapper<RidesConnection>,
   RidesEdge: ResolverTypeWrapper<RidesEdge>,
@@ -2352,7 +2348,6 @@ export type ResolversParentTypes = {
   Cursor: Scalars['Cursor'],
   RideCondition: RideCondition,
   Date: Scalars['Date'],
-  JSON: Scalars['JSON'],
   RidesOrderBy: RidesOrderBy,
   RidesConnection: RidesConnection,
   RidesEdge: RidesEdge,
@@ -2629,10 +2624,6 @@ export type GuidesEdgeResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
-  name: 'JSON'
-}
-
 export interface JwtTokenScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JwtToken'], any> {
   name: 'JwtToken'
 }
@@ -2734,7 +2725,7 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  path?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>,
+  pathUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   stage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -2958,7 +2949,6 @@ export type Resolvers<ContextType = any> = {
   Guide?: GuideResolvers<ContextType>,
   GuidesConnection?: GuidesConnectionResolvers<ContextType>,
   GuidesEdge?: GuidesEdgeResolvers<ContextType>,
-  JSON?: GraphQLScalarType,
   JwtToken?: GraphQLScalarType,
   Mutation?: MutationResolvers<ContextType>,
   Node?: NodeResolvers,
@@ -3054,7 +3044,7 @@ export type SpotByGuideFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | '
 export type SomeFragFragment = { readonly node: Maybe<Pick<Guide, 'owner'>> };
 
 export type RideByGuideFragment = (
-  Pick<Ride, 'id' | 'path' | 'hasBorder' | 'name' | 'date' | 'distanceMeters' | 'durationSeconds'>
+  Pick<Ride, 'id' | 'pathUrl' | 'hasBorder' | 'name' | 'date' | 'distanceMeters' | 'durationSeconds'>
   & { readonly toSpot: Maybe<SpotByGuideFragment>, readonly fromSpot: Maybe<SpotByGuideFragment> }
 );
 
@@ -3132,7 +3122,7 @@ export const RideByGuideFragmentDoc = gql`
   fromSpot: spotByFromSpot {
     ...SpotByGuide
   }
-  path
+  pathUrl
   hasBorder
   name
   date

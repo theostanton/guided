@@ -1,0 +1,8 @@
+{
+  "name": "@guided/deploy",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "apply:staging": "terraform workspace select staging && terraform apply -var-file vars/staging.tfvars"
+  }
+}

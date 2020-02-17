@@ -1,5 +1,11 @@
 import React from "react"
-import { MoveSpotDocument, MoveSpotMutationVariables, SpotByGuideFragment } from "api/generated"
+import {
+  MoveSpotDocument,
+  MoveSpotMutationVariables,
+  Ride,
+  RideByGuideFragment,
+  SpotByGuideFragment,
+} from "api/generated"
 import { Icon, SemanticCOLORS } from "semantic-ui-react"
 import { Marker } from "react-map-gl"
 import GuideStore from "model/GuideStore"
@@ -39,10 +45,15 @@ export class Markers extends React.Component<Props, {}> {
     }
 
     let color: SemanticCOLORS
-    if (this.guideStore.selectedId === spot.id) {
+    const selectedRide: RideByGuideFragment | undefined = this.guideStore.selectedRide
+    if (selectedRide && selectedRide.toSpot!.id === spot.id) {
       color = "red"
-    } else if (this.guideStore.highlightedId === spot.id) {
+    } else if (selectedRide && selectedRide.fromSpot!.id === spot.id) {
       color = "green"
+    } else if (this.guideStore.selectedId === spot.id) {
+      color = "orange"
+    } else if (this.guideStore.highlightedId === spot.id) {
+      color = "yellow"
     } else if (spot.locked) {
       color = "black"
     } else {

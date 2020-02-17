@@ -61,8 +61,6 @@ jobs:
       - build:
           directory: tools/logger
       - build:
-          directory: tools/envs
-      - build:
           directory: tools/utils
       - build:
           directory: tools/database

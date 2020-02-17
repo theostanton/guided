@@ -2,7 +2,7 @@ Arguments:
   /usr/local/bin/node /Users/theo/.yarn/bin/yarn.js install
 
 PATH: 
-  /Users/theo/.yarn/bin:/Users/theo/.config/yarn/global/node_modules/.bin:/Users/theo/bin:/usr/local/bin:/Users/theo/Downloads/kotlin-native-macos-0.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/theo/Code/guided/node_modules/.bin
+  /Users/theo/.yarn/bin:/Users/theo/.config/yarn/global/node_modules/.bin:/Users/theo/bin:/usr/local/bin:/Users/theo/Downloads/kotlin-native-macos-0.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
   1.22.0
@@ -32,7 +32,6 @@ npm manifest:
       "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless|tsconfig.tsbuildinfo|yarn.lock|reports|junit.xml)\" -exec rm -rf {} \\;",
       "build:logger": "yarn workspace @guided/logger run build",
       "del": "find -E . -regex \".*/*(.d.ts|.d.ts.map|.js.map|.jsx.map)\" -exec rm -rf {} \\;",
-      "build:envs": "yarn workspace @guided/envs run build",
       "build:database": "yarn workspace @guided/database run build",
       "build:utils": "yarn workspace @guided/utils run build",
       "build:events": "yarn workspace @guided/events run build",

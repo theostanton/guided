@@ -9,7 +9,6 @@ const optionDefinitions: OptionDefinition[] = [
 
 const options: Options = <Options>commandLineArgs(optionDefinitions)
 process.env.STAGE = options.stage
-require("@guided/envs")
 
 import create from "./create"
 import list from "./list"

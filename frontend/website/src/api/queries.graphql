@@ -40,7 +40,7 @@ fragment RideByGuide on Ride{
     fromSpot:spotByFromSpot{
         ...SpotByGuide
     }
-    path
+    pathUrl
     hasBorder
     name
     date

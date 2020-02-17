@@ -17,7 +17,7 @@ export interface Ride {
   owner: string
   from_spot: string
   to_spot: string
-  path: Object | null
+  path_url: string | null
   duration_seconds: number | null
   distance_meters: number | null
   date: Date | null

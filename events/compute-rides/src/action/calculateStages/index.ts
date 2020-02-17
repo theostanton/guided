@@ -6,6 +6,7 @@ import addDays from "date-fns/addDays"
 import { executeWithContext } from "@guided/utils"
 import { StageData } from "../../dao"
 import { getInfo } from "@guided/google"
+import upload from "./upload"
 
 
 type SubContext = {
@@ -36,14 +37,16 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
   const { stage } = context
   const maxDurationPerRide = stage.guide.max_hours_per_ride! * 60 * 60
 
-  function append(spot: Spot) {
+  async function append(spot: Spot) {
+    let rideId = generateId("ride")
+    const pathUrl = await upload(rideId, context.current.points)
     const newRide: Ride = {
-      id: generateId("ride"),
+      id: rideId,
       from_spot: context.current.startSpotId,
       duration_seconds: context.current.duration,
       distance_meters: context.current.distance,
       date: context.current.date,
-      path: geojson.pointsToGeoJson(context.current.points),
+      path_url: pathUrl,
       guide: stage.guide.id,
       to_spot: spot.id,
       owner: stage.guide.owner,
@@ -74,7 +77,7 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
       position,
     }
     context.result.newSpots.push(newSpot)
-    append(newSpot)
+    await append(newSpot)
 
     // Stored current Ride and new Spot with date, then incremented to next day
     context.result.durationDays += 1
@@ -101,7 +104,7 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
 
   // End of Leg, so store Ride
   if (context.current.index === context.stage.stepsCount - 1) {
-    append(context.stage.endSpot)
+    await append(context.stage.endSpot)
     context.result.durationDays++
   }
   context.current.index++
@@ -115,10 +118,10 @@ async function computeStage(startDate: Date | null, { startSpot, guide, endSpot,
 
   if (!route) {
 
-    const singlePoints: number[][] = [
-      [startSpot.long, startSpot.lat],
-      [endSpot.long, endSpot.lat],
-    ]
+    // const singlePoints: number[][] = [
+    //   [startSpot.long, startSpot.lat],
+    //   [endSpot.long, endSpot.lat],
+    // ]
 
     const singleRide: Ride = {
       id: generateId("ride"),
@@ -126,7 +129,7 @@ async function computeStage(startDate: Date | null, { startSpot, guide, endSpot,
       duration_seconds: -1,
       distance_meters: -1,
       date: currentDate,
-      path: geojson.pointsToGeoJson(singlePoints),
+      path_url: null,
       guide: guide.id,
       to_spot: endSpot.id,
       owner: guide.owner,

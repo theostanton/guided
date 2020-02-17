@@ -1,5 +1,4 @@
-require("@guided/envs")
-
+require("dotenv").config()
 import { options, connection } from "./options"
 
 import express from "express"

@@ -1,9 +1,9 @@
-yarn build:logger
-yarn build:utils
-yarn build:envs
-yarn build:database
-yarn build:geojson
-yarn build:google
-yarn build:events
-yarn build:compute-rides
-yarn build:codegen
+yarn workspace @guided/logger run build
+yarn workspace @guided/utils run build
+yarn workspace @guided/database run build
+yarn workspace @guided/google run build
+yarn workspace @guided/mapbox run build
+yarn workspace @guided/geojson run build
+yarn workspace @guided/events run build
+yarn workspace @guided/codegen run build
+yarn workspace @guided/compute-rides run build

@@ -1,9 +1,10 @@
 import Listr, { ListrTask, ListrTaskWrapper } from "listr"
 import fs from "fs"
 import { database } from "@guided/database"
+import path from "path"
 
 function getDirectoryNames(parentDirectoryName: string): string[] {
-  const files = fs.readdirSync(parentDirectoryName, {
+  const files = fs.readdirSync(getPath(parentDirectoryName), {
     withFileTypes: true,
   })
   return files.filter(file => {
@@ -13,8 +14,12 @@ function getDirectoryNames(parentDirectoryName: string): string[] {
   })
 }
 
+function getPath(fileName: string): string {
+  return path.resolve(__dirname, `../${fileName}`)
+}
+
 function getFileNames(directoryName: string): string[] {
-  const files = fs.readdirSync(directoryName, {
+  const files = fs.readdirSync(getPath(directoryName), {
     withFileTypes: true,
   })
   return files.filter(file => {
@@ -25,7 +30,7 @@ function getFileNames(directoryName: string): string[] {
 }
 
 export async function executeFile(fileName: string): Promise<void> {
-  const file = fs.readFileSync(fileName)
+  const file = fs.readFileSync(getPath(fileName))
   await database.query(file.toString())
 }
 

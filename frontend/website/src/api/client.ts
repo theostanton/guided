@@ -8,7 +8,7 @@ export const USER_KEY = "guidedUser"
 
 // @ts-ignore
 const link = new HttpLink({
-  uri: "http://localhost:5000/graphql",
+  uri: process.env.GATSBY_GUIDED_GRAPHQL,
   fetch: fetch,
 })
 

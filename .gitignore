@@ -4,6 +4,7 @@ backend/data
 
 reports/
 
+.env
 build/
 srv/
 dist/

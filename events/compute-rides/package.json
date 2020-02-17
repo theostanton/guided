@@ -9,10 +9,10 @@
     "build": "tsc",
     "test": "jest",
     "watch": "tsc -w",
-    "deploy": "sls deploy",
-    "invoke": "STAGE=staging GUIDE_ID=guide_vc03u7q ts-node src/invoke.ts"
+    "invoke": "STAGE=staging GUIDE_ID=guide_ps03v4w ts-node src/invoke.ts"
   },
   "dependencies": {
+    "aws-sdk": "^2.619.0",
     "@guided/utils": "*",
     "@guided/google": "*",
     "@guided/geojson": "*",
@@ -20,6 +20,7 @@
     "@googlemaps/google-maps-services-js": "^2.0.2"
   },
   "devDependencies": {
+    "aws-sdk": "^2.619.0",
     "serverless-dotenv-plugin": "^2.3.1",
     "serverless": "^1.63.0",
     "jest": "^25.1.0",

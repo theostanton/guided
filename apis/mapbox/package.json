@@ -1,22 +1,22 @@
 {
-  "name": "@guided/envs",
+  "name": "@guided/mapbox",
   "version": "0.0.0",
   "private": true,
   "main": "./srv/index.js",
   "types": "./srv/index.d.ts",
   "scripts": {
     "prepare": "yarn build",
-    "build": "tsc",
     "test": "jest",
+    "build": "tsc",
     "watch": "tsc -w"
   },
   "dependencies": {
     "@guided/logger": "*",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "@mapbox/mapbox-sdk": "^0.9.0"
   },
-  "workspaces": {
-    "nohoist": [
-      "**"
-    ]
+  "devDependencies": {
+    "@types/mapbox__mapbox-sdk": "^0.6.2",
+    "@types/geojson": "^7946.0.7"
   }
 }

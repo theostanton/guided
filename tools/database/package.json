@@ -12,8 +12,9 @@
     "watch": "tsc -w"
   },
   "dependencies": {
+    "@guided/logger": "*",
     "cuid": "^2.1.8",
-    "@guided/envs": "*",
+    "dotenv": "^8.2.0",
     "pg-promise": "^10.4.2"
   },
   "devDependencies": {

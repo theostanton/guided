@@ -89,7 +89,7 @@ export default class Map extends Component<Props, State> {
         height: 400,
         latitude: 51.5007,
         longitude: -0.1246,
-        zoom: 8w,
+        zoom: 8,
       }
     }
     return this.state.viewport

@@ -1,8 +1,9 @@
-process.env.STAGE = "circle_test"
+process.env.STAGE = "test"
 
 module.exports = {
   "roots": [
     "<rootDir>/src",
+    "<rootDir>/test",
   ],
   preset: "ts-jest",
   testRegex: "(.*\.test)\.ts?$",

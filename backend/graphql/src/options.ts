@@ -34,7 +34,7 @@ console.log("ownerConnectionString=" + ownerConnectionString)
 
 export const options: PostGraphileOptions = {
   ownerConnectionString,
-  jwtSecret: "someSecret",
+  jwtSecret: process.env.JWT_SECRET!,
   jwtPgTypeIdentifier: "guided.jwt_token",
   jwtVerifyOptions: {
     audience: undefined,

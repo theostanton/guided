@@ -5,12 +5,17 @@
   "main": "./srv/index.js",
   "types": "./srv/index.d.ts",
   "scripts": {
-    "prepare" : "yarn build",
+    "prepare": "yarn build",
     "build": "tsc",
     "test": "jest",
     "watch": "tsc -w"
   },
   "dependencies": {
     "chalk": "^3.0.0"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
   }
 }

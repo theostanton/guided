@@ -1,9 +1,8 @@
-import React, { ReactElement } from "react"
+import React from "react"
 import GuideStore from "../../model/GuideStore"
 import { inject, observer } from "mobx-react"
+import { LineState, RideLine } from "./RideLine"
 import { RideByGuideFragment } from "../../api/generated"
-import { Layer, Source } from "react-map-gl"
-import { log } from "@guided/logger"
 
 type Props = {
   guideStore?: GuideStore
@@ -12,62 +11,41 @@ type Props = {
 
 @inject("guideStore")
 @observer
-export class Rides extends React.Component<Props, {}> {
+export class Rides extends React.Component<Props> {
 
   get guideStore(): GuideStore {
     return this.props.guideStore!
   }
 
-  createLayer(ride: RideByGuideFragment): React.ReactElement[] {
-    const layerId = `ride-layer-${ride.id}`
-    const sourceId = `ride-source-${ride.id}`
-
-    const style = {
-      paint: {
-        "line-width": 1,
-        "line-color": "#0000ff",
-      },
-    }
-    const highlightedStyle = {
-      paint: {
-        "line-width": 5,
-        "line-color": "green",
-      },
-    }
-    const selectedStyle = {
-      paint: {
-        "line-width": 5,
-        "line-color": "red",
-      },
-    }
-
-    const isHighlighted = this.guideStore.highlightedId === ride.id
-    const isSelected = this.guideStore.selectedId === ride.id
-
-    let layer: ReactElement
-
-    switch (true) {
-      case isSelected:
-        layer = <Layer key={layerId} type={"line"} source={sourceId} {...selectedStyle}/>
-        break
-      case isHighlighted:
-        layer = <Layer key={layerId} type={"line"} source={sourceId} {...highlightedStyle}/>
-        break
-      default:
-        layer = <Layer key={layerId} type={"line"} source={sourceId} {...style}/>
-    }
-
-    return (
-      [
-        <Source key={sourceId} id={sourceId} type='geojson' data={ride.path}/>,
-        layer,
-      ]
-    )
-  }
-
-  render() {
+  render(): React.ReactElement[] {
+    const items: React.ReactElement[] = []
     const distinctIds: string[] = []
-    return this.guideStore.guide!.ridesByGuide!.nodes
+
+    const selectedId = this.props.guideStore?.selectedId
+    const highlightedId = this.props.guideStore?.highlightedId
+
+    function add(ride: RideByGuideFragment) {
+      let state: LineState
+      switch (true) {
+        case selectedId === ride!.id:
+          state = "selected"
+          break
+        case highlightedId === ride!.id:
+          state = "highlighted"
+          break
+        case selectedId && selectedId.startsWith("ride"):
+          state = "unfocused"
+          break
+        case highlightedId && highlightedId.startsWith("ride"):
+          state = "unfocused"
+          break
+        default:
+          state = "none"
+      }
+      items.push(<RideLine ride={ride!} state={state}/>)
+    }
+
+    this.guideStore.guide!.ridesByGuide!.nodes
       .filter(ride => {
         if (!ride) {
           return false
@@ -78,8 +56,20 @@ export class Rides extends React.Component<Props, {}> {
         distinctIds.push(ride.id)
         return true
       })
-      .map(ride => {
-        return this.createLayer(ride!)
+      .forEach(ride => {
+        if (!(ride!.id in [selectedId, highlightedId])) {
+          add(ride!)
+        }
       })
+
+    if (this.guideStore.selectedRide) {
+      add(this.guideStore.selectedRide!)
+    }
+
+    if (this.guideStore.highlightedRide) {
+      add(this.guideStore.highlightedRide!)
+    }
+
+    return items
   }
 }
