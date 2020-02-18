@@ -68,28 +68,9 @@ jobs:
       - run:
           name: "Install"
           command: yarn install
-      - build:
-          directory: tools/logger
-      - build:
-          directory: tools/utils
-      - build:
-          directory: tools/geojson
-      - build:
-          directory: tools/database
-      - build:
-          directory: backend/spinup
-      - build:
-          directory: tools/geojson
-      - build:
-          directory: apis/google
-      - build:
-          directory: events/index
-      - build:
-          directory: events/compute-rides
-      - build:
-          directory: backend/graphql
-      - build:
-          directory: frontend/website
+      - run:
+          name: "Build"
+          command: yarn build:backend
       - save_cache:
           paths:
             - ./node_modules

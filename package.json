@@ -6,7 +6,7 @@
     "watch": "yarn wsrun -m -c watch",
     "test:all": "JEST_JUNIT_OUTPUT_DIR=reports/junit/ jest --passWithNoTests --ci --reporters=default --reporters=jest-junit",
     "develop:frontend": "STAGE=development yarn workspace @guided/website run develop",
-    "build:backend": "yarn wsrun -p @guided/graphql -r --fast-exit --stages build",
+    "build:backend": "yarn wsrun -r --fast-exit --stages build",
     "develop:backend": "nodemon",
     "start": "yarn workspace @guided/graphql run develop",
     "build": "./build.sh",

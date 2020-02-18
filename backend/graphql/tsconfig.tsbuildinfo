@@ -1094,7 +1094,7 @@
         "signature": "69a749fa927457550ae15067343e7c36dd1242cfb80936a9ca62af940f37f78a"
       },
       "./src/plugins/removespot/index.ts": {
-        "version": "bb4dbe2c593f1d469a0195487a807a743882c3efec5cf8359b729b46e3936349",
+        "version": "1dcf27232ad308b300343db5475c088bf9a5335209f9f253e111598e2e973414",
         "signature": "8854bec42a6134aeb7cfbf72e385c7e3250f88b2d17c53beee4cf50227103928"
       },
       "./src/plugins/index.ts": {
@@ -1270,15 +1270,15 @@
         "signature": "d00ddb31c1d53900e9717629dec07c24ab42d1758edd52753bbf981ae250a468"
       },
       "../spinup/srv/index.d.ts": {
-        "version": "7e4c6f64bc89bbbcd4f6f1a79d56ee3c1c3518f72c7e1026e31c2d87f5d5613d",
-        "signature": "7e4c6f64bc89bbbcd4f6f1a79d56ee3c1c3518f72c7e1026e31c2d87f5d5613d"
+        "version": "839794694b039f5ffd8c2abb098fe35f908b5104ff6cc247db4930cb0abfe0f3",
+        "signature": "839794694b039f5ffd8c2abb098fe35f908b5104ff6cc247db4930cb0abfe0f3"
       },
       "./node_modules/@types/faker/index.d.ts": {
         "version": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989",
         "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
       },
       "./src/plugins/removespot/removespot.test.ts": {
-        "version": "93b42d31bc2193f547e85c55a8972c2dd26295849a2782a333ba5a1ced9c19de",
+        "version": "17267bb38bdf308164a03a6459ddc02c4e293fd886e35460fb63999400844994",
         "signature": "040a2bcc134647c87f11d0fa16167b35909e5be5118baf83dee8fccd53cc8752"
       },
       "./node_modules/@types/accepts/index.d.ts": {
@@ -1364,10 +1364,6 @@
       "./node_modules/@types/istanbul-lib-report/index.d.ts": {
         "version": "7eb06594824ada538b1d8b48c3925a83e7db792f47a081a62cf3e5c4e23cf0ee",
         "signature": "7eb06594824ada538b1d8b48c3925a83e7db792f47a081a62cf3e5c4e23cf0ee"
-      },
-      "./node_modules/@types/istanbul-reports/index.d.ts": {
-        "version": "93b59bc67329d5add033e3198583c39aa939cef891e6a2b763e0bea2b514ea9b",
-        "signature": "93b59bc67329d5add033e3198583c39aa939cef891e6a2b763e0bea2b514ea9b"
       },
       "./node_modules/jest-diff/build/cleanupsemantic.d.ts": {
         "version": "9a605b7e5de905b5e67ef1dfc7fb6956275ee3f1744ded5fd314ee8b8befe7d0",
@@ -4507,8 +4503,6 @@
         "./node_modules/@types/faker/index.d.ts",
         "../../events/compute-rides/srv/index.d.ts",
         "./src/plugins/removespot/index.ts",
-        "../../tools/logger/srv/index.d.ts",
-        "../../tools/utils/srv/constants.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -4655,14 +4649,6 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/istanbul-lib-report/index.d.ts": [
-        "./node_modules/@types/istanbul-lib-coverage/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/istanbul-reports/index.d.ts": [
-        "./node_modules/@types/istanbul-lib-report/index.d.ts",
         "./node_modules/@types/istanbul-lib-coverage/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -8437,14 +8423,6 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "./node_modules/@types/istanbul-reports/index.d.ts": [
-        "./node_modules/@types/istanbul-lib-report/index.d.ts",
-        "./node_modules/@types/istanbul-lib-coverage/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
       "./node_modules/jest-diff/build/cleanupsemantic.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -9777,7 +9755,6 @@
       "../../tools/utils/srv/constants.d.ts",
       "../../tools/utils/srv/index.d.ts",
       "./src/plugins/movespot/index.ts",
-      "./src/plugins/removespot/index.ts",
       "./src/plugins/index.ts",
       "./src/options.ts",
       "./node_modules/@types/range-parser/index.d.ts",
@@ -9818,6 +9795,8 @@
       "./src/lambda.ts",
       "./src/server.ts",
       "../spinup/srv/builder/guidebuilder.d.ts",
+      "../spinup/srv/builder/builder.d.ts",
+      "../spinup/srv/builder/index.d.ts",
       "./node_modules/@types/faker/index.d.ts",
       "./node_modules/@types/accepts/index.d.ts",
       "./node_modules/@types/anymatch/index.d.ts",
@@ -9840,7 +9819,6 @@
       "./node_modules/@types/is-glob/index.d.ts",
       "./node_modules/@types/istanbul-lib-coverage/index.d.ts",
       "./node_modules/@types/istanbul-lib-report/index.d.ts",
-      "./node_modules/@types/istanbul-reports/index.d.ts",
       "./node_modules/jest-diff/build/cleanupsemantic.d.ts",
       "./node_modules/jest-diff/build/types.d.ts",
       "./node_modules/jest-diff/build/difflines.d.ts",
@@ -9952,11 +9930,10 @@
       "./node_modules/@types/webpack/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "../spinup/srv/builder/builder.d.ts",
-      "../spinup/srv/builder/index.d.ts",
+      "./src/plugins/removespot/index.ts",
+      "../spinup/srv/index.d.ts",
       "./src/plugins/removespot/removespot.test.ts",
-      "../spinup/srv/spinup/index.d.ts",
-      "../spinup/srv/index.d.ts"
+      "../spinup/srv/spinup/index.d.ts"
     ]
   },
   "version": "3.7.5"
