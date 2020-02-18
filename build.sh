@@ -1,9 +1,0 @@
-yarn workspace @guided/logger run build
-yarn workspace @guided/utils run build
-yarn workspace @guided/database run build
-yarn workspace @guided/google run build
-yarn workspace @guided/mapbox run build
-yarn workspace @guided/geojson run build
-yarn workspace @guided/events run build
-yarn workspace @guided/codegen run build
-yarn workspace @guided/compute-rides run build

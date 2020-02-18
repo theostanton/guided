@@ -70,7 +70,7 @@ jobs:
           command: yarn install
       - run:
           name: "Build"
-          command: yarn build:backend
+          command: yarn build
       - save_cache:
           paths:
             - ./node_modules
