@@ -86,6 +86,10 @@ jobs:
           directory: events/index
       - build:
           directory: events/compute-rides
+      - build:
+          directory: backend/graphql
+      - build:
+          directory: frontend/website
       - save_cache:
           paths:
             - ./node_modules
@@ -110,7 +114,7 @@ jobs:
           directory: ~/workspace/events/compute-stage
       - deploy
 
-  deploy-graphql-staging:
+  deploy-staging:
     environment:
       - STAGE: staging
     docker:
@@ -124,49 +128,6 @@ jobs:
           command: yarn build
       - test:
           directory: ~/workspace/backend/graphql
-      - deploy
-
-  deploy-graphql-production:
-    environment:
-      - STAGE: production
-    docker:
-      - image: circleci/node:12.9.1
-    working_directory: ~/workspace/backend/graphql
-
-    steps:
-      - aws-cli/setup
-      - attach_workspace:
-          at: ~/workspace
-
-      - deploy
-
-  deploy-website-staging:
-    environment:
-      - STAGE: staging
-    docker:
-      - image: circleci/node:12.9.1
-
-    working_directory: ~/workspace/website
-
-    steps:
-      - attach_workspace:
-          at: ~/workspace
-      - run:
-          name: "Build"
-          command: yarn build
-      - deploy
-
-  deploy-website-production:
-    environment:
-      - STAGE: production
-    docker:
-      - image: circleci/node:12.9.1
-
-    working_directory: ~/workspace/website
-    steps:
-      - attach_workspace:
-          at: ~/workspace
-      - run: gatsby build
       - deploy
 
 workflows:
