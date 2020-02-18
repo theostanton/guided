@@ -4,10 +4,9 @@
   "version": "0.0.0",
   "scripts": {
     "watch": "yarn graphql-codegen --watch",
-    "test": "jest",
-    "build": "yarn graphql-codegen"
+    "test": "jest"
   },
-  "dependencies": {
+  "devDependencies": {
     "@graphql-codegen/cli": "latest",
     "@graphql-codegen/add": "latest",
     "@graphql-codegen/typescript": "latest",
