@@ -8,7 +8,7 @@
     "build": "yarn graphql-codegen"
   },
   "dependencies": {
-    "@graphql-codegen/cli": "latest"
+    "@graphql-codegen/cli": "latest",
     "@graphql-codegen/add": "latest",
     "@graphql-codegen/typescript": "latest",
     "@graphql-codegen/typescript-operations": "latest",
