@@ -1,3 +1,4 @@
 vars/**
 !vars/example.tfvars
+!vars/staging.tfvars
 .terraform

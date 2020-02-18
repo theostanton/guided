@@ -109,7 +109,9 @@ jobs:
           command: yarn build
       - test:
           directory: ~/workspace/backend/graphql
-      - deploy
+      - run:
+          name: Deploy
+          command: yarn workspace @guided/deploy run deploy:staging
 
 workflows:
   version: 2

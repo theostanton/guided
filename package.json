@@ -8,6 +8,7 @@
     "develop:frontend": "STAGE=development yarn workspace @guided/website run develop",
     "build": "yarn wsrun -r --fast-exit --stages build",
     "develop:backend": "nodemon",
+    "deploy": "nodemon",
     "start": "yarn workspace @guided/graphql run develop",
     "install:all": "yarn install",
     "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless|tsconfig.tsbuildinfo|yarn.lock|reports|junit.xml)\" -exec rm -rf {} \\;",
@@ -37,6 +38,7 @@
       "backend/*",
       "events/*",
       "apis/*",
+      "deploy/*",
       "tools/*",
       "frontend/*"
     ],
