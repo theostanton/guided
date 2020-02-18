@@ -165,6 +165,10 @@
         "version": "b209a815904a485328677714ef8c4ddd2dcf4040154fa204d25cbf31cd4ff0f3",
         "signature": "b209a815904a485328677714ef8c4ddd2dcf4040154fa204d25cbf31cd4ff0f3"
       },
+      "./src/constants.ts": {
+        "version": "b221e0b4d96f480f6562a4c08b7ca0f48e3c5157a307c53bc3414b76b27e8be9",
+        "signature": "ae5e675aafeac0b27ba95b946eb8f049a00f027f75a4685032dd1d426d30d6b6"
+      },
       "./src/executeconcurrently.ts": {
         "version": "e2ae6e8b39af8bb707eac2861cca6652488fe1405529c4e7c91715f90629efc4",
         "signature": "72e932ec49656781c89bd159489321c6f2bd8570873adce6fe658f521cf535c1"
@@ -178,12 +182,16 @@
         "signature": "770f289c9e5e5a80c3aaa78ba2b205cf66c0378d8b69fee876bbda289339a86d"
       },
       "./src/index.ts": {
-        "version": "73d2e09063590c37b72e8a6bc79fae8ca9c5f295bcc750cc48e1ae3819e71aee",
-        "signature": "33b9de331cfa30dc17b01aa6389a207430d81e4bff724c0f0bd4df8547cb3a76"
+        "version": "efcc88f039461d8fffec6759fdd43da68a242c9f62376aa06d7edfc1a5fb6440",
+        "signature": "da6006efece84bb6b450f24d335b40c7fbc826137b04ef0981b5ecb586d58b64"
       },
       "./src/executesequentially.test.ts": {
         "version": "6347c2bc385c909207990bdfaeb09ed9a64b86770ff9ef7c1f44e407f960e98e",
         "signature": "3ed6c32cbca6f5f29ee7ee3c4ad38676f5c34b2ecd717523417fe512b24761b1"
+      },
+      "../../node_modules/@types/faker/index.d.ts": {
+        "version": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989",
+        "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
       },
       "../../node_modules/@types/jest/node_modules/jest-diff/build/cleanupsemantic.d.ts": {
         "version": "9a605b7e5de905b5e67ef1dfc7fb6956275ee3f1744ded5fd314ee8b8befe7d0",
@@ -406,11 +414,13 @@
       "incremental": true,
       "target": 99,
       "module": 1,
-      "allowJs": true,
+      "allowJs": false,
       "jsx": 1,
       "declaration": true,
       "declarationMap": true,
       "sourceMap": true,
+      "outDir": "./srv",
+      "composite": true,
       "removeComments": true,
       "strict": true,
       "noImplicitAny": true,
@@ -420,16 +430,16 @@
       "strictPropertyInitialization": true,
       "noImplicitThis": true,
       "alwaysStrict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
+      "noUnusedLocals": false,
+      "noUnusedParameters": false,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
       "moduleResolution": 2,
       "esModuleInterop": true,
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
-      "outDir": "./srv",
       "rootDir": "./src",
+      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -679,6 +689,12 @@
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./src/constants.ts": [
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.5/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./src/executeconcurrently.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.5/fs.d.ts",
@@ -701,6 +717,7 @@
         "./src/executeconcurrently.ts",
         "./src/executewithcontext.ts",
         "./src/executesequentially.ts",
+        "./src/constants.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.5/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -709,6 +726,12 @@
       "./src/executesequentially.test.ts": [
         "./src/index.ts",
         "./src/executesequentially.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.5/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../node_modules/@types/faker/index.d.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.5/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -1391,7 +1414,14 @@
       "./src/index.ts": [
         "./src/executeconcurrently.ts",
         "./src/executewithcontext.ts",
-        "./src/executesequentially.ts"
+        "./src/executesequentially.ts",
+        "./src/constants.ts"
+      ],
+      "../../node_modules/@types/faker/index.d.ts": [
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.5/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "../../node_modules/@types/jest/node_modules/jest-diff/build/cleanupsemantic.d.ts": [
         "../../node_modules/@types/node/fs.d.ts",
@@ -1821,11 +1851,13 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
+      "./src/constants.ts",
       "./src/executeconcurrently.ts",
       "./src/executewithcontext.ts",
       "./src/executesequentially.ts",
       "./src/index.ts",
       "./src/executesequentially.test.ts",
+      "../../node_modules/@types/faker/index.d.ts",
       "../../node_modules/@types/jest/node_modules/jest-diff/build/cleanupsemantic.d.ts",
       "../../node_modules/@types/jest/node_modules/jest-diff/build/types.d.ts",
       "../../node_modules/@types/jest/node_modules/jest-diff/build/difflines.d.ts",

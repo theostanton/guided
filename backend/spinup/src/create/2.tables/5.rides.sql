@@ -17,7 +17,7 @@ create table guided.rides
         constraint rides_to_spots_id_fk
             references guided.spots
             on delete cascade,
-    path             json,
+    path_url         varchar(256),
     duration_seconds integer,
     distance_meters  integer,
     date             date,

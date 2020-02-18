@@ -14,11 +14,11 @@
     "@guided/compute-rides": "*",
     "@guided/database": "*",
     "@guided/google": "*",
+    "@guided/codegen": "*",
     "@guided/logger": "*",
     "@guided/utils": "*",
     "@guided/spinup": "*",
     "aws-serverless-express": "^3.3.6",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "postgraphile": "^4.6.0"
   },

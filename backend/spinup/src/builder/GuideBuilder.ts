@@ -3,8 +3,8 @@ import { generateId, Guide, Spot } from "@guided/database"
 
 export default class GuideBuilder {
 
-  static create(username: string, title: string): GuideBuilder {
-    return new GuideBuilder(username, title)
+  static create(username: string, title: string, guideId?: string): GuideBuilder {
+    return new GuideBuilder(username, title, guideId)
   }
 
   private readonly username: string
@@ -16,13 +16,21 @@ export default class GuideBuilder {
   private spots: Spot[] = []
   private position: number = 0
 
-  private constructor(username: string, title: string) {
+  private constructor(username: string, title: string, guideId?: string) {
     this.username = username
-    this.id = generateId("guide")
+    this.id = guideId || generateId("guide")
     this.title = title
-    this.slug = slugify(title)
+    this.slug = slugify(title, {
+      lower: true,
+      remove: /[*+~.()'"!:@]/g,
+    })
     this.max_hours_per_ride = 6
     this.start_date = null
+  }
+
+  withStartDate(startDate: Date): GuideBuilder {
+    this.start_date = startDate
+    return this
   }
 
   withMaxHours(maxHoursPerRide: number): GuideBuilder {
@@ -30,9 +38,9 @@ export default class GuideBuilder {
     return this
   }
 
-  nextSpot(lat: number, long: number, nights: number, label?: string): GuideBuilder {
+  nextSpot(lat: number, long: number, nights: number, label?: string, id?: string): GuideBuilder {
     const spot: Spot = {
-      id: generateId("spot"),
+      id: id || generateId("spot"),
       lat,
       long,
       locked: true,

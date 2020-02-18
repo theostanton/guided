@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "watch": "yarn wsrun -m -c watch",
-    "test": "JEST_JUNIT_OUTPUT_DIR=reports/junit/ yarn workspaces run test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit",
+    "test:all": "JEST_JUNIT_OUTPUT_DIR=reports/junit/ jest --passWithNoTests --ci --reporters=default --reporters=jest-junit",
     "develop:frontend": "STAGE=development yarn workspace @guided/website run develop",
     "build:backend": "yarn wsrun -p @guided/graphql -r --fast-exit --stages build",
     "develop:backend": "nodemon",
@@ -13,7 +13,8 @@
     "install:all": "yarn install",
     "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless|tsconfig.tsbuildinfo|yarn.lock|reports|junit.xml)\" -exec rm -rf {} \\;",
     "build:logger": "yarn workspace @guided/logger run build",
-    "del": "find -E . -regex \".*/*(.d.ts|.d.ts.map|.js.map|.jsx.map)\" -exec rm -rf {} \\;"
+    "del": "find -E . -regex \".*\/src\/.*(.d.ts|.d.ts.map|.js.map|.jsx.map|.jsx|.js)\" -exec rm -rf {} \\;",
+    "del:srv": "find -E . -regex \".*/(srv)\" -exec rm -rf {} \\;"
   },
   "dependencies": {
     "dotenv": "^8.2.0"
@@ -28,7 +29,9 @@
     "ts-jest": "^25.2.0",
     "typescript": "^3.7.5",
     "@types/node": "^13.7.0",
-    "wsrun": "^5.2.0"
+    "wsrun": "^5.2.0",
+    "@types/faker": "^4.1.9",
+    "faker": "^4.1.0"
   },
   "workspaces": {
     "packages": [
@@ -38,6 +41,8 @@
       "tools/*",
       "frontend/*"
     ],
-    "nohoist": ["**"]
+    "nohoist": [
+      "**"
+    ]
   }
 }

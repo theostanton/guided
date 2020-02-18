@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@guided/logger": "*",
-    "dotenv": "^8.2.0",
     "@mapbox/mapbox-sdk": "^0.9.0"
   },
   "devDependencies": {

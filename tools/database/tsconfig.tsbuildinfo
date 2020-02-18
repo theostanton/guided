@@ -165,6 +165,14 @@
         "version": "b209a815904a485328677714ef8c4ddd2dcf4040154fa204d25cbf31cd4ff0f3",
         "signature": "b209a815904a485328677714ef8c4ddd2dcf4040154fa204d25cbf31cd4ff0f3"
       },
+      "../logger/srv/locallogger.d.ts": {
+        "version": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d",
+        "signature": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d"
+      },
+      "../logger/srv/index.d.ts": {
+        "version": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4",
+        "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
+      },
       "./node_modules/pg-promise/typescript/pg-subset.d.ts": {
         "version": "c2d551451c7ddb48f776fd038ec5af7922ec0040cd82a69dad1550a697afe9f6",
         "signature": "c2d551451c7ddb48f776fd038ec5af7922ec0040cd82a69dad1550a697afe9f6"
@@ -181,33 +189,37 @@
         "version": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f",
         "signature": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f"
       },
+      "./node_modules/cuid/index.d.ts": {
+        "version": "4046592570718236ed274564f611f502ca4e9fce87e0e078e1f5905292a22b62",
+        "signature": "4046592570718236ed274564f611f502ca4e9fce87e0e078e1f5905292a22b62"
+      },
       "./src/types.ts": {
         "version": "eacce5395fc1e608f9b11d7a38857eb8ac6565423a774a9cbb42f983b2ee46c0",
         "signature": "bf6f1657e2b87426c4dcea70517efebebeab4e59b794e1b079de2268856d877c"
       },
       "./src/utils.ts": {
-        "version": "a3ca2485142bd85b4870c2720549e5a434afcbe24a7c6a69fa8ab8847667a955",
-        "signature": "338cf3f7ee5a2570333ee357866e2ccd5108dc0dcf02bbb050080eeb77b43afe"
-      },
-      "../logger/srv/locallogger.d.ts": {
-        "version": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d",
-        "signature": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d"
-      },
-      "../logger/srv/index.d.ts": {
-        "version": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4",
-        "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
+        "version": "da2f1e2fffc4b566ae34779d226eea1a01d1df5c855a29bc5fab6ed6a0e93e16",
+        "signature": "2401fd60c9528667fa82ff7aa75d47e45af2f8464f64e3865291c7e6e7bed44f"
       },
       "./src/extensions.ts": {
         "version": "531cb9cd274e948c28069d36f4580c9e223405ce04af1b24890d7c6b7c089ae1",
         "signature": "e9c0badeca1c28a2bb4b05a90600b291fcd3cdfc89235b5739f627d3db3b7db5"
       },
-      "./node_modules/cuid/index.d.ts": {
-        "version": "4046592570718236ed274564f611f502ca4e9fce87e0e078e1f5905292a22b62",
-        "signature": "4046592570718236ed274564f611f502ca4e9fce87e0e078e1f5905292a22b62"
-      },
       "./src/index.ts": {
-        "version": "a3a958b4db2bc490c523ac31cf1e6077e733bba65370b2cc9e090199d6b636f0",
-        "signature": "9f5829ff0c456366f0d613c519d76dfda2ca1a44a455d090faecf7a5b9d834b2"
+        "version": "ed3d2300e3ceb41c35413c7c4efe0f235367e9caf89fc537b0a4542538b8bc01",
+        "signature": "b9c842775592c5cfe1bd769553321ec0c2de8335b502921ef0a99daba4aabfe7"
+      },
+      "./src/client.test.ts": {
+        "version": "08d92d85da818b0b4dbe67d01b117dab5d1d604209de5802652b0d10609feebd",
+        "signature": "43ad91bec5bd0d2576566c19960051c7ded34f25900af803ea7197114b2cb42c"
+      },
+      "../../node_modules/@types/faker/index.d.ts": {
+        "version": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989",
+        "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
+      },
+      "./src/utils.test.ts": {
+        "version": "987a749b8bdc066a58b2dd2ae5e280798dd39d149d25a1b495086a34f2bee8e2",
+        "signature": "5d477174ec3519c0a58ffed85a1b96fd0ea58091d4dbab4a6093b12828536bd1"
       },
       "./node_modules/@types/color-name/index.d.ts": {
         "version": "f0cb4b3ab88193e3e51e9e2622e4c375955003f1f81239d72c5b7a95415dad3e",
@@ -438,11 +450,13 @@
       "incremental": true,
       "target": 99,
       "module": 1,
-      "allowJs": true,
+      "allowJs": false,
       "jsx": 1,
       "declaration": true,
       "declarationMap": true,
       "sourceMap": true,
+      "outDir": "./srv",
+      "composite": true,
       "removeComments": true,
       "strict": true,
       "noImplicitAny": true,
@@ -452,16 +466,16 @@
       "strictPropertyInitialization": true,
       "noImplicitThis": true,
       "alwaysStrict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
+      "noUnusedLocals": false,
+      "noUnusedParameters": false,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
       "moduleResolution": 2,
       "esModuleInterop": true,
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
-      "outDir": "./srv",
       "rootDir": "./src",
+      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -711,6 +725,20 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../logger/srv/locallogger.d.ts": [
+        "../logger/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../logger/srv/index.d.ts": [
+        "../logger/srv/locallogger.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/pg-promise/typescript/pg-subset.d.ts": [
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/tls.d.ts",
@@ -740,6 +768,12 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/cuid/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./src/types.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -752,20 +786,6 @@
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../logger/srv/locallogger.d.ts": [
-        "../logger/srv/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../logger/srv/index.d.ts": [
-        "../logger/srv/locallogger.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
       "./src/extensions.ts": [
         "./node_modules/pg-promise/typescript/pg-promise.d.ts",
         "./src/types.ts",
@@ -776,18 +796,34 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "./node_modules/cuid/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
       "./src/index.ts": [
+        "../logger/srv/index.d.ts",
         "./node_modules/pg-promise/typescript/pg-promise.d.ts",
         "./node_modules/cuid/index.d.ts",
         "./src/extensions.ts",
         "./src/types.ts",
         "./src/utils.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/client.test.ts": [
+        "./src/index.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../node_modules/@types/faker/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/utils.test.ts": [
+        "./src/index.ts",
+        "../../node_modules/@types/faker/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -1479,6 +1515,20 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../logger/srv/locallogger.d.ts": [
+        "../logger/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../logger/srv/index.d.ts": [
+        "../logger/srv/locallogger.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/pg-promise/typescript/pg-subset.d.ts": [
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/tls.d.ts",
@@ -1508,15 +1558,7 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../logger/srv/locallogger.d.ts": [
-        "../logger/srv/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../logger/srv/index.d.ts": [
-        "../logger/srv/locallogger.d.ts",
+      "./node_modules/cuid/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -1526,18 +1568,24 @@
         "./src/types.ts",
         "./node_modules/pg-promise/typescript/pg-promise.d.ts"
       ],
-      "./node_modules/cuid/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
       "./src/index.ts": [
         "./src/types.ts",
         "./src/utils.ts",
         "./node_modules/pg-promise/typescript/pg-subset.d.ts",
         "./src/extensions.ts",
         "./node_modules/pg-promise/typescript/pg-promise.d.ts"
+      ],
+      "../../node_modules/@types/faker/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/color-name/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/cuid/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
@@ -1970,12 +2018,6 @@
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/color-name/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -2020,17 +2062,20 @@
       "../../node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "../../node_modules/typescript/lib/lib.esnext.bigint.d.ts",
       "../../node_modules/typescript/lib/lib.esnext.full.d.ts",
+      "../logger/srv/locallogger.d.ts",
+      "../logger/srv/index.d.ts",
       "./node_modules/pg-promise/typescript/pg-subset.d.ts",
       "./node_modules/pg-minify/typescript/pg-minify.d.ts",
       "./node_modules/spex/typescript/spex.d.ts",
       "./node_modules/pg-promise/typescript/pg-promise.d.ts",
+      "./node_modules/cuid/index.d.ts",
       "./src/types.ts",
       "./src/utils.ts",
-      "../logger/srv/locallogger.d.ts",
-      "../logger/srv/index.d.ts",
       "./src/extensions.ts",
-      "./node_modules/cuid/index.d.ts",
       "./src/index.ts",
+      "../../node_modules/@types/faker/index.d.ts",
+      "./src/utils.test.ts",
+      "./node_modules/@types/color-name/index.d.ts",
       "./node_modules/@types/cuid/index.d.ts",
       "./node_modules/@types/node/globals.d.ts",
       "./node_modules/@types/node/assert.d.ts",
@@ -2086,7 +2131,7 @@
       "../../node_modules/@types/jest/node_modules/pretty-format/build/types.d.ts",
       "../../node_modules/@types/jest/node_modules/pretty-format/build/index.d.ts",
       "../../node_modules/@types/jest/index.d.ts",
-      "./node_modules/@types/color-name/index.d.ts"
+      "./src/client.test.ts"
     ]
   },
   "version": "3.7.5"

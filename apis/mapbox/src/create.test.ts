@@ -12,11 +12,11 @@ const FEATURE: Feature = {
   },
 }
 
-beforeAll(async () => {
-  await uploadFeature(RIDE_ID, FEATURE)
-})
+// beforeAll(async () => {
+//   await uploadFeature(RIDE_ID, FEATURE)
+// })
 
-describe("Create dataset", () => {
+xdescribe("Create dataset", () => {
   it("Creates dataset", async () => {
 
   })

@@ -3,9 +3,10 @@ import fs from "fs"
 import { log, logJson } from "@guided/logger"
 import { Temperature } from "@guided/database/srv/types"
 import { database, generateId, insertMany } from "@guided/database"
+import { actions } from "../index"
 
-const TEMPS_FILENAME = "src/load_temperatures/temperatures.csv"
-const CODES_FILENAME = "src/load_temperatures/codes.csv"
+const TEMPS_FILENAME = __dirname + "src/load_temperatures/temperatures.csv"
+const CODES_FILENAME = __dirname + "src/load_temperatures/codes.csv"
 
 export default async function(): Promise<void> {
   const tempsFile = fs.readFileSync(TEMPS_FILENAME)
@@ -46,6 +47,8 @@ export default async function(): Promise<void> {
   const insertQuery = insertMany("temperatures", temperatures)
   log(insertQuery)
   logJson(temperatures[0], "temperatures[0]")
+
+  await actions.truncate()
   await database.none(insertQuery)
 
 }

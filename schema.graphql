@@ -803,11 +803,6 @@ enum GuidesOrderBy {
 }
 
 """
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-
-"""
 A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
 which securely represents claims between two parties.
 """
@@ -1398,7 +1393,7 @@ type Ride implements Node {
   """
   nodeId: ID!
   owner: String!
-  path: JSON
+  pathUrl: String
 
   """Reads a single `Spot` that is related to this `Ride`."""
   spotByFromSpot: Spot
@@ -1440,8 +1435,8 @@ input RideCondition {
   """Checks for equality with the object’s `owner` field."""
   owner: String
 
-  """Checks for equality with the object’s `path` field."""
-  path: JSON
+  """Checks for equality with the object’s `pathUrl` field."""
+  pathUrl: String
 
   """Checks for equality with the object’s `stage` field."""
   stage: String
@@ -1459,7 +1454,7 @@ input RideInput {
   guide: String!
   id: String!
   owner: String!
-  path: JSON
+  pathUrl: String
   stage: String!
   toSpot: String!
 }
@@ -1473,7 +1468,7 @@ input RidePatch {
   guide: String
   id: String
   owner: String
-  path: JSON
+  pathUrl: String
   stage: String
   toSpot: String
 }
@@ -1521,8 +1516,8 @@ enum RidesOrderBy {
   NATURAL
   OWNER_ASC
   OWNER_DESC
-  PATH_ASC
-  PATH_DESC
+  PATH_URL_ASC
+  PATH_URL_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
   STAGE_ASC

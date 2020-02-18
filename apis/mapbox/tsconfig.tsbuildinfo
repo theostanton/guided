@@ -178,11 +178,11 @@
         "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
       },
       "./src/index.ts": {
-        "version": "210dfe906aab07f13c4574d9f9711f97545aafd58634141886da3ed3befb1ea2",
+        "version": "037b1adcbd5af55c8eb17b5f9a95d403b6071a4ebfb0418e1c7696a8427303c7",
         "signature": "5fcf914c816a14a3a2d4e25408e3a16a19ce19e072a7cf47bba25db7a5bd8721"
       },
       "./src/create.test.ts": {
-        "version": "75e5542d5e16c5134b910cec3c6e53cc356984d1e169d47f0479b33293e4413b",
+        "version": "22d67208bde74aab2b548334da7e48203e3af9171a6d9659a8c6049e201e8127",
         "signature": "e2da2a3e9e9e0f96133367b790d708ca9685b8f349f97d8a6cb37cf5e69676f5"
       },
       "./node_modules/@types/color-name/index.d.ts": {
@@ -196,6 +196,10 @@
       "./node_modules/@types/mapbox__mapbox-sdk/index.d.ts": {
         "version": "1a7c622498cf029c27589fbc73abfbf34add8e61ae10b9ea9f44d5afe79a203d",
         "signature": "1a7c622498cf029c27589fbc73abfbf34add8e61ae10b9ea9f44d5afe79a203d"
+      },
+      "../../node_modules/@types/faker/index.d.ts": {
+        "version": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989",
+        "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
       },
       "../../node_modules/@types/jest/node_modules/jest-diff/build/cleanupsemantic.d.ts": {
         "version": "9a605b7e5de905b5e67ef1dfc7fb6956275ee3f1744ded5fd314ee8b8befe7d0",
@@ -418,11 +422,13 @@
       "incremental": true,
       "target": 99,
       "module": 1,
-      "allowJs": true,
+      "allowJs": false,
       "jsx": 1,
       "declaration": true,
       "declarationMap": true,
       "sourceMap": true,
+      "outDir": "./srv",
+      "composite": true,
       "removeComments": true,
       "strict": true,
       "noImplicitAny": true,
@@ -432,15 +438,14 @@
       "strictPropertyInitialization": true,
       "noImplicitThis": true,
       "alwaysStrict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
+      "noUnusedLocals": false,
+      "noUnusedParameters": false,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
       "moduleResolution": 2,
       "esModuleInterop": true,
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
-      "outDir": "./srv",
       "rootDir": "./src",
       "watch": true,
       "configFilePath": "./tsconfig.json"
@@ -746,6 +751,12 @@
         "./node_modules/@types/mapbox__mapbox-sdk/index.d.ts",
         "./node_modules/@types/geojson/index.d.ts",
         "./node_modules/@types/mapbox-gl/index.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.5/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../node_modules/@types/faker/index.d.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.5/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -1446,8 +1457,8 @@
         "../../node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/index.ts": [
-        "./node_modules/@types/geojson/index.d.ts",
-        "./node_modules/@types/mapbox__mapbox-sdk/index.d.ts"
+        "./node_modules/@types/mapbox__mapbox-sdk/index.d.ts",
+        "./node_modules/@types/geojson/index.d.ts"
       ],
       "./node_modules/@types/color-name/index.d.ts": [
         "../../node_modules/@types/node/fs.d.ts",
@@ -1466,6 +1477,12 @@
         "./node_modules/@types/mapbox__mapbox-sdk/index.d.ts",
         "./node_modules/@types/geojson/index.d.ts",
         "./node_modules/@types/mapbox-gl/index.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.5/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../node_modules/@types/faker/index.d.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.5/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -1899,7 +1916,6 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
-      "./src/create.test.ts",
       "../../node_modules/typescript/lib/lib.es5.d.ts",
       "../../node_modules/typescript/lib/lib.es2015.d.ts",
       "../../node_modules/typescript/lib/lib.es2016.d.ts",
@@ -1948,6 +1964,7 @@
       "./node_modules/@types/color-name/index.d.ts",
       "./node_modules/@types/mapbox-gl/index.d.ts",
       "./node_modules/@types/mapbox__mapbox-sdk/index.d.ts",
+      "../../node_modules/@types/faker/index.d.ts",
       "../../node_modules/@types/jest/node_modules/jest-diff/build/cleanupsemantic.d.ts",
       "../../node_modules/@types/jest/node_modules/jest-diff/build/types.d.ts",
       "../../node_modules/@types/jest/node_modules/jest-diff/build/difflines.d.ts",
@@ -2001,7 +2018,8 @@
       "../../node_modules/@types/node/ts3.5/util.d.ts",
       "../../node_modules/@types/node/ts3.5/globals.d.ts",
       "../../node_modules/@types/node/ts3.5/wasi.d.ts",
-      "../../node_modules/@types/node/ts3.5/index.d.ts"
+      "../../node_modules/@types/node/ts3.5/index.d.ts",
+      "./src/create.test.ts"
     ]
   },
   "version": "3.7.5"

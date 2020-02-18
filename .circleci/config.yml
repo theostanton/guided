@@ -19,7 +19,7 @@ commands:
             JEST_JUNIT_OUTPUT_DIR: "reports/junit/"
           command: |
             cd << parameters.directory >>
-#            yarn test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit
+#            yarn test --passWithNoTests --ci --reporters=default --reporters=jest-junit
       - store_artifacts:
           path: << parameters.directory >>/reports/junit
       - store_test_results:
@@ -36,25 +36,35 @@ commands:
           command: |
             cd ~/workspace/<< parameters.directory >>
             yarn build
-      - test:
-          directory: ~/workspace/<< parameters.directory >>
 
 
 jobs:
-  prepare:
+  tests:
+    working_directory: ~/workspace
     environment:
       - STAGE: test
       - DATABASE_URL: postgresql://postgres@localhost/circle_test
-    working_directory: ~/workspace
     docker:
       - image: circleci/node:12.9.1
       - image: circleci/postgres:9.6-alpine-ram
         environment:
           POSTGRES_USER: postgres
     steps:
+      - run:
+          name: Run tests
+          command: yarn test:all
+      - store_artifacts:
+          path: ~workspace/reports/junit
+      - store_test_results:
+          path: ~workspace/reports/junit
+  prepare:
+    working_directory: ~/workspace
+    docker:
+      - image: circleci/node:12.9.1
+    steps:
       - checkout
-#      - restore_cache:
-#          key: node_modules
+      - restore_cache:
+          key: node_modules
       - run:
           name: "Install"
           command: yarn install
@@ -62,6 +72,8 @@ jobs:
           directory: tools/logger
       - build:
           directory: tools/utils
+      - build:
+          directory: tools/geojson
       - build:
           directory: tools/database
       - build:
@@ -165,10 +177,13 @@ workflows:
           filters:
             branches:
               only: staging
+      - tests:
+          requires:
+            - prepare
 
       - deploy-graphql-staging:
           requires:
-            - prepare
+            - tests
 
       - deploy-website-staging:
           requires:

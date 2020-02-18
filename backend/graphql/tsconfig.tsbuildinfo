@@ -1042,12 +1042,12 @@
         "signature": "e9c0badeca1c28a2bb4b05a90600b291fcd3cdfc89235b5739f627d3db3b7db5"
       },
       "../../tools/database/srv/utils.d.ts": {
-        "version": "338cf3f7ee5a2570333ee357866e2ccd5108dc0dcf02bbb050080eeb77b43afe",
-        "signature": "338cf3f7ee5a2570333ee357866e2ccd5108dc0dcf02bbb050080eeb77b43afe"
+        "version": "2401fd60c9528667fa82ff7aa75d47e45af2f8464f64e3865291c7e6e7bed44f",
+        "signature": "2401fd60c9528667fa82ff7aa75d47e45af2f8464f64e3865291c7e6e7bed44f"
       },
       "../../tools/database/srv/index.d.ts": {
-        "version": "9f5829ff0c456366f0d613c519d76dfda2ca1a44a455d090faecf7a5b9d834b2",
-        "signature": "9f5829ff0c456366f0d613c519d76dfda2ca1a44a455d090faecf7a5b9d834b2"
+        "version": "b9c842775592c5cfe1bd769553321ec0c2de8335b502921ef0a99daba4aabfe7",
+        "signature": "b9c842775592c5cfe1bd769553321ec0c2de8335b502921ef0a99daba4aabfe7"
       },
       "./src/plugins/types.ts": {
         "version": "da70c9f8c0483ea4a9ec0f7dd3fab6cab7c45b2ed93992423597a784ce9ed820",
@@ -1081,17 +1081,21 @@
         "version": "770f289c9e5e5a80c3aaa78ba2b205cf66c0378d8b69fee876bbda289339a86d",
         "signature": "770f289c9e5e5a80c3aaa78ba2b205cf66c0378d8b69fee876bbda289339a86d"
       },
+      "../../tools/utils/srv/constants.d.ts": {
+        "version": "ae5e675aafeac0b27ba95b946eb8f049a00f027f75a4685032dd1d426d30d6b6",
+        "signature": "ae5e675aafeac0b27ba95b946eb8f049a00f027f75a4685032dd1d426d30d6b6"
+      },
       "../../tools/utils/srv/index.d.ts": {
-        "version": "33b9de331cfa30dc17b01aa6389a207430d81e4bff724c0f0bd4df8547cb3a76",
-        "signature": "33b9de331cfa30dc17b01aa6389a207430d81e4bff724c0f0bd4df8547cb3a76"
+        "version": "da6006efece84bb6b450f24d335b40c7fbc826137b04ef0981b5ecb586d58b64",
+        "signature": "da6006efece84bb6b450f24d335b40c7fbc826137b04ef0981b5ecb586d58b64"
       },
       "./src/plugins/movespot/index.ts": {
         "version": "a3fcf58dd11f63e151e5a38f1fb5cb82755cd54c56e49f59ec91b3b60b48b4c8",
         "signature": "69a749fa927457550ae15067343e7c36dd1242cfb80936a9ca62af940f37f78a"
       },
       "./src/plugins/removespot/index.ts": {
-        "version": "5861b95941b4dd6b554f59784646c9668463a05e0d5fcd5d14c85795966f9e97",
-        "signature": "69a749fa927457550ae15067343e7c36dd1242cfb80936a9ca62af940f37f78a"
+        "version": "bb4dbe2c593f1d469a0195487a807a743882c3efec5cf8359b729b46e3936349",
+        "signature": "8854bec42a6134aeb7cfbf72e385c7e3250f88b2d17c53beee4cf50227103928"
       },
       "./src/plugins/index.ts": {
         "version": "11b378dc2c7892d30cf1965d26c3faaf9f43082226c37c9f311989579d29a9ec",
@@ -1130,7 +1134,7 @@
         "signature": "6e1c6fe784daeba017901db7766e6b872f535defe33b0e0196d2a12c26f50517"
       },
       "./src/app.ts": {
-        "version": "ef3189239b002d3736f1182395e6b04371ac6a6345e0696db54d3edd0147a9ab",
+        "version": "d75c670fb0e463795c6d7d44d32ee2e24e24026385ac1930024b0c52a458a14b",
         "signature": "6f483c1194cc69d75c5eb35aaf615dda8e73ab74bc3a7cee148f3d5606152216"
       },
       "./node_modules/@types/aws-lambda/hander.d.ts": {
@@ -1250,16 +1254,16 @@
         "signature": "1bdaab87b793f49e745a6a1700bd74197b0a088d4e90ddc6f5bcb1a227fe826b"
       },
       "../spinup/srv/spinup/index.d.ts": {
-        "version": "3160b4d0b45a72111c0fe31c467986fc8fa1d9f430055cf265d6c26cb75c48b3",
-        "signature": "3160b4d0b45a72111c0fe31c467986fc8fa1d9f430055cf265d6c26cb75c48b3"
+        "version": "294d50880fb288fcf5538fce7accb8f36d959e946ef1aa23abfc4394cc03f9f1",
+        "signature": "294d50880fb288fcf5538fce7accb8f36d959e946ef1aa23abfc4394cc03f9f1"
       },
       "../spinup/srv/builder/guidebuilder.d.ts": {
-        "version": "8bd58cf31dd37c83bf6e87784fbd070157e491fca6952deaeb3bc7d2a2b0f3c8",
-        "signature": "8bd58cf31dd37c83bf6e87784fbd070157e491fca6952deaeb3bc7d2a2b0f3c8"
+        "version": "cfa061a6c9667a061add5ad13cbd0d42f9ac3e3f92171ab98e91fb5203029abd",
+        "signature": "cfa061a6c9667a061add5ad13cbd0d42f9ac3e3f92171ab98e91fb5203029abd"
       },
       "../spinup/srv/builder/builder.d.ts": {
-        "version": "e6479078098b4ea2c7905242c458ec8252f3f364d46c03abb1c97b8a856275cb",
-        "signature": "e6479078098b4ea2c7905242c458ec8252f3f364d46c03abb1c97b8a856275cb"
+        "version": "ad9cb6fe49727c996769ef05db94d4016fcf9289269a574a5b0fe845fc7db085",
+        "signature": "ad9cb6fe49727c996769ef05db94d4016fcf9289269a574a5b0fe845fc7db085"
       },
       "../spinup/srv/builder/index.d.ts": {
         "version": "d00ddb31c1d53900e9717629dec07c24ab42d1758edd52753bbf981ae250a468",
@@ -1269,173 +1273,13 @@
         "version": "7e4c6f64bc89bbbcd4f6f1a79d56ee3c1c3518f72c7e1026e31c2d87f5d5613d",
         "signature": "7e4c6f64bc89bbbcd4f6f1a79d56ee3c1c3518f72c7e1026e31c2d87f5d5613d"
       },
+      "./node_modules/@types/faker/index.d.ts": {
+        "version": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989",
+        "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
+      },
       "./src/plugins/removespot/removespot.test.ts": {
-        "version": "00f3137b889a554b27b04e078712ab69910f45fd3119a5dd390a9a23ae2ae4f2",
+        "version": "93b42d31bc2193f547e85c55a8972c2dd26295849a2782a333ba5a1ced9c19de",
         "signature": "040a2bcc134647c87f11d0fa16167b35909e5be5118baf83dee8fccd53cc8752"
-      },
-      "./node_modules/@types/tapable/index.d.ts": {
-        "version": "963e0182287755a18c98493cd70f6747b776f1a54c8620353e1f8e2e17b6cd3a",
-        "signature": "963e0182287755a18c98493cd70f6747b776f1a54c8620353e1f8e2e17b6cd3a"
-      },
-      "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts": {
-        "version": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579",
-        "signature": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579"
-      },
-      "./node_modules/@types/uglify-js/index.d.ts": {
-        "version": "bdc18dd47aea9977e419a8e03e7e5d04ed8cf8265e014d8788848b76b969cbba",
-        "signature": "bdc18dd47aea9977e419a8e03e7e5d04ed8cf8265e014d8788848b76b969cbba"
-      },
-      "./node_modules/anymatch/index.d.ts": {
-        "version": "4fb0b7d532aa6fb850b6cd2f1ee4f00802d877b5c66a51903bc1fb0624126349",
-        "signature": "4fb0b7d532aa6fb850b6cd2f1ee4f00802d877b5c66a51903bc1fb0624126349"
-      },
-      "./node_modules/@types/webpack/node_modules/source-map/source-map.d.ts": {
-        "version": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579",
-        "signature": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579"
-      },
-      "./node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts": {
-        "version": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579",
-        "signature": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579"
-      },
-      "./node_modules/@types/source-list-map/index.d.ts": {
-        "version": "67fc055eb86a0632e2e072838f889ffe1754083cb13c8c80a06a7d895d877aae",
-        "signature": "67fc055eb86a0632e2e072838f889ffe1754083cb13c8c80a06a7d895d877aae"
-      },
-      "./node_modules/@types/webpack-sources/index.d.ts": {
-        "version": "ab95c4625e16499b8181731576984bcdfd0438a9a87b5f7de8299de5c912a241",
-        "signature": "ab95c4625e16499b8181731576984bcdfd0438a9a87b5f7de8299de5c912a241"
-      },
-      "./node_modules/@types/webpack/index.d.ts": {
-        "version": "b8dd5fcd3eca9de1a299822cfaebd1fac0ddab6b3b0a73fd4ae8d4764a827e8b",
-        "signature": "b8dd5fcd3eca9de1a299822cfaebd1fac0ddab6b3b0a73fd4ae8d4764a827e8b"
-      },
-      "./node_modules/microevent.ts/lib/eventinterface.d.ts": {
-        "version": "d0e8243f1fab501470f0348275cc60b49e2f96bc0ab745d7b3ac8e224039ba5a",
-        "signature": "d0e8243f1fab501470f0348275cc60b49e2f96bc0ab745d7b3ac8e224039ba5a"
-      },
-      "./node_modules/microevent.ts/lib/event.d.ts": {
-        "version": "de05fc5a1df9f74f0c495ff998981be6e4afd450b6e7a457c3a6fa48a2298c7a",
-        "signature": "de05fc5a1df9f74f0c495ff998981be6e4afd450b6e7a457c3a6fa48a2298c7a"
-      },
-      "./node_modules/microevent.ts/lib/index.d.ts": {
-        "version": "92e26dd3281d35bd7537269b9db5eb5dea723fc7a3e9b3ffc278b881d843b752",
-        "signature": "92e26dd3281d35bd7537269b9db5eb5dea723fc7a3e9b3ffc278b881d843b752"
-      },
-      "./node_modules/worker-rpc/lib/rpcproviderinterface.d.ts": {
-        "version": "82e9ee7e40259f3dd9647c242f338dc8a178c1f51160ce818fd84b4a65e611c9",
-        "signature": "82e9ee7e40259f3dd9647c242f338dc8a178c1f51160ce818fd84b4a65e611c9"
-      },
-      "./node_modules/worker-rpc/lib/rpcprovider.d.ts": {
-        "version": "5356d63bc1f31238a1825eb9ed362b93e0530925faa1ff729bc238b16a326cea",
-        "signature": "5356d63bc1f31238a1825eb9ed362b93e0530925faa1ff729bc238b16a326cea"
-      },
-      "./node_modules/worker-rpc/lib/index.d.ts": {
-        "version": "3bcd50ad7435eb7ad20b7c09504be7b5de803f9e392a61488d7a6b54fb2dfb09",
-        "signature": "3bcd50ad7435eb7ad20b7c09504be7b5de803f9e392a61488d7a6b54fb2dfb09"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueseverity.d.ts": {
-        "version": "3ba83fdf0f4ecc46532d4a8f197090b2401e6f05fbe23d0ab8e63c2cf87eb73a",
-        "signature": "3ba83fdf0f4ecc46532d4a8f197090b2401e6f05fbe23d0ab8e63c2cf87eb73a"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueorigin.d.ts": {
-        "version": "3c01f9ec477a12a37b7bcc9d6ac2fe99a12109d19a519a8003a751983f9dd31b",
-        "signature": "3c01f9ec477a12a37b7bcc9d6ac2fe99a12109d19a519a8003a751983f9dd31b"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts": {
-        "version": "fe09ae1fc1b137b630c7acbd553817b45b769bd84516ddc685fa97c71133e0b6",
-        "signature": "fe09ae1fc1b137b630c7acbd553817b45b769bd84516ddc685fa97c71133e0b6"
-      },
-      "./node_modules/typescript/lib/typescript.d.ts": {
-        "version": "a999e6b184852e7b868234aca57e9eef8faed858f483166aebb6763d8f04abf5",
-        "signature": "a999e6b184852e7b868234aca57e9eef8faed858f483166aebb6763d8f04abf5"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/typescriptissuefactory.d.ts": {
-        "version": "861e3424d6dd3ac1f7447060966b13feebbb2fd232c2fb30a35553bdbd78bd34",
-        "signature": "861e3424d6dd3ac1f7447060966b13feebbb2fd232c2fb30a35553bdbd78bd34"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/index.d.ts": {
-        "version": "f3cf1afc99fed812f7e9956bdef64f9076fca6577bff483f505c831d7fbb0f84",
-        "signature": "f3cf1afc99fed812f7e9956bdef64f9076fca6577bff483f505c831d7fbb0f84"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/types/eslint.d.ts": {
-        "version": "7a0bbf9cda00e0d6058f479f2f3df27565851d1411f82683923d6340bb9a35a3",
-        "signature": "7a0bbf9cda00e0d6058f479f2f3df27565851d1411f82683923d6340bb9a35a3"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/fileawareeslintmessage.d.ts": {
-        "version": "bb3857dfda67e7e3d44ad11094db7e9bc24298ea5de3e0027a5489d7d9ccf7ed",
-        "signature": "bb3857dfda67e7e3d44ad11094db7e9bc24298ea5de3e0027a5489d7d9ccf7ed"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/eslintissuefactory.d.ts": {
-        "version": "f7a611a7d3a5d6729a20c02f4e4c12a1811e344f66912bdac883541ef418c772",
-        "signature": "f7a611a7d3a5d6729a20c02f4e4c12a1811e344f66912bdac883541ef418c772"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/index.d.ts": {
-        "version": "cb1caf8a0b88fe5e8db294d6e08d5530a86b015acc3df44a5bd1367888e64a64",
-        "signature": "cb1caf8a0b88fe5e8db294d6e08d5530a86b015acc3df44a5bd1367888e64a64"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/internalissuefactory.d.ts": {
-        "version": "7a15c40155754d42aea13e16f52b350e6d3d473d90b242617794ce3af3f3c8b3",
-        "signature": "7a15c40155754d42aea13e16f52b350e6d3d473d90b242617794ce3af3f3c8b3"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/index.d.ts": {
-        "version": "8ccbceef31c3b2a9b7cb14b7df9e56b73020b6c04775388a16fe5ca698ffce97",
-        "signature": "8ccbceef31c3b2a9b7cb14b7df9e56b73020b6c04775388a16fe5ca698ffce97"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/index.d.ts": {
-        "version": "bb96deed009e0d61660799a24a9975dd4f39c1f499a00c8c57897c6e0a555c63",
-        "signature": "bb96deed009e0d61660799a24a9975dd4f39c1f499a00c8c57897c6e0a555c63"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts": {
-        "version": "ad995b704875139e529853203e472fbd98bd3df544017194627559d0268d5f3d",
-        "signature": "ad995b704875139e529853203e472fbd98bd3df544017194627559d0268d5f3d"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/defaultformatter.d.ts": {
-        "version": "f91acd6c84a8e3b8ccef8c42a536f12b82c4f82d5ec5fe3eccf3afc8ae998bbe",
-        "signature": "f91acd6c84a8e3b8ccef8c42a536f12b82c4f82d5ec5fe3eccf3afc8ae998bbe"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/codeframeformatter.d.ts": {
-        "version": "49c42e62009a5bffdb5a75798c82515628647cf543c837c9f879c9d04fafcbdc",
-        "signature": "49c42e62009a5bffdb5a75798c82515628647cf543c837c9f879c9d04fafcbdc"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatterfactory.d.ts": {
-        "version": "6972e5031ed430ebb7487fdb384e68d8e07600fb4380a8fe42fb407d5c751adb",
-        "signature": "6972e5031ed430ebb7487fdb384e68d8e07600fb4380a8fe42fb407d5c751adb"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/internalformatter.d.ts": {
-        "version": "880260848334848e61a6bb37432f8db2776956e4ab741b6cd0ace87958ed3563",
-        "signature": "880260848334848e61a6bb37432f8db2776956e4ab741b6cd0ace87958ed3563"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/rawformatter.d.ts": {
-        "version": "20f13dfdb3b3aff81b7898dd0468965fb205eb44a6a4d957d7b84800ce826df8",
-        "signature": "20f13dfdb3b3aff81b7898dd0468965fb205eb44a6a4d957d7b84800ce826df8"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/index.d.ts": {
-        "version": "27862d8a7cd680ad0fd0137eb6c25394976532d4ef73835ec25dc757853e2aa0",
-        "signature": "27862d8a7cd680ad0fd0137eb6c25394976532d4ef73835ec25dc757853e2aa0"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/types/vue-options.d.ts": {
-        "version": "dfdfef7b6712e55b2919073514a8c785b29d69655d961eca0b9de58d411ffaa0",
-        "signature": "dfdfef7b6712e55b2919073514a8c785b29d69655d961eca0b9de58d411ffaa0"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/hooks.d.ts": {
-        "version": "b66203f407e0dd0b49105870d2090fd40c536befaa3f02dc518c01a743cda99c",
-        "signature": "b66203f407e0dd0b49105870d2090fd40c536befaa3f02dc518c01a743cda99c"
-      },
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/index.d.ts": {
-        "version": "c5133f98e2d0cdc2f92fe8e6274c4dee7eca9a3a272f4073f6348f407bc2fb2d",
-        "signature": "c5133f98e2d0cdc2f92fe8e6274c4dee7eca9a3a272f4073f6348f407bc2fb2d"
-      },
-      "./src/webpack-temp/webpack.config.js": {
-        "version": "4fa9bfb279c03ddc46f9dec3d98f2b345cbd1ce199516049f49e4e6e8f2eed98",
-        "signature": "992dd8ea158d61b797233186d92e3b6e56aae7a2cf6f97f3cdfff7ea12af84b6"
-      },
-      "./src/webpack-temp/webpack.dummy.js": {
-        "version": "34f9964a47b312f8361cfa1cd3c310b11be5efaff8b7f8de4a9b33377de1f717",
-        "signature": "00ea21dca5d59fb1552a2e33271e52ead4ac77c504631e4a479a1d169f822fe5"
-      },
-      "./src/webpack-temp/webpack.server.config.js": {
-        "version": "b6e35ac20020c9032b0955c7fb82d5f663e97747e43c8798a27243486103ec7b",
-        "signature": "457c6c264c02c794403e3295c94db4fd775d220f4b6686d4aca9f826768040e4"
       },
       "./node_modules/@types/accepts/index.d.ts": {
         "version": "6738101ae8e56cd3879ab3f99630ada7d78097fc9fd334df7e766216778ca219",
@@ -1489,6 +1333,10 @@
         "version": "446932680c18544bc9b3841aa506d55c271b0662111c96ea6b98d550989b0c7e",
         "signature": "446932680c18544bc9b3841aa506d55c271b0662111c96ea6b98d550989b0c7e"
       },
+      "./node_modules/@types/debounce/index.d.ts": {
+        "version": "8dc552d17d8515805274740c4902367436a73295c4109bc29f897f35b0604da7",
+        "signature": "8dc552d17d8515805274740c4902367436a73295c4109bc29f897f35b0604da7"
+      },
       "./node_modules/@types/geojson/index.d.ts": {
         "version": "3a68b9e1129584f9e42f615b56926b0d2c1d22746e9c4689faf48d0e9749536a",
         "signature": "3a68b9e1129584f9e42f615b56926b0d2c1d22746e9c4689faf48d0e9749536a"
@@ -1504,6 +1352,10 @@
       "./node_modules/@types/http-assert/index.d.ts": {
         "version": "97fd9fd06a67deac133ddeac0b4a266db5eede2e40ec6ad67b31b0b862559643",
         "signature": "97fd9fd06a67deac133ddeac0b4a266db5eede2e40ec6ad67b31b0b862559643"
+      },
+      "./node_modules/@types/is-glob/index.d.ts": {
+        "version": "b17006394207b9ad6ee9daef8dfd59c86780010cc5077bcad31ea2da4cea8836",
+        "signature": "b17006394207b9ad6ee9daef8dfd59c86780010cc5077bcad31ea2da4cea8836"
       },
       "./node_modules/@types/istanbul-lib-coverage/index.d.ts": {
         "version": "9e951ec338c4232d611552a1be7b4ecec79a8c2307a893ce39701316fe2374bd",
@@ -1873,13 +1725,85 @@
         "version": "bbf144d4354e2aaa6439f32761f3ee798cc68d1600adab6e2a596f25269f106d",
         "signature": "bbf144d4354e2aaa6439f32761f3ee798cc68d1600adab6e2a596f25269f106d"
       },
+      "./node_modules/@types/mkdirp/index.d.ts": {
+        "version": "6396a7a06f3ef0fc31a7c89330e015146b78a2256b030c698b6d404594c37b8f",
+        "signature": "6396a7a06f3ef0fc31a7c89330e015146b78a2256b030c698b6d404594c37b8f"
+      },
+      "./node_modules/@types/node-fetch/externals.d.ts": {
+        "version": "972f1e91dab93b182624a17eeed02f683b8cb3fefbda7b689cc84570029d5f73",
+        "signature": "972f1e91dab93b182624a17eeed02f683b8cb3fefbda7b689cc84570029d5f73"
+      },
+      "./node_modules/@types/node-fetch/index.d.ts": {
+        "version": "27401d471614076257eb419b8cb402dfb856c5160308bd94f60ff5356a53edcf",
+        "signature": "27401d471614076257eb419b8cb402dfb856c5160308bd94f60ff5356a53edcf"
+      },
+      "./node_modules/@types/parse-json/index.d.ts": {
+        "version": "2b8264b2fefd7367e0f20e2c04eed5d3038831fe00f5efbc110ff0131aab899b",
+        "signature": "2b8264b2fefd7367e0f20e2c04eed5d3038831fe00f5efbc110ff0131aab899b"
+      },
       "./node_modules/@types/pg-types/index.d.ts": {
         "version": "060937b9e71c39c855e3572260800c74f248947c5781ddd8db1f3e0a08696c13",
         "signature": "060937b9e71c39c855e3572260800c74f248947c5781ddd8db1f3e0a08696c13"
       },
+      "./node_modules/@types/prop-types/index.d.ts": {
+        "version": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad",
+        "signature": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad"
+      },
+      "./node_modules/@types/react/global.d.ts": {
+        "version": "b4cd656db9b65fff477f65dbda00a5de4e2e765375316abd0c3ffd1282664ccc",
+        "signature": "b4cd656db9b65fff477f65dbda00a5de4e2e765375316abd0c3ffd1282664ccc"
+      },
+      "./node_modules/csstype/index.d.ts": {
+        "version": "f9d66b7d0c140496459807082ebe1bd8185a2d7478951881724b708e72fc7386",
+        "signature": "f9d66b7d0c140496459807082ebe1bd8185a2d7478951881724b708e72fc7386"
+      },
+      "./node_modules/@types/react/index.d.ts": {
+        "version": "17f4d4dc87b8221ee47083ede7f0b5246b92f92e637cb0c3eafa7815bb6944e8",
+        "signature": "17f4d4dc87b8221ee47083ede7f0b5246b92f92e637cb0c3eafa7815bb6944e8"
+      },
+      "./node_modules/@types/source-list-map/index.d.ts": {
+        "version": "67fc055eb86a0632e2e072838f889ffe1754083cb13c8c80a06a7d895d877aae",
+        "signature": "67fc055eb86a0632e2e072838f889ffe1754083cb13c8c80a06a7d895d877aae"
+      },
       "./node_modules/@types/stack-utils/index.d.ts": {
         "version": "41422586881bcd739b4e62d9b91cd29909f8572aa3e3cdf316b7c50f14708d49",
         "signature": "41422586881bcd739b4e62d9b91cd29909f8572aa3e3cdf316b7c50f14708d49"
+      },
+      "./node_modules/@types/tapable/index.d.ts": {
+        "version": "963e0182287755a18c98493cd70f6747b776f1a54c8620353e1f8e2e17b6cd3a",
+        "signature": "963e0182287755a18c98493cd70f6747b776f1a54c8620353e1f8e2e17b6cd3a"
+      },
+      "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts": {
+        "version": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579",
+        "signature": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579"
+      },
+      "./node_modules/@types/uglify-js/index.d.ts": {
+        "version": "bdc18dd47aea9977e419a8e03e7e5d04ed8cf8265e014d8788848b76b969cbba",
+        "signature": "bdc18dd47aea9977e419a8e03e7e5d04ed8cf8265e014d8788848b76b969cbba"
+      },
+      "./node_modules/@types/valid-url/index.d.ts": {
+        "version": "cfdb47e516d97718956ccfae54d87a99c828a67ac093da3cdd4d243e0f3454b0",
+        "signature": "cfdb47e516d97718956ccfae54d87a99c828a67ac093da3cdd4d243e0f3454b0"
+      },
+      "./node_modules/anymatch/index.d.ts": {
+        "version": "4fb0b7d532aa6fb850b6cd2f1ee4f00802d877b5c66a51903bc1fb0624126349",
+        "signature": "4fb0b7d532aa6fb850b6cd2f1ee4f00802d877b5c66a51903bc1fb0624126349"
+      },
+      "./node_modules/@types/webpack/node_modules/source-map/source-map.d.ts": {
+        "version": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579",
+        "signature": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579"
+      },
+      "./node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts": {
+        "version": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579",
+        "signature": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579"
+      },
+      "./node_modules/@types/webpack-sources/index.d.ts": {
+        "version": "ab95c4625e16499b8181731576984bcdfd0438a9a87b5f7de8299de5c912a241",
+        "signature": "ab95c4625e16499b8181731576984bcdfd0438a9a87b5f7de8299de5c912a241"
+      },
+      "./node_modules/@types/webpack/index.d.ts": {
+        "version": "b8dd5fcd3eca9de1a299822cfaebd1fac0ddab6b3b0a73fd4ae8d4764a827e8b",
+        "signature": "b8dd5fcd3eca9de1a299822cfaebd1fac0ddab6b3b0a73fd4ae8d4764a827e8b"
       },
       "./node_modules/@types/yargs-parser/index.d.ts": {
         "version": "fdfbe321c556c39a2ecf791d537b999591d0849e971dd938d88f460fea0186f6",
@@ -1894,11 +1818,13 @@
       "incremental": true,
       "target": 99,
       "module": 1,
-      "allowJs": true,
+      "allowJs": false,
       "jsx": 1,
       "declaration": true,
       "declarationMap": true,
       "sourceMap": true,
+      "outDir": "./srv",
+      "composite": true,
       "removeComments": true,
       "strict": true,
       "noImplicitAny": true,
@@ -1908,15 +1834,14 @@
       "strictPropertyInitialization": true,
       "noImplicitThis": true,
       "alwaysStrict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
+      "noUnusedLocals": false,
+      "noUnusedParameters": false,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
       "moduleResolution": 2,
       "esModuleInterop": true,
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
-      "outDir": "./srv",
       "rootDir": "./src",
       "configFilePath": "./tsconfig.json"
     },
@@ -4171,10 +4096,17 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../tools/utils/srv/constants.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "../../tools/utils/srv/index.d.ts": [
         "../../tools/utils/srv/executeconcurrently.d.ts",
         "../../tools/utils/srv/executewithcontext.d.ts",
         "../../tools/utils/srv/executesequentially.d.ts",
+        "../../tools/utils/srv/constants.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -4563,315 +4495,20 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/@types/faker/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./src/plugins/removespot/removespot.test.ts": [
         "../spinup/srv/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/tapable/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/uglify-js/index.d.ts": [
-        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/anymatch/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/webpack/node_modules/source-map/source-map.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/source-list-map/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/webpack-sources/index.d.ts": [
-        "./node_modules/@types/node/crypto.d.ts",
-        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
-        "./node_modules/@types/source-list-map/index.d.ts",
-        "./node_modules/@types/node/ts3.5/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/webpack/index.d.ts": [
-        "./node_modules/@types/tapable/index.d.ts",
-        "./node_modules/@types/uglify-js/index.d.ts",
-        "./node_modules/anymatch/index.d.ts",
-        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
-        "./node_modules/@types/webpack-sources/index.d.ts",
-        "./node_modules/@types/node/ts3.5/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/microevent.ts/lib/eventinterface.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/microevent.ts/lib/event.d.ts": [
-        "./node_modules/microevent.ts/lib/eventinterface.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/microevent.ts/lib/index.d.ts": [
-        "./node_modules/microevent.ts/lib/event.d.ts",
-        "./node_modules/microevent.ts/lib/eventinterface.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/worker-rpc/lib/rpcproviderinterface.d.ts": [
-        "./node_modules/microevent.ts/lib/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/worker-rpc/lib/rpcprovider.d.ts": [
-        "./node_modules/microevent.ts/lib/index.d.ts",
-        "./node_modules/worker-rpc/lib/rpcproviderinterface.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/worker-rpc/lib/index.d.ts": [
-        "./node_modules/worker-rpc/lib/rpcprovider.d.ts",
-        "./node_modules/worker-rpc/lib/rpcproviderinterface.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueseverity.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueorigin.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueseverity.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueorigin.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/typescript/lib/typescript.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/typescriptissuefactory.d.ts": [
-        "./node_modules/typescript/lib/typescript.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/index.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/typescriptissuefactory.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/types/eslint.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/fileawareeslintmessage.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/types/eslint.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/eslintissuefactory.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/types/eslint.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/index.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/fileawareeslintmessage.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/eslintissuefactory.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/internalissuefactory.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/index.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/internalissuefactory.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/index.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueorigin.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueseverity.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/index.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/index.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/defaultformatter.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/codeframeformatter.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatterfactory.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/codeframeformatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/internalformatter.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/rawformatter.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/index.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/defaultformatter.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/codeframeformatter.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatterfactory.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/internalformatter.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/rawformatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/types/vue-options.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/hooks.d.ts": [
-        "./node_modules/@types/webpack/index.d.ts",
-        "./node_modules/@types/tapable/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/index.d.ts": [
-        "./node_modules/worker-rpc/lib/index.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/index.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/types/vue-options.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/hooks.d.ts",
-        "./node_modules/@types/tapable/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./src/webpack-temp/webpack.config.js": [
-        "./node_modules/@types/node/path.d.ts",
-        "./node_modules/@types/webpack/index.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./src/webpack-temp/webpack.dummy.js": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./src/webpack-temp/webpack.server.config.js": [
-        "./node_modules/@types/webpack/index.d.ts",
+        "../../tools/database/srv/index.d.ts",
+        "./node_modules/@types/faker/index.d.ts",
+        "../../events/compute-rides/srv/index.d.ts",
+        "./src/plugins/removespot/index.ts",
+        "../../tools/logger/srv/index.d.ts",
+        "../../tools/utils/srv/constants.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -4972,6 +4609,12 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/@types/debounce/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/@types/geojson/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -4994,6 +4637,12 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/http-assert/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/is-glob/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -5925,13 +5574,140 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/@types/mkdirp/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/node-fetch/externals.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/node-fetch/index.d.ts": [
+        "./node_modules/@types/node/http.d.ts",
+        "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node-fetch/externals.d.ts",
+        "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/parse-json/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/@types/pg-types/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/@types/prop-types/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/react/global.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/csstype/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/react/index.d.ts": [
+        "./node_modules/csstype/index.d.ts",
+        "./node_modules/@types/prop-types/index.d.ts",
+        "./node_modules/@types/react/global.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/source-list-map/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/@types/stack-utils/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/tapable/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/uglify-js/index.d.ts": [
+        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/valid-url/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/anymatch/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/webpack/node_modules/source-map/source-map.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/webpack-sources/index.d.ts": [
+        "./node_modules/@types/node/crypto.d.ts",
+        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
+        "./node_modules/@types/source-list-map/index.d.ts",
+        "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/webpack/index.d.ts": [
+        "./node_modules/@types/tapable/index.d.ts",
+        "./node_modules/@types/uglify-js/index.d.ts",
+        "./node_modules/anymatch/index.d.ts",
+        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
+        "./node_modules/@types/webpack-sources/index.d.ts",
+        "./node_modules/@types/node/ts3.5/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -8169,14 +7945,24 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/utils/srv/index.d.ts": [
-        "../../tools/utils/srv/executeconcurrently.d.ts",
-        "../../tools/utils/srv/executewithcontext.d.ts",
-        "../../tools/utils/srv/executesequentially.d.ts",
+      "../../tools/utils/srv/constants.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/utils/srv/index.d.ts": [
+        "../../tools/utils/srv/executeconcurrently.d.ts",
+        "../../tools/utils/srv/executewithcontext.d.ts",
+        "../../tools/utils/srv/executesequentially.d.ts",
+        "../../tools/utils/srv/constants.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/plugins/removespot/index.ts": [
+        "../../tools/database/srv/index.d.ts"
       ],
       "./src/options.ts": [
         "./node_modules/postgraphile/build/index.d.ts"
@@ -8498,293 +8284,11 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "./node_modules/@types/tapable/index.d.ts": [
+      "./node_modules/@types/faker/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/uglify-js/index.d.ts": [
-        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/anymatch/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/webpack/node_modules/source-map/source-map.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/source-list-map/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/webpack-sources/index.d.ts": [
-        "./node_modules/@types/node/crypto.d.ts",
-        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
-        "./node_modules/@types/source-list-map/index.d.ts",
-        "./node_modules/@types/node/ts3.5/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/webpack/index.d.ts": [
-        "./node_modules/@types/tapable/index.d.ts",
-        "./node_modules/@types/uglify-js/index.d.ts",
-        "./node_modules/anymatch/index.d.ts",
-        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
-        "./node_modules/@types/webpack-sources/index.d.ts",
-        "./node_modules/@types/node/ts3.5/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/microevent.ts/lib/eventinterface.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/microevent.ts/lib/event.d.ts": [
-        "./node_modules/microevent.ts/lib/eventinterface.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/microevent.ts/lib/index.d.ts": [
-        "./node_modules/microevent.ts/lib/event.d.ts",
-        "./node_modules/microevent.ts/lib/eventinterface.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/worker-rpc/lib/rpcproviderinterface.d.ts": [
-        "./node_modules/microevent.ts/lib/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/worker-rpc/lib/rpcprovider.d.ts": [
-        "./node_modules/microevent.ts/lib/index.d.ts",
-        "./node_modules/worker-rpc/lib/rpcproviderinterface.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/worker-rpc/lib/index.d.ts": [
-        "./node_modules/worker-rpc/lib/rpcprovider.d.ts",
-        "./node_modules/worker-rpc/lib/rpcproviderinterface.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueseverity.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueorigin.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueseverity.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueorigin.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/typescript/lib/typescript.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/typescriptissuefactory.d.ts": [
-        "./node_modules/typescript/lib/typescript.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/index.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/typescriptissuefactory.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/types/eslint.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/fileawareeslintmessage.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/types/eslint.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/eslintissuefactory.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/types/eslint.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/index.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/fileawareeslintmessage.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/eslintissuefactory.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/internalissuefactory.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/index.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/internalissuefactory.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/index.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueorigin.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueseverity.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/index.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/index.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/defaultformatter.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/codeframeformatter.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatterfactory.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/codeframeformatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/internalformatter.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/rawformatter.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/index.d.ts": [
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/defaultformatter.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/codeframeformatter.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatterfactory.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/internalformatter.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/rawformatter.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/types/vue-options.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/hooks.d.ts": [
-        "./node_modules/@types/webpack/index.d.ts",
-        "./node_modules/@types/tapable/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/index.d.ts": [
-        "./node_modules/worker-rpc/lib/index.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/index.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/types/vue-options.d.ts",
-        "./node_modules/fork-ts-checker-webpack-plugin/lib/hooks.d.ts",
-        "./node_modules/@types/tapable/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./src/webpack-temp/webpack.config.js": [
-        "./node_modules/@types/webpack/index.d.ts"
       ],
       "./node_modules/@types/accepts/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
@@ -8881,6 +8385,12 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/@types/debounce/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/@types/geojson/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -8903,6 +8413,12 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/http-assert/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/is-glob/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -9834,13 +9350,140 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/@types/mkdirp/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/node-fetch/externals.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/node-fetch/index.d.ts": [
+        "./node_modules/@types/node/http.d.ts",
+        "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node-fetch/externals.d.ts",
+        "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/parse-json/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/@types/pg-types/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/@types/prop-types/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/react/global.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/csstype/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/react/index.d.ts": [
+        "./node_modules/csstype/index.d.ts",
+        "./node_modules/@types/prop-types/index.d.ts",
+        "./node_modules/@types/react/global.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/source-list-map/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/@types/stack-utils/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/tapable/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/uglify-js/index.d.ts": [
+        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/valid-url/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/anymatch/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/webpack/node_modules/source-map/source-map.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/webpack-sources/index.d.ts": [
+        "./node_modules/@types/node/crypto.d.ts",
+        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
+        "./node_modules/@types/source-list-map/index.d.ts",
+        "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/webpack/index.d.ts": [
+        "./node_modules/@types/tapable/index.d.ts",
+        "./node_modules/@types/uglify-js/index.d.ts",
+        "./node_modules/anymatch/index.d.ts",
+        "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
+        "./node_modules/@types/webpack-sources/index.d.ts",
+        "./node_modules/@types/node/ts3.5/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -9861,7 +9504,6 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
-      "./src/plugins/removespot/removespot.test.ts",
       "./node_modules/typescript/lib/lib.es5.d.ts",
       "./node_modules/typescript/lib/lib.es2015.d.ts",
       "./node_modules/typescript/lib/lib.es2016.d.ts",
@@ -10132,6 +9774,7 @@
       "../../tools/utils/srv/executeconcurrently.d.ts",
       "../../tools/utils/srv/executewithcontext.d.ts",
       "../../tools/utils/srv/executesequentially.d.ts",
+      "../../tools/utils/srv/constants.d.ts",
       "../../tools/utils/srv/index.d.ts",
       "./src/plugins/movespot/index.ts",
       "./src/plugins/removespot/index.ts",
@@ -10174,52 +9817,8 @@
       "./node_modules/@types/aws-serverless-express/index.d.ts",
       "./src/lambda.ts",
       "./src/server.ts",
-      "../spinup/srv/spinup/index.d.ts",
       "../spinup/srv/builder/guidebuilder.d.ts",
-      "../spinup/srv/builder/builder.d.ts",
-      "../spinup/srv/builder/index.d.ts",
-      "../spinup/srv/index.d.ts",
-      "./node_modules/@types/tapable/index.d.ts",
-      "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
-      "./node_modules/@types/uglify-js/index.d.ts",
-      "./node_modules/anymatch/index.d.ts",
-      "./node_modules/@types/webpack/node_modules/source-map/source-map.d.ts",
-      "./node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts",
-      "./node_modules/@types/source-list-map/index.d.ts",
-      "./node_modules/@types/webpack-sources/index.d.ts",
-      "./node_modules/@types/webpack/index.d.ts",
-      "./node_modules/microevent.ts/lib/eventinterface.d.ts",
-      "./node_modules/microevent.ts/lib/event.d.ts",
-      "./node_modules/microevent.ts/lib/index.d.ts",
-      "./node_modules/worker-rpc/lib/rpcproviderinterface.d.ts",
-      "./node_modules/worker-rpc/lib/rpcprovider.d.ts",
-      "./node_modules/worker-rpc/lib/index.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueseverity.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issueorigin.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/issue.d.ts",
-      "./node_modules/typescript/lib/typescript.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/typescriptissuefactory.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/typescript/index.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/types/eslint.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/fileawareeslintmessage.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/eslintissuefactory.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/eslint/index.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/internalissuefactory.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/internal/index.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/issue/index.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatter.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/defaultformatter.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/codeframeformatter.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/formatterfactory.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/internalformatter.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/rawformatter.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/formatter/index.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/types/vue-options.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/hooks.d.ts",
-      "./node_modules/fork-ts-checker-webpack-plugin/lib/index.d.ts",
-      "./src/webpack-temp/webpack.config.js",
-      "./src/webpack-temp/webpack.dummy.js",
-      "./src/webpack-temp/webpack.server.config.js",
+      "./node_modules/@types/faker/index.d.ts",
       "./node_modules/@types/accepts/index.d.ts",
       "./node_modules/@types/anymatch/index.d.ts",
       "./node_modules/@babel/types/lib/index.d.ts",
@@ -10233,10 +9832,12 @@
       "./node_modules/@types/keygrip/index.d.ts",
       "./node_modules/@types/cookies/index.d.ts",
       "./node_modules/@types/cuid/index.d.ts",
+      "./node_modules/@types/debounce/index.d.ts",
       "./node_modules/@types/geojson/index.d.ts",
       "./node_modules/@types/minimatch/index.d.ts",
       "./node_modules/@types/glob/index.d.ts",
       "./node_modules/@types/http-assert/index.d.ts",
+      "./node_modules/@types/is-glob/index.d.ts",
       "./node_modules/@types/istanbul-lib-coverage/index.d.ts",
       "./node_modules/@types/istanbul-lib-report/index.d.ts",
       "./node_modules/@types/istanbul-reports/index.d.ts",
@@ -10329,10 +9930,33 @@
       "./node_modules/@types/lodash/ts3.1/common/string.d.ts",
       "./node_modules/@types/lodash/ts3.1/common/util.d.ts",
       "./node_modules/@types/lodash/ts3.1/index.d.ts",
+      "./node_modules/@types/mkdirp/index.d.ts",
+      "./node_modules/@types/node-fetch/externals.d.ts",
+      "./node_modules/@types/node-fetch/index.d.ts",
+      "./node_modules/@types/parse-json/index.d.ts",
       "./node_modules/@types/pg-types/index.d.ts",
+      "./node_modules/@types/prop-types/index.d.ts",
+      "./node_modules/@types/react/global.d.ts",
+      "./node_modules/csstype/index.d.ts",
+      "./node_modules/@types/react/index.d.ts",
+      "./node_modules/@types/source-list-map/index.d.ts",
       "./node_modules/@types/stack-utils/index.d.ts",
+      "./node_modules/@types/tapable/index.d.ts",
+      "./node_modules/@types/uglify-js/node_modules/source-map/source-map.d.ts",
+      "./node_modules/@types/uglify-js/index.d.ts",
+      "./node_modules/@types/valid-url/index.d.ts",
+      "./node_modules/anymatch/index.d.ts",
+      "./node_modules/@types/webpack/node_modules/source-map/source-map.d.ts",
+      "./node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts",
+      "./node_modules/@types/webpack-sources/index.d.ts",
+      "./node_modules/@types/webpack/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
-      "./node_modules/@types/yargs/index.d.ts"
+      "./node_modules/@types/yargs/index.d.ts",
+      "../spinup/srv/builder/builder.d.ts",
+      "../spinup/srv/builder/index.d.ts",
+      "./src/plugins/removespot/removespot.test.ts",
+      "../spinup/srv/spinup/index.d.ts",
+      "../spinup/srv/index.d.ts"
     ]
   },
   "version": "3.7.5"

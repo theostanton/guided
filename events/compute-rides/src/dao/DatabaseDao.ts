@@ -1,6 +1,5 @@
 import { Dao, StageData } from "."
 import { database, Guide, insertOne, Spot } from "@guided/database"
-import { log } from "@guided/logger"
 import { insertMany } from "@guided/database"
 import { executeConcurrently } from "@guided/utils"
 import { Stage } from "@guided/database/srv/types"
@@ -48,12 +47,10 @@ export class DatabaseDao implements Dao {
   }
 
   async spots(): Promise<Spot[]> {
-    return database.many<Spot>(SELECT_SPOTS, [this.guideId])
+    return database.manyOrNone<Spot>(SELECT_SPOTS, [this.guideId])
   }
 
   async insertStages(stages: StageData[]): Promise<void> {
-    log("insertStages")
-
     await executeConcurrently(stages, async (stage: StageData) => {
 
       const insertStage = insertOne("guided.stages", {

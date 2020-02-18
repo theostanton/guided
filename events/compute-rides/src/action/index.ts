@@ -3,6 +3,7 @@ import Dao from "../dao"
 import { ComputeRidesMessageBody, ComputeRidesResult } from "../types"
 import getStageContexts from "./getStageContexts"
 import calculateStages from "./calculateStages"
+import positionSpots from "./positionSpots"
 
 export default async function(body: ComputeRidesMessageBody): Promise<ComputeRidesResult> {
   logJson(body, "handle compute-rides")
@@ -13,7 +14,9 @@ export default async function(body: ComputeRidesMessageBody): Promise<ComputeRid
 
   const guide = await dao.guide()
 
-  const spots = await dao.spots()
+  const dirtySpots = await dao.spots()
+
+  const spots = await positionSpots(dirtySpots)
 
   const contexts = await getStageContexts(spots, guide)
 

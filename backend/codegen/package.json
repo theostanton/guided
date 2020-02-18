@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "watchw": "yarn graphql-codegen --watch",
+    "watch": "yarn graphql-codegen --watch",
     "test": "jest",
     "build": "yarn graphql-codegen"
   },

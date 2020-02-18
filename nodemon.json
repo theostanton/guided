@@ -20,7 +20,19 @@
   ],
   "env": {
     "NODE_ENV": "development",
-    "STAGE": "development"
+    "STAGE": "development",
+    "POSTGRES_HOST": "localhost",
+    "POSTGRES_PORT": "5432",
+    "POSTGRAPHILE_WATCH": true,
+    "OWNER_USER": "superuser",
+    "OWNER_PASSWORD": "password",
+    "POSTGRES_USER": "guided_postgraphile",
+    "POSTGRES_PASSWORD": "postgraphile_staging",
+    "POSTGRES_DB": "testing",
+    "DATABASE_SCHEMA": "guided",
+    "POSTGRAPHILE_PORT": "5000",
+    "JWT_SECRET": "5a399dba98bb6bf23bcd640d08383342549b8731c1da1a9f9af24514d607c25b",
+    "MAPBOX_WRITE_TOKEN": "sk.eyJ1IjoidGhlb2RldiIsImEiOiJjazZxaHgzdzUwaHg4M2tuOXdnZDM0ejg3In0.HLN32Dppg5FKj4bb0URfjA"
   },
   "ext": "js,json,jsx,d.ts"
 }

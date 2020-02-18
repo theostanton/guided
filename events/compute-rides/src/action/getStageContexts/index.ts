@@ -13,6 +13,10 @@ export type StageContext = {
 
 export default async function(spots: Spot[], guide: Guide): Promise<StageContext[]> {
 
+  if (spots.length <= 1) {
+    return []
+  }
+
   const existingStages = await database.manyOrNone<Stage>(
       `SELECT id, to_spot, from_spot
        from stages

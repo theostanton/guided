@@ -2,10 +2,9 @@ import { database } from "@guided/database"
 import { executeFile } from "../sequence"
 import { dropTables } from "../tests"
 
+// beforeAll(dropTables)
 
-beforeAll(dropTables)
-
-describe("Drop individually", () => {
+xdescribe("Drop individually", () => {
 
   it("Drop functions", async () => {
     await executeFile("src/drop/1.functions.sql")

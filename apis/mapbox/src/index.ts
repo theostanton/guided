@@ -1,4 +1,3 @@
-require("dotenv").config()
 import { Feature } from "geojson"
 import datasets from "@mapbox/mapbox-sdk/services/datasets"
 import { logJson } from "@guided/logger"

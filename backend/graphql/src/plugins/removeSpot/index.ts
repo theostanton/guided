@@ -7,10 +7,7 @@ import { database, Spot } from "@guided/database"
 import * as computeRides from "@guided/compute-rides"
 import { executeSequentially } from "@guided/utils"
 
-async function removeSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<Spot>> {
-  logJson(args, "removeSpot args")
-  const { spotId } = args
-
+export async function execute(spotId: string): Promise<Partial<Spot>> {
   const { guideId, locked } = await database.one<{ guideId: string, locked: boolean }>(
       `SELECT guide as "guideId", locked
        from spots
@@ -27,15 +24,23 @@ async function removeSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<S
 
   await executeSequentially(stages, async ({ stageId }: { stageId: string }) => {
     log(`Deleting info for ${stageId}`)
-    await database.none(`DELETE
-                         from rides
-                         where stage = $1`, [stageId])
-    await database.none(`DELETE
-                         from stages
-                         where id = $1`, [stageId])
-    await database.none(`DELETE
-                         from spots
-                         where stage = $1`, [stageId])
+    const deletedRides = await database.manyOrNone(`DELETE
+                                                    from rides
+                                                    where stage = $1
+                                                    returning id`, [stageId])
+    logJson(deletedRides, `deletedRides for stageId=${stageId}`)
+
+    const deletedStages = await database.manyOrNone(`DELETE
+                                                     from stages
+                                                     where id = $1
+                                                     returning id`, [stageId])
+    logJson(deletedStages, `deletedStages for stageId=${stageId}`)
+
+    const deletedSpots = await database.manyOrNone(`DELETE
+                                                    from spots
+                                                    where stage = $1
+                                                    returning id`, [stageId])
+    logJson(deletedSpots, `deletedSpots for stageId=${stageId}`)
     log(`Done deleting info for ${stageId}`)
   })
 
@@ -51,6 +56,13 @@ async function removeSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<S
   return {
     id: spotId,
   }
+}
+
+async function removeSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<Spot>> {
+  logJson(args, "removeSpot args")
+  const { spotId } = args
+
+  return execute(spotId)
 }
 
 

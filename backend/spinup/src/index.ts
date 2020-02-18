@@ -1,4 +1,6 @@
-import example from "./example"
+import { logJson } from "@guided/logger"
+
+logJson(__dirname, "__dirname")
 import create from "./create"
 import truncate from "./truncate"
 import privelages from "./privelages"
@@ -12,10 +14,10 @@ export {
   spinup, Contents, Builder,
 }
 
-export type Action = "create" | "truncate" | "example" | "privelages" | "populate" | "drop" | "load_temperatures"
+export type Action = "create" | "truncate" | "privelages" | "populate" | "drop" | "load_temperatures"
 
 export const actions: { [action in Action]: () => Promise<void> } = {
-  create, truncate, example, privelages, populate, drop, load_temperatures,
+  create, truncate, privelages, populate, drop, load_temperatures,
 }
 
 export default async function(action: Action): Promise<void> {
