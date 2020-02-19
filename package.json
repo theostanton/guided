@@ -38,7 +38,7 @@
       "backend/*",
       "events/*",
       "apis/*",
-      "deploy/*",
+      "deploy",
       "tools/*",
       "frontend/*"
     ],

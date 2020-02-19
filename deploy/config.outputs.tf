@@ -7,13 +7,13 @@ output "database_url" {
 }
 
 output "lambda_url" {
-  value = "https://${aws_route53_record.lambda.name}"
+  value = "https://${aws_route53_record.graphql.name}"
 }
 
 output "lambda_invoke_url" {
-  value = aws_api_gateway_deployment.guided.invoke_url
+  value = aws_api_gateway_deployment.graphql.invoke_url
 }
 
 output "lambda_api_url" {
-  value = "${aws_api_gateway_deployment.guided.invoke_url}/${aws_api_gateway_resource.guided.path_part}"
+  value = "${aws_api_gateway_deployment.graphql.invoke_url}/${aws_api_gateway_resource.guided.path_part}"
 }

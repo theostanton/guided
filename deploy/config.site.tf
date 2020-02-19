@@ -29,6 +29,12 @@ locals {
   full_domain = "${terraform.workspace=="production"?"www":var.stage}.${var.domain_name}"
 }
 
+resource "null_resource" "site_push" {
+  provisioner "local-exec" {
+    command = "yarn workspace @guided/website run push"
+  }
+}
+
 resource "aws_cloudfront_distribution" "site" {
   origin {
     domain_name = aws_s3_bucket.site.website_endpoint

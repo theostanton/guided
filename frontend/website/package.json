@@ -47,11 +47,12 @@
     "prettier": "^1.19.1"
   },
   "scripts": {
-    "build": "gatsby build",
     "test": "jest",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "deploy": "gatsby-plugin-s3 deploy -y",
+    "build:staging": "STAGE=staging yarn build",
+    "build:production": "STAGE=production yarn build",
+    "push": "gatsby-plugin-s3 deploy -y",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
