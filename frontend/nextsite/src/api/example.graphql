@@ -1,0 +1,9 @@
+query SomeQuery{
+    users{
+        totalCount
+        nodes{
+            email
+            username
+        }
+    }
+}

@@ -34,7 +34,7 @@ export default function GuidesList({ owner }: { owner: string, inc: number }) {
     return (
       <Card
         key={key}
-        href={`/app/guides/${guide?.slug}`}>
+        href={`/guide/${guide?.slug}`}>
         <Card.Content>
           <Card.Header>{guide ? guide.title : "Error"}</Card.Header>
         </Card.Content>

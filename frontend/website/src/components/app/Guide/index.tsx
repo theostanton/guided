@@ -6,33 +6,31 @@ import Map from "components/Map"
 import AppMenu from "components/app/Menu"
 import LeftRail from "./LeftRail"
 import RightRail from "./RightRail"
-import { GuideBySlugFragment } from "api/generated"
+import { logJson } from "@guided/logger"
 
 type Props = {
-  guideStore: GuideStore
-  authStore: AuthStore
+  guideStore?: GuideStore
+  authStore?: AuthStore
   slug?: string
 }
 
-type State = {}
-
-
 @inject("authStore", "guideStore")
-export default class GuideComponent extends React.Component<Props, State> {
+export default class GuideComponent extends React.Component<Props> {
 
   componentDidMount(): void {
-    this.props.guideStore.subscribe(
+    this.props.guideStore!.subscribe(
       this.props.slug!,
-      this.props.authStore.owner,
+      this.props.authStore!.owner,
     )
   }
 
   componentWillUnmount(): void {
-    this.props.guideStore.unsubscribe()
+    this.props.guideStore!.unsubscribe()
   }
 
   render(): React.ReactElement | undefined {
-    const guide: GuideBySlugFragment | undefined = this.props.guideStore.guide
+    logJson(this.props,'this.props')
+    logJson(this.state,'this.state')
     return (
       <div>
         <div style={{

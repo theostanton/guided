@@ -206,7 +206,7 @@
         "signature": "e9c0badeca1c28a2bb4b05a90600b291fcd3cdfc89235b5739f627d3db3b7db5"
       },
       "./src/index.ts": {
-        "version": "ed3d2300e3ceb41c35413c7c4efe0f235367e9caf89fc537b0a4542538b8bc01",
+        "version": "5b90d3ea2c1e8222f9a64d1c80b679a1449431ce9ec95e797a3d37b6800755cb",
         "signature": "b9c842775592c5cfe1bd769553321ec0c2de8335b502921ef0a99daba4aabfe7"
       },
       "./src/client.test.ts": {
@@ -475,7 +475,6 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
-      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -2072,7 +2071,7 @@
       "./src/types.ts",
       "./src/utils.ts",
       "./src/extensions.ts",
-      "./src/index.ts",
+      "./src/client.test.ts",
       "../../node_modules/@types/faker/index.d.ts",
       "./src/utils.test.ts",
       "./node_modules/@types/color-name/index.d.ts",
@@ -2131,7 +2130,7 @@
       "../../node_modules/@types/jest/node_modules/pretty-format/build/types.d.ts",
       "../../node_modules/@types/jest/node_modules/pretty-format/build/index.d.ts",
       "../../node_modules/@types/jest/index.d.ts",
-      "./src/client.test.ts"
+      "./src/index.ts"
     ]
   },
   "version": "3.7.5"

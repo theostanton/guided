@@ -1,10 +1,12 @@
 import { PostGraphileOptions } from "postgraphile"
 import { Plugin } from "graphile-build"
+import customPlugins from './plugins'
 
 export type Mode = "watch" | "buildCache" | "invoke"
 
 function plugins(): Plugin[] {
   return [
+    ...customPlugins,
     require("@graphile-contrib/pg-simplify-inflector"),
   ]
 }
@@ -29,6 +31,7 @@ export function watch(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaP
   }
 
 }
+
 export function createCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaPath" | "writeCache" | "ownerConnectionString" | "disableQueryLog" | "sortExport" | "graphiql" | "allowExplain"> {
 
   if (!process.env.OWNER_USER) {
@@ -36,7 +39,7 @@ export function createCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlS
   }
 
   return {
-    watchPg: true,
+    watchPg: false,
     exportGqlSchemaPath: "../../schema.graphql",
     writeCache: "dist/cache",
     sortExport: true,

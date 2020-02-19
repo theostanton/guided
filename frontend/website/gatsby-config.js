@@ -20,6 +20,10 @@ function s3Plugin() {
       region: "eu-west-2",
       protocol: "https",
       hostname: domainName,
+      generateRoutingRules: true,
+      generateRedirectObjectsForPermanentRedirects: true,
+      generateIndexPageForRedirect: true,
+      generateMatchPathRewrites: true,
     },
   }
 }

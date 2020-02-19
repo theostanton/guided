@@ -50,7 +50,7 @@
     "test": "jest",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "build:staging": "STAGE=staging yarn build",
+    "build:staging": "STAGE=staging gatsby build && gatsby-plugin-s3 deploy -y",
     "build:production": "STAGE=production yarn build",
     "push": "gatsby-plugin-s3 deploy -y",
     "start": "npm run develop",
