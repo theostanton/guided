@@ -1,9 +1,0 @@
-query GetUsername($email:String!){
-    users(condition: {
-        email: $email
-    }){
-        nodes{
-            username
-        }
-    }
-}
