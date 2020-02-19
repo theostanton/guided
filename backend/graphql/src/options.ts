@@ -16,7 +16,7 @@ if (process.env.DATABASE_URL) {
 
 let ownerConnectionString
 
-console.log("connection=" + connection)
+// console.log("connection=" + connection)
 
 log(process.env.POSTGRAPHILE_WATCH!, "POSTGRAPHILE_WATCH")
 let watchPg, readCache, writeCache = undefined

@@ -36,7 +36,7 @@ export function generateId(prefix: string): string {
 }
 
 const options: pgPromise.IInitOptions<Extensions> = {
-  schema: process.env.DATABASE_SCHEMA,
+  schema: process.env.POSTGRES_SCHEMA,
   extend,
 }
 

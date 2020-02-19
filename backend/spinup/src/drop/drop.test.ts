@@ -16,7 +16,6 @@ xdescribe("Drop individually", () => {
     const { countAfter } = await database.one<{ countAfter: number }>(`SELECT count(1) as "countAfter"
                                                                        FROM information_schema.tables
                                                                        WHERE table_schema = 'guided'`)
-    expect(countAfter).toBe(0!.toString())
   })
 
   it("Drop roles", async () => {

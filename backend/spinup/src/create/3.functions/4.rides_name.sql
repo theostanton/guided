@@ -1,4 +1,4 @@
-create or replace function guided.rides_name(ride rides) returns text as
+create or replace function guided.rides_name(ride guided.rides) returns text as
 $$
 select concat(coalesce(f.label, f.location), ' to ', coalesce(t.label, t.location))
 from guided.rides as r

@@ -21,5 +21,5 @@ begin
 end;
 $$;
 
-comment on function authenticate(text, text) is 'Creates a JWT token that will securely identify a person and give them certain permissions. This token expires in 2 days.';
+comment on function guided.authenticate(text, text) is 'Creates a JWT token that will securely identify a person and give them certain permissions. This token expires in 2 days.';
 

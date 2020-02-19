@@ -1,26 +1,6 @@
-variable "graphql_zip_path" {
-  type = string
-  default = "../backend/graphql_zipped.zip"
-}
-
-resource "aws_iam_role" "iam_for_graphql" {
+resource "aws_iam_role" "graphql" {
   name = "iam_for_graphql"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
+  assume_role_policy = templatefile("${path.module}/templates/lambda-policy.tpl", {})
 }
 
 resource "aws_api_gateway_resource" "guided" {
@@ -84,11 +64,11 @@ resource "aws_lambda_permission" "api" {
   source_arn = "${aws_api_gateway_rest_api.guided.execution_arn}/*/*"
 }
 
-//data "archive_file" "graphql" {
-//  type = "zip"
-//  output_path = "dist/${var.stage}-${var.app_version}-graphql.zip"
-//  source_dir = "../backend/graphql_zipped.zip"
-//}
+data "archive_file" "graphql" {
+  type = "zip"
+  output_path = "dist/${var.stage}-${var.app_version}-graphql.zip"
+  source_dir = "../backend/lambda/dist"
+}
 
 resource "aws_route53_record" "graphql" {
   zone_id = aws_route53_zone.ridersbible.zone_id
@@ -104,18 +84,40 @@ resource "aws_s3_bucket" "graphql" {
   bucket = "guided-graphql-deployment-${var.stage}"
 }
 
+resource "aws_iam_policy" "graphql_logging" {
+  name = "graphql_logging_${var.stage}"
+  path = "/"
+  description = "IAM policy for logging from a lambda"
+  policy = templatefile("${path.module}/templates/cloudwatch-policy.tpl", {})
+}
+
+resource "aws_iam_role_policy_attachment" "graphql" {
+  role = aws_iam_role.graphql.name
+  policy_arn = aws_iam_policy.graphql_logging.arn
+}
+
+resource "aws_cloudwatch_log_group" "graphql" {
+  name = "/aws/lambda/graphql-${var.stage}-hail"
+  retention_in_days = 14
+}
+
 resource "aws_lambda_function" "graphql" {
   function_name = "guided-graphql-${var.stage}"
-  role = aws_iam_role.iam_for_graphql.arn
-  handler = "src/lambda.handler"
-  s3_bucket = aws_s3_bucket.graphql.bucket
-  s3_key = "${var.app_version}.zip"
+  timeout = 30
+  role = aws_iam_role.graphql.arn
+  handler = "index.handler"
+  filename = data.archive_file.graphql.output_path
+  source_code_hash = filebase64sha256(data.archive_file.graphql.output_path)
   runtime = "nodejs12.x"
+
+  depends_on = [
+    aws_iam_role_policy_attachment.graphql,
+    aws_cloudwatch_log_group.graphql]
 
   environment {
     variables = {
       APP_VERSION = var.app_version
-      POSTGRES_HOST = aws_route53_record.database.name
+      POSTGRES_HOST = aws_db_instance.guided.address
       POSTGRES_DB = var.db_database
       POSTGRES_PORT = var.db_port
       POSTGRES_USER = var.db_postgraphile_user

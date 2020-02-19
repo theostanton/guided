@@ -8,7 +8,7 @@ const app = express()
 app.use(
   postgraphile(
     connection,
-    process.env.DATABASE_SCHEMA,
+    process.env.POSTGRES_SCHEMA,
     options,
   ),
 )

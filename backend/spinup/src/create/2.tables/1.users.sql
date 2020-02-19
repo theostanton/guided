@@ -1,4 +1,4 @@
-create table  users
+create table guided.users
 (
     username      varchar(128) not null
         constraint users_pk
@@ -8,7 +8,7 @@ create table  users
 ) ;
 
 create unique index users_email_uindex
-    on users (email);
+    on guided.users (email);
 
 create unique index users_username_uindex
-    on users (username);
+    on guided.users (username);

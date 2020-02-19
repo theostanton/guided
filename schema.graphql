@@ -283,8 +283,18 @@ scalar Cursor
 """The day, does not include a time."""
 scalar Date
 
-"""All input for the `deleteGuideByNodeId` mutation."""
-input DeleteGuideByNodeIdInput {
+"""All input for the `deleteGuideById` mutation."""
+input DeleteGuideByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+}
+
+"""All input for the `deleteGuide` mutation."""
+input DeleteGuideInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -297,16 +307,6 @@ input DeleteGuideByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteGuide` mutation."""
-input DeleteGuideInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-}
-
 """The output of our delete `Guide` mutation."""
 type DeleteGuidePayload {
   """
@@ -314,7 +314,7 @@ type DeleteGuidePayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedGuideNodeId: ID
+  deletedGuideId: ID
 
   """The `Guide` that was deleted by this mutation."""
   guide: Guide
@@ -334,8 +334,18 @@ type DeleteGuidePayload {
   userByOwner: User
 }
 
-"""All input for the `deleteRideByNodeId` mutation."""
-input DeleteRideByNodeIdInput {
+"""All input for the `deleteRideById` mutation."""
+input DeleteRideByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+}
+
+"""All input for the `deleteRide` mutation."""
+input DeleteRideInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -348,16 +358,6 @@ input DeleteRideByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteRide` mutation."""
-input DeleteRideInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-}
-
 """The output of our delete `Ride` mutation."""
 type DeleteRidePayload {
   """
@@ -365,7 +365,7 @@ type DeleteRidePayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedRideNodeId: ID
+  deletedRideId: ID
 
   """Reads a single `Guide` that is related to this `Ride`."""
   guideByGuide: Guide
@@ -397,8 +397,18 @@ type DeleteRidePayload {
   userByOwner: User
 }
 
-"""All input for the `deleteSpotByNodeId` mutation."""
-input DeleteSpotByNodeIdInput {
+"""All input for the `deleteSpotById` mutation."""
+input DeleteSpotByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+}
+
+"""All input for the `deleteSpot` mutation."""
+input DeleteSpotInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -411,16 +421,6 @@ input DeleteSpotByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteSpot` mutation."""
-input DeleteSpotInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-}
-
 """The output of our delete `Spot` mutation."""
 type DeleteSpotPayload {
   """
@@ -428,7 +428,7 @@ type DeleteSpotPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedSpotNodeId: ID
+  deletedSpotId: ID
 
   """Reads a single `Guide` that is related to this `Spot`."""
   guideByGuide: Guide
@@ -454,8 +454,18 @@ type DeleteSpotPayload {
   userByOwner: User
 }
 
-"""All input for the `deleteStageByNodeId` mutation."""
-input DeleteStageByNodeIdInput {
+"""All input for the `deleteStageById` mutation."""
+input DeleteStageByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+}
+
+"""All input for the `deleteStage` mutation."""
+input DeleteStageInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -468,16 +478,6 @@ input DeleteStageByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteStage` mutation."""
-input DeleteStageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-}
-
 """The output of our delete `Stage` mutation."""
 type DeleteStagePayload {
   """
@@ -485,7 +485,7 @@ type DeleteStagePayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedStageNodeId: ID
+  deletedStageId: ID
 
   """Reads a single `Guide` that is related to this `Stage`."""
   guideByGuide: Guide
@@ -511,8 +511,18 @@ type DeleteStagePayload {
   ): StagesEdge
 }
 
-"""All input for the `deleteTemperatureByNodeId` mutation."""
-input DeleteTemperatureByNodeIdInput {
+"""All input for the `deleteTemperatureById` mutation."""
+input DeleteTemperatureByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+}
+
+"""All input for the `deleteTemperature` mutation."""
+input DeleteTemperatureInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -525,16 +535,6 @@ input DeleteTemperatureByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteTemperature` mutation."""
-input DeleteTemperatureInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-}
-
 """The output of our delete `Temperature` mutation."""
 type DeleteTemperaturePayload {
   """
@@ -542,7 +542,7 @@ type DeleteTemperaturePayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedTemperatureNodeId: ID
+  deletedTemperatureId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -559,8 +559,18 @@ type DeleteTemperaturePayload {
   ): TemperaturesEdge
 }
 
-"""All input for the `deleteUserByNodeId` mutation."""
-input DeleteUserByNodeIdInput {
+"""All input for the `deleteUserByUsername` mutation."""
+input DeleteUserByUsernameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  username: String!
+}
+
+"""All input for the `deleteUser` mutation."""
+input DeleteUserInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -573,16 +583,6 @@ input DeleteUserByNodeIdInput {
   nodeId: ID!
 }
 
-"""All input for the `deleteUser` mutation."""
-input DeleteUserInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  username: String!
-}
-
 """The output of our delete `User` mutation."""
 type DeleteUserPayload {
   """
@@ -590,7 +590,7 @@ type DeleteUserPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedUserNodeId: ID
+  deletedUserId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
@@ -812,8 +812,6 @@ scalar JwtToken
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
-  addSpotFromLatLng(guideId: String!, label: String, lat: Float!, long: Float!): Spot!
-
   """
   Creates a JWT token that will securely identify a person and give them certain permissions. This token expires in 2 days.
   """
@@ -823,7 +821,6 @@ type Mutation {
     """
     input: AuthenticateInput!
   ): AuthenticatePayload
-  computeRides(guideId: String!): String!
 
   """Creates a single `Guide`."""
   createGuide(
@@ -873,7 +870,7 @@ type Mutation {
     input: CreateUserInput!
   ): CreateUserPayload
 
-  """Deletes a single `Guide` using a unique key."""
+  """Deletes a single `Guide` using its globally unique id."""
   deleteGuide(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -881,15 +878,15 @@ type Mutation {
     input: DeleteGuideInput!
   ): DeleteGuidePayload
 
-  """Deletes a single `Guide` using its globally unique id."""
-  deleteGuideByNodeId(
+  """Deletes a single `Guide` using a unique key."""
+  deleteGuideById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteGuideByNodeIdInput!
+    input: DeleteGuideByIdInput!
   ): DeleteGuidePayload
 
-  """Deletes a single `Ride` using a unique key."""
+  """Deletes a single `Ride` using its globally unique id."""
   deleteRide(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -897,15 +894,15 @@ type Mutation {
     input: DeleteRideInput!
   ): DeleteRidePayload
 
-  """Deletes a single `Ride` using its globally unique id."""
-  deleteRideByNodeId(
+  """Deletes a single `Ride` using a unique key."""
+  deleteRideById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteRideByNodeIdInput!
+    input: DeleteRideByIdInput!
   ): DeleteRidePayload
 
-  """Deletes a single `Spot` using a unique key."""
+  """Deletes a single `Spot` using its globally unique id."""
   deleteSpot(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -913,15 +910,15 @@ type Mutation {
     input: DeleteSpotInput!
   ): DeleteSpotPayload
 
-  """Deletes a single `Spot` using its globally unique id."""
-  deleteSpotByNodeId(
+  """Deletes a single `Spot` using a unique key."""
+  deleteSpotById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteSpotByNodeIdInput!
+    input: DeleteSpotByIdInput!
   ): DeleteSpotPayload
 
-  """Deletes a single `Stage` using a unique key."""
+  """Deletes a single `Stage` using its globally unique id."""
   deleteStage(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -929,15 +926,15 @@ type Mutation {
     input: DeleteStageInput!
   ): DeleteStagePayload
 
-  """Deletes a single `Stage` using its globally unique id."""
-  deleteStageByNodeId(
+  """Deletes a single `Stage` using a unique key."""
+  deleteStageById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteStageByNodeIdInput!
+    input: DeleteStageByIdInput!
   ): DeleteStagePayload
 
-  """Deletes a single `Temperature` using a unique key."""
+  """Deletes a single `Temperature` using its globally unique id."""
   deleteTemperature(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -945,15 +942,15 @@ type Mutation {
     input: DeleteTemperatureInput!
   ): DeleteTemperaturePayload
 
-  """Deletes a single `Temperature` using its globally unique id."""
-  deleteTemperatureByNodeId(
+  """Deletes a single `Temperature` using a unique key."""
+  deleteTemperatureById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteTemperatureByNodeIdInput!
+    input: DeleteTemperatureByIdInput!
   ): DeleteTemperaturePayload
 
-  """Deletes a single `User` using a unique key."""
+  """Deletes a single `User` using its globally unique id."""
   deleteUser(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -961,14 +958,13 @@ type Mutation {
     input: DeleteUserInput!
   ): DeleteUserPayload
 
-  """Deletes a single `User` using its globally unique id."""
-  deleteUserByNodeId(
+  """Deletes a single `User` using a unique key."""
+  deleteUserByUsername(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteUserByNodeIdInput!
+    input: DeleteUserByUsernameInput!
   ): DeleteUserPayload
-  moveSpot(lat: Float!, long: Float!, spotId: String!): Spot!
 
   """Registers a single user"""
   register(
@@ -977,9 +973,8 @@ type Mutation {
     """
     input: RegisterInput!
   ): RegisterPayload
-  removeSpot(spotId: String!): Spot!
 
-  """Updates a single `Guide` using a unique key and a patch."""
+  """Updates a single `Guide` using its globally unique id and a patch."""
   updateGuide(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -987,15 +982,15 @@ type Mutation {
     input: UpdateGuideInput!
   ): UpdateGuidePayload
 
-  """Updates a single `Guide` using its globally unique id and a patch."""
-  updateGuideByNodeId(
+  """Updates a single `Guide` using a unique key and a patch."""
+  updateGuideById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateGuideByNodeIdInput!
+    input: UpdateGuideByIdInput!
   ): UpdateGuidePayload
 
-  """Updates a single `Ride` using a unique key and a patch."""
+  """Updates a single `Ride` using its globally unique id and a patch."""
   updateRide(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -1003,15 +998,15 @@ type Mutation {
     input: UpdateRideInput!
   ): UpdateRidePayload
 
-  """Updates a single `Ride` using its globally unique id and a patch."""
-  updateRideByNodeId(
+  """Updates a single `Ride` using a unique key and a patch."""
+  updateRideById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateRideByNodeIdInput!
+    input: UpdateRideByIdInput!
   ): UpdateRidePayload
 
-  """Updates a single `Spot` using a unique key and a patch."""
+  """Updates a single `Spot` using its globally unique id and a patch."""
   updateSpot(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -1019,15 +1014,15 @@ type Mutation {
     input: UpdateSpotInput!
   ): UpdateSpotPayload
 
-  """Updates a single `Spot` using its globally unique id and a patch."""
-  updateSpotByNodeId(
+  """Updates a single `Spot` using a unique key and a patch."""
+  updateSpotById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateSpotByNodeIdInput!
+    input: UpdateSpotByIdInput!
   ): UpdateSpotPayload
 
-  """Updates a single `Stage` using a unique key and a patch."""
+  """Updates a single `Stage` using its globally unique id and a patch."""
   updateStage(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -1035,15 +1030,17 @@ type Mutation {
     input: UpdateStageInput!
   ): UpdateStagePayload
 
-  """Updates a single `Stage` using its globally unique id and a patch."""
-  updateStageByNodeId(
+  """Updates a single `Stage` using a unique key and a patch."""
+  updateStageById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateStageByNodeIdInput!
+    input: UpdateStageByIdInput!
   ): UpdateStagePayload
 
-  """Updates a single `Temperature` using a unique key and a patch."""
+  """
+  Updates a single `Temperature` using its globally unique id and a patch.
+  """
   updateTemperature(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -1051,17 +1048,15 @@ type Mutation {
     input: UpdateTemperatureInput!
   ): UpdateTemperaturePayload
 
-  """
-  Updates a single `Temperature` using its globally unique id and a patch.
-  """
-  updateTemperatureByNodeId(
+  """Updates a single `Temperature` using a unique key and a patch."""
+  updateTemperatureById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateTemperatureByNodeIdInput!
+    input: UpdateTemperatureByIdInput!
   ): UpdateTemperaturePayload
 
-  """Updates a single `User` using a unique key and a patch."""
+  """Updates a single `User` using its globally unique id and a patch."""
   updateUser(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -1069,12 +1064,12 @@ type Mutation {
     input: UpdateUserInput!
   ): UpdateUserPayload
 
-  """Updates a single `User` using its globally unique id and a patch."""
-  updateUserByNodeId(
+  """Updates a single `User` using a unique key and a patch."""
+  updateUserByUsername(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateUserByNodeIdInput!
+    input: UpdateUserByUsernameInput!
   ): UpdateUserPayload
 }
 
@@ -1103,17 +1098,8 @@ type PageInfo {
 
 """The root query type which gives access points into the data universe."""
 type Query implements Node {
-  getCurrentUser: JwtToken
-  guide(id: String!): Guide
-
-  """Reads a single `Guide` using its globally unique `ID`."""
-  guideByNodeId(
-    """The globally unique `ID` to be used in selecting a single `Guide`."""
-    nodeId: ID!
-  ): Guide
-
   """Reads and enables pagination through a set of `Guide`."""
-  guides(
+  allGuides(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
@@ -1141,32 +1127,8 @@ type Query implements Node {
     orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
   ): GuidesConnection
 
-  """Fetches an object given its globally unique `ID`."""
-  node(
-    """The globally unique `ID`."""
-    nodeId: ID!
-  ): Node
-
-  """
-  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
-  """
-  nodeId: ID!
-
-  """
-  Exposes the root query type nested one level down. This is helpful for Relay 1
-  which can only query top level fields if they are in a particular form.
-  """
-  query: Query!
-  ride(id: String!): Ride
-
-  """Reads a single `Ride` using its globally unique `ID`."""
-  rideByNodeId(
-    """The globally unique `ID` to be used in selecting a single `Ride`."""
-    nodeId: ID!
-  ): Ride
-
   """Reads and enables pagination through a set of `Ride`."""
-  rides(
+  allRides(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
@@ -1193,16 +1155,9 @@ type Query implements Node {
     """The method to use when ordering `Ride`."""
     orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
   ): RidesConnection
-  spot(id: String!): Spot
-
-  """Reads a single `Spot` using its globally unique `ID`."""
-  spotByNodeId(
-    """The globally unique `ID` to be used in selecting a single `Spot`."""
-    nodeId: ID!
-  ): Spot
 
   """Reads and enables pagination through a set of `Spot`."""
-  spots(
+  allSpots(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
@@ -1229,16 +1184,9 @@ type Query implements Node {
     """The method to use when ordering `Spot`."""
     orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
   ): SpotsConnection
-  stage(id: String!): Stage
-
-  """Reads a single `Stage` using its globally unique `ID`."""
-  stageByNodeId(
-    """The globally unique `ID` to be used in selecting a single `Stage`."""
-    nodeId: ID!
-  ): Stage
 
   """Reads and enables pagination through a set of `Stage`."""
-  stages(
+  allStages(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
@@ -1265,18 +1213,9 @@ type Query implements Node {
     """The method to use when ordering `Stage`."""
     orderBy: [StagesOrderBy!] = [PRIMARY_KEY_ASC]
   ): StagesConnection
-  temperature(id: String!): Temperature
-
-  """Reads a single `Temperature` using its globally unique `ID`."""
-  temperatureByNodeId(
-    """
-    The globally unique `ID` to be used in selecting a single `Temperature`.
-    """
-    nodeId: ID!
-  ): Temperature
 
   """Reads and enables pagination through a set of `Temperature`."""
-  temperatures(
+  allTemperatures(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
@@ -1303,16 +1242,9 @@ type Query implements Node {
     """The method to use when ordering `Temperature`."""
     orderBy: [TemperaturesOrderBy!] = [PRIMARY_KEY_ASC]
   ): TemperaturesConnection
-  user(username: String!): User
-
-  """Reads a single `User` using its globally unique `ID`."""
-  userByNodeId(
-    """The globally unique `ID` to be used in selecting a single `User`."""
-    nodeId: ID!
-  ): User
 
   """Reads and enables pagination through a set of `User`."""
-  users(
+  allUsers(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
@@ -1339,6 +1271,68 @@ type Query implements Node {
     """The method to use when ordering `User`."""
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersConnection
+  getCurrentUser: JwtToken
+
+  """Reads a single `Guide` using its globally unique `ID`."""
+  guide(
+    """The globally unique `ID` to be used in selecting a single `Guide`."""
+    nodeId: ID!
+  ): Guide
+  guideById(id: String!): Guide
+
+  """Fetches an object given its globally unique `ID`."""
+  node(
+    """The globally unique `ID`."""
+    nodeId: ID!
+  ): Node
+
+  """
+  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  """
+  nodeId: ID!
+
+  """
+  Exposes the root query type nested one level down. This is helpful for Relay 1
+  which can only query top level fields if they are in a particular form.
+  """
+  query: Query!
+
+  """Reads a single `Ride` using its globally unique `ID`."""
+  ride(
+    """The globally unique `ID` to be used in selecting a single `Ride`."""
+    nodeId: ID!
+  ): Ride
+  rideById(id: String!): Ride
+
+  """Reads a single `Spot` using its globally unique `ID`."""
+  spot(
+    """The globally unique `ID` to be used in selecting a single `Spot`."""
+    nodeId: ID!
+  ): Spot
+  spotById(id: String!): Spot
+
+  """Reads a single `Stage` using its globally unique `ID`."""
+  stage(
+    """The globally unique `ID` to be used in selecting a single `Stage`."""
+    nodeId: ID!
+  ): Stage
+  stageById(id: String!): Stage
+
+  """Reads a single `Temperature` using its globally unique `ID`."""
+  temperature(
+    """
+    The globally unique `ID` to be used in selecting a single `Temperature`.
+    """
+    nodeId: ID!
+  ): Temperature
+  temperatureById(id: String!): Temperature
+
+  """Reads a single `User` using its globally unique `ID`."""
+  user(
+    """The globally unique `ID` to be used in selecting a single `User`."""
+    nodeId: ID!
+  ): User
+  userByUsername(username: String!): User
 }
 
 """All input for the `register` mutation."""
@@ -2086,8 +2080,8 @@ enum TemperaturesOrderBy {
   TEMPERATURE_DESC
 }
 
-"""All input for the `updateGuideByNodeId` mutation."""
-input UpdateGuideByNodeIdInput {
+"""All input for the `updateGuideById` mutation."""
+input UpdateGuideByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2095,14 +2089,10 @@ input UpdateGuideByNodeIdInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `Guide` to be updated.
-  """
-  nodeId: ID!
-
-  """
   An object where the defined keys will be set on the `Guide` being updated.
   """
-  patch: GuidePatch!
+  guidePatch: GuidePatch!
+  id: String!
 }
 
 """All input for the `updateGuide` mutation."""
@@ -2112,12 +2102,16 @@ input UpdateGuideInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  id: String!
 
   """
   An object where the defined keys will be set on the `Guide` being updated.
   """
-  patch: GuidePatch!
+  guidePatch: GuidePatch!
+
+  """
+  The globally unique `ID` which will identify a single `Guide` to be updated.
+  """
+  nodeId: ID!
 }
 
 """The output of our update `Guide` mutation."""
@@ -2146,8 +2140,23 @@ type UpdateGuidePayload {
   userByOwner: User
 }
 
-"""All input for the `updateRideByNodeId` mutation."""
-input UpdateRideByNodeIdInput {
+"""All input for the `updateRideById` mutation."""
+input UpdateRideByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+
+  """
+  An object where the defined keys will be set on the `Ride` being updated.
+  """
+  ridePatch: RidePatch!
+}
+
+"""All input for the `updateRide` mutation."""
+input UpdateRideInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2162,22 +2171,7 @@ input UpdateRideByNodeIdInput {
   """
   An object where the defined keys will be set on the `Ride` being updated.
   """
-  patch: RidePatch!
-}
-
-"""All input for the `updateRide` mutation."""
-input UpdateRideInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-
-  """
-  An object where the defined keys will be set on the `Ride` being updated.
-  """
-  patch: RidePatch!
+  ridePatch: RidePatch!
 }
 
 """The output of our update `Ride` mutation."""
@@ -2218,8 +2212,23 @@ type UpdateRidePayload {
   userByOwner: User
 }
 
-"""All input for the `updateSpotByNodeId` mutation."""
-input UpdateSpotByNodeIdInput {
+"""All input for the `updateSpotById` mutation."""
+input UpdateSpotByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+
+  """
+  An object where the defined keys will be set on the `Spot` being updated.
+  """
+  spotPatch: SpotPatch!
+}
+
+"""All input for the `updateSpot` mutation."""
+input UpdateSpotInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2234,22 +2243,7 @@ input UpdateSpotByNodeIdInput {
   """
   An object where the defined keys will be set on the `Spot` being updated.
   """
-  patch: SpotPatch!
-}
-
-"""All input for the `updateSpot` mutation."""
-input UpdateSpotInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-
-  """
-  An object where the defined keys will be set on the `Spot` being updated.
-  """
-  patch: SpotPatch!
+  spotPatch: SpotPatch!
 }
 
 """The output of our update `Spot` mutation."""
@@ -2284,8 +2278,23 @@ type UpdateSpotPayload {
   userByOwner: User
 }
 
-"""All input for the `updateStageByNodeId` mutation."""
-input UpdateStageByNodeIdInput {
+"""All input for the `updateStageById` mutation."""
+input UpdateStageByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+
+  """
+  An object where the defined keys will be set on the `Stage` being updated.
+  """
+  stagePatch: StagePatch!
+}
+
+"""All input for the `updateStage` mutation."""
+input UpdateStageInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2300,22 +2309,7 @@ input UpdateStageByNodeIdInput {
   """
   An object where the defined keys will be set on the `Stage` being updated.
   """
-  patch: StagePatch!
-}
-
-"""All input for the `updateStage` mutation."""
-input UpdateStageInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-
-  """
-  An object where the defined keys will be set on the `Stage` being updated.
-  """
-  patch: StagePatch!
+  stagePatch: StagePatch!
 }
 
 """The output of our update `Stage` mutation."""
@@ -2350,8 +2344,23 @@ type UpdateStagePayload {
   ): StagesEdge
 }
 
-"""All input for the `updateTemperatureByNodeId` mutation."""
-input UpdateTemperatureByNodeIdInput {
+"""All input for the `updateTemperatureById` mutation."""
+input UpdateTemperatureByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+
+  """
+  An object where the defined keys will be set on the `Temperature` being updated.
+  """
+  temperaturePatch: TemperaturePatch!
+}
+
+"""All input for the `updateTemperature` mutation."""
+input UpdateTemperatureInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2366,22 +2375,7 @@ input UpdateTemperatureByNodeIdInput {
   """
   An object where the defined keys will be set on the `Temperature` being updated.
   """
-  patch: TemperaturePatch!
-}
-
-"""All input for the `updateTemperature` mutation."""
-input UpdateTemperatureInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-
-  """
-  An object where the defined keys will be set on the `Temperature` being updated.
-  """
-  patch: TemperaturePatch!
+  temperaturePatch: TemperaturePatch!
 }
 
 """The output of our update `Temperature` mutation."""
@@ -2407,8 +2401,23 @@ type UpdateTemperaturePayload {
   ): TemperaturesEdge
 }
 
-"""All input for the `updateUserByNodeId` mutation."""
-input UpdateUserByNodeIdInput {
+"""All input for the `updateUserByUsername` mutation."""
+input UpdateUserByUsernameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  username: String!
+
+  """
+  An object where the defined keys will be set on the `User` being updated.
+  """
+  userPatch: UserPatch!
+}
+
+"""All input for the `updateUser` mutation."""
+input UpdateUserInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2423,22 +2432,7 @@ input UpdateUserByNodeIdInput {
   """
   An object where the defined keys will be set on the `User` being updated.
   """
-  patch: UserPatch!
-}
-
-"""All input for the `updateUser` mutation."""
-input UpdateUserInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `User` being updated.
-  """
-  patch: UserPatch!
-  username: String!
+  userPatch: UserPatch!
 }
 
 """The output of our update `User` mutation."""

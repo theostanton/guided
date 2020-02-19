@@ -1,4 +1,4 @@
-create table temperatures
+create table guided.temperatures
 (
     id          varchar(64)      not null
         constraint temperatures_pk
@@ -9,5 +9,5 @@ create table temperatures
 );
 
 create unique index temperatures_id_uindex
-    on temperatures (id);
+    on guided.temperatures (id);
 

@@ -1,0 +1,31 @@
+{
+  "name": "@guided/lambda",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "webpack": "tsc && webpack",
+    "build": "tsc",
+    "buildCache": "STAGE=staging ts-node src/buildCache.ts",
+    "invoke": "STAGE=staging ts-node src/lambda.ts",
+    "watch": "STAGE=staging ts-node src/server.ts",
+    "pack": "webpack",
+    "develop": "nodemon"
+  },
+  "dependencies": {
+    "@guided/logger": "*",
+    "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "postgraphile": "^4.6.0",
+    "aws-serverless-express": "^3.3.6",
+    "webpack": "4.29.6",
+    "webpack-cli": "3.3.0"
+  },
+  "devDependencies": {
+    "ts-node": "^8.6.2",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.2",
+    "@types/aws-serverless-express": "^3.3.3"
+  }
+}

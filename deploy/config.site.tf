@@ -1,8 +1,8 @@
-data "archive_file" "site" {
-  type = "zip"
-  output_path = "dist/${var.stage}-${var.app_version}-site.zip"
-  source_dir = "site"
-}
+//data "archive_file" "site" {
+//  type = "zip"
+//  output_path = "dist/${var.stage}-${var.app_version}-site.zip"
+//  source_dir = "site"
+//}
 
 resource "aws_s3_bucket_object" "site_index" {
   bucket = aws_s3_bucket.site.bucket

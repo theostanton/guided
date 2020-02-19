@@ -1,4 +1,4 @@
-create function "get_current_user"() returns jwt_token
+create or replace function guided."get_current_user"() returns guided.jwt_token
     stable
     language sql
 as
