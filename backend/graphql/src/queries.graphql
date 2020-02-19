@@ -1,3 +1,0 @@
-type ItemId {
-    id:String!
-}

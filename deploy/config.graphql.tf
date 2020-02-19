@@ -124,6 +124,8 @@ resource "aws_lambda_function" "graphql" {
       POSTGRES_SCHEMA = var.db_schema
       POSTGRES_PASSWORD = var.db_postgraphile_password
       POSTGRAPHILE_PORT = 5000
+      OWNER_USER = var.db_owner_user
+      OWNER_PASSWORD = var.db_owner_password
       JWT_SECRET = var.jwt_secret
     }
   }

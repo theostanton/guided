@@ -25,8 +25,8 @@ type AuthenticatePayload {
 }
 
 type Bound {
-  east: Float
   north: Float
+  east: Float
   south: Float
   west: Float
 }
@@ -54,12 +54,6 @@ type CreateGuidePayload {
   """The `Guide` that was created by this mutation."""
   guide: Guide
 
-  """An edge for our `Guide`. May be used by Relay 1."""
-  guideEdge(
-    """The method to use when ordering `Guide`."""
-    orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuidesEdge
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
@@ -67,6 +61,12 @@ type CreateGuidePayload {
 
   """Reads a single `User` that is related to this `Guide`."""
   userByOwner: User
+
+  """An edge for our `Guide`. May be used by Relay 1."""
+  guideEdge(
+    """The method to use when ordering `Guide`."""
+    orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): GuidesEdge
 }
 
 """All input for the create `Ride` mutation."""
@@ -89,22 +89,19 @@ type CreateRidePayload {
   """
   clientMutationId: String
 
-  """Reads a single `Guide` that is related to this `Ride`."""
-  guideByGuide: Guide
+  """The `Ride` that was created by this mutation."""
+  ride: Ride
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
-  """The `Ride` that was created by this mutation."""
-  ride: Ride
+  """Reads a single `Guide` that is related to this `Ride`."""
+  guideByGuide: Guide
 
-  """An edge for our `Ride`. May be used by Relay 1."""
-  rideEdge(
-    """The method to use when ordering `Ride`."""
-    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RidesEdge
+  """Reads a single `User` that is related to this `Ride`."""
+  userByOwner: User
 
   """Reads a single `Spot` that is related to this `Ride`."""
   spotByFromSpot: Spot
@@ -115,8 +112,11 @@ type CreateRidePayload {
   """Reads a single `Stage` that is related to this `Ride`."""
   stageByStage: Stage
 
-  """Reads a single `User` that is related to this `Ride`."""
-  userByOwner: User
+  """An edge for our `Ride`. May be used by Relay 1."""
+  rideEdge(
+    """The method to use when ordering `Ride`."""
+    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RidesEdge
 }
 
 """All input for the create `Spot` mutation."""
@@ -139,28 +139,28 @@ type CreateSpotPayload {
   """
   clientMutationId: String
 
-  """Reads a single `Guide` that is related to this `Spot`."""
-  guideByGuide: Guide
+  """The `Spot` that was created by this mutation."""
+  spot: Spot
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
-  """The `Spot` that was created by this mutation."""
-  spot: Spot
+  """Reads a single `Guide` that is related to this `Spot`."""
+  guideByGuide: Guide
+
+  """Reads a single `User` that is related to this `Spot`."""
+  userByOwner: User
+
+  """Reads a single `Stage` that is related to this `Spot`."""
+  stageByStage: Stage
 
   """An edge for our `Spot`. May be used by Relay 1."""
   spotEdge(
     """The method to use when ordering `Spot`."""
     orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
   ): SpotsEdge
-
-  """Reads a single `Stage` that is related to this `Spot`."""
-  stageByStage: Stage
-
-  """Reads a single `User` that is related to this `Spot`."""
-  userByOwner: User
 }
 
 """All input for the create `Stage` mutation."""
@@ -183,22 +183,22 @@ type CreateStagePayload {
   """
   clientMutationId: String
 
-  """Reads a single `Guide` that is related to this `Stage`."""
-  guideByGuide: Guide
+  """The `Stage` that was created by this mutation."""
+  stage: Stage
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
+  """Reads a single `Guide` that is related to this `Stage`."""
+  guideByGuide: Guide
+
   """Reads a single `Spot` that is related to this `Stage`."""
   spotByFromSpot: Spot
 
   """Reads a single `Spot` that is related to this `Stage`."""
   spotByToSpot: Spot
-
-  """The `Stage` that was created by this mutation."""
-  stage: Stage
 
   """An edge for our `Stage`. May be used by Relay 1."""
   stageEdge(
@@ -227,13 +227,13 @@ type CreateTemperaturePayload {
   """
   clientMutationId: String
 
+  """The `Temperature` that was created by this mutation."""
+  temperature: Temperature
+
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-
-  """The `Temperature` that was created by this mutation."""
-  temperature: Temperature
 
   """An edge for our `Temperature`. May be used by Relay 1."""
   temperatureEdge(
@@ -262,13 +262,13 @@ type CreateUserPayload {
   """
   clientMutationId: String
 
+  """The `User` that was created by this mutation."""
+  user: User
+
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-
-  """The `User` that was created by this mutation."""
-  user: User
 
   """An edge for our `User`. May be used by Relay 1."""
   userEdge(
@@ -283,18 +283,8 @@ scalar Cursor
 """The day, does not include a time."""
 scalar Date
 
-"""All input for the `deleteGuideById` mutation."""
-input DeleteGuideByIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-}
-
-"""All input for the `deleteGuide` mutation."""
-input DeleteGuideInput {
+"""All input for the `deleteGuideByNodeId` mutation."""
+input DeleteGuideByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -307,35 +297,8 @@ input DeleteGuideInput {
   nodeId: ID!
 }
 
-"""The output of our delete `Guide` mutation."""
-type DeleteGuidePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  deletedGuideId: ID
-
-  """The `Guide` that was deleted by this mutation."""
-  guide: Guide
-
-  """An edge for our `Guide`. May be used by Relay 1."""
-  guideEdge(
-    """The method to use when ordering `Guide`."""
-    orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuidesEdge
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `Guide`."""
-  userByOwner: User
-}
-
-"""All input for the `deleteRideById` mutation."""
-input DeleteRideByIdInput {
+"""All input for the `deleteGuide` mutation."""
+input DeleteGuideInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -344,8 +307,35 @@ input DeleteRideByIdInput {
   id: String!
 }
 
-"""All input for the `deleteRide` mutation."""
-input DeleteRideInput {
+"""The output of our delete `Guide` mutation."""
+type DeleteGuidePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Guide` that was deleted by this mutation."""
+  guide: Guide
+  deletedGuideNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `User` that is related to this `Guide`."""
+  userByOwner: User
+
+  """An edge for our `Guide`. May be used by Relay 1."""
+  guideEdge(
+    """The method to use when ordering `Guide`."""
+    orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): GuidesEdge
+}
+
+"""All input for the `deleteRideByNodeId` mutation."""
+input DeleteRideByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -358,6 +348,16 @@ input DeleteRideInput {
   nodeId: ID!
 }
 
+"""All input for the `deleteRide` mutation."""
+input DeleteRideInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+}
+
 """The output of our delete `Ride` mutation."""
 type DeleteRidePayload {
   """
@@ -365,24 +365,21 @@ type DeleteRidePayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedRideId: ID
 
-  """Reads a single `Guide` that is related to this `Ride`."""
-  guideByGuide: Guide
+  """The `Ride` that was deleted by this mutation."""
+  ride: Ride
+  deletedRideNodeId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
-  """The `Ride` that was deleted by this mutation."""
-  ride: Ride
+  """Reads a single `Guide` that is related to this `Ride`."""
+  guideByGuide: Guide
 
-  """An edge for our `Ride`. May be used by Relay 1."""
-  rideEdge(
-    """The method to use when ordering `Ride`."""
-    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RidesEdge
+  """Reads a single `User` that is related to this `Ride`."""
+  userByOwner: User
 
   """Reads a single `Spot` that is related to this `Ride`."""
   spotByFromSpot: Spot
@@ -393,22 +390,15 @@ type DeleteRidePayload {
   """Reads a single `Stage` that is related to this `Ride`."""
   stageByStage: Stage
 
-  """Reads a single `User` that is related to this `Ride`."""
-  userByOwner: User
+  """An edge for our `Ride`. May be used by Relay 1."""
+  rideEdge(
+    """The method to use when ordering `Ride`."""
+    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RidesEdge
 }
 
-"""All input for the `deleteSpotById` mutation."""
-input DeleteSpotByIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-}
-
-"""All input for the `deleteSpot` mutation."""
-input DeleteSpotInput {
+"""All input for the `deleteSpotByNodeId` mutation."""
+input DeleteSpotByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -421,41 +411,8 @@ input DeleteSpotInput {
   nodeId: ID!
 }
 
-"""The output of our delete `Spot` mutation."""
-type DeleteSpotPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  deletedSpotId: ID
-
-  """Reads a single `Guide` that is related to this `Spot`."""
-  guideByGuide: Guide
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """The `Spot` that was deleted by this mutation."""
-  spot: Spot
-
-  """An edge for our `Spot`. May be used by Relay 1."""
-  spotEdge(
-    """The method to use when ordering `Spot`."""
-    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SpotsEdge
-
-  """Reads a single `Stage` that is related to this `Spot`."""
-  stageByStage: Stage
-
-  """Reads a single `User` that is related to this `Spot`."""
-  userByOwner: User
-}
-
-"""All input for the `deleteStageById` mutation."""
-input DeleteStageByIdInput {
+"""All input for the `deleteSpot` mutation."""
+input DeleteSpotInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -464,8 +421,41 @@ input DeleteStageByIdInput {
   id: String!
 }
 
-"""All input for the `deleteStage` mutation."""
-input DeleteStageInput {
+"""The output of our delete `Spot` mutation."""
+type DeleteSpotPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Spot` that was deleted by this mutation."""
+  spot: Spot
+  deletedSpotNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Guide` that is related to this `Spot`."""
+  guideByGuide: Guide
+
+  """Reads a single `User` that is related to this `Spot`."""
+  userByOwner: User
+
+  """Reads a single `Stage` that is related to this `Spot`."""
+  stageByStage: Stage
+
+  """An edge for our `Spot`. May be used by Relay 1."""
+  spotEdge(
+    """The method to use when ordering `Spot`."""
+    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SpotsEdge
+}
+
+"""All input for the `deleteStageByNodeId` mutation."""
+input DeleteStageByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -478,41 +468,8 @@ input DeleteStageInput {
   nodeId: ID!
 }
 
-"""The output of our delete `Stage` mutation."""
-type DeleteStagePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  deletedStageId: ID
-
-  """Reads a single `Guide` that is related to this `Stage`."""
-  guideByGuide: Guide
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `Spot` that is related to this `Stage`."""
-  spotByFromSpot: Spot
-
-  """Reads a single `Spot` that is related to this `Stage`."""
-  spotByToSpot: Spot
-
-  """The `Stage` that was deleted by this mutation."""
-  stage: Stage
-
-  """An edge for our `Stage`. May be used by Relay 1."""
-  stageEdge(
-    """The method to use when ordering `Stage`."""
-    orderBy: [StagesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): StagesEdge
-}
-
-"""All input for the `deleteTemperatureById` mutation."""
-input DeleteTemperatureByIdInput {
+"""All input for the `deleteStage` mutation."""
+input DeleteStageInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -521,8 +478,41 @@ input DeleteTemperatureByIdInput {
   id: String!
 }
 
-"""All input for the `deleteTemperature` mutation."""
-input DeleteTemperatureInput {
+"""The output of our delete `Stage` mutation."""
+type DeleteStagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Stage` that was deleted by this mutation."""
+  stage: Stage
+  deletedStageNodeId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Guide` that is related to this `Stage`."""
+  guideByGuide: Guide
+
+  """Reads a single `Spot` that is related to this `Stage`."""
+  spotByFromSpot: Spot
+
+  """Reads a single `Spot` that is related to this `Stage`."""
+  spotByToSpot: Spot
+
+  """An edge for our `Stage`. May be used by Relay 1."""
+  stageEdge(
+    """The method to use when ordering `Stage`."""
+    orderBy: [StagesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): StagesEdge
+}
+
+"""All input for the `deleteTemperatureByNodeId` mutation."""
+input DeleteTemperatureByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -535,6 +525,16 @@ input DeleteTemperatureInput {
   nodeId: ID!
 }
 
+"""All input for the `deleteTemperature` mutation."""
+input DeleteTemperatureInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: String!
+}
+
 """The output of our delete `Temperature` mutation."""
 type DeleteTemperaturePayload {
   """
@@ -542,15 +542,15 @@ type DeleteTemperaturePayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedTemperatureId: ID
+
+  """The `Temperature` that was deleted by this mutation."""
+  temperature: Temperature
+  deletedTemperatureNodeId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-
-  """The `Temperature` that was deleted by this mutation."""
-  temperature: Temperature
 
   """An edge for our `Temperature`. May be used by Relay 1."""
   temperatureEdge(
@@ -559,18 +559,8 @@ type DeleteTemperaturePayload {
   ): TemperaturesEdge
 }
 
-"""All input for the `deleteUserByUsername` mutation."""
-input DeleteUserByUsernameInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  username: String!
-}
-
-"""All input for the `deleteUser` mutation."""
-input DeleteUserInput {
+"""All input for the `deleteUserByNodeId` mutation."""
+input DeleteUserByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -583,6 +573,16 @@ input DeleteUserInput {
   nodeId: ID!
 }
 
+"""All input for the `deleteUser` mutation."""
+input DeleteUserInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  username: String!
+}
+
 """The output of our delete `User` mutation."""
 type DeleteUserPayload {
   """
@@ -590,15 +590,15 @@ type DeleteUserPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
-  deletedUserId: ID
+
+  """The `User` that was deleted by this mutation."""
+  user: User
+  deletedUserNodeId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-
-  """The `User` that was deleted by this mutation."""
-  user: User
 
   """An edge for our `User`. May be used by Relay 1."""
   userEdge(
@@ -608,29 +608,22 @@ type DeleteUserPayload {
 }
 
 type Guide implements Node {
-  bounds: Bound
-  id: String!
-  maxHoursPerRide: Int!
-
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
+  id: String!
+  title: String!
+  slug: String!
   owner: String!
+  startDate: Date
+  maxHoursPerRide: Int!
 
-  """Reads and enables pagination through a set of `Ride`."""
-  ridesByGuide(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
+  """Reads a single `User` that is related to this `Guide`."""
+  userByOwner: User
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: RideCondition
-
+  """Reads and enables pagination through a set of `Spot`."""
+  spotsByGuide(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -643,24 +636,23 @@ type Guide implements Node {
     """
     offset: Int
 
-    """The method to use when ordering `Ride`."""
-    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RidesConnection!
-  slug: String!
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
-  """Reads and enables pagination through a set of `Spot`."""
-  spotsByGuide(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `Spot`."""
+    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: SpotCondition
+  ): SpotsConnection!
 
+  """Reads and enables pagination through a set of `Stage`."""
+  stagesByGuide(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -673,23 +665,23 @@ type Guide implements Node {
     """
     offset: Int
 
-    """The method to use when ordering `Spot`."""
-    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SpotsConnection!
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
-  """Reads and enables pagination through a set of `Stage`."""
-  stagesByGuide(
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
+    """The method to use when ordering `Stage`."""
+    orderBy: [StagesOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: StageCondition
+  ): StagesConnection!
 
+  """Reads and enables pagination through a set of `Ride`."""
+  ridesByGuide(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -702,14 +694,21 @@ type Guide implements Node {
     """
     offset: Int
 
-    """The method to use when ordering `Stage`."""
-    orderBy: [StagesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): StagesConnection!
-  startDate: Date
-  title: String!
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
 
-  """Reads a single `User` that is related to this `Guide`."""
-  userByOwner: User
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Ride`."""
+    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RideCondition
+  ): RidesConnection!
+  bounds: Bound
 }
 
 """
@@ -719,30 +718,30 @@ input GuideCondition {
   """Checks for equality with the object’s `id` field."""
   id: String
 
-  """Checks for equality with the object’s `maxHoursPerRide` field."""
-  maxHoursPerRide: Int
-
-  """Checks for equality with the object’s `owner` field."""
-  owner: String
+  """Checks for equality with the object’s `title` field."""
+  title: String
 
   """Checks for equality with the object’s `slug` field."""
   slug: String
 
+  """Checks for equality with the object’s `owner` field."""
+  owner: String
+
   """Checks for equality with the object’s `startDate` field."""
   startDate: Date
 
-  """Checks for equality with the object’s `title` field."""
-  title: String
+  """Checks for equality with the object’s `maxHoursPerRide` field."""
+  maxHoursPerRide: Int
 }
 
 """An input for mutations affecting `Guide`"""
 input GuideInput {
   id: String!
-  maxHoursPerRide: Int
-  owner: String!
-  slug: String!
-  startDate: Date
   title: String!
+  slug: String!
+  owner: String!
+  startDate: Date
+  maxHoursPerRide: Int
 }
 
 """
@@ -750,22 +749,22 @@ Represents an update to a `Guide`. Fields that are set will be updated.
 """
 input GuidePatch {
   id: String
-  maxHoursPerRide: Int
-  owner: String
-  slug: String
-  startDate: Date
   title: String
+  slug: String
+  owner: String
+  startDate: Date
+  maxHoursPerRide: Int
 }
 
 """A connection to a list of `Guide` values."""
 type GuidesConnection {
+  """A list of `Guide` objects."""
+  nodes: [Guide]!
+
   """
   A list of edges which contains the `Guide` and cursor to aid in pagination.
   """
   edges: [GuidesEdge!]!
-
-  """A list of `Guide` objects."""
-  nodes: [Guide]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -785,21 +784,21 @@ type GuidesEdge {
 
 """Methods to use when ordering `Guide`."""
 enum GuidesOrderBy {
+  NATURAL
   ID_ASC
   ID_DESC
-  MAX_HOURS_PER_RIDE_ASC
-  MAX_HOURS_PER_RIDE_DESC
-  NATURAL
-  OWNER_ASC
-  OWNER_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  SLUG_ASC
-  SLUG_DESC
-  START_DATE_ASC
-  START_DATE_DESC
   TITLE_ASC
   TITLE_DESC
+  SLUG_ASC
+  SLUG_DESC
+  OWNER_ASC
+  OWNER_DESC
+  START_DATE_ASC
+  START_DATE_DESC
+  MAX_HOURS_PER_RIDE_ASC
+  MAX_HOURS_PER_RIDE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 """
@@ -812,16 +811,6 @@ scalar JwtToken
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
-  """
-  Creates a JWT token that will securely identify a person and give them certain permissions. This token expires in 2 days.
-  """
-  authenticate(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: AuthenticateInput!
-  ): AuthenticatePayload
-
   """Creates a single `Guide`."""
   createGuide(
     """
@@ -870,7 +859,113 @@ type Mutation {
     input: CreateUserInput!
   ): CreateUserPayload
 
+  """Updates a single `Guide` using its globally unique id and a patch."""
+  updateGuideByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateGuideByNodeIdInput!
+  ): UpdateGuidePayload
+
+  """Updates a single `Guide` using a unique key and a patch."""
+  updateGuide(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateGuideInput!
+  ): UpdateGuidePayload
+
+  """Updates a single `Ride` using its globally unique id and a patch."""
+  updateRideByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateRideByNodeIdInput!
+  ): UpdateRidePayload
+
+  """Updates a single `Ride` using a unique key and a patch."""
+  updateRide(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateRideInput!
+  ): UpdateRidePayload
+
+  """Updates a single `Spot` using its globally unique id and a patch."""
+  updateSpotByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSpotByNodeIdInput!
+  ): UpdateSpotPayload
+
+  """Updates a single `Spot` using a unique key and a patch."""
+  updateSpot(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSpotInput!
+  ): UpdateSpotPayload
+
+  """Updates a single `Stage` using its globally unique id and a patch."""
+  updateStageByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateStageByNodeIdInput!
+  ): UpdateStagePayload
+
+  """Updates a single `Stage` using a unique key and a patch."""
+  updateStage(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateStageInput!
+  ): UpdateStagePayload
+
+  """
+  Updates a single `Temperature` using its globally unique id and a patch.
+  """
+  updateTemperatureByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTemperatureByNodeIdInput!
+  ): UpdateTemperaturePayload
+
+  """Updates a single `Temperature` using a unique key and a patch."""
+  updateTemperature(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTemperatureInput!
+  ): UpdateTemperaturePayload
+
+  """Updates a single `User` using its globally unique id and a patch."""
+  updateUserByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateUserByNodeIdInput!
+  ): UpdateUserPayload
+
+  """Updates a single `User` using a unique key and a patch."""
+  updateUser(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateUserInput!
+  ): UpdateUserPayload
+
   """Deletes a single `Guide` using its globally unique id."""
+  deleteGuideByNodeId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteGuideByNodeIdInput!
+  ): DeleteGuidePayload
+
+  """Deletes a single `Guide` using a unique key."""
   deleteGuide(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -878,15 +973,15 @@ type Mutation {
     input: DeleteGuideInput!
   ): DeleteGuidePayload
 
-  """Deletes a single `Guide` using a unique key."""
-  deleteGuideById(
+  """Deletes a single `Ride` using its globally unique id."""
+  deleteRideByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteGuideByIdInput!
-  ): DeleteGuidePayload
+    input: DeleteRideByNodeIdInput!
+  ): DeleteRidePayload
 
-  """Deletes a single `Ride` using its globally unique id."""
+  """Deletes a single `Ride` using a unique key."""
   deleteRide(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -894,15 +989,15 @@ type Mutation {
     input: DeleteRideInput!
   ): DeleteRidePayload
 
-  """Deletes a single `Ride` using a unique key."""
-  deleteRideById(
+  """Deletes a single `Spot` using its globally unique id."""
+  deleteSpotByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteRideByIdInput!
-  ): DeleteRidePayload
+    input: DeleteSpotByNodeIdInput!
+  ): DeleteSpotPayload
 
-  """Deletes a single `Spot` using its globally unique id."""
+  """Deletes a single `Spot` using a unique key."""
   deleteSpot(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -910,15 +1005,15 @@ type Mutation {
     input: DeleteSpotInput!
   ): DeleteSpotPayload
 
-  """Deletes a single `Spot` using a unique key."""
-  deleteSpotById(
+  """Deletes a single `Stage` using its globally unique id."""
+  deleteStageByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteSpotByIdInput!
-  ): DeleteSpotPayload
+    input: DeleteStageByNodeIdInput!
+  ): DeleteStagePayload
 
-  """Deletes a single `Stage` using its globally unique id."""
+  """Deletes a single `Stage` using a unique key."""
   deleteStage(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -926,15 +1021,15 @@ type Mutation {
     input: DeleteStageInput!
   ): DeleteStagePayload
 
-  """Deletes a single `Stage` using a unique key."""
-  deleteStageById(
+  """Deletes a single `Temperature` using its globally unique id."""
+  deleteTemperatureByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteStageByIdInput!
-  ): DeleteStagePayload
+    input: DeleteTemperatureByNodeIdInput!
+  ): DeleteTemperaturePayload
 
-  """Deletes a single `Temperature` using its globally unique id."""
+  """Deletes a single `Temperature` using a unique key."""
   deleteTemperature(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -942,15 +1037,15 @@ type Mutation {
     input: DeleteTemperatureInput!
   ): DeleteTemperaturePayload
 
-  """Deletes a single `Temperature` using a unique key."""
-  deleteTemperatureById(
+  """Deletes a single `User` using its globally unique id."""
+  deleteUserByNodeId(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteTemperatureByIdInput!
-  ): DeleteTemperaturePayload
+    input: DeleteUserByNodeIdInput!
+  ): DeleteUserPayload
 
-  """Deletes a single `User` using its globally unique id."""
+  """Deletes a single `User` using a unique key."""
   deleteUser(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -958,13 +1053,15 @@ type Mutation {
     input: DeleteUserInput!
   ): DeleteUserPayload
 
-  """Deletes a single `User` using a unique key."""
-  deleteUserByUsername(
+  """
+  Creates a JWT token that will securely identify a person and give them certain permissions. This token expires in 2 days.
+  """
+  authenticate(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteUserByUsernameInput!
-  ): DeleteUserPayload
+    input: AuthenticateInput!
+  ): AuthenticatePayload
 
   """Registers a single user"""
   register(
@@ -973,104 +1070,7 @@ type Mutation {
     """
     input: RegisterInput!
   ): RegisterPayload
-
-  """Updates a single `Guide` using its globally unique id and a patch."""
-  updateGuide(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateGuideInput!
-  ): UpdateGuidePayload
-
-  """Updates a single `Guide` using a unique key and a patch."""
-  updateGuideById(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateGuideByIdInput!
-  ): UpdateGuidePayload
-
-  """Updates a single `Ride` using its globally unique id and a patch."""
-  updateRide(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateRideInput!
-  ): UpdateRidePayload
-
-  """Updates a single `Ride` using a unique key and a patch."""
-  updateRideById(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateRideByIdInput!
-  ): UpdateRidePayload
-
-  """Updates a single `Spot` using its globally unique id and a patch."""
-  updateSpot(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateSpotInput!
-  ): UpdateSpotPayload
-
-  """Updates a single `Spot` using a unique key and a patch."""
-  updateSpotById(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateSpotByIdInput!
-  ): UpdateSpotPayload
-
-  """Updates a single `Stage` using its globally unique id and a patch."""
-  updateStage(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateStageInput!
-  ): UpdateStagePayload
-
-  """Updates a single `Stage` using a unique key and a patch."""
-  updateStageById(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateStageByIdInput!
-  ): UpdateStagePayload
-
-  """
-  Updates a single `Temperature` using its globally unique id and a patch.
-  """
-  updateTemperature(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateTemperatureInput!
-  ): UpdateTemperaturePayload
-
-  """Updates a single `Temperature` using a unique key and a patch."""
-  updateTemperatureById(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateTemperatureByIdInput!
-  ): UpdateTemperaturePayload
-
-  """Updates a single `User` using its globally unique id and a patch."""
-  updateUser(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateUserInput!
-  ): UpdateUserPayload
-
-  """Updates a single `User` using a unique key and a patch."""
-  updateUserByUsername(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateUserByUsernameInput!
-  ): UpdateUserPayload
+  moveSpot(spotId: String!, lat: Float!, long: Float!): Spot!
 }
 
 """An object with a globally unique `ID`."""
@@ -1083,9 +1083,6 @@ interface Node {
 
 """Information about pagination in a connection."""
 type PageInfo {
-  """When paginating forwards, the cursor to continue."""
-  endCursor: Cursor
-
   """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
 
@@ -1094,191 +1091,23 @@ type PageInfo {
 
   """When paginating backwards, the cursor to continue."""
   startCursor: Cursor
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
 }
 
 """The root query type which gives access points into the data universe."""
 type Query implements Node {
-  """Reads and enables pagination through a set of `Guide`."""
-  allGuides(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
+  """
+  Exposes the root query type nested one level down. This is helpful for Relay 1
+  which can only query top level fields if they are in a particular form.
+  """
+  query: Query!
 
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: GuideCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `Guide`."""
-    orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuidesConnection
-
-  """Reads and enables pagination through a set of `Ride`."""
-  allRides(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: RideCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `Ride`."""
-    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RidesConnection
-
-  """Reads and enables pagination through a set of `Spot`."""
-  allSpots(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: SpotCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `Spot`."""
-    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SpotsConnection
-
-  """Reads and enables pagination through a set of `Stage`."""
-  allStages(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: StageCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `Stage`."""
-    orderBy: [StagesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): StagesConnection
-
-  """Reads and enables pagination through a set of `Temperature`."""
-  allTemperatures(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: TemperatureCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `Temperature`."""
-    orderBy: [TemperaturesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): TemperaturesConnection
-
-  """Reads and enables pagination through a set of `User`."""
-  allUsers(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: UserCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `User`."""
-    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
-  ): UsersConnection
-  getCurrentUser: JwtToken
-
-  """Reads a single `Guide` using its globally unique `ID`."""
-  guide(
-    """The globally unique `ID` to be used in selecting a single `Guide`."""
-    nodeId: ID!
-  ): Guide
-  guideById(id: String!): Guide
+  """
+  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  """
+  nodeId: ID!
 
   """Fetches an object given its globally unique `ID`."""
   node(
@@ -1286,66 +1115,236 @@ type Query implements Node {
     nodeId: ID!
   ): Node
 
-  """
-  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
-  """
-  nodeId: ID!
+  """Reads and enables pagination through a set of `Guide`."""
+  guides(
+    """Only read the first `n` values of the set."""
+    first: Int
 
-  """
-  Exposes the root query type nested one level down. This is helpful for Relay 1
-  which can only query top level fields if they are in a particular form.
-  """
-  query: Query!
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Guide`."""
+    orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: GuideCondition
+  ): GuidesConnection
+
+  """Reads and enables pagination through a set of `Ride`."""
+  rides(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Ride`."""
+    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RideCondition
+  ): RidesConnection
+
+  """Reads and enables pagination through a set of `Spot`."""
+  spots(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Spot`."""
+    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SpotCondition
+  ): SpotsConnection
+
+  """Reads and enables pagination through a set of `Stage`."""
+  stages(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Stage`."""
+    orderBy: [StagesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StageCondition
+  ): StagesConnection
+
+  """Reads and enables pagination through a set of `Temperature`."""
+  temperatures(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Temperature`."""
+    orderBy: [TemperaturesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: TemperatureCondition
+  ): TemperaturesConnection
+
+  """Reads and enables pagination through a set of `User`."""
+  users(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `User`."""
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: UserCondition
+  ): UsersConnection
+  guide(id: String!): Guide
+  ride(id: String!): Ride
+  spot(id: String!): Spot
+  stage(id: String!): Stage
+  temperature(id: String!): Temperature
+  user(username: String!): User
+  getCurrentUser: JwtToken
+
+  """Reads a single `Guide` using its globally unique `ID`."""
+  guideByNodeId(
+    """The globally unique `ID` to be used in selecting a single `Guide`."""
+    nodeId: ID!
+  ): Guide
 
   """Reads a single `Ride` using its globally unique `ID`."""
-  ride(
+  rideByNodeId(
     """The globally unique `ID` to be used in selecting a single `Ride`."""
     nodeId: ID!
   ): Ride
-  rideById(id: String!): Ride
 
   """Reads a single `Spot` using its globally unique `ID`."""
-  spot(
+  spotByNodeId(
     """The globally unique `ID` to be used in selecting a single `Spot`."""
     nodeId: ID!
   ): Spot
-  spotById(id: String!): Spot
 
   """Reads a single `Stage` using its globally unique `ID`."""
-  stage(
+  stageByNodeId(
     """The globally unique `ID` to be used in selecting a single `Stage`."""
     nodeId: ID!
   ): Stage
-  stageById(id: String!): Stage
 
   """Reads a single `Temperature` using its globally unique `ID`."""
-  temperature(
+  temperatureByNodeId(
     """
     The globally unique `ID` to be used in selecting a single `Temperature`.
     """
     nodeId: ID!
   ): Temperature
-  temperatureById(id: String!): Temperature
 
   """Reads a single `User` using its globally unique `ID`."""
-  user(
+  userByNodeId(
     """The globally unique `ID` to be used in selecting a single `User`."""
     nodeId: ID!
   ): User
-  userByUsername(username: String!): User
 }
 
 """All input for the `register` mutation."""
 input RegisterInput {
-  _email: String!
-  _password: String!
-  _username: String!
-
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
+  _username: String!
+  _email: String!
+  _password: String!
 }
 
 """The output of our `register` mutation."""
@@ -1355,12 +1354,12 @@ type RegisterPayload {
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
+  user: User
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-  user: User
 
   """An edge for our `User`. May be used by Relay 1."""
   userEdge(
@@ -1370,112 +1369,111 @@ type RegisterPayload {
 }
 
 type Ride implements Node {
-  date: Date
-  distanceMeters: Int
-  durationSeconds: Int
-  fromSpot: String!
-  guide: String!
-
-  """Reads a single `Guide` that is related to this `Ride`."""
-  guideByGuide: Guide
-  hasBorder: Boolean
-  id: String!
-  name: String
-
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
+  id: String!
+  guide: String!
   owner: String!
+  fromSpot: String!
+  toSpot: String!
   pathUrl: String
+  durationSeconds: Int
+  distanceMeters: Int
+  date: Date
+  stage: String!
+
+  """Reads a single `Guide` that is related to this `Ride`."""
+  guideByGuide: Guide
+
+  """Reads a single `User` that is related to this `Ride`."""
+  userByOwner: User
 
   """Reads a single `Spot` that is related to this `Ride`."""
   spotByFromSpot: Spot
 
   """Reads a single `Spot` that is related to this `Ride`."""
   spotByToSpot: Spot
-  stage: String!
 
   """Reads a single `Stage` that is related to this `Ride`."""
   stageByStage: Stage
-  toSpot: String!
-
-  """Reads a single `User` that is related to this `Ride`."""
-  userByOwner: User
+  hasBorder: Boolean
+  name: String
 }
 
 """
 A condition to be used against `Ride` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input RideCondition {
-  """Checks for equality with the object’s `date` field."""
-  date: Date
-
-  """Checks for equality with the object’s `distanceMeters` field."""
-  distanceMeters: Int
-
-  """Checks for equality with the object’s `durationSeconds` field."""
-  durationSeconds: Int
-
-  """Checks for equality with the object’s `fromSpot` field."""
-  fromSpot: String
+  """Checks for equality with the object’s `id` field."""
+  id: String
 
   """Checks for equality with the object’s `guide` field."""
   guide: String
 
-  """Checks for equality with the object’s `id` field."""
-  id: String
-
   """Checks for equality with the object’s `owner` field."""
   owner: String
+
+  """Checks for equality with the object’s `fromSpot` field."""
+  fromSpot: String
+
+  """Checks for equality with the object’s `toSpot` field."""
+  toSpot: String
 
   """Checks for equality with the object’s `pathUrl` field."""
   pathUrl: String
 
+  """Checks for equality with the object’s `durationSeconds` field."""
+  durationSeconds: Int
+
+  """Checks for equality with the object’s `distanceMeters` field."""
+  distanceMeters: Int
+
+  """Checks for equality with the object’s `date` field."""
+  date: Date
+
   """Checks for equality with the object’s `stage` field."""
   stage: String
-
-  """Checks for equality with the object’s `toSpot` field."""
-  toSpot: String
 }
 
 """An input for mutations affecting `Ride`"""
 input RideInput {
-  date: Date
-  distanceMeters: Int
-  durationSeconds: Int
-  fromSpot: String!
-  guide: String!
   id: String!
+  guide: String!
   owner: String!
-  pathUrl: String
-  stage: String!
+  fromSpot: String!
   toSpot: String!
+  pathUrl: String
+  durationSeconds: Int
+  distanceMeters: Int
+  date: Date
+  stage: String!
 }
 
 """Represents an update to a `Ride`. Fields that are set will be updated."""
 input RidePatch {
-  date: Date
-  distanceMeters: Int
-  durationSeconds: Int
-  fromSpot: String
-  guide: String
   id: String
+  guide: String
   owner: String
-  pathUrl: String
-  stage: String
+  fromSpot: String
   toSpot: String
+  pathUrl: String
+  durationSeconds: Int
+  distanceMeters: Int
+  date: Date
+  stage: String
 }
 
 """A connection to a list of `Ride` values."""
 type RidesConnection {
+  """A list of `Ride` objects."""
+  nodes: [Ride]!
+
   """
   A list of edges which contains the `Ride` and cursor to aid in pagination.
   """
   edges: [RidesEdge!]!
-
-  """A list of `Ride` objects."""
-  nodes: [Ride]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -1495,129 +1493,63 @@ type RidesEdge {
 
 """Methods to use when ordering `Ride`."""
 enum RidesOrderBy {
-  DATE_ASC
-  DATE_DESC
-  DISTANCE_METERS_ASC
-  DISTANCE_METERS_DESC
-  DURATION_SECONDS_ASC
-  DURATION_SECONDS_DESC
-  FROM_SPOT_ASC
-  FROM_SPOT_DESC
-  GUIDE_ASC
-  GUIDE_DESC
+  NATURAL
   ID_ASC
   ID_DESC
-  NATURAL
+  GUIDE_ASC
+  GUIDE_DESC
   OWNER_ASC
   OWNER_DESC
-  PATH_URL_ASC
-  PATH_URL_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  STAGE_ASC
-  STAGE_DESC
+  FROM_SPOT_ASC
+  FROM_SPOT_DESC
   TO_SPOT_ASC
   TO_SPOT_DESC
+  PATH_URL_ASC
+  PATH_URL_DESC
+  DURATION_SECONDS_ASC
+  DURATION_SECONDS_DESC
+  DISTANCE_METERS_ASC
+  DISTANCE_METERS_DESC
+  DATE_ASC
+  DATE_DESC
+  STAGE_ASC
+  STAGE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 type Spot implements Node {
-  country: String
-  created: Date
-  date: Date
-  guide: String!
-
-  """Reads a single `Guide` that is related to this `Spot`."""
-  guideByGuide: Guide
-  id: String!
-  label: String
-  lat: Float!
-  location: String
-  locked: Boolean!
-  long: Float!
-  nights: Int
-
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
+  id: String!
+  label: String
+  guide: String!
   owner: String!
+  nights: Int
+  locked: Boolean!
+  lat: Float!
+  long: Float!
   position: String
-
-  """Reads and enables pagination through a set of `Ride`."""
-  ridesByFromSpot(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: RideCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `Ride`."""
-    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RidesConnection!
-
-  """Reads and enables pagination through a set of `Ride`."""
-  ridesByToSpot(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: RideCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `Ride`."""
-    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RidesConnection!
+  location: String
+  country: String
+  date: Date
+  created: Date
+  updated: Date
   stage: String
+
+  """Reads a single `Guide` that is related to this `Spot`."""
+  guideByGuide: Guide
+
+  """Reads a single `User` that is related to this `Spot`."""
+  userByOwner: User
 
   """Reads a single `Stage` that is related to this `Spot`."""
   stageByStage: Stage
 
   """Reads and enables pagination through a set of `Stage`."""
   stagesByFromSpot(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: StageCondition
-
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1630,23 +1562,23 @@ type Spot implements Node {
     """
     offset: Int
 
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
     """The method to use when ordering `Stage`."""
     orderBy: [StagesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StageCondition
   ): StagesConnection!
 
   """Reads and enables pagination through a set of `Stage`."""
   stagesByToSpot(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: StageCondition
-
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1659,113 +1591,178 @@ type Spot implements Node {
     """
     offset: Int
 
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
     """The method to use when ordering `Stage`."""
     orderBy: [StagesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): StagesConnection!
-  temperature: Float
-  updated: Date
 
-  """Reads a single `User` that is related to this `Spot`."""
-  userByOwner: User
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StageCondition
+  ): StagesConnection!
+
+  """Reads and enables pagination through a set of `Ride`."""
+  ridesByFromSpot(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Ride`."""
+    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RideCondition
+  ): RidesConnection!
+
+  """Reads and enables pagination through a set of `Ride`."""
+  ridesByToSpot(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Ride`."""
+    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RideCondition
+  ): RidesConnection!
+  temperature: Float
 }
 
 """
 A condition to be used against `Spot` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input SpotCondition {
-  """Checks for equality with the object’s `country` field."""
-  country: String
-
-  """Checks for equality with the object’s `created` field."""
-  created: Date
-
-  """Checks for equality with the object’s `date` field."""
-  date: Date
-
-  """Checks for equality with the object’s `guide` field."""
-  guide: String
-
   """Checks for equality with the object’s `id` field."""
   id: String
 
   """Checks for equality with the object’s `label` field."""
   label: String
 
-  """Checks for equality with the object’s `lat` field."""
-  lat: Float
-
-  """Checks for equality with the object’s `location` field."""
-  location: String
-
-  """Checks for equality with the object’s `locked` field."""
-  locked: Boolean
-
-  """Checks for equality with the object’s `long` field."""
-  long: Float
-
-  """Checks for equality with the object’s `nights` field."""
-  nights: Int
+  """Checks for equality with the object’s `guide` field."""
+  guide: String
 
   """Checks for equality with the object’s `owner` field."""
   owner: String
 
+  """Checks for equality with the object’s `nights` field."""
+  nights: Int
+
+  """Checks for equality with the object’s `locked` field."""
+  locked: Boolean
+
+  """Checks for equality with the object’s `lat` field."""
+  lat: Float
+
+  """Checks for equality with the object’s `long` field."""
+  long: Float
+
   """Checks for equality with the object’s `position` field."""
   position: String
 
-  """Checks for equality with the object’s `stage` field."""
-  stage: String
+  """Checks for equality with the object’s `location` field."""
+  location: String
+
+  """Checks for equality with the object’s `country` field."""
+  country: String
+
+  """Checks for equality with the object’s `date` field."""
+  date: Date
+
+  """Checks for equality with the object’s `created` field."""
+  created: Date
 
   """Checks for equality with the object’s `updated` field."""
   updated: Date
+
+  """Checks for equality with the object’s `stage` field."""
+  stage: String
 }
 
 """An input for mutations affecting `Spot`"""
 input SpotInput {
-  country: String
-  created: Date
-  date: Date
-  guide: String!
   id: String!
   label: String
-  lat: Float!
-  location: String
-  locked: Boolean!
-  long: Float!
-  nights: Int
+  guide: String!
   owner: String!
+  nights: Int
+  locked: Boolean!
+  lat: Float!
+  long: Float!
   position: String
-  stage: String
+  location: String
+  country: String
+  date: Date
+  created: Date
   updated: Date
+  stage: String
 }
 
 """Represents an update to a `Spot`. Fields that are set will be updated."""
 input SpotPatch {
-  country: String
-  created: Date
-  date: Date
-  guide: String
   id: String
   label: String
-  lat: Float
-  location: String
-  locked: Boolean
-  long: Float
-  nights: Int
+  guide: String
   owner: String
+  nights: Int
+  locked: Boolean
+  lat: Float
+  long: Float
   position: String
-  stage: String
+  location: String
+  country: String
+  date: Date
+  created: Date
   updated: Date
+  stage: String
 }
 
 """A connection to a list of `Spot` values."""
 type SpotsConnection {
+  """A list of `Spot` objects."""
+  nodes: [Spot]!
+
   """
   A list of edges which contains the `Spot` and cursor to aid in pagination.
   """
   edges: [SpotsEdge!]!
-
-  """A list of `Spot` objects."""
-  nodes: [Spot]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -1785,83 +1782,55 @@ type SpotsEdge {
 
 """Methods to use when ordering `Spot`."""
 enum SpotsOrderBy {
-  COUNTRY_ASC
-  COUNTRY_DESC
-  CREATED_ASC
-  CREATED_DESC
-  DATE_ASC
-  DATE_DESC
-  GUIDE_ASC
-  GUIDE_DESC
+  NATURAL
   ID_ASC
   ID_DESC
   LABEL_ASC
   LABEL_DESC
-  LAT_ASC
-  LAT_DESC
-  LOCATION_ASC
-  LOCATION_DESC
-  LOCKED_ASC
-  LOCKED_DESC
-  LONG_ASC
-  LONG_DESC
-  NATURAL
-  NIGHTS_ASC
-  NIGHTS_DESC
+  GUIDE_ASC
+  GUIDE_DESC
   OWNER_ASC
   OWNER_DESC
+  NIGHTS_ASC
+  NIGHTS_DESC
+  LOCKED_ASC
+  LOCKED_DESC
+  LAT_ASC
+  LAT_DESC
+  LONG_ASC
+  LONG_DESC
   POSITION_ASC
   POSITION_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-  STAGE_ASC
-  STAGE_DESC
+  LOCATION_ASC
+  LOCATION_DESC
+  COUNTRY_ASC
+  COUNTRY_DESC
+  DATE_ASC
+  DATE_DESC
+  CREATED_ASC
+  CREATED_DESC
   UPDATED_ASC
   UPDATED_DESC
+  STAGE_ASC
+  STAGE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 type Stage implements Node {
-  created: Date
-  fromSpot: String!
-  guide: String!
-
-  """Reads a single `Guide` that is related to this `Stage`."""
-  guideByGuide: Guide
-  id: String!
-
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
+  id: String!
+  guide: String!
+  fromSpot: String!
+  toSpot: String!
+  created: Date
+  updated: Date
 
-  """Reads and enables pagination through a set of `Ride`."""
-  ridesByStage(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: RideCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `Ride`."""
-    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RidesConnection!
+  """Reads a single `Guide` that is related to this `Stage`."""
+  guideByGuide: Guide
 
   """Reads a single `Spot` that is related to this `Stage`."""
   spotByFromSpot: Spot
@@ -1871,17 +1840,6 @@ type Stage implements Node {
 
   """Reads and enables pagination through a set of `Spot`."""
   spotsByStage(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: SpotCondition
-
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1894,31 +1852,69 @@ type Stage implements Node {
     """
     offset: Int
 
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
     """The method to use when ordering `Spot`."""
     orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SpotCondition
   ): SpotsConnection!
-  toSpot: String!
-  updated: Date
+
+  """Reads and enables pagination through a set of `Ride`."""
+  ridesByStage(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Ride`."""
+    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RideCondition
+  ): RidesConnection!
 }
 
 """
 A condition to be used against `Stage` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input StageCondition {
-  """Checks for equality with the object’s `created` field."""
-  created: Date
-
-  """Checks for equality with the object’s `fromSpot` field."""
-  fromSpot: String
+  """Checks for equality with the object’s `id` field."""
+  id: String
 
   """Checks for equality with the object’s `guide` field."""
   guide: String
 
-  """Checks for equality with the object’s `id` field."""
-  id: String
+  """Checks for equality with the object’s `fromSpot` field."""
+  fromSpot: String
 
   """Checks for equality with the object’s `toSpot` field."""
   toSpot: String
+
+  """Checks for equality with the object’s `created` field."""
+  created: Date
 
   """Checks for equality with the object’s `updated` field."""
   updated: Date
@@ -1926,11 +1922,11 @@ input StageCondition {
 
 """An input for mutations affecting `Stage`"""
 input StageInput {
-  created: Date
-  fromSpot: String!
-  guide: String!
   id: String!
+  guide: String!
+  fromSpot: String!
   toSpot: String!
+  created: Date
   updated: Date
 }
 
@@ -1938,23 +1934,23 @@ input StageInput {
 Represents an update to a `Stage`. Fields that are set will be updated.
 """
 input StagePatch {
-  created: Date
-  fromSpot: String
-  guide: String
   id: String
+  guide: String
+  fromSpot: String
   toSpot: String
+  created: Date
   updated: Date
 }
 
 """A connection to a list of `Stage` values."""
 type StagesConnection {
+  """A list of `Stage` objects."""
+  nodes: [Stage]!
+
   """
   A list of edges which contains the `Stage` and cursor to aid in pagination.
   """
   edges: [StagesEdge!]!
-
-  """A list of `Stage` objects."""
-  nodes: [Stage]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -1974,32 +1970,31 @@ type StagesEdge {
 
 """Methods to use when ordering `Stage`."""
 enum StagesOrderBy {
-  CREATED_ASC
-  CREATED_DESC
-  FROM_SPOT_ASC
-  FROM_SPOT_DESC
-  GUIDE_ASC
-  GUIDE_DESC
+  NATURAL
   ID_ASC
   ID_DESC
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
+  GUIDE_ASC
+  GUIDE_DESC
+  FROM_SPOT_ASC
+  FROM_SPOT_DESC
   TO_SPOT_ASC
   TO_SPOT_DESC
+  CREATED_ASC
+  CREATED_DESC
   UPDATED_ASC
   UPDATED_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 type Temperature implements Node {
-  country: String!
-  id: String!
-  month: Int!
-
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
+  id: String!
+  country: String!
+  month: Int!
   temperature: Float!
 }
 
@@ -2008,11 +2003,11 @@ A condition to be used against `Temperature` object types. All fields are tested
 for equality and combined with a logical ‘and.’
 """
 input TemperatureCondition {
-  """Checks for equality with the object’s `country` field."""
-  country: String
-
   """Checks for equality with the object’s `id` field."""
   id: String
+
+  """Checks for equality with the object’s `country` field."""
+  country: String
 
   """Checks for equality with the object’s `month` field."""
   month: Int
@@ -2023,8 +2018,8 @@ input TemperatureCondition {
 
 """An input for mutations affecting `Temperature`"""
 input TemperatureInput {
-  country: String!
   id: String!
+  country: String!
   month: Int!
   temperature: Float!
 }
@@ -2033,21 +2028,21 @@ input TemperatureInput {
 Represents an update to a `Temperature`. Fields that are set will be updated.
 """
 input TemperaturePatch {
-  country: String
   id: String
+  country: String
   month: Int
   temperature: Float
 }
 
 """A connection to a list of `Temperature` values."""
 type TemperaturesConnection {
+  """A list of `Temperature` objects."""
+  nodes: [Temperature]!
+
   """
   A list of edges which contains the `Temperature` and cursor to aid in pagination.
   """
   edges: [TemperaturesEdge!]!
-
-  """A list of `Temperature` objects."""
-  nodes: [Temperature]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -2067,21 +2062,21 @@ type TemperaturesEdge {
 
 """Methods to use when ordering `Temperature`."""
 enum TemperaturesOrderBy {
-  COUNTRY_ASC
-  COUNTRY_DESC
+  NATURAL
   ID_ASC
   ID_DESC
+  COUNTRY_ASC
+  COUNTRY_DESC
   MONTH_ASC
   MONTH_DESC
-  NATURAL
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
   TEMPERATURE_ASC
   TEMPERATURE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
-"""All input for the `updateGuideById` mutation."""
-input UpdateGuideByIdInput {
+"""All input for the `updateGuideByNodeId` mutation."""
+input UpdateGuideByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2089,10 +2084,14 @@ input UpdateGuideByIdInput {
   clientMutationId: String
 
   """
+  The globally unique `ID` which will identify a single `Guide` to be updated.
+  """
+  nodeId: ID!
+
+  """
   An object where the defined keys will be set on the `Guide` being updated.
   """
-  guidePatch: GuidePatch!
-  id: String!
+  patch: GuidePatch!
 }
 
 """All input for the `updateGuide` mutation."""
@@ -2106,12 +2105,8 @@ input UpdateGuideInput {
   """
   An object where the defined keys will be set on the `Guide` being updated.
   """
-  guidePatch: GuidePatch!
-
-  """
-  The globally unique `ID` which will identify a single `Guide` to be updated.
-  """
-  nodeId: ID!
+  patch: GuidePatch!
+  id: String!
 }
 
 """The output of our update `Guide` mutation."""
@@ -2125,12 +2120,6 @@ type UpdateGuidePayload {
   """The `Guide` that was updated by this mutation."""
   guide: Guide
 
-  """An edge for our `Guide`. May be used by Relay 1."""
-  guideEdge(
-    """The method to use when ordering `Guide`."""
-    orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): GuidesEdge
-
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
@@ -2138,25 +2127,16 @@ type UpdateGuidePayload {
 
   """Reads a single `User` that is related to this `Guide`."""
   userByOwner: User
+
+  """An edge for our `Guide`. May be used by Relay 1."""
+  guideEdge(
+    """The method to use when ordering `Guide`."""
+    orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): GuidesEdge
 }
 
-"""All input for the `updateRideById` mutation."""
-input UpdateRideByIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-
-  """
-  An object where the defined keys will be set on the `Ride` being updated.
-  """
-  ridePatch: RidePatch!
-}
-
-"""All input for the `updateRide` mutation."""
-input UpdateRideInput {
+"""All input for the `updateRideByNodeId` mutation."""
+input UpdateRideByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2171,7 +2151,22 @@ input UpdateRideInput {
   """
   An object where the defined keys will be set on the `Ride` being updated.
   """
-  ridePatch: RidePatch!
+  patch: RidePatch!
+}
+
+"""All input for the `updateRide` mutation."""
+input UpdateRideInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Ride` being updated.
+  """
+  patch: RidePatch!
+  id: String!
 }
 
 """The output of our update `Ride` mutation."""
@@ -2182,22 +2177,19 @@ type UpdateRidePayload {
   """
   clientMutationId: String
 
-  """Reads a single `Guide` that is related to this `Ride`."""
-  guideByGuide: Guide
+  """The `Ride` that was updated by this mutation."""
+  ride: Ride
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
-  """The `Ride` that was updated by this mutation."""
-  ride: Ride
+  """Reads a single `Guide` that is related to this `Ride`."""
+  guideByGuide: Guide
 
-  """An edge for our `Ride`. May be used by Relay 1."""
-  rideEdge(
-    """The method to use when ordering `Ride`."""
-    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RidesEdge
+  """Reads a single `User` that is related to this `Ride`."""
+  userByOwner: User
 
   """Reads a single `Spot` that is related to this `Ride`."""
   spotByFromSpot: Spot
@@ -2208,27 +2200,15 @@ type UpdateRidePayload {
   """Reads a single `Stage` that is related to this `Ride`."""
   stageByStage: Stage
 
-  """Reads a single `User` that is related to this `Ride`."""
-  userByOwner: User
+  """An edge for our `Ride`. May be used by Relay 1."""
+  rideEdge(
+    """The method to use when ordering `Ride`."""
+    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RidesEdge
 }
 
-"""All input for the `updateSpotById` mutation."""
-input UpdateSpotByIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-
-  """
-  An object where the defined keys will be set on the `Spot` being updated.
-  """
-  spotPatch: SpotPatch!
-}
-
-"""All input for the `updateSpot` mutation."""
-input UpdateSpotInput {
+"""All input for the `updateSpotByNodeId` mutation."""
+input UpdateSpotByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2243,7 +2223,22 @@ input UpdateSpotInput {
   """
   An object where the defined keys will be set on the `Spot` being updated.
   """
-  spotPatch: SpotPatch!
+  patch: SpotPatch!
+}
+
+"""All input for the `updateSpot` mutation."""
+input UpdateSpotInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Spot` being updated.
+  """
+  patch: SpotPatch!
+  id: String!
 }
 
 """The output of our update `Spot` mutation."""
@@ -2254,47 +2249,32 @@ type UpdateSpotPayload {
   """
   clientMutationId: String
 
-  """Reads a single `Guide` that is related to this `Spot`."""
-  guideByGuide: Guide
+  """The `Spot` that was updated by this mutation."""
+  spot: Spot
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
-  """The `Spot` that was updated by this mutation."""
-  spot: Spot
+  """Reads a single `Guide` that is related to this `Spot`."""
+  guideByGuide: Guide
+
+  """Reads a single `User` that is related to this `Spot`."""
+  userByOwner: User
+
+  """Reads a single `Stage` that is related to this `Spot`."""
+  stageByStage: Stage
 
   """An edge for our `Spot`. May be used by Relay 1."""
   spotEdge(
     """The method to use when ordering `Spot`."""
     orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
   ): SpotsEdge
-
-  """Reads a single `Stage` that is related to this `Spot`."""
-  stageByStage: Stage
-
-  """Reads a single `User` that is related to this `Spot`."""
-  userByOwner: User
 }
 
-"""All input for the `updateStageById` mutation."""
-input UpdateStageByIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-
-  """
-  An object where the defined keys will be set on the `Stage` being updated.
-  """
-  stagePatch: StagePatch!
-}
-
-"""All input for the `updateStage` mutation."""
-input UpdateStageInput {
+"""All input for the `updateStageByNodeId` mutation."""
+input UpdateStageByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2309,7 +2289,22 @@ input UpdateStageInput {
   """
   An object where the defined keys will be set on the `Stage` being updated.
   """
-  stagePatch: StagePatch!
+  patch: StagePatch!
+}
+
+"""All input for the `updateStage` mutation."""
+input UpdateStageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Stage` being updated.
+  """
+  patch: StagePatch!
+  id: String!
 }
 
 """The output of our update `Stage` mutation."""
@@ -2320,22 +2315,22 @@ type UpdateStagePayload {
   """
   clientMutationId: String
 
-  """Reads a single `Guide` that is related to this `Stage`."""
-  guideByGuide: Guide
+  """The `Stage` that was updated by this mutation."""
+  stage: Stage
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
+  """Reads a single `Guide` that is related to this `Stage`."""
+  guideByGuide: Guide
+
   """Reads a single `Spot` that is related to this `Stage`."""
   spotByFromSpot: Spot
 
   """Reads a single `Spot` that is related to this `Stage`."""
   spotByToSpot: Spot
-
-  """The `Stage` that was updated by this mutation."""
-  stage: Stage
 
   """An edge for our `Stage`. May be used by Relay 1."""
   stageEdge(
@@ -2344,23 +2339,8 @@ type UpdateStagePayload {
   ): StagesEdge
 }
 
-"""All input for the `updateTemperatureById` mutation."""
-input UpdateTemperatureByIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  id: String!
-
-  """
-  An object where the defined keys will be set on the `Temperature` being updated.
-  """
-  temperaturePatch: TemperaturePatch!
-}
-
-"""All input for the `updateTemperature` mutation."""
-input UpdateTemperatureInput {
+"""All input for the `updateTemperatureByNodeId` mutation."""
+input UpdateTemperatureByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2375,7 +2355,22 @@ input UpdateTemperatureInput {
   """
   An object where the defined keys will be set on the `Temperature` being updated.
   """
-  temperaturePatch: TemperaturePatch!
+  patch: TemperaturePatch!
+}
+
+"""All input for the `updateTemperature` mutation."""
+input UpdateTemperatureInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Temperature` being updated.
+  """
+  patch: TemperaturePatch!
+  id: String!
 }
 
 """The output of our update `Temperature` mutation."""
@@ -2386,13 +2381,13 @@ type UpdateTemperaturePayload {
   """
   clientMutationId: String
 
+  """The `Temperature` that was updated by this mutation."""
+  temperature: Temperature
+
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-
-  """The `Temperature` that was updated by this mutation."""
-  temperature: Temperature
 
   """An edge for our `Temperature`. May be used by Relay 1."""
   temperatureEdge(
@@ -2401,23 +2396,8 @@ type UpdateTemperaturePayload {
   ): TemperaturesEdge
 }
 
-"""All input for the `updateUserByUsername` mutation."""
-input UpdateUserByUsernameInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  username: String!
-
-  """
-  An object where the defined keys will be set on the `User` being updated.
-  """
-  userPatch: UserPatch!
-}
-
-"""All input for the `updateUser` mutation."""
-input UpdateUserInput {
+"""All input for the `updateUserByNodeId` mutation."""
+input UpdateUserByNodeIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2432,7 +2412,22 @@ input UpdateUserInput {
   """
   An object where the defined keys will be set on the `User` being updated.
   """
-  userPatch: UserPatch!
+  patch: UserPatch!
+}
+
+"""All input for the `updateUser` mutation."""
+input UpdateUserInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `User` being updated.
+  """
+  patch: UserPatch!
+  username: String!
 }
 
 """The output of our update `User` mutation."""
@@ -2443,13 +2438,13 @@ type UpdateUserPayload {
   """
   clientMutationId: String
 
+  """The `User` that was updated by this mutation."""
+  user: User
+
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-
-  """The `User` that was updated by this mutation."""
-  user: User
 
   """An edge for our `User`. May be used by Relay 1."""
   userEdge(
@@ -2459,85 +2454,74 @@ type UpdateUserPayload {
 }
 
 type User implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  username: String!
   email: String!
+  passwordHash: String!
 
   """Reads and enables pagination through a set of `Guide`."""
   guidesByOwner(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
 
     """Read all values in the set before (above) this cursor."""
     before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Guide`."""
+    orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: GuideCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `Guide`."""
-    orderBy: [GuidesOrderBy!] = [PRIMARY_KEY_ASC]
   ): GuidesConnection!
-
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  passwordHash: String!
-
-  """Reads and enables pagination through a set of `Ride`."""
-  ridesByOwner(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
-
-    """Read all values in the set before (above) this cursor."""
-    before: Cursor
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: RideCondition
-
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Only read the last `n` values of the set."""
-    last: Int
-
-    """
-    Skip the first `n` values from our `after` cursor, an alternative to cursor
-    based pagination. May not be used with `last`.
-    """
-    offset: Int
-
-    """The method to use when ordering `Ride`."""
-    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): RidesConnection!
 
   """Reads and enables pagination through a set of `Spot`."""
   spotsByOwner(
-    """Read all values in the set after (below) this cursor."""
-    after: Cursor
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
 
     """Read all values in the set before (above) this cursor."""
     before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Spot`."""
+    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: SpotCondition
+  ): SpotsConnection!
 
+  """Reads and enables pagination through a set of `Ride`."""
+  ridesByOwner(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -2550,49 +2534,59 @@ type User implements Node {
     """
     offset: Int
 
-    """The method to use when ordering `Spot`."""
-    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): SpotsConnection!
-  username: String!
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Ride`."""
+    orderBy: [RidesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RideCondition
+  ): RidesConnection!
 }
 
 """
 A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’
 """
 input UserCondition {
+  """Checks for equality with the object’s `username` field."""
+  username: String
+
   """Checks for equality with the object’s `email` field."""
   email: String
 
   """Checks for equality with the object’s `passwordHash` field."""
   passwordHash: String
-
-  """Checks for equality with the object’s `username` field."""
-  username: String
 }
 
 """An input for mutations affecting `User`"""
 input UserInput {
+  username: String!
   email: String!
   passwordHash: String!
-  username: String!
 }
 
 """Represents an update to a `User`. Fields that are set will be updated."""
 input UserPatch {
+  username: String
   email: String
   passwordHash: String
-  username: String
 }
 
 """A connection to a list of `User` values."""
 type UsersConnection {
+  """A list of `User` objects."""
+  nodes: [User]!
+
   """
   A list of edges which contains the `User` and cursor to aid in pagination.
   """
   edges: [UsersEdge!]!
-
-  """A list of `User` objects."""
-  nodes: [User]!
 
   """Information to aid in pagination."""
   pageInfo: PageInfo!
@@ -2612,13 +2606,13 @@ type UsersEdge {
 
 """Methods to use when ordering `User`."""
 enum UsersOrderBy {
+  NATURAL
+  USERNAME_ASC
+  USERNAME_DESC
   EMAIL_ASC
   EMAIL_DESC
-  NATURAL
   PASSWORD_HASH_ASC
   PASSWORD_HASH_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
-  USERNAME_ASC
-  USERNAME_DESC
 }

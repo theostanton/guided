@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "deploy:graphql:staging": "terraform workspace select staging && terraform apply -target=aws_lambda_function.graphql -var-file vars/staging.tfvars",
     "deploy:staging": "terraform workspace select staging && terraform apply -var-file vars/staging.tfvars",
     "deploy:production": "terraform workspace select production && terraform apply -var-file vars/production.tfvars"
   }
