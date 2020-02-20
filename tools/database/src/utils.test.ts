@@ -17,6 +17,8 @@ describe("updateMany queries", () => {
         email: faker.internet.email(firstName, lastName),
         username: faker.internet.userName(firstName, lastName),
         password_hash: PASSWORD_HASH,
+        created: new Date(),
+        updated: null, // TODO add to tests
       })
     }
 
@@ -73,6 +75,8 @@ describe("updateMany queries", () => {
         email: faker.internet.email(firstName, lastName),
         username: faker.internet.userName(firstName, lastName),
         password_hash: PASSWORD_HASH,
+        created: new Date(),
+        updated: null,
       })
     }
 

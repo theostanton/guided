@@ -21,6 +21,8 @@ export default class UserBuilder {
       email,
       username,
       password_hash: PASSWORD_HASH,
+      created: new Date(),
+      updated: null,
     })
   }
 

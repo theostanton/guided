@@ -194,8 +194,8 @@
         "signature": "4046592570718236ed274564f611f502ca4e9fce87e0e078e1f5905292a22b62"
       },
       "./src/types.ts": {
-        "version": "4452460d82a0926e110c3484b05c276a0f71b59910e59875acadf88e7609c7ee",
-        "signature": "ad2364d1baa7bf9ba4aa2c06062c29e17f3ad9a7b8e2435fb446f4eba30073e0"
+        "version": "e34ea512d05e416975ffaec739d0ec0a5a5085d1ac16c4df4a241af1df76dbc6",
+        "signature": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521"
       },
       "./src/utils.ts": {
         "version": "da2f1e2fffc4b566ae34779d226eea1a01d1df5c855a29bc5fab6ed6a0e93e16",
@@ -222,7 +222,7 @@
         "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
       },
       "./src/utils.test.ts": {
-        "version": "987a749b8bdc066a58b2dd2ae5e280798dd39d149d25a1b495086a34f2bee8e2",
+        "version": "9beb0fdd66ed2f5a93d3bd5ddcec6006eead54ea41675cdb9a44864c7f78885b",
         "signature": "5d477174ec3519c0a58ffed85a1b96fd0ea58091d4dbab4a6093b12828536bd1"
       },
       "./node_modules/@types/color-name/index.d.ts": {
@@ -479,7 +479,6 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
-      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -2078,7 +2077,11 @@
       "./node_modules/spex/typescript/spex.d.ts",
       "./node_modules/pg-promise/typescript/pg-promise.d.ts",
       "./node_modules/cuid/index.d.ts",
+      "./src/types.ts",
       "./src/utils.ts",
+      "./src/extensions.ts",
+      "./src/index.ts",
+      "./src/client.test.ts",
       "./src/generated.ts",
       "../../node_modules/@types/faker/index.d.ts",
       "./node_modules/@types/color-name/index.d.ts",
@@ -2137,10 +2140,6 @@
       "../../node_modules/@types/jest/node_modules/pretty-format/build/types.d.ts",
       "../../node_modules/@types/jest/node_modules/pretty-format/build/index.d.ts",
       "../../node_modules/@types/jest/index.d.ts",
-      "./src/types.ts",
-      "./src/index.ts",
-      "./src/extensions.ts",
-      "./src/client.test.ts",
       "./src/utils.test.ts"
     ]
   },

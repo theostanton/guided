@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "build": "yarn wsrun -m -r --fast-exit --stages -c build",
     "watch": "yarn build && yarn wsrun -m -c watch",
     "test:all": "JEST_JUNIT_OUTPUT_DIR=reports/junit/ jest --passWithNoTests --ci --reporters=default --reporters=jest-junit",
-    "develop:frontend": "STAGE=development yarn workspace @guided/website run develop",
-    "build": "yarn wsrun -m -r --fast-exit --stages -c build",
+    "develop:frontend": "yarn workspace @guided/website run develop",
     "develop:backend": "nodemon",
     "start": "yarn workspace @guided/graphql run start",
     "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless|tsconfig.tsbuildinfo|yarn.lock|reports|junit.xml)\" -exec rm -rf {} \\;",

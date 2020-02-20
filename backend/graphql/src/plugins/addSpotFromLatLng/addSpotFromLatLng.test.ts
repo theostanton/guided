@@ -10,23 +10,28 @@ import exp from "constants"
 
 const TIMEOUT = 30_000
 
-describe("When adding a spot to a guide with 0 spots", () => {
+describe("When adding a spot to a guide with 0 spots and a start date", () => {
 
   const owner: string = faker.internet.userName()
   const GUIDE_ID: string = generateId("guide")
   const GUIDE_TITLE: string = faker.random.words(3)
+  const SPOT_ID_1: string = generateId("spot_1")
+  const START_DATE = Date.UTC(2019, 8)
   let timestampBefore: number
   let packet: Packet
-  let spotId: string
 
   beforeAll(async () => {
 
     const contents = UserBuilder.create(faker.internet.email(), owner)
-      .addGuide(GUIDE_TITLE, GUIDE_ID)
+      .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
+        builder.withStartDate(new Date(START_DATE))
+      })
       .build()
     await spinup(contents)
     const guide = await database.selectGuide(GUIDE_ID)
     expect(guide.title).toBe(GUIDE_TITLE)
+    expect(guide.start_date).toBeDefined()
+    expect(guide.start_date!.getTime()).toBe(START_DATE)
     timestampBefore = new Date().getTime()
 
     const args: MutationAddSpotFromLatLngArgs = {
@@ -36,7 +41,7 @@ describe("When adding a spot to a guide with 0 spots", () => {
     }
     const result = await prepare(args, owner)
     packet = result.packet
-    spotId = result.spotId
+    expect(result.packet).toBe(SPOT_ID_1)
   }, TIMEOUT)
 
   it("Prepare 0 computations to be executed ", () => {
@@ -44,13 +49,13 @@ describe("When adding a spot to a guide with 0 spots", () => {
   })
 
   it("Have inserted a spot", async () => {
-    const spot = await database.one<Spot>("select * from spots where id=$1", [spotId])
+    const spot = await database.one<Spot>("select * from spots where id=$1", [SPOT_ID_1])
 
     expect(spot).toBeDefined()
     expect(spot.created).toBeDefined()
     expect(spot.created!.getTime()).toBeGreaterThan(timestampBefore)
     expect(spot.updated).toBeNull()
-    expect(spot.position).toBe("1")
+    expect(spot.position).toBe("0")
     expect(spot.date).toBeNull()
     expect(spot.locked).toBe(true)
     expect(spot.nights).toBe(1)
@@ -73,7 +78,6 @@ describe("When adding a spot to a guide with 0 spots", () => {
     expect(packet.alterations.alteredSpots.length).toBe(0)
   })
 })
-
 describe("When adding a spot to a guide with 1 spot", () => {
 
   const owner: string = faker.internet.userName()
@@ -106,6 +110,23 @@ describe("When adding a spot to a guide with 1 spot", () => {
     packet = result.packet
     spot2Id = result.spotId
   }, TIMEOUT)
+
+
+  it("Have inserted a spot", async () => {
+    const spot = await database.one<Spot>("select * from spots where id=$1", [spot2Id])
+    expect(spot).toBeDefined()
+    expect(spot.created).toBeDefined()
+    expect(spot.created!.getTime()).toBeGreaterThan(timestampBefore)
+    expect(spot.updated).toBeNull()
+    expect(spot.position).toBe("1")
+    expect(spot.date).toBeNull()
+    expect(spot.locked).toBe(true)
+    expect(spot.nights).toBe(1)
+    expect(spot.location).toBeDefined()
+    expect(spot.country).toBeDefined()
+    expect(spot.lat).toBe(LOCATIONS.Worthing.lat)
+    expect(spot.long).toBe(LOCATIONS.Worthing.long)
+  })
 
   it("Schedule 2 computations to be executed ", async () => {
     expect(packet.computationIds.length).toBe(2)

@@ -638,8 +638,8 @@
         "signature": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f"
       },
       "../../tools/database/srv/types.d.ts": {
-        "version": "ad2364d1baa7bf9ba4aa2c06062c29e17f3ad9a7b8e2435fb446f4eba30073e0",
-        "signature": "ad2364d1baa7bf9ba4aa2c06062c29e17f3ad9a7b8e2435fb446f4eba30073e0"
+        "version": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521",
+        "signature": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521"
       },
       "../../tools/database/srv/extensions.d.ts": {
         "version": "f1e729bea8a2827a0b1f52ee4fb55bc6eb95af1f75b5a08867335f35d5c76bc9",
@@ -686,7 +686,7 @@
         "signature": "ea2801d49d189ba87b152c3b43584249c23820022959697f4264f1fa00030519"
       },
       "./src/load_temperatures/index.ts": {
-        "version": "9c0603064b7979c693c3207c66a5eee6a9ce129fa9f25eb7b28779ec668b49c3",
+        "version": "5a2877170c414247e63aaa020b795f14c82a246382963c10d3c8a0852b99c6de",
         "signature": "ec907d581f1ce5d52d6ff9ac37d8ec70fda4af26d644529159d24f4363ea6977"
       },
       "./src/spinup/index.ts": {
@@ -698,7 +698,7 @@
         "signature": "faa46778d423327cde78a94e2c5a1febe021a94ebf2fc7a5e10867c8cfb23592"
       },
       "./src/builder/guidebuilder.ts": {
-        "version": "c0954a5d2e90f5262a02aa0f4318f995ef0dadb1d571142892040274ea2bbbc7",
+        "version": "806ad5aa2b4a5e9b013822cb1061f282fe4b6143337eb9093bdd447ed510ba4f",
         "signature": "034ccbcc3bcde1eb032c84cb763bbfcc53af09fb2a56d73259417f2b86b3367e"
       },
       "../../node_modules/@types/faker/index.d.ts": {
@@ -706,7 +706,7 @@
         "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
       },
       "./src/builder/userbuilder.ts": {
-        "version": "93e0fd89df622e4402fa4747b5cafda8c927318f734aa1c6d0868e2d88abe997",
+        "version": "9811aa4a243c5cfff62702224f1539f938184f0c3ff91ebfd2b108b7dff5e4f5",
         "signature": "0077ee77df73eae5ff3ebd3888dc5f03815c20fecfe23b7c11ccbb6736386be3"
       },
       "./src/builder/index.ts": {
@@ -823,7 +823,6 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
-      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -3950,8 +3949,8 @@
       "./src/load_temperatures/index.ts",
       "./src/spinup/index.ts",
       "./node_modules/slugify/slugify.d.ts",
+      "./src/builder/guidebuilder.ts",
       "../../node_modules/@types/faker/index.d.ts",
-      "./src/builder/userbuilder.ts",
       "./src/builder/index.ts",
       "./src/index.ts",
       "./node_modules/@types/command-line-args/index.d.ts",
@@ -3973,7 +3972,7 @@
       "../../node_modules/@types/jest/node_modules/pretty-format/build/types.d.ts",
       "../../node_modules/@types/jest/node_modules/pretty-format/build/index.d.ts",
       "../../node_modules/@types/jest/index.d.ts",
-      "./src/builder/guidebuilder.ts"
+      "./src/builder/userbuilder.ts"
     ]
   },
   "version": "3.7.5"

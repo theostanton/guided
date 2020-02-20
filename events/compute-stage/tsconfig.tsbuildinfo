@@ -190,8 +190,8 @@
         "signature": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f"
       },
       "../../tools/database/srv/types.d.ts": {
-        "version": "ad2364d1baa7bf9ba4aa2c06062c29e17f3ad9a7b8e2435fb446f4eba30073e0",
-        "signature": "ad2364d1baa7bf9ba4aa2c06062c29e17f3ad9a7b8e2435fb446f4eba30073e0"
+        "version": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521",
+        "signature": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521"
       },
       "../../tools/database/srv/extensions.d.ts": {
         "version": "f1e729bea8a2827a0b1f52ee4fb55bc6eb95af1f75b5a08867335f35d5c76bc9",
@@ -350,7 +350,7 @@
         "signature": "09cdc061168c0e147a1cd4f0dccb320fbe3b86c59ad90cbe85b84604d41545eb"
       },
       "./src/action/calculatestage/index.ts": {
-        "version": "ff0aabbf4d281935cb328b9bb33924bc3b7e7fc532655ecd08f50e90ffb3150b",
+        "version": "a5beb9e88b6e45b1e50348fb91ac142d4a2a4cce82260f09dec1b86c4e4109b2",
         "signature": "7f1b4b70647edf17e972de0d64b5a34650b5aa68d5b941358d6780bb56c5b473"
       },
       "./src/utils/index.ts": {
@@ -378,7 +378,7 @@
         "signature": "83efdfa686c2dee557a535a349fc80333d96f9c813acb6b0e6968c41cfae24ce"
       },
       "../../frontend/website/src/pages/guide.tsx": {
-        "version": "9cc4d7e4b0d1846adcc5faf61a154fa84e9c9c6c789807186559d5b2fa859b02"
+        "version": "2cff3b7ec6255f75dafe64bd85b4ee3c2ca162ea654ab19e31fe3f082af970b7"
       },
       "./src/action/index.ts": {
         "version": "775aa99231675a4fad7fd1659864d9c5501a793afac0db751d7796a9d159410f",
@@ -1070,7 +1070,6 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
-      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -4168,6 +4167,7 @@
         "./src/dao/index.ts"
       ],
       "./src/utils/index.ts": [
+        "../../tools/database/srv/index.d.ts",
         "./node_modules/@googlemaps/google-maps-services-js/dist/common.d.ts"
       ],
       "./src/action/getroute/index.ts": [
@@ -4218,6 +4218,9 @@
         "./src/prepare/index.ts",
         "./src/trigger/index.ts",
         "./src/types.ts"
+      ],
+      "./src/action/positionspots/index.ts": [
+        "../../tools/database/srv/index.d.ts"
       ],
       "../../backend/spinup/srv/spinup/index.d.ts": [
         "../../backend/spinup/srv/index.d.ts",
@@ -5866,20 +5869,9 @@
       "../../frontend/website/node_modules/csstype/index.d.ts",
       "../../frontend/website/node_modules/@types/prop-types/index.d.ts",
       "../../frontend/website/node_modules/@types/react/index.d.ts",
-      [
-        "../../frontend/website/src/pages/guide.tsx",
-        [
-          {
-            "file": "../../frontend/website/src/pages/guide.tsx",
-            "start": 58,
-            "length": 28,
-            "messageText": "Cannot find module 'components/app/Guide/index'.",
-            "category": 1,
-            "code": 2307
-          }
-        ]
-      ],
-      "./src/action/index.ts",
+      "./src/prepare/index.ts",
+      "./src/trigger/index.ts",
+      "./src/index.ts",
       "./src/invoke.ts",
       "./src/lambda.ts",
       "./src/action/computerides.test.ts",
@@ -5891,6 +5883,7 @@
       "../../backend/spinup/srv/index.d.ts",
       "./node_modules/@types/faker/index.d.ts",
       "./src/action/positionspots/positionspots.test.ts",
+      "./src/prepare/prepare.test.ts",
       "./src/trigger/trigger.test.ts",
       "./node_modules/@babel/types/lib/index.d.ts",
       "./node_modules/@types/babel__generator/index.d.ts",
@@ -6040,10 +6033,8 @@
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "./src/prepare/index.ts",
-      "./src/prepare/prepare.test.ts",
-      "./src/index.ts",
-      "./src/trigger/index.ts"
+      "../../frontend/website/src/pages/guide.tsx",
+      "./src/action/index.ts"
     ]
   },
   "version": "3.7.5"

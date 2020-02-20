@@ -1062,8 +1062,8 @@
         "signature": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f"
       },
       "../../tools/database/srv/types.d.ts": {
-        "version": "ad2364d1baa7bf9ba4aa2c06062c29e17f3ad9a7b8e2435fb446f4eba30073e0",
-        "signature": "ad2364d1baa7bf9ba4aa2c06062c29e17f3ad9a7b8e2435fb446f4eba30073e0"
+        "version": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521",
+        "signature": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521"
       },
       "../../tools/database/srv/extensions.d.ts": {
         "version": "f1e729bea8a2827a0b1f52ee4fb55bc6eb95af1f75b5a08867335f35d5c76bc9",
@@ -1290,11 +1290,11 @@
         "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
       },
       "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts": {
-        "version": "66417305da93dd0cb25f8d3bc086c3e3e369fd997d7233606974c0405793e045",
+        "version": "37141adcb244ed24eb7e0485328de1bf0daa2e81be3939866dc8f7455a3f92b7",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./src/plugins/removespot/removespot.test.ts": {
-        "version": "a4bbc7cb82ffeeaadf921eebb0bb6be45898828d98d12d3a9eeb4de1b832c462",
+        "version": "d3e4797c8e7df495159ede8dd5055534afb8bc047b8740f723796762c18c70d9",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./node_modules/@types/accepts/index.d.ts": {
@@ -4470,11 +4470,10 @@
         "../../tools/database/srv/index.d.ts",
         "../spinup/srv/index.d.ts",
         "./node_modules/@types/faker/index.d.ts",
-        "./src/plugins/removespot/index.ts",
         "./src/generated.ts",
         "../spinup/srv/builder/guidebuilder.d.ts",
         "../../tools/logger/srv/index.d.ts",
-        "./node_modules/@types/node/constants.d.ts",
+        "./src/plugins/addspotfromlatlng/index.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -9432,24 +9431,20 @@
       "../../apis/google/node_modules/@googlemaps/google-maps-services-js/dist/index.d.ts",
       "../../apis/google/srv/getinfo/index.d.ts",
       "../../apis/google/srv/index.d.ts",
+      "./src/generated.ts",
       "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
       "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts",
       "../../tools/database/node_modules/spex/typescript/spex.d.ts",
       "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
-      "../../tools/database/srv/types.d.ts",
-      "../../tools/database/srv/extensions.d.ts",
       "../../tools/database/srv/utils.d.ts",
-      "../../tools/database/srv/index.d.ts",
       "./src/plugins/types.ts",
       "../../events/compute-stage/srv/types.d.ts",
-      "../../events/compute-stage/srv/prepare/index.d.ts",
-      "../../events/compute-stage/srv/trigger/index.d.ts",
-      "../../events/compute-stage/srv/index.d.ts",
       "../../tools/utils/srv/executeconcurrently.d.ts",
       "../../tools/utils/srv/executewithcontext.d.ts",
       "../../tools/utils/srv/executesequentially.d.ts",
       "../../tools/utils/srv/constants.d.ts",
       "../../tools/utils/srv/index.d.ts",
+      "./src/options.ts",
       "./node_modules/@types/cors/index.d.ts",
       "./src/app.ts",
       "./src/buildcache.ts",
@@ -9482,11 +9477,6 @@
       "./node_modules/@types/aws-serverless-express/index.d.ts",
       "./src/lambda.ts",
       "./src/server.ts",
-      "../spinup/srv/spinup/index.d.ts",
-      "../spinup/srv/builder/guidebuilder.d.ts",
-      "../spinup/srv/builder/userbuilder.d.ts",
-      "../spinup/srv/builder/index.d.ts",
-      "../spinup/srv/index.d.ts",
       "./node_modules/@types/faker/index.d.ts",
       "./node_modules/@types/accepts/index.d.ts",
       "./node_modules/@babel/types/lib/index.d.ts",
@@ -9598,26 +9588,23 @@
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "./src/generated.ts",
-      [
-        "./src/plugins/removespot/removespot.test.ts",
-        [
-          {
-            "file": "./src/plugins/removespot/removespot.test.ts",
-            "start": 232,
-            "length": 7,
-            "messageText": "Module '\"../../../../../../../../../Users/theo/Code/guided/backend/graphql/src/plugins/removeSpot\"' has no exported member 'prepare'. Did you mean to use 'import prepare from \"../../../../../../../../../Users/theo/Code/guided/backend/graphql/src/plugins/removeSpot\"' instead?",
-            "category": 1,
-            "code": 2614
-          }
-        ]
-      ],
-      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
-      "./src/plugins/removespot/index.ts",
-      "./src/plugins/movespot/index.ts",
+      "../../tools/database/srv/types.d.ts",
+      "../../tools/database/srv/index.d.ts",
+      "../../tools/database/srv/extensions.d.ts",
+      "../../events/compute-stage/srv/prepare/index.d.ts",
+      "../../events/compute-stage/srv/trigger/index.d.ts",
+      "../../events/compute-stage/srv/index.d.ts",
       "./src/plugins/addspotfromlatlng/index.ts",
+      "./src/plugins/movespot/index.ts",
+      "./src/plugins/removespot/index.ts",
       "./src/plugins/index.ts",
-      "./src/options.ts"
+      "../spinup/srv/spinup/index.d.ts",
+      "../spinup/srv/builder/guidebuilder.d.ts",
+      "../spinup/srv/builder/userbuilder.d.ts",
+      "../spinup/srv/builder/index.d.ts",
+      "../spinup/srv/index.d.ts",
+      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
+      "./src/plugins/removespot/removespot.test.ts"
     ]
   },
   "version": "3.7.5"

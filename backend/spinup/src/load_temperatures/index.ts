@@ -40,6 +40,8 @@ export default async function(): Promise<void> {
         country,
         month,
         temperature: parseFloat(temperature),
+        created: new Date(),
+        updated: null,
       })
     })
   })

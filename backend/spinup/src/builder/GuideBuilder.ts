@@ -76,7 +76,7 @@ export default class GuideBuilder {
       location: null,
       owner: this.username,
       position: this.position.toString(),
-      stage: null
+      stage: null,
     }
     this.position++
     this.spots.push(spot)
@@ -99,7 +99,7 @@ export default class GuideBuilder {
       location: null,
       owner: this.username,
       position: this.position.toString(),
-      stage: null
+      stage: null,
     }
     this.position++
     this.spots.push(spot)
@@ -115,6 +115,8 @@ export default class GuideBuilder {
         slug: this.slug,
         start_date: this.start_date,
         title: this.title,
+        created: new Date(),
+        updated: null,
       },
       spots: this.spots,
     }

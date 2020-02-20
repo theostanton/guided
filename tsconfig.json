@@ -96,32 +96,4 @@
     "forceConsistentCasingInFileNames": true
     /* Disallow inconsistently-cased references to the same file. */
   }
-  //  "references": [
-  //    //TODO this doesn't do what i want it to do
-  //    // {
-  //    //   "path": "backend/graphql"
-  //    // }
-  //    //  ,
-  //    //    {
-  //    //      "path": "backend/spinup"
-  //    //    },
-  //    //    {
-  //    //      "path": "apis/google"
-  //    //    },
-  //    //    {
-  //    //      "path": "apis/mapbox"
-  //    //    },
-  //    //    {
-  //    //      "path": "tools/database"
-  //    //    },
-  //    //    {
-  //    //      "path": "tools/geojson"
-  //    //    },
-  //    //    {
-  //    //      "path": "tools/logger"
-  //    //    },
-  //    //    {
-  //    //      "path": "tools/utils"
-  //    //    }
-  //  ]
 }

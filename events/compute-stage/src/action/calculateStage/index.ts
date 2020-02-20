@@ -52,6 +52,8 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
       stage: stage.stageId,
       status: "ready",
       position: "!", //TODO
+      created: new Date(),
+      updated: null,
     }
     context.result.newRides.push(newRide)
   }
@@ -136,6 +138,8 @@ export default async function computeStage(startDate: Date | null, stageId: stri
       stage: stageId,
       position: "!",
       status: "ready",
+      created: new Date(),
+      updated: null,
     }
 
     //TODO upload fake ride

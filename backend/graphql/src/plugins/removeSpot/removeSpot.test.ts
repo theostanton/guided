@@ -2,15 +2,14 @@ import { Packet, trigger } from "@guided/compute-stage"
 import { Computation, database, generateId, Ride, Spot, Stage } from "@guided/database"
 import { spinup, UserBuilder } from "@guided/spinup"
 import faker from "faker"
-import { prepare } from "./index"
 import { MutationAddSpotFromLatLngArgs } from "../../generated"
 import { LOCATIONS } from "@guided/spinup/srv/builder/GuideBuilder"
 import { log } from "@guided/logger"
-import exp from "constants"
+import { prepare } from "../addSpotFromLatLng"
 
 const TIMEOUT = 30_000
 
-describe("When adding a spot to a guide with 0 spots", () => {
+describe("When adding a spot to a guide with 0 spots and no start date", () => {
 
   const owner: string = faker.internet.userName()
   const GUIDE_ID: string = generateId("guide")
@@ -27,6 +26,57 @@ describe("When adding a spot to a guide with 0 spots", () => {
     await spinup(contents)
     const guide = await database.selectGuide(GUIDE_ID)
     expect(guide.title).toBe(GUIDE_TITLE)
+    timestampBefore = new Date().getTime()
+
+    const args: MutationAddSpotFromLatLngArgs = {
+      guideId: GUIDE_ID,
+      long: LOCATIONS.Worthing.long,
+      lat: LOCATIONS.Worthing.lat,
+    }
+    const result = await prepare(args, owner)
+    packet = result.packet
+    expect(result.packet).toBe(SPOT_ID_1)
+  }, TIMEOUT)
+
+  it("Prepare 0 computations to be executed ", () => {
+    expect(packet.computationIds.length).toBe(0)
+  })
+
+  it("Alter zero rides", () => {
+    expect(packet.alterations.alteredRides.length).toBe(0)
+  })
+
+  it("Alter zero stages", () => {
+    expect(packet.alterations.alteredStages.length).toBe(0)
+  })
+
+  it("Alter zero spots", async () => {
+    expect(packet.alterations.alteredSpots.length).toBe(0)
+  })
+})
+
+describe("When adding a spot to a guide with 0 spots and a start date", () => {
+
+  const owner: string = faker.internet.userName()
+  const GUIDE_ID: string = generateId("guide")
+  const GUIDE_TITLE: string = faker.random.words(3)
+  const SPOT_ID_1: string = generateId("spot_1")
+  const START_DATE = Date.UTC(2019, 8)
+  let timestampBefore: number
+  let packet: Packet
+
+  beforeAll(async () => {
+
+    const contents = UserBuilder.create(faker.internet.email(), owner)
+      .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
+        builder.withStartDate(new Date(START_DATE))
+      })
+      .build()
+    await spinup(contents)
+    const guide = await database.selectGuide(GUIDE_ID)
+    expect(guide.title).toBe(GUIDE_TITLE)
+    expect(guide.start_date).toBeDefined()
+    expect(guide.start_date!.getTime()).toBe(START_DATE)
     timestampBefore = new Date().getTime()
 
     const args: MutationAddSpotFromLatLngArgs = {
