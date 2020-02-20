@@ -11,7 +11,7 @@ import { logJson } from "@guided/logger"
 type Props = {
   guideStore?: GuideStore
   authStore?: AuthStore
-  slug?: string
+  slug: string
 }
 
 @inject("authStore", "guideStore")
@@ -19,7 +19,7 @@ export default class GuideComponent extends React.Component<Props> {
 
   componentDidMount(): void {
     this.props.guideStore!.subscribe(
-      this.props.slug!,
+      this.props.slug,
       this.props.authStore!.owner,
     )
   }

@@ -1,60 +1,108 @@
 import { PostGraphileOptions } from "postgraphile"
-import plugins from "./plugins"
-import { log } from "@guided/logger"
+import { Plugin } from "graphile-build"
+import customPlugins from './plugins'
 
-const appendPlugins = [
-  ...plugins,
-  require("@graphile-contrib/pg-simplify-inflector"),
-]
+export type Mode = "watch" | "buildCache" | "invoke"
 
-export let connection: string
-if (process.env.DATABASE_URL) {
-  connection = process.env.DATABASE_URL
-} else {
-  connection = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+function plugins(): Plugin[] {
+  return [
+    ...customPlugins,
+    require("@graphile-contrib/pg-simplify-inflector"),
+  ]
 }
 
-let ownerConnectionString
+export function connection(): string {
+  return `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+}
 
-// console.log("connection=" + connection)
 
-log(process.env.POSTGRAPHILE_WATCH!, "POSTGRAPHILE_WATCH")
-let watchPg, readCache, writeCache = undefined
-if (process.env.POSTGRAPHILE_WATCH === "true") {
-  if (process.env.OWNER_USER) {
-    ownerConnectionString = `postgres://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+export function watch(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaPath" | "writeCache" | "ownerConnectionString" | "disableQueryLog" | "sortExport" | "graphiql" | "allowExplain"> {
+
+  if (!process.env.OWNER_USER) {
+    throw new Error("Need OWNER variables to watch")
   }
-  watchPg = true
-  writeCache = "cache"
-} else {
-  // readCache = "cache"
-  watchPg = false
-}
-console.log("ownerConnectionString=" + ownerConnectionString)
 
-export const options: PostGraphileOptions = {
-  ownerConnectionString,
-  jwtSecret: process.env.JWT_SECRET!,
-  jwtPgTypeIdentifier: "guided.jwt_token",
-  jwtVerifyOptions: {
-    audience: undefined,
-  },
-  disableQueryLog: false,
-  exportGqlSchemaPath: "../../schema.graphql",
-  sortExport: true,
-  pgDefaultRole: "guided_anonymous",
-  watchPg,
-  readCache,
-  writeCache,
-  enableCors: true,
-  dynamicJson: true,
-  showErrorStack: "json",
-  // noIgnoreIndexes: true,
-  // extendedErrors: "hint,detail,errcode",
-  enhanceGraphiql: true,
-  graphiql: true,
-  allowExplain: true,
-  enableQueryBatching: true,
-  legacyRelations: "omit",
-  appendPlugins,
+  return {
+    watchPg: true,
+    exportGqlSchemaPath: "../../schema.graphql",
+    graphiql: true,
+    allowExplain: true,
+    ownerConnectionString: `postgres://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`,
+  }
+
+}
+
+export function createCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaPath" | "writeCache" | "ownerConnectionString" | "disableQueryLog" | "sortExport" | "graphiql" | "allowExplain"> {
+
+  if (!process.env.OWNER_USER) {
+    throw new Error("Need OWNER variables to create cache")
+  }
+
+  return {
+    watchPg: false,
+    exportGqlSchemaPath: "../../schema.graphql",
+    writeCache: "dist/cache",
+    sortExport: true,
+    graphiql: false,
+    allowExplain: false,
+    ownerConnectionString: `postgres://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`,
+  }
+
+}
+
+export function jwt(): Pick<PostGraphileOptions, "jwtSecret" | "jwtPgTypeIdentifier" | "jwtVerifyOptions"> {
+  return {
+    jwtSecret: process.env.JWT_SECRET!,
+    jwtPgTypeIdentifier: "guided.jwt_token",
+    jwtVerifyOptions: {
+      audience: undefined,
+    },
+  }
+}
+
+export function fromCache(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "enableQueryBatching"> {
+
+  if (process.env.POSTGRAPHILE_WATCH === "true") {
+    throw new Error()
+  }
+
+  return {
+    watchPg: false,
+    readCache: "cache",
+    enableQueryBatching: false,
+  }
+
+}
+
+export function options(mode: Mode): PostGraphileOptions {
+
+  if (!process.env.POSTGRES_USER) {
+    throw new Error("Variables not loaded")
+  }
+
+  let cacheOptions: {}
+  switch (mode) {
+    case "buildCache":
+      cacheOptions = createCache()
+      break
+    case "invoke":
+      cacheOptions = fromCache()
+      break
+    case "watch":
+      cacheOptions = watch()
+      break
+
+  }
+
+  return {
+    ...cacheOptions,
+    ...jwt(),
+    disableQueryLog: false,
+    pgDefaultRole: "guided_anonymous",
+    enableCors: true,
+    dynamicJson: true,
+    showErrorStack: "json",
+    appendPlugins: plugins(),
+  }
+
 }

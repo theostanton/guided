@@ -1,2 +1,0 @@
-serverless invoke local --function graphql --path serverless.data.json
-#-data '{"query":"{\nguides{\n  nodes{\n    id\n  }\n}\n}","variables":{"guide":{"id":"guide_1235","title":"Some guide","slug":"some-guide","owner":"user1"}}}'

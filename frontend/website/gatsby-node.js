@@ -10,7 +10,7 @@ exports.onCreatePage = async ({ page, actions }) => {
       createPage(page)
       break
     case "/guide/":
-      page.matchPath = "/:slug"
+      page.matchPath = "/guide/:slug"
       createPage(page)
       break
     case "/content/":
