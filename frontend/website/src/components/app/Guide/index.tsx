@@ -6,7 +6,7 @@ import Map from "components/Map"
 import AppMenu from "components/app/Menu"
 import LeftRail from "./LeftRail"
 import RightRail from "./RightRail"
-import { logJson } from "@guided/logger"
+import { logJson } from "utils/logger"
 
 type Props = {
   guideStore?: GuideStore
@@ -29,8 +29,6 @@ export default class GuideComponent extends React.Component<Props> {
   }
 
   render(): React.ReactElement | undefined {
-    logJson(this.props,'this.props')
-    logJson(this.state,'this.state')
     return (
       <div>
         <div style={{

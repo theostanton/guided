@@ -1,7 +1,7 @@
 import { SpotByGuideFragment } from "api/generated"
 import * as React from "react"
 import { Grid, GridColumn, Header, List, Segment } from "semantic-ui-react"
-import { log, logJson } from "@guided/logger"
+import { log, logJson } from "utils/logger"
 import { inject, observer } from "mobx-react"
 import GuideStore from "../../../../model/GuideStore"
 

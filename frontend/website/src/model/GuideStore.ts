@@ -5,7 +5,7 @@ import {
   GetGuideBySlugQueryVariables, Guide, GuideBySlugFragment, RideByGuideFragment, SpotByGuideFragment,
 } from "api/generated"
 import { client } from "api"
-import { log } from "@guided/logger"
+import { log } from "utils/logger"
 
 export default class GuideStore {
 

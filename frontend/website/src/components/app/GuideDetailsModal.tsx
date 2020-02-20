@@ -57,6 +57,8 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
           lower: true,
           remove: /[*+~.()'"!:@]/g,
         }),
+        created: new Date().toISOString(),
+        updated: null,
       },
     }
 

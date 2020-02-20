@@ -36,6 +36,9 @@
       <excludeFolder url="file://$MODULE_DIR$/tools/envs/srv" />
       <excludeFolder url="file://$MODULE_DIR$/tools/logger/srv" />
       <excludeFolder url="file://$MODULE_DIR$/tools/utils/srv" />
+      <excludePattern pattern="srv" />
+      <excludePattern pattern="dist" />
+      <excludePattern pattern="public" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

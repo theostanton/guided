@@ -2,7 +2,7 @@ import React from "react"
 import { Provider } from "mobx-react"
 import { authStore } from "./AuthStore"
 import { guideStore } from "./GuideStore"
-import { log } from "@guided/logger"
+import { log } from "utils/logger"
 
 export default function({ element }) {
   log(`provider() authStore=${authStore}`)

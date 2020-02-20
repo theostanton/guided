@@ -67,7 +67,7 @@ resource "aws_lambda_permission" "api" {
 data "archive_file" "graphql" {
   type = "zip"
   output_path = "dist/${var.stage}-${var.app_version}-graphql.zip"
-  source_dir = "../backend/graphql/dist"
+  source_dir = "../back/backend/graphql/dist"
 }
 
 resource "aws_route53_record" "graphql" {

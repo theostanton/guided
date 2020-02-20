@@ -6,7 +6,7 @@ import {
 import * as React from "react"
 import { Button, Flag, FlagNameValues, Form, Grid, GridColumn, Header, Icon, Input, Segment } from "semantic-ui-react"
 import { client } from "api"
-import { log, logJson } from "@guided/logger"
+import { log, logJson } from "utils/logger"
 
 type Props = {
   spot: SpotByGuideFragment

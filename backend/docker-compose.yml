@@ -1,0 +1,37 @@
+version: "3.5"
+
+services:
+
+  database:
+    image: postgres:11
+    environment:
+      - POSTGRES_USER=superuser
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=main
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+#  goaws:
+#    image: pafortin/goaws
+#    ports:
+#      - "4100:4100"
+
+#  graphql:
+#    image: graphile/postgraphile
+#    env_file:
+#      - ./graphql/.env.local
+#    volumes:
+#      - ./plugins/:/postgraphile/plugins/
+#      - ./graphql/.postgraphilerc.js:/postgraphile/.postgraphilerc.js
+#    environment:
+#      - POSTGRAPHILE_HOST=0.0.0.0
+#      - WORK_DIR=/postgraphile
+#    depends_on:
+#      - database
+#    ports:
+#      - "5000:5000"
+
+volumes:
+  database:

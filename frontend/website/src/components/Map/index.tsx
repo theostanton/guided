@@ -8,7 +8,7 @@ import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import { Rides } from "./Rides"
 import WebMercatorViewport from "viewport-mercator-project"
-import { logJson } from "@guided/logger"
+import { logJson } from "utils/logger"
 
 type ViewPort = {
   width: number,

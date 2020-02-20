@@ -8,7 +8,7 @@ export const USER_KEY = "guidedUser"
 
 // @ts-ignore
 const link = new HttpLink({
-  uri: "https://n5r6z11xp4.execute-api.eu-west-2.amazonaws.com/staging/graphql",
+  uri: "http://0.0.0.0:5000/graphql",
   fetch: fetch,
 })
 

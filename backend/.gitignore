@@ -1,0 +1,9 @@
+elements/data
+reports/
+
+.env
+build
+srv/
+dist
+node_modules
+elements/data/
