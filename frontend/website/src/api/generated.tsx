@@ -3610,7 +3610,7 @@ export type RideByGuideFragment = (
 
 export type GuideBySlugFragment = (
   Pick<Guide, 'id' | 'title' | 'slug' | 'owner' | 'startDate'>
-  & { readonly bounds: Maybe<Pick<Bound, 'north' | 'east' | 'south' | 'west'>>, readonly ridesByGuide: (
+  & { readonly bounds: Maybe<Pick<Bound, 'north' | 'east' | 'south' | 'west'>>, readonly stagesByGuide: Pick<StagesConnection, 'totalCount'>, readonly ridesByGuide: (
     Pick<RidesConnection, 'totalCount'>
     & { readonly nodes: ReadonlyArray<Maybe<RideByGuideFragment>> }
   ), readonly spotsByGuide: (
@@ -3702,6 +3702,9 @@ export const GuideBySlugFragmentDoc = gql`
     east
     south
     west
+  }
+  stagesByGuide(condition: {status: COMPUTING}) {
+    totalCount
   }
   ridesByGuide(orderBy: [DATE_ASC]) {
     totalCount

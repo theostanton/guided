@@ -6,15 +6,15 @@
     "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
   },
   "watch": [
-    "backend/graphql/srv",
+    "elements/graphql/srv",
+    "elements/compute-stage/srv",
     "apis/google/srv",
     "apis/mapbox/srv",
-    "backend/spinup/srv",
-    "backend/codegen/srv",
     "events/compute-stage/srv",
     "events/index/srv",
     "tools/database/srv",
     "tools/geojson/srv",
+    "tools/spinup/srv",
     "tools/logger/srv",
     "tools/utils/srv"
   ],

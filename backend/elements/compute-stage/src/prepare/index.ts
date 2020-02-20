@@ -18,6 +18,7 @@ import {
   Stage,
   StageStatus,
 } from "@guided/database"
+import { logJson } from "@guided/logger"
 
 export type Packet = {
   guideId: string
@@ -134,15 +135,17 @@ export default async function(guideId: string): Promise<Packet> {
     }
   })
 
-  await database.none(`delete
+  let deleteRidesQuery = `delete
                        from rides
-                       where id in ('$1')`, [rideIdsToDelete.join("','")])
+                       where id in ('${rideIdsToDelete.join("\',\'")}')`
+  logJson(deleteRidesQuery, "deleteRidesQuery")
+  await database.none(deleteRidesQuery)
   await database.none(`delete
                        from spots
-                       where id in ('$1')`, [spotIdsToDelete.join("','")])
+                       where id in ('${spotIdsToDelete.join("\',\'")}')`)
   await database.none(`delete
                        from spots
-                       where id in ('$1')`, [spotIdsToDelete.join("','")])
+                       where id in ('${spotIdsToDelete.join("\',\'")}')`)
 
 
   if (stagesToCreate.length > 0) {

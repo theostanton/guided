@@ -60,6 +60,11 @@ fragment GuideBySlug on Guide {
         south
         west
     }
+    stagesByGuide(condition: {
+        status: COMPUTING
+    }){
+        totalCount
+    }
     ridesByGuide(orderBy: [DATE_ASC]){
         totalCount
         nodes{

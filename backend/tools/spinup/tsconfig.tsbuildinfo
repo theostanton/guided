@@ -169,11 +169,11 @@
         "version": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "signature": "6e39cba05daaa16010b86597648bc59731ad8f0f2fe1356f9e1aa021fdfe3ee1"
       },
-      "../../tools/logger/srv/locallogger.d.ts": {
+      "../logger/srv/locallogger.d.ts": {
         "version": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d",
         "signature": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d"
       },
-      "../../tools/logger/srv/index.d.ts": {
+      "../logger/srv/index.d.ts": {
         "version": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4",
         "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
       },
@@ -621,35 +621,35 @@
         "version": "8940b429e5fe2341862f7a8c4a74b3cbc593d2b5938fa8bd2f1ec077413079fb",
         "signature": "8940b429e5fe2341862f7a8c4a74b3cbc593d2b5938fa8bd2f1ec077413079fb"
       },
-      "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts": {
+      "../database/node_modules/pg-promise/typescript/pg-subset.d.ts": {
         "version": "c2d551451c7ddb48f776fd038ec5af7922ec0040cd82a69dad1550a697afe9f6",
         "signature": "c2d551451c7ddb48f776fd038ec5af7922ec0040cd82a69dad1550a697afe9f6"
       },
-      "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts": {
+      "../database/node_modules/pg-minify/typescript/pg-minify.d.ts": {
         "version": "385c6a1ea7a9114811a41778bd7ec8238c5089c0b2f742479a98cd43ac5d4846",
         "signature": "385c6a1ea7a9114811a41778bd7ec8238c5089c0b2f742479a98cd43ac5d4846"
       },
-      "../../tools/database/node_modules/spex/typescript/spex.d.ts": {
+      "../database/node_modules/spex/typescript/spex.d.ts": {
         "version": "81227e8224efd998d95c2eb370fc3dcf9233e2c1c01d798b720b9fbbd440457e",
         "signature": "81227e8224efd998d95c2eb370fc3dcf9233e2c1c01d798b720b9fbbd440457e"
       },
-      "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts": {
+      "../database/node_modules/pg-promise/typescript/pg-promise.d.ts": {
         "version": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f",
         "signature": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f"
       },
-      "../../tools/database/srv/types.d.ts": {
+      "../database/srv/types.d.ts": {
         "version": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521",
         "signature": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521"
       },
-      "../../tools/database/srv/extensions.d.ts": {
+      "../database/srv/extensions.d.ts": {
         "version": "f1e729bea8a2827a0b1f52ee4fb55bc6eb95af1f75b5a08867335f35d5c76bc9",
         "signature": "f1e729bea8a2827a0b1f52ee4fb55bc6eb95af1f75b5a08867335f35d5c76bc9"
       },
-      "../../tools/database/srv/utils.d.ts": {
+      "../database/srv/utils.d.ts": {
         "version": "2401fd60c9528667fa82ff7aa75d47e45af2f8464f64e3865291c7e6e7bed44f",
         "signature": "2401fd60c9528667fa82ff7aa75d47e45af2f8464f64e3865291c7e6e7bed44f"
       },
-      "../../tools/database/srv/index.d.ts": {
+      "../database/srv/index.d.ts": {
         "version": "aaa78a56e334ca923ffbc10dc0f92583038df7749ec09ce5f19cce8c82192779",
         "signature": "aaa78a56e334ca923ffbc10dc0f92583038df7749ec09ce5f19cce8c82192779"
       },
@@ -1078,15 +1078,15 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/logger/srv/locallogger.d.ts": [
-        "../../tools/logger/srv/index.d.ts",
+      "../logger/srv/locallogger.d.ts": [
+        "../logger/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/logger/srv/index.d.ts": [
-        "../../tools/logger/srv/locallogger.d.ts",
+      "../logger/srv/index.d.ts": [
+        "../logger/srv/locallogger.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2041,7 +2041,7 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts": [
+      "../database/node_modules/pg-promise/typescript/pg-subset.d.ts": [
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/tls.d.ts",
         "./node_modules/@types/node/fs.d.ts",
@@ -2049,53 +2049,53 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts": [
+      "../database/node_modules/pg-minify/typescript/pg-minify.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/node_modules/spex/typescript/spex.d.ts": [
+      "../database/node_modules/spex/typescript/spex.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts": [
-        "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
-        "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts",
-        "../../tools/database/node_modules/spex/typescript/spex.d.ts",
+      "../database/node_modules/pg-promise/typescript/pg-promise.d.ts": [
+        "../database/node_modules/pg-promise/typescript/pg-subset.d.ts",
+        "../database/node_modules/pg-minify/typescript/pg-minify.d.ts",
+        "../database/node_modules/spex/typescript/spex.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/srv/types.d.ts": [
+      "../database/srv/types.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/srv/extensions.d.ts": [
-        "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
-        "../../tools/database/srv/types.d.ts",
+      "../database/srv/extensions.d.ts": [
+        "../database/node_modules/pg-promise/typescript/pg-promise.d.ts",
+        "../database/srv/types.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/srv/utils.d.ts": [
+      "../database/srv/utils.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/srv/index.d.ts": [
-        "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
-        "../../tools/database/srv/extensions.d.ts",
-        "../../tools/database/srv/types.d.ts",
-        "../../tools/database/srv/utils.d.ts",
-        "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
+      "../database/srv/index.d.ts": [
+        "../database/node_modules/pg-promise/typescript/pg-promise.d.ts",
+        "../database/srv/extensions.d.ts",
+        "../database/srv/types.d.ts",
+        "../database/srv/utils.d.ts",
+        "../database/node_modules/pg-promise/typescript/pg-subset.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2104,7 +2104,7 @@
       "./src/sequence.ts": [
         "./node_modules/@types/listr/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
-        "../../tools/database/srv/index.d.ts",
+        "../database/srv/index.d.ts",
         "./node_modules/@types/node/path.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2112,7 +2112,7 @@
       ],
       "./src/create/index.ts": [
         "./src/sequence.ts",
-        "../../tools/logger/srv/index.d.ts",
+        "../logger/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2127,7 +2127,7 @@
       ],
       "./src/privelages/index.ts": [
         "./src/sequence.ts",
-        "../../tools/logger/srv/index.d.ts",
+        "../logger/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2135,7 +2135,7 @@
       ],
       "./src/populate/index.ts": [
         "./src/sequence.ts",
-        "../../tools/logger/srv/index.d.ts",
+        "../logger/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2143,7 +2143,7 @@
       ],
       "./src/drop/index.ts": [
         "./src/sequence.ts",
-        "../../tools/logger/srv/index.d.ts",
+        "../logger/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2167,17 +2167,17 @@
       "./src/load_temperatures/index.ts": [
         "./node_modules/csv-parse/lib/sync.d.ts",
         "./node_modules/@types/node/fs.d.ts",
-        "../../tools/logger/srv/index.d.ts",
-        "../../tools/database/srv/types.d.ts",
-        "../../tools/database/srv/index.d.ts",
+        "../logger/srv/index.d.ts",
+        "../database/srv/types.d.ts",
+        "../database/srv/index.d.ts",
         "./src/index.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/spinup/index.ts": [
-        "../../tools/database/srv/index.d.ts",
-        "../../tools/logger/srv/index.d.ts",
+        "../database/srv/index.d.ts",
+        "../logger/srv/index.d.ts",
         "./src/index.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -2192,7 +2192,7 @@
       ],
       "./src/builder/guidebuilder.ts": [
         "./node_modules/slugify/slugify.d.ts",
-        "../../tools/database/srv/index.d.ts",
+        "../database/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2205,7 +2205,7 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/builder/userbuilder.ts": [
-        "../../tools/database/srv/index.d.ts",
+        "../database/srv/index.d.ts",
         "./src/builder/guidebuilder.ts",
         "./src/builder/index.ts",
         "../../node_modules/@types/faker/index.d.ts",
@@ -2215,7 +2215,7 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/builder/index.ts": [
-        "../../tools/database/srv/index.d.ts",
+        "../database/srv/index.d.ts",
         "./src/builder/userbuilder.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -2223,7 +2223,7 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/index.ts": [
-        "../../tools/logger/srv/index.d.ts",
+        "../logger/srv/index.d.ts",
         "./src/create/index.ts",
         "./src/truncate/index.ts",
         "./src/privelages/index.ts",
@@ -2253,7 +2253,7 @@
       ],
       "./src/tests.ts": [
         "./src/index.ts",
-        "../../tools/database/srv/index.d.ts",
+        "../database/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2267,7 +2267,7 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/drop/drop.test.ts": [
-        "../../tools/database/srv/index.d.ts",
+        "../database/srv/index.d.ts",
         "./src/sequence.ts",
         "./src/tests.ts",
         "./node_modules/@types/node/fs.d.ts",
@@ -2283,7 +2283,7 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/privelages/privelages.test.ts": [
-        "../../tools/database/srv/index.d.ts",
+        "../database/srv/index.d.ts",
         "./src/sequence.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -2291,7 +2291,7 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/spinup/spinup.test.ts": [
-        "../../tools/database/srv/index.d.ts",
+        "../database/srv/index.d.ts",
         "./src/index.ts",
         "./src/builder/userbuilder.ts",
         "../../node_modules/@types/faker/index.d.ts",
@@ -2302,7 +2302,7 @@
       ],
       "./src/truncate/truncate.test.ts": [
         "./src/index.ts",
-        "../../tools/database/srv/index.d.ts",
+        "../database/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2627,15 +2627,15 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/logger/srv/locallogger.d.ts": [
-        "../../tools/logger/srv/index.d.ts",
+      "../logger/srv/locallogger.d.ts": [
+        "../logger/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/logger/srv/index.d.ts": [
-        "../../tools/logger/srv/locallogger.d.ts",
+      "../logger/srv/index.d.ts": [
+        "../logger/srv/locallogger.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2805,7 +2805,7 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts": [
+      "../database/node_modules/pg-promise/typescript/pg-subset.d.ts": [
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/tls.d.ts",
         "./node_modules/@types/node/fs.d.ts",
@@ -2813,12 +2813,12 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/srv/index.d.ts": [
-        "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
-        "../../tools/database/srv/extensions.d.ts",
-        "../../tools/database/srv/types.d.ts",
-        "../../tools/database/srv/utils.d.ts",
-        "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
+      "../database/srv/index.d.ts": [
+        "../database/node_modules/pg-promise/typescript/pg-promise.d.ts",
+        "../database/srv/extensions.d.ts",
+        "../database/srv/types.d.ts",
+        "../database/srv/utils.d.ts",
+        "../database/node_modules/pg-promise/typescript/pg-subset.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2826,28 +2826,28 @@
       ],
       "./src/builder/index.ts": [
         "./src/builder/userbuilder.ts",
-        "../../tools/database/srv/index.d.ts"
+        "../database/srv/index.d.ts"
       ],
       "./src/builder/userbuilder.ts": [
-        "../../tools/database/srv/index.d.ts",
+        "../database/srv/index.d.ts",
         "./src/builder/guidebuilder.ts",
         "./src/builder/index.ts"
       ],
       "./src/builder/guidebuilder.ts": [
-        "../../tools/database/srv/index.d.ts"
+        "../database/srv/index.d.ts"
       ],
-      "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts": [
-        "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
-        "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts",
-        "../../tools/database/node_modules/spex/typescript/spex.d.ts",
+      "../database/node_modules/pg-promise/typescript/pg-promise.d.ts": [
+        "../database/node_modules/pg-promise/typescript/pg-subset.d.ts",
+        "../database/node_modules/pg-minify/typescript/pg-minify.d.ts",
+        "../database/node_modules/spex/typescript/spex.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/srv/extensions.d.ts": [
-        "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
-        "../../tools/database/srv/types.d.ts",
+      "../database/srv/extensions.d.ts": [
+        "../database/node_modules/pg-promise/typescript/pg-promise.d.ts",
+        "../database/srv/types.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3079,25 +3079,25 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/srv/utils.d.ts": [
+      "../database/srv/utils.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/srv/types.d.ts": [
+      "../database/srv/types.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/node_modules/spex/typescript/spex.d.ts": [
+      "../database/node_modules/spex/typescript/spex.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts": [
+      "../database/node_modules/pg-minify/typescript/pg-minify.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3776,8 +3776,8 @@
     },
     "semanticDiagnosticsPerFile": [
       "./src/contents.ts",
-      "../../tools/logger/srv/locallogger.d.ts",
-      "../../tools/logger/srv/index.d.ts",
+      "../logger/srv/locallogger.d.ts",
+      "../logger/srv/index.d.ts",
       "./node_modules/@types/node/globals.d.ts",
       "./node_modules/@types/node/assert.d.ts",
       "./node_modules/@types/node/async_hooks.d.ts",
@@ -3889,14 +3889,14 @@
       "./node_modules/rxjs/internal/config.d.ts",
       "./node_modules/rxjs/index.d.ts",
       "./node_modules/@types/listr/index.d.ts",
-      "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
-      "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts",
-      "../../tools/database/node_modules/spex/typescript/spex.d.ts",
-      "../../tools/database/node_modules/pg-promise/typescript/pg-promise.d.ts",
-      "../../tools/database/srv/types.d.ts",
-      "../../tools/database/srv/extensions.d.ts",
-      "../../tools/database/srv/utils.d.ts",
-      "../../tools/database/srv/index.d.ts",
+      "../database/node_modules/pg-promise/typescript/pg-subset.d.ts",
+      "../database/node_modules/pg-minify/typescript/pg-minify.d.ts",
+      "../database/node_modules/spex/typescript/spex.d.ts",
+      "../database/node_modules/pg-promise/typescript/pg-promise.d.ts",
+      "../database/srv/types.d.ts",
+      "../database/srv/extensions.d.ts",
+      "../database/srv/utils.d.ts",
+      "../database/srv/index.d.ts",
       "./src/sequence.ts",
       "./src/create/index.ts",
       "./src/truncate/index.ts",

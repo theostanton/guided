@@ -55,7 +55,13 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
   logJson(args, "addSpotFromLatLng args")
 
   const { spotId, packet } = await prepare(args, context.jwtClaims.username!)
-  await computeStage.trigger(packet)
+  computeStage.trigger(packet)
+    .then(result => {
+      logJson(result, "result")
+    })
+    .catch(error => {
+      logJson(error, "error")
+    })
 
   return { id: spotId }
 }

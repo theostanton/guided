@@ -1098,7 +1098,7 @@
         "signature": "d57e7755ae8090210be77153776c9b5538a965deb45234f00c5059b664895a71"
       },
       "./src/plugins/addspotfromlatlng/index.ts": {
-        "version": "672f71a566a4312ab73b7a6220de6058d91fd505178832404cd346a3cfefdb62",
+        "version": "affae6c536dadb39fb3f2658d21061e3897583df0124d91f4baca9d30780790b",
         "signature": "ef872cde0f25164f00cf228272ea885442796fa18820783de525ba3eb91efcfc"
       },
       "../../tools/utils/srv/executeconcurrently.d.ts": {
@@ -1767,6 +1767,7 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
+      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -7771,9 +7772,38 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../compute-stage/srv/types.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../compute-stage/srv/prepare/index.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../compute-stage/srv/trigger/index.d.ts": [
+        "../compute-stage/srv/prepare/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../compute-stage/srv/index.d.ts": [
+        "../compute-stage/srv/types.d.ts",
+        "../compute-stage/srv/prepare/index.d.ts",
+        "../compute-stage/srv/trigger/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./src/plugins/addspotfromlatlng/index.ts": [
         "./src/generated.ts",
-        "../../events/compute-stage/srv/index.d.ts"
+        "../compute-stage/srv/index.d.ts"
       ],
       "../../tools/utils/srv/executeconcurrently.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
@@ -8040,6 +8070,45 @@
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/aws-lambda/index.d.ts",
         "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/spinup/srv/spinup/index.d.ts": [
+        "../../tools/spinup/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/spinup/srv/builder/guidebuilder.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/spinup/srv/builder/userbuilder.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "../../tools/spinup/srv/builder/guidebuilder.d.ts",
+        "../../tools/spinup/srv/builder/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/spinup/srv/builder/index.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "../../tools/spinup/srv/builder/userbuilder.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/spinup/srv/index.d.ts": [
+        "../../tools/spinup/srv/spinup/index.d.ts",
+        "../../tools/spinup/srv/builder/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -9102,74 +9171,6 @@
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../compute-stage/srv/types.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../compute-stage/srv/index.d.ts": [
-        "../compute-stage/srv/types.d.ts",
-        "../compute-stage/srv/prepare/index.d.ts",
-        "../compute-stage/srv/trigger/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../compute-stage/srv/prepare/index.d.ts": [
-        "../../tools/database/srv/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../compute-stage/srv/trigger/index.d.ts": [
-        "../compute-stage/srv/prepare/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../../tools/spinup/srv/spinup/index.d.ts": [
-        "../../tools/spinup/srv/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../../tools/spinup/srv/index.d.ts": [
-        "../../tools/spinup/srv/spinup/index.d.ts",
-        "../../tools/spinup/srv/builder/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../../tools/spinup/srv/builder/guidebuilder.d.ts": [
-        "../../tools/database/srv/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../../tools/spinup/srv/builder/userbuilder.d.ts": [
-        "../../tools/database/srv/index.d.ts",
-        "../../tools/spinup/srv/builder/guidebuilder.d.ts",
-        "../../tools/spinup/srv/builder/index.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "../../tools/spinup/srv/builder/index.d.ts": [
-        "../../tools/database/srv/index.d.ts",
-        "../../tools/spinup/srv/builder/userbuilder.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -9443,11 +9444,18 @@
       "../../tools/database/srv/utils.d.ts",
       "../../tools/database/srv/index.d.ts",
       "./src/plugins/types.ts",
+      "../compute-stage/srv/types.d.ts",
+      "../compute-stage/srv/prepare/index.d.ts",
+      "../compute-stage/srv/trigger/index.d.ts",
+      "../compute-stage/srv/index.d.ts",
       "../../tools/utils/srv/executeconcurrently.d.ts",
       "../../tools/utils/srv/executewithcontext.d.ts",
       "../../tools/utils/srv/executesequentially.d.ts",
       "../../tools/utils/srv/constants.d.ts",
       "../../tools/utils/srv/index.d.ts",
+      "./src/plugins/movespot/index.ts",
+      "./src/plugins/removespot/index.ts",
+      "./src/plugins/index.ts",
       "./src/options.ts",
       "./node_modules/@types/cors/index.d.ts",
       "./src/app.ts",
@@ -9481,7 +9489,14 @@
       "./node_modules/@types/aws-serverless-express/index.d.ts",
       "./src/lambda.ts",
       "./src/server.ts",
+      "../../tools/spinup/srv/spinup/index.d.ts",
+      "../../tools/spinup/srv/builder/guidebuilder.d.ts",
+      "../../tools/spinup/srv/builder/userbuilder.d.ts",
+      "../../tools/spinup/srv/builder/index.d.ts",
+      "../../tools/spinup/srv/index.d.ts",
       "./node_modules/@types/faker/index.d.ts",
+      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
+      "./src/plugins/removespot/removespot.test.ts",
       "./node_modules/@types/accepts/index.d.ts",
       "./node_modules/@babel/types/lib/index.d.ts",
       "./node_modules/@types/babel__generator/index.d.ts",
@@ -9592,21 +9607,7 @@
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "../compute-stage/srv/types.d.ts",
-      "../compute-stage/srv/prepare/index.d.ts",
-      "../compute-stage/srv/trigger/index.d.ts",
-      "../../tools/spinup/srv/builder/guidebuilder.d.ts",
-      "../../tools/spinup/srv/builder/index.d.ts",
-      "../compute-stage/srv/index.d.ts",
-      "./src/plugins/addspotfromlatlng/index.ts",
-      "./src/plugins/movespot/index.ts",
-      "./src/plugins/removespot/index.ts",
-      "./src/plugins/index.ts",
-      "../../tools/spinup/srv/spinup/index.d.ts",
-      "../../tools/spinup/srv/builder/userbuilder.d.ts",
-      "../../tools/spinup/srv/index.d.ts",
-      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
-      "./src/plugins/removespot/removespot.test.ts"
+      "./src/plugins/addspotfromlatlng/index.ts"
     ]
   },
   "version": "3.7.5"
