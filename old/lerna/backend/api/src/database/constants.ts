@@ -1,1 +1,0 @@
-export type Table = 'users' | 'guides' | 'locations' | 'rides' | 'spots' | 'stays' | 'addresses' | 'days'

@@ -1,1 +1,0 @@
-ecs-cli compose --project-name guided service up --create-log-groups --cluster-config guided --ecs-profile guided
