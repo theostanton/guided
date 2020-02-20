@@ -226,16 +226,16 @@
         "signature": "da6006efece84bb6b450f24d335b40c7fbc826137b04ef0981b5ecb586d58b64"
       },
       "./src/dao/databasedao.ts": {
-        "version": "bcb3b3afbdf875621c351230b7cb90caa31aaec50cd36cd7a7fa9142738b3b95",
-        "signature": "16e5ffd133c5ea84fe3c230cc30189cdc3aa1492c35a51c369ff0a6aa6e7a0b4"
+        "version": "e11b3efb5108dc151b1ab65096daf60014fbe94d3f6189db5896e1c1607bf86e",
+        "signature": "0b741267381ab4cb30ea5d67b26edf9a8273f2705e3f25bbcfa59aef8a8157c1"
       },
       "./src/dao/index.ts": {
-        "version": "7037811c027da899da3c1de8ceb473d19e5edcfa268217a5475f611a27c1c70d",
-        "signature": "cc6292ad226ee815190d10d5cde118e995f8b35635d99772cd822bd42987b2ce"
+        "version": "ada60e9c91dbb5af978d5adc70390330285843710876c60cdd9e4ac93f0a8386",
+        "signature": "27b09511c0f32dbfdafb8043cc912e1c2c4414d6d8a4aa5dbcb59d0834d7a8de"
       },
       "./src/types.ts": {
-        "version": "e489354546df91eab69d8b801b2196c75aea73a4856c94ef4f7ec8af5345548d",
-        "signature": "183bfdf388ebf905c548f951bddbd5b79d5430a353459ba09da3f440b50dcb36"
+        "version": "8796b3a2ad3cbbd64356cf5d3e21927fb4438e2ecc778d5ad9331cad7e263519",
+        "signature": "c9f75e828399218dcc8b46324f01d5b7c7c62855450631d883c0948e39a09c09"
       },
       "./node_modules/@googlemaps/google-maps-services-js/dist/common.d.ts": {
         "version": "5a4cc3656d68ffa666f0a8edbf9d4448e849e6d6c28fa69cdc05409730bc0e7a",
@@ -358,7 +358,7 @@
         "signature": "09cdc061168c0e147a1cd4f0dccb320fbe3b86c59ad90cbe85b84604d41545eb"
       },
       "./src/action/calculatestages/index.ts": {
-        "version": "befbb790cffbed529b129a4258a8427a6989e155f6fae84d1587c1a8783bb0bd",
+        "version": "f46b01340dda85234f9e005332b062278f2fe5a81effca508fefd787951b58c2",
         "signature": "fd594749d485e483b1e78ef22f1c69c79a7609d239eb3014eb1a87b519468ed4"
       },
       "./src/action/positionspots/index.ts": {
@@ -366,15 +366,15 @@
         "signature": "811f16560222d37c0e191b73bf8b96267951b4d73e2c77bbbb48685849af0fc7"
       },
       "./src/action/index.ts": {
-        "version": "6de877f094db6faf58fb7f3ab3da7d026db24a39b25abd28b289b5d0c4d7fa07",
-        "signature": "a338ed0e2e8e3afb9c602e730449ac30678323471d48200f342325b308399b70"
+        "version": "1588c8f96ee944ddfb70a1083ca21b702590f8c4f70aba946bcefef776a73a48",
+        "signature": "6813bb3faa2191e39eebca8695870d78dfd650c48b2f25709210d40a4359f258"
       },
       "./src/index.ts": {
-        "version": "91540f93fdc5ef728c1e1dc6c1651d70aceab35c4f6a23752e0ec14149e5a94d",
-        "signature": "e61a1169814520d7cebe1c3abbc539737356956822c2b7f78727827875b6f254"
+        "version": "1b0f1760e122305fcdaac89ebb8718c37ffc13033aba43510d901005c2447b33",
+        "signature": "8fdf21dabbcf925c598d2644eadbcfd25fe7169d1ed0e786b264c0b15607f342"
       },
       "./src/invoke.ts": {
-        "version": "4aace50471f80a4da0b2dde6d36060e2a5de27f201d456604b8813abb16c8c20",
+        "version": "aa0c2db96105b133cc9dd14e90e02cc70b3104b2bb3717a0b7b1b1c05b3d92cf",
         "signature": "3b72d4a78bf7a8e07d48e953f3a9b525ac3cb87f550c37dfc2419915ef46af14"
       },
       "./src/lambda.ts": {
@@ -406,12 +406,20 @@
         "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
       },
       "./src/action/computerides.test.ts": {
-        "version": "0832dae59fc0ba00f937b15e8bbb88b7a85beb86e70f4d4eedcd8c8a1ee12107",
+        "version": "9d6e34aa19fe4fb7551bc1f47eb1b6597ac0a2fb00df90f00c2f6dabaf849016",
         "signature": "09c331a22fcea44d926363b37e6165822d3051ba4b81ec06716b4661087cc6b8"
       },
       "./src/action/positionspots/positionspots.test.ts": {
-        "version": "5e2a655b00924cd3342c5328c8e62121b101553bc7de24388a27a5898bd909f9",
-        "signature": "556c1859112be025f93b74141589ee61d3c2c9a2a4806327cd7c947390891ac7"
+        "version": "3cfec6a71555fb70a7b3b73c9469af24735c49e4c904af19ea686b1bc628c108",
+        "signature": "f815846abdfc846b7f6cb710ae5f615419c25357eb5bb95126367cc839cc106f"
+      },
+      "./src/prep/index.ts": {
+        "version": "6cbe95a982fa4c2d898c25419700f78748d2d3edb505babd684d974bf5afd738",
+        "signature": "39341e12f6aa32ddce8d644e75bffbaef3fdfd6163f1070dbf0c97bdd64a87f0"
+      },
+      "./src/prep/prep.test.ts": {
+        "version": "914872f6fafd99215cd39824be1c73a90155b40ebc3c99fd9f01d9d2cdcd918d",
+        "signature": "4067c6ff18cff3cb9bcdfb33bd4af2692cd41ffde1f65ef33c1248ba668f751d"
       },
       "./node_modules/@babel/types/lib/index.d.ts": {
         "version": "b05f0003bcf151be87491c83a4ba37b561798f1282b92cedb3a4e75a0224eb85",
@@ -767,7 +775,6 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
-      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -1609,6 +1616,32 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/action/positionspots/positionspots.test.ts": [
+        "../../backend/spinup/srv/index.d.ts",
+        "../../tools/database/srv/index.d.ts",
+        "./node_modules/@types/faker/index.d.ts",
+        "./src/action/positionspots/index.ts",
+        "./node_modules/@types/node/constants.d.ts",
+        "./node_modules/date-fns/typings.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/prep/index.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "../../tools/logger/srv/index.d.ts",
+        "./node_modules/date-fns/typings.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/prep/prep.test.ts": [
+        "./src/prep/index.ts",
+        "../../tools/logger/srv/index.d.ts",
+        "./node_modules/@types/faker/index.d.ts",
+        "../../backend/spinup/srv/index.d.ts",
+        "../../tools/database/srv/index.d.ts",
         "./node_modules/date-fns/typings.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -3192,6 +3225,9 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./src/prep/index.ts": [
+        "../../tools/database/srv/index.d.ts"
+      ],
       "./node_modules/@babel/types/lib/index.d.ts": [
         "./node_modules/date-fns/typings.d.ts",
         "./node_modules/@types/node/fs.d.ts",
@@ -4122,52 +4158,21 @@
       "../../tools/geojson/srv/index.d.ts",
       "./node_modules/date-fns/typings.d.ts",
       "./src/action/calculatestages/upload.ts",
-      [
-        "./src/action/calculatestages/index.ts",
-        [
-          {
-            "file": "./src/action/calculatestages/index.ts",
-            "start": 1148,
-            "length": 7,
-            "code": 2739,
-            "category": 1,
-            "messageText": "Type '{ id: string; from_spot: string; duration_seconds: number; distance_meters: number; date: Date | null; path_url: string; guide: string; to_spot: string; owner: string; stage: string; }' is missing the following properties from type 'Ride': \"position\", \"status\""
-          },
-          {
-            "file": "./src/action/calculatestages/index.ts",
-            "start": 1857,
-            "length": 7,
-            "code": 2741,
-            "category": 1,
-            "messageText": "Property '\"status\"' is missing in type '{ id: string; guide: string; lat: number; long: number; nights: number; date: Date | null; location: string; country: string; owner: string; label: string; locked: false; created: Date; updated: null; stage: string; position: string; }' but required in type 'Spot'.",
-            "relatedInformation": [
-              {
-                "file": "../../tools/database/srv/types.d.ts",
-                "start": 1158,
-                "length": 8,
-                "messageText": "'\"status\"' is declared here.",
-                "category": 3,
-                "code": 2728
-              }
-            ]
-          },
-          {
-            "file": "./src/action/calculatestages/index.ts",
-            "start": 3713,
-            "length": 10,
-            "code": 2739,
-            "category": 1,
-            "messageText": "Type '{ id: string; from_spot: string; duration_seconds: number; distance_meters: number; date: Date | null; path_url: null; guide: string; to_spot: string; owner: string; stage: string; }' is missing the following properties from type 'Ride': \"position\", \"status\""
-          }
-        ]
-      ],
+      "./src/action/calculatestages/index.ts",
       "./src/action/positionspots/index.ts",
       "./src/action/index.ts",
       "./src/index.ts",
       "./src/invoke.ts",
       "./src/lambda.ts",
+      "../../backend/spinup/srv/spinup/index.d.ts",
+      "../../backend/spinup/srv/builder/guidebuilder.d.ts",
+      "../../backend/spinup/srv/builder/builder.d.ts",
+      "../../backend/spinup/srv/builder/index.d.ts",
+      "../../backend/spinup/srv/index.d.ts",
       "./node_modules/@types/faker/index.d.ts",
+      "./src/action/computerides.test.ts",
       "./src/action/positionspots/positionspots.test.ts",
+      "./src/prep/index.ts",
       "./node_modules/@babel/types/lib/index.d.ts",
       "./node_modules/@types/babel__generator/index.d.ts",
       "./node_modules/@types/babel__traverse/index.d.ts",
@@ -4249,12 +4254,7 @@
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "../../backend/spinup/srv/builder/guidebuilder.d.ts",
-      "../../backend/spinup/srv/builder/builder.d.ts",
-      "../../backend/spinup/srv/spinup/index.d.ts",
-      "../../backend/spinup/srv/builder/index.d.ts",
-      "../../backend/spinup/srv/index.d.ts",
-      "./src/action/computerides.test.ts"
+      "./src/prep/prep.test.ts"
     ]
   },
   "version": "3.7.5"

@@ -1070,7 +1070,10 @@ type Mutation {
     """
     input: RegisterInput!
   ): RegisterPayload
+  addSpotFromLatLng(guideId: String!, lat: Float!, long: Float!, label: String): Spot!
+  computeRides(guideId: String!): String!
   moveSpot(spotId: String!, lat: Float!, long: Float!): Spot!
+  removeSpot(spotId: String!): Spot!
 }
 
 """An object with a globally unique `ID`."""
@@ -1383,6 +1386,8 @@ type Ride implements Node {
   distanceMeters: Int
   date: Date
   stage: String!
+  position: String
+  status: RideStatus
 
   """Reads a single `Guide` that is related to this `Ride`."""
   guideByGuide: Guide
@@ -1435,6 +1440,12 @@ input RideCondition {
 
   """Checks for equality with the object’s `stage` field."""
   stage: String
+
+  """Checks for equality with the object’s `position` field."""
+  position: String
+
+  """Checks for equality with the object’s `status` field."""
+  status: RideStatus
 }
 
 """An input for mutations affecting `Ride`"""
@@ -1449,6 +1460,8 @@ input RideInput {
   distanceMeters: Int
   date: Date
   stage: String!
+  position: String
+  status: RideStatus
 }
 
 """Represents an update to a `Ride`. Fields that are set will be updated."""
@@ -1463,6 +1476,8 @@ input RidePatch {
   distanceMeters: Int
   date: Date
   stage: String
+  position: String
+  status: RideStatus
 }
 
 """A connection to a list of `Ride` values."""
@@ -1514,8 +1529,18 @@ enum RidesOrderBy {
   DATE_DESC
   STAGE_ASC
   STAGE_DESC
+  POSITION_ASC
+  POSITION_DESC
+  STATUS_ASC
+  STATUS_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+enum RideStatus {
+  COMPLETE
+  READY
+  STALE
 }
 
 type Spot implements Node {
@@ -1538,6 +1563,7 @@ type Spot implements Node {
   created: Date
   updated: Date
   stage: String
+  status: SpotStatus
 
   """Reads a single `Guide` that is related to this `Spot`."""
   guideByGuide: Guide
@@ -1714,6 +1740,9 @@ input SpotCondition {
 
   """Checks for equality with the object’s `stage` field."""
   stage: String
+
+  """Checks for equality with the object’s `status` field."""
+  status: SpotStatus
 }
 
 """An input for mutations affecting `Spot`"""
@@ -1733,6 +1762,7 @@ input SpotInput {
   created: Date
   updated: Date
   stage: String
+  status: SpotStatus
 }
 
 """Represents an update to a `Spot`. Fields that are set will be updated."""
@@ -1752,6 +1782,7 @@ input SpotPatch {
   created: Date
   updated: Date
   stage: String
+  status: SpotStatus
 }
 
 """A connection to a list of `Spot` values."""
@@ -1813,8 +1844,17 @@ enum SpotsOrderBy {
   UPDATED_DESC
   STAGE_ASC
   STAGE_DESC
+  STATUS_ASC
+  STATUS_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+enum SpotStatus {
+  COMPLETE
+  READY
+  COMPUTING
+  STALE
 }
 
 type Stage implements Node {
@@ -1828,6 +1868,7 @@ type Stage implements Node {
   toSpot: String!
   created: Date
   updated: Date
+  status: StageStatus!
 
   """Reads a single `Guide` that is related to this `Stage`."""
   guideByGuide: Guide
@@ -1918,6 +1959,9 @@ input StageCondition {
 
   """Checks for equality with the object’s `updated` field."""
   updated: Date
+
+  """Checks for equality with the object’s `status` field."""
+  status: StageStatus
 }
 
 """An input for mutations affecting `Stage`"""
@@ -1928,6 +1972,7 @@ input StageInput {
   toSpot: String!
   created: Date
   updated: Date
+  status: StageStatus!
 }
 
 """
@@ -1940,6 +1985,7 @@ input StagePatch {
   toSpot: String
   created: Date
   updated: Date
+  status: StageStatus
 }
 
 """A connection to a list of `Stage` values."""
@@ -1983,8 +2029,17 @@ enum StagesOrderBy {
   CREATED_DESC
   UPDATED_ASC
   UPDATED_DESC
+  STATUS_ASC
+  STATUS_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+enum StageStatus {
+  COMPLETE
+  READY
+  COMPUTING
+  STALE
 }
 
 type Temperature implements Node {

@@ -4,7 +4,7 @@ const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
 import { MutationMoveSpotArgs } from "../../generated"
 import { database, Spot } from "@guided/database"
-import * as computeRides from "@guided/compute-rides"
+import * as computeStage from "@guided/compute-stage"
 import { executeSequentially } from "@guided/utils"
 
 export async function execute(spotId: string): Promise<Partial<Spot>> {
@@ -49,8 +49,9 @@ export async function execute(spotId: string): Promise<Partial<Spot>> {
                        from spots
                        where id = $1`, [spotId])
 
-  await computeRides.execute({
-    guideId,
+  //TODO
+  await computeStage.execute({
+    stageId: guideId,
   })
 
   return {

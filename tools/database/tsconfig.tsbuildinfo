@@ -194,24 +194,28 @@
         "signature": "4046592570718236ed274564f611f502ca4e9fce87e0e078e1f5905292a22b62"
       },
       "./src/types.ts": {
-        "version": "eacce5395fc1e608f9b11d7a38857eb8ac6565423a774a9cbb42f983b2ee46c0",
-        "signature": "bf6f1657e2b87426c4dcea70517efebebeab4e59b794e1b079de2268856d877c"
+        "version": "ec8624a6b7076de2bb6344770207659db1c69e4d640b6fa938cb8ab6221323dc",
+        "signature": "df9a538af846954f3b401a17976bcbb86b4e06c95cd96cc8390872212c63f19a"
       },
       "./src/utils.ts": {
         "version": "da2f1e2fffc4b566ae34779d226eea1a01d1df5c855a29bc5fab6ed6a0e93e16",
         "signature": "2401fd60c9528667fa82ff7aa75d47e45af2f8464f64e3865291c7e6e7bed44f"
       },
       "./src/extensions.ts": {
-        "version": "531cb9cd274e948c28069d36f4580c9e223405ce04af1b24890d7c6b7c089ae1",
-        "signature": "e9c0badeca1c28a2bb4b05a90600b291fcd3cdfc89235b5739f627d3db3b7db5"
+        "version": "3d7f3742758cc791f221b4a6266cd8686f2b7c61c20c7c632ebcd21cb0c5406e",
+        "signature": "99a10ad18dd20bbcf026f230a886b5d69cf719875a00571b8593cd5f1a4f0c40"
       },
       "./src/index.ts": {
-        "version": "5b90d3ea2c1e8222f9a64d1c80b679a1449431ce9ec95e797a3d37b6800755cb",
-        "signature": "b9c842775592c5cfe1bd769553321ec0c2de8335b502921ef0a99daba4aabfe7"
+        "version": "5577a021f937aac8a3eccf7ac8261acabd49b69523e13042022f3bfea2c6f999",
+        "signature": "f8bc36aa4652b06b236ea7a35d6046163bc3c1610e37bd840e3898e44657efc4"
       },
       "./src/client.test.ts": {
         "version": "08d92d85da818b0b4dbe67d01b117dab5d1d604209de5802652b0d10609feebd",
         "signature": "43ad91bec5bd0d2576566c19960051c7ded34f25900af803ea7197114b2cb42c"
+      },
+      "./src/generated.ts": {
+        "version": "16c766c2f1a39cdaa61524967ff7ad07f508f6c683248db26705295edab590f5",
+        "signature": "66fafda021dd57a858c426a7eaf18280ec8e72a757d8b5ef82cfe49393ed99aa"
       },
       "../../node_modules/@types/faker/index.d.ts": {
         "version": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989",
@@ -475,6 +479,7 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
+      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -789,7 +794,6 @@
         "./node_modules/pg-promise/typescript/pg-promise.d.ts",
         "./src/types.ts",
         "./src/utils.ts",
-        "../logger/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -809,6 +813,12 @@
       ],
       "./src/client.test.ts": [
         "./src/index.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/generated.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2071,6 +2081,7 @@
       "./src/types.ts",
       "./src/utils.ts",
       "./src/extensions.ts",
+      "./src/index.ts",
       "./src/client.test.ts",
       "../../node_modules/@types/faker/index.d.ts",
       "./src/utils.test.ts",
@@ -2130,7 +2141,7 @@
       "../../node_modules/@types/jest/node_modules/pretty-format/build/types.d.ts",
       "../../node_modules/@types/jest/node_modules/pretty-format/build/index.d.ts",
       "../../node_modules/@types/jest/index.d.ts",
-      "./src/index.ts"
+      "./src/generated.ts"
     ]
   },
   "version": "3.7.5"

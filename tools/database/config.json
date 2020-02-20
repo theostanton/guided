@@ -1,10 +1,11 @@
 {
   "dialect": "postgres",
+  "template": "./src/template.handlebars",
   "connection": {
     "host": "localhost",
     "user": "superuser",
     "password": "password",
-    "database": "database"
+    "database": "main"
   },
   "filename": "src/types",
   "interfaceNameFormat": "${table}",
@@ -13,5 +14,10 @@
   "tableNameCasing": "pascal",
   "schemas": [
     "guided"
-  ]
+  ],
+  "typeOverrides": {
+    "guided.stages.status": "StageStatus",
+    "guided.spots.status": "SpotStatus",
+    "guided.rides.status": "RideStatus"
+  }
 }

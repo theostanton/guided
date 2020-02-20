@@ -24,3 +24,6 @@ generates:
       - "typescript"
       - "typescript-resolvers"
       - "typescript-operations"
+  ../../tools/database/src/generated.ts:
+    plugins:
+      - "typescript"

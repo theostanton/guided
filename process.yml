@@ -52,9 +52,9 @@ jobs:
           cd ~/workspace/events/index
           yarn build
     - run:
-        name: build events/compute-rides
+        name: build events/compute-stage
         command: |
-          cd ~/workspace/events/compute-rides
+          cd ~/workspace/events/compute-stage
           yarn build
     - run:
         name: build backend/graphql
@@ -252,7 +252,7 @@ workflows:
 #       - build:
 #           directory: events/index
 #       - build:
-#           directory: events/compute-rides
+#           directory: events/compute-stage
 # #      - build:
 # #          directory: backend/codegen
 #       - build:

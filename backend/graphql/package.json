@@ -7,14 +7,14 @@
     "build": "tsc",
     "buildCache": "STAGE=staging ts-node src/buildCache.ts",
     "invoke": "STAGE=staging ts-node src/lambda.ts",
-    "watch": "STAGE=staging ts-node src/server.ts",
-    "develop": "nodemon"
+    "start": "node srv/server.js",
+    "watch": "tsc -w"
   },
   "dependencies": {
     "@guided/logger": "*",
     "@guided/database": "*",
     "@guided/utils": "*",
-    "@guided/compute-rides": "*",
+    "@guided/compute-stage": "*",
     "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

@@ -6,14 +6,14 @@
     "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
   },
   "watch": [
-    "backend/graphql/src",
+    "backend/graphql/srv",
     "apis/google/srv",
+    "apis/mapbox/srv",
     "backend/spinup/srv",
     "backend/codegen/srv",
-    "events/compute-rides/srv",
+    "events/compute-stage/srv",
     "events/index/srv",
     "tools/database/srv",
-    "tools/envs/srv",
     "tools/geojson/srv",
     "tools/logger/srv",
     "tools/utils/srv"
@@ -28,7 +28,7 @@
     "OWNER_PASSWORD": "password",
     "POSTGRES_USER": "guided_postgraphile",
     "POSTGRES_PASSWORD": "password",
-    "POSTGRES_DB": "testing",
+    "POSTGRES_DB": "database",
     "POSTGRES_SCHEMA": "guided",
     "POSTGRAPHILE_PORT": "5000",
     "JWT_SECRET": "5a399dba98bb6bf23bcd640d08383342549b8731c1da1a9f9af24514d607c25b",

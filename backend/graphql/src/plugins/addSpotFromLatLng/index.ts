@@ -7,7 +7,7 @@ import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPl
 import { MutationAddSpotFromLatLngArgs } from "../../generated"
 import { database, generateId, Spot } from "@guided/database"
 import { Context } from "../types"
-import * as computeRides from "@guided/compute-rides"
+import * as computeStage from "@guided/compute-stage"
 
 
 async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, context: Context): Promise<Partial<Spot>> {
@@ -36,13 +36,14 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
     stage: null,
     created: new Date(),
     updated: null,
+    status: "complete",
   }
 
   await database.insertSpot(spot)
 
 
-  await computeRides.execute({
-    guideId: args.guideId,
+  await computeStage.execute({
+    stageId: args.guideId,
   })
   return spot
 }

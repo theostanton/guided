@@ -1,10 +1,11 @@
 import { IDatabase } from "pg-promise"
-import { Spot } from "./types"
+import { Guide, Spot } from "./types"
 import { insertOne } from "./utils"
-import { log } from "@guided/logger"
 
 export default interface Extensions {
   insertSpot(spot: Spot): Promise<string>
+
+  selectGuide(guideId: string): Promise<Guide>
 }
 
 
@@ -12,10 +13,17 @@ export function extend(db: IDatabase<Extensions> & Extensions) {
   const instance: Extensions = {
     async insertSpot(spot: Spot): Promise<string> {
       const query = insertOne("guided.spots", spot)
-      log(query, "query")
       await db.query(query)
       return spot.id
     },
+    selectGuide(guideId: string): Promise<Guide> {
+      return db.one(`SELECT *
+                     from guides
+                     where id = $1`, [guideId])
+    },
   }
-  db.insertSpot = instance.insertSpot
+  Object.keys(instance).forEach(key => {
+    // @ts-ignore
+    db[key] = instance[key]
+  })
 }
