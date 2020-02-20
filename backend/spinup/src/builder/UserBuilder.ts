@@ -5,9 +5,9 @@ import faker from "faker"
 
 const PASSWORD_HASH = "$2a$06$go2Lk1MKz.2iq6vH2IvsAep1Aera4IhKECd5KlNgyLjPIl2Gq.Xkq"
 
-export default class Builder {
+export default class UserBuilder {
 
-  static create(email?: string, username?: string): Builder {
+  static create(email?: string, username?: string): UserBuilder {
     const firstName = faker.name.firstName()
     const lastName = faker.name.firstName()
     if (!email) {
@@ -17,7 +17,7 @@ export default class Builder {
       username = username || faker.internet.userName(firstName, lastName)
     }
 
-    return new Builder({
+    return new UserBuilder({
       email,
       username,
       password_hash: PASSWORD_HASH,
@@ -32,7 +32,7 @@ export default class Builder {
     this.user = user
   }
 
-  addGuide(title: string, id: string | undefined, action?: (builder: GuideBuilder) => void): Builder {
+  addGuide(title: string, id: string | undefined, action?: (builder: GuideBuilder) => void): UserBuilder {
 
     const builder = GuideBuilder.create(this.user.username, title, id)
     if (action) {

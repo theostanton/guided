@@ -5,7 +5,7 @@ import faker from "faker"
 import { prepare } from "./index"
 import { MutationAddSpotFromLatLngArgs } from "../../generated"
 import { LOCATIONS } from "@guided/spinup/srv/builder/GuideBuilder"
-import { log } from "@guided/logger"
+import { log, logJson } from "@guided/logger"
 import exp from "constants"
 
 const TIMEOUT = 30_000
@@ -15,9 +15,9 @@ describe("When adding a spot to a guide with 0 spots", () => {
   const owner: string = faker.internet.userName()
   const GUIDE_ID: string = generateId("guide")
   const GUIDE_TITLE: string = faker.random.words(3)
-  const SPOT_ID_1: string = generateId("spot_1")
   let timestampBefore: number
   let packet: Packet
+  let spotId: string
 
   beforeAll(async () => {
 
@@ -36,11 +36,29 @@ describe("When adding a spot to a guide with 0 spots", () => {
     }
     const result = await prepare(args, owner)
     packet = result.packet
-    expect(result.packet).toBe(SPOT_ID_1)
+    spotId = result.spotId
   }, TIMEOUT)
 
   it("Prepare 0 computations to be executed ", () => {
     expect(packet.computationIds.length).toBe(0)
+  })
+
+  it("Have inserted a spot", async () => {
+    const spot = await database.one<Spot>("select * from spots where id=$1", [spotId])
+
+    expect(spot).toBeDefined()
+    expect(spot.created).toBeDefined()
+    expect(spot.created!.getTime()).toBeGreaterThan(timestampBefore)
+    expect(spot.updated).toBeNull()
+    expect(spot.position).toBe("1")
+    expect(spot.date).toBeNull()
+    expect(spot.locked).toBe(true)
+    expect(spot.nights).toBe(1)
+    expect(spot.location).toBeDefined()
+    expect(spot.country).toBeDefined()
+    expect(spot.lat).toBe(LOCATIONS.Worthing.lat)
+    expect(spot.long).toBe(LOCATIONS.Worthing.long)
+
   })
 
   it("Alter zero rides", () => {
@@ -139,8 +157,16 @@ describe("When adding a spot to a guide with 1 spot", () => {
     it("Should have marked 2 computations as 'complete'", async () => {
       const computations = await database.manyOrNone<Computation>("select * from computations where guide=$1", [GUIDE_ID])
       expect(computations.length).toBe(2)
+
       expect(computations[0].status).toBe("success")
+      expect(computations[0].duration).toBeGreaterThan(0)
+      expect(computations[0].created).toBeDefined()
+      expect(computations[0].ended).toBeDefined()
+
       expect(computations[1].status).toBe("success")
+      expect(computations[1].duration).toBeGreaterThan(0)
+      expect(computations[1].created).toBeDefined()
+      expect(computations[1].ended).toBeDefined()
     })
 
     it("Should have updated 2 stages as 'ready'", async () => {

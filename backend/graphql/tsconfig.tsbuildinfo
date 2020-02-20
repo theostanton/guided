@@ -254,8 +254,8 @@
         "signature": "84044697c8b3e08ef24e4b32cfe6440143d07e469a5e34bda0635276d32d9f35"
       },
       "./node_modules/@types/node/perf_hooks.d.ts": {
-        "version": "27ef4001526ee9d8afa57687a60bb3b59c52b32d29db0a2260094ab64726164f",
-        "signature": "27ef4001526ee9d8afa57687a60bb3b59c52b32d29db0a2260094ab64726164f"
+        "version": "954c4bfca9bc4df019231da304288182beb21c8c4fab97f9e8f9694d407c383f",
+        "signature": "954c4bfca9bc4df019231da304288182beb21c8c4fab97f9e8f9694d407c383f"
       },
       "./node_modules/@types/node/process.d.ts": {
         "version": "0e0d58f5e90c0a270dac052b9c5ad8ccdfc8271118c2105b361063218d528d6e",
@@ -306,16 +306,16 @@
         "signature": "c0e424dcc169a594c973e096f256f92ed36cce444e7d38e52ed4be5def47bcdd"
       },
       "./node_modules/@types/node/util.d.ts": {
-        "version": "28dd59f54c399c079fc02b60e36d6676b64b8b85badfcc59d481ac232df40bce",
-        "signature": "28dd59f54c399c079fc02b60e36d6676b64b8b85badfcc59d481ac232df40bce"
+        "version": "424a2e2c9bd05c1fccbaa1b6c131df9aff1c196d3927a71bf1df9a1880d4c867",
+        "signature": "424a2e2c9bd05c1fccbaa1b6c131df9aff1c196d3927a71bf1df9a1880d4c867"
       },
       "./node_modules/@types/node/v8.d.ts": {
         "version": "289be113bad7ee27ee7fa5b1e373c964c9789a5e9ed7db5ddcb631371120b953",
         "signature": "289be113bad7ee27ee7fa5b1e373c964c9789a5e9ed7db5ddcb631371120b953"
       },
       "./node_modules/@types/node/vm.d.ts": {
-        "version": "bf244a366e8ee68acda125761c6e337c8795b37eef05947d62f89b584de926b3",
-        "signature": "bf244a366e8ee68acda125761c6e337c8795b37eef05947d62f89b584de926b3"
+        "version": "a0baa0860e17f8ed646315d6330b79c5c192f10e94975ea8c76105d626afb08f",
+        "signature": "a0baa0860e17f8ed646315d6330b79c5c192f10e94975ea8c76105d626afb08f"
       },
       "./node_modules/@types/node/worker_threads.d.ts": {
         "version": "81d412ad0bca04a1b86efdabdff72c5f84745fba5331c45f5f6c6182a4fe887f",
@@ -1042,8 +1042,8 @@
         "signature": "9f9bdcfdda0cf651fbbaab37dc27e0cc03ec08ab3ab38ec499ef644b179968b3"
       },
       "./src/generated.ts": {
-        "version": "96c2442ef7a8a49d6940d42da27194f241d59f4f94964791abccf2e32a130b9f",
-        "signature": "748b341498a274326840e77e6f02d4c5711e5e4f76d6a2f0a300a9d738e93876"
+        "version": "34d72f0297a1a76dec1965322a16b98e5ff35c0bcefd7ca1839e28d90211a11d",
+        "signature": "247a76fdb0270ce27ef4374ba33d11020bad07a7294290bd71af829f91a9e4a4"
       },
       "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts": {
         "version": "c2d551451c7ddb48f776fd038ec5af7922ec0040cd82a69dad1550a697afe9f6",
@@ -1062,36 +1062,44 @@
         "signature": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f"
       },
       "../../tools/database/srv/types.d.ts": {
-        "version": "df9a538af846954f3b401a17976bcbb86b4e06c95cd96cc8390872212c63f19a",
-        "signature": "df9a538af846954f3b401a17976bcbb86b4e06c95cd96cc8390872212c63f19a"
+        "version": "ad2364d1baa7bf9ba4aa2c06062c29e17f3ad9a7b8e2435fb446f4eba30073e0",
+        "signature": "ad2364d1baa7bf9ba4aa2c06062c29e17f3ad9a7b8e2435fb446f4eba30073e0"
       },
       "../../tools/database/srv/extensions.d.ts": {
-        "version": "99a10ad18dd20bbcf026f230a886b5d69cf719875a00571b8593cd5f1a4f0c40",
-        "signature": "99a10ad18dd20bbcf026f230a886b5d69cf719875a00571b8593cd5f1a4f0c40"
+        "version": "f1e729bea8a2827a0b1f52ee4fb55bc6eb95af1f75b5a08867335f35d5c76bc9",
+        "signature": "f1e729bea8a2827a0b1f52ee4fb55bc6eb95af1f75b5a08867335f35d5c76bc9"
       },
       "../../tools/database/srv/utils.d.ts": {
         "version": "2401fd60c9528667fa82ff7aa75d47e45af2f8464f64e3865291c7e6e7bed44f",
         "signature": "2401fd60c9528667fa82ff7aa75d47e45af2f8464f64e3865291c7e6e7bed44f"
       },
       "../../tools/database/srv/index.d.ts": {
-        "version": "f8bc36aa4652b06b236ea7a35d6046163bc3c1610e37bd840e3898e44657efc4",
-        "signature": "f8bc36aa4652b06b236ea7a35d6046163bc3c1610e37bd840e3898e44657efc4"
+        "version": "aaa78a56e334ca923ffbc10dc0f92583038df7749ec09ce5f19cce8c82192779",
+        "signature": "aaa78a56e334ca923ffbc10dc0f92583038df7749ec09ce5f19cce8c82192779"
       },
       "./src/plugins/types.ts": {
         "version": "da70c9f8c0483ea4a9ec0f7dd3fab6cab7c45b2ed93992423597a784ce9ed820",
         "signature": "136aff93001dbb0041e02bf0336257226edeb6fa5e15cbc708a4337827a6a599"
       },
       "../../events/compute-stage/srv/types.d.ts": {
-        "version": "c9f75e828399218dcc8b46324f01d5b7c7c62855450631d883c0948e39a09c09",
-        "signature": "c9f75e828399218dcc8b46324f01d5b7c7c62855450631d883c0948e39a09c09"
+        "version": "b500adff0bf47724f08ef6f4a42a5ed78829030aa8d328050b9f73fa19012936",
+        "signature": "b500adff0bf47724f08ef6f4a42a5ed78829030aa8d328050b9f73fa19012936"
+      },
+      "../../events/compute-stage/srv/prepare/index.d.ts": {
+        "version": "ca5765ec8ebe0bcec571a72075fa022f251cdb2af9736ecdf3ee17839c8e5839",
+        "signature": "ca5765ec8ebe0bcec571a72075fa022f251cdb2af9736ecdf3ee17839c8e5839"
+      },
+      "../../events/compute-stage/srv/trigger/index.d.ts": {
+        "version": "0f6e532864fd1c610cdaf08cd1ca944b5da839510175cbdf4b81e9eb7a46f6bd",
+        "signature": "0f6e532864fd1c610cdaf08cd1ca944b5da839510175cbdf4b81e9eb7a46f6bd"
       },
       "../../events/compute-stage/srv/index.d.ts": {
-        "version": "8fdf21dabbcf925c598d2644eadbcfd25fe7169d1ed0e786b264c0b15607f342",
-        "signature": "8fdf21dabbcf925c598d2644eadbcfd25fe7169d1ed0e786b264c0b15607f342"
+        "version": "d57e7755ae8090210be77153776c9b5538a965deb45234f00c5059b664895a71",
+        "signature": "d57e7755ae8090210be77153776c9b5538a965deb45234f00c5059b664895a71"
       },
       "./src/plugins/addspotfromlatlng/index.ts": {
-        "version": "3626189d440c137ed213da9e92a7a1977a4693cb5ff74295aa41d8aa85816b60",
-        "signature": "46a0b34e1264c4d25ca6646ff0e6cfaa7275ea1ae5a6bc23d4dfd84edf2f2b2e"
+        "version": "672f71a566a4312ab73b7a6220de6058d91fd505178832404cd346a3cfefdb62",
+        "signature": "ef872cde0f25164f00cf228272ea885442796fa18820783de525ba3eb91efcfc"
       },
       "../../tools/utils/srv/executeconcurrently.d.ts": {
         "version": "72e932ec49656781c89bd159489321c6f2bd8570873adce6fe658f521cf535c1",
@@ -1114,11 +1122,11 @@
         "signature": "da6006efece84bb6b450f24d335b40c7fbc826137b04ef0981b5ecb586d58b64"
       },
       "./src/plugins/movespot/index.ts": {
-        "version": "0ef2c76e178b11000e13c2f456b9b09d44e1d2f9e24656702c580ccddac3b743",
+        "version": "b8dd871688d2b9fd07a35a18229191c304babccb19e384b5b7deb85b13f2b34a",
         "signature": "46a0b34e1264c4d25ca6646ff0e6cfaa7275ea1ae5a6bc23d4dfd84edf2f2b2e"
       },
       "./src/plugins/removespot/index.ts": {
-        "version": "9beac223fe10c2c9dc667cad18aad017510236ee7d003e06f10891e5edbb7e7c",
+        "version": "1db7f009571409931a3f89ecfbc72df3858b3106b424c62161ea951ac87e7556",
         "signature": "0e599f9a191af2b610bcdc0a55fafce79fcfa3abe84964064b4b60cb4e5bcc40"
       },
       "./src/plugins/index.ts": {
@@ -1138,112 +1146,112 @@
         "signature": "7723e48a9738998bc314c804157c085a8de3fe819e1ba3589cc428d2e60d55a7"
       },
       "./src/buildcache.ts": {
-        "version": "8e51ebd5716ad5005bfff3fee604f14f9ff3c31eea05ef424dcf9d70643437bd",
+        "version": "4e58b930e446e12cc3baed94ffb1bc3c857506a44e0cd1ff623b5f976b9778a7",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
-      "./node_modules/@types/aws-lambda/hander.d.ts": {
+      "./node_modules/@types/aws-lambda/handler.d.ts": {
         "version": "6d366f0f11c05a273060e686ea770c869e9d7b9aa2ba8a40b8bce3de82bd183f",
         "signature": "6d366f0f11c05a273060e686ea770c869e9d7b9aa2ba8a40b8bce3de82bd183f"
       },
       "./node_modules/@types/aws-lambda/common/api-gateway.d.ts": {
-        "version": "e07acd2ee2fc8753b450cec667b67a895c59b3b32fd322e90b8eaa61a03f3ec6",
-        "signature": "e07acd2ee2fc8753b450cec667b67a895c59b3b32fd322e90b8eaa61a03f3ec6"
+        "version": "2f60a2023797b62315ec65af4a140bd03ff693bc5ff0e70c63ecd0bca517e215",
+        "signature": "2f60a2023797b62315ec65af4a140bd03ff693bc5ff0e70c63ecd0bca517e215"
       },
       "./node_modules/@types/aws-lambda/common/cloudfront.d.ts": {
         "version": "901a8b17c96a714e74b92cdf09f5d648518c898583cec27a8f3787fed4307ef8",
         "signature": "901a8b17c96a714e74b92cdf09f5d648518c898583cec27a8f3787fed4307ef8"
       },
       "./node_modules/@types/aws-lambda/trigger/alb.d.ts": {
-        "version": "8c6f4148a13aa6e23c6e4a9a38e4b817d0bafcad9e38b1d85267499d263d4667",
-        "signature": "8c6f4148a13aa6e23c6e4a9a38e4b817d0bafcad9e38b1d85267499d263d4667"
+        "version": "4ef198bc82f5d0e558251ed2c3cb47b821f58ff464e5251d9656326b766d79b2",
+        "signature": "4ef198bc82f5d0e558251ed2c3cb47b821f58ff464e5251d9656326b766d79b2"
       },
       "./node_modules/@types/aws-lambda/trigger/api-gateway-authorizer.d.ts": {
-        "version": "0218111c0dccc8585619fa738aebe0347defc5ae8049dc2ae0a02110460dca3c",
-        "signature": "0218111c0dccc8585619fa738aebe0347defc5ae8049dc2ae0a02110460dca3c"
+        "version": "9760e3257480e9a5cab83e3bcc292270d55801bf929734a95b2e553a6f790261",
+        "signature": "9760e3257480e9a5cab83e3bcc292270d55801bf929734a95b2e553a6f790261"
       },
       "./node_modules/@types/aws-lambda/trigger/api-gateway-proxy.d.ts": {
-        "version": "802337d98bec58d64122a8e6e64c949b67bfb81ced8179467caacf7191db1cac",
-        "signature": "802337d98bec58d64122a8e6e64c949b67bfb81ced8179467caacf7191db1cac"
+        "version": "04d950578f76dda5baa90fb894c3bad767caeb7de672f11830886e3d5e3154d0",
+        "signature": "04d950578f76dda5baa90fb894c3bad767caeb7de672f11830886e3d5e3154d0"
       },
       "./node_modules/@types/aws-lambda/trigger/cloudformation-custom-resource.d.ts": {
-        "version": "c1d04bc2248e73c07d2d8798e47658c7e466ad7f171b9b4e21fde99c4f517f53",
-        "signature": "c1d04bc2248e73c07d2d8798e47658c7e466ad7f171b9b4e21fde99c4f517f53"
+        "version": "a88df8c14fe431e22abe399ea2acfacf1c552c1fa16cc7e2b66d81180f3001ea",
+        "signature": "a88df8c14fe431e22abe399ea2acfacf1c552c1fa16cc7e2b66d81180f3001ea"
       },
       "./node_modules/@types/aws-lambda/trigger/cloudfront-request.d.ts": {
-        "version": "e00f38aa6443ad27b115e2570b56a4427a8119a78e46b04cfc362b99880bdf54",
-        "signature": "e00f38aa6443ad27b115e2570b56a4427a8119a78e46b04cfc362b99880bdf54"
+        "version": "d12b75f884942952f25c2e9d27d4ac149e518286167c78a292deb89b59f65b22",
+        "signature": "d12b75f884942952f25c2e9d27d4ac149e518286167c78a292deb89b59f65b22"
       },
       "./node_modules/@types/aws-lambda/trigger/cloudfront-response.d.ts": {
-        "version": "781ceb23fbeaefffcebc01eed0a54955b4c467bd3f956ec2c0ad8a0091b94182",
-        "signature": "781ceb23fbeaefffcebc01eed0a54955b4c467bd3f956ec2c0ad8a0091b94182"
+        "version": "0dad26ffdf5cae28cb67ac9c0ce06c7ec732001b01046f47eeaa4ee5a3655f5d",
+        "signature": "0dad26ffdf5cae28cb67ac9c0ce06c7ec732001b01046f47eeaa4ee5a3655f5d"
       },
       "./node_modules/@types/aws-lambda/trigger/cloudwatch-events.d.ts": {
-        "version": "887fdaaacb61e17b3a654cc8b623ee5d12ff30eb0366fb14da88de43476f7966",
-        "signature": "887fdaaacb61e17b3a654cc8b623ee5d12ff30eb0366fb14da88de43476f7966"
+        "version": "7b0291bdd3287da261f89e0500c95a0ab5fb27b9bda62d25d1bee5c1fbaed00e",
+        "signature": "7b0291bdd3287da261f89e0500c95a0ab5fb27b9bda62d25d1bee5c1fbaed00e"
       },
       "./node_modules/@types/aws-lambda/trigger/cloudwatch-logs.d.ts": {
-        "version": "14ba5d03796f3150d14025578d8a6cf1928d4b474a609e899d66b4bca5aaf343",
-        "signature": "14ba5d03796f3150d14025578d8a6cf1928d4b474a609e899d66b4bca5aaf343"
+        "version": "6535220a215ec3368ee6b02b0814feadc0f0fbbb9def8d42854707962187a2ac",
+        "signature": "6535220a215ec3368ee6b02b0814feadc0f0fbbb9def8d42854707962187a2ac"
       },
       "./node_modules/@types/aws-lambda/trigger/codepipeline.d.ts": {
-        "version": "4df45334d6b01bec9db492aec875366e4e719e153bce793d34049439a43fc17e",
-        "signature": "4df45334d6b01bec9db492aec875366e4e719e153bce793d34049439a43fc17e"
+        "version": "126cdd1c40798a3101234f838fe0be59dec0c01b97d43b113c766a31918ef9b0",
+        "signature": "126cdd1c40798a3101234f838fe0be59dec0c01b97d43b113c766a31918ef9b0"
       },
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-action.d.ts": {
-        "version": "2eab717c0a79eae078057a4dbf6be77de67b0fa47aed80d68632f955e2db679d",
-        "signature": "2eab717c0a79eae078057a4dbf6be77de67b0fa47aed80d68632f955e2db679d"
+        "version": "f4922a1814e47fdb4d93c2cf27968ea30c174e04d4a3374774046a9307dbbaf0",
+        "signature": "f4922a1814e47fdb4d93c2cf27968ea30c174e04d4a3374774046a9307dbbaf0"
       },
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-pipeline.d.ts": {
-        "version": "23dd6eb30e6bd6082e372281cfcc1f1b0ac74598b8ebb750fab55660f50eae70",
-        "signature": "23dd6eb30e6bd6082e372281cfcc1f1b0ac74598b8ebb750fab55660f50eae70"
+        "version": "bfff1bb349423cc262a88775d8233f7ea2b87d66ba1f0631eec0c30bea097dd5",
+        "signature": "bfff1bb349423cc262a88775d8233f7ea2b87d66ba1f0631eec0c30bea097dd5"
       },
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-stage.d.ts": {
-        "version": "1215b24224da5c72b7a429a85ab6dc1dffc7d60050b78b951e653370f92371e0",
-        "signature": "1215b24224da5c72b7a429a85ab6dc1dffc7d60050b78b951e653370f92371e0"
+        "version": "a177f76c040e29b9c31adfc93225c273828ff784b592bf56c6131771e624f628",
+        "signature": "a177f76c040e29b9c31adfc93225c273828ff784b592bf56c6131771e624f628"
       },
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch.d.ts": {
-        "version": "7bc2afef6ed405c92e3b2720183f713aa75d3472816e3883465fd16cdb352d20",
-        "signature": "7bc2afef6ed405c92e3b2720183f713aa75d3472816e3883465fd16cdb352d20"
+        "version": "06236dfec90a14b0c3db8249831069ea3f90b004d73d496a559a4466e5a344a4",
+        "signature": "06236dfec90a14b0c3db8249831069ea3f90b004d73d496a559a4466e5a344a4"
       },
       "./node_modules/@types/aws-lambda/trigger/cognito-user-pool-trigger.d.ts": {
-        "version": "bbaeb9051a4e9a813f373eba571ad6cfe80068fe47613e2ce2fcfe118a05f247",
-        "signature": "bbaeb9051a4e9a813f373eba571ad6cfe80068fe47613e2ce2fcfe118a05f247"
+        "version": "cda1720b781384b6b105ed04bf58215109fdcbae447f8239374b35eb389199db",
+        "signature": "cda1720b781384b6b105ed04bf58215109fdcbae447f8239374b35eb389199db"
       },
       "./node_modules/@types/aws-lambda/trigger/dynamodb-stream.d.ts": {
-        "version": "0695401912eb752b2af76f6c576a1c12bd25cbd715c996c556c01ae79d612f59",
-        "signature": "0695401912eb752b2af76f6c576a1c12bd25cbd715c996c556c01ae79d612f59"
+        "version": "de92ccb3b28e3c059cba235188d687743270d5a82b5b521e914e45be4dccf169",
+        "signature": "de92ccb3b28e3c059cba235188d687743270d5a82b5b521e914e45be4dccf169"
       },
       "./node_modules/@types/aws-lambda/trigger/kinesis-firehose-transformation.d.ts": {
-        "version": "9d01a9c4093729f6d7b4bd8451bcb0ec16faa434411dcbdbdfb85f7f7a920555",
-        "signature": "9d01a9c4093729f6d7b4bd8451bcb0ec16faa434411dcbdbdfb85f7f7a920555"
+        "version": "fc5281cdb6a558ad2202bbf9091d9c46608e6fa6404ab2c565fff7aaef2a62d1",
+        "signature": "fc5281cdb6a558ad2202bbf9091d9c46608e6fa6404ab2c565fff7aaef2a62d1"
       },
       "./node_modules/@types/aws-lambda/trigger/kinesis-stream.d.ts": {
-        "version": "bf39ef80ddd6a4d24c08fcfd5006f51f8c4090bd8f6be86feb7ceaeff38da37e",
-        "signature": "bf39ef80ddd6a4d24c08fcfd5006f51f8c4090bd8f6be86feb7ceaeff38da37e"
+        "version": "ea7abdaf48601d8d84e0962f628f61d3738637ff26f2362c90f514a337bc8305",
+        "signature": "ea7abdaf48601d8d84e0962f628f61d3738637ff26f2362c90f514a337bc8305"
       },
       "./node_modules/@types/aws-lambda/trigger/lex.d.ts": {
-        "version": "8261d48d72777b9525cd89c90b7eec3ea4ae5a7a0155c61f82970fb2f931fbc2",
-        "signature": "8261d48d72777b9525cd89c90b7eec3ea4ae5a7a0155c61f82970fb2f931fbc2"
+        "version": "700c4c385164ec865be9473e65b6fb89b79065e630e06c42c8452407a64b9b8a",
+        "signature": "700c4c385164ec865be9473e65b6fb89b79065e630e06c42c8452407a64b9b8a"
       },
       "./node_modules/@types/aws-lambda/trigger/s3.d.ts": {
-        "version": "04cb350d28b6c91344ae51f8f69f82bbee5195a0e10457df2badb9f5f326d5f3",
-        "signature": "04cb350d28b6c91344ae51f8f69f82bbee5195a0e10457df2badb9f5f326d5f3"
+        "version": "cf4eaba5fbc5d8a451480bd6b5e1439edfc3fbc0a7be8fca33d1d6078514b2ee",
+        "signature": "cf4eaba5fbc5d8a451480bd6b5e1439edfc3fbc0a7be8fca33d1d6078514b2ee"
       },
       "./node_modules/@types/aws-lambda/trigger/s3-batch.d.ts": {
-        "version": "130b052641b547e243752dcaf6e6a6a0063d288e853e9466250159f6793d040c",
-        "signature": "130b052641b547e243752dcaf6e6a6a0063d288e853e9466250159f6793d040c"
+        "version": "47ffa0bd85219fa1551c7cb128e3e1b44f980c9eb5baee26b0164db191ab917b",
+        "signature": "47ffa0bd85219fa1551c7cb128e3e1b44f980c9eb5baee26b0164db191ab917b"
       },
       "./node_modules/@types/aws-lambda/trigger/sns.d.ts": {
-        "version": "02d6fbfc71085e5003b99969933c73c40bb15d734819aae388ceeca45b90279b",
-        "signature": "02d6fbfc71085e5003b99969933c73c40bb15d734819aae388ceeca45b90279b"
+        "version": "33db1b492d92effbcc562388b6d448e28e8304d6a926f513dd760a6bc4cba2b3",
+        "signature": "33db1b492d92effbcc562388b6d448e28e8304d6a926f513dd760a6bc4cba2b3"
       },
       "./node_modules/@types/aws-lambda/trigger/sqs.d.ts": {
-        "version": "64b7aa2eb98a76d87313cfb2474b7f6fa27789e2d87fe6e481eb6da0e493903e",
-        "signature": "64b7aa2eb98a76d87313cfb2474b7f6fa27789e2d87fe6e481eb6da0e493903e"
+        "version": "619cef927295b92ce294fac1460f544cf3fc7b9e2b9e22f28a23450f7586e0df",
+        "signature": "619cef927295b92ce294fac1460f544cf3fc7b9e2b9e22f28a23450f7586e0df"
       },
       "./node_modules/@types/aws-lambda/index.d.ts": {
-        "version": "eeef77e66db72c61bff64a23e90fd3a27a6f048f3995b003ae84a0ea3317ec41",
-        "signature": "eeef77e66db72c61bff64a23e90fd3a27a6f048f3995b003ae84a0ea3317ec41"
+        "version": "c0dddbaeb6b3c2cf35a458cc833641390da47111cc31c44e5bba67f8a5c564e3",
+        "signature": "c0dddbaeb6b3c2cf35a458cc833641390da47111cc31c44e5bba67f8a5c564e3"
       },
       "./node_modules/@types/aws-serverless-express/index.d.ts": {
         "version": "02323ea30335514a016ffb7ee255d646858533478f893462bd1aa172834a7ce3",
@@ -1254,12 +1262,40 @@
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./src/server.ts": {
-        "version": "bf56f61f58b487ec0ac619f42733819072e4722ae9d875efaae5852d00caf4cd",
+        "version": "0f8917a16fdfd2d222658ea43fdc36fa9009e4a5e991cfe1cf81cf477af7d40b",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      },
+      "../spinup/srv/spinup/index.d.ts": {
+        "version": "294d50880fb288fcf5538fce7accb8f36d959e946ef1aa23abfc4394cc03f9f1",
+        "signature": "294d50880fb288fcf5538fce7accb8f36d959e946ef1aa23abfc4394cc03f9f1"
+      },
+      "../spinup/srv/builder/guidebuilder.d.ts": {
+        "version": "034ccbcc3bcde1eb032c84cb763bbfcc53af09fb2a56d73259417f2b86b3367e",
+        "signature": "034ccbcc3bcde1eb032c84cb763bbfcc53af09fb2a56d73259417f2b86b3367e"
+      },
+      "../spinup/srv/builder/userbuilder.d.ts": {
+        "version": "0077ee77df73eae5ff3ebd3888dc5f03815c20fecfe23b7c11ccbb6736386be3",
+        "signature": "0077ee77df73eae5ff3ebd3888dc5f03815c20fecfe23b7c11ccbb6736386be3"
+      },
+      "../spinup/srv/builder/index.d.ts": {
+        "version": "9876d124d3073e6bde4071d93beb25d5db3a6b301f24e30dc94e1d6d225e070b",
+        "signature": "9876d124d3073e6bde4071d93beb25d5db3a6b301f24e30dc94e1d6d225e070b"
+      },
+      "../spinup/srv/index.d.ts": {
+        "version": "521ff32c524ff39259213aedccf32d20e035d668e5ebd113e9d1ddeee85c0566",
+        "signature": "521ff32c524ff39259213aedccf32d20e035d668e5ebd113e9d1ddeee85c0566"
+      },
+      "./node_modules/@types/faker/index.d.ts": {
+        "version": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989",
+        "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
+      },
+      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts": {
+        "version": "66417305da93dd0cb25f8d3bc086c3e3e369fd997d7233606974c0405793e045",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./src/plugins/removespot/removespot.test.ts": {
-        "version": "9020f65026dbfe0f39b7c0a804c6786055e48057bb7cf5b230f285fa9e0a5ea6",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        "version": "a4bbc7cb82ffeeaadf921eebb0bb6be45898828d98d12d3a9eeb4de1b832c462",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./node_modules/@types/accepts/index.d.ts": {
         "version": "6738101ae8e56cd3879ab3f99630ada7d78097fc9fd334df7e766216778ca219",
@@ -1293,6 +1329,10 @@
         "version": "f0cb4b3ab88193e3e51e9e2622e4c375955003f1f81239d72c5b7a95415dad3e",
         "signature": "f0cb4b3ab88193e3e51e9e2622e4c375955003f1f81239d72c5b7a95415dad3e"
       },
+      "./node_modules/@types/command-line-args/index.d.ts": {
+        "version": "e2790204f9394425bf7d8e93a919887823d03dc2830d31d09c8f6af5562634dd",
+        "signature": "e2790204f9394425bf7d8e93a919887823d03dc2830d31d09c8f6af5562634dd"
+      },
       "./node_modules/@types/keygrip/index.d.ts": {
         "version": "ce013414484233b24f42c0fcfca48a60bb66ab4e13c82953662305e8f1ee4925",
         "signature": "ce013414484233b24f42c0fcfca48a60bb66ab4e13c82953662305e8f1ee4925"
@@ -1304,10 +1344,6 @@
       "./node_modules/@types/cuid/index.d.ts": {
         "version": "446932680c18544bc9b3841aa506d55c271b0662111c96ea6b98d550989b0c7e",
         "signature": "446932680c18544bc9b3841aa506d55c271b0662111c96ea6b98d550989b0c7e"
-      },
-      "./node_modules/@types/faker/index.d.ts": {
-        "version": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989",
-        "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
       },
       "./node_modules/@types/geojson/index.d.ts": {
         "version": "3a68b9e1129584f9e42f615b56926b0d2c1d22746e9c4689faf48d0e9749536a",
@@ -1358,8 +1394,8 @@
         "signature": "faa1eda9eb6c80210343ea752d64ba06ae0d14f670676ab069ec7047c4f96512"
       },
       "./node_modules/@types/jest/index.d.ts": {
-        "version": "a1f0433bc3626449030784a859d9953ff4becaeffb329068e28c929854ccfe0d",
-        "signature": "a1f0433bc3626449030784a859d9953ff4becaeffb329068e28c929854ccfe0d"
+        "version": "c069626dcd862b3e33335e13539a5a73ae330a7b83f6dfa266eed5edd4b1a8dd",
+        "signature": "c069626dcd862b3e33335e13539a5a73ae330a7b83f6dfa266eed5edd4b1a8dd"
       },
       "./node_modules/@types/json5/index.d.ts": {
         "version": "ee3d17a4078efd05485de79671ff28f0d61792c58948290584a5c7277be3c883",
@@ -1372,6 +1408,266 @@
       "./node_modules/@types/koa/index.d.ts": {
         "version": "d84368a0a937a94454a6a2783e59f005e02b76a18b59d80671e9c19349981fd2",
         "signature": "d84368a0a937a94454a6a2783e59f005e02b76a18b59d80671e9c19349981fd2"
+      },
+      "./node_modules/rxjs/internal/subscription.d.ts": {
+        "version": "6cb35d83d21a7e72bd00398c93302749bcd38349d0cc5e76ff3a90c6d1498a4d",
+        "signature": "6cb35d83d21a7e72bd00398c93302749bcd38349d0cc5e76ff3a90c6d1498a4d"
+      },
+      "./node_modules/rxjs/internal/types.d.ts": {
+        "version": "051451ceae7f29c8f17b810e6a6d8d270c67b401866f487cdc50c5c1a8b3f511",
+        "signature": "051451ceae7f29c8f17b810e6a6d8d270c67b401866f487cdc50c5c1a8b3f511"
+      },
+      "./node_modules/rxjs/internal/subscriber.d.ts": {
+        "version": "2632057d8b983ee33295566088c080384d7d69a492bc60b008d6a6dfd3508d6b",
+        "signature": "2632057d8b983ee33295566088c080384d7d69a492bc60b008d6a6dfd3508d6b"
+      },
+      "./node_modules/rxjs/internal/operator.d.ts": {
+        "version": "4bf71cf2a94492fc71e97800bdf2bcb0a9a0fa5fce921c8fe42c67060780cbfa",
+        "signature": "4bf71cf2a94492fc71e97800bdf2bcb0a9a0fa5fce921c8fe42c67060780cbfa"
+      },
+      "./node_modules/rxjs/internal/observable/iif.d.ts": {
+        "version": "0996ff06f64cb05b6dac158a6ada2e16f8c2ccd20f9ff6f3c3e871f1ba5fb6d9",
+        "signature": "0996ff06f64cb05b6dac158a6ada2e16f8c2ccd20f9ff6f3c3e871f1ba5fb6d9"
+      },
+      "./node_modules/rxjs/internal/observable/throwerror.d.ts": {
+        "version": "5c492d01a19fea5ebfff9d27e786bc533e5078909521ca17ae41236f16f9686a",
+        "signature": "5c492d01a19fea5ebfff9d27e786bc533e5078909521ca17ae41236f16f9686a"
+      },
+      "./node_modules/rxjs/internal/observable.d.ts": {
+        "version": "a6ee930b81c65ec79aca49025b797817dde6f2d2e9b0e0106f0844e18e2cc819",
+        "signature": "a6ee930b81c65ec79aca49025b797817dde6f2d2e9b0e0106f0844e18e2cc819"
+      },
+      "./node_modules/rxjs/internal/subject.d.ts": {
+        "version": "84fce15473e993e6b656db9dd3c9196b80f545647458e6621675e840fd700d29",
+        "signature": "84fce15473e993e6b656db9dd3c9196b80f545647458e6621675e840fd700d29"
+      },
+      "./node_modules/rxjs/internal/observable/connectableobservable.d.ts": {
+        "version": "7d5336ee766aa72dffb1cc2a515f61d18a4fb61b7a2757cbccfb7b286b783dfb",
+        "signature": "7d5336ee766aa72dffb1cc2a515f61d18a4fb61b7a2757cbccfb7b286b783dfb"
+      },
+      "./node_modules/rxjs/internal/operators/groupby.d.ts": {
+        "version": "63e96248ab63f6e7a86e31aa3e654ed6de1c3f99e3b668e04800df05874e8b77",
+        "signature": "63e96248ab63f6e7a86e31aa3e654ed6de1c3f99e3b668e04800df05874e8b77"
+      },
+      "./node_modules/rxjs/internal/symbol/observable.d.ts": {
+        "version": "ed164267a8b206892d69768f51e6e7157ad0a6e89745fbd39f3e81c4700e9a9e",
+        "signature": "ed164267a8b206892d69768f51e6e7157ad0a6e89745fbd39f3e81c4700e9a9e"
+      },
+      "./node_modules/rxjs/internal/behaviorsubject.d.ts": {
+        "version": "06a20cc7d937074863861ea1159ac783ff97b13952b4b5d1811c7d8ab5c94776",
+        "signature": "06a20cc7d937074863861ea1159ac783ff97b13952b4b5d1811c7d8ab5c94776"
+      },
+      "./node_modules/rxjs/internal/replaysubject.d.ts": {
+        "version": "ab6de4af0e293eae73b67dad251af097d7bcc0b8b62de84e3674e831514cb056",
+        "signature": "ab6de4af0e293eae73b67dad251af097d7bcc0b8b62de84e3674e831514cb056"
+      },
+      "./node_modules/rxjs/internal/asyncsubject.d.ts": {
+        "version": "18cbd79079af97af66c9c07c61b481fce14a4e7282eca078c474b40c970ba1d0",
+        "signature": "18cbd79079af97af66c9c07c61b481fce14a4e7282eca078c474b40c970ba1d0"
+      },
+      "./node_modules/rxjs/internal/scheduler.d.ts": {
+        "version": "e7b45405689d87e745a217b648d3646fb47a6aaba9c8d775204de90c7ea9ff35",
+        "signature": "e7b45405689d87e745a217b648d3646fb47a6aaba9c8d775204de90c7ea9ff35"
+      },
+      "./node_modules/rxjs/internal/scheduler/action.d.ts": {
+        "version": "669b754ec246dd7471e19b655b73bda6c2ca5bb7ccb1a4dff44a9ae45b6a716a",
+        "signature": "669b754ec246dd7471e19b655b73bda6c2ca5bb7ccb1a4dff44a9ae45b6a716a"
+      },
+      "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts": {
+        "version": "bcfaca4a8ff50f57fd36df91fba5d34056883f213baff7192cbfc4d3805d2084",
+        "signature": "bcfaca4a8ff50f57fd36df91fba5d34056883f213baff7192cbfc4d3805d2084"
+      },
+      "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts": {
+        "version": "76a564b360b267502219a89514953058494713ee0923a63b2024e542c18b40e5",
+        "signature": "76a564b360b267502219a89514953058494713ee0923a63b2024e542c18b40e5"
+      },
+      "./node_modules/rxjs/internal/scheduler/asapscheduler.d.ts": {
+        "version": "8f62cbd3afbd6a07bb8c934294b6bfbe437021b89e53a4da7de2648ecfc7af25",
+        "signature": "8f62cbd3afbd6a07bb8c934294b6bfbe437021b89e53a4da7de2648ecfc7af25"
+      },
+      "./node_modules/rxjs/internal/scheduler/asap.d.ts": {
+        "version": "c586a0e66183dd76fa9324e9b95bac89d959f92094de6f935f64baf34291bead",
+        "signature": "c586a0e66183dd76fa9324e9b95bac89d959f92094de6f935f64baf34291bead"
+      },
+      "./node_modules/rxjs/internal/scheduler/async.d.ts": {
+        "version": "e124a70dabc0309927d45dce2ae9de70f951dce0b520c4382a740d18075a9533",
+        "signature": "e124a70dabc0309927d45dce2ae9de70f951dce0b520c4382a740d18075a9533"
+      },
+      "./node_modules/rxjs/internal/scheduler/queuescheduler.d.ts": {
+        "version": "8e7a5b8f867b99cc8763c0b024068fb58e09f7da2c4810c12833e1ca6eb11c4f",
+        "signature": "8e7a5b8f867b99cc8763c0b024068fb58e09f7da2c4810c12833e1ca6eb11c4f"
+      },
+      "./node_modules/rxjs/internal/scheduler/queue.d.ts": {
+        "version": "91ddde7ec68545fa696fd27b9e38c0b2f1c180a26dbf229348808c4674f6398f",
+        "signature": "91ddde7ec68545fa696fd27b9e38c0b2f1c180a26dbf229348808c4674f6398f"
+      },
+      "./node_modules/rxjs/internal/scheduler/animationframescheduler.d.ts": {
+        "version": "df877050b04c29b9f8409aa10278d586825f511f0841d1ec41b6554f8362092b",
+        "signature": "df877050b04c29b9f8409aa10278d586825f511f0841d1ec41b6554f8362092b"
+      },
+      "./node_modules/rxjs/internal/scheduler/animationframe.d.ts": {
+        "version": "65b8e0c3dea43e760f7887db1139774a1c9097e78b5f73f497cd12e71b7d377e",
+        "signature": "65b8e0c3dea43e760f7887db1139774a1c9097e78b5f73f497cd12e71b7d377e"
+      },
+      "./node_modules/rxjs/internal/scheduler/virtualtimescheduler.d.ts": {
+        "version": "5443113a16ef378446e08d6500bb48b35de582426459abdb5c9704f5c7d327d9",
+        "signature": "5443113a16ef378446e08d6500bb48b35de582426459abdb5c9704f5c7d327d9"
+      },
+      "./node_modules/rxjs/internal/notification.d.ts": {
+        "version": "0fb581ecb53304a3c95bb930160b4fa610537470cce850371cbaad5a458ca0d9",
+        "signature": "0fb581ecb53304a3c95bb930160b4fa610537470cce850371cbaad5a458ca0d9"
+      },
+      "./node_modules/rxjs/internal/util/pipe.d.ts": {
+        "version": "7da4e290c009d7967343a7f8c3f145a3d2c157c62483362183ba9f637a536489",
+        "signature": "7da4e290c009d7967343a7f8c3f145a3d2c157c62483362183ba9f637a536489"
+      },
+      "./node_modules/rxjs/internal/util/noop.d.ts": {
+        "version": "eb21ddc3a8136a12e69176531197def71dc28ffaf357b74d4bf83407bd845991",
+        "signature": "eb21ddc3a8136a12e69176531197def71dc28ffaf357b74d4bf83407bd845991"
+      },
+      "./node_modules/rxjs/internal/util/identity.d.ts": {
+        "version": "914560d0c4c6aa947cfe7489fe970c94ba25383c414bbe0168b44fd20dbf0df4",
+        "signature": "914560d0c4c6aa947cfe7489fe970c94ba25383c414bbe0168b44fd20dbf0df4"
+      },
+      "./node_modules/rxjs/internal/util/isobservable.d.ts": {
+        "version": "4fb3405055b54566dea2135845c3a776339e7e170d692401d97fd41ad9a20e5d",
+        "signature": "4fb3405055b54566dea2135845c3a776339e7e170d692401d97fd41ad9a20e5d"
+      },
+      "./node_modules/rxjs/internal/util/argumentoutofrangeerror.d.ts": {
+        "version": "8d607832a6ef0eac30657173441367dd76c96bf7800d77193428b922e060c3af",
+        "signature": "8d607832a6ef0eac30657173441367dd76c96bf7800d77193428b922e060c3af"
+      },
+      "./node_modules/rxjs/internal/util/emptyerror.d.ts": {
+        "version": "20ff7207f0bb5cdde5fee8e83315ade7e5b8100cfa2087d20d39069a3d7d06f4",
+        "signature": "20ff7207f0bb5cdde5fee8e83315ade7e5b8100cfa2087d20d39069a3d7d06f4"
+      },
+      "./node_modules/rxjs/internal/util/objectunsubscribederror.d.ts": {
+        "version": "7ca4c534eab7cff43d81327e369a23464bc37ef38ce5337ceff24a42c6c84eb2",
+        "signature": "7ca4c534eab7cff43d81327e369a23464bc37ef38ce5337ceff24a42c6c84eb2"
+      },
+      "./node_modules/rxjs/internal/util/unsubscriptionerror.d.ts": {
+        "version": "5252dec18a34078398be4e321dee884dc7f47930e5225262543a799b591b36d2",
+        "signature": "5252dec18a34078398be4e321dee884dc7f47930e5225262543a799b591b36d2"
+      },
+      "./node_modules/rxjs/internal/util/timeouterror.d.ts": {
+        "version": "23caed4dff98bd28157d2b798b43f1dfefe727f18641648c01ce4e0e929a1630",
+        "signature": "23caed4dff98bd28157d2b798b43f1dfefe727f18641648c01ce4e0e929a1630"
+      },
+      "./node_modules/rxjs/internal/observable/bindcallback.d.ts": {
+        "version": "f67e013d5374826596d7c23dbae1cdb14375a27cd72e16c5fb46a4b445059329",
+        "signature": "f67e013d5374826596d7c23dbae1cdb14375a27cd72e16c5fb46a4b445059329"
+      },
+      "./node_modules/rxjs/internal/observable/bindnodecallback.d.ts": {
+        "version": "ea3401b70e2302683bbf4c18b69ef2292b60f4d8f8e6d920413b81fb7bde0f65",
+        "signature": "ea3401b70e2302683bbf4c18b69ef2292b60f4d8f8e6d920413b81fb7bde0f65"
+      },
+      "./node_modules/rxjs/internal/innersubscriber.d.ts": {
+        "version": "71afe26642c0fb86b9f8b1af4af5deb5181b43b6542a3ff2314871b53d04c749",
+        "signature": "71afe26642c0fb86b9f8b1af4af5deb5181b43b6542a3ff2314871b53d04c749"
+      },
+      "./node_modules/rxjs/internal/outersubscriber.d.ts": {
+        "version": "0d7f01634e6234d84cf0106508efdb8ae00e5ed126eff9606d37b031ac1de654",
+        "signature": "0d7f01634e6234d84cf0106508efdb8ae00e5ed126eff9606d37b031ac1de654"
+      },
+      "./node_modules/rxjs/internal/observable/combinelatest.d.ts": {
+        "version": "1571e40de593d48983b09fbf798c7ed7f2fb0e45c2a004ca172973880fa01ebc",
+        "signature": "1571e40de593d48983b09fbf798c7ed7f2fb0e45c2a004ca172973880fa01ebc"
+      },
+      "./node_modules/rxjs/internal/observable/concat.d.ts": {
+        "version": "3ad003278d569d1953779e2f838f7798f02e793f6a1eceac8e0065f1a202669b",
+        "signature": "3ad003278d569d1953779e2f838f7798f02e793f6a1eceac8e0065f1a202669b"
+      },
+      "./node_modules/rxjs/internal/observable/defer.d.ts": {
+        "version": "fb2c5eceffcd918dbb86332afa0199f5e7b6cf6ee42809e930a827b28ef25afe",
+        "signature": "fb2c5eceffcd918dbb86332afa0199f5e7b6cf6ee42809e930a827b28ef25afe"
+      },
+      "./node_modules/rxjs/internal/observable/empty.d.ts": {
+        "version": "f664aaff6a981eeca68f1ff2d9fd21b6664f47bf45f3ae19874df5a6683a8d8a",
+        "signature": "f664aaff6a981eeca68f1ff2d9fd21b6664f47bf45f3ae19874df5a6683a8d8a"
+      },
+      "./node_modules/rxjs/internal/observable/forkjoin.d.ts": {
+        "version": "ce066f85d73e09e9adbd0049bcf6471c7eefbfc2ec4b5692b5bcef1e36babd2a",
+        "signature": "ce066f85d73e09e9adbd0049bcf6471c7eefbfc2ec4b5692b5bcef1e36babd2a"
+      },
+      "./node_modules/rxjs/internal/observable/from.d.ts": {
+        "version": "09d302513cacfbcc54b67088739bd8ac1c3c57917f83f510b2d1adcb99fd7d2a",
+        "signature": "09d302513cacfbcc54b67088739bd8ac1c3c57917f83f510b2d1adcb99fd7d2a"
+      },
+      "./node_modules/rxjs/internal/observable/fromevent.d.ts": {
+        "version": "3faa54e978b92a6f726440c13fe3ab35993dc74d697c7709681dc1764a25219f",
+        "signature": "3faa54e978b92a6f726440c13fe3ab35993dc74d697c7709681dc1764a25219f"
+      },
+      "./node_modules/rxjs/internal/observable/fromeventpattern.d.ts": {
+        "version": "2bd0489e968925eb0c4c0fb12ef090be5165c86bd088e1e803102c38d4a717d8",
+        "signature": "2bd0489e968925eb0c4c0fb12ef090be5165c86bd088e1e803102c38d4a717d8"
+      },
+      "./node_modules/rxjs/internal/observable/generate.d.ts": {
+        "version": "88924207132b9ba339c1adb1ed3ea07e47b3149ff8a2e21a3ea1f91cee68589d",
+        "signature": "88924207132b9ba339c1adb1ed3ea07e47b3149ff8a2e21a3ea1f91cee68589d"
+      },
+      "./node_modules/rxjs/internal/observable/interval.d.ts": {
+        "version": "b8800b93d8ab532f8915be73f8195b9d4ef06376d8a82e8cdc17c400553172d6",
+        "signature": "b8800b93d8ab532f8915be73f8195b9d4ef06376d8a82e8cdc17c400553172d6"
+      },
+      "./node_modules/rxjs/internal/observable/merge.d.ts": {
+        "version": "d7d469703b78beba76d511957f8c8b534c3bbb02bea7ab4705c65ef573532fb8",
+        "signature": "d7d469703b78beba76d511957f8c8b534c3bbb02bea7ab4705c65ef573532fb8"
+      },
+      "./node_modules/rxjs/internal/observable/never.d.ts": {
+        "version": "74c8c3057669c03264263d911d0f82e876cef50b05be21c54fef23c900de0420",
+        "signature": "74c8c3057669c03264263d911d0f82e876cef50b05be21c54fef23c900de0420"
+      },
+      "./node_modules/rxjs/internal/observable/of.d.ts": {
+        "version": "b303eda2ff2d582a9c3c5ecb708fb57355cdc25e8c8197a9f66d4d1bf09fda19",
+        "signature": "b303eda2ff2d582a9c3c5ecb708fb57355cdc25e8c8197a9f66d4d1bf09fda19"
+      },
+      "./node_modules/rxjs/internal/observable/onerrorresumenext.d.ts": {
+        "version": "4e5dc89fa22ff43da3dee1db97d5add0591ebaff9e4adef6c8b6f0b41f0f60f0",
+        "signature": "4e5dc89fa22ff43da3dee1db97d5add0591ebaff9e4adef6c8b6f0b41f0f60f0"
+      },
+      "./node_modules/rxjs/internal/observable/pairs.d.ts": {
+        "version": "ec4e82cb42a902fe83dc13153c7a260bee95684541f8d7ef26cb0629a2f4ca31",
+        "signature": "ec4e82cb42a902fe83dc13153c7a260bee95684541f8d7ef26cb0629a2f4ca31"
+      },
+      "./node_modules/rxjs/internal/observable/partition.d.ts": {
+        "version": "5f36e24cd92b0ff3e2a243685a8a780c9413941c36739f04b428cc4e15de629d",
+        "signature": "5f36e24cd92b0ff3e2a243685a8a780c9413941c36739f04b428cc4e15de629d"
+      },
+      "./node_modules/rxjs/internal/observable/race.d.ts": {
+        "version": "9200f1759b84cc96ffd483ea718fa9db83567a0393c5598a53ca5f22284795d5",
+        "signature": "9200f1759b84cc96ffd483ea718fa9db83567a0393c5598a53ca5f22284795d5"
+      },
+      "./node_modules/rxjs/internal/observable/range.d.ts": {
+        "version": "208e125b45bc561765a74f6f1019d88e44e94678769824cf93726e1bac457961",
+        "signature": "208e125b45bc561765a74f6f1019d88e44e94678769824cf93726e1bac457961"
+      },
+      "./node_modules/rxjs/internal/observable/timer.d.ts": {
+        "version": "b3985971de086ef3aa698ef19009a53527b72e65851b782dc188ac341a1e1390",
+        "signature": "b3985971de086ef3aa698ef19009a53527b72e65851b782dc188ac341a1e1390"
+      },
+      "./node_modules/rxjs/internal/observable/using.d.ts": {
+        "version": "c81d421aabb6113cd98b9d4f11e9a03273b363b841f294b457f37c15d513151d",
+        "signature": "c81d421aabb6113cd98b9d4f11e9a03273b363b841f294b457f37c15d513151d"
+      },
+      "./node_modules/rxjs/internal/observable/zip.d.ts": {
+        "version": "1f26af7308d6d7adaa4656de4da9c5bc0593cdcfcf7da8b5ee8cebd9aad981f4",
+        "signature": "1f26af7308d6d7adaa4656de4da9c5bc0593cdcfcf7da8b5ee8cebd9aad981f4"
+      },
+      "./node_modules/rxjs/internal/scheduled/scheduled.d.ts": {
+        "version": "c05d4cae0bceed02c9d013360d3e65658297acb1b7a90252fe366f2bf4f9ccc9",
+        "signature": "c05d4cae0bceed02c9d013360d3e65658297acb1b7a90252fe366f2bf4f9ccc9"
+      },
+      "./node_modules/rxjs/internal/config.d.ts": {
+        "version": "6f14b92848889abba03a474e0750f7350cc91fc190c107408ca48679a03975ae",
+        "signature": "6f14b92848889abba03a474e0750f7350cc91fc190c107408ca48679a03975ae"
+      },
+      "./node_modules/rxjs/index.d.ts": {
+        "version": "41249bfce2b6ec504f2b83fd6704194277e264b13f1b896550f60dc6f98b36a3",
+        "signature": "41249bfce2b6ec504f2b83fd6704194277e264b13f1b896550f60dc6f98b36a3"
+      },
+      "./node_modules/@types/listr/index.d.ts": {
+        "version": "8940b429e5fe2341862f7a8c4a74b3cbc593d2b5938fa8bd2f1ec077413079fb",
+        "signature": "8940b429e5fe2341862f7a8c4a74b3cbc593d2b5938fa8bd2f1ec077413079fb"
       },
       "./node_modules/@types/lodash/ts3.1/common/common.d.ts": {
         "version": "4025cf62742c5bb3d383c8a62342481622c87e3397ea5e7b7baab18b9efd5798",
@@ -1471,6 +1767,7 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
+      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -3733,8 +4030,24 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../events/compute-stage/srv/prepare/index.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../events/compute-stage/srv/trigger/index.d.ts": [
+        "../../events/compute-stage/srv/prepare/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "../../events/compute-stage/srv/index.d.ts": [
         "../../events/compute-stage/srv/types.d.ts",
+        "../../events/compute-stage/srv/prepare/index.d.ts",
+        "../../events/compute-stage/srv/trigger/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3857,7 +4170,7 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "./node_modules/@types/aws-lambda/hander.d.ts": [
+      "./node_modules/@types/aws-lambda/handler.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3876,7 +4189,7 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/alb.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3884,7 +4197,7 @@
       ],
       "./node_modules/@types/aws-lambda/trigger/api-gateway-authorizer.d.ts": [
         "./node_modules/@types/aws-lambda/common/api-gateway.d.ts",
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3892,14 +4205,14 @@
       ],
       "./node_modules/@types/aws-lambda/trigger/api-gateway-proxy.d.ts": [
         "./node_modules/@types/aws-lambda/common/api-gateway.d.ts",
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/cloudformation-custom-resource.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3907,7 +4220,7 @@
       ],
       "./node_modules/@types/aws-lambda/trigger/cloudfront-request.d.ts": [
         "./node_modules/@types/aws-lambda/common/cloudfront.d.ts",
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3915,56 +4228,56 @@
       ],
       "./node_modules/@types/aws-lambda/trigger/cloudfront-response.d.ts": [
         "./node_modules/@types/aws-lambda/common/cloudfront.d.ts",
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/cloudwatch-events.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/cloudwatch-logs.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/codepipeline.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-action.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-pipeline.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-stage.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-action.d.ts",
         "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-pipeline.d.ts",
         "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-stage.d.ts",
@@ -3974,70 +4287,70 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/cognito-user-pool-trigger.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/dynamodb-stream.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/kinesis-firehose-transformation.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/kinesis-stream.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/lex.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/s3.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/s3-batch.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/sns.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/sqs.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/index.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/aws-lambda/common/api-gateway.d.ts",
         "./node_modules/@types/aws-lambda/common/cloudfront.d.ts",
         "./node_modules/@types/aws-lambda/trigger/alb.d.ts",
@@ -4092,7 +4405,76 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../spinup/srv/spinup/index.d.ts": [
+        "../spinup/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../spinup/srv/builder/guidebuilder.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../spinup/srv/builder/userbuilder.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "../spinup/srv/builder/guidebuilder.d.ts",
+        "../spinup/srv/builder/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../spinup/srv/builder/index.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "../spinup/srv/builder/userbuilder.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../spinup/srv/index.d.ts": [
+        "../spinup/srv/spinup/index.d.ts",
+        "../spinup/srv/builder/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/faker/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts": [
+        "../../events/compute-stage/srv/index.d.ts",
+        "../../tools/database/srv/index.d.ts",
+        "../spinup/srv/index.d.ts",
+        "./node_modules/@types/faker/index.d.ts",
+        "./src/plugins/addspotfromlatlng/index.ts",
+        "./src/generated.ts",
+        "../spinup/srv/builder/guidebuilder.d.ts",
+        "../../tools/logger/srv/index.d.ts",
+        "./node_modules/@types/node/constants.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./src/plugins/removespot/removespot.test.ts": [
+        "../../events/compute-stage/srv/index.d.ts",
+        "../../tools/database/srv/index.d.ts",
+        "../spinup/srv/index.d.ts",
+        "./node_modules/@types/faker/index.d.ts",
+        "./src/plugins/removespot/index.ts",
+        "./src/generated.ts",
+        "../spinup/srv/builder/guidebuilder.d.ts",
+        "../../tools/logger/srv/index.d.ts",
+        "./node_modules/@types/node/constants.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -4158,6 +4540,12 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/@types/command-line-args/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/@types/keygrip/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -4176,12 +4564,6 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/cuid/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/faker/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -4303,6 +4685,588 @@
         "./node_modules/@types/koa-compose/index.d.ts",
         "./node_modules/@types/node/net.d.ts",
         "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/subscription.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/types.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/subscriber.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/operator.d.ts": [
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/iif.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/throwerror.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable.d.ts": [
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable/iif.d.ts",
+        "./node_modules/rxjs/internal/observable/throwerror.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/subject.d.ts": [
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/connectableobservable.d.ts": [
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/operators/groupby.d.ts": [
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/symbol/observable.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/behaviorsubject.d.ts": [
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/replaysubject.d.ts": [
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/asyncsubject.d.ts": [
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/action.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/action.d.ts": [
+        "./node_modules/rxjs/internal/scheduler.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler.d.ts",
+        "./node_modules/rxjs/internal/scheduler/action.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/action.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/asapscheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/asap.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asapscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/async.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/queuescheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/queue.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/queuescheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/animationframescheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/animationframe.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/animationframescheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/virtualtimescheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/notification.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/pipe.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/noop.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/identity.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/isobservable.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/argumentoutofrangeerror.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/emptyerror.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/objectunsubscribederror.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/unsubscriptionerror.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/timeouterror.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/bindcallback.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/bindnodecallback.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/innersubscriber.d.ts": [
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/outersubscriber.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/outersubscriber.d.ts": [
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/innersubscriber.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/combinelatest.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/outersubscriber.d.ts",
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/innersubscriber.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/concat.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/defer.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/empty.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/forkjoin.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/from.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/fromevent.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/fromeventpattern.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/observable/fromevent.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/generate.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/interval.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/merge.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/never.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/of.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/onerrorresumenext.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/pairs.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/partition.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/race.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/outersubscriber.d.ts",
+        "./node_modules/rxjs/internal/innersubscriber.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/range.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/timer.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/using.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/zip.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduled/scheduled.d.ts": [
+        "./node_modules/rxjs/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/config.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/index.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/observable/connectableobservable.d.ts",
+        "./node_modules/rxjs/internal/operators/groupby.d.ts",
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/symbol/observable.d.ts",
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/behaviorsubject.d.ts",
+        "./node_modules/rxjs/internal/replaysubject.d.ts",
+        "./node_modules/rxjs/internal/asyncsubject.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asap.d.ts",
+        "./node_modules/rxjs/internal/scheduler/async.d.ts",
+        "./node_modules/rxjs/internal/scheduler/queue.d.ts",
+        "./node_modules/rxjs/internal/scheduler/animationframe.d.ts",
+        "./node_modules/rxjs/internal/scheduler/virtualtimescheduler.d.ts",
+        "./node_modules/rxjs/internal/scheduler.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/notification.d.ts",
+        "./node_modules/rxjs/internal/util/pipe.d.ts",
+        "./node_modules/rxjs/internal/util/noop.d.ts",
+        "./node_modules/rxjs/internal/util/identity.d.ts",
+        "./node_modules/rxjs/internal/util/isobservable.d.ts",
+        "./node_modules/rxjs/internal/util/argumentoutofrangeerror.d.ts",
+        "./node_modules/rxjs/internal/util/emptyerror.d.ts",
+        "./node_modules/rxjs/internal/util/objectunsubscribederror.d.ts",
+        "./node_modules/rxjs/internal/util/unsubscriptionerror.d.ts",
+        "./node_modules/rxjs/internal/util/timeouterror.d.ts",
+        "./node_modules/rxjs/internal/observable/bindcallback.d.ts",
+        "./node_modules/rxjs/internal/observable/bindnodecallback.d.ts",
+        "./node_modules/rxjs/internal/observable/combinelatest.d.ts",
+        "./node_modules/rxjs/internal/observable/concat.d.ts",
+        "./node_modules/rxjs/internal/observable/defer.d.ts",
+        "./node_modules/rxjs/internal/observable/empty.d.ts",
+        "./node_modules/rxjs/internal/observable/forkjoin.d.ts",
+        "./node_modules/rxjs/internal/observable/from.d.ts",
+        "./node_modules/rxjs/internal/observable/fromevent.d.ts",
+        "./node_modules/rxjs/internal/observable/fromeventpattern.d.ts",
+        "./node_modules/rxjs/internal/observable/generate.d.ts",
+        "./node_modules/rxjs/internal/observable/iif.d.ts",
+        "./node_modules/rxjs/internal/observable/interval.d.ts",
+        "./node_modules/rxjs/internal/observable/merge.d.ts",
+        "./node_modules/rxjs/internal/observable/never.d.ts",
+        "./node_modules/rxjs/internal/observable/of.d.ts",
+        "./node_modules/rxjs/internal/observable/onerrorresumenext.d.ts",
+        "./node_modules/rxjs/internal/observable/pairs.d.ts",
+        "./node_modules/rxjs/internal/observable/partition.d.ts",
+        "./node_modules/rxjs/internal/observable/race.d.ts",
+        "./node_modules/rxjs/internal/observable/range.d.ts",
+        "./node_modules/rxjs/internal/observable/throwerror.d.ts",
+        "./node_modules/rxjs/internal/observable/timer.d.ts",
+        "./node_modules/rxjs/internal/observable/using.d.ts",
+        "./node_modules/rxjs/internal/observable/zip.d.ts",
+        "./node_modules/rxjs/internal/scheduled/scheduled.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/config.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/listr/index.d.ts": [
+        "./node_modules/@types/node/stream.d.ts",
+        "./node_modules/rxjs/index.d.ts",
         "./node_modules/@types/node/ts3.5/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -6815,12 +7779,32 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../events/compute-stage/srv/index.d.ts": [
-        "../../events/compute-stage/srv/types.d.ts",
+      "../../events/compute-stage/srv/prepare/index.d.ts": [
+        "../../tools/database/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../events/compute-stage/srv/trigger/index.d.ts": [
+        "../../events/compute-stage/srv/prepare/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../events/compute-stage/srv/index.d.ts": [
+        "../../events/compute-stage/srv/types.d.ts",
+        "../../events/compute-stage/srv/prepare/index.d.ts",
+        "../../events/compute-stage/srv/trigger/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./src/plugins/addspotfromlatlng/index.ts": [
+        "./src/generated.ts",
+        "../../events/compute-stage/srv/index.d.ts"
       ],
       "../../tools/utils/srv/executeconcurrently.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
@@ -6856,9 +7840,6 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "./src/plugins/removespot/index.ts": [
-        "../../tools/database/srv/index.d.ts"
-      ],
       "./src/options.ts": [
         "./node_modules/postgraphile/build/index.d.ts"
       ],
@@ -6873,7 +7854,7 @@
         "./src/options.ts",
         "./node_modules/@types/express/index.d.ts"
       ],
-      "./node_modules/@types/aws-lambda/hander.d.ts": [
+      "./node_modules/@types/aws-lambda/handler.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6892,7 +7873,7 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/alb.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6900,7 +7881,7 @@
       ],
       "./node_modules/@types/aws-lambda/trigger/api-gateway-authorizer.d.ts": [
         "./node_modules/@types/aws-lambda/common/api-gateway.d.ts",
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6908,14 +7889,14 @@
       ],
       "./node_modules/@types/aws-lambda/trigger/api-gateway-proxy.d.ts": [
         "./node_modules/@types/aws-lambda/common/api-gateway.d.ts",
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/cloudformation-custom-resource.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6923,7 +7904,7 @@
       ],
       "./node_modules/@types/aws-lambda/trigger/cloudfront-request.d.ts": [
         "./node_modules/@types/aws-lambda/common/cloudfront.d.ts",
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -6931,56 +7912,56 @@
       ],
       "./node_modules/@types/aws-lambda/trigger/cloudfront-response.d.ts": [
         "./node_modules/@types/aws-lambda/common/cloudfront.d.ts",
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/cloudwatch-events.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/cloudwatch-logs.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/codepipeline.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-action.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-pipeline.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-stage.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-action.d.ts",
         "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-pipeline.d.ts",
         "./node_modules/@types/aws-lambda/trigger/codepipeline-cloudwatch-stage.d.ts",
@@ -6990,70 +7971,70 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/cognito-user-pool-trigger.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/dynamodb-stream.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/kinesis-firehose-transformation.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/kinesis-stream.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/lex.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/s3.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/s3-batch.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/sns.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/trigger/sqs.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/aws-lambda/index.d.ts": [
-        "./node_modules/@types/aws-lambda/hander.d.ts",
+        "./node_modules/@types/aws-lambda/handler.d.ts",
         "./node_modules/@types/aws-lambda/common/api-gateway.d.ts",
         "./node_modules/@types/aws-lambda/common/cloudfront.d.ts",
         "./node_modules/@types/aws-lambda/trigger/alb.d.ts",
@@ -7087,6 +8068,51 @@
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/aws-lambda/index.d.ts",
         "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../spinup/srv/spinup/index.d.ts": [
+        "../spinup/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../spinup/srv/builder/guidebuilder.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../spinup/srv/builder/userbuilder.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "../spinup/srv/builder/guidebuilder.d.ts",
+        "../spinup/srv/builder/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../spinup/srv/builder/index.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "../spinup/srv/builder/userbuilder.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../spinup/srv/index.d.ts": [
+        "../spinup/srv/spinup/index.d.ts",
+        "../spinup/srv/builder/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/faker/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7152,6 +8178,12 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/@types/command-line-args/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/@types/keygrip/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -7170,12 +8202,6 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/@types/cuid/index.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/@types/faker/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7297,6 +8323,588 @@
         "./node_modules/@types/koa-compose/index.d.ts",
         "./node_modules/@types/node/net.d.ts",
         "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node/ts3.5/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/subscription.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/types.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/subscriber.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/operator.d.ts": [
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/iif.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/throwerror.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable.d.ts": [
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable/iif.d.ts",
+        "./node_modules/rxjs/internal/observable/throwerror.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/subject.d.ts": [
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/connectableobservable.d.ts": [
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/operators/groupby.d.ts": [
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/symbol/observable.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/behaviorsubject.d.ts": [
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/replaysubject.d.ts": [
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/asyncsubject.d.ts": [
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/action.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/action.d.ts": [
+        "./node_modules/rxjs/internal/scheduler.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler.d.ts",
+        "./node_modules/rxjs/internal/scheduler/action.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/action.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/asapscheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/asap.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asapscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/async.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/queuescheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/queue.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/queuescheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/animationframescheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/animationframe.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/animationframescheduler.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduler/virtualtimescheduler.d.ts": [
+        "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/notification.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/pipe.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/noop.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/identity.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/isobservable.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/argumentoutofrangeerror.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/emptyerror.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/objectunsubscribederror.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/unsubscriptionerror.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/util/timeouterror.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/bindcallback.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/bindnodecallback.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/innersubscriber.d.ts": [
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/outersubscriber.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/outersubscriber.d.ts": [
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/innersubscriber.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/combinelatest.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/outersubscriber.d.ts",
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/innersubscriber.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/concat.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/defer.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/empty.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/forkjoin.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/from.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/fromevent.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/fromeventpattern.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/observable/fromevent.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/generate.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/interval.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/merge.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/never.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/of.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/onerrorresumenext.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/pairs.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/partition.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/race.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/outersubscriber.d.ts",
+        "./node_modules/rxjs/internal/innersubscriber.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/range.d.ts": [
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/timer.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/using.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/observable/zip.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/scheduled/scheduled.d.ts": [
+        "./node_modules/rxjs/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/internal/config.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/rxjs/index.d.ts": [
+        "./node_modules/rxjs/internal/observable.d.ts",
+        "./node_modules/rxjs/internal/observable/connectableobservable.d.ts",
+        "./node_modules/rxjs/internal/operators/groupby.d.ts",
+        "./node_modules/rxjs/internal/operator.d.ts",
+        "./node_modules/rxjs/internal/symbol/observable.d.ts",
+        "./node_modules/rxjs/internal/subject.d.ts",
+        "./node_modules/rxjs/internal/behaviorsubject.d.ts",
+        "./node_modules/rxjs/internal/replaysubject.d.ts",
+        "./node_modules/rxjs/internal/asyncsubject.d.ts",
+        "./node_modules/rxjs/internal/scheduler/asap.d.ts",
+        "./node_modules/rxjs/internal/scheduler/async.d.ts",
+        "./node_modules/rxjs/internal/scheduler/queue.d.ts",
+        "./node_modules/rxjs/internal/scheduler/animationframe.d.ts",
+        "./node_modules/rxjs/internal/scheduler/virtualtimescheduler.d.ts",
+        "./node_modules/rxjs/internal/scheduler.d.ts",
+        "./node_modules/rxjs/internal/subscription.d.ts",
+        "./node_modules/rxjs/internal/subscriber.d.ts",
+        "./node_modules/rxjs/internal/notification.d.ts",
+        "./node_modules/rxjs/internal/util/pipe.d.ts",
+        "./node_modules/rxjs/internal/util/noop.d.ts",
+        "./node_modules/rxjs/internal/util/identity.d.ts",
+        "./node_modules/rxjs/internal/util/isobservable.d.ts",
+        "./node_modules/rxjs/internal/util/argumentoutofrangeerror.d.ts",
+        "./node_modules/rxjs/internal/util/emptyerror.d.ts",
+        "./node_modules/rxjs/internal/util/objectunsubscribederror.d.ts",
+        "./node_modules/rxjs/internal/util/unsubscriptionerror.d.ts",
+        "./node_modules/rxjs/internal/util/timeouterror.d.ts",
+        "./node_modules/rxjs/internal/observable/bindcallback.d.ts",
+        "./node_modules/rxjs/internal/observable/bindnodecallback.d.ts",
+        "./node_modules/rxjs/internal/observable/combinelatest.d.ts",
+        "./node_modules/rxjs/internal/observable/concat.d.ts",
+        "./node_modules/rxjs/internal/observable/defer.d.ts",
+        "./node_modules/rxjs/internal/observable/empty.d.ts",
+        "./node_modules/rxjs/internal/observable/forkjoin.d.ts",
+        "./node_modules/rxjs/internal/observable/from.d.ts",
+        "./node_modules/rxjs/internal/observable/fromevent.d.ts",
+        "./node_modules/rxjs/internal/observable/fromeventpattern.d.ts",
+        "./node_modules/rxjs/internal/observable/generate.d.ts",
+        "./node_modules/rxjs/internal/observable/iif.d.ts",
+        "./node_modules/rxjs/internal/observable/interval.d.ts",
+        "./node_modules/rxjs/internal/observable/merge.d.ts",
+        "./node_modules/rxjs/internal/observable/never.d.ts",
+        "./node_modules/rxjs/internal/observable/of.d.ts",
+        "./node_modules/rxjs/internal/observable/onerrorresumenext.d.ts",
+        "./node_modules/rxjs/internal/observable/pairs.d.ts",
+        "./node_modules/rxjs/internal/observable/partition.d.ts",
+        "./node_modules/rxjs/internal/observable/race.d.ts",
+        "./node_modules/rxjs/internal/observable/range.d.ts",
+        "./node_modules/rxjs/internal/observable/throwerror.d.ts",
+        "./node_modules/rxjs/internal/observable/timer.d.ts",
+        "./node_modules/rxjs/internal/observable/using.d.ts",
+        "./node_modules/rxjs/internal/observable/zip.d.ts",
+        "./node_modules/rxjs/internal/scheduled/scheduled.d.ts",
+        "./node_modules/rxjs/internal/types.d.ts",
+        "./node_modules/rxjs/internal/config.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/@types/listr/index.d.ts": [
+        "./node_modules/@types/node/stream.d.ts",
+        "./node_modules/rxjs/index.d.ts",
         "./node_modules/@types/node/ts3.5/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -7824,7 +9432,6 @@
       "../../apis/google/node_modules/@googlemaps/google-maps-services-js/dist/index.d.ts",
       "../../apis/google/srv/getinfo/index.d.ts",
       "../../apis/google/srv/index.d.ts",
-      "./src/generated.ts",
       "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts",
       "../../tools/database/node_modules/pg-minify/typescript/pg-minify.d.ts",
       "../../tools/database/node_modules/spex/typescript/spex.d.ts",
@@ -7835,21 +9442,18 @@
       "../../tools/database/srv/index.d.ts",
       "./src/plugins/types.ts",
       "../../events/compute-stage/srv/types.d.ts",
+      "../../events/compute-stage/srv/prepare/index.d.ts",
+      "../../events/compute-stage/srv/trigger/index.d.ts",
       "../../events/compute-stage/srv/index.d.ts",
-      "./src/plugins/addspotfromlatlng/index.ts",
       "../../tools/utils/srv/executeconcurrently.d.ts",
       "../../tools/utils/srv/executewithcontext.d.ts",
       "../../tools/utils/srv/executesequentially.d.ts",
       "../../tools/utils/srv/constants.d.ts",
       "../../tools/utils/srv/index.d.ts",
-      "./src/plugins/movespot/index.ts",
-      "./src/plugins/removespot/index.ts",
-      "./src/plugins/index.ts",
-      "./src/options.ts",
       "./node_modules/@types/cors/index.d.ts",
       "./src/app.ts",
       "./src/buildcache.ts",
-      "./node_modules/@types/aws-lambda/hander.d.ts",
+      "./node_modules/@types/aws-lambda/handler.d.ts",
       "./node_modules/@types/aws-lambda/common/api-gateway.d.ts",
       "./node_modules/@types/aws-lambda/common/cloudfront.d.ts",
       "./node_modules/@types/aws-lambda/trigger/alb.d.ts",
@@ -7878,6 +9482,12 @@
       "./node_modules/@types/aws-serverless-express/index.d.ts",
       "./src/lambda.ts",
       "./src/server.ts",
+      "../spinup/srv/spinup/index.d.ts",
+      "../spinup/srv/builder/guidebuilder.d.ts",
+      "../spinup/srv/builder/userbuilder.d.ts",
+      "../spinup/srv/builder/index.d.ts",
+      "../spinup/srv/index.d.ts",
+      "./node_modules/@types/faker/index.d.ts",
       "./node_modules/@types/accepts/index.d.ts",
       "./node_modules/@babel/types/lib/index.d.ts",
       "./node_modules/@types/babel__generator/index.d.ts",
@@ -7886,10 +9496,10 @@
       "./node_modules/@types/babel__template/index.d.ts",
       "./node_modules/@types/babel__core/index.d.ts",
       "./node_modules/@types/color-name/index.d.ts",
+      "./node_modules/@types/command-line-args/index.d.ts",
       "./node_modules/@types/keygrip/index.d.ts",
       "./node_modules/@types/cookies/index.d.ts",
       "./node_modules/@types/cuid/index.d.ts",
-      "./node_modules/@types/faker/index.d.ts",
       "./node_modules/@types/geojson/index.d.ts",
       "./node_modules/@types/http-assert/index.d.ts",
       "./node_modules/@types/istanbul-lib-coverage/index.d.ts",
@@ -7906,6 +9516,71 @@
       "./node_modules/@types/json5/index.d.ts",
       "./node_modules/@types/koa-compose/index.d.ts",
       "./node_modules/@types/koa/index.d.ts",
+      "./node_modules/rxjs/internal/subscription.d.ts",
+      "./node_modules/rxjs/internal/types.d.ts",
+      "./node_modules/rxjs/internal/subscriber.d.ts",
+      "./node_modules/rxjs/internal/operator.d.ts",
+      "./node_modules/rxjs/internal/observable/iif.d.ts",
+      "./node_modules/rxjs/internal/observable/throwerror.d.ts",
+      "./node_modules/rxjs/internal/observable.d.ts",
+      "./node_modules/rxjs/internal/subject.d.ts",
+      "./node_modules/rxjs/internal/observable/connectableobservable.d.ts",
+      "./node_modules/rxjs/internal/operators/groupby.d.ts",
+      "./node_modules/rxjs/internal/symbol/observable.d.ts",
+      "./node_modules/rxjs/internal/behaviorsubject.d.ts",
+      "./node_modules/rxjs/internal/replaysubject.d.ts",
+      "./node_modules/rxjs/internal/asyncsubject.d.ts",
+      "./node_modules/rxjs/internal/scheduler.d.ts",
+      "./node_modules/rxjs/internal/scheduler/action.d.ts",
+      "./node_modules/rxjs/internal/scheduler/asyncscheduler.d.ts",
+      "./node_modules/rxjs/internal/scheduler/asyncaction.d.ts",
+      "./node_modules/rxjs/internal/scheduler/asapscheduler.d.ts",
+      "./node_modules/rxjs/internal/scheduler/asap.d.ts",
+      "./node_modules/rxjs/internal/scheduler/async.d.ts",
+      "./node_modules/rxjs/internal/scheduler/queuescheduler.d.ts",
+      "./node_modules/rxjs/internal/scheduler/queue.d.ts",
+      "./node_modules/rxjs/internal/scheduler/animationframescheduler.d.ts",
+      "./node_modules/rxjs/internal/scheduler/animationframe.d.ts",
+      "./node_modules/rxjs/internal/scheduler/virtualtimescheduler.d.ts",
+      "./node_modules/rxjs/internal/notification.d.ts",
+      "./node_modules/rxjs/internal/util/pipe.d.ts",
+      "./node_modules/rxjs/internal/util/noop.d.ts",
+      "./node_modules/rxjs/internal/util/identity.d.ts",
+      "./node_modules/rxjs/internal/util/isobservable.d.ts",
+      "./node_modules/rxjs/internal/util/argumentoutofrangeerror.d.ts",
+      "./node_modules/rxjs/internal/util/emptyerror.d.ts",
+      "./node_modules/rxjs/internal/util/objectunsubscribederror.d.ts",
+      "./node_modules/rxjs/internal/util/unsubscriptionerror.d.ts",
+      "./node_modules/rxjs/internal/util/timeouterror.d.ts",
+      "./node_modules/rxjs/internal/observable/bindcallback.d.ts",
+      "./node_modules/rxjs/internal/observable/bindnodecallback.d.ts",
+      "./node_modules/rxjs/internal/innersubscriber.d.ts",
+      "./node_modules/rxjs/internal/outersubscriber.d.ts",
+      "./node_modules/rxjs/internal/observable/combinelatest.d.ts",
+      "./node_modules/rxjs/internal/observable/concat.d.ts",
+      "./node_modules/rxjs/internal/observable/defer.d.ts",
+      "./node_modules/rxjs/internal/observable/empty.d.ts",
+      "./node_modules/rxjs/internal/observable/forkjoin.d.ts",
+      "./node_modules/rxjs/internal/observable/from.d.ts",
+      "./node_modules/rxjs/internal/observable/fromevent.d.ts",
+      "./node_modules/rxjs/internal/observable/fromeventpattern.d.ts",
+      "./node_modules/rxjs/internal/observable/generate.d.ts",
+      "./node_modules/rxjs/internal/observable/interval.d.ts",
+      "./node_modules/rxjs/internal/observable/merge.d.ts",
+      "./node_modules/rxjs/internal/observable/never.d.ts",
+      "./node_modules/rxjs/internal/observable/of.d.ts",
+      "./node_modules/rxjs/internal/observable/onerrorresumenext.d.ts",
+      "./node_modules/rxjs/internal/observable/pairs.d.ts",
+      "./node_modules/rxjs/internal/observable/partition.d.ts",
+      "./node_modules/rxjs/internal/observable/race.d.ts",
+      "./node_modules/rxjs/internal/observable/range.d.ts",
+      "./node_modules/rxjs/internal/observable/timer.d.ts",
+      "./node_modules/rxjs/internal/observable/using.d.ts",
+      "./node_modules/rxjs/internal/observable/zip.d.ts",
+      "./node_modules/rxjs/internal/scheduled/scheduled.d.ts",
+      "./node_modules/rxjs/internal/config.d.ts",
+      "./node_modules/rxjs/index.d.ts",
+      "./node_modules/@types/listr/index.d.ts",
       "./node_modules/@types/lodash/ts3.1/common/common.d.ts",
       "./node_modules/@types/lodash/ts3.1/common/array.d.ts",
       "./node_modules/@types/lodash/ts3.1/common/collection.d.ts",
@@ -7923,7 +9598,26 @@
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "./src/plugins/removespot/removespot.test.ts"
+      "./src/generated.ts",
+      [
+        "./src/plugins/removespot/removespot.test.ts",
+        [
+          {
+            "file": "./src/plugins/removespot/removespot.test.ts",
+            "start": 232,
+            "length": 7,
+            "messageText": "Module '\"../../../../../../../../../Users/theo/Code/guided/backend/graphql/src/plugins/removeSpot\"' has no exported member 'prepare'. Did you mean to use 'import prepare from \"../../../../../../../../../Users/theo/Code/guided/backend/graphql/src/plugins/removeSpot\"' instead?",
+            "category": 1,
+            "code": 2614
+          }
+        ]
+      ],
+      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
+      "./src/plugins/removespot/index.ts",
+      "./src/plugins/movespot/index.ts",
+      "./src/plugins/addspotfromlatlng/index.ts",
+      "./src/plugins/index.ts",
+      "./src/options.ts"
     ]
   },
   "version": "3.7.5"

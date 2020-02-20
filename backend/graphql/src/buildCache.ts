@@ -1,10 +1,6 @@
-if (process.env.STAGE) {
-  require("dotenv").config({
-    path: `./.${process.env.STAGE}.env`,
-  })
-} else{
-  throw new Error('Requires STAGE env')
-}
+require("dotenv").config({
+  path: `../../.env`,
+})
 
 import { createPostGraphileSchema } from "postgraphile"
 import { options, connection } from "./options"
@@ -12,11 +8,10 @@ import { options, connection } from "./options"
 const { Pool } = require("pg")
 
 async function main() {
-
   const pgPool = new Pool({
     connectionString: connection(),
   })
-  await createPostGraphileSchema(pgPool, process.env.POSTGRES_SCHEMA!,options("buildCache"))
+  await createPostGraphileSchema(pgPool, process.env.POSTGRES_SCHEMA!, options("buildCache"))
   await pgPool.end()
 }
 

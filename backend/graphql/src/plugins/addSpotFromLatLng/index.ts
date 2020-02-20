@@ -8,11 +8,12 @@ import { MutationAddSpotFromLatLngArgs } from "../../generated"
 import { database, generateId, Spot } from "@guided/database"
 import { Context } from "../types"
 import * as computeStage from "@guided/compute-stage"
+import { Packet } from "@guided/compute-stage"
 
-
-async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, context: Context): Promise<Partial<Spot>> {
-  logJson(args, "addSpotFromLatLng args")
-
+export async function prepare(args: MutationAddSpotFromLatLngArgs, owner: string): Promise<{
+  spotId: string,
+  packet: Packet
+}> {
   const { spotCount } = await database.one(`SELECT count(1) as "spotCount"
                                             from spots
                                             where guide = $1`, [args.guideId])
@@ -20,11 +21,13 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
 
   const { label: location, countryCode: country } = await getInfo(args.lat, args.long)
 
+  const spotId = generateId("spot")
+
   const spot: Spot = {
-    id: generateId("spot"),
+    id: spotId,
     guide: args.guideId,
     label: args.label || null,
-    owner: context.jwtClaims.username!,
+    owner,
     lat: args.lat,
     date: null,
     long: args.long,
@@ -36,22 +39,31 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
     stage: null,
     created: new Date(),
     updated: null,
-    status: "complete",
   }
 
   await database.insertSpot(spot)
 
+  const packet = await computeStage.prepare(args.guideId)
 
-  await computeStage.execute({
-    stageId: args.guideId,
-  })
-  return spot
+  return {
+    spotId,
+    packet,
+  }
+}
+
+async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, context: Context): Promise<{ id: string }> {
+  logJson(args, "addSpotFromLatLng args")
+
+  const { spotId, packet } = await prepare(args, context.jwtClaims.username!)
+  await computeStage.trigger(packet)
+
+  return { id: spotId }
 }
 
 
 const generator: ExtensionDefinition = {
   typeDefs: gql`
-      type Result{
+      type Result {
           success:Boolean!
       }
       extend type Mutation {

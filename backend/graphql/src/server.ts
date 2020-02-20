@@ -1,10 +1,6 @@
-if (process.env.STAGE) {
-  require("dotenv").config({
-    path: `./.${process.env.STAGE}.env`,
-  })
-} else {
-  throw new Error("Requires STAGE env")
-}
+require("dotenv").config({
+  path: `../../.env`,
+})
 
 import app from "./app"
 import { log } from "@guided/logger"

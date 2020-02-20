@@ -1,4 +1,4 @@
-create or replace function guided.guides_bounds(_guide guided.guides) returns guided.Bounds as
+create or replace function guided.guides_bounds(_guide guided.guides) returns guided.bounds as
 $$
 select max(s.lat)  as north,
        max(s.long) as west,
@@ -9,3 +9,4 @@ where guide = _guide.id
 group by s.guide
 $$ language sql stable
 ;
+

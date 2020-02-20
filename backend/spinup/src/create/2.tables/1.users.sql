@@ -4,8 +4,10 @@ create table guided.users
         constraint users_pk
             primary key,
     email         varchar(128) not null,
-    password_hash varchar(128) not null
-) ;
+    password_hash varchar(128) not null,
+    created       timestamptz  not null,
+    updated       timestamptz
+);
 
 create unique index users_email_uindex
     on guided.users (email);

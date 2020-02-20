@@ -55,9 +55,9 @@ async function moveSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<Spo
   `, [lat, long, label, countryCode, newId, spotId, new Date()])
 
   //TODO
-  await computeStage.execute({
-    stageId: "",
-  })
+  // await computeStage.execute({
+  //   stageId: "",
+  // })
 
   return {
     id: spotId,

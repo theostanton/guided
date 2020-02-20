@@ -1,5 +1,5 @@
 import { Dao, StageData } from "."
-import { database, Guide, insertOne, Spot } from "@guided/database"
+import { Computation, database, Guide, insertOne, Spot } from "@guided/database"
 import { insertMany } from "@guided/database"
 import { executeConcurrently } from "@guided/utils"
 import { Stage } from "@guided/database/srv/types"
@@ -14,72 +14,50 @@ const DELETE_UNLOCKED = `
       and locked = false
 `
 
-const SELECT_SPOTS = `
-    SELECT *
-    from spots
-    where stage = $1
-    order by position
-`
-
-const SELECT_GUIDE = `
-    SELECT *
-    from guides
-    where id = $1
-`
-
-const UPDATE_SPOT_DATE = `
-    UPDATE guided.spots
-    set date   = $1,
-        updated=$3
-    where id = $2
-`
-
 export class DatabaseDao implements Dao {
 
-  stageId: string
+  computationId: string
+  computation: Computation
 
-  constructor(stageId: string) {
-    this.stageId = stageId
+  static async create(computationId: string): Promise<DatabaseDao> {
+    const computation = await database.one("select * from computations where id=$1", [computationId])
+    return new DatabaseDao(computation)
   }
 
-  async spots(): Promise<Spot[]> {
-    return database.manyOrNone<Spot>(SELECT_SPOTS, [this.stageId])
+  constructor(computation: Computation) {
+    this.computationId = computation.id
+    this.computation = computation
+  }
+
+  async stage(): Promise<Stage> {
+    return database.one<Stage>("select * from stages where id=$1", [this.computation.stage])
   }
 
   async insertData(data: StageData): Promise<void> {
-    //TODO
-    // await executeConcurrently(stages, async (stage: StageData) => {
-    //
-    //   const insertStage = insertOne("guided.stages", {
-    //     id: stage.stageId,
-    //     from_spot: stage.startSpot.id,
-    //     to_spot: stage.endSpot.id,
-    //     guide: this.guideId,
-    //     created: new Date(),
-    //     updated: null,
-    //   } as Stage)
-    //
-    //   await database.none(insertStage)
-    //
-    //   await database.tx(transaction => {
-    //     const queries: any[] = []
-    //     if (stage.newSpots.length) {
-    //       const insertNewSpotsQuery = insertMany("guided.spots", stage.newSpots)
-    //       queries.push(transaction.none(insertNewSpotsQuery))
-    //     }
-    //     queries.push(transaction.none(UPDATE_SPOT_DATE, [stage.startSpot.date, stage.startSpot.id, new Date()]))
-    //     return transaction.batch(queries)
-    //   })
-    //
-    //   await database.tx(transaction => {
-    //     const queries: any[] = []
-    //     if (stage.newRides.length > 0) {
-    //       const query = insertMany("guided.rides", stage.newRides)
-    //       queries.push(transaction.none(query))
-    //     }
-    //     return transaction.batch(queries)
-    //   })
-    // })
-  }
 
+    await database.none(`update stages
+                         set status='ready',
+                             updated=$1
+                         where id = $2`, [new Date(), data.stageId])
+
+    await database.tx(transaction => {
+      const queries: any[] = []
+
+      if (data.newSpots.length) {
+        const insertNewSpotsQuery = insertMany("guided.spots", data.newSpots)
+        queries.push(transaction.none(insertNewSpotsQuery))
+      }
+
+      // Update dates of stages start spot
+      queries.push(transaction.none(`
+          UPDATE guided.spots
+          set date   = $1,
+              updated=$2
+          where id = $3`, [data.startSpot.date, new Date(), data.startSpot.id]))
+      return transaction.batch(queries)
+    })
+
+    const query = insertMany("guided.rides", data.newRides)
+    await database.none(query)
+  }
 }

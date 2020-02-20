@@ -8,13 +8,15 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "invoke": "ts-node src/invoke.ts privelages",
+    "action:drop": "ts-node src/invoke.ts drop",
+    "action:create": "ts-node src/invoke.ts create",
+    "action:truncate": "ts-node src/invoke.ts truncate",
     "start:local": "tsc && STAGE=local node srv/index.js",
     "start:production": "tsc && STAGE=production node srv/index.js",
     "start:staging": "STAGE=staging ts-node src/index.ts"
   },
   "dependencies": {
-      "@guided/database": "*",
+    "@guided/database": "*",
     "slugify": "^1.3.6",
     "command-line-args": "^5.1.1",
     "csv-parse": "^4.8.5"

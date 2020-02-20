@@ -8,10 +8,10 @@ import populate from "./populate"
 import drop from "./drop"
 import load_temperatures from "./load_temperatures"
 import spinup from "./spinup"
-import { Builder, Contents } from "./builder"
+import { UserBuilder, Contents } from "./builder"
 
 export {
-  spinup, Contents, Builder,
+  spinup, Contents, UserBuilder,
 }
 
 export type Action = "create" | "truncate" | "privelages" | "populate" | "drop" | "load_temperatures"

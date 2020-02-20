@@ -10,6 +10,11 @@ export type Scalars = {
   Float: number,
   /** A location in a connection that can be used for resuming pagination. */
   Cursor: any,
+  /** 
+ * A point in time as described by the [ISO
+   * 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+ */
+  Datetime: string,
   /** The day, does not include a time. */
   Date: any,
   /** 
@@ -47,6 +52,156 @@ export type Bound = {
   readonly east?: Maybe<Scalars['Float']>,
   readonly south?: Maybe<Scalars['Float']>,
   readonly west?: Maybe<Scalars['Float']>,
+};
+
+export type Computation = Node & {
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  readonly nodeId: Scalars['ID'],
+  readonly id: Scalars['String'],
+  readonly ended?: Maybe<Scalars['Datetime']>,
+  readonly duration?: Maybe<Scalars['Int']>,
+  readonly status: ComputationStatus,
+  readonly stage: Scalars['String'],
+  readonly guide: Scalars['String'],
+  readonly created: Scalars['Datetime'],
+  readonly started?: Maybe<Scalars['Datetime']>,
+  /** Reads a single `Stage` that is related to this `Computation`. */
+  readonly stageByStage?: Maybe<Stage>,
+  /** Reads a single `Guide` that is related to this `Computation`. */
+  readonly guideByGuide?: Maybe<Guide>,
+};
+
+/** 
+ * A condition to be used against `Computation` object types. All fields are tested
+ * for equality and combined with a logical ‘and.’
+ */
+export type ComputationCondition = {
+  /** Checks for equality with the object’s `id` field. */
+  readonly id?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `ended` field. */
+  readonly ended?: Maybe<Scalars['Datetime']>,
+  /** Checks for equality with the object’s `duration` field. */
+  readonly duration?: Maybe<Scalars['Int']>,
+  /** Checks for equality with the object’s `status` field. */
+  readonly status?: Maybe<ComputationStatus>,
+  /** Checks for equality with the object’s `stage` field. */
+  readonly stage?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `guide` field. */
+  readonly guide?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `created` field. */
+  readonly created?: Maybe<Scalars['Datetime']>,
+  /** Checks for equality with the object’s `started` field. */
+  readonly started?: Maybe<Scalars['Datetime']>,
+};
+
+/** An input for mutations affecting `Computation` */
+export type ComputationInput = {
+  readonly id: Scalars['String'],
+  readonly ended?: Maybe<Scalars['Datetime']>,
+  readonly duration?: Maybe<Scalars['Int']>,
+  readonly status: ComputationStatus,
+  readonly stage: Scalars['String'],
+  readonly guide: Scalars['String'],
+  readonly created: Scalars['Datetime'],
+  readonly started?: Maybe<Scalars['Datetime']>,
+};
+
+/** Represents an update to a `Computation`. Fields that are set will be updated. */
+export type ComputationPatch = {
+  readonly id?: Maybe<Scalars['String']>,
+  readonly ended?: Maybe<Scalars['Datetime']>,
+  readonly duration?: Maybe<Scalars['Int']>,
+  readonly status?: Maybe<ComputationStatus>,
+  readonly stage?: Maybe<Scalars['String']>,
+  readonly guide?: Maybe<Scalars['String']>,
+  readonly created?: Maybe<Scalars['Datetime']>,
+  readonly started?: Maybe<Scalars['Datetime']>,
+};
+
+/** A connection to a list of `Computation` values. */
+export type ComputationsConnection = {
+  /** A list of `Computation` objects. */
+  readonly nodes: ReadonlyArray<Maybe<Computation>>,
+  /** A list of edges which contains the `Computation` and cursor to aid in pagination. */
+  readonly edges: ReadonlyArray<ComputationsEdge>,
+  /** Information to aid in pagination. */
+  readonly pageInfo: PageInfo,
+  /** The count of *all* `Computation` you could get from the connection. */
+  readonly totalCount: Scalars['Int'],
+};
+
+/** A `Computation` edge in the connection. */
+export type ComputationsEdge = {
+  /** A cursor for use in pagination. */
+  readonly cursor?: Maybe<Scalars['Cursor']>,
+  /** The `Computation` at the end of the edge. */
+  readonly node?: Maybe<Computation>,
+};
+
+/** Methods to use when ordering `Computation`. */
+export enum ComputationsOrderBy {
+  Natural = 'NATURAL',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  EndedAsc = 'ENDED_ASC',
+  EndedDesc = 'ENDED_DESC',
+  DurationAsc = 'DURATION_ASC',
+  DurationDesc = 'DURATION_DESC',
+  StatusAsc = 'STATUS_ASC',
+  StatusDesc = 'STATUS_DESC',
+  StageAsc = 'STAGE_ASC',
+  StageDesc = 'STAGE_DESC',
+  GuideAsc = 'GUIDE_ASC',
+  GuideDesc = 'GUIDE_DESC',
+  CreatedAsc = 'CREATED_ASC',
+  CreatedDesc = 'CREATED_DESC',
+  StartedAsc = 'STARTED_ASC',
+  StartedDesc = 'STARTED_DESC',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
+}
+
+export enum ComputationStatus {
+  Scheduled = 'SCHEDULED',
+  Failed = 'FAILED',
+  Computing = 'COMPUTING',
+  Success = 'SUCCESS'
+}
+
+/** All input for the create `Computation` mutation. */
+export type CreateComputationInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The `Computation` to be created by this mutation. */
+  readonly computation: ComputationInput,
+};
+
+/** The output of our create `Computation` mutation. */
+export type CreateComputationPayload = {
+  /** 
+ * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The `Computation` that was created by this mutation. */
+  readonly computation?: Maybe<Computation>,
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>,
+  /** Reads a single `Stage` that is related to this `Computation`. */
+  readonly stageByStage?: Maybe<Stage>,
+  /** Reads a single `Guide` that is related to this `Computation`. */
+  readonly guideByGuide?: Maybe<Guide>,
+  /** An edge for our `Computation`. May be used by Relay 1. */
+  readonly computationEdge?: Maybe<ComputationsEdge>,
+};
+
+
+/** The output of our create `Computation` mutation. */
+export type CreateComputationPayloadComputationEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>
 };
 
 /** All input for the create `Guide` mutation. */
@@ -266,6 +421,54 @@ export type CreateUserPayloadUserEdgeArgs = {
 };
 
 
+
+
+/** All input for the `deleteComputationByNodeId` mutation. */
+export type DeleteComputationByNodeIdInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The globally unique `ID` which will identify a single `Computation` to be deleted. */
+  readonly nodeId: Scalars['ID'],
+};
+
+/** All input for the `deleteComputation` mutation. */
+export type DeleteComputationInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  readonly id: Scalars['String'],
+};
+
+/** The output of our delete `Computation` mutation. */
+export type DeleteComputationPayload = {
+  /** 
+ * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The `Computation` that was deleted by this mutation. */
+  readonly computation?: Maybe<Computation>,
+  readonly deletedComputationNodeId?: Maybe<Scalars['ID']>,
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>,
+  /** Reads a single `Stage` that is related to this `Computation`. */
+  readonly stageByStage?: Maybe<Stage>,
+  /** Reads a single `Guide` that is related to this `Computation`. */
+  readonly guideByGuide?: Maybe<Guide>,
+  /** An edge for our `Computation`. May be used by Relay 1. */
+  readonly computationEdge?: Maybe<ComputationsEdge>,
+};
+
+
+/** The output of our delete `Computation` mutation. */
+export type DeleteComputationPayloadComputationEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>
+};
 
 /** All input for the `deleteGuideByNodeId` mutation. */
 export type DeleteGuideByNodeIdInput = {
@@ -558,6 +761,8 @@ export type Guide = Node & {
   readonly owner: Scalars['String'],
   readonly startDate?: Maybe<Scalars['Date']>,
   readonly maxHoursPerRide: Scalars['Int'],
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
   /** Reads a single `User` that is related to this `Guide`. */
   readonly userByOwner?: Maybe<User>,
   /** Reads and enables pagination through a set of `Spot`. */
@@ -566,6 +771,8 @@ export type Guide = Node & {
   readonly stagesByGuide: StagesConnection,
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByGuide: RidesConnection,
+  /** Reads and enables pagination through a set of `Computation`. */
+  readonly computationsByGuide: ComputationsConnection,
   readonly bounds?: Maybe<Bound>,
 };
 
@@ -602,6 +809,17 @@ export type GuideRidesByGuideArgs = {
   condition?: Maybe<RideCondition>
 };
 
+
+export type GuideComputationsByGuideArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>,
+  condition?: Maybe<ComputationCondition>
+};
+
 /** A condition to be used against `Guide` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type GuideCondition = {
   /** Checks for equality with the object’s `id` field. */
@@ -616,6 +834,10 @@ export type GuideCondition = {
   readonly startDate?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `maxHoursPerRide` field. */
   readonly maxHoursPerRide?: Maybe<Scalars['Int']>,
+  /** Checks for equality with the object’s `created` field. */
+  readonly created?: Maybe<Scalars['Datetime']>,
+  /** Checks for equality with the object’s `updated` field. */
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** An input for mutations affecting `Guide` */
@@ -626,6 +848,8 @@ export type GuideInput = {
   readonly owner: Scalars['String'],
   readonly startDate?: Maybe<Scalars['Date']>,
   readonly maxHoursPerRide?: Maybe<Scalars['Int']>,
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** Represents an update to a `Guide`. Fields that are set will be updated. */
@@ -636,6 +860,8 @@ export type GuidePatch = {
   readonly owner?: Maybe<Scalars['String']>,
   readonly startDate?: Maybe<Scalars['Date']>,
   readonly maxHoursPerRide?: Maybe<Scalars['Int']>,
+  readonly created?: Maybe<Scalars['Datetime']>,
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** A connection to a list of `Guide` values. */
@@ -673,6 +899,10 @@ export enum GuidesOrderBy {
   StartDateDesc = 'START_DATE_DESC',
   MaxHoursPerRideAsc = 'MAX_HOURS_PER_RIDE_ASC',
   MaxHoursPerRideDesc = 'MAX_HOURS_PER_RIDE_DESC',
+  CreatedAsc = 'CREATED_ASC',
+  CreatedDesc = 'CREATED_DESC',
+  UpdatedAsc = 'UPDATED_ASC',
+  UpdatedDesc = 'UPDATED_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -680,6 +910,8 @@ export enum GuidesOrderBy {
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
+  /** Creates a single `Computation`. */
+  readonly createComputation?: Maybe<CreateComputationPayload>,
   /** Creates a single `Guide`. */
   readonly createGuide?: Maybe<CreateGuidePayload>,
   /** Creates a single `Ride`. */
@@ -692,6 +924,10 @@ export type Mutation = {
   readonly createTemperature?: Maybe<CreateTemperaturePayload>,
   /** Creates a single `User`. */
   readonly createUser?: Maybe<CreateUserPayload>,
+  /** Updates a single `Computation` using its globally unique id and a patch. */
+  readonly updateComputationByNodeId?: Maybe<UpdateComputationPayload>,
+  /** Updates a single `Computation` using a unique key and a patch. */
+  readonly updateComputation?: Maybe<UpdateComputationPayload>,
   /** Updates a single `Guide` using its globally unique id and a patch. */
   readonly updateGuideByNodeId?: Maybe<UpdateGuidePayload>,
   /** Updates a single `Guide` using a unique key and a patch. */
@@ -716,6 +952,10 @@ export type Mutation = {
   readonly updateUserByNodeId?: Maybe<UpdateUserPayload>,
   /** Updates a single `User` using a unique key and a patch. */
   readonly updateUser?: Maybe<UpdateUserPayload>,
+  /** Deletes a single `Computation` using its globally unique id. */
+  readonly deleteComputationByNodeId?: Maybe<DeleteComputationPayload>,
+  /** Deletes a single `Computation` using a unique key. */
+  readonly deleteComputation?: Maybe<DeleteComputationPayload>,
   /** Deletes a single `Guide` using its globally unique id. */
   readonly deleteGuideByNodeId?: Maybe<DeleteGuidePayload>,
   /** Deletes a single `Guide` using a unique key. */
@@ -745,9 +985,14 @@ export type Mutation = {
   /** Registers a single user */
   readonly register?: Maybe<RegisterPayload>,
   readonly addSpotFromLatLng: Spot,
-  readonly computeRides: Scalars['String'],
   readonly moveSpot: Spot,
   readonly removeSpot: Spot,
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateComputationArgs = {
+  input: CreateComputationInput
 };
 
 
@@ -784,6 +1029,18 @@ export type MutationCreateTemperatureArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateUserArgs = {
   input: CreateUserInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateComputationByNodeIdArgs = {
+  input: UpdateComputationByNodeIdInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateComputationArgs = {
+  input: UpdateComputationInput
 };
 
 
@@ -856,6 +1113,18 @@ export type MutationUpdateUserByNodeIdArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateUserArgs = {
   input: UpdateUserInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteComputationByNodeIdArgs = {
+  input: DeleteComputationByNodeIdInput
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteComputationArgs = {
+  input: DeleteComputationInput
 };
 
 
@@ -953,12 +1222,6 @@ export type MutationAddSpotFromLatLngArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationComputeRidesArgs = {
-  guideId: Scalars['String']
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
 export type MutationMoveSpotArgs = {
   spotId: Scalars['String'],
   lat: Scalars['Float'],
@@ -1000,6 +1263,8 @@ export type Query = Node & {
   readonly nodeId: Scalars['ID'],
   /** Fetches an object given its globally unique `ID`. */
   readonly node?: Maybe<Node>,
+  /** Reads and enables pagination through a set of `Computation`. */
+  readonly computations?: Maybe<ComputationsConnection>,
   /** Reads and enables pagination through a set of `Guide`. */
   readonly guides?: Maybe<GuidesConnection>,
   /** Reads and enables pagination through a set of `Ride`. */
@@ -1012,6 +1277,7 @@ export type Query = Node & {
   readonly temperatures?: Maybe<TemperaturesConnection>,
   /** Reads and enables pagination through a set of `User`. */
   readonly users?: Maybe<UsersConnection>,
+  readonly computation?: Maybe<Computation>,
   readonly guide?: Maybe<Guide>,
   readonly ride?: Maybe<Ride>,
   readonly spot?: Maybe<Spot>,
@@ -1019,6 +1285,8 @@ export type Query = Node & {
   readonly temperature?: Maybe<Temperature>,
   readonly user?: Maybe<User>,
   readonly getCurrentUser?: Maybe<Scalars['JwtToken']>,
+  /** Reads a single `Computation` using its globally unique `ID`. */
+  readonly computationByNodeId?: Maybe<Computation>,
   /** Reads a single `Guide` using its globally unique `ID`. */
   readonly guideByNodeId?: Maybe<Guide>,
   /** Reads a single `Ride` using its globally unique `ID`. */
@@ -1037,6 +1305,18 @@ export type Query = Node & {
 /** The root query type which gives access points into the data universe. */
 export type QueryNodeArgs = {
   nodeId: Scalars['ID']
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryComputationsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>,
+  condition?: Maybe<ComputationCondition>
 };
 
 
@@ -1113,6 +1393,12 @@ export type QueryUsersArgs = {
 
 
 /** The root query type which gives access points into the data universe. */
+export type QueryComputationArgs = {
+  id: Scalars['String']
+};
+
+
+/** The root query type which gives access points into the data universe. */
 export type QueryGuideArgs = {
   id: Scalars['String']
 };
@@ -1145,6 +1431,12 @@ export type QueryTemperatureArgs = {
 /** The root query type which gives access points into the data universe. */
 export type QueryUserArgs = {
   username: Scalars['String']
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryComputationByNodeIdArgs = {
+  nodeId: Scalars['ID']
 };
 
 
@@ -1229,7 +1521,9 @@ export type Ride = Node & {
   readonly date?: Maybe<Scalars['Date']>,
   readonly stage: Scalars['String'],
   readonly position?: Maybe<Scalars['String']>,
-  readonly status?: Maybe<RideStatus>,
+  readonly status: RideStatus,
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
   /** Reads a single `Guide` that is related to this `Ride`. */
   readonly guideByGuide?: Maybe<Guide>,
   /** Reads a single `User` that is related to this `Ride`. */
@@ -1270,6 +1564,10 @@ export type RideCondition = {
   readonly position?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `status` field. */
   readonly status?: Maybe<RideStatus>,
+  /** Checks for equality with the object’s `created` field. */
+  readonly created?: Maybe<Scalars['Datetime']>,
+  /** Checks for equality with the object’s `updated` field. */
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** An input for mutations affecting `Ride` */
@@ -1285,7 +1583,9 @@ export type RideInput = {
   readonly date?: Maybe<Scalars['Date']>,
   readonly stage: Scalars['String'],
   readonly position?: Maybe<Scalars['String']>,
-  readonly status?: Maybe<RideStatus>,
+  readonly status: RideStatus,
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** Represents an update to a `Ride`. Fields that are set will be updated. */
@@ -1302,6 +1602,8 @@ export type RidePatch = {
   readonly stage?: Maybe<Scalars['String']>,
   readonly position?: Maybe<Scalars['String']>,
   readonly status?: Maybe<RideStatus>,
+  readonly created?: Maybe<Scalars['Datetime']>,
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** A connection to a list of `Ride` values. */
@@ -1351,6 +1653,10 @@ export enum RidesOrderBy {
   PositionDesc = 'POSITION_DESC',
   StatusAsc = 'STATUS_ASC',
   StatusDesc = 'STATUS_DESC',
+  CreatedAsc = 'CREATED_ASC',
+  CreatedDesc = 'CREATED_DESC',
+  UpdatedAsc = 'UPDATED_ASC',
+  UpdatedDesc = 'UPDATED_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -1376,10 +1682,9 @@ export type Spot = Node & {
   readonly location?: Maybe<Scalars['String']>,
   readonly country?: Maybe<Scalars['String']>,
   readonly date?: Maybe<Scalars['Date']>,
-  readonly created?: Maybe<Scalars['Date']>,
-  readonly updated?: Maybe<Scalars['Date']>,
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
   readonly stage?: Maybe<Scalars['String']>,
-  readonly status?: Maybe<SpotStatus>,
   /** Reads a single `Guide` that is related to this `Spot`. */
   readonly guideByGuide?: Maybe<Guide>,
   /** Reads a single `User` that is related to this `Spot`. */
@@ -1468,13 +1773,11 @@ export type SpotCondition = {
   /** Checks for equality with the object’s `date` field. */
   readonly date?: Maybe<Scalars['Date']>,
   /** Checks for equality with the object’s `created` field. */
-  readonly created?: Maybe<Scalars['Date']>,
+  readonly created?: Maybe<Scalars['Datetime']>,
   /** Checks for equality with the object’s `updated` field. */
-  readonly updated?: Maybe<Scalars['Date']>,
+  readonly updated?: Maybe<Scalars['Datetime']>,
   /** Checks for equality with the object’s `stage` field. */
   readonly stage?: Maybe<Scalars['String']>,
-  /** Checks for equality with the object’s `status` field. */
-  readonly status?: Maybe<SpotStatus>,
 };
 
 /** An input for mutations affecting `Spot` */
@@ -1491,10 +1794,9 @@ export type SpotInput = {
   readonly location?: Maybe<Scalars['String']>,
   readonly country?: Maybe<Scalars['String']>,
   readonly date?: Maybe<Scalars['Date']>,
-  readonly created?: Maybe<Scalars['Date']>,
-  readonly updated?: Maybe<Scalars['Date']>,
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
   readonly stage?: Maybe<Scalars['String']>,
-  readonly status?: Maybe<SpotStatus>,
 };
 
 /** Represents an update to a `Spot`. Fields that are set will be updated. */
@@ -1511,10 +1813,9 @@ export type SpotPatch = {
   readonly location?: Maybe<Scalars['String']>,
   readonly country?: Maybe<Scalars['String']>,
   readonly date?: Maybe<Scalars['Date']>,
-  readonly created?: Maybe<Scalars['Date']>,
-  readonly updated?: Maybe<Scalars['Date']>,
+  readonly created?: Maybe<Scalars['Datetime']>,
+  readonly updated?: Maybe<Scalars['Datetime']>,
   readonly stage?: Maybe<Scalars['String']>,
-  readonly status?: Maybe<SpotStatus>,
 };
 
 /** A connection to a list of `Spot` values. */
@@ -1570,17 +1871,8 @@ export enum SpotsOrderBy {
   UpdatedDesc = 'UPDATED_DESC',
   StageAsc = 'STAGE_ASC',
   StageDesc = 'STAGE_DESC',
-  StatusAsc = 'STATUS_ASC',
-  StatusDesc = 'STATUS_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
-}
-
-export enum SpotStatus {
-  Complete = 'COMPLETE',
-  Ready = 'READY',
-  Computing = 'COMPUTING',
-  Stale = 'STALE'
 }
 
 export type Stage = Node & {
@@ -1590,8 +1882,8 @@ export type Stage = Node & {
   readonly guide: Scalars['String'],
   readonly fromSpot: Scalars['String'],
   readonly toSpot: Scalars['String'],
-  readonly created?: Maybe<Scalars['Date']>,
-  readonly updated?: Maybe<Scalars['Date']>,
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
   readonly status: StageStatus,
   /** Reads a single `Guide` that is related to this `Stage`. */
   readonly guideByGuide?: Maybe<Guide>,
@@ -1603,6 +1895,8 @@ export type Stage = Node & {
   readonly spotsByStage: SpotsConnection,
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByStage: RidesConnection,
+  /** Reads and enables pagination through a set of `Computation`. */
+  readonly computationsByStage: ComputationsConnection,
 };
 
 
@@ -1627,6 +1921,17 @@ export type StageRidesByStageArgs = {
   condition?: Maybe<RideCondition>
 };
 
+
+export type StageComputationsByStageArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>,
+  condition?: Maybe<ComputationCondition>
+};
+
 /** A condition to be used against `Stage` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type StageCondition = {
   /** Checks for equality with the object’s `id` field. */
@@ -1638,9 +1943,9 @@ export type StageCondition = {
   /** Checks for equality with the object’s `toSpot` field. */
   readonly toSpot?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `created` field. */
-  readonly created?: Maybe<Scalars['Date']>,
+  readonly created?: Maybe<Scalars['Datetime']>,
   /** Checks for equality with the object’s `updated` field. */
-  readonly updated?: Maybe<Scalars['Date']>,
+  readonly updated?: Maybe<Scalars['Datetime']>,
   /** Checks for equality with the object’s `status` field. */
   readonly status?: Maybe<StageStatus>,
 };
@@ -1651,8 +1956,8 @@ export type StageInput = {
   readonly guide: Scalars['String'],
   readonly fromSpot: Scalars['String'],
   readonly toSpot: Scalars['String'],
-  readonly created?: Maybe<Scalars['Date']>,
-  readonly updated?: Maybe<Scalars['Date']>,
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
   readonly status: StageStatus,
 };
 
@@ -1662,8 +1967,8 @@ export type StagePatch = {
   readonly guide?: Maybe<Scalars['String']>,
   readonly fromSpot?: Maybe<Scalars['String']>,
   readonly toSpot?: Maybe<Scalars['String']>,
-  readonly created?: Maybe<Scalars['Date']>,
-  readonly updated?: Maybe<Scalars['Date']>,
+  readonly created?: Maybe<Scalars['Datetime']>,
+  readonly updated?: Maybe<Scalars['Datetime']>,
   readonly status?: Maybe<StageStatus>,
 };
 
@@ -1722,6 +2027,8 @@ export type Temperature = Node & {
   readonly country: Scalars['String'],
   readonly month: Scalars['Int'],
   readonly temperature: Scalars['Float'],
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** 
@@ -1737,6 +2044,10 @@ export type TemperatureCondition = {
   readonly month?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `temperature` field. */
   readonly temperature?: Maybe<Scalars['Float']>,
+  /** Checks for equality with the object’s `created` field. */
+  readonly created?: Maybe<Scalars['Datetime']>,
+  /** Checks for equality with the object’s `updated` field. */
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** An input for mutations affecting `Temperature` */
@@ -1745,6 +2056,8 @@ export type TemperatureInput = {
   readonly country: Scalars['String'],
   readonly month: Scalars['Int'],
   readonly temperature: Scalars['Float'],
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** Represents an update to a `Temperature`. Fields that are set will be updated. */
@@ -1753,6 +2066,8 @@ export type TemperaturePatch = {
   readonly country?: Maybe<Scalars['String']>,
   readonly month?: Maybe<Scalars['Int']>,
   readonly temperature?: Maybe<Scalars['Float']>,
+  readonly created?: Maybe<Scalars['Datetime']>,
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** A connection to a list of `Temperature` values. */
@@ -1786,9 +2101,63 @@ export enum TemperaturesOrderBy {
   MonthDesc = 'MONTH_DESC',
   TemperatureAsc = 'TEMPERATURE_ASC',
   TemperatureDesc = 'TEMPERATURE_DESC',
+  CreatedAsc = 'CREATED_ASC',
+  CreatedDesc = 'CREATED_DESC',
+  UpdatedAsc = 'UPDATED_ASC',
+  UpdatedDesc = 'UPDATED_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
+
+/** All input for the `updateComputationByNodeId` mutation. */
+export type UpdateComputationByNodeIdInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The globally unique `ID` which will identify a single `Computation` to be updated. */
+  readonly nodeId: Scalars['ID'],
+  /** An object where the defined keys will be set on the `Computation` being updated. */
+  readonly patch: ComputationPatch,
+};
+
+/** All input for the `updateComputation` mutation. */
+export type UpdateComputationInput = {
+  /** 
+ * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** An object where the defined keys will be set on the `Computation` being updated. */
+  readonly patch: ComputationPatch,
+  readonly id: Scalars['String'],
+};
+
+/** The output of our update `Computation` mutation. */
+export type UpdateComputationPayload = {
+  /** 
+ * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+ */
+  readonly clientMutationId?: Maybe<Scalars['String']>,
+  /** The `Computation` that was updated by this mutation. */
+  readonly computation?: Maybe<Computation>,
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>,
+  /** Reads a single `Stage` that is related to this `Computation`. */
+  readonly stageByStage?: Maybe<Stage>,
+  /** Reads a single `Guide` that is related to this `Computation`. */
+  readonly guideByGuide?: Maybe<Guide>,
+  /** An edge for our `Computation`. May be used by Relay 1. */
+  readonly computationEdge?: Maybe<ComputationsEdge>,
+};
+
+
+/** The output of our update `Computation` mutation. */
+export type UpdateComputationPayloadComputationEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>
+};
 
 /** All input for the `updateGuideByNodeId` mutation. */
 export type UpdateGuideByNodeIdInput = {
@@ -2096,6 +2465,8 @@ export type User = Node & {
   readonly username: Scalars['String'],
   readonly email: Scalars['String'],
   readonly passwordHash: Scalars['String'],
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
   /** Reads and enables pagination through a set of `Guide`. */
   readonly guidesByOwner: GuidesConnection,
   /** Reads and enables pagination through a set of `Spot`. */
@@ -2145,6 +2516,10 @@ export type UserCondition = {
   readonly email?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `passwordHash` field. */
   readonly passwordHash?: Maybe<Scalars['String']>,
+  /** Checks for equality with the object’s `created` field. */
+  readonly created?: Maybe<Scalars['Datetime']>,
+  /** Checks for equality with the object’s `updated` field. */
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** An input for mutations affecting `User` */
@@ -2152,6 +2527,8 @@ export type UserInput = {
   readonly username: Scalars['String'],
   readonly email: Scalars['String'],
   readonly passwordHash: Scalars['String'],
+  readonly created: Scalars['Datetime'],
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** Represents an update to a `User`. Fields that are set will be updated. */
@@ -2159,6 +2536,8 @@ export type UserPatch = {
   readonly username?: Maybe<Scalars['String']>,
   readonly email?: Maybe<Scalars['String']>,
   readonly passwordHash?: Maybe<Scalars['String']>,
+  readonly created?: Maybe<Scalars['Datetime']>,
+  readonly updated?: Maybe<Scalars['Datetime']>,
 };
 
 /** A connection to a list of `User` values. */
@@ -2190,6 +2569,10 @@ export enum UsersOrderBy {
   EmailDesc = 'EMAIL_DESC',
   PasswordHashAsc = 'PASSWORD_HASH_ASC',
   PasswordHashDesc = 'PASSWORD_HASH_DESC',
+  CreatedAsc = 'CREATED_ASC',
+  CreatedDesc = 'CREATED_DESC',
+  UpdatedAsc = 'UPDATED_ASC',
+  UpdatedDesc = 'UPDATED_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -2272,36 +2655,42 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   Cursor: ResolverTypeWrapper<Scalars['Cursor']>,
-  GuidesOrderBy: GuidesOrderBy,
-  GuideCondition: GuideCondition,
+  ComputationsOrderBy: ComputationsOrderBy,
+  ComputationCondition: ComputationCondition,
   String: ResolverTypeWrapper<Scalars['String']>,
-  Date: ResolverTypeWrapper<Scalars['Date']>,
-  GuidesConnection: ResolverTypeWrapper<GuidesConnection>,
-  Guide: ResolverTypeWrapper<Guide>,
-  User: ResolverTypeWrapper<User>,
-  SpotsOrderBy: SpotsOrderBy,
-  SpotCondition: SpotCondition,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
-  Float: ResolverTypeWrapper<Scalars['Float']>,
-  SpotStatus: SpotStatus,
-  SpotsConnection: ResolverTypeWrapper<SpotsConnection>,
-  Spot: ResolverTypeWrapper<Spot>,
+  Datetime: ResolverTypeWrapper<Scalars['Datetime']>,
+  ComputationStatus: ComputationStatus,
+  ComputationsConnection: ResolverTypeWrapper<ComputationsConnection>,
+  Computation: ResolverTypeWrapper<Computation>,
   Stage: ResolverTypeWrapper<Stage>,
   StageStatus: StageStatus,
+  Guide: ResolverTypeWrapper<Guide>,
+  Date: ResolverTypeWrapper<Scalars['Date']>,
+  User: ResolverTypeWrapper<User>,
+  GuidesOrderBy: GuidesOrderBy,
+  GuideCondition: GuideCondition,
+  GuidesConnection: ResolverTypeWrapper<GuidesConnection>,
+  GuidesEdge: ResolverTypeWrapper<GuidesEdge>,
+  PageInfo: ResolverTypeWrapper<PageInfo>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  SpotsOrderBy: SpotsOrderBy,
+  SpotCondition: SpotCondition,
+  Float: ResolverTypeWrapper<Scalars['Float']>,
+  SpotsConnection: ResolverTypeWrapper<SpotsConnection>,
+  Spot: ResolverTypeWrapper<Spot>,
+  StagesOrderBy: StagesOrderBy,
+  StageCondition: StageCondition,
+  StagesConnection: ResolverTypeWrapper<StagesConnection>,
+  StagesEdge: ResolverTypeWrapper<StagesEdge>,
   RidesOrderBy: RidesOrderBy,
   RideCondition: RideCondition,
   RideStatus: RideStatus,
   RidesConnection: ResolverTypeWrapper<RidesConnection>,
   Ride: ResolverTypeWrapper<Ride>,
   RidesEdge: ResolverTypeWrapper<RidesEdge>,
-  PageInfo: ResolverTypeWrapper<PageInfo>,
-  StagesOrderBy: StagesOrderBy,
-  StageCondition: StageCondition,
-  StagesConnection: ResolverTypeWrapper<StagesConnection>,
-  StagesEdge: ResolverTypeWrapper<StagesEdge>,
   SpotsEdge: ResolverTypeWrapper<SpotsEdge>,
   Bound: ResolverTypeWrapper<Bound>,
-  GuidesEdge: ResolverTypeWrapper<GuidesEdge>,
+  ComputationsEdge: ResolverTypeWrapper<ComputationsEdge>,
   TemperaturesOrderBy: TemperaturesOrderBy,
   TemperatureCondition: TemperatureCondition,
   TemperaturesConnection: ResolverTypeWrapper<TemperaturesConnection>,
@@ -2313,6 +2702,9 @@ export type ResolversTypes = {
   UsersEdge: ResolverTypeWrapper<UsersEdge>,
   JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
   Mutation: ResolverTypeWrapper<{}>,
+  CreateComputationInput: CreateComputationInput,
+  ComputationInput: ComputationInput,
+  CreateComputationPayload: ResolverTypeWrapper<CreateComputationPayload>,
   CreateGuideInput: CreateGuideInput,
   GuideInput: GuideInput,
   CreateGuidePayload: ResolverTypeWrapper<CreateGuidePayload>,
@@ -2331,6 +2723,10 @@ export type ResolversTypes = {
   CreateUserInput: CreateUserInput,
   UserInput: UserInput,
   CreateUserPayload: ResolverTypeWrapper<CreateUserPayload>,
+  UpdateComputationByNodeIdInput: UpdateComputationByNodeIdInput,
+  ComputationPatch: ComputationPatch,
+  UpdateComputationPayload: ResolverTypeWrapper<UpdateComputationPayload>,
+  UpdateComputationInput: UpdateComputationInput,
   UpdateGuideByNodeIdInput: UpdateGuideByNodeIdInput,
   GuidePatch: GuidePatch,
   UpdateGuidePayload: ResolverTypeWrapper<UpdateGuidePayload>,
@@ -2355,6 +2751,9 @@ export type ResolversTypes = {
   UserPatch: UserPatch,
   UpdateUserPayload: ResolverTypeWrapper<UpdateUserPayload>,
   UpdateUserInput: UpdateUserInput,
+  DeleteComputationByNodeIdInput: DeleteComputationByNodeIdInput,
+  DeleteComputationPayload: ResolverTypeWrapper<DeleteComputationPayload>,
+  DeleteComputationInput: DeleteComputationInput,
   DeleteGuideByNodeIdInput: DeleteGuideByNodeIdInput,
   DeleteGuidePayload: ResolverTypeWrapper<DeleteGuidePayload>,
   DeleteGuideInput: DeleteGuideInput,
@@ -2386,36 +2785,42 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'],
   Int: Scalars['Int'],
   Cursor: Scalars['Cursor'],
-  GuidesOrderBy: GuidesOrderBy,
-  GuideCondition: GuideCondition,
+  ComputationsOrderBy: ComputationsOrderBy,
+  ComputationCondition: ComputationCondition,
   String: Scalars['String'],
-  Date: Scalars['Date'],
-  GuidesConnection: GuidesConnection,
-  Guide: Guide,
-  User: User,
-  SpotsOrderBy: SpotsOrderBy,
-  SpotCondition: SpotCondition,
-  Boolean: Scalars['Boolean'],
-  Float: Scalars['Float'],
-  SpotStatus: SpotStatus,
-  SpotsConnection: SpotsConnection,
-  Spot: Spot,
+  Datetime: Scalars['Datetime'],
+  ComputationStatus: ComputationStatus,
+  ComputationsConnection: ComputationsConnection,
+  Computation: Computation,
   Stage: Stage,
   StageStatus: StageStatus,
+  Guide: Guide,
+  Date: Scalars['Date'],
+  User: User,
+  GuidesOrderBy: GuidesOrderBy,
+  GuideCondition: GuideCondition,
+  GuidesConnection: GuidesConnection,
+  GuidesEdge: GuidesEdge,
+  PageInfo: PageInfo,
+  Boolean: Scalars['Boolean'],
+  SpotsOrderBy: SpotsOrderBy,
+  SpotCondition: SpotCondition,
+  Float: Scalars['Float'],
+  SpotsConnection: SpotsConnection,
+  Spot: Spot,
+  StagesOrderBy: StagesOrderBy,
+  StageCondition: StageCondition,
+  StagesConnection: StagesConnection,
+  StagesEdge: StagesEdge,
   RidesOrderBy: RidesOrderBy,
   RideCondition: RideCondition,
   RideStatus: RideStatus,
   RidesConnection: RidesConnection,
   Ride: Ride,
   RidesEdge: RidesEdge,
-  PageInfo: PageInfo,
-  StagesOrderBy: StagesOrderBy,
-  StageCondition: StageCondition,
-  StagesConnection: StagesConnection,
-  StagesEdge: StagesEdge,
   SpotsEdge: SpotsEdge,
   Bound: Bound,
-  GuidesEdge: GuidesEdge,
+  ComputationsEdge: ComputationsEdge,
   TemperaturesOrderBy: TemperaturesOrderBy,
   TemperatureCondition: TemperatureCondition,
   TemperaturesConnection: TemperaturesConnection,
@@ -2427,6 +2832,9 @@ export type ResolversParentTypes = {
   UsersEdge: UsersEdge,
   JwtToken: Scalars['JwtToken'],
   Mutation: {},
+  CreateComputationInput: CreateComputationInput,
+  ComputationInput: ComputationInput,
+  CreateComputationPayload: CreateComputationPayload,
   CreateGuideInput: CreateGuideInput,
   GuideInput: GuideInput,
   CreateGuidePayload: CreateGuidePayload,
@@ -2445,6 +2853,10 @@ export type ResolversParentTypes = {
   CreateUserInput: CreateUserInput,
   UserInput: UserInput,
   CreateUserPayload: CreateUserPayload,
+  UpdateComputationByNodeIdInput: UpdateComputationByNodeIdInput,
+  ComputationPatch: ComputationPatch,
+  UpdateComputationPayload: UpdateComputationPayload,
+  UpdateComputationInput: UpdateComputationInput,
   UpdateGuideByNodeIdInput: UpdateGuideByNodeIdInput,
   GuidePatch: GuidePatch,
   UpdateGuidePayload: UpdateGuidePayload,
@@ -2469,6 +2881,9 @@ export type ResolversParentTypes = {
   UserPatch: UserPatch,
   UpdateUserPayload: UpdateUserPayload,
   UpdateUserInput: UpdateUserInput,
+  DeleteComputationByNodeIdInput: DeleteComputationByNodeIdInput,
+  DeleteComputationPayload: DeleteComputationPayload,
+  DeleteComputationInput: DeleteComputationInput,
   DeleteGuideByNodeIdInput: DeleteGuideByNodeIdInput,
   DeleteGuidePayload: DeleteGuidePayload,
   DeleteGuideInput: DeleteGuideInput,
@@ -2505,6 +2920,45 @@ export type BoundResolvers<ContextType = any, ParentType extends ResolversParent
   east?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   south?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   west?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ComputationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Computation'] = ResolversParentTypes['Computation']> = {
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  ended?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
+  duration?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  status?: Resolver<ResolversTypes['ComputationStatus'], ParentType, ContextType>,
+  stage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
+  started?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ComputationsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ComputationsConnection'] = ResolversParentTypes['ComputationsConnection']> = {
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Computation']>>, ParentType, ContextType>,
+  edges?: Resolver<ReadonlyArray<ResolversTypes['ComputationsEdge']>, ParentType, ContextType>,
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ComputationsEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ComputationsEdge'] = ResolversParentTypes['ComputationsEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateComputationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateComputationPayload'] = ResolversParentTypes['CreateComputationPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  computation?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  computationEdge?: Resolver<Maybe<ResolversTypes['ComputationsEdge']>, ParentType, ContextType, RequireFields<CreateComputationPayloadComputationEdgeArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -2575,6 +3029,21 @@ export interface CursorScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date'
 }
+
+export interface DatetimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Datetime'], any> {
+  name: 'Datetime'
+}
+
+export type DeleteComputationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteComputationPayload'] = ResolversParentTypes['DeleteComputationPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  computation?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType>,
+  deletedComputationNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  computationEdge?: Resolver<Maybe<ResolversTypes['ComputationsEdge']>, ParentType, ContextType, RequireFields<DeleteComputationPayloadComputationEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
 
 export type DeleteGuidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteGuidePayload'] = ResolversParentTypes['DeleteGuidePayload']> = {
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -2650,10 +3119,13 @@ export type GuideResolvers<ContextType = any, ParentType extends ResolversParent
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   startDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   maxHoursPerRide?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   spotsByGuide?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<GuideSpotsByGuideArgs, 'orderBy'>>,
   stagesByGuide?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<GuideStagesByGuideArgs, 'orderBy'>>,
   ridesByGuide?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<GuideRidesByGuideArgs, 'orderBy'>>,
+  computationsByGuide?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<GuideComputationsByGuideArgs, 'orderBy'>>,
   bounds?: Resolver<Maybe<ResolversTypes['Bound']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -2677,12 +3149,15 @@ export interface JwtTokenScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 }
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createComputation?: Resolver<Maybe<ResolversTypes['CreateComputationPayload']>, ParentType, ContextType, RequireFields<MutationCreateComputationArgs, 'input'>>,
   createGuide?: Resolver<Maybe<ResolversTypes['CreateGuidePayload']>, ParentType, ContextType, RequireFields<MutationCreateGuideArgs, 'input'>>,
   createRide?: Resolver<Maybe<ResolversTypes['CreateRidePayload']>, ParentType, ContextType, RequireFields<MutationCreateRideArgs, 'input'>>,
   createSpot?: Resolver<Maybe<ResolversTypes['CreateSpotPayload']>, ParentType, ContextType, RequireFields<MutationCreateSpotArgs, 'input'>>,
   createStage?: Resolver<Maybe<ResolversTypes['CreateStagePayload']>, ParentType, ContextType, RequireFields<MutationCreateStageArgs, 'input'>>,
   createTemperature?: Resolver<Maybe<ResolversTypes['CreateTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationCreateTemperatureArgs, 'input'>>,
   createUser?: Resolver<Maybe<ResolversTypes['CreateUserPayload']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>,
+  updateComputationByNodeId?: Resolver<Maybe<ResolversTypes['UpdateComputationPayload']>, ParentType, ContextType, RequireFields<MutationUpdateComputationByNodeIdArgs, 'input'>>,
+  updateComputation?: Resolver<Maybe<ResolversTypes['UpdateComputationPayload']>, ParentType, ContextType, RequireFields<MutationUpdateComputationArgs, 'input'>>,
   updateGuideByNodeId?: Resolver<Maybe<ResolversTypes['UpdateGuidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateGuideByNodeIdArgs, 'input'>>,
   updateGuide?: Resolver<Maybe<ResolversTypes['UpdateGuidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, 'input'>>,
   updateRideByNodeId?: Resolver<Maybe<ResolversTypes['UpdateRidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateRideByNodeIdArgs, 'input'>>,
@@ -2695,6 +3170,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateTemperature?: Resolver<Maybe<ResolversTypes['UpdateTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationUpdateTemperatureArgs, 'input'>>,
   updateUserByNodeId?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserByNodeIdArgs, 'input'>>,
   updateUser?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'input'>>,
+  deleteComputationByNodeId?: Resolver<Maybe<ResolversTypes['DeleteComputationPayload']>, ParentType, ContextType, RequireFields<MutationDeleteComputationByNodeIdArgs, 'input'>>,
+  deleteComputation?: Resolver<Maybe<ResolversTypes['DeleteComputationPayload']>, ParentType, ContextType, RequireFields<MutationDeleteComputationArgs, 'input'>>,
   deleteGuideByNodeId?: Resolver<Maybe<ResolversTypes['DeleteGuidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteGuideByNodeIdArgs, 'input'>>,
   deleteGuide?: Resolver<Maybe<ResolversTypes['DeleteGuidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, 'input'>>,
   deleteRideByNodeId?: Resolver<Maybe<ResolversTypes['DeleteRidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteRideByNodeIdArgs, 'input'>>,
@@ -2710,13 +3187,12 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
   register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
   addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long'>>,
-  computeRides?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<MutationComputeRidesArgs, 'guideId'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Query' | 'Guide' | 'User' | 'Spot' | 'Stage' | 'Ride' | 'Temperature', ParentType, ContextType>,
+  __resolveType: TypeResolveFn<'Query' | 'Computation' | 'Stage' | 'Guide' | 'User' | 'Spot' | 'Ride' | 'Temperature', ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
 };
 
@@ -2732,12 +3208,14 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   query?: Resolver<ResolversTypes['Query'], ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'nodeId'>>,
+  computations?: Resolver<Maybe<ResolversTypes['ComputationsConnection']>, ParentType, ContextType, RequireFields<QueryComputationsArgs, 'orderBy'>>,
   guides?: Resolver<Maybe<ResolversTypes['GuidesConnection']>, ParentType, ContextType, RequireFields<QueryGuidesArgs, 'orderBy'>>,
   rides?: Resolver<Maybe<ResolversTypes['RidesConnection']>, ParentType, ContextType, RequireFields<QueryRidesArgs, 'orderBy'>>,
   spots?: Resolver<Maybe<ResolversTypes['SpotsConnection']>, ParentType, ContextType, RequireFields<QuerySpotsArgs, 'orderBy'>>,
   stages?: Resolver<Maybe<ResolversTypes['StagesConnection']>, ParentType, ContextType, RequireFields<QueryStagesArgs, 'orderBy'>>,
   temperatures?: Resolver<Maybe<ResolversTypes['TemperaturesConnection']>, ParentType, ContextType, RequireFields<QueryTemperaturesArgs, 'orderBy'>>,
   users?: Resolver<Maybe<ResolversTypes['UsersConnection']>, ParentType, ContextType, RequireFields<QueryUsersArgs, 'orderBy'>>,
+  computation?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType, RequireFields<QueryComputationArgs, 'id'>>,
   guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideArgs, 'id'>>,
   ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType, RequireFields<QueryRideArgs, 'id'>>,
   spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotArgs, 'id'>>,
@@ -2745,6 +3223,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureArgs, 'id'>>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'username'>>,
   getCurrentUser?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
+  computationByNodeId?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType, RequireFields<QueryComputationByNodeIdArgs, 'nodeId'>>,
   guideByNodeId?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideByNodeIdArgs, 'nodeId'>>,
   rideByNodeId?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType, RequireFields<QueryRideByNodeIdArgs, 'nodeId'>>,
   spotByNodeId?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotByNodeIdArgs, 'nodeId'>>,
@@ -2774,7 +3253,9 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
   stage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   position?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  status?: Resolver<Maybe<ResolversTypes['RideStatus']>, ParentType, ContextType>,
+  status?: Resolver<ResolversTypes['RideStatus'], ParentType, ContextType>,
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
@@ -2813,10 +3294,9 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
-  created?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
-  updated?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
   stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  status?: Resolver<Maybe<ResolversTypes['SpotStatus']>, ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
@@ -2848,14 +3328,15 @@ export type StageResolvers<ContextType = any, ParentType extends ResolversParent
   guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  created?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
-  updated?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
   status?: Resolver<ResolversTypes['StageStatus'], ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotsByStage?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<StageSpotsByStageArgs, 'orderBy'>>,
   ridesByStage?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<StageRidesByStageArgs, 'orderBy'>>,
+  computationsByStage?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<StageComputationsByStageArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -2879,6 +3360,8 @@ export type TemperatureResolvers<ContextType = any, ParentType extends Resolvers
   country?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   month?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
   temperature?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -2893,6 +3376,16 @@ export type TemperaturesConnectionResolvers<ContextType = any, ParentType extend
 export type TemperaturesEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemperaturesEdge'] = ResolversParentTypes['TemperaturesEdge']> = {
   cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
   node?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateComputationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateComputationPayload'] = ResolversParentTypes['UpdateComputationPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  computation?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  computationEdge?: Resolver<Maybe<ResolversTypes['ComputationsEdge']>, ParentType, ContextType, RequireFields<UpdateComputationPayloadComputationEdgeArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -2961,6 +3454,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   passwordHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
   guidesByOwner?: Resolver<ResolversTypes['GuidesConnection'], ParentType, ContextType, RequireFields<UserGuidesByOwnerArgs, 'orderBy'>>,
   spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>,
   ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>,
@@ -2984,6 +3479,10 @@ export type UsersEdgeResolvers<ContextType = any, ParentType extends ResolversPa
 export type Resolvers<ContextType = any> = {
   AuthenticatePayload?: AuthenticatePayloadResolvers<ContextType>,
   Bound?: BoundResolvers<ContextType>,
+  Computation?: ComputationResolvers<ContextType>,
+  ComputationsConnection?: ComputationsConnectionResolvers<ContextType>,
+  ComputationsEdge?: ComputationsEdgeResolvers<ContextType>,
+  CreateComputationPayload?: CreateComputationPayloadResolvers<ContextType>,
   CreateGuidePayload?: CreateGuidePayloadResolvers<ContextType>,
   CreateRidePayload?: CreateRidePayloadResolvers<ContextType>,
   CreateSpotPayload?: CreateSpotPayloadResolvers<ContextType>,
@@ -2992,6 +3491,8 @@ export type Resolvers<ContextType = any> = {
   CreateUserPayload?: CreateUserPayloadResolvers<ContextType>,
   Cursor?: GraphQLScalarType,
   Date?: GraphQLScalarType,
+  Datetime?: GraphQLScalarType,
+  DeleteComputationPayload?: DeleteComputationPayloadResolvers<ContextType>,
   DeleteGuidePayload?: DeleteGuidePayloadResolvers<ContextType>,
   DeleteRidePayload?: DeleteRidePayloadResolvers<ContextType>,
   DeleteSpotPayload?: DeleteSpotPayloadResolvers<ContextType>,
@@ -3019,6 +3520,7 @@ export type Resolvers<ContextType = any> = {
   Temperature?: TemperatureResolvers<ContextType>,
   TemperaturesConnection?: TemperaturesConnectionResolvers<ContextType>,
   TemperaturesEdge?: TemperaturesEdgeResolvers<ContextType>,
+  UpdateComputationPayload?: UpdateComputationPayloadResolvers<ContextType>,
   UpdateGuidePayload?: UpdateGuidePayloadResolvers<ContextType>,
   UpdateRidePayload?: UpdateRidePayloadResolvers<ContextType>,
   UpdateSpotPayload?: UpdateSpotPayloadResolvers<ContextType>,

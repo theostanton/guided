@@ -1,5 +1,5 @@
 import { Guide, Spot, User } from "@guided/database"
-import Builder from "./Builder"
+import UserBuilder from "./UserBuilder"
 
 export type Contents = {
   users: User[]
@@ -9,4 +9,4 @@ export type Contents = {
   spots: Spot[]
 }
 
-export { Builder }
+export { UserBuilder }

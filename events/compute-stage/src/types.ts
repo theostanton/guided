@@ -1,5 +1,5 @@
 export type ComputeStageMessageBody = {
-  stageId: string
+  computationId: string
 }
 
 export type ComputeStageResult = {

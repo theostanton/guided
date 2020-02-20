@@ -1,6 +1,7 @@
 export type SpotStatus = 'complete'|'ready'|'computing'|'stale'
 export type StageStatus = 'complete'|'ready'|'computing'|'stale'
 export type RideStatus = 'complete'|'ready'|'stale'
+export type ComputationStatus = 'scheduled'|'failed'|'computing'|'success'
 
 {{#*inline "tablePartial"}}
     export interface {{interfaceName}} {{#if extends}}extends {{extends}} {{/if}}{
@@ -8,7 +9,7 @@ export type RideStatus = 'complete'|'ready'|'stale'
         {{prop}}
     {{/each}}
     {{#each columns}}
-        "{{propertyName}}"{{#if optional}}?{{/if}}: {{propertyType}} {{#if nullable}}| null {{/if}}
+        {{propertyName}}{{#if optional}}?{{/if}}: {{propertyType}} {{#if nullable}}| null {{/if}}
     {{/each}}
     }
 {{/inline}}

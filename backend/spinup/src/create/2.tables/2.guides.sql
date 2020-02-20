@@ -9,8 +9,13 @@ create table guided.guides
         constraint guides_users_username_fk
             references guided.users,
     start_date         date,
-    max_hours_per_ride integer default 6 not null
+    max_hours_per_ride integer default 6 not null,
+    created            timestamptz       not null,
+    updated            timestamptz
 );
+
+alter table guided.guides
+    owner to superuser;
 
 create unique index guides_id_uindex
     on guided.guides (id);

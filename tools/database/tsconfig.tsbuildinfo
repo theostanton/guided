@@ -194,20 +194,20 @@
         "signature": "4046592570718236ed274564f611f502ca4e9fce87e0e078e1f5905292a22b62"
       },
       "./src/types.ts": {
-        "version": "ec8624a6b7076de2bb6344770207659db1c69e4d640b6fa938cb8ab6221323dc",
-        "signature": "df9a538af846954f3b401a17976bcbb86b4e06c95cd96cc8390872212c63f19a"
+        "version": "4452460d82a0926e110c3484b05c276a0f71b59910e59875acadf88e7609c7ee",
+        "signature": "ad2364d1baa7bf9ba4aa2c06062c29e17f3ad9a7b8e2435fb446f4eba30073e0"
       },
       "./src/utils.ts": {
         "version": "da2f1e2fffc4b566ae34779d226eea1a01d1df5c855a29bc5fab6ed6a0e93e16",
         "signature": "2401fd60c9528667fa82ff7aa75d47e45af2f8464f64e3865291c7e6e7bed44f"
       },
       "./src/extensions.ts": {
-        "version": "3d7f3742758cc791f221b4a6266cd8686f2b7c61c20c7c632ebcd21cb0c5406e",
-        "signature": "99a10ad18dd20bbcf026f230a886b5d69cf719875a00571b8593cd5f1a4f0c40"
+        "version": "b3b6aadf338c930534f5e33f68604e3ee75d4cd90e1f29659ace7d5773726fbf",
+        "signature": "f1e729bea8a2827a0b1f52ee4fb55bc6eb95af1f75b5a08867335f35d5c76bc9"
       },
       "./src/index.ts": {
-        "version": "5577a021f937aac8a3eccf7ac8261acabd49b69523e13042022f3bfea2c6f999",
-        "signature": "f8bc36aa4652b06b236ea7a35d6046163bc3c1610e37bd840e3898e44657efc4"
+        "version": "013f9c7fe5a7fe1e93ef11dd1c94294bc85e71516b4cb3218f702c2a98021a51",
+        "signature": "aaa78a56e334ca923ffbc10dc0f92583038df7749ec09ce5f19cce8c82192779"
       },
       "./src/client.test.ts": {
         "version": "08d92d85da818b0b4dbe67d01b117dab5d1d604209de5802652b0d10609feebd",
@@ -322,8 +322,8 @@
         "signature": "84044697c8b3e08ef24e4b32cfe6440143d07e469a5e34bda0635276d32d9f35"
       },
       "./node_modules/@types/node/perf_hooks.d.ts": {
-        "version": "27ef4001526ee9d8afa57687a60bb3b59c52b32d29db0a2260094ab64726164f",
-        "signature": "27ef4001526ee9d8afa57687a60bb3b59c52b32d29db0a2260094ab64726164f"
+        "version": "954c4bfca9bc4df019231da304288182beb21c8c4fab97f9e8f9694d407c383f",
+        "signature": "954c4bfca9bc4df019231da304288182beb21c8c4fab97f9e8f9694d407c383f"
       },
       "./node_modules/@types/node/process.d.ts": {
         "version": "0e0d58f5e90c0a270dac052b9c5ad8ccdfc8271118c2105b361063218d528d6e",
@@ -374,16 +374,16 @@
         "signature": "c0e424dcc169a594c973e096f256f92ed36cce444e7d38e52ed4be5def47bcdd"
       },
       "./node_modules/@types/node/util.d.ts": {
-        "version": "28dd59f54c399c079fc02b60e36d6676b64b8b85badfcc59d481ac232df40bce",
-        "signature": "28dd59f54c399c079fc02b60e36d6676b64b8b85badfcc59d481ac232df40bce"
+        "version": "424a2e2c9bd05c1fccbaa1b6c131df9aff1c196d3927a71bf1df9a1880d4c867",
+        "signature": "424a2e2c9bd05c1fccbaa1b6c131df9aff1c196d3927a71bf1df9a1880d4c867"
       },
       "./node_modules/@types/node/v8.d.ts": {
         "version": "289be113bad7ee27ee7fa5b1e373c964c9789a5e9ed7db5ddcb631371120b953",
         "signature": "289be113bad7ee27ee7fa5b1e373c964c9789a5e9ed7db5ddcb631371120b953"
       },
       "./node_modules/@types/node/vm.d.ts": {
-        "version": "bf244a366e8ee68acda125761c6e337c8795b37eef05947d62f89b584de926b3",
-        "signature": "bf244a366e8ee68acda125761c6e337c8795b37eef05947d62f89b584de926b3"
+        "version": "a0baa0860e17f8ed646315d6330b79c5c192f10e94975ea8c76105d626afb08f",
+        "signature": "a0baa0860e17f8ed646315d6330b79c5c192f10e94975ea8c76105d626afb08f"
       },
       "./node_modules/@types/node/worker_threads.d.ts": {
         "version": "81d412ad0bca04a1b86efdabdff72c5f84745fba5331c45f5f6c6182a4fe887f",
@@ -446,8 +446,8 @@
         "signature": "faa1eda9eb6c80210343ea752d64ba06ae0d14f670676ab069ec7047c4f96512"
       },
       "../../node_modules/@types/jest/index.d.ts": {
-        "version": "a1f0433bc3626449030784a859d9953ff4becaeffb329068e28c929854ccfe0d",
-        "signature": "a1f0433bc3626449030784a859d9953ff4becaeffb329068e28c929854ccfe0d"
+        "version": "c069626dcd862b3e33335e13539a5a73ae330a7b83f6dfa266eed5edd4b1a8dd",
+        "signature": "c069626dcd862b3e33335e13539a5a73ae330a7b83f6dfa266eed5edd4b1a8dd"
       }
     },
     "options": {
@@ -2078,13 +2078,9 @@
       "./node_modules/spex/typescript/spex.d.ts",
       "./node_modules/pg-promise/typescript/pg-promise.d.ts",
       "./node_modules/cuid/index.d.ts",
-      "./src/types.ts",
       "./src/utils.ts",
-      "./src/extensions.ts",
-      "./src/index.ts",
-      "./src/client.test.ts",
+      "./src/generated.ts",
       "../../node_modules/@types/faker/index.d.ts",
-      "./src/utils.test.ts",
       "./node_modules/@types/color-name/index.d.ts",
       "./node_modules/@types/cuid/index.d.ts",
       "./node_modules/@types/node/globals.d.ts",
@@ -2141,7 +2137,11 @@
       "../../node_modules/@types/jest/node_modules/pretty-format/build/types.d.ts",
       "../../node_modules/@types/jest/node_modules/pretty-format/build/index.d.ts",
       "../../node_modules/@types/jest/index.d.ts",
-      "./src/generated.ts"
+      "./src/types.ts",
+      "./src/index.ts",
+      "./src/extensions.ts",
+      "./src/client.test.ts",
+      "./src/utils.test.ts"
     ]
   },
   "version": "3.7.5"

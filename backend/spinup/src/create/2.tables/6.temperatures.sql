@@ -5,7 +5,9 @@ create table guided.temperatures
             primary key,
     country     varchar(16)      not null,
     month       integer          not null,
-    temperature double precision not null
+    temperature double precision not null,
+    created     timestamptz      not null,
+    updated     timestamptz
 );
 
 create unique index temperatures_id_uindex

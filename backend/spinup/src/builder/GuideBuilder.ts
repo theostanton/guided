@@ -8,7 +8,7 @@ type LatLng = {
   long: number
 }
 
-const LOCATIONS: { [location in MockLocation]: LatLng } = {
+export const LOCATIONS: { [location in MockLocation]: LatLng } = {
   London: {
     lat: 51.5074,
     long: -0.1278,
@@ -76,8 +76,7 @@ export default class GuideBuilder {
       location: null,
       owner: this.username,
       position: this.position.toString(),
-      stage: null,
-      status: "computing",
+      stage: null
     }
     this.position++
     this.spots.push(spot)
@@ -100,8 +99,7 @@ export default class GuideBuilder {
       location: null,
       owner: this.username,
       position: this.position.toString(),
-      stage: null,
-      status: "computing",
+      stage: null
     }
     this.position++
     this.spots.push(spot)

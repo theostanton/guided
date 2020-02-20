@@ -1,6 +1,6 @@
 import { database, generateId, Guide, Spot, User } from "@guided/database"
 import { actions, Contents, spinup } from "../index"
-import Builder from "../builder/Builder"
+import UserBuilder from "../builder/UserBuilder"
 import faker from "faker"
 
 const LAT_1 = 51.5074
@@ -15,7 +15,7 @@ describe("When inserting 2 spots with builder and no date", () => {
   const USERNAME = faker.internet.userName()
   const EMAIL = faker.internet.email()
 
-  const contents: Contents = Builder.create(EMAIL, USERNAME)
+  const contents: Contents = UserBuilder.create(EMAIL, USERNAME)
     .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
       builder.nextSpot(LAT_1, LONG_1, 2, "Spot 1")
       builder.nextSpot(LAT_2, LONG_2, 5, "Spot 2")

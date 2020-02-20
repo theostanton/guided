@@ -17,6 +17,7 @@
   ],
   "typeOverrides": {
     "guided.stages.status": "StageStatus",
+    "guided.computations.status": "ComputationStatus",
     "guided.spots.status": "SpotStatus",
     "guided.rides.status": "RideStatus"
   }

@@ -50,9 +50,9 @@ export async function execute(spotId: string): Promise<Partial<Spot>> {
                        where id = $1`, [spotId])
 
   //TODO
-  await computeStage.execute({
-    stageId: guideId,
-  })
+  // await computeStage.execute({
+  //   stageId: guideId,
+  // })
 
   return {
     id: spotId,

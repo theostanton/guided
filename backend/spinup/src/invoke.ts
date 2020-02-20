@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path:"../../.env"
+})
+
 import commandLineArgs, { OptionDefinition } from "command-line-args"
 import { Action } from "./index"
 import execute from "./."

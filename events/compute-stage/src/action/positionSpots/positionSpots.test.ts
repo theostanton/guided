@@ -1,8 +1,7 @@
-import { Builder, Contents, spinup } from "@guided/spinup"
+import { UserBuilder, Contents, spinup } from "@guided/spinup"
 import { database, generateId, Spot } from "@guided/database"
 import faker from "faker"
 import action from "./index"
-import exp from "constants"
 
 type LatLng = {
   lat: number
@@ -33,7 +32,7 @@ describe("Repositions last spot [0,2] to [0,1]", () => {
   const SPOT_ID_2 = generateId("spot_2")
 
   beforeAll(async () => {
-    const contents: Contents = Builder.create()
+    const contents: Contents = UserBuilder.create()
       .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
         builder.nextSpot(LATLNG.Brighton.lat, LATLNG.London.long, 2, "London", SPOT_ID_1)
         builder.nextSpot(LATLNG.Brighton.lat, LATLNG.Brighton.long, 5, "Brighton", SPOT_ID_2)
@@ -75,7 +74,7 @@ describe("Repositions central spot [0,2,3] to [0,1,2]", () => {
   const SPOT_ID_3 = generateId("spot_3")
 
   beforeAll(async () => {
-    const contents: Contents = Builder.create()
+    const contents: Contents = UserBuilder.create()
       .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
         builder.nextSpot(LATLNG.Brighton.lat, LATLNG.London.long, 2, "London", SPOT_ID_1)
         builder.nextSpot(LATLNG.Brighton.lat, LATLNG.Brighton.long, 5, "Brighton", SPOT_ID_2)
@@ -127,7 +126,7 @@ describe("Repositions all spots [1,2,3] to [0,1,2]", () => {
   const SPOT_ID_3 = generateId("spot_3")
 
   beforeAll(async () => {
-    const contents: Contents = Builder.create()
+    const contents: Contents = UserBuilder.create()
       .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
         builder.nextSpot(LATLNG.Brighton.lat, LATLNG.London.long, 2, "London", SPOT_ID_1)
         builder.nextSpot(LATLNG.Brighton.lat, LATLNG.Brighton.long, 5, "Brighton", SPOT_ID_2)
