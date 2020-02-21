@@ -1,4 +1,3 @@
-import { generateId, Guide, Ride, Spot } from "@guided/database"
 import { DirectionsRoute, DirectionsStep } from "@googlemaps/google-maps-services-js/dist/common"
 import * as geojson from "@guided/geojson"
 import addDays from "date-fns/addDays"
@@ -6,6 +5,8 @@ import { executeWithContext } from "@guided/utils"
 import { StageData } from "../../dao"
 import { getInfo } from "@guided/google"
 import upload from "./upload"
+import { generateId, Guide, Ride, Spot } from "@guided/database"
+import { plusDays } from "@guided/utils/srv/dates"
 
 
 type SubContext = {
@@ -18,7 +19,7 @@ type SubContext = {
   }
   current: {
     index: number
-    date: Date | null
+    date: string | null
     startSpotId: string
     distance: number
     duration: number
@@ -85,7 +86,7 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
     // Stored current Ride and new Spot with date, then incremented to next day
     context.result.durationDays += 1
     if (context.current.date) {
-      context.current.date = addDays(context.current.date, context.result.durationDays)
+      context.current.date = plusDays(context.current.date, context.result.durationDays)
     }
 
     context.current = {
@@ -114,8 +115,8 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
   return context
 }
 
-export default async function computeStage(startDate: Date | null, stageId: string, guide: Guide, startSpot: Spot, endSpot: Spot, route: DirectionsRoute | null): Promise<StageData> {
-  let currentDate: Date | null = startDate
+export default async function computeStage(startDate: string | null, stageId: string, guide: Guide, startSpot: Spot, endSpot: Spot, route: DirectionsRoute | null): Promise<StageData> {
+  let currentDate: string | null = startDate
   let currentStartSpotId: string = startSpot.id
 
   if (!route) {

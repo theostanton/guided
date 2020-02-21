@@ -225,13 +225,9 @@
         "version": "ae5e675aafeac0b27ba95b946eb8f049a00f027f75a4685032dd1d426d30d6b6",
         "signature": "ae5e675aafeac0b27ba95b946eb8f049a00f027f75a4685032dd1d426d30d6b6"
       },
-      "../../tools/utils/srv/dates.d.ts": {
-        "version": "3460c020fb69891d3434756d4a9078f9bd862d436b48518506844e35c4b2ec57",
-        "signature": "3460c020fb69891d3434756d4a9078f9bd862d436b48518506844e35c4b2ec57"
-      },
       "../../tools/utils/srv/index.d.ts": {
-        "version": "435b422e7dec3aebdcabe477d2edf0bdbf57acfa72b1654675a7ad222a9b6137",
-        "signature": "435b422e7dec3aebdcabe477d2edf0bdbf57acfa72b1654675a7ad222a9b6137"
+        "version": "da6006efece84bb6b450f24d335b40c7fbc826137b04ef0981b5ecb586d58b64",
+        "signature": "da6006efece84bb6b450f24d335b40c7fbc826137b04ef0981b5ecb586d58b64"
       },
       "./src/dao/databasedao.ts": {
         "version": "1410b0e34ef374e6829bca124cdc3b100046bd428cd3ae0b498627233232db1c",
@@ -357,9 +353,13 @@
         "version": "9ce7f90c702d9f9669f08fb6d72ba89051e8cdebe03f873cdfbc80b6b2a98184",
         "signature": "09cdc061168c0e147a1cd4f0dccb320fbe3b86c59ad90cbe85b84604d41545eb"
       },
+      "../../tools/utils/srv/dates.d.ts": {
+        "version": "3460c020fb69891d3434756d4a9078f9bd862d436b48518506844e35c4b2ec57",
+        "signature": "3460c020fb69891d3434756d4a9078f9bd862d436b48518506844e35c4b2ec57"
+      },
       "./src/action/calculatestage/index.ts": {
-        "version": "a5beb9e88b6e45b1e50348fb91ac142d4a2a4cce82260f09dec1b86c4e4109b2",
-        "signature": "7f1b4b70647edf17e972de0d64b5a34650b5aa68d5b941358d6780bb56c5b473"
+        "version": "03ccbbf6f02ae806d2515076644439db1fa13b4b3ad2db5b503986fc374be1eb",
+        "signature": "e85c8191a6ab65381d9c993c365b31a6989c4b03f55c23f69ef106e87025a508"
       },
       "./src/utils/index.ts": {
         "version": "e468a5c5829861ceab40c72e6d15ae7cfa9494e5c04f496aa05637c313b88916",
@@ -370,7 +370,7 @@
         "signature": "c517a689ee0d59f251359d0a81e0878a300df6427a5ee0af30fc82ee7e68c97e"
       },
       "./src/trigger/ammenddates.ts": {
-        "version": "8efd2a10c30a670a47b35f19b383b33d3eeef9b11320ca41c2b908681428aa56",
+        "version": "ac79c748e7f99477c9dc24c7a30c21b65f6b5b078f04c2c91001db85f3201826",
         "signature": "bd5cb0cc4e51aacea4dd1207336fab0a4566d17615255eca915da0ae70fe5bca"
       },
       "./src/action/index.ts": {
@@ -1067,7 +1067,6 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
-      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -1477,19 +1476,11 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/utils/srv/dates.d.ts": [
-        "./node_modules/date-fns/typings.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
       "../../tools/utils/srv/index.d.ts": [
         "../../tools/utils/srv/executeconcurrently.d.ts",
         "../../tools/utils/srv/executewithcontext.d.ts",
         "../../tools/utils/srv/executesequentially.d.ts",
         "../../tools/utils/srv/constants.d.ts",
-        "../../tools/utils/srv/dates.d.ts",
         "./node_modules/date-fns/typings.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -1778,8 +1769,14 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../tools/utils/srv/dates.d.ts": [
+        "./node_modules/date-fns/typings.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./src/action/calculatestage/index.ts": [
-        "../../tools/database/srv/index.d.ts",
         "./node_modules/@googlemaps/google-maps-services-js/dist/common.d.ts",
         "../../tools/geojson/srv/index.d.ts",
         "./node_modules/date-fns/typings.d.ts",
@@ -1787,6 +1784,8 @@
         "./src/dao/index.ts",
         "../../apis/google/srv/index.d.ts",
         "./src/action/calculatestage/upload.ts",
+        "../../tools/database/srv/index.d.ts",
+        "../../tools/utils/srv/dates.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -3893,19 +3892,11 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
-      "../../tools/utils/srv/dates.d.ts": [
-        "./node_modules/date-fns/typings.d.ts",
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
       "../../tools/utils/srv/index.d.ts": [
         "../../tools/utils/srv/executeconcurrently.d.ts",
         "../../tools/utils/srv/executewithcontext.d.ts",
         "../../tools/utils/srv/executesequentially.d.ts",
         "../../tools/utils/srv/constants.d.ts",
-        "../../tools/utils/srv/dates.d.ts",
         "./node_modules/date-fns/typings.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -4161,6 +4152,13 @@
       "../../apis/google/srv/index.d.ts": [
         "../../apis/google/node_modules/@googlemaps/google-maps-services-js/dist/index.d.ts",
         "../../apis/google/srv/getinfo/index.d.ts",
+        "./node_modules/date-fns/typings.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "../../tools/utils/srv/dates.d.ts": [
         "./node_modules/date-fns/typings.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -5816,20 +5814,7 @@
       "../../tools/utils/srv/executewithcontext.d.ts",
       "../../tools/utils/srv/executesequentially.d.ts",
       "../../tools/utils/srv/constants.d.ts",
-      "../../tools/utils/srv/dates.d.ts",
-      [
-        "../../tools/utils/srv/index.d.ts",
-        [
-          {
-            "file": "../../tools/utils/srv/index.d.ts",
-            "start": 220,
-            "length": 7,
-            "messageText": "Module '\"../../../../../../../../Users/theo/Code/guided/backend/tools/utils/srv/dates\"' has no exported member 'getDate'.",
-            "category": 1,
-            "code": 2305
-          }
-        ]
-      ],
+      "../../tools/utils/srv/index.d.ts",
       "./src/dao/databasedao.ts",
       "./src/dao/index.ts",
       "./src/types.ts",
@@ -5861,183 +5846,14 @@
       "../../apis/google/srv/getinfo/index.d.ts",
       "../../apis/google/srv/index.d.ts",
       "./src/action/calculatestage/upload.ts",
-      [
-        "./src/action/calculatestage/index.ts",
-        [
-          {
-            "file": "./src/action/calculatestage/index.ts",
-            "start": 1301,
-            "length": 4,
-            "code": 2322,
-            "category": 1,
-            "messageText": {
-              "messageText": "Type 'Date | null' is not assignable to type 'string | null'.",
-              "category": 1,
-              "code": 2322,
-              "next": [
-                {
-                  "messageText": "Type 'Date' is not assignable to type 'string'.",
-                  "category": 1,
-                  "code": 2322
-                }
-              ]
-            },
-            "relatedInformation": [
-              {
-                "file": "../../tools/database/srv/types.d.ts",
-                "start": 961,
-                "length": 4,
-                "messageText": "The expected type comes from property 'date' which is declared here on type 'Ride'",
-                "category": 3,
-                "code": 6500
-              }
-            ]
-          },
-          {
-            "file": "./src/action/calculatestage/index.ts",
-            "start": 2095,
-            "length": 4,
-            "code": 2322,
-            "category": 1,
-            "messageText": {
-              "messageText": "Type 'Date | null' is not assignable to type 'string | null'.",
-              "category": 1,
-              "code": 2322,
-              "next": [
-                {
-                  "messageText": "Type 'Date' is not assignable to type 'string'.",
-                  "category": 1,
-                  "code": 2322
-                }
-              ]
-            },
-            "relatedInformation": [
-              {
-                "file": "../../tools/database/srv/types.d.ts",
-                "start": 1377,
-                "length": 4,
-                "messageText": "The expected type comes from property 'date' which is declared here on type 'Spot'",
-                "category": 3,
-                "code": 6500
-              }
-            ]
-          },
-          {
-            "file": "./src/action/calculatestage/index.ts",
-            "start": 3946,
-            "length": 4,
-            "code": 2322,
-            "category": 1,
-            "messageText": {
-              "messageText": "Type 'Date | null' is not assignable to type 'string | null'.",
-              "category": 1,
-              "code": 2322,
-              "next": [
-                {
-                  "messageText": "Type 'Date' is not assignable to type 'string'.",
-                  "category": 1,
-                  "code": 2322
-                }
-              ]
-            },
-            "relatedInformation": [
-              {
-                "file": "../../tools/database/srv/types.d.ts",
-                "start": 961,
-                "length": 4,
-                "messageText": "The expected type comes from property 'date' which is declared here on type 'Ride'",
-                "category": 3,
-                "code": 6500
-              }
-            ]
-          },
-          {
-            "file": "./src/action/calculatestage/index.ts",
-            "start": 4345,
-            "length": 4,
-            "code": 2322,
-            "category": 1,
-            "messageText": {
-              "messageText": "Type 'Date | null' is not assignable to type 'string | null'.",
-              "category": 1,
-              "code": 2322,
-              "next": [
-                {
-                  "messageText": "Type 'Date' is not assignable to type 'string'.",
-                  "category": 1,
-                  "code": 2322
-                }
-              ]
-            },
-            "relatedInformation": [
-              {
-                "file": "../../tools/database/srv/types.d.ts",
-                "start": 1377,
-                "length": 4,
-                "messageText": "The expected type comes from property 'date' which is declared here on type 'Spot'",
-                "category": 3,
-                "code": 6500
-              }
-            ]
-          },
-          {
-            "file": "./src/action/calculatestage/index.ts",
-            "start": 5051,
-            "length": 4,
-            "code": 2322,
-            "category": 1,
-            "messageText": {
-              "messageText": "Type 'Date | null' is not assignable to type 'string | null'.",
-              "category": 1,
-              "code": 2322,
-              "next": [
-                {
-                  "messageText": "Type 'Date' is not assignable to type 'string'.",
-                  "category": 1,
-                  "code": 2322
-                }
-              ]
-            },
-            "relatedInformation": [
-              {
-                "file": "../../tools/database/srv/types.d.ts",
-                "start": 1377,
-                "length": 4,
-                "messageText": "The expected type comes from property 'date' which is declared here on type 'Spot'",
-                "category": 3,
-                "code": 6500
-              }
-            ]
-          }
-        ]
-      ],
+      "../../tools/utils/srv/dates.d.ts",
+      "./src/action/calculatestage/index.ts",
       "./src/utils/index.ts",
       "./src/action/getroute/index.ts",
-      [
-        "./src/trigger/ammenddates.ts",
-        [
-          {
-            "file": "./src/trigger/ammenddates.ts",
-            "start": 1292,
-            "length": 11,
-            "code": 2345,
-            "category": 1,
-            "messageText": {
-              "messageText": "Argument of type 'number | null | undefined' is not assignable to parameter of type 'number'.",
-              "category": 1,
-              "code": 2345,
-              "next": [
-                {
-                  "messageText": "Type 'undefined' is not assignable to type 'number'.",
-                  "category": 1,
-                  "code": 2322
-                }
-              ]
-            }
-          }
-        ]
-      ],
       "./src/action/index.ts",
+      "./src/prepare/index.ts",
+      "./src/trigger/index.ts",
+      "./src/index.ts",
       "./src/invoke.ts",
       "./src/lambda.ts",
       "./src/action/computerides.test.ts",
@@ -6049,6 +5865,7 @@
       "../../tools/spinup/srv/index.d.ts",
       "./node_modules/@types/faker/index.d.ts",
       "./src/action/positionspots/positionspots.test.ts",
+      "./src/prepare/prepare.test.ts",
       "./src/trigger/trigger.test.ts",
       "./node_modules/@babel/types/lib/index.d.ts",
       "./node_modules/@types/babel__generator/index.d.ts",
@@ -6199,10 +6016,7 @@
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "./src/prepare/index.ts",
-      "./src/prepare/prepare.test.ts",
-      "./src/index.ts",
-      "./src/trigger/index.ts"
+      "./src/trigger/ammenddates.ts"
     ]
   },
   "version": "3.8.2"
