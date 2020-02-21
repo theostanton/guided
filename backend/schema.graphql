@@ -40,7 +40,7 @@ type Computation implements Node {
   ended: Datetime
   duration: Int
   status: ComputationStatus!
-  stage: String!
+  stage: String
   guide: String!
   created: Datetime!
   started: Datetime
@@ -88,7 +88,7 @@ input ComputationInput {
   ended: Datetime
   duration: Int
   status: ComputationStatus!
-  stage: String!
+  stage: String
   guide: String!
   created: Datetime!
   started: Datetime
@@ -453,9 +453,6 @@ type CreateUserPayload {
 
 """A location in a connection that can be used for resuming pagination."""
 scalar Cursor
-
-"""The day, does not include a time."""
-scalar Date
 
 """
 A point in time as described by the [ISO
@@ -850,7 +847,7 @@ type Guide implements Node {
   title: String!
   slug: String!
   owner: String!
-  startDate: Date
+  startDate: String
   maxHoursPerRide: Int!
   created: Datetime!
   updated: Datetime
@@ -993,7 +990,7 @@ input GuideCondition {
   owner: String
 
   """Checks for equality with the object’s `startDate` field."""
-  startDate: Date
+  startDate: String
 
   """Checks for equality with the object’s `maxHoursPerRide` field."""
   maxHoursPerRide: Int
@@ -1011,7 +1008,7 @@ input GuideInput {
   title: String!
   slug: String!
   owner: String!
-  startDate: Date
+  startDate: String
   maxHoursPerRide: Int
   created: Datetime!
   updated: Datetime
@@ -1025,7 +1022,7 @@ input GuidePatch {
   title: String
   slug: String
   owner: String
-  startDate: Date
+  startDate: String
   maxHoursPerRide: Int
   created: Datetime
   updated: Datetime
@@ -1391,7 +1388,7 @@ type Mutation {
     """
     input: RegisterInput!
   ): RegisterPayload
-  addSpotFromLatLng(guideId: String!, lat: Float!, long: Float!, label: String): Spot!
+  addSpotFromLatLng(guideId: String!, lat: Float!, long: Float!, label: String, nights: Int!): Spot!
   moveSpot(spotId: String!, lat: Float!, long: Float!): Spot!
   removeSpot(spotId: String!): Spot!
 }
@@ -1742,7 +1739,7 @@ type Ride implements Node {
   pathUrl: String
   durationSeconds: Int
   distanceMeters: Int
-  date: Date
+  date: String
   stage: String!
   position: String
   status: RideStatus!
@@ -1796,7 +1793,7 @@ input RideCondition {
   distanceMeters: Int
 
   """Checks for equality with the object’s `date` field."""
-  date: Date
+  date: String
 
   """Checks for equality with the object’s `stage` field."""
   stage: String
@@ -1824,7 +1821,7 @@ input RideInput {
   pathUrl: String
   durationSeconds: Int
   distanceMeters: Int
-  date: Date
+  date: String
   stage: String!
   position: String
   status: RideStatus!
@@ -1842,7 +1839,7 @@ input RidePatch {
   pathUrl: String
   durationSeconds: Int
   distanceMeters: Int
-  date: Date
+  date: String
   stage: String
   position: String
   status: RideStatus
@@ -1933,7 +1930,7 @@ type Spot implements Node {
   position: String
   location: String
   country: String
-  date: Date
+  date: String
   created: Datetime!
   updated: Datetime
   stage: String
@@ -2103,7 +2100,7 @@ input SpotCondition {
   country: String
 
   """Checks for equality with the object’s `date` field."""
-  date: Date
+  date: String
 
   """Checks for equality with the object’s `created` field."""
   created: Datetime
@@ -2128,7 +2125,7 @@ input SpotInput {
   position: String
   location: String
   country: String
-  date: Date
+  date: String
   created: Datetime!
   updated: Datetime
   stage: String
@@ -2147,7 +2144,7 @@ input SpotPatch {
   position: String
   location: String
   country: String
-  date: Date
+  date: String
   created: Datetime
   updated: Datetime
   stage: String

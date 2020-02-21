@@ -3,5 +3,6 @@ export type ComputeStageMessageBody = {
 }
 
 export type ComputeStageResult = {
-  success: boolean
+  success: boolean,
+  ranFinalisation: boolean
 }

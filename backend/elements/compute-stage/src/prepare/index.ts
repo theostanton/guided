@@ -135,18 +135,10 @@ export default async function(guideId: string): Promise<Packet> {
     }
   })
 
-  let deleteRidesQuery = `delete
-                       from rides
-                       where id in ('${rideIdsToDelete.join("\',\'")}')`
-  logJson(deleteRidesQuery, "deleteRidesQuery")
-  await database.none(deleteRidesQuery)
-  await database.none(`delete
-                       from spots
-                       where id in ('${spotIdsToDelete.join("\',\'")}')`)
-  await database.none(`delete
-                       from spots
-                       where id in ('${spotIdsToDelete.join("\',\'")}')`)
 
+  await database.none(`delete
+                       from stages
+                       where id in ('${stageIdsToDelete.join("\',\'")}')`)
 
   if (stagesToCreate.length > 0) {
     const insertStagesQuery = insertMany("stages", stagesToCreate)

@@ -31,8 +31,8 @@ export async function prepare(args: MutationAddSpotFromLatLngArgs, owner: string
     lat: args.lat,
     date: null,
     long: args.long,
-    nights: 1,
-    position: `${parseInt(spotCount) + 1}`,
+    nights: args.nights,
+    position: `${parseInt(spotCount)}`,
     location,
     country,
     locked: true,
@@ -73,7 +73,7 @@ const generator: ExtensionDefinition = {
           success:Boolean!
       }
       extend type Mutation {
-          addSpotFromLatLng(guideId:String!,lat:Float!,long:Float!,label:String):Spot!
+          addSpotFromLatLng(guideId:String!,lat:Float!,long:Float!,label:String,nights:Int!):Spot!
       }
   `,
   resolvers: {

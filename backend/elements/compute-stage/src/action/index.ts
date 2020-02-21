@@ -4,15 +4,29 @@ import { ComputeStageMessageBody, ComputeStageResult } from "../types"
 import { database, Guide, Spot } from "@guided/database"
 import calculateStage from "./calculateStage"
 import getRoute from "./getRoute"
+import ammendDates from "../trigger/ammendDates"
+
+async function runFinalisationIfRequired(guide: Guide): Promise<boolean> {
+  if (guide.start_date) {
+    const activeComputations = await database.manyOrNone("select id from computations where guide=$1 and status in ('computing','scheduled')", [guide.id])
+    if (activeComputations.length === 0) {
+      await ammendDates(guide)
+      return true
+    }
+  }
+  return false
+}
 
 export default async function execute(body: ComputeStageMessageBody): Promise<ComputeStageResult> {
+  const start = new Date()
   logJson(body, "handle compute-stage")
 
   const { computationId } = body
 
   await database.none(`update computations
-                       set status='computing'
-                       where id = $1`, [computationId])
+                       set status='computing',
+                           started=$2
+                       where id = $1`, [computationId, start])
 
   const dao = await Dao.create(computationId)
 
@@ -31,14 +45,23 @@ export default async function execute(body: ComputeStageMessageBody): Promise<Co
 
   await dao.insertData(stageData)
 
+  const end = new Date()
+  const durationMs = end.getTime() - start.getTime()
   await database.none(`update computations
-                       set status=$1
-                       where id = $2`, [stageData.status, computationId])
+                       set status=$1,
+                           ended=$2,
+                           duration=$3
+                       where id = $4`, [stageData.status, end, durationMs, computationId])
+
+
+  let ranFinalisation = await runFinalisationIfRequired(guide)
+
 
   await database.none(`update stages
                        set status='ready'
                        where id = $1`, [stage.id])
   return {
     success: true,
+    ranFinalisation,
   }
 }

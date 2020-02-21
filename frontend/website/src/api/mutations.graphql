@@ -8,8 +8,8 @@ mutation CreateGuide($guide:GuideInput!){
     }
 }
 
-mutation AddStayFromLatLong($guideId:String!,$lat:Float!,$long:Float!){
-    addSpotFromLatLng(guideId: $guideId,lat:$lat,long: $long){
+mutation AddStayFromLatLong($guideId:String!,$lat:Float!,$long:Float!,$nights:Int!){
+    addSpotFromLatLng(guideId: $guideId,lat:$lat,long: $long,nights: $nights){
         id
     }
 }

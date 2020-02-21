@@ -1,5 +1,8 @@
 import slugify from "slugify"
 import { generateId, Guide, Spot } from "@guided/database"
+import moment, { Moment } from "moment"
+import { getDate } from "@guided/utils"
+import { dateString } from "@guided/utils/srv/dates"
 
 export type MockLocation = "Worthing" | "London" | "Brighton"
 
@@ -23,6 +26,7 @@ export const LOCATIONS: { [location in MockLocation]: LatLng } = {
   },
 }
 
+
 export default class GuideBuilder {
 
   static create(username: string, title: string, guideId?: string): GuideBuilder {
@@ -34,7 +38,7 @@ export default class GuideBuilder {
   private max_hours_per_ride: number
   private readonly title: string
   private readonly slug: string
-  private start_date: Date | null
+  private start_date: string | null
   private spots: Spot[] = []
   private position: number = 0
 
@@ -50,8 +54,8 @@ export default class GuideBuilder {
     this.start_date = null
   }
 
-  withStartDate(startDate: Date): GuideBuilder {
-    this.start_date = startDate
+  withStartDate(year: number, month: number, date: number): GuideBuilder {
+    this.start_date = dateString(year, month, date)
     return this
   }
 

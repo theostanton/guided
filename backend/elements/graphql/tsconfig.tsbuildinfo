@@ -2,8 +2,8 @@
   "program": {
     "fileInfos": {
       "./node_modules/typescript/lib/lib.es5.d.ts": {
-        "version": "fc43680ad3a1a4ec8c7b8d908af1ec9ddff87845346de5f02c735c9171fa98ea",
-        "signature": "fc43680ad3a1a4ec8c7b8d908af1ec9ddff87845346de5f02c735c9171fa98ea"
+        "version": "b42eddba1a53c9d27279cfe7fc0416c10a81489826ad47e39013b9d340fc0cc7",
+        "signature": "b42eddba1a53c9d27279cfe7fc0416c10a81489826ad47e39013b9d340fc0cc7"
       },
       "./node_modules/typescript/lib/lib.es2015.d.ts": {
         "version": "7994d44005046d1413ea31d046577cdda33b8b2470f30281fd9c8b3c99fe2d96",
@@ -26,16 +26,16 @@
         "signature": "0fc0f68d3f4d94aa65fab955592e4a9f2066e6f8ee2f66fcc45adf4037fc167b"
       },
       "./node_modules/typescript/lib/lib.es2020.d.ts": {
-        "version": "2ac4bcb126505649675d586f7c186a5278a8ef3f0dad29475c512e56c007a0c5",
-        "signature": "2ac4bcb126505649675d586f7c186a5278a8ef3f0dad29475c512e56c007a0c5"
+        "version": "585694acba05fe18d6ad9c9f662f3de3766779933efb9f2d8c482c1a92bf073c",
+        "signature": "585694acba05fe18d6ad9c9f662f3de3766779933efb9f2d8c482c1a92bf073c"
       },
       "./node_modules/typescript/lib/lib.esnext.d.ts": {
-        "version": "f135d77dd841d9a94e2551421f71067060f9eb1f0fb3b45ef142f78e84768bc8",
-        "signature": "f135d77dd841d9a94e2551421f71067060f9eb1f0fb3b45ef142f78e84768bc8"
+        "version": "391b7b55f424b8f658ba78a051650424c9c8667c1e77a5fa2c76888f7cf9dcd3",
+        "signature": "391b7b55f424b8f658ba78a051650424c9c8667c1e77a5fa2c76888f7cf9dcd3"
       },
       "./node_modules/typescript/lib/lib.dom.d.ts": {
-        "version": "d93de5e8a7275cb9d47481410e13b3b1debb997e216490954b5d106e37e086de",
-        "signature": "d93de5e8a7275cb9d47481410e13b3b1debb997e216490954b5d106e37e086de"
+        "version": "f2039e0dbc31f69183f6377b368c033802dfdcf77e5fd214def06c1fd7b225ed",
+        "signature": "f2039e0dbc31f69183f6377b368c033802dfdcf77e5fd214def06c1fd7b225ed"
       },
       "./node_modules/typescript/lib/lib.dom.iterable.d.ts": {
         "version": "8329c3401aa8708426c7760f14219170f69a2cb77e4519758cec6f5027270faf",
@@ -142,8 +142,16 @@
         "signature": "e9bfd234b801c955459cde7109bebf6fd1b4814fd8b394942f5ba746828a6486"
       },
       "./node_modules/typescript/lib/lib.es2019.symbol.d.ts": {
-        "version": "53d5859b8aaefd27aa3242d36fc17a9243335d04ec14664b52314e7d9eb04de6",
-        "signature": "53d5859b8aaefd27aa3242d36fc17a9243335d04ec14664b52314e7d9eb04de6"
+        "version": "5f2a476cdb4990b249077b46a6242979876e9bba5152e066d68fad77510ee328",
+        "signature": "5f2a476cdb4990b249077b46a6242979876e9bba5152e066d68fad77510ee328"
+      },
+      "./node_modules/typescript/lib/lib.es2020.bigint.d.ts": {
+        "version": "0c9ea8c2028047f39a3f66752682604f543c08be8806258c3d95c93e75a43255",
+        "signature": "0c9ea8c2028047f39a3f66752682604f543c08be8806258c3d95c93e75a43255"
+      },
+      "./node_modules/typescript/lib/lib.es2020.promise.d.ts": {
+        "version": "4a44be5b17ae6385fcc9a486361f50231992d556c9298373ae0d38cfae9f4056",
+        "signature": "4a44be5b17ae6385fcc9a486361f50231992d556c9298373ae0d38cfae9f4056"
       },
       "./node_modules/typescript/lib/lib.es2020.string.d.ts": {
         "version": "01f1170ac78a31964a8a05cc46df7dc63d6911f683cb49586b27c49f54187a86",
@@ -156,10 +164,6 @@
       "./node_modules/typescript/lib/lib.esnext.intl.d.ts": {
         "version": "1377923021927244ea19433873b997ad8585533b0a56d5de29cda497f7842756",
         "signature": "1377923021927244ea19433873b997ad8585533b0a56d5de29cda497f7842756"
-      },
-      "./node_modules/typescript/lib/lib.esnext.bigint.d.ts": {
-        "version": "0c9ea8c2028047f39a3f66752682604f543c08be8806258c3d95c93e75a43255",
-        "signature": "0c9ea8c2028047f39a3f66752682604f543c08be8806258c3d95c93e75a43255"
       },
       "./node_modules/typescript/lib/lib.esnext.full.d.ts": {
         "version": "b209a815904a485328677714ef8c4ddd2dcf4040154fa204d25cbf31cd4ff0f3",
@@ -1042,8 +1046,8 @@
         "signature": "9f9bdcfdda0cf651fbbaab37dc27e0cc03ec08ab3ab38ec499ef644b179968b3"
       },
       "./src/generated.ts": {
-        "version": "34d72f0297a1a76dec1965322a16b98e5ff35c0bcefd7ca1839e28d90211a11d",
-        "signature": "247a76fdb0270ce27ef4374ba33d11020bad07a7294290bd71af829f91a9e4a4"
+        "version": "5541e7dbb14d9a11e1ced639396b6dadb59f99c02a3c00f2d94bba66c714bc0e",
+        "signature": "72b4202af82c70dd3ba530eadec3a1f902b19d73e7f81a7c7b4b9db3e20d9ecd"
       },
       "../../tools/database/node_modules/pg-promise/typescript/pg-subset.d.ts": {
         "version": "c2d551451c7ddb48f776fd038ec5af7922ec0040cd82a69dad1550a697afe9f6",
@@ -1062,8 +1066,8 @@
         "signature": "d008661b7fa8490d9c3e06d665bd29ba1805ef24ce7772dfe88d5cfbd21df32f"
       },
       "../../tools/database/srv/types.d.ts": {
-        "version": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521",
-        "signature": "e6f34c786849a32b37073ba6bb25724a793f76c34aa3f5d0d41719a097527521"
+        "version": "58eda2c7a7fb753c0e5d62831f7ca9539f40992126f6ee7eb6f9bc54ff587a2f",
+        "signature": "58eda2c7a7fb753c0e5d62831f7ca9539f40992126f6ee7eb6f9bc54ff587a2f"
       },
       "../../tools/database/srv/extensions.d.ts": {
         "version": "f1e729bea8a2827a0b1f52ee4fb55bc6eb95af1f75b5a08867335f35d5c76bc9",
@@ -1074,16 +1078,16 @@
         "signature": "2401fd60c9528667fa82ff7aa75d47e45af2f8464f64e3865291c7e6e7bed44f"
       },
       "../../tools/database/srv/index.d.ts": {
-        "version": "aaa78a56e334ca923ffbc10dc0f92583038df7749ec09ce5f19cce8c82192779",
-        "signature": "aaa78a56e334ca923ffbc10dc0f92583038df7749ec09ce5f19cce8c82192779"
+        "version": "184277451d97bf1377e31b4090262069c8003a6991120b1f85095dfe6664582f",
+        "signature": "184277451d97bf1377e31b4090262069c8003a6991120b1f85095dfe6664582f"
       },
       "./src/plugins/types.ts": {
         "version": "da70c9f8c0483ea4a9ec0f7dd3fab6cab7c45b2ed93992423597a784ce9ed820",
         "signature": "136aff93001dbb0041e02bf0336257226edeb6fa5e15cbc708a4337827a6a599"
       },
       "../compute-stage/srv/types.d.ts": {
-        "version": "b500adff0bf47724f08ef6f4a42a5ed78829030aa8d328050b9f73fa19012936",
-        "signature": "b500adff0bf47724f08ef6f4a42a5ed78829030aa8d328050b9f73fa19012936"
+        "version": "3c138508d212cc7792d1c4e1f1be08233d8fa18fb88c4bd716ac068491083aff",
+        "signature": "3c138508d212cc7792d1c4e1f1be08233d8fa18fb88c4bd716ac068491083aff"
       },
       "../compute-stage/srv/prepare/index.d.ts": {
         "version": "ca5765ec8ebe0bcec571a72075fa022f251cdb2af9736ecdf3ee17839c8e5839",
@@ -1098,7 +1102,7 @@
         "signature": "d57e7755ae8090210be77153776c9b5538a965deb45234f00c5059b664895a71"
       },
       "./src/plugins/addspotfromlatlng/index.ts": {
-        "version": "affae6c536dadb39fb3f2658d21061e3897583df0124d91f4baca9d30780790b",
+        "version": "80d77531cb367b8a12242987ccb108301b20ff1e87f3cf6985eb3e769b18c92c",
         "signature": "ef872cde0f25164f00cf228272ea885442796fa18820783de525ba3eb91efcfc"
       },
       "../../tools/utils/srv/executeconcurrently.d.ts": {
@@ -1117,9 +1121,13 @@
         "version": "ae5e675aafeac0b27ba95b946eb8f049a00f027f75a4685032dd1d426d30d6b6",
         "signature": "ae5e675aafeac0b27ba95b946eb8f049a00f027f75a4685032dd1d426d30d6b6"
       },
+      "../../tools/utils/srv/dates.d.ts": {
+        "version": "3460c020fb69891d3434756d4a9078f9bd862d436b48518506844e35c4b2ec57",
+        "signature": "3460c020fb69891d3434756d4a9078f9bd862d436b48518506844e35c4b2ec57"
+      },
       "../../tools/utils/srv/index.d.ts": {
-        "version": "da6006efece84bb6b450f24d335b40c7fbc826137b04ef0981b5ecb586d58b64",
-        "signature": "da6006efece84bb6b450f24d335b40c7fbc826137b04ef0981b5ecb586d58b64"
+        "version": "435b422e7dec3aebdcabe477d2edf0bdbf57acfa72b1654675a7ad222a9b6137",
+        "signature": "435b422e7dec3aebdcabe477d2edf0bdbf57acfa72b1654675a7ad222a9b6137"
       },
       "./src/plugins/movespot/index.ts": {
         "version": "b8dd871688d2b9fd07a35a18229191c304babccb19e384b5b7deb85b13f2b34a",
@@ -1270,8 +1278,8 @@
         "signature": "294d50880fb288fcf5538fce7accb8f36d959e946ef1aa23abfc4394cc03f9f1"
       },
       "../../tools/spinup/srv/builder/guidebuilder.d.ts": {
-        "version": "034ccbcc3bcde1eb032c84cb763bbfcc53af09fb2a56d73259417f2b86b3367e",
-        "signature": "034ccbcc3bcde1eb032c84cb763bbfcc53af09fb2a56d73259417f2b86b3367e"
+        "version": "abf2e51c42b311d5cea956916eced05e17042b7a04ee8105e9ec658385fe30b9",
+        "signature": "abf2e51c42b311d5cea956916eced05e17042b7a04ee8105e9ec658385fe30b9"
       },
       "../../tools/spinup/srv/builder/userbuilder.d.ts": {
         "version": "0077ee77df73eae5ff3ebd3888dc5f03815c20fecfe23b7c11ccbb6736386be3",
@@ -1290,12 +1298,12 @@
         "signature": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989"
       },
       "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts": {
-        "version": "37141adcb244ed24eb7e0485328de1bf0daa2e81be3939866dc8f7455a3f92b7",
+        "version": "e0be50e0b4781d004b3cd04ff5d08e7355a8ca7ccb07fba60127d558af2b3333",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./src/plugins/removespot/removespot.test.ts": {
-        "version": "d3e4797c8e7df495159ede8dd5055534afb8bc047b8740f723796762c18c70d9",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+        "version": "6a8f96aa43bd984e57b5fdd238d71c04c7ae752f872f45db9771a192db609524",
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       "./node_modules/@types/accepts/index.d.ts": {
         "version": "6738101ae8e56cd3879ab3f99630ada7d78097fc9fd334df7e766216778ca219",
@@ -1721,6 +1729,10 @@
         "version": "bbf144d4354e2aaa6439f32761f3ee798cc68d1600adab6e2a596f25269f106d",
         "signature": "bbf144d4354e2aaa6439f32761f3ee798cc68d1600adab6e2a596f25269f106d"
       },
+      "./node_modules/moment/moment.d.ts": {
+        "version": "d62fa6fe33566fa743b3d6715a1a2fe46e937ba9d2ba158563c5744315d438a7",
+        "signature": "d62fa6fe33566fa743b3d6715a1a2fe46e937ba9d2ba158563c5744315d438a7"
+      },
       "./node_modules/@types/pg-types/index.d.ts": {
         "version": "060937b9e71c39c855e3572260800c74f248947c5781ddd8db1f3e0a08696c13",
         "signature": "060937b9e71c39c855e3572260800c74f248947c5781ddd8db1f3e0a08696c13"
@@ -1987,6 +1999,18 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/typescript/lib/lib.es2020.bigint.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/typescript/lib/lib.es2020.promise.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/typescript/lib/lib.es2020.string.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -2000,12 +2024,6 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/typescript/lib/lib.esnext.intl.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/typescript/lib/lib.esnext.bigint.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -4090,11 +4108,18 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../tools/utils/srv/dates.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "../../tools/utils/srv/index.d.ts": [
         "../../tools/utils/srv/executeconcurrently.d.ts",
         "../../tools/utils/srv/executewithcontext.d.ts",
         "../../tools/utils/srv/executesequentially.d.ts",
         "../../tools/utils/srv/constants.d.ts",
+        "../../tools/utils/srv/dates.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -4459,21 +4484,12 @@
         "./src/generated.ts",
         "../../tools/spinup/srv/builder/guidebuilder.d.ts",
         "../../tools/logger/srv/index.d.ts",
-        "./node_modules/@types/node/constants.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./src/plugins/removespot/removespot.test.ts": [
-        "../compute-stage/srv/index.d.ts",
-        "../../tools/database/srv/index.d.ts",
-        "../../tools/spinup/srv/index.d.ts",
-        "./node_modules/@types/faker/index.d.ts",
-        "./src/generated.ts",
-        "../../tools/spinup/srv/builder/guidebuilder.d.ts",
-        "../../tools/logger/srv/index.d.ts",
-        "./src/plugins/addspotfromlatlng/index.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -5506,6 +5522,12 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/moment/moment.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/@types/pg-types/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -5749,6 +5771,18 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/typescript/lib/lib.es2020.bigint.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
+      "./node_modules/typescript/lib/lib.es2020.promise.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/typescript/lib/lib.es2020.string.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -5762,12 +5796,6 @@
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
       "./node_modules/typescript/lib/lib.esnext.intl.d.ts": [
-        "./node_modules/@types/node/fs.d.ts",
-        "./node_modules/@types/node/ts3.5/fs.d.ts",
-        "./node_modules/@types/node/util.d.ts",
-        "./node_modules/@types/node/ts3.5/util.d.ts"
-      ],
-      "./node_modules/typescript/lib/lib.esnext.bigint.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -7829,11 +7857,18 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../tools/utils/srv/dates.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "../../tools/utils/srv/index.d.ts": [
         "../../tools/utils/srv/executeconcurrently.d.ts",
         "../../tools/utils/srv/executewithcontext.d.ts",
         "../../tools/utils/srv/executesequentially.d.ts",
         "../../tools/utils/srv/constants.d.ts",
+        "../../tools/utils/srv/dates.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -9147,6 +9182,12 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./node_modules/moment/moment.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./node_modules/@types/pg-types/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
@@ -9210,10 +9251,11 @@
       "./node_modules/typescript/lib/lib.es2019.object.d.ts",
       "./node_modules/typescript/lib/lib.es2019.string.d.ts",
       "./node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+      "./node_modules/typescript/lib/lib.es2020.bigint.d.ts",
+      "./node_modules/typescript/lib/lib.es2020.promise.d.ts",
       "./node_modules/typescript/lib/lib.es2020.string.d.ts",
       "./node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
       "./node_modules/typescript/lib/lib.esnext.intl.d.ts",
-      "./node_modules/typescript/lib/lib.esnext.bigint.d.ts",
       "./node_modules/typescript/lib/lib.esnext.full.d.ts",
       "./node_modules/@types/node/globals.d.ts",
       "./node_modules/@types/node/assert.d.ts",
@@ -9448,11 +9490,25 @@
       "../compute-stage/srv/prepare/index.d.ts",
       "../compute-stage/srv/trigger/index.d.ts",
       "../compute-stage/srv/index.d.ts",
+      "./src/plugins/addspotfromlatlng/index.ts",
       "../../tools/utils/srv/executeconcurrently.d.ts",
       "../../tools/utils/srv/executewithcontext.d.ts",
       "../../tools/utils/srv/executesequentially.d.ts",
       "../../tools/utils/srv/constants.d.ts",
-      "../../tools/utils/srv/index.d.ts",
+      "../../tools/utils/srv/dates.d.ts",
+      [
+        "../../tools/utils/srv/index.d.ts",
+        [
+          {
+            "file": "../../tools/utils/srv/index.d.ts",
+            "start": 220,
+            "length": 7,
+            "messageText": "Module '\"../../../../../../../../Users/theo/Code/guided/backend/tools/utils/srv/dates\"' has no exported member 'getDate'.",
+            "category": 1,
+            "code": 2305
+          }
+        ]
+      ],
       "./src/plugins/movespot/index.ts",
       "./src/plugins/removespot/index.ts",
       "./src/plugins/index.ts",
@@ -9495,7 +9551,6 @@
       "../../tools/spinup/srv/builder/index.d.ts",
       "../../tools/spinup/srv/index.d.ts",
       "./node_modules/@types/faker/index.d.ts",
-      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
       "./src/plugins/removespot/removespot.test.ts",
       "./node_modules/@types/accepts/index.d.ts",
       "./node_modules/@babel/types/lib/index.d.ts",
@@ -9603,12 +9658,13 @@
       "./node_modules/@types/lodash/ts3.1/common/string.d.ts",
       "./node_modules/@types/lodash/ts3.1/common/util.d.ts",
       "./node_modules/@types/lodash/ts3.1/index.d.ts",
+      "./node_modules/moment/moment.d.ts",
       "./node_modules/@types/pg-types/index.d.ts",
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "./src/plugins/addspotfromlatlng/index.ts"
+      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts"
     ]
   },
-  "version": "3.7.5"
+  "version": "3.8.2"
 }

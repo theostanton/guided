@@ -30,7 +30,8 @@ export function extend(db: IDatabase<Extensions> & Extensions) {
     selectSpotsForGuide(guideId: string): Promise<Spot[]> {
       return db.manyOrNone<Spot>(`SELECT *
                                   from spots
-                                  where guide = $1`, [guideId])
+                                  where guide = $1
+                                  order by position`, [guideId])
     },
     selectStagesForGuide(guideId: string): Promise<Stage[]> {
       return db.manyOrNone<Stage>(`SELECT *

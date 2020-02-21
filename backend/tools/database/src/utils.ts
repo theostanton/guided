@@ -30,7 +30,7 @@ export function insertOne(tableName: string, item: any): string {
 export function updateMany(tableName: string, items: any[], columns: string[], onColumn: string): string {
 
 
-  if(columns.includes(onColumn)){
+  if (columns.includes(onColumn)) {
     throw new Error(`Not smart enough to update on matched column, yet`)
   }
 

@@ -15,8 +15,6 @@ export type Scalars = {
    * 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
  */
   Datetime: string,
-  /** The day, does not include a time. */
-  Date: any,
   /** 
  * A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
    * which securely represents claims between two parties.
@@ -61,7 +59,7 @@ export type Computation = Node & {
   readonly ended?: Maybe<Scalars['Datetime']>,
   readonly duration?: Maybe<Scalars['Int']>,
   readonly status: ComputationStatus,
-  readonly stage: Scalars['String'],
+  readonly stage?: Maybe<Scalars['String']>,
   readonly guide: Scalars['String'],
   readonly created: Scalars['Datetime'],
   readonly started?: Maybe<Scalars['Datetime']>,
@@ -100,7 +98,7 @@ export type ComputationInput = {
   readonly ended?: Maybe<Scalars['Datetime']>,
   readonly duration?: Maybe<Scalars['Int']>,
   readonly status: ComputationStatus,
-  readonly stage: Scalars['String'],
+  readonly stage?: Maybe<Scalars['String']>,
   readonly guide: Scalars['String'],
   readonly created: Scalars['Datetime'],
   readonly started?: Maybe<Scalars['Datetime']>,
@@ -419,7 +417,6 @@ export type CreateUserPayload = {
 export type CreateUserPayloadUserEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>
 };
-
 
 
 
@@ -759,7 +756,7 @@ export type Guide = Node & {
   readonly title: Scalars['String'],
   readonly slug: Scalars['String'],
   readonly owner: Scalars['String'],
-  readonly startDate?: Maybe<Scalars['Date']>,
+  readonly startDate?: Maybe<Scalars['String']>,
   readonly maxHoursPerRide: Scalars['Int'],
   readonly created: Scalars['Datetime'],
   readonly updated?: Maybe<Scalars['Datetime']>,
@@ -831,7 +828,7 @@ export type GuideCondition = {
   /** Checks for equality with the object’s `owner` field. */
   readonly owner?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `startDate` field. */
-  readonly startDate?: Maybe<Scalars['Date']>,
+  readonly startDate?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `maxHoursPerRide` field. */
   readonly maxHoursPerRide?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `created` field. */
@@ -846,7 +843,7 @@ export type GuideInput = {
   readonly title: Scalars['String'],
   readonly slug: Scalars['String'],
   readonly owner: Scalars['String'],
-  readonly startDate?: Maybe<Scalars['Date']>,
+  readonly startDate?: Maybe<Scalars['String']>,
   readonly maxHoursPerRide?: Maybe<Scalars['Int']>,
   readonly created: Scalars['Datetime'],
   readonly updated?: Maybe<Scalars['Datetime']>,
@@ -858,7 +855,7 @@ export type GuidePatch = {
   readonly title?: Maybe<Scalars['String']>,
   readonly slug?: Maybe<Scalars['String']>,
   readonly owner?: Maybe<Scalars['String']>,
-  readonly startDate?: Maybe<Scalars['Date']>,
+  readonly startDate?: Maybe<Scalars['String']>,
   readonly maxHoursPerRide?: Maybe<Scalars['Int']>,
   readonly created?: Maybe<Scalars['Datetime']>,
   readonly updated?: Maybe<Scalars['Datetime']>,
@@ -1217,7 +1214,8 @@ export type MutationAddSpotFromLatLngArgs = {
   guideId: Scalars['String'],
   lat: Scalars['Float'],
   long: Scalars['Float'],
-  label?: Maybe<Scalars['String']>
+  label?: Maybe<Scalars['String']>,
+  nights: Scalars['Int']
 };
 
 
@@ -1518,7 +1516,7 @@ export type Ride = Node & {
   readonly pathUrl?: Maybe<Scalars['String']>,
   readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly distanceMeters?: Maybe<Scalars['Int']>,
-  readonly date?: Maybe<Scalars['Date']>,
+  readonly date?: Maybe<Scalars['String']>,
   readonly stage: Scalars['String'],
   readonly position?: Maybe<Scalars['String']>,
   readonly status: RideStatus,
@@ -1557,7 +1555,7 @@ export type RideCondition = {
   /** Checks for equality with the object’s `distanceMeters` field. */
   readonly distanceMeters?: Maybe<Scalars['Int']>,
   /** Checks for equality with the object’s `date` field. */
-  readonly date?: Maybe<Scalars['Date']>,
+  readonly date?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `stage` field. */
   readonly stage?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `position` field. */
@@ -1580,7 +1578,7 @@ export type RideInput = {
   readonly pathUrl?: Maybe<Scalars['String']>,
   readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly distanceMeters?: Maybe<Scalars['Int']>,
-  readonly date?: Maybe<Scalars['Date']>,
+  readonly date?: Maybe<Scalars['String']>,
   readonly stage: Scalars['String'],
   readonly position?: Maybe<Scalars['String']>,
   readonly status: RideStatus,
@@ -1598,7 +1596,7 @@ export type RidePatch = {
   readonly pathUrl?: Maybe<Scalars['String']>,
   readonly durationSeconds?: Maybe<Scalars['Int']>,
   readonly distanceMeters?: Maybe<Scalars['Int']>,
-  readonly date?: Maybe<Scalars['Date']>,
+  readonly date?: Maybe<Scalars['String']>,
   readonly stage?: Maybe<Scalars['String']>,
   readonly position?: Maybe<Scalars['String']>,
   readonly status?: Maybe<RideStatus>,
@@ -1681,7 +1679,7 @@ export type Spot = Node & {
   readonly position?: Maybe<Scalars['String']>,
   readonly location?: Maybe<Scalars['String']>,
   readonly country?: Maybe<Scalars['String']>,
-  readonly date?: Maybe<Scalars['Date']>,
+  readonly date?: Maybe<Scalars['String']>,
   readonly created: Scalars['Datetime'],
   readonly updated?: Maybe<Scalars['Datetime']>,
   readonly stage?: Maybe<Scalars['String']>,
@@ -1771,7 +1769,7 @@ export type SpotCondition = {
   /** Checks for equality with the object’s `country` field. */
   readonly country?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `date` field. */
-  readonly date?: Maybe<Scalars['Date']>,
+  readonly date?: Maybe<Scalars['String']>,
   /** Checks for equality with the object’s `created` field. */
   readonly created?: Maybe<Scalars['Datetime']>,
   /** Checks for equality with the object’s `updated` field. */
@@ -1793,7 +1791,7 @@ export type SpotInput = {
   readonly position?: Maybe<Scalars['String']>,
   readonly location?: Maybe<Scalars['String']>,
   readonly country?: Maybe<Scalars['String']>,
-  readonly date?: Maybe<Scalars['Date']>,
+  readonly date?: Maybe<Scalars['String']>,
   readonly created: Scalars['Datetime'],
   readonly updated?: Maybe<Scalars['Datetime']>,
   readonly stage?: Maybe<Scalars['String']>,
@@ -1812,7 +1810,7 @@ export type SpotPatch = {
   readonly position?: Maybe<Scalars['String']>,
   readonly location?: Maybe<Scalars['String']>,
   readonly country?: Maybe<Scalars['String']>,
-  readonly date?: Maybe<Scalars['Date']>,
+  readonly date?: Maybe<Scalars['String']>,
   readonly created?: Maybe<Scalars['Datetime']>,
   readonly updated?: Maybe<Scalars['Datetime']>,
   readonly stage?: Maybe<Scalars['String']>,
@@ -2665,7 +2663,6 @@ export type ResolversTypes = {
   Stage: ResolverTypeWrapper<Stage>,
   StageStatus: StageStatus,
   Guide: ResolverTypeWrapper<Guide>,
-  Date: ResolverTypeWrapper<Scalars['Date']>,
   User: ResolverTypeWrapper<User>,
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
@@ -2795,7 +2792,6 @@ export type ResolversParentTypes = {
   Stage: Stage,
   StageStatus: StageStatus,
   Guide: Guide,
-  Date: Scalars['Date'],
   User: User,
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
@@ -2929,7 +2925,7 @@ export type ComputationResolvers<ContextType = any, ParentType extends Resolvers
   ended?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
   duration?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   status?: Resolver<ResolversTypes['ComputationStatus'], ParentType, ContextType>,
-  stage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   started?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
@@ -3026,10 +3022,6 @@ export interface CursorScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
   name: 'Cursor'
 }
 
-export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
-  name: 'Date'
-}
-
 export interface DatetimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Datetime'], any> {
   name: 'Datetime'
 }
@@ -3117,7 +3109,7 @@ export type GuideResolvers<ContextType = any, ParentType extends ResolversParent
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  startDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   maxHoursPerRide?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
@@ -3186,7 +3178,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteUser?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'input'>>,
   authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
   register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
-  addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long'>>,
+  addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long' | 'nights'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
 };
@@ -3250,7 +3242,7 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   pathUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   durationSeconds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   distanceMeters?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
-  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   stage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   position?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   status?: Resolver<ResolversTypes['RideStatus'], ParentType, ContextType>,
@@ -3293,7 +3285,7 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   position?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>,
+  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
   stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -3490,7 +3482,6 @@ export type Resolvers<ContextType = any> = {
   CreateTemperaturePayload?: CreateTemperaturePayloadResolvers<ContextType>,
   CreateUserPayload?: CreateUserPayloadResolvers<ContextType>,
   Cursor?: GraphQLScalarType,
-  Date?: GraphQLScalarType,
   Datetime?: GraphQLScalarType,
   DeleteComputationPayload?: DeleteComputationPayloadResolvers<ContextType>,
   DeleteGuidePayload?: DeleteGuidePayloadResolvers<ContextType>,

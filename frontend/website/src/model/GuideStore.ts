@@ -18,7 +18,7 @@ export default class GuideStore {
   @observable
   highlightedId: string | undefined = undefined
 
-  private subscription: any
+  #subscription: any
 
   @computed
   get selectedSpot(): SpotByGuideFragment | undefined {
@@ -155,7 +155,7 @@ export default class GuideStore {
     }
   }
 
-  async fetch(slug: string, owner: string): Promise<void> {
+  private async fetch(slug: string, owner: string): Promise<void> {
     const variables: GetGuideBySlugQueryVariables = {
       slug,
       owner,
@@ -189,7 +189,7 @@ export default class GuideStore {
   }
 
   unsubscribe() {
-    this.subscription?.unsubscribe()
+    this.#subscription?.unsubscribe()
     this.guide = undefined
   }
 }
