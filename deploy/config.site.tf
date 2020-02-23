@@ -4,22 +4,6 @@
 //  source_dir = "site"
 //}
 
-resource "aws_s3_bucket_object" "site_index" {
-  bucket = aws_s3_bucket.site.bucket
-  key = "index.html"
-  source = "site/index.html"
-  content_type = "text/html"
-  acl = "public-read"
-}
-
-resource "aws_s3_bucket_object" "site_error" {
-  bucket = aws_s3_bucket.site.bucket
-  key = "error.html"
-  source = "site/error.html"
-  content_type = "text/html"
-  acl = "public-read"
-}
-
 resource "aws_s3_bucket" "site_logs" {
   bucket = "${var.stage}-${var.domain_name}-logs"
   acl = "log-delivery-write"
@@ -29,11 +13,11 @@ locals {
   full_domain = "${terraform.workspace=="production"?"www":var.stage}.${var.domain_name}"
 }
 
-resource "null_resource" "site_push" {
-  provisioner "local-exec" {
-    command = "yarn workspace @guided/website run push"
-  }
-}
+//resource "null_resource" "site_push" {
+//  provisioner "local-exec" {
+//    command = "yarn workspace @guided/website run push"
+//  }
+//}
 
 resource "aws_cloudfront_distribution" "site" {
   origin {

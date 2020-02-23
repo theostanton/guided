@@ -114,6 +114,7 @@ export default class Map extends Component<Props, State> {
               guideId: guide.id,
               lat: event.lngLat[1],
               long: event.lngLat[0],
+              nights: 1,
             }
 
             await client.mutate({

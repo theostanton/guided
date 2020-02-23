@@ -27,7 +27,7 @@ variable "db_owner_password" {
 
 variable "db_database" {
   type = string
-  default = "guided"
+  default = "main"
 }
 
 variable "db_port" {
@@ -45,7 +45,7 @@ variable "db_postgraphile_password" {
 
 variable "db_schema" {
   type = string
-  default = "guided"
+  default = "public"
 }
 variable "jwt_secret" {
   type = string

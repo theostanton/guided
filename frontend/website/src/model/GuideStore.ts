@@ -167,9 +167,6 @@ export default class GuideStore {
     })
     const guide = data!.guides!.nodes![0]!
 
-    Array.from(guide.ridesByGuide.nodes).sort((a, b) => {
-      return 1
-    })
     runInAction(() => {
       this.guide = guide
     })
