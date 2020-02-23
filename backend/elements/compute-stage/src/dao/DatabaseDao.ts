@@ -44,20 +44,20 @@ export class DatabaseDao implements Dao {
       const queries: any[] = []
 
       if (data.newSpots.length) {
-        const insertNewSpotsQuery = insertMany("guided.spots", data.newSpots)
+        const insertNewSpotsQuery = insertMany("spots", data.newSpots)
         queries.push(transaction.none(insertNewSpotsQuery))
       }
 
       // Update dates of stages start spot
       queries.push(transaction.none(`
-          UPDATE guided.spots
+          UPDATE spots
           set date   = $1,
               updated=$2
           where id = $3`, [data.startSpot.date, new Date(), data.startSpot.id]))
       return transaction.batch(queries)
     })
 
-    const query = insertMany("guided.rides", data.newRides)
+    const query = insertMany("rides", data.newRides)
     await database.none(query)
   }
 }

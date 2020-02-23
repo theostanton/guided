@@ -35,8 +35,9 @@ export async function executeFile(fileName: string): Promise<void> {
 }
 
 function createTask(fileName: string): ListrTask {
+  const parts = fileName.split(".")
   return {
-    title: fileName.split(".")[1],
+    title: parts[parts.length - 2],
     task: async (_, task: ListrTaskWrapper) => {
       task.output = `fileName=${fileName}`
       await executeFile(fileName)
@@ -56,8 +57,9 @@ export default async function(directory: string): Promise<void> {
       filenames.forEach(filename => {
         subtasks.push(createTask(`${rootDirectoryName}/${directoryName}/${filename}`))
       })
+      const parts = directoryName.split(".")
       const task: ListrTask = {
-        title: directoryName.split(".")[1],
+        title: parts[parts.length - 1],
         skip: () => subtasks.length === 0,
         task: () => {
           return new Listr(subtasks, {

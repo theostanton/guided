@@ -1,30 +1,36 @@
-create table guided.spots
+create table spots
 (
-    id       varchar(128)     not null
+    id       varchar(128)             not null
         constraint spots_pk
             primary key,
     label    varchar(128),
-    guide    varchar(128)     not null
+    guide    varchar(128)             not null
         constraint spots_guides_id_fk
-            references guided.guides,
-    owner    varchar(64)      not null
+            references guides
+            on delete cascade,
+    owner    varchar(64)              not null
         constraint spots_users_username_fk
-            references guided.users,
+            references users
+            on delete cascade,
     nights   integer default 0,
-    locked   boolean          not null,
-    lat      double precision not null,
-    long     double precision not null,
+    locked   boolean                  not null,
+    lat      double precision         not null,
+    long     double precision         not null,
     position varchar(16),
     location varchar(64),
     country  varchar(64),
-    date     date,
-    created  timestamptz      not null,
-    updated  timestamptz
+    date     varchar(16),
+    created  timestamp with time zone not null,
+    updated  timestamp with time zone,
+    stage    varchar(64)
+        constraint spots_stages_id_fk
+            references stages
+            on delete cascade
 );
 
-alter table guided.spots
+alter table spots
     owner to superuser;
 
 create unique index spots_id_uindex
-    on guided.spots (id);
+    on spots (id);
 

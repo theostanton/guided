@@ -1,16 +1,19 @@
-create table guided.users
+create table users
 (
-    username      varchar(128) not null
+    username      varchar(128)             not null
         constraint users_pk
             primary key,
-    email         varchar(128) not null,
-    password_hash varchar(128) not null,
-    created       timestamptz  not null,
-    updated       timestamptz
+    email         varchar(128)             not null,
+    password_hash varchar(128)             not null,
+    created       timestamp with time zone not null,
+    updated       timestamp with time zone
 );
 
+alter table users
+    owner to superuser;
+
 create unique index users_email_uindex
-    on guided.users (email);
+    on users (email);
 
 create unique index users_username_uindex
-    on guided.users (username);
+    on users (username);

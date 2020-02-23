@@ -1,5 +1,5 @@
-alter table guided.spots
+alter table spots
     add column
         stage varchar(64)
             constraint spots_stages_id_fk
-                references guided.stages
+                references stages

@@ -1,38 +1,41 @@
-create table guided.rides
+create table rides
 (
-    id               varchar(128)       not null
+    id               varchar(128)             not null
         constraint rides_pk
             primary key,
-    guide            varchar(128)       not null
+    guide            varchar(128)             not null
         constraint rides_guides_id_fk
-            references guided.guides,
-    owner            varchar(64)        not null
-        constraint rides_users_username_fk
-            references guided.users,
-    from_spot        varchar(128)       not null
-        constraint rides_from_spots_id_fk
-            references guided.spots
+            references guides
             on delete cascade,
-    to_spot          varchar(128)       not null
+    owner            varchar(64)              not null
+        constraint rides_users_username_fk
+            references users
+            on delete cascade,
+    from_spot        varchar(128)             not null
+        constraint rides_from_spots_id_fk
+            references spots
+            on delete cascade,
+    to_spot          varchar(128)             not null
         constraint rides_to_spots_id_fk
-            references guided.spots
+            references spots
             on delete cascade,
     path_url         varchar(256),
     duration_seconds integer,
     distance_meters  integer,
-    date             date,
-    stage            varchar(64)        not null
+    date             varchar(16),
+    stage            varchar(64)              not null
         constraint rides_stages_id_fk
-            references guided.stages,
+            references stages
+            on delete cascade,
     position         varchar(16),
-    status           guided.ride_status not null,
-    created          timestamptz        not null,
-    updated          timestamptz
+    status           ride_status       not null,
+    created          timestamp with time zone not null,
+    updated          timestamp with time zone
 );
 
-alter table guided.rides
+alter table rides
     owner to superuser;
 
 create unique index rides_id_uindex
-    on guided.rides (id);
+    on rides (id);
 

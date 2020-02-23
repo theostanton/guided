@@ -18,7 +18,7 @@ export default interface Extensions {
 export function extend(db: IDatabase<Extensions> & Extensions) {
   const instance: Extensions = {
     async insertSpot(spot: Spot): Promise<string> {
-      const query = insertOne("guided.spots", spot)
+      const query = insertOne("spots", spot)
       await db.query(query)
       return spot.id
     },

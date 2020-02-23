@@ -1,26 +1,26 @@
-create table guided.computations
+create table computations
 (
     id       varchar(64)               not null
         constraint computations_pk
             primary key,
     ended    timestamp,
     duration integer,
-    status   guided.computation_status not null,
-    stage    varchar(64)               not null
+    status   computation_status not null,
+    stage    varchar(64)
         constraint computations_stages_id_fk
-            references guided.stages
-            on delete cascade,
+            references stages
+            on delete set null,
     guide    varchar(64)               not null
         constraint computations_guides_id_fk
-            references guided.guides
+            references guides
             on delete cascade,
-    created  timestamptz               not null,
-    started  timestamptz
+    created  timestamp with time zone  not null,
+    started  timestamp with time zone
 );
 
-alter table guided.computations
+alter table computations
     owner to superuser;
 
 create unique index computations_id_uindex
-    on guided.computations (id);
+    on computations (id);
 

@@ -1,28 +1,28 @@
-create table guided.stages
+create table stages
 (
-    id        varchar(64)         not null
+    id        varchar(64)              not null
         constraint stages_pk
             primary key,
-    guide     varchar(64)         not null
+    guide     varchar(64)              not null
         constraint stages_guides_id_fk
-            references guided.guides,
-    from_spot varchar(64)         not null
+            references guides,
+    from_spot varchar(64)              not null
         constraint stages_spots_id_fk
-            references guided.spots,
-    to_spot   varchar(64)         not null
+            references spots,
+    to_spot   varchar(64)              not null
         constraint stages_spots_id_fk_2
-            references guided.spots,
-    created   timestamptz         not null,
-    updated   timestamptz,
-    status    guided.stage_status not null
+            references spots,
+    created   timestamp with time zone not null,
+    updated   timestamp with time zone,
+    status    stage_status      not null
 );
 
-alter table guided.stages
+alter table stages
     owner to superuser;
 
 create index stages_guide_index
-    on guided.stages (guide);
+    on stages (guide);
 
 create unique index stages_id_uindex
-    on guided.stages (id);
+    on stages (id);
 

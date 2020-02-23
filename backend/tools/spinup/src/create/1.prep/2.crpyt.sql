@@ -1,1 +1,1 @@
-    create extension if not exists "pgcrypto" SCHEMA guided;
+    create extension if not exists "pgcrypto" SCHEMA public;

@@ -1,1 +1,1 @@
-create schema if not exists guided;
+-- create schema if not exists guided;

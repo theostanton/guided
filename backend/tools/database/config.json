@@ -13,12 +13,12 @@
   "singularTableNames": true,
   "tableNameCasing": "pascal",
   "schemas": [
-    "guided"
+    "public"
   ],
   "typeOverrides": {
-    "guided.stages.status": "StageStatus",
-    "guided.computations.status": "ComputationStatus",
-    "guided.spots.status": "SpotStatus",
-    "guided.rides.status": "RideStatus"
+    "public.stages.status": "StageStatus",
+    "public.computations.status": "ComputationStatus",
+    "public.spots.status": "SpotStatus",
+    "public.rides.status": "RideStatus"
   }
 }
