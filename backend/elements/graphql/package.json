@@ -3,9 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "pack": "webpack",
-    "build": "tsc",
-    "buildCache": "STAGE=staging ts-node src/buildCache.ts",
+    "build:pack": "webpack",
+    "build:build": "tsc",
+    "build:cache": "STAGE=staging ts-node src/buildCache.ts",
+    "dist": "yarn build:cache && yarn build:build && yarn build:pack",
     "invoke": "STAGE=staging ts-node src/lambda.ts",
     "start": "node srv/server.js",
     "watch": "tsc -w"

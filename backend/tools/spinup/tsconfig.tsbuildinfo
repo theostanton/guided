@@ -665,6 +665,10 @@
         "version": "c63a0244f8a03858213aff97addd7b3f82b8859e55cd897272d2080179fd4cf2",
         "signature": "ec907d581f1ce5d52d6ff9ac37d8ec70fda4af26d644529159d24f4363ea6977"
       },
+      "./src/roles/index.ts": {
+        "version": "56a331fcc6b585450d2c2415c83d0bf191bde797a16e83ffd7c594c36ec723eb",
+        "signature": "ec907d581f1ce5d52d6ff9ac37d8ec70fda4af26d644529159d24f4363ea6977"
+      },
       "./src/truncate/index.ts": {
         "version": "42f42f132d7d53abadc01b6a850d311593081b43fb6c4e566d0932769aed195e",
         "signature": "ec907d581f1ce5d52d6ff9ac37d8ec70fda4af26d644529159d24f4363ea6977"
@@ -722,8 +726,8 @@
         "signature": "9876d124d3073e6bde4071d93beb25d5db3a6b301f24e30dc94e1d6d225e070b"
       },
       "./src/index.ts": {
-        "version": "a5edd326de938af606dc455f2edaf9340324db0d480f6f1d6e4e35887d7657cf",
-        "signature": "521ff32c524ff39259213aedccf32d20e035d668e5ebd113e9d1ddeee85c0566"
+        "version": "72b444156a7b4a028bd79453f2a3a7fa21c278abbb85292ab87806c1cd42b8df",
+        "signature": "6107eee983974e668fb995718e671c2b53a496fe5ee6b189b6b0653e0acd2325"
       },
       "./node_modules/@types/command-line-args/index.d.ts": {
         "version": "e2790204f9394425bf7d8e93a919887823d03dc2830d31d09c8f6af5562634dd",
@@ -2137,6 +2141,14 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "./src/roles/index.ts": [
+        "./src/sequence.ts",
+        "../logger/srv/index.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.5/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.5/util.d.ts"
+      ],
       "./src/truncate/index.ts": [
         "./src/sequence.ts",
         "./node_modules/@types/node/fs.d.ts",
@@ -2251,6 +2263,7 @@
       "./src/index.ts": [
         "../logger/srv/index.d.ts",
         "./src/create/index.ts",
+        "./src/roles/index.ts",
         "./src/truncate/index.ts",
         "./src/privelages/index.ts",
         "./src/populate/index.ts",
@@ -3989,6 +4002,7 @@
       "../database/srv/extensions.d.ts",
       "../database/srv/utils.d.ts",
       "../database/srv/index.d.ts",
+      "./src/sequence.ts",
       "./src/create/index.ts",
       "./src/truncate/index.ts",
       "./src/privelages/index.ts",
@@ -4025,7 +4039,7 @@
       "../../node_modules/@types/jest/node_modules/pretty-format/build/types.d.ts",
       "../../node_modules/@types/jest/node_modules/pretty-format/build/index.d.ts",
       "../../node_modules/@types/jest/index.d.ts",
-      "./src/sequence.ts"
+      "./src/roles/index.ts"
     ]
   },
   "version": "3.8.2"

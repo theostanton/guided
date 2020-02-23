@@ -12,6 +12,7 @@
     "action:create": "ts-node src/invoke.ts create",
     "action:truncate": "ts-node src/invoke.ts truncate",
     "action:privelages": "ts-node src/invoke.ts privelages",
+    "action:roles": "ts-node src/invoke.ts roles",
     "start:local": "tsc && STAGE=local node srv/index.js",
     "start:production": "tsc && STAGE=production node srv/index.js",
     "start:staging": "STAGE=staging ts-node src/index.ts"

@@ -53,7 +53,7 @@ export function createCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlS
 export function jwt(): Pick<PostGraphileOptions, "jwtSecret" | "jwtPgTypeIdentifier" | "jwtVerifyOptions"> {
   return {
     jwtSecret: process.env.JWT_SECRET!,
-    jwtPgTypeIdentifier: "jwt_token",
+    jwtPgTypeIdentifier: "public.jwt_token",
     jwtVerifyOptions: {
       audience: undefined,
     },

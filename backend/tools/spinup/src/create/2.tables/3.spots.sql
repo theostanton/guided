@@ -21,11 +21,7 @@ create table spots
     country  varchar(64),
     date     varchar(16),
     created  timestamp with time zone not null,
-    updated  timestamp with time zone,
-    stage    varchar(64)
-        constraint spots_stages_id_fk
-            references stages
-            on delete cascade
+    updated  timestamp with time zone
 );
 
 alter table spots

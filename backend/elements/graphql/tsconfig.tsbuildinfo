@@ -1138,7 +1138,7 @@
         "signature": "ed7ddf06f8a2868a97462ca8c17bb09aa640dad83568c5b19c61491481d836d4"
       },
       "./src/options.ts": {
-        "version": "41147dd63981a2d2c33f602f2bb80e4ca69ab9593d6fc9952fa57b10e75c9aa8",
+        "version": "8f6ed400a316213045eac1ce575145f1c1048be01d5bcbd7d912668a75614995",
         "signature": "1c0ea3dc0a8add2fdc85574e066681106854cc97adbebf7173a51b9f5a4233d5"
       },
       "./node_modules/@types/cors/index.d.ts": {
@@ -1146,7 +1146,7 @@
         "signature": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad"
       },
       "./src/app.ts": {
-        "version": "9b85b9fff869375f24db77670b1a2e441baab62c3203ee0f893041a8e66ba3c3",
+        "version": "aa21690c8d76dc5d947e749f90f1dc33e7cb365aec395119afeb465abe27b255",
         "signature": "7723e48a9738998bc314c804157c085a8de3fe819e1ba3589cc428d2e60d55a7"
       },
       "./src/buildcache.ts": {
@@ -1286,8 +1286,8 @@
         "signature": "9876d124d3073e6bde4071d93beb25d5db3a6b301f24e30dc94e1d6d225e070b"
       },
       "../../tools/spinup/srv/index.d.ts": {
-        "version": "521ff32c524ff39259213aedccf32d20e035d668e5ebd113e9d1ddeee85c0566",
-        "signature": "521ff32c524ff39259213aedccf32d20e035d668e5ebd113e9d1ddeee85c0566"
+        "version": "6107eee983974e668fb995718e671c2b53a496fe5ee6b189b6b0653e0acd2325",
+        "signature": "6107eee983974e668fb995718e671c2b53a496fe5ee6b189b6b0653e0acd2325"
       },
       "./node_modules/@types/faker/index.d.ts": {
         "version": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989",
@@ -4169,7 +4169,6 @@
         "./node_modules/@types/express/index.d.ts",
         "./node_modules/postgraphile/build/index.d.ts",
         "./node_modules/@types/cors/index.d.ts",
-        "../../tools/logger/srv/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.5/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -9472,6 +9471,7 @@
       "../compute-stage/srv/trigger/index.d.ts",
       "../compute-stage/srv/index.d.ts",
       "./src/plugins/addspotfromlatlng/index.ts",
+      "./src/plugins/movespot/index.ts",
       "../../tools/utils/srv/executeconcurrently.d.ts",
       "../../tools/utils/srv/executewithcontext.d.ts",
       "../../tools/utils/srv/executesequentially.d.ts",
@@ -9479,8 +9479,8 @@
       "../../tools/utils/srv/index.d.ts",
       "./src/plugins/removespot/index.ts",
       "./src/plugins/index.ts",
+      "./src/options.ts",
       "./node_modules/@types/cors/index.d.ts",
-      "./src/app.ts",
       "./src/buildcache.ts",
       "./node_modules/@types/aws-lambda/handler.d.ts",
       "./node_modules/@types/aws-lambda/common/api-gateway.d.ts",
@@ -9630,8 +9630,7 @@
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "./src/plugins/movespot/index.ts",
-      "./src/options.ts"
+      "./src/app.ts"
     ]
   },
   "version": "3.8.2"

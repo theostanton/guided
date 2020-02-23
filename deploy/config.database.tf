@@ -7,6 +7,7 @@ resource "aws_db_instance" "guided" {
   username = var.db_owner_user
   password = var.db_owner_password
   port = var.db_port
+  final_snapshot_identifier = "guided-db-${var.stage}"
   apply_immediately = true
   publicly_accessible = true
 }
@@ -16,7 +17,6 @@ resource "aws_route53_record" "database" {
   name = "${var.stage}-database.${var.domain_name}"
   type = "CNAME"
   ttl = "300"
-
   records = [
     aws_db_instance.guided.address]
 }

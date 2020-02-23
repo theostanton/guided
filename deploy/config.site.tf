@@ -1,9 +1,3 @@
-//data "archive_file" "site" {
-//  type = "zip"
-//  output_path = "dist/${var.stage}-${var.app_version}-site.zip"
-//  source_dir = "site"
-//}
-
 resource "aws_s3_bucket" "site_logs" {
   bucket = "${var.stage}-${var.domain_name}-logs"
   acl = "log-delivery-write"
@@ -14,8 +8,18 @@ locals {
 }
 
 //resource "null_resource" "site_push" {
+//  triggers = {
+//    app_version = var.app_version
+//  }
 //  provisioner "local-exec" {
-//    command = "yarn workspace @guided/website run push"
+//    environment = {
+//      GATSBY_GUIDED_GRAPHQL = "${aws_api_gateway_deployment.graphql.invoke_url}/${aws_api_gateway_resource.guided.path_part}"
+//      //TODO not this
+//      AWS_ACCESS_KEY_ID = ""
+//      AWS_SECRET_ACCESS_KEY = ""
+//
+//    }
+//    command = "cd ../frontend/website && yarn deploy"
 //  }
 //}
 

@@ -3,9 +3,17 @@ variable "region" {
   default = "eu-west-2"
 }
 
+//variable "deploy_site" {
+//  type = bool
+//}
+//
+//variable "deploy_backend" {
+//  type = bool
+//}
+
 variable "app_version" {
   type = string
-  default = "0.0.0"
+  default = "0.0.1"
 }
 
 variable "stage" {

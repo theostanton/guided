@@ -3,8 +3,6 @@ import { options, connection, Mode } from "./options"
 import express, { Application } from "express"
 import { postgraphile } from "postgraphile"
 import cors from "cors"
-import { log, logJson } from "@guided/logger"
-
 
 if (!process.env.POSTGRES_SCHEMA) {
   throw new Error("No POSTGRES_SCHEMA provided")

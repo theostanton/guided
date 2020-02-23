@@ -6,9 +6,12 @@ import { User } from "../model/AuthStore"
 
 export const USER_KEY = "guidedUser"
 
+if(!process.env.GATSBY_GUIDED_GRAPHQL){
+  throw new Error(`Requires GATSBY_GUIDED_GRAPHQL`)
+}
+
 const link = new HttpLink({
-  // uri: "http://0.0.0.0:5000/graphql",
-  uri: "https://n5r6z11xp4.execute-api.eu-west-2.amazonaws.com/staging/graphql",
+  uri:process.env.GATSBY_GUIDED_GRAPHQL,
 // @ts-ignore
   fetch: fetch,
 })

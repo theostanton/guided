@@ -422,8 +422,8 @@
         "signature": "9876d124d3073e6bde4071d93beb25d5db3a6b301f24e30dc94e1d6d225e070b"
       },
       "../../tools/spinup/srv/index.d.ts": {
-        "version": "521ff32c524ff39259213aedccf32d20e035d668e5ebd113e9d1ddeee85c0566",
-        "signature": "521ff32c524ff39259213aedccf32d20e035d668e5ebd113e9d1ddeee85c0566"
+        "version": "6107eee983974e668fb995718e671c2b53a496fe5ee6b189b6b0653e0acd2325",
+        "signature": "6107eee983974e668fb995718e671c2b53a496fe5ee6b189b6b0653e0acd2325"
       },
       "./node_modules/@types/faker/index.d.ts": {
         "version": "128be067d55f5b3ec23f4ebbcb74bb26fb0c752ceff40d68301942858c681989",
@@ -5816,6 +5816,7 @@
       "../../tools/utils/srv/executesequentially.d.ts",
       "../../tools/utils/srv/constants.d.ts",
       "../../tools/utils/srv/index.d.ts",
+      "./src/dao/databasedao.ts",
       "./src/dao/index.ts",
       "./src/types.ts",
       "./node_modules/@googlemaps/google-maps-services-js/dist/common.d.ts",
@@ -5859,14 +5860,10 @@
       "./src/lambda.ts",
       "./src/action/computerides.test.ts",
       "./src/action/positionspots/index.ts",
-      "../../tools/spinup/srv/spinup/index.d.ts",
       "../../tools/spinup/srv/builder/guidebuilder.d.ts",
       "../../tools/spinup/srv/builder/userbuilder.d.ts",
       "../../tools/spinup/srv/builder/index.d.ts",
-      "../../tools/spinup/srv/index.d.ts",
       "./node_modules/@types/faker/index.d.ts",
-      "./src/action/positionspots/positionspots.test.ts",
-      "./src/prepare/prepare.test.ts",
       "./src/trigger/trigger.test.ts",
       "./node_modules/@babel/types/lib/index.d.ts",
       "./node_modules/@types/babel__generator/index.d.ts",
@@ -6017,7 +6014,10 @@
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "./src/dao/databasedao.ts"
+      "../../tools/spinup/srv/index.d.ts",
+      "./src/prepare/prepare.test.ts",
+      "./src/action/positionspots/positionspots.test.ts",
+      "../../tools/spinup/srv/spinup/index.d.ts"
     ]
   },
   "version": "3.8.2"

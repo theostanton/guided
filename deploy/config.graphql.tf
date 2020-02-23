@@ -1,5 +1,5 @@
 resource "aws_iam_role" "graphql" {
-  name = "iam_for_graphql"
+  name = "guided_graphql_${var.stage}"
   assume_role_policy = templatefile("${path.module}/templates/lambda-policy.tpl", {})
 }
 
@@ -62,6 +62,28 @@ resource "aws_lambda_permission" "api" {
   # The "/*/*" portion grants access from any method on any resource
   # within the API Gateway REST API.
   source_arn = "${aws_api_gateway_rest_api.guided.execution_arn}/*/*"
+}
+
+resource "null_resource" "backend_build" {
+  triggers = {
+    app_version = var.app_version
+  }
+  provisioner "local-exec" {
+    environment = {
+      APP_VERSION = var.app_version
+      POSTGRES_HOST = aws_db_instance.guided.address
+      POSTGRES_DB = var.db_database
+      POSTGRES_PORT = var.db_port
+      POSTGRES_USER = var.db_postgraphile_user
+      POSTGRES_SCHEMA = var.db_schema
+      POSTGRES_PASSWORD = var.db_postgraphile_password
+      POSTGRAPHILE_PORT = 5000
+      OWNER_USER = var.db_owner_user
+      OWNER_PASSWORD = var.db_owner_password
+      JWT_SECRET = var.jwt_secret
+    }
+    command = "cd ../backend/elements/graphql && yarn dist"
+  }
 }
 
 data "archive_file" "graphql" {
