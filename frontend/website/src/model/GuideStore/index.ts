@@ -9,6 +9,14 @@ import { log } from "utils/logger"
 
 export default class GuideStore {
 
+  #slug: string
+  #owner: string
+
+  constructor(slug: string, owner: string) {
+    this.#slug = slug
+    this.#owner = owner
+  }
+
   @observable
   guide: GuideBySlugFragment | undefined = undefined
 
@@ -129,7 +137,7 @@ export default class GuideStore {
     this.highlightedId = undefined
   }
 
-  subscribe(slug: string, owner: string) {
+  subscribe() {
 
 
     // TODO subscription
@@ -144,21 +152,21 @@ export default class GuideStore {
     //   },
     // })
 
-    this.fetch(slug, owner).then()
+    this.fetch().then()
   }
 
   refetch(): void {
     if (this.guide) {
-      this.fetch(this.guide.slug!, this.guide.owner!).then()
+      this.fetch().then()
     } else {
       throw new Error(`Trying to refetch but have no guide`)
     }
   }
 
-  private async fetch(slug: string, owner: string): Promise<void> {
+  private async fetch(): Promise<void> {
     const variables: GetGuideBySlugQueryVariables = {
-      slug,
-      owner,
+      slug: this.#slug,
+      owner: this.#owner,
     }
 
     const { data } = await client.query<GetGuideBySlugQuery>({
@@ -177,7 +185,7 @@ export default class GuideStore {
       setTimeout(() => {
         if (this.guide) {
           log("Polled")
-          this.fetch(this.guide.slug, owner)
+          this.fetch()
         }
       }, 2000)
 
@@ -189,9 +197,4 @@ export default class GuideStore {
     this.#subscription?.unsubscribe()
     this.guide = undefined
   }
-}
-
-const guideStore = new GuideStore()
-export {
-  guideStore,
 }

@@ -4,7 +4,11 @@ import randomKey from "utils/randomKey"
 import * as React from "react"
 import { client } from "api"
 
-export default function GuidesList({ owner }: { owner: string, inc: number }) {
+type Props = {
+  owner: string,
+  onClick: (guideId: string) => void
+}
+export default function GuidesList({ owner, onClick }: Props) {
 
   const { data, loading, error } = useAllGuideTitlesForUserQuery({
     client,
@@ -33,8 +37,8 @@ export default function GuidesList({ owner }: { owner: string, inc: number }) {
     const key = guide!.id || randomKey()
     return (
       <Card
-        key={key}
-        href={`/guide/${guide?.slug}`}>
+        value={guide!.slug}
+        key={key}>
         <Card.Content>
           <Card.Header>{guide ? guide.title : "Error"}</Card.Header>
         </Card.Content>
@@ -42,6 +46,9 @@ export default function GuidesList({ owner }: { owner: string, inc: number }) {
     )
   })
   return <List
+    onItemClick={(_, { value: guideSlug }) => {
+      onClick(guideSlug)
+    }}
     items={items}
     divided
   />

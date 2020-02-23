@@ -1,98 +1,27 @@
 import * as React from "react"
-import AuthStore from "model/AuthStore"
-import { inject } from "mobx-react"
 import GuideStore from "model/GuideStore"
-import Map from "components/Map"
-import AppMenu from "components/app/Menu"
-import LeftRail from "./LeftRail"
-import RightRail from "./RightRail"
-import { logJson } from "utils/logger"
+import { inject, observer, Provider } from "mobx-react"
+import Content from "./content"
 
-type Props = {
-  guideStore?: GuideStore
-  authStore?: AuthStore
+export type Props = {
   slug: string
+  owner: string
+  close: () => void
 }
 
-@inject("authStore", "guideStore")
 export default class GuideComponent extends React.Component<Props> {
 
-  componentDidMount(): void {
-    this.props.guideStore!.subscribe(
-      this.props.slug,
-      this.props.authStore!.owner,
-    )
+  guideStore: GuideStore
+
+  constructor(props) {
+    super(props)
+    this.guideStore = new GuideStore(props.slug, props.owner)
   }
 
-  componentWillUnmount(): void {
-    this.props.guideStore!.unsubscribe()
+
+  render() {
+    return <Provider guideStore={this.guideStore}>
+      <Content close={this.props.close}/>
+    </Provider>
   }
-
-  render(): React.ReactElement | undefined {
-    return (
-      <div>
-        <div style={{
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 2,
-        }}>
-          <Map/>
-        </div>
-
-        <div style={{
-          position: "fixed",
-          marginLeft: "2em",
-          marginRight: "2em",
-          top: "1em",
-          left: "25%",
-          right: "25%",
-          zIndex: 3,
-        }}>
-          <AppMenu/>
-        </div>
-
-        <div style={{
-          position: "fixed",
-          height: "100%",
-          width: "25%",
-          overflowY: "scroll",
-          paddingTop: "1em",
-          paddingLeft: "1em",
-          paddingBottom: "2em",
-          margin: 0,
-          top: 0,
-          left: 0,
-          bottom: 0,
-          zIndex: 3,
-        }}>
-          <LeftRail/>
-        </div>
-
-
-        <div style={{
-          position: "fixed",
-          height: "auto",
-          width: "25%",
-          paddingTop: "1em",
-          paddingRight: "1em",
-          paddingBottom: "2em",
-          margin: 0,
-          top: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 3,
-        }}>
-          <RightRail/>
-        </div>
-
-
-      </div>
-    )
-  }
-
 }

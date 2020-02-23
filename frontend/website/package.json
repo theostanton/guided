@@ -40,13 +40,14 @@
     "@types/react-dom": "^16.9.5",
     "@types/react-map-gl": "^5.1.1",
     "@types/store": "^2.0.2",
+    "dotenv": "^8.2.0",
     "gatsby-cli": "^2.8.29",
     "husky": "^4.2.1",
     "prettier": "^1.19.1"
   },
   "scripts": {
     "test": "jest",
-    "develop": "GATSBY_MAPBOX_TOKEN=pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazZ0a242c2swMDdvM21waDVxeHU3OXNjIn0.SO6y2-SnDKD6BP2iuWRM0A gatsby develop",
+    "develop:frontend": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "deploy": "GATSBY_MAPBOX_TOKEN=  GATSBY_GUIDED_GRAPHQL=  gatsby build && gatsby-plugin-s3 deploy -y",
     "push": "gatsby-plugin-s3 deploy -y",

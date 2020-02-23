@@ -19,6 +19,7 @@ import RideList from "./RideList"
 
 type Props = {
   guideStore?: GuideStore
+  close: () => void
 }
 
 type State = {
@@ -61,6 +62,9 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       <Grid padded={true}>
 
         <Grid.Row columns='equal' stretched verticalAlign='bottom'>
+          <GridColumn width={"4"}>
+            <Button icon='close' onClick={this.props.close}/>
+          </GridColumn>
           <GridColumn>
             <Header as='h1'>{guide.title} </Header>
           </GridColumn>
