@@ -5,15 +5,9 @@
   "main": "./srv/index.js",
   "types": "./srv/index.d.ts",
   "scripts": {
-    "prepare" : "yarn build",
+    "prepare": "yarn build",
     "build": "tsc",
     "test": "jest",
     "watch": "tsc -w"
-  },
-  "dependencies": {
-    "moment": "^2.24.0"
-  },
-    "devDependencies": {
-      "@types/moment": "^2.13.0"
   }
 }

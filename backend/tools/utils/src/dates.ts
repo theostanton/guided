@@ -1,18 +1,19 @@
-import moment, { Moment } from "moment"
+// import moment, { Moment } from "moment"
 
 export function dateString(year: number, month: number, date: number): string {
   return `${year}-${month.toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`
 }
 
 export function plusDays(dateString: string, days: number): string {
-  const { year, month, date } = extract(dateString)
-  let utcDate = moment({
-    year, month: month - 1, date,
-  }).utc(true)
-
-  utcDate = utcDate.add("day", days)
-
-  return utcDate.format("YYYY-MM-DD")
+  // const { year, month, date } = extract(dateString)
+  // let utcDate = moment({
+  //   year, month: month - 1, date,
+  // }).utc(true)
+  //
+  // utcDate = utcDate.add("day", days)
+  //
+  // return utcDate.format("YYYY-MM-DD")
+  return ""
 }
 
 export function extract(dateString: string): { year: number, month: number, date: number } {

@@ -26,10 +26,6 @@
     "@googlemaps/google-maps-services-js": "^2.0.2"
   },
   "devDependencies": {
-    "webpack": "4.29.6",
-    "webpack-cli": "3.3.0",
-    "terser-webpack-plugin": "^2.3.5",
-    "aws-sdk": "^2.619.0",
     "serverless": "^1.63.0",
     "jest": "^25.1.0",
     "@types/jest": "^25.1.2",

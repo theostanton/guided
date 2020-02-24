@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@guided/logger": "*",
-    "aws-sdk": "^2.612.0",
     "command-line-args": "^5.1.1"
   },
   "devDependencies": {
