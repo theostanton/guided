@@ -13,7 +13,7 @@ variable "region" {
 
 variable "app_version" {
   type = string
-  default = "0.0.1"
+  default = "0.0.17"
 }
 
 variable "stage" {
@@ -58,3 +58,8 @@ variable "db_schema" {
 variable "jwt_secret" {
   type = string
 }
+variable "mapbox_token" {
+  type = string
+  default = "pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazZ0a242c2swMDdvM21waDVxeHU3OXNjIn0.SO6y2-SnDKD6BP2iuWRM0A"
+}
+

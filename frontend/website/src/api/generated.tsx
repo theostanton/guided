@@ -69,6 +69,7 @@ export type Computation = Node & {
   readonly guide: Scalars['String'],
   readonly created: Scalars['Datetime'],
   readonly started?: Maybe<Scalars['Datetime']>,
+  readonly message?: Maybe<Scalars['String']>,
   /** Reads a single `Stage` that is related to this `Computation`. */
   readonly stageByStage?: Maybe<Stage>,
   /** Reads a single `Guide` that is related to this `Computation`. */
@@ -96,6 +97,8 @@ export type ComputationCondition = {
   readonly created?: Maybe<Scalars['Datetime']>,
   /** Checks for equality with the object’s `started` field. */
   readonly started?: Maybe<Scalars['Datetime']>,
+  /** Checks for equality with the object’s `message` field. */
+  readonly message?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `Computation` */
@@ -108,6 +111,7 @@ export type ComputationInput = {
   readonly guide: Scalars['String'],
   readonly created: Scalars['Datetime'],
   readonly started?: Maybe<Scalars['Datetime']>,
+  readonly message?: Maybe<Scalars['String']>,
 };
 
 /** Represents an update to a `Computation`. Fields that are set will be updated. */
@@ -120,6 +124,7 @@ export type ComputationPatch = {
   readonly guide?: Maybe<Scalars['String']>,
   readonly created?: Maybe<Scalars['Datetime']>,
   readonly started?: Maybe<Scalars['Datetime']>,
+  readonly message?: Maybe<Scalars['String']>,
 };
 
 /** A connection to a list of `Computation` values. */
@@ -161,6 +166,8 @@ export enum ComputationsOrderBy {
   CreatedDesc = 'CREATED_DESC',
   StartedAsc = 'STARTED_ASC',
   StartedDesc = 'STARTED_DESC',
+  MessageAsc = 'MESSAGE_ASC',
+  MessageDesc = 'MESSAGE_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -2935,6 +2942,7 @@ export type ComputationResolvers<ContextType = any, ParentType extends Resolvers
   guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   started?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,

@@ -5,7 +5,7 @@ import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPl
 import { MutationMoveSpotArgs } from "../../generated"
 import { database, generateId, Spot } from "@guided/database"
 import { getInfo } from "@guided/google"
-import computeStage from "@guided/compute-stage"
+import computeStage from "@guided/compute"
 
 async function moveSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<Spot>> {
   logJson(args, "moveSpot args")
@@ -32,13 +32,7 @@ async function moveSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<Spo
 
   const packet = await computeStage.prepare(spot.guide)
 
-  computeStage.trigger(packet)
-    .then(result => {
-      logJson(result, "result")
-    })
-    .catch(error => {
-      logJson(error, "error")
-    })
+  await computeStage.trigger(packet)
 
   return {
     id: spotId,

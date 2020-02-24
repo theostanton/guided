@@ -55,7 +55,6 @@ const options: pgPromise.IInitOptions<Extensions> = {
 
 export { Spot, User, Guide, Ride, Stage, Computation, SpotStatus, StageStatus, RideStatus, ComputationStatus }
 const pgp = PgPromise(options)
-// pgp.pg.types.setTypeParser(1114, str => moment.utc(str).format());
 
 
 export const database = pgp(DATABASE_URL)

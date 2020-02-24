@@ -8,11 +8,11 @@ if (process.env.NODE_ENV === "development") {
 const path = require("path")
 
 function s3Plugin() {
-  if (!process.env.STAGE) {
-    throw new Error("s3Plugin requires STAGE env")
+  if (!process.env.GATSBY_STAGE) {
+    throw new Error("s3Plugin requires GATSBY_STAGE env")
   }
   let domainName
-  switch (process.env.STAGE) {
+  switch (process.env.GATSBY_STAGE) {
     case "staging":
       domainName = "staging.ridersbible.com"
       break
@@ -78,7 +78,7 @@ const plugins = [
   },
 ]
 
-if (process.env.STAGE) {
+if (process.env.GATSBY_STAGE) {
   plugins.push(s3Plugin())
 }
 

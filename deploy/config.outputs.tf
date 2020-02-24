@@ -17,6 +17,8 @@ output "lambda_invoke_url" {
 output "lambda_api_url" {
   value = "${aws_api_gateway_deployment.graphql.invoke_url}/${aws_api_gateway_resource.guided.path_part}"
 }
-output "lambda_logging" {
-  value = aws_cloudwatch_log_group.graphql.name
+
+output "compute_queue" {
+  value = aws_sqs_queue.compute.name
 }
+

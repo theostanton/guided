@@ -6,6 +6,7 @@
     "build:pack": "webpack",
     "build:build": "tsc",
     "build:cache": "STAGE=staging ts-node src/buildCache.ts",
+    "build:zip": "zip -r ../../../deploy/dist/graphql.zip dist",
     "dist": "yarn build:cache && yarn build:build && yarn build:pack",
     "invoke": "STAGE=staging ts-node src/lambda.ts",
     "start": "node srv/server.js",
@@ -15,7 +16,7 @@
     "@guided/logger": "*",
     "@guided/database": "*",
     "@guided/utils": "*",
-    "@guided/compute-stage": "*",
+    "@guided/compute": "*",
     "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -30,5 +31,10 @@
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.2",
     "@types/aws-serverless-express": "^3.3.3"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
   }
 }

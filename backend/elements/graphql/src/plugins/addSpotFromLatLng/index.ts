@@ -7,8 +7,8 @@ import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPl
 import { MutationAddSpotFromLatLngArgs } from "../../generated"
 import { database, generateId, Spot } from "@guided/database"
 import { Context } from "../types"
-import * as computeStage from "@guided/compute-stage"
-import { Packet } from "@guided/compute-stage"
+import * as computeStage from "@guided/compute"
+import { Packet } from "@guided/compute"
 
 export async function prepare(args: MutationAddSpotFromLatLngArgs, owner: string): Promise<{
   spotId: string,
@@ -55,13 +55,7 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
   logJson(args, "addSpotFromLatLng args")
 
   const { spotId, packet } = await prepare(args, context.jwtClaims.username!)
-  computeStage.trigger(packet)
-    .then(result => {
-      logJson(result, "result")
-    })
-    .catch(error => {
-      logJson(error, "error")
-    })
+  await computeStage.trigger(packet)
 
   return { id: spotId }
 }

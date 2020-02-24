@@ -1,4 +1,4 @@
-import { Packet, trigger } from "@guided/compute-stage"
+import { Packet, trigger } from "@guided/compute"
 import { Computation, database, generateId, Ride, Spot, Stage } from "@guided/database"
 import { spinup, UserBuilder } from "@guided/spinup"
 import faker from "faker"

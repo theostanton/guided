@@ -7,8 +7,9 @@
     "watch": "yarn wsrun -m -c watch",
     "test:all": "JEST_JUNIT_OUTPUT_DIR=reports/junit/ jest --passWithNoTests --ci --reporters=default --reporters=jest-junit",
     "develop:backend": "nodemon",
+    "install:retry": "until yarn; do; echo \"Failed. Prolly bad connection Lets try again\"; done",
     "start": "yarn workspace @guided/graphql run start",
-    "clean": "find -E . -regex \".*(srv|node_modules|.cache|public|.serverless|tsconfig.tsbuildinfo|yarn.lock|reports|junit.xml)\" -exec rm -rf {} \\;",
+    "clean": "sudo find -E . -regex \".*(yarn-error.log|srv|node_modules|.cache|public|.serverless|tsconfig.tsbuildinfo|yarn.lock|reports|junit.xml)\" -exec rm -rf {} \\;",
     "build:logger": "yarn workspace @guided/logger run build",
     "del": "find -E . -regex \".*\/src\/.*(.d.ts|.d.ts.map|.js.map|.jsx.map|.jsx|.js)\" -exec rm -rf {} \\;",
     "del:srv": "find -E . -regex \".*/(srv)\" -exec rm -rf {} \\;"
@@ -25,7 +26,7 @@
     "jest-junit": "^10.0.0",
     "@types/jest": "^25.1.2",
     "ts-jest": "^25.2.0",
-    "typescript": "^3.8.0",
+    "typescript": "latest",
     "@types/node": "^13.7.0",
     "wsrun": "^5.2.0",
     "@types/faker": "^4.1.9",
@@ -33,12 +34,9 @@
   },
   "workspaces": {
     "packages": [
-      "elements/*",
       "tools/*",
+      "elements/*",
       "apis/*"
-    ],
-    "nohoist": [
-      "**"
     ]
   }
 }

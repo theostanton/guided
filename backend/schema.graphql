@@ -44,6 +44,7 @@ type Computation implements Node {
   guide: String!
   created: Datetime!
   started: Datetime
+  message: String
 
   """Reads a single `Stage` that is related to this `Computation`."""
   stageByStage: Stage
@@ -80,6 +81,9 @@ input ComputationCondition {
 
   """Checks for equality with the object’s `started` field."""
   started: Datetime
+
+  """Checks for equality with the object’s `message` field."""
+  message: String
 }
 
 """An input for mutations affecting `Computation`"""
@@ -92,6 +96,7 @@ input ComputationInput {
   guide: String!
   created: Datetime!
   started: Datetime
+  message: String
 }
 
 """
@@ -106,6 +111,7 @@ input ComputationPatch {
   guide: String
   created: Datetime
   started: Datetime
+  message: String
 }
 
 """A connection to a list of `Computation` values."""
@@ -153,6 +159,8 @@ enum ComputationsOrderBy {
   CREATED_DESC
   STARTED_ASC
   STARTED_DESC
+  MESSAGE_ASC
+  MESSAGE_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }

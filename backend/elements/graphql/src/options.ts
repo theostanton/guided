@@ -101,7 +101,8 @@ export function options(mode: Mode): PostGraphileOptions {
     pgDefaultRole: "guided_anonymous",
     enableCors: true,
     dynamicJson: true,
-    showErrorStack: "json",
+    showErrorStack: true,
+    extendedErrors: ['hint', 'detail', 'errcode'],
     appendPlugins: plugins(),
   }
 

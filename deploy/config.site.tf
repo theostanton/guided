@@ -7,21 +7,23 @@ locals {
   full_domain = "${terraform.workspace=="production"?"www":var.stage}.${var.domain_name}"
 }
 
-//resource "null_resource" "site_push" {
-//  triggers = {
-//    app_version = var.app_version
-//  }
-//  provisioner "local-exec" {
-//    environment = {
-//      GATSBY_GUIDED_GRAPHQL = "${aws_api_gateway_deployment.graphql.invoke_url}/${aws_api_gateway_resource.guided.path_part}"
-//      //TODO not this
-//      AWS_ACCESS_KEY_ID = ""
-//      AWS_SECRET_ACCESS_KEY = ""
-//
-//    }
+resource "null_resource" "site_push" {
+  triggers = {
+    app_version = var.app_version
+  }
+  provisioner "local-exec" {
+    environment = {
+      GATSBY_STAGE = var.stage
+      GATSBY_APP_VERSION = var.app_version
+      GATSBY_MAPBOX_TOKEN = var.mapbox_token
+      GATSBY_GUIDED_GRAPHQL = "${aws_api_gateway_deployment.graphql.invoke_url}/${aws_api_gateway_resource.guided.path_part}"
+    }
 //    command = "cd ../frontend/website && yarn deploy"
-//  }
-//}
+    command = "echo noop"
+  }
+
+  depends_on = [aws_lambda_function.graphql]
+}
 
 resource "aws_cloudfront_distribution" "site" {
   origin {
@@ -79,6 +81,9 @@ resource "aws_cloudfront_distribution" "site" {
     ssl_support_method = "sni-only"
     minimum_protocol_version = "TLSv1.1_2016"
   }
+
+  depends_on = [
+    null_resource.site_push]
 }
 
 resource "aws_route53_record" "site" {

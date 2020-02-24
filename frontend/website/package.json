@@ -49,7 +49,7 @@
     "test": "jest",
     "develop:frontend": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "deploy": "GATSBY_MAPBOX_TOKEN=  GATSBY_GUIDED_GRAPHQL=  gatsby build && gatsby-plugin-s3 deploy -y",
+    "deploy": "gatsby build && gatsby-plugin-s3 deploy -y",
     "push": "gatsby-plugin-s3 deploy -y",
     "start": "npm run develop",
     "serve": "gatsby serve",
