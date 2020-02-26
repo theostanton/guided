@@ -3,3 +3,4 @@ alter table spots
         stage varchar(64)
             constraint spots_stages_id_fk
                 references stages
+                on delete cascade

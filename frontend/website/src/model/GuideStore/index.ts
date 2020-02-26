@@ -11,6 +11,7 @@ export default class GuideStore {
 
   #slug: string
   #owner: string
+  #poll: NodeJS.Timeout | undefined
 
   constructor(slug: string, owner: string) {
     this.#slug = slug
@@ -164,6 +165,10 @@ export default class GuideStore {
   }
 
   private async fetch(): Promise<void> {
+    if (this.#poll) {
+      clearTimeout(this.#poll)
+      this.#poll = undefined
+    }
     const variables: GetGuideBySlugQueryVariables = {
       slug: this.#slug,
       owner: this.#owner,
@@ -182,7 +187,7 @@ export default class GuideStore {
 
     if (guide.stagesByGuide.totalCount > 0) {
       log("Polling")
-      setTimeout(() => {
+      this.#poll = setTimeout(() => {
         if (this.guide) {
           log("Polled")
           this.fetch()

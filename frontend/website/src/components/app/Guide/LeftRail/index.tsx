@@ -113,8 +113,6 @@ export default class LeftRailComponent extends React.Component<Props, State> {
 
         <Divider/>
         <RideAndSpotList/>
-        {/*{this.state.selected === "spots" && <SpotList/>}*/}
-        {/*{this.state.selected === "rides" && <RideList/>}*/}
       </Grid>
     </div>
   }

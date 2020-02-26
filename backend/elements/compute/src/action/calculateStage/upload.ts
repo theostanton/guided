@@ -22,7 +22,6 @@ export default async function(rideId: string, points: number[][]): Promise<strin
       Bucket: "guided-geojsons-staging",
     }).promise()
 
-
     logJson(response, "response.Location")
     return response.Location
   } catch (e) {

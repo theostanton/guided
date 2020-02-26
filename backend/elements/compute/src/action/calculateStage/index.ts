@@ -1,6 +1,5 @@
 import { DirectionsRoute, DirectionsStep } from "@googlemaps/google-maps-services-js/dist/common"
 import * as geojson from "@guided/geojson"
-import addDays from "date-fns/addDays"
 import { executeWithContext } from "@guided/utils"
 import { StageData } from "../../dao"
 import { getInfo } from "@guided/google"

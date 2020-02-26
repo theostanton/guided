@@ -27,6 +27,7 @@ resource "aws_iam_policy" "compute_logging" {
   description = "IAM policy for logging from a lambda"
   policy = templatefile("${path.module}/templates/cloudwatch-policy.tpl", {})
 }
+
 resource "aws_iam_policy" "compute_sqs" {
   name = "compute_sqs_${var.stage}"
   path = "/"
@@ -43,11 +44,6 @@ resource "aws_iam_role_policy_attachment" "compute_sqs" {
   role = aws_iam_role.compute.name
   policy_arn = aws_iam_policy.compute_sqs.arn
 }
-
-//resource "aws_cloudwatch_log_group" "compute" {
-//  name = "/aws/lambda/compute-${var.stage}-hail"
-//  retention_in_days = 14
-//}
 
 resource "aws_lambda_function" "compute" {
   function_name = "guided-compute-${var.stage}"
