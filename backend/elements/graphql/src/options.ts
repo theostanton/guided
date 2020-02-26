@@ -7,7 +7,8 @@ export type Mode = "watch" | "buildCache" | "invoke"
 function plugins(): Plugin[] {
   return [
     ...customPlugins,
-    require("@graphile-contrib/pg-simplify-inflector"),
+    require("@graphile-contrib/pg-simplify-inflector").default,
+    require("@graphile/subscriptions-lds").default,
   ]
 }
 
@@ -110,6 +111,7 @@ export function options(mode: Mode): PostGraphileOptions {
     showErrorStack: true,
     extendedErrors: ["hint", "detail", "errcode"],
     appendPlugins: plugins(),
+    live:true
   }
 
 }

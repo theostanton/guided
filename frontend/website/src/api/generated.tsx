@@ -69,7 +69,6 @@ export type Computation = Node & {
   readonly guide: Scalars['String'],
   readonly created: Scalars['Datetime'],
   readonly started?: Maybe<Scalars['Datetime']>,
-  readonly message?: Maybe<Scalars['String']>,
   /** Reads a single `Stage` that is related to this `Computation`. */
   readonly stageByStage?: Maybe<Stage>,
   /** Reads a single `Guide` that is related to this `Computation`. */
@@ -97,8 +96,6 @@ export type ComputationCondition = {
   readonly created?: Maybe<Scalars['Datetime']>,
   /** Checks for equality with the object’s `started` field. */
   readonly started?: Maybe<Scalars['Datetime']>,
-  /** Checks for equality with the object’s `message` field. */
-  readonly message?: Maybe<Scalars['String']>,
 };
 
 /** An input for mutations affecting `Computation` */
@@ -111,7 +108,6 @@ export type ComputationInput = {
   readonly guide: Scalars['String'],
   readonly created: Scalars['Datetime'],
   readonly started?: Maybe<Scalars['Datetime']>,
-  readonly message?: Maybe<Scalars['String']>,
 };
 
 /** Represents an update to a `Computation`. Fields that are set will be updated. */
@@ -124,7 +120,6 @@ export type ComputationPatch = {
   readonly guide?: Maybe<Scalars['String']>,
   readonly created?: Maybe<Scalars['Datetime']>,
   readonly started?: Maybe<Scalars['Datetime']>,
-  readonly message?: Maybe<Scalars['String']>,
 };
 
 /** A connection to a list of `Computation` values. */
@@ -166,8 +161,6 @@ export enum ComputationsOrderBy {
   CreatedDesc = 'CREATED_DESC',
   StartedAsc = 'STARTED_ASC',
   StartedDesc = 'STARTED_DESC',
-  MessageAsc = 'MESSAGE_ASC',
-  MessageDesc = 'MESSAGE_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -1310,6 +1303,7 @@ export type Query = Node & {
   readonly temperatureByNodeId?: Maybe<Temperature>,
   /** Reads a single `User` using its globally unique `ID`. */
   readonly userByNodeId?: Maybe<User>,
+  readonly appVersion: Scalars['String'],
 };
 
 
@@ -2030,6 +2024,722 @@ export enum StageStatus {
   Computing = 'COMPUTING',
   Stale = 'STALE'
 }
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type Subscription = {
+  /** 
+ * Exposes the root query type nested one level down. This is helpful for Relay 1
+   * which can only query top level fields if they are in a particular form. (live)
+ */
+  readonly query: Query,
+  /** The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`. (live) */
+  readonly nodeId: Scalars['ID'],
+  /** Fetches an object given its globally unique `ID`. (live) */
+  readonly node?: Maybe<Node>,
+  /** Reads and enables pagination through a set of `Computation`. (live) */
+  readonly computations?: Maybe<ComputationsConnection>,
+  /** Reads and enables pagination through a set of `Guide`. (live) */
+  readonly guides?: Maybe<GuidesConnection>,
+  /** Reads and enables pagination through a set of `Ride`. (live) */
+  readonly rides?: Maybe<RidesConnection>,
+  /** Reads and enables pagination through a set of `Spot`. (live) */
+  readonly spots?: Maybe<SpotsConnection>,
+  /** Reads and enables pagination through a set of `Stage`. (live) */
+  readonly stages?: Maybe<StagesConnection>,
+  /** Reads and enables pagination through a set of `Temperature`. (live) */
+  readonly temperatures?: Maybe<TemperaturesConnection>,
+  /** Reads and enables pagination through a set of `User`. (live) */
+  readonly users?: Maybe<UsersConnection>,
+  /**  (live) */
+  readonly computation?: Maybe<Computation>,
+  /**  (live) */
+  readonly guide?: Maybe<Guide>,
+  /**  (live) */
+  readonly ride?: Maybe<Ride>,
+  /**  (live) */
+  readonly spot?: Maybe<Spot>,
+  /**  (live) */
+  readonly stage?: Maybe<Stage>,
+  /**  (live) */
+  readonly temperature?: Maybe<Temperature>,
+  /**  (live) */
+  readonly user?: Maybe<User>,
+  /**  (live) */
+  readonly getCurrentUser?: Maybe<Scalars['JwtToken']>,
+  /** Reads a single `Computation` using its globally unique `ID`. (live) */
+  readonly computationByNodeId?: Maybe<Computation>,
+  /** Reads a single `Guide` using its globally unique `ID`. (live) */
+  readonly guideByNodeId?: Maybe<Guide>,
+  /** Reads a single `Ride` using its globally unique `ID`. (live) */
+  readonly rideByNodeId?: Maybe<Ride>,
+  /** Reads a single `Spot` using its globally unique `ID`. (live) */
+  readonly spotByNodeId?: Maybe<Spot>,
+  /** Reads a single `Stage` using its globally unique `ID`. (live) */
+  readonly stageByNodeId?: Maybe<Stage>,
+  /** Reads a single `Temperature` using its globally unique `ID`. (live) */
+  readonly temperatureByNodeId?: Maybe<Temperature>,
+  /** Reads a single `User` using its globally unique `ID`. (live) */
+  readonly userByNodeId?: Maybe<User>,
+  /**  (live) */
+  readonly appVersion: Scalars['String'],
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionNodeArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionComputationsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>,
+  condition?: Maybe<ComputationCondition>
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionGuidesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>,
+  condition?: Maybe<GuideCondition>
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionRidesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>,
+  condition?: Maybe<RideCondition>
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionSpotsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>,
+  condition?: Maybe<SpotCondition>
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionStagesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>,
+  condition?: Maybe<StageCondition>
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionTemperaturesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<ReadonlyArray<TemperaturesOrderBy>>,
+  condition?: Maybe<TemperatureCondition>
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionUsersArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>,
+  condition?: Maybe<UserCondition>
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionComputationArgs = {
+  id: Scalars['String']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionGuideArgs = {
+  id: Scalars['String']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionRideArgs = {
+  id: Scalars['String']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionSpotArgs = {
+  id: Scalars['String']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionStageArgs = {
+  id: Scalars['String']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionTemperatureArgs = {
+  id: Scalars['String']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionUserArgs = {
+  username: Scalars['String']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionComputationByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionGuideByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionRideByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionSpotByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionStageByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionTemperatureByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+/** 
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionUserByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
 
 export type Temperature = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
@@ -2786,6 +3496,7 @@ export type ResolversTypes = {
   AuthenticatePayload: ResolverTypeWrapper<AuthenticatePayload>,
   RegisterInput: RegisterInput,
   RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
+  Subscription: ResolverTypeWrapper<{}>,
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -2915,6 +3626,7 @@ export type ResolversParentTypes = {
   AuthenticatePayload: AuthenticatePayload,
   RegisterInput: RegisterInput,
   RegisterPayload: RegisterPayload,
+  Subscription: {},
 };
 
 export type AuthenticatePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthenticatePayload'] = ResolversParentTypes['AuthenticatePayload']> = {
@@ -2942,7 +3654,6 @@ export type ComputationResolvers<ContextType = any, ParentType extends Resolvers
   guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   started?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
-  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
@@ -3236,6 +3947,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   stageByNodeId?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageByNodeIdArgs, 'nodeId'>>,
   temperatureByNodeId?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureByNodeIdArgs, 'nodeId'>>,
   userByNodeId?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByNodeIdArgs, 'nodeId'>>,
+  appVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
 };
 
 export type RegisterPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['RegisterPayload'] = ResolversParentTypes['RegisterPayload']> = {
@@ -3358,6 +4070,35 @@ export type StagesEdgeResolvers<ContextType = any, ParentType extends ResolversP
   cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
   node?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  query?: SubscriptionResolver<ResolversTypes['Query'], "query", ParentType, ContextType>,
+  nodeId?: SubscriptionResolver<ResolversTypes['ID'], "nodeId", ParentType, ContextType>,
+  node?: SubscriptionResolver<Maybe<ResolversTypes['Node']>, "node", ParentType, ContextType, RequireFields<SubscriptionNodeArgs, 'nodeId'>>,
+  computations?: SubscriptionResolver<Maybe<ResolversTypes['ComputationsConnection']>, "computations", ParentType, ContextType, RequireFields<SubscriptionComputationsArgs, 'orderBy'>>,
+  guides?: SubscriptionResolver<Maybe<ResolversTypes['GuidesConnection']>, "guides", ParentType, ContextType, RequireFields<SubscriptionGuidesArgs, 'orderBy'>>,
+  rides?: SubscriptionResolver<Maybe<ResolversTypes['RidesConnection']>, "rides", ParentType, ContextType, RequireFields<SubscriptionRidesArgs, 'orderBy'>>,
+  spots?: SubscriptionResolver<Maybe<ResolversTypes['SpotsConnection']>, "spots", ParentType, ContextType, RequireFields<SubscriptionSpotsArgs, 'orderBy'>>,
+  stages?: SubscriptionResolver<Maybe<ResolversTypes['StagesConnection']>, "stages", ParentType, ContextType, RequireFields<SubscriptionStagesArgs, 'orderBy'>>,
+  temperatures?: SubscriptionResolver<Maybe<ResolversTypes['TemperaturesConnection']>, "temperatures", ParentType, ContextType, RequireFields<SubscriptionTemperaturesArgs, 'orderBy'>>,
+  users?: SubscriptionResolver<Maybe<ResolversTypes['UsersConnection']>, "users", ParentType, ContextType, RequireFields<SubscriptionUsersArgs, 'orderBy'>>,
+  computation?: SubscriptionResolver<Maybe<ResolversTypes['Computation']>, "computation", ParentType, ContextType, RequireFields<SubscriptionComputationArgs, 'id'>>,
+  guide?: SubscriptionResolver<Maybe<ResolversTypes['Guide']>, "guide", ParentType, ContextType, RequireFields<SubscriptionGuideArgs, 'id'>>,
+  ride?: SubscriptionResolver<Maybe<ResolversTypes['Ride']>, "ride", ParentType, ContextType, RequireFields<SubscriptionRideArgs, 'id'>>,
+  spot?: SubscriptionResolver<Maybe<ResolversTypes['Spot']>, "spot", ParentType, ContextType, RequireFields<SubscriptionSpotArgs, 'id'>>,
+  stage?: SubscriptionResolver<Maybe<ResolversTypes['Stage']>, "stage", ParentType, ContextType, RequireFields<SubscriptionStageArgs, 'id'>>,
+  temperature?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperature", ParentType, ContextType, RequireFields<SubscriptionTemperatureArgs, 'id'>>,
+  user?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "user", ParentType, ContextType, RequireFields<SubscriptionUserArgs, 'username'>>,
+  getCurrentUser?: SubscriptionResolver<Maybe<ResolversTypes['JwtToken']>, "getCurrentUser", ParentType, ContextType>,
+  computationByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Computation']>, "computationByNodeId", ParentType, ContextType, RequireFields<SubscriptionComputationByNodeIdArgs, 'nodeId'>>,
+  guideByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Guide']>, "guideByNodeId", ParentType, ContextType, RequireFields<SubscriptionGuideByNodeIdArgs, 'nodeId'>>,
+  rideByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Ride']>, "rideByNodeId", ParentType, ContextType, RequireFields<SubscriptionRideByNodeIdArgs, 'nodeId'>>,
+  spotByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Spot']>, "spotByNodeId", ParentType, ContextType, RequireFields<SubscriptionSpotByNodeIdArgs, 'nodeId'>>,
+  stageByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Stage']>, "stageByNodeId", ParentType, ContextType, RequireFields<SubscriptionStageByNodeIdArgs, 'nodeId'>>,
+  temperatureByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperatureByNodeId", ParentType, ContextType, RequireFields<SubscriptionTemperatureByNodeIdArgs, 'nodeId'>>,
+  userByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "userByNodeId", ParentType, ContextType, RequireFields<SubscriptionUserByNodeIdArgs, 'nodeId'>>,
+  appVersion?: SubscriptionResolver<ResolversTypes['String'], "appVersion", ParentType, ContextType>,
 };
 
 export type TemperatureResolvers<ContextType = any, ParentType extends ResolversParentTypes['Temperature'] = ResolversParentTypes['Temperature']> = {
@@ -3522,6 +4263,7 @@ export type Resolvers<ContextType = any> = {
   Stage?: StageResolvers<ContextType>,
   StagesConnection?: StagesConnectionResolvers<ContextType>,
   StagesEdge?: StagesEdgeResolvers<ContextType>,
+  Subscription?: SubscriptionResolvers<ContextType>,
   Temperature?: TemperatureResolvers<ContextType>,
   TemperaturesConnection?: TemperaturesConnectionResolvers<ContextType>,
   TemperaturesEdge?: TemperaturesEdgeResolvers<ContextType>,

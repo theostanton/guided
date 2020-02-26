@@ -92,7 +92,6 @@ resource "aws_lambda_function" "graphql" {
       OWNER_PASSWORD = var.db_owner_password
       JWT_SECRET = var.jwt_secret
       COMPUTE_QUEUE_NAME = aws_sqs_queue.compute.name
-      _AWS_REGION = var.region
     }
   }
 }

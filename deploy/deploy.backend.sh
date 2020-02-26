@@ -63,7 +63,8 @@ function prepareGraphql() {
   echo Zipped to "${graphql_filename}"
 }
 
-macro_version=$(incrementVersion)
+#macro_version=$(incrementVersion)
+macro_version=27
 echo 'macro_version'
 echo "${macro_version}"
 app_version="0.0.${macro_version}"
@@ -76,4 +77,4 @@ prepareGraphql
 
 echo -- Deploying --
 cd $work_dir
-terraform apply -var-file vars/"${STAGE}".tfvars -var macro_version="${macro_version}"
+terraform apply -var-file vars/"${STAGE}".tfvars -var macro_version="${macro_version}" -auto-approve

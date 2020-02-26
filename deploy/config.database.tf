@@ -1,8 +1,19 @@
+resource "aws_db_parameter_group" "db_logical_replication" {
+  family = "postgres11"
+
+  parameter {
+    apply_method = "pending-reboot"
+    name = "rds.logical_replication"
+    value = "1"
+  }
+}
+
 resource "aws_db_instance" "guided" {
   name = var.db_database
   identifier = "guided-db-${var.stage}"
   allocated_storage = 20
   engine = "postgres"
+  parameter_group_name = aws_db_parameter_group.db_logical_replication.name
   instance_class = "db.t2.micro"
   username = var.db_owner_user
   password = var.db_owner_password
@@ -10,6 +21,8 @@ resource "aws_db_instance" "guided" {
   final_snapshot_identifier = "guided-db-${var.stage}"
   apply_immediately = true
   publicly_accessible = true
+  depends_on = [
+    aws_db_parameter_group.db_logical_replication]
 }
 
 resource "aws_route53_record" "database" {
