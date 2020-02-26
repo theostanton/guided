@@ -3,12 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "build:pack": "webpack",
-    "build:build": "tsc",
-    "build:cache": "STAGE=staging ts-node src/buildCache.ts",
-    "build:zip": "zip -r ../../../deploy/dist/graphql.zip dist",
+    "webpack": "webpack",
+    "build": "tsc",
     "dist": "yarn build:cache && yarn build:build && yarn build:pack",
     "invoke": "STAGE=staging ts-node src/lambda.ts",
+    "logs": "awslogs get /aws/lambda/guided-graphql-staging -w",
     "start": "node srv/server.js",
     "watch": "tsc -w"
   },
@@ -18,19 +17,18 @@
     "@guided/utils": "*",
     "@guided/compute": "*",
     "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
+    "aws-serverless-express": "^3.3.6",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "postgraphile": "^4.6.0"
   },
   "devDependencies": {
+    "webpack-cli": "^3.3.11",
+    "webpack": "^4.41.6",
+    "@types/aws-serverless-express": "^3.3.3",
     "ts-node": "^8.6.2",
     "@types/cors": "^2.8.6",
-    "@types/express": "^4.17.2",
-  },
-  "workspaces": {
-    "nohoist": [
-      "**"
-    ]
+    "@types/express": "^4.17.2"
   }
 }

@@ -5,11 +5,9 @@
   "main": "./srv/index.js",
   "types": "./srv/index.d.ts",
   "scripts": {
-    "build:pack": "webpack",
-    "build:build": "tsc",
-    "build:zip": "zip -r ../../../deploy/dist/compute.zip dist",
+    "webpack": "webpack  --config webpack.config.js",
     "dist": "yarn build:build && yarn build:pack",
-    "prepare": "yarn build",
+    "logs": "awslogs get /aws/lambda/guided-compute-staging -w",
     "build": "tsc",
     "test": "jest",
     "watch": "tsc -w",
@@ -26,6 +24,8 @@
     "@googlemaps/google-maps-services-js": "^2.0.2"
   },
   "devDependencies": {
+    "webpack-cli": "^3.3.11",
+    "webpack": "^4.41.6",
     "serverless": "^1.63.0",
     "jest": "^25.1.0",
     "@types/jest": "^25.1.2",
@@ -33,10 +33,5 @@
     "ts-node": "^8.6.2",
     "faker": "^4.1.0",
     "@types/faker": "^4.1.0"
-  },
-  "workspaces": {
-    "nohoist": [
-      "**"
-    ]
   }
 }

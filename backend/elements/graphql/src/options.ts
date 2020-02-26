@@ -1,6 +1,6 @@
 import { PostGraphileOptions } from "postgraphile"
 import { Plugin } from "graphile-build"
-import customPlugins from './plugins'
+import customPlugins from "./plugins"
 
 export type Mode = "watch" | "buildCache" | "invoke"
 
@@ -12,7 +12,13 @@ function plugins(): Plugin[] {
 }
 
 export function connection(): string {
-  return `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+  if (process.env.DATABASE_URL) {
+    return process.env.DATABASE_URL
+  } else if (!process.env.POSTGRES_USER) {
+    throw new Error("No envs provided")
+  } else {
+    return `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+  }
 }
 
 
@@ -34,7 +40,7 @@ export function watch(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaP
 
 export function createCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaPath" | "writeCache" | "ownerConnectionString" | "disableQueryLog" | "sortExport" | "graphiql" | "allowExplain"> {
 
-  if (!process.env.OWNER_USER) {
+  if (!process.env.OWNER_USER && !process.env.DATABASE_URL) {
     throw new Error("Need OWNER variables to create cache")
   }
 
@@ -66,6 +72,10 @@ export function fromCache(): Pick<PostGraphileOptions, "watchPg" | "readCache" |
     throw new Error()
   }
 
+  if (!process.env.POSTGRES_USER && !process.env.DATABASE_URL) {
+    throw new Error("Variables not loaded")
+  }
+
   return {
     watchPg: false,
     readCache: "cache",
@@ -75,10 +85,6 @@ export function fromCache(): Pick<PostGraphileOptions, "watchPg" | "readCache" |
 }
 
 export function options(mode: Mode): PostGraphileOptions {
-
-  if (!process.env.POSTGRES_USER) {
-    throw new Error("Variables not loaded")
-  }
 
   let cacheOptions: {}
   switch (mode) {
@@ -102,7 +108,7 @@ export function options(mode: Mode): PostGraphileOptions {
     enableCors: true,
     dynamicJson: true,
     showErrorStack: true,
-    extendedErrors: ['hint', 'detail', 'errcode'],
+    extendedErrors: ["hint", "detail", "errcode"],
     appendPlugins: plugins(),
   }
 

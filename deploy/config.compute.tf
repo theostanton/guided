@@ -1,3 +1,7 @@
+locals {
+  compute_zip_path = "${path.module}/dist/${var.stage}-${local.app_version}-compute.zip"
+}
+
 resource "aws_iam_role" "compute" {
   name = "guided_compute_${var.stage}"
   assume_role_policy = templatefile("${path.module}/templates/lambda-policy.tpl", {})
@@ -12,40 +16,6 @@ resource "aws_lambda_event_source_mapping" "compute" {
   function_name = aws_lambda_function.compute.arn
   batch_size = 1
 }
-
-
-// ytf isnt this running
-resource "null_resource" "compute_build" {
-  triggers = {
-    app_version = var.app_version
-  }
-  depends_on = [
-    aws_db_instance.guided]
-  provisioner "local-exec" {
-    environment = {
-      APP_VERSION = var.app_version
-      POSTGRES_HOST = aws_db_instance.guided.address
-      POSTGRES_DB = var.db_database
-      POSTGRES_PORT = var.db_port
-      POSTGRES_USER = var.db_postgraphile_user
-      POSTGRES_SCHEMA = var.db_schema
-      POSTGRES_PASSWORD = var.db_postgraphile_password
-      POSTGRAPHILE_PORT = 5000
-      OWNER_USER = var.db_owner_user
-      OWNER_PASSWORD = var.db_owner_password
-      JWT_SECRET = var.jwt_secret
-    }
-    command = "cd ${path.module}/../backend/elements/compute && yarn dist"
-  }
-}
-
-
-data "archive_file" "compute" {
-  type = "zip"
-  output_path = "${path.module}/dist/${var.stage}-${var.app_version}-compute.zip"
-  source_dir = "${path.module}/../backend/elements/compute/dist"
-}
-
 
 resource "aws_s3_bucket" "compute" {
   bucket = "guided-compute-deployment-${var.stage}"
@@ -84,17 +54,16 @@ resource "aws_lambda_function" "compute" {
   timeout = 30
   role = aws_iam_role.compute.arn
   handler = "index.handler"
-  filename = data.archive_file.compute.output_path
-  source_code_hash = filebase64sha256(data.archive_file.compute.output_path)
+  filename = local.compute_zip_path
+  source_code_hash = filebase64sha256(local.compute_zip_path)
   runtime = "nodejs12.x"
 
   depends_on = [
-    data.archive_file.compute,
     aws_iam_role_policy_attachment.compute]
 
   environment {
     variables = {
-      APP_VERSION = var.app_version
+      APP_VERSION = local.app_version
       POSTGRES_HOST = aws_db_instance.guided.address
       POSTGRES_DB = var.db_database
       POSTGRES_PORT = var.db_port

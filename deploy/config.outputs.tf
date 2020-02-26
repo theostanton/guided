@@ -22,3 +22,7 @@ output "compute_queue" {
   value = aws_sqs_queue.compute.name
 }
 
+output "deployed_macro_version" {
+  value = var.macro_version
+}
+

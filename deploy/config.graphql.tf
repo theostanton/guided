@@ -1,41 +1,7 @@
-resource "null_resource" "graphql_build" {
-  triggers = {
-    app_version = var.app_version
-  }
-  depends_on = [
-    aws_db_instance.guided]
-  provisioner "local-exec" {
-    environment = {
-      APP_VERSION = var.app_version
-      POSTGRES_HOST = aws_db_instance.guided.address
-      POSTGRES_DB = var.db_database
-      POSTGRES_PORT = var.db_port
-      POSTGRES_USER = var.db_postgraphile_user
-      POSTGRES_SCHEMA = var.db_schema
-      POSTGRES_PASSWORD = var.db_postgraphile_password
-      POSTGRAPHILE_PORT = 5000
-      OWNER_USER = var.db_owner_user
-      OWNER_PASSWORD = var.db_owner_password
-      JWT_SECRET = var.jwt_secret
-    }
-    command = "cd ${path.module}/../backend/elements/graphql && yarn dist"
-  }
+locals {
+  graphql_zip_path = "${path.module}/dist/${var.stage}-${local.app_version}-graphql.zip"
 }
 
-data "archive_file" "graphql" {
-  type = "zip"
-  source_dir = "${path.module}/../backend/elements/graphql/dist"
-  output_path = "${path.module}/dist/${var.stage}-${var.app_version}-graphql.zip"
-
-//  source {
-//    content = "${path.module}/../backend/elements/graphql/dist"
-//    filename = "index.js"
-//  }
-//  source {
-//    content = "${path.module}/../backend/elements/graphql/dist"
-//    filename = "cache"
-//  }
-}
 resource "aws_iam_role" "graphql" {
   name = "guided_graphql_${var.stage}"
   assume_role_policy = templatefile("${path.module}/templates/lambda-policy.tpl", {})
@@ -99,28 +65,22 @@ resource "aws_iam_role_policy_attachment" "graphql" {
   policy_arn = aws_iam_policy.graphql_logging.arn
 }
 
-//resource "aws_cloudwatch_log_group" "graphql" {
-//  name = "/aws/lambda/graphql-${var.stage}-hail"
-//  retention_in_days = 14
-//}
-
 resource "aws_lambda_function" "graphql" {
   function_name = "guided-graphql-${var.stage}"
   timeout = 30
   role = aws_iam_role.graphql.arn
   handler = "index.handler"
-  filename = data.archive_file.graphql.output_path
-  source_code_hash = filebase64sha256(data.archive_file.graphql.output_path)
+  filename = local.graphql_zip_path
+  source_code_hash = filebase64sha256(local.graphql_zip_path)
   runtime = "nodejs12.x"
 
   depends_on = [
-    data.archive_file.graphql,
     aws_lambda_function.compute,
     aws_iam_role_policy_attachment.graphql]
 
   environment {
     variables = {
-      APP_VERSION = var.app_version
+      APP_VERSION = local.app_version
       POSTGRES_HOST = aws_db_instance.guided.address
       POSTGRES_DB = var.db_database
       POSTGRES_PORT = var.db_port
@@ -132,6 +92,7 @@ resource "aws_lambda_function" "graphql" {
       OWNER_PASSWORD = var.db_owner_password
       JWT_SECRET = var.jwt_secret
       COMPUTE_QUEUE_NAME = aws_sqs_queue.compute.name
+      _AWS_REGION = var.region
     }
   }
 }

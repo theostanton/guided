@@ -3,17 +3,8 @@ variable "region" {
   default = "eu-west-2"
 }
 
-//variable "deploy_site" {
-//  type = bool
-//}
-//
-//variable "deploy_backend" {
-//  type = bool
-//}
-
-variable "app_version" {
-  type = string
-  default = "0.0.17"
+variable "macro_version" {
+  type = number
 }
 
 variable "stage" {
@@ -60,6 +51,6 @@ variable "jwt_secret" {
 }
 variable "mapbox_token" {
   type = string
-  default = "pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazZ0a242c2swMDdvM21waDVxeHU3OXNjIn0.SO6y2-SnDKD6BP2iuWRM0A"
+  default = "pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazcyMmt2cngwNGY2M2VuczRibTBxZHI2In0.ut-f02WOeLk0IvvyXCMyQg"
 }
 

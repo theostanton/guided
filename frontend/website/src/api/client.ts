@@ -6,12 +6,14 @@ import { User } from "../model/AuthStore"
 
 export const USER_KEY = "guidedUser"
 
-if(!process.env.GATSBY_GUIDED_GRAPHQL){
+if (!process.env.GATSBY_GUIDED_GRAPHQL) {
   throw new Error(`Requires GATSBY_GUIDED_GRAPHQL`)
+} else {
+  console.log("process.env.GATSBY_GUIDED_GRAPHQL=" + process.env.GATSBY_GUIDED_GRAPHQL)
 }
 
 const link = new HttpLink({
-  uri:process.env.GATSBY_GUIDED_GRAPHQL,
+  uri: process.env.GATSBY_GUIDED_GRAPHQL,
 // @ts-ignore
   fetch: fetch,
 })

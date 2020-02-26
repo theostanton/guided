@@ -9,6 +9,9 @@ provider "aws" {
   alias = "virginia"
 }
 
+locals {
+  app_version = "0.0.${var.macro_version}"
+}
 
 resource "aws_route53_zone" "ridersbible" {
   name = "ridersbible.com"
