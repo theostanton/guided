@@ -3,6 +3,8 @@ import { Card, List, Message, Segment } from "semantic-ui-react"
 import randomKey from "utils/randomKey"
 import * as React from "react"
 import { log } from "utils/logger"
+import { client } from "../../../api"
+import { subscriptionClient } from "../../../api/client"
 
 type Props = {
   owner: string,
@@ -11,11 +13,10 @@ type Props = {
 export default function GuidesList({ owner, onClick }: Props) {
 
   const { data, loading, error } = useAllGuideTitlesForUserSubscription({
+    client: subscriptionClient,
     variables: {
       owner,
     },
-    shouldResubscribe: true,
-    skip: false,
     onSubscriptionComplete: () => {
       log("onSubscriptionComplete")
       return true

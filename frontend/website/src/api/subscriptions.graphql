@@ -55,12 +55,13 @@ fragment GuideBySlug on Guide {
     slug
     owner
     startDate
-    bounds{
-        north
-        east
-        south
-        west
-    }
+#    todo Custom type+function Causes error on subscriptions
+#    bounds{
+#        north
+#        east
+#        south
+#        west
+#    }
     stagesByGuide(condition: {
         status: COMPUTING
     }){

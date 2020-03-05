@@ -75,14 +75,15 @@ export default class Map extends Component<Props, State> {
       } catch (e) {
         console.error(e)
       }
-    } else if (!this.state.viewport && this.guideStore.guide) {
-      const guide = this.guideStore.guide
-      const viewport = new WebMercatorViewport()
-      this.state.viewport = viewport.fitBounds(
-        [
-          [guide.bounds!.west!, guide.bounds!.south!], [
-          guide.bounds!.east!, guide.bounds!.north!]],
-      )
+      // TODO fix guide.bounds issue on subscription
+    // } else if (!this.state.viewport && this.guideStore.guide) {
+    //   const guide = this.guideStore.guide
+    //   const viewport = new WebMercatorViewport()
+    //   this.state.viewport = viewport.fitBounds(
+    //     [
+    //       [guide.bounds!.west!, guide.bounds!.south!], [
+    //       guide.bounds!.east!, guide.bounds!.north!]],
+    //   )
     } else if (!this.state.viewport) {
       this.state.viewport = {
         width: 400,
@@ -109,22 +110,19 @@ export default class Map extends Component<Props, State> {
           }
         }}
         onClick={async (event) => {
-          if (guide) {
-            const variables: AddStayFromLatLongMutationVariables = {
-              guideId: guide.id,
-              lat: event.lngLat[1],
-              long: event.lngLat[0],
-              nights: 1,
-            }
-
-            await client.mutate({
-              mutation: AddStayFromLatLongDocument,
-              variables,
-            })
-
-            this.guideStore.refetch()
+          const variables: AddStayFromLatLongMutationVariables = {
+            guideId: guide.id,
+            lat: event.lngLat[1],
+            long: event.lngLat[0],
+            nights: 1,
           }
 
+          await client.mutate({
+            mutation: AddStayFromLatLongDocument,
+            variables,
+          })
+
+          this.guideStore.refetch()
         }}
       >
         {guide && <Markers/>}

@@ -27,8 +27,7 @@ alter table rides
 
 create policy create_ride on rides for insert;
 
-create policy select_grides on rides for select
-    using (rides.owner = nullif(current_setting('jwt.claims.username', true), '')::text);
+create policy select_rides on rides for select using (true);
 
 create policy update_ride on rides for update
     using (rides.owner = nullif(current_setting('jwt.claims.username', true), '')::text);
@@ -42,8 +41,7 @@ alter table spots
 
 create policy create_spot on spots for insert;
 
-create policy select_spots on spots for select
-    using (owner = nullif(current_setting('jwt.claims.username', true), '')::text);
+create policy select_spots on spots for select using (true)
 
 create policy update_spot on spots for update
     using (owner = nullif(current_setting('jwt.claims.username', true), '')::text);

@@ -1,11 +1,12 @@
 import { action, computed, observable, runInAction } from "mobx"
 import {
-  GetGuideBySlugDocument,
-  GetGuideBySlugQuery,
-  GetGuideBySlugQueryVariables, Guide, GuideBySlugFragment, RideByGuideFragment, SpotByGuideFragment,
+  GetGuideBySlugDocument, GetGuideBySlugSubscription, GetGuideBySlugSubscriptionResult,
+  GetGuideBySlugSubscriptionVariables, Guide, GuideBySlugFragment, RideByGuideFragment, SpotByGuideFragment,
 } from "api/generated"
-import { client } from "api"
-import { log, logJson } from "utils/logger"
+import { log, logJson, logObject } from "utils/logger"
+import { ZenObservable } from "zen-observable-ts/lib/types"
+import { subscriptionClient } from "../../api/client"
+import { logError } from "../../../../../backend/tools/logger/src"
 
 export default class GuideStore {
 
@@ -27,7 +28,7 @@ export default class GuideStore {
   @observable
   highlightedId: string | undefined = undefined
 
-  #subscription: any
+  #subscription: ZenObservable.Subscription
 
   @computed
   get selectedSpot(): SpotByGuideFragment | undefined {
@@ -140,72 +141,44 @@ export default class GuideStore {
 
   subscribe() {
 
+    const variables: GetGuideBySlugSubscriptionVariables = {
+      owner: this.#owner,
+      slug: this.#slug,
+    }
 
-    // TODO subscription
-    // const variables: OnUpdateGuideSubscriptionVariables = {
-    //   owner,
-    // }
-    // this.subscription = API.graphql(
-    //   graphqlOperation(GQL.Subscriptions.OnUpdateGuide, variables),
-    // ).subscribe({
-    //   next: async () => {
-    //     await this.fetch(slug, owner)
-    //   },
-    // })
-
-    // this.fetch().then()
+    this.#subscription = subscriptionClient.subscribe<GetGuideBySlugSubscription>({
+      query: GetGuideBySlugDocument,
+      fetchPolicy: "network-only",
+      variables,
+    }).subscribe(value => {
+      if (value.data) {
+        logObject(value.data, "value.data")
+        const guide = value.data.guides.nodes[0]
+        this.updateGuide(guide)
+      } else if (value.errors) {
+        console.error("errors")
+        value.errors.forEach(error => {
+          logError(error)
+        })
+      } else {
+        logError("No data or errors")
+      }
+    })
   }
 
-  @action
   updateGuide(guide: GuideBySlugFragment) {
     logJson(guide, "updateGuide(guide)")
-    this.guide = guide
+    runInAction(() => {
+      this.guide = guide
+    })
   }
 
   refetch(): void {
-    // if (this.guide) {
-    //   this.fetch().then()
-    // } else {
-    //   throw new Error(`Trying to refetch but have no guide`)
-    // }
+
   }
 
-  // private async fetch(): Promise<void> {
-  //   if (this.#poll) {
-  //     clearTimeout(this.#poll)
-  //     this.#poll = undefined
-  //   }
-  //   const variables: GetGuideBySlugQueryVariables = {
-  //     slug: this.#slug,
-  //     owner: this.#owner,
-  //   }
-  //
-  //   const { data } = await client.query<GetGuideBySlugQuery>({
-  //     query: GetGuideBySlugDocument,
-  //     variables,
-  //   })
-  //   const guide = data!.guides!.nodes![0]!
-  //
-  //   runInAction(() => {
-  //     this.guide = guide
-  //   })
-  //
-  //
-  //   if (guide.stagesByGuide.totalCount > 0) {
-  //     log("Polling")
-  //     this.#poll = setTimeout(() => {
-  //       if (this.guide) {
-  //         log("Polled")
-  //         this.fetch()
-  //       }
-  //     }, 2000)
-  //
-  //   }
-  //
-  // }
-
-  // unsubscribe() {
-  //   this.#subscription?.unsubscribe()
-  //   this.guide = undefined
-  // }
+  unsubscribe() {
+    this.#subscription?.unsubscribe()
+    this.guide = undefined
+  }
 }
