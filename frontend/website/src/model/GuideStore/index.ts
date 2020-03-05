@@ -5,7 +5,7 @@ import {
   GetGuideBySlugQueryVariables, Guide, GuideBySlugFragment, RideByGuideFragment, SpotByGuideFragment,
 } from "api/generated"
 import { client } from "api"
-import { log } from "utils/logger"
+import { log, logJson } from "utils/logger"
 
 export default class GuideStore {
 
@@ -153,53 +153,59 @@ export default class GuideStore {
     //   },
     // })
 
-    this.fetch().then()
+    // this.fetch().then()
+  }
+
+  @action
+  updateGuide(guide: GuideBySlugFragment) {
+    logJson(guide, "updateGuide(guide)")
+    this.guide = guide
   }
 
   refetch(): void {
-    if (this.guide) {
-      this.fetch().then()
-    } else {
-      throw new Error(`Trying to refetch but have no guide`)
-    }
+    // if (this.guide) {
+    //   this.fetch().then()
+    // } else {
+    //   throw new Error(`Trying to refetch but have no guide`)
+    // }
   }
 
-  private async fetch(): Promise<void> {
-    if (this.#poll) {
-      clearTimeout(this.#poll)
-      this.#poll = undefined
-    }
-    const variables: GetGuideBySlugQueryVariables = {
-      slug: this.#slug,
-      owner: this.#owner,
-    }
+  // private async fetch(): Promise<void> {
+  //   if (this.#poll) {
+  //     clearTimeout(this.#poll)
+  //     this.#poll = undefined
+  //   }
+  //   const variables: GetGuideBySlugQueryVariables = {
+  //     slug: this.#slug,
+  //     owner: this.#owner,
+  //   }
+  //
+  //   const { data } = await client.query<GetGuideBySlugQuery>({
+  //     query: GetGuideBySlugDocument,
+  //     variables,
+  //   })
+  //   const guide = data!.guides!.nodes![0]!
+  //
+  //   runInAction(() => {
+  //     this.guide = guide
+  //   })
+  //
+  //
+  //   if (guide.stagesByGuide.totalCount > 0) {
+  //     log("Polling")
+  //     this.#poll = setTimeout(() => {
+  //       if (this.guide) {
+  //         log("Polled")
+  //         this.fetch()
+  //       }
+  //     }, 2000)
+  //
+  //   }
+  //
+  // }
 
-    const { data } = await client.query<GetGuideBySlugQuery>({
-      query: GetGuideBySlugDocument,
-      variables,
-    })
-    const guide = data!.guides!.nodes![0]!
-
-    runInAction(() => {
-      this.guide = guide
-    })
-
-
-    if (guide.stagesByGuide.totalCount > 0) {
-      log("Polling")
-      this.#poll = setTimeout(() => {
-        if (this.guide) {
-          log("Polled")
-          this.fetch()
-        }
-      }, 2000)
-
-    }
-
-  }
-
-  unsubscribe() {
-    this.#subscription?.unsubscribe()
-    this.guide = undefined
-  }
+  // unsubscribe() {
+  //   this.#subscription?.unsubscribe()
+  //   this.guide = undefined
+  // }
 }

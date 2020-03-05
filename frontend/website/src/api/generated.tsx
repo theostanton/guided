@@ -4334,12 +4334,12 @@ export type MoveSpotMutationVariables = {
 
 export type MoveSpotMutation = { readonly moveSpot: Pick<Spot, 'id'> };
 
-export type AllGuideTitlesForUserQueryVariables = {
+export type AllGuideTitlesForUserSubscriptionVariables = {
   owner: Scalars['String']
 };
 
 
-export type AllGuideTitlesForUserQuery = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id' | 'title' | 'slug' | 'owner'>>> }> };
+export type AllGuideTitlesForUserSubscription = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id' | 'title' | 'slug' | 'owner'>>> }> };
 
 export type SpotByGuideFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'location' | 'position' | 'date' | 'temperature' | 'country' | 'nights'>;
 
@@ -4361,13 +4361,13 @@ export type GuideBySlugFragment = (
   ) }
 );
 
-export type GetGuideBySlugQueryVariables = {
+export type GetGuideBySlugSubscriptionVariables = {
   slug: Scalars['String'],
   owner: Scalars['String']
 };
 
 
-export type GetGuideBySlugQuery = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideBySlugFragment>> }> };
+export type GetGuideBySlugSubscription = { readonly guides: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideBySlugFragment>> }> };
 
 export type LoginMutationVariables = {
   email: Scalars['String'],
@@ -4705,7 +4705,7 @@ export type MoveSpotMutationHookResult = ReturnType<typeof useMoveSpotMutation>;
 export type MoveSpotMutationResult = ApolloReactCommon.MutationResult<MoveSpotMutation>;
 export type MoveSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<MoveSpotMutation, MoveSpotMutationVariables>;
 export const AllGuideTitlesForUserDocument = gql`
-    query AllGuideTitlesForUser($owner: String!) {
+    subscription AllGuideTitlesForUser($owner: String!) {
   guides(condition: {owner: $owner}) {
     nodes {
       id
@@ -4716,40 +4716,36 @@ export const AllGuideTitlesForUserDocument = gql`
   }
 }
     `;
-export type AllGuideTitlesForUserComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>, 'query'> & ({ variables: AllGuideTitlesForUserQueryVariables; skip?: boolean; } | { skip: boolean; });
+export type AllGuideTitlesForUserComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<AllGuideTitlesForUserSubscription, AllGuideTitlesForUserSubscriptionVariables>, 'subscription'>;
 
     export const AllGuideTitlesForUserComponent = (props: AllGuideTitlesForUserComponentProps) => (
-      <ApolloReactComponents.Query<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables> query={AllGuideTitlesForUserDocument} {...props} />
+      <ApolloReactComponents.Subscription<AllGuideTitlesForUserSubscription, AllGuideTitlesForUserSubscriptionVariables> subscription={AllGuideTitlesForUserDocument} {...props} />
     );
     
 
 /**
- * __useAllGuideTitlesForUserQuery__
+ * __useAllGuideTitlesForUserSubscription__
  *
- * To run a query within a React component, call `useAllGuideTitlesForUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useAllGuideTitlesForUserQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * To run a query within a React component, call `useAllGuideTitlesForUserSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useAllGuideTitlesForUserSubscription` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useAllGuideTitlesForUserQuery({
+ * const { data, loading, error } = useAllGuideTitlesForUserSubscription({
  *   variables: {
  *      owner: // value for 'owner'
  *   },
  * });
  */
-export function useAllGuideTitlesForUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>) {
-        return ApolloReactHooks.useQuery<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>(AllGuideTitlesForUserDocument, baseOptions);
+export function useAllGuideTitlesForUserSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<AllGuideTitlesForUserSubscription, AllGuideTitlesForUserSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<AllGuideTitlesForUserSubscription, AllGuideTitlesForUserSubscriptionVariables>(AllGuideTitlesForUserDocument, baseOptions);
       }
-export function useAllGuideTitlesForUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>(AllGuideTitlesForUserDocument, baseOptions);
-        }
-export type AllGuideTitlesForUserQueryHookResult = ReturnType<typeof useAllGuideTitlesForUserQuery>;
-export type AllGuideTitlesForUserLazyQueryHookResult = ReturnType<typeof useAllGuideTitlesForUserLazyQuery>;
-export type AllGuideTitlesForUserQueryResult = ApolloReactCommon.QueryResult<AllGuideTitlesForUserQuery, AllGuideTitlesForUserQueryVariables>;
+export type AllGuideTitlesForUserSubscriptionHookResult = ReturnType<typeof useAllGuideTitlesForUserSubscription>;
+export type AllGuideTitlesForUserSubscriptionResult = ApolloReactCommon.SubscriptionResult<AllGuideTitlesForUserSubscription>;
 export const GetGuideBySlugDocument = gql`
-    query GetGuideBySlug($slug: String!, $owner: String!) {
+    subscription GetGuideBySlug($slug: String!, $owner: String!) {
   guides(condition: {owner: $owner, slug: $slug}) {
     nodes {
       ...GuideBySlug
@@ -4757,39 +4753,35 @@ export const GetGuideBySlugDocument = gql`
   }
 }
     ${GuideBySlugFragmentDoc}`;
-export type GetGuideBySlugComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>, 'query'> & ({ variables: GetGuideBySlugQueryVariables; skip?: boolean; } | { skip: boolean; });
+export type GetGuideBySlugComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<GetGuideBySlugSubscription, GetGuideBySlugSubscriptionVariables>, 'subscription'>;
 
     export const GetGuideBySlugComponent = (props: GetGuideBySlugComponentProps) => (
-      <ApolloReactComponents.Query<GetGuideBySlugQuery, GetGuideBySlugQueryVariables> query={GetGuideBySlugDocument} {...props} />
+      <ApolloReactComponents.Subscription<GetGuideBySlugSubscription, GetGuideBySlugSubscriptionVariables> subscription={GetGuideBySlugDocument} {...props} />
     );
     
 
 /**
- * __useGetGuideBySlugQuery__
+ * __useGetGuideBySlugSubscription__
  *
- * To run a query within a React component, call `useGetGuideBySlugQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetGuideBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * To run a query within a React component, call `useGetGuideBySlugSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGetGuideBySlugSubscription` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetGuideBySlugQuery({
+ * const { data, loading, error } = useGetGuideBySlugSubscription({
  *   variables: {
  *      slug: // value for 'slug'
  *      owner: // value for 'owner'
  *   },
  * });
  */
-export function useGetGuideBySlugQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>(GetGuideBySlugDocument, baseOptions);
+export function useGetGuideBySlugSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<GetGuideBySlugSubscription, GetGuideBySlugSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<GetGuideBySlugSubscription, GetGuideBySlugSubscriptionVariables>(GetGuideBySlugDocument, baseOptions);
       }
-export function useGetGuideBySlugLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>(GetGuideBySlugDocument, baseOptions);
-        }
-export type GetGuideBySlugQueryHookResult = ReturnType<typeof useGetGuideBySlugQuery>;
-export type GetGuideBySlugLazyQueryHookResult = ReturnType<typeof useGetGuideBySlugLazyQuery>;
-export type GetGuideBySlugQueryResult = ApolloReactCommon.QueryResult<GetGuideBySlugQuery, GetGuideBySlugQueryVariables>;
+export type GetGuideBySlugSubscriptionHookResult = ReturnType<typeof useGetGuideBySlugSubscription>;
+export type GetGuideBySlugSubscriptionResult = ApolloReactCommon.SubscriptionResult<GetGuideBySlugSubscription>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   authenticate(input: {email: $email, password: $password}) {

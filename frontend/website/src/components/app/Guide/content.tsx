@@ -15,14 +15,6 @@ type Props = {
 @inject("authStore", "guideStore")
 export default class GuideComponent extends React.Component<Props> {
 
-  componentDidMount(): void {
-    this.props.guideStore!.subscribe()
-  }
-
-  componentWillUnmount(): void {
-    this.props.guideStore!.unsubscribe()
-  }
-
   render(): React.ReactElement | undefined {
     return (
       <div>

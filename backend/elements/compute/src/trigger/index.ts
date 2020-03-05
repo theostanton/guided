@@ -6,13 +6,13 @@ import sqs from "./sqs"
 
 
 export default async function trigger(packet: Packet): Promise<string[]> {
-  if (false && process.env.STAGE === "development") {
-    return executeConcurrently(packet.computationIds, async (computationId: string) => {
+  if (process.env.STAGE === "development") {
+    executeConcurrently(packet.computationIds, async (computationId: string) => {
       await action({
         computationId,
       })
-      return computationId
-    })
+    }).then()
+    return []
   } else {
     console.error("SEND SQS EVENTS")
     console.error("process.env.COMPUTE_QUEUE_NAME=" + process.env.COMPUTE_QUEUE_NAME)

@@ -7,10 +7,9 @@
   },
   "watch": [
     "elements/graphql/srv",
-    "elements/compute-stage/srv",
+    "elements/compute/srv",
     "apis/google/srv",
     "apis/mapbox/srv",
-    "events/compute-stage/srv",
     "events/index/srv",
     "tools/database/srv",
     "tools/geojson/srv",

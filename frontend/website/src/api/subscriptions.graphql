@@ -1,14 +1,94 @@
-#TODO subscriptions
+subscription AllGuideTitlesForUser($owner:String!){
+    guides(
+        condition: {
+            owner: $owner
+        }){
+        nodes{
+            id
+            title
+            slug
+            owner
+        }
+    }
+}
 
-#subscription OnCreateGuide($owner:String!){
-#
-#    onCreateGuide(owner:$owner){
-#        id
-#    }
-#}
-#
-#subscription OnUpdateGuide($owner:String!){
-#    onUpdateGuide(owner:$owner){
-#        id
-#    }
-#}
+
+
+fragment SpotByGuide on Spot{
+    id
+    label
+    lat
+    long
+    locked
+    location
+    position
+    date
+    temperature
+    country
+    nights
+}
+fragment SomeFrag on GuidesEdge{
+    node{
+        owner
+    }
+}
+
+fragment RideByGuide on Ride{
+    id
+    toSpot:spotByToSpot{
+        ...SpotByGuide
+    }
+    fromSpot:spotByFromSpot{
+        ...SpotByGuide
+    }
+    pathUrl
+    hasBorder
+    name
+    date
+    distanceMeters
+    durationSeconds
+}
+
+fragment GuideBySlug on Guide {
+    id
+    title
+    slug
+    owner
+    startDate
+    bounds{
+        north
+        east
+        south
+        west
+    }
+    stagesByGuide(condition: {
+        status: COMPUTING
+    }){
+        totalCount
+    }
+    ridesByGuide(orderBy: [DATE_ASC]){
+        totalCount
+        nodes{
+            ...RideByGuide
+        }
+    }
+    spotsByGuide(orderBy: [DATE_ASC]){
+        totalCount
+        nodes{
+            ...SpotByGuide
+        }
+    }
+}
+
+subscription GetGuideBySlug($slug: String!,$owner:String!){
+    guides(
+        condition:{
+            owner: $owner,
+            slug: $slug
+        }
+    ){
+        nodes{
+            ...GuideBySlug
+        }
+    }
+}

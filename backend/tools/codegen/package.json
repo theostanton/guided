@@ -16,8 +16,8 @@
     "@graphql-codegen/typescript-graphql-request": "latest",
     "@graphql-codegen/typescript-graphql-files-modules": "latest",
     "@graphql-codegen/typescript-react-apollo": "latest",
-    "@apollo/react-components": "latest",
-    "@apollo/react-hooks": "latest",
+    "@apollo/react-components": "^4.0.0-beta.1",
+    "@apollo/react-hooks": "4.0.0-beta.1",
     "graphql-toolkit": "^0.7.1"
   }
 }

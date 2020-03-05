@@ -1430,11 +1430,11 @@
         "signature": "1b8e2370aa2872687e7ab84dcf4c565ad5515b28c098b11d68a2d67d5e51095f"
       },
       "./src/trigger/sqs.ts": {
-        "version": "f4dc839c1156f13a918303f8e5be86ef16f22cfebca520e008967aa408a8ae3b",
+        "version": "dafda978b69e10998ca8fd4b9dd87ad32a43ed6d4a3e3bfa4e07c80f3db2e006",
         "signature": "67f73ea3cddaed9ba4179300ec27d538a0999c4d4f165eb683ce8e862d62637c"
       },
       "./src/trigger/index.ts": {
-        "version": "ec98eaa0272de6f9e28866fd30a5ee18c1d196c3bbfe1a967b3921e81acb9f58",
+        "version": "436e73097dc0b41ff31f872eda27fec316bbd9ec3f0dff137e657fd602da6861",
         "signature": "a7d2df1aed4ae28b3bd5848a2be68452da61f51a6581e622508e96fba933383f"
       },
       "./src/index.ts": {
@@ -2300,6 +2300,10 @@
       "../../node_modules/@types/yargs/index.d.ts": {
         "version": "2893564a05d3bbe2a4d812dfd5ad3d7a6981a754283b695272d6ead03f638b67",
         "signature": "2893564a05d3bbe2a4d812dfd5ad3d7a6981a754283b695272d6ead03f638b67"
+      },
+      "../../node_modules/@types/zen-observable/index.d.ts": {
+        "version": "11b37a33fc34df80dabf1ebcca0cd0b6d0a2bea9654bfab7c987778490246c7f",
+        "signature": "11b37a33fc34df80dabf1ebcca0cd0b6d0a2bea9654bfab7c987778490246c7f"
       }
     },
     "options": {
@@ -2331,6 +2335,7 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
+      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -6031,7 +6036,6 @@
       ],
       "./src/trigger/sqs.ts": [
         "../../node_modules/aws-sdk/index.d.ts",
-        "../../tools/logger/srv/index.d.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -7941,6 +7945,12 @@
       ],
       "../../node_modules/@types/yargs/index.d.ts": [
         "../../node_modules/@types/yargs-parser/index.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../../node_modules/@types/zen-observable/index.d.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -12347,6 +12357,31 @@
         "../../node_modules/@types/node/ts3.5/fs.d.ts",
         "../../node_modules/@types/node/ts3.5/util.d.ts"
       ],
+      "../../node_modules/@types/node/ts3.2/fs.d.ts": [
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../../node_modules/@types/node/ts3.2/util.d.ts": [
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts"
+      ],
+      "../../node_modules/@types/node/ts3.2/globals.d.ts": [
+        "../../node_modules/@types/node/globals.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../../node_modules/@types/node/ts3.2/index.d.ts": [
+        "../../node_modules/@types/node/base.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/globals.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts"
+      ],
       "../../node_modules/@types/accepts/index.d.ts": [
         "../../node_modules/@types/node/http.d.ts",
         "../../node_modules/@types/node/ts3.5/index.d.ts",
@@ -13930,75 +13965,15 @@
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../../node_modules/@types/node/ts3.2/fs.d.ts": [
-        "../../node_modules/@types/node/fs.d.ts",
-        "../../node_modules/@types/node/util.d.ts",
-        "../../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../../node_modules/@types/node/ts3.2/index.d.ts": [
-        "../../node_modules/@types/node/base.d.ts",
-        "../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../node_modules/@types/node/ts3.2/util.d.ts",
-        "../../node_modules/@types/node/ts3.2/globals.d.ts",
-        "../../node_modules/@types/node/fs.d.ts",
-        "../../node_modules/@types/node/util.d.ts"
-      ],
-      "../../node_modules/@types/node/ts3.2/globals.d.ts": [
-        "../../node_modules/@types/node/globals.d.ts",
+      "../../node_modules/@types/zen-observable/index.d.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../../node_modules/@types/node/ts3.2/util.d.ts": [
-        "../../node_modules/@types/node/util.d.ts",
-        "../../node_modules/@types/node/fs.d.ts",
-        "../../node_modules/@types/node/ts3.2/fs.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
-      "../../node_modules/typescript/lib/lib.es5.d.ts",
-      "../../node_modules/typescript/lib/lib.es2015.d.ts",
-      "../../node_modules/typescript/lib/lib.es2016.d.ts",
-      "../../node_modules/typescript/lib/lib.es2017.d.ts",
-      "../../node_modules/typescript/lib/lib.es2018.d.ts",
-      "../../node_modules/typescript/lib/lib.es2019.d.ts",
-      "../../node_modules/typescript/lib/lib.es2020.d.ts",
-      "../../node_modules/typescript/lib/lib.esnext.d.ts",
-      "../../node_modules/typescript/lib/lib.dom.d.ts",
-      "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
-      "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
-      "../../node_modules/typescript/lib/lib.scripthost.d.ts",
-      "../../node_modules/typescript/lib/lib.es2015.core.d.ts",
-      "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
-      "../../node_modules/typescript/lib/lib.es2015.generator.d.ts",
-      "../../node_modules/typescript/lib/lib.es2015.iterable.d.ts",
-      "../../node_modules/typescript/lib/lib.es2015.promise.d.ts",
-      "../../node_modules/typescript/lib/lib.es2015.proxy.d.ts",
-      "../../node_modules/typescript/lib/lib.es2015.reflect.d.ts",
-      "../../node_modules/typescript/lib/lib.es2015.symbol.d.ts",
-      "../../node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
-      "../../node_modules/typescript/lib/lib.es2016.array.include.d.ts",
-      "../../node_modules/typescript/lib/lib.es2017.object.d.ts",
-      "../../node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
-      "../../node_modules/typescript/lib/lib.es2017.string.d.ts",
-      "../../node_modules/typescript/lib/lib.es2017.intl.d.ts",
-      "../../node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
-      "../../node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts",
-      "../../node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
-      "../../node_modules/typescript/lib/lib.es2018.intl.d.ts",
-      "../../node_modules/typescript/lib/lib.es2018.promise.d.ts",
-      "../../node_modules/typescript/lib/lib.es2018.regexp.d.ts",
-      "../../node_modules/typescript/lib/lib.es2019.array.d.ts",
-      "../../node_modules/typescript/lib/lib.es2019.object.d.ts",
-      "../../node_modules/typescript/lib/lib.es2019.string.d.ts",
-      "../../node_modules/typescript/lib/lib.es2019.symbol.d.ts",
-      "../../node_modules/typescript/lib/lib.es2020.bigint.d.ts",
-      "../../node_modules/typescript/lib/lib.es2020.promise.d.ts",
-      "../../node_modules/typescript/lib/lib.es2020.string.d.ts",
-      "../../node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
-      "../../node_modules/typescript/lib/lib.esnext.intl.d.ts",
-      "../../node_modules/typescript/lib/lib.esnext.full.d.ts",
+      "../../node_modules/@types/zen-observable/index.d.ts",
       "../../tools/logger/srv/locallogger.d.ts",
       "../../tools/logger/srv/index.d.ts",
       "../../node_modules/@types/events/index.d.ts",
@@ -14163,7 +14138,6 @@
       "../../node_modules/aws-sdk/clients/ssm.d.ts",
       "../../node_modules/aws-sdk/clients/storagegateway.d.ts",
       "../../node_modules/aws-sdk/clients/stepfunctions.d.ts",
-      "../../node_modules/aws-sdk/clients/all.d.ts",
       "../../node_modules/aws-sdk/clients/sts.d.ts",
       "../../node_modules/aws-sdk/clients/support.d.ts",
       "../../node_modules/aws-sdk/clients/swf.d.ts",
@@ -14295,6 +14269,7 @@
       "../../node_modules/aws-sdk/clients/kinesisvideosignalingchannels.d.ts",
       "../../node_modules/aws-sdk/clients/detective.d.ts",
       "../../node_modules/aws-sdk/clients/codestarconnections.d.ts",
+      "../../node_modules/aws-sdk/clients/all.d.ts",
       "../../node_modules/aws-sdk/lib/config_service_placeholders.d.ts",
       "../../node_modules/aws-sdk/lib/config.d.ts",
       "../../node_modules/aws-sdk/lib/credentials/cognito_identity_credentials.d.ts",
@@ -14531,7 +14506,49 @@
       "../../node_modules/@types/valid-url/index.d.ts",
       "../../node_modules/@types/ws/index.d.ts",
       "../../node_modules/@types/yargs-parser/index.d.ts",
-      "../../node_modules/@types/yargs/index.d.ts"
+      "../../node_modules/@types/yargs/index.d.ts",
+      "../../node_modules/typescript/lib/lib.es5.d.ts",
+      "../../node_modules/typescript/lib/lib.es2015.d.ts",
+      "../../node_modules/typescript/lib/lib.es2016.d.ts",
+      "../../node_modules/typescript/lib/lib.es2017.d.ts",
+      "../../node_modules/typescript/lib/lib.es2018.d.ts",
+      "../../node_modules/typescript/lib/lib.es2019.d.ts",
+      "../../node_modules/typescript/lib/lib.es2020.d.ts",
+      "../../node_modules/typescript/lib/lib.esnext.d.ts",
+      "../../node_modules/typescript/lib/lib.dom.d.ts",
+      "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
+      "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
+      "../../node_modules/typescript/lib/lib.scripthost.d.ts",
+      "../../node_modules/typescript/lib/lib.es2015.core.d.ts",
+      "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
+      "../../node_modules/typescript/lib/lib.es2015.generator.d.ts",
+      "../../node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+      "../../node_modules/typescript/lib/lib.es2015.promise.d.ts",
+      "../../node_modules/typescript/lib/lib.es2015.proxy.d.ts",
+      "../../node_modules/typescript/lib/lib.es2015.reflect.d.ts",
+      "../../node_modules/typescript/lib/lib.es2015.symbol.d.ts",
+      "../../node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
+      "../../node_modules/typescript/lib/lib.es2016.array.include.d.ts",
+      "../../node_modules/typescript/lib/lib.es2017.object.d.ts",
+      "../../node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
+      "../../node_modules/typescript/lib/lib.es2017.string.d.ts",
+      "../../node_modules/typescript/lib/lib.es2017.intl.d.ts",
+      "../../node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+      "../../node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts",
+      "../../node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
+      "../../node_modules/typescript/lib/lib.es2018.intl.d.ts",
+      "../../node_modules/typescript/lib/lib.es2018.promise.d.ts",
+      "../../node_modules/typescript/lib/lib.es2018.regexp.d.ts",
+      "../../node_modules/typescript/lib/lib.es2019.array.d.ts",
+      "../../node_modules/typescript/lib/lib.es2019.object.d.ts",
+      "../../node_modules/typescript/lib/lib.es2019.string.d.ts",
+      "../../node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+      "../../node_modules/typescript/lib/lib.es2020.bigint.d.ts",
+      "../../node_modules/typescript/lib/lib.es2020.promise.d.ts",
+      "../../node_modules/typescript/lib/lib.es2020.string.d.ts",
+      "../../node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
+      "../../node_modules/typescript/lib/lib.esnext.intl.d.ts",
+      "../../node_modules/typescript/lib/lib.esnext.full.d.ts"
     ]
   },
   "version": "3.8.2"

@@ -109,9 +109,10 @@ export function options(mode: Mode): PostGraphileOptions {
     enableCors: true,
     dynamicJson: true,
     showErrorStack: true,
+    subscriptions: true,
     extendedErrors: ["hint", "detail", "errcode"],
     appendPlugins: plugins(),
-    live:true
+    live: true,
   }
 
 }

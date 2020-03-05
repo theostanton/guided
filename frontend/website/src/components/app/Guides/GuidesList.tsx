@@ -1,8 +1,8 @@
-import { useAllGuideTitlesForUserQuery } from "api/generated"
+import { useAllGuideTitlesForUserQuery, useAllGuideTitlesForUserSubscription } from "api/generated"
 import { Card, List, Message, Segment } from "semantic-ui-react"
 import randomKey from "utils/randomKey"
 import * as React from "react"
-import { client } from "api"
+import { log } from "utils/logger"
 
 type Props = {
   owner: string,
@@ -10,13 +10,19 @@ type Props = {
 }
 export default function GuidesList({ owner, onClick }: Props) {
 
-  const { data, loading, error } = useAllGuideTitlesForUserQuery({
-    client,
+  const { data, loading, error } = useAllGuideTitlesForUserSubscription({
     variables: {
       owner,
     },
-    ssr: false,
+    shouldResubscribe: true,
+    skip: false,
+    onSubscriptionComplete: () => {
+      log("onSubscriptionComplete")
+      return true
+    },
   })
+
+  log("Tick")
 
   if (loading) {
     return <Segment loading/>
