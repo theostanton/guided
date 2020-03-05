@@ -3,7 +3,8 @@ set -e
 work_dir="$(pwd)"
 echo $work_dir
 
-[ -z "$STAGE" ] && echo "No STAGE provided" && exit 1
+[ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
+[ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
 
 echo "Deploying $STAGE backend"
 
@@ -69,11 +70,17 @@ echo 'macro_version'
 echo "${macro_version}"
 app_version="0.0.${macro_version}"
 
-buildAll
 
-prepareCompute
+if [ "$BUILD" = 'true' ]; then
+  echo 'Building'
+  buildAll
 
-prepareGraphql
+  prepareCompute
+
+  prepareGraphql
+else
+  echo 'Skipping Build'
+fi
 
 echo -- Deploying --
 cd $work_dir
