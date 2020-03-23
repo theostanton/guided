@@ -13,9 +13,7 @@ import { navigate } from "gatsby"
 import { DeleteGuideDocument, DeleteGuideMutationVariables } from "api/generated"
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
-import SpotList from "./SpotList"
-import RideAndSpotList from "./RideAndSpotList"
-import RideList from "./RideList"
+import StageList from "./StageList"
 
 type Props = {
   guideStore?: GuideStore
@@ -88,12 +86,12 @@ export default class LeftRailComponent extends React.Component<Props, State> {
         <GridRow>
           <GridColumn>
             <StatisticGroup widths='2' size={"tiny"}>
-              <Statistic as='a' label='Rides' value={guide.ridesByGuide.totalCount} onClick={() => {
+              <Statistic as='a' label='Rides' value={this.guideStore.rides.length} onClick={() => {
                 this.setState({
                   selected: "rides",
                 })
               }}/>
-              <Statistic label='Spots' value={guide.spotsByGuide.totalCount} onClick={() => {
+              <Statistic label='Spots' value={this.guideStore.spots.length} onClick={() => {
                 this.setState({
                   selected: "spots",
                 })
@@ -112,7 +110,7 @@ export default class LeftRailComponent extends React.Component<Props, State> {
         }
 
         <Divider/>
-        <RideAndSpotList/>
+        <StageList/>
       </Grid>
     </div>
   }

@@ -1,11 +1,11 @@
-import { RideByGuideFragment } from "api/generated"
+import { RideFragment } from "api/generated"
 import React from "react"
-import { Flag, FlagNameValues, Grid, GridRow, Header, Icon, ItemDescription, Label, List } from "semantic-ui-react"
+import { Icon, Label, List } from "semantic-ui-react"
 import GuideStore from "model/GuideStore"
 import { humanDate, humanDistance, humanDuration } from "utils/human"
 
 type Props = {
-  ride: RideByGuideFragment
+  ride: RideFragment
   guideStore: GuideStore
 }
 export default class RideItem extends React.Component<Props> {

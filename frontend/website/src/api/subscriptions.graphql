@@ -12,9 +12,7 @@ subscription AllGuideTitlesForUser($owner:String!){
     }
 }
 
-
-
-fragment SpotByGuide on Spot{
+fragment Spot on Spot{
     id
     label
     lat
@@ -27,19 +25,16 @@ fragment SpotByGuide on Spot{
     country
     nights
 }
-fragment SomeFrag on GuidesEdge{
-    node{
-        owner
-    }
-}
 
-fragment RideByGuide on Ride{
+fragment Ride on Ride{
     id
+    position
+    status
     toSpot:spotByToSpot{
-        ...SpotByGuide
+        ...Spot
     }
     fromSpot:spotByFromSpot{
-        ...SpotByGuide
+        ...Spot
     }
     pathUrl
     hasBorder
@@ -49,47 +44,41 @@ fragment RideByGuide on Ride{
     durationSeconds
 }
 
-fragment GuideBySlug on Guide {
+fragment Guide on Guide {
     id
-    title
     slug
     owner
     startDate
-#    todo Custom type+function Causes error on subscriptions
-#    bounds{
-#        north
-#        east
-#        south
-#        west
-#    }
-    stagesByGuide(condition: {
-        status: COMPUTING
-    }){
-        totalCount
-    }
-    ridesByGuide(orderBy: [DATE_ASC]){
-        totalCount
+    title
+    maxHoursPerRide
+    stagesByGuide(orderBy: POSITION_ASC){
         nodes{
-            ...RideByGuide
-        }
-    }
-    spotsByGuide(orderBy: [DATE_ASC]){
-        totalCount
-        nodes{
-            ...SpotByGuide
+            ...Stage
         }
     }
 }
 
-subscription GetGuideBySlug($slug: String!,$owner:String!){
-    guides(
-        condition:{
-            owner: $owner,
-            slug: $slug
-        }
-    ){
+fragment Stage on Stage {
+    id
+    position
+    status
+    toSpot:spotByToSpot{
+        ...Spot
+    }
+    fromSpot:spotByFromSpot{
+        ...Spot
+    }
+    ridesByStage(orderBy: [POSITION_ASC]){
         nodes{
-            ...GuideBySlug
+            ...Ride
         }
+    }
+}
+
+subscription GuideStages($id: String!){
+    guide(
+        id: $id
+    ){
+        ...Guide
     }
 }

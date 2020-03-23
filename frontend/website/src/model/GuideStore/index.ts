@@ -1,12 +1,19 @@
 import { action, computed, observable, runInAction } from "mobx"
 import {
-  GetGuideBySlugDocument, GetGuideBySlugSubscription, GetGuideBySlugSubscriptionResult,
-  GetGuideBySlugSubscriptionVariables, Guide, GuideBySlugFragment, RideByGuideFragment, SpotByGuideFragment,
+  GetGuideIdForSlugDocument,
+  GetGuideIdForSlugQuery,
+  GetGuideIdForSlugQueryVariables,
+  GuideFragment,
+  GuideStagesDocument,
+  GuideStagesSubscription,
+  RideFragment,
+  SpotFragment,
+  StageFragment,
 } from "api/generated"
-import { log, logJson, logObject } from "utils/logger"
+import { log, logError, logObject } from "utils/logger"
 import { ZenObservable } from "zen-observable-ts/lib/types"
-import { subscriptionClient } from "../../api/client"
-import { logError } from "../../../../../backend/tools/logger/src"
+import client, { subscriptionClient } from "api/client"
+import { read } from "fs"
 
 export default class GuideStore {
 
@@ -20,7 +27,7 @@ export default class GuideStore {
   }
 
   @observable
-  guide: GuideBySlugFragment | undefined = undefined
+  guide: GuideFragment | undefined = undefined
 
   @observable
   selectedId: string | undefined = undefined
@@ -31,12 +38,12 @@ export default class GuideStore {
   #subscription: ZenObservable.Subscription
 
   @computed
-  get selectedSpot(): SpotByGuideFragment | undefined {
+  get selectedSpot(): SpotFragment | undefined {
     if (!this.selectedId) {
       return
     }
-    const selectedSpot = this.guide?.spotsByGuide?.nodes?.find(node => {
-      return node?.id === this.selectedId
+    const selectedSpot = this.spots.find(spot => {
+      return spot.id === this.selectedId
     })
     if (selectedSpot) {
       return selectedSpot
@@ -54,12 +61,12 @@ export default class GuideStore {
   }
 
   @computed
-  get selectedRide(): RideByGuideFragment | undefined {
+  get selectedRide(): RideFragment | undefined {
     if (!this.selectedId) {
       return
     }
-    const selectedRide = this.guide?.ridesByGuide?.nodes?.find(node => {
-      return node?.id === this.selectedId
+    const selectedRide = this.rides.find(ride => {
+      return ride.id === this.selectedId
     })
     if (selectedRide) {
       return selectedRide
@@ -84,26 +91,43 @@ export default class GuideStore {
   }
 
   @computed
-  get spots(): SpotByGuideFragment[] {
-    return this.guide?.spotsByGuide!.nodes!.map(spot => {
-      return spot!
+  get spots(): readonly SpotFragment[] {
+    const spots: SpotFragment[] = []
+    this.guide?.stagesByGuide!.nodes!.forEach(stage => {
+      if (stage.status === "READY") {
+        stage.ridesByStage.nodes.forEach(ride => {
+          spots.push(ride.fromSpot)
+        })
+      } else {
+        spots.push(stage.fromSpot)
+      }
     })
+    return spots
   }
 
   @computed
-  get rides(): RideByGuideFragment[] {
-    return this.guide?.ridesByGuide!.nodes!.map(ride => {
-      return ride!
+  get rides(): readonly RideFragment[] {
+    const rides: RideFragment[] = []
+    this.guide?.stagesByGuide!.nodes!.forEach(stage => {
+      stage.ridesByStage.nodes.forEach(ride => {
+        rides.push(ride)
+      })
     })
+    return rides
   }
 
   @computed
-  get highlightedSpot(): SpotByGuideFragment | undefined {
+  get stages(): readonly StageFragment[] {
+    return this.guide!.stagesByGuide!.nodes!
+  }
+
+  @computed
+  get highlightedSpot(): SpotFragment | undefined {
     if (!this.highlightedId) {
       return
     }
-    const highlightedSpot = this.guide?.spotsByGuide?.nodes?.find(node => {
-      return node?.id === this.highlightedId
+    const highlightedSpot = this.spots.find(spot => {
+      return spot.id === this.highlightedId
     })
     if (highlightedSpot) {
       return highlightedSpot
@@ -111,12 +135,12 @@ export default class GuideStore {
   }
 
   @computed
-  get highlightedRide(): RideByGuideFragment | undefined {
+  get highlightedRide(): RideFragment | undefined {
     if (!this.highlightedId) {
       return
     }
-    const highlightedRide = this.guide?.ridesByGuide?.nodes?.find(node => {
-      return node?.id === this.highlightedId
+    const highlightedRide = this.rides.find(ride => {
+      return ride.id === this.highlightedId
     })
     if (highlightedRide) {
       return highlightedRide
@@ -138,26 +162,36 @@ export default class GuideStore {
     this.highlightedId = undefined
   }
 
-  subscribe() {
-
-    const variables: GetGuideBySlugSubscriptionVariables = {
+  async subscribe() {
+    const variables: GetGuideIdForSlugQueryVariables = {
       owner: this.#owner,
       slug: this.#slug,
     }
 
-    this.#subscription = subscriptionClient.subscribe<GetGuideBySlugSubscription>({
-      query: GetGuideBySlugDocument,
-      fetchPolicy: "network-only",
+    const response = await client.query<GetGuideIdForSlugQuery>({
+      query: GetGuideIdForSlugDocument,
       variables,
+    })
+
+    logObject(response, "response")
+
+    const guideId = response.data.guides!.nodes[0].id
+
+    this.#subscription = subscriptionClient.subscribe<GuideStagesSubscription>({
+      query: GuideStagesDocument,
+      fetchPolicy: "network-only",
+      variables: {
+        id: guideId,
+      },
     }).subscribe(value => {
       if (value.data) {
         logObject(value.data, "value.data")
-        const guide = value.data.guides.nodes[0]
+        const guide = value.data.guide
         this.updateGuide(guide)
       } else if (value.errors) {
         logError("errors")
         value.errors.forEach(error => {
-          logError(error)
+          logError(error.message)
         })
       } else {
         logError("No data or errors")
@@ -165,8 +199,7 @@ export default class GuideStore {
     })
   }
 
-  updateGuide(guide: GuideBySlugFragment) {
-    logJson(guide, "updateGuide(guide)")
+  updateGuide(guide: GuideFragment) {
     runInAction(() => {
       this.guide = guide
     })

@@ -4,8 +4,8 @@ import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import { ReactElement } from "react"
 import RideItem from "./RideItem"
-import { SpotByGuideFragment } from "api/generated"
 import SpotItem from "./SpotItem"
+import { SpotFragment } from "api/generated"
 
 type Props = {
   guideStore?: GuideStore
@@ -25,7 +25,7 @@ export default class RideAndSpotList extends React.Component<Props> {
     const items: ReactElement[] = []
 
     rides.forEach(ride => {
-      const spot: SpotByGuideFragment = ride.fromSpot!
+      const spot: SpotFragment = ride.fromSpot!
       items.push(<SpotItem key={`${spot.id}`} spot={spot} guideStore={this.guideStore}/>)
       items.push(<RideItem key={`${ride.id}`} ride={ride} guideStore={this.guideStore}/>)
     })

@@ -1,12 +1,11 @@
-import { SpotByGuideFragment } from "api/generated"
+import { SpotFragment } from "api/generated"
 import React from "react"
-import { Flag, Grid, List, Label, Icon, Divider, FlagNameValues } from "semantic-ui-react"
+import { Flag, List, Label, Icon, Divider, FlagNameValues } from "semantic-ui-react"
 import GuideStore from "model/GuideStore"
 import { humanDate, humanTemperature } from "../../../../utils/human"
-import { logJson } from "utils/logger"
 
 type Props = {
-  spot: SpotByGuideFragment
+  spot: SpotFragment
   guideStore: GuideStore
 }
 

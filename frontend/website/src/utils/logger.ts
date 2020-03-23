@@ -20,3 +20,7 @@ export function logObject(object: any, label?: string): void {
   }
   console.log(object)
 }
+
+export function logError(message: string): void {
+  console.error(message)
+}

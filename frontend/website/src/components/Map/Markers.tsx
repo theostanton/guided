@@ -1,10 +1,7 @@
 import React from "react"
 import {
   MoveSpotDocument,
-  MoveSpotMutationVariables,
-  Ride,
-  RideByGuideFragment,
-  SpotByGuideFragment,
+  MoveSpotMutationVariables, RideFragment, SpotFragment,
 } from "api/generated"
 import { Icon, SemanticCOLORS } from "semantic-ui-react"
 import { Marker } from "react-map-gl"
@@ -36,7 +33,7 @@ export class Markers extends React.Component<Props, {}> {
     this.props.guideStore?.refetch()
   }
 
-  createMarker(spot: SpotByGuideFragment, index: number, onDragEnd: any): React.ReactElement {
+  createMarker(spot: SpotFragment, index: number, onDragEnd: any): React.ReactElement {
 
     const pinStyle = {
       cursor: "pointer",
@@ -45,7 +42,7 @@ export class Markers extends React.Component<Props, {}> {
     }
 
     let color: SemanticCOLORS
-    const selectedRide: RideByGuideFragment | undefined = this.guideStore.selectedRide
+    const selectedRide: RideFragment | undefined = this.guideStore.selectedRide
     if (selectedRide && selectedRide.toSpot!.id === spot.id) {
       color = "red"
     } else if (selectedRide && selectedRide.fromSpot!.id === spot.id) {
@@ -95,7 +92,7 @@ export class Markers extends React.Component<Props, {}> {
 
   render() {
 
-    return this.guideStore.guide!.spotsByGuide.nodes.map((spot, index) => {
+    return this.guideStore.spots.map((spot, index) => {
       return (this.createMarker(spot!, index, () => {
 
       }))

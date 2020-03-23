@@ -4342,6 +4342,14 @@ export type MoveSpotMutationVariables = {
 
 export type MoveSpotMutation = { readonly moveSpot: Pick<Spot, 'id'> };
 
+export type GetGuideIdForSlugQueryVariables = {
+  slug: Scalars['String'];
+  owner: Scalars['String'];
+};
+
+
+export type GetGuideIdForSlugQuery = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id'>>> }> };
+
 export type AllGuideTitlesForUserSubscriptionVariables = {
   owner: Scalars['String'];
 };
@@ -4349,33 +4357,29 @@ export type AllGuideTitlesForUserSubscriptionVariables = {
 
 export type AllGuideTitlesForUserSubscription = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id' | 'title' | 'slug' | 'owner'>>> }> };
 
-export type SpotByGuideFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'location' | 'position' | 'date' | 'temperature' | 'country' | 'nights'>;
+export type SpotFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'location' | 'position' | 'date' | 'temperature' | 'country' | 'nights'>;
 
-export type SomeFragFragment = { readonly node?: Maybe<Pick<Guide, 'owner'>> };
-
-export type RideByGuideFragment = (
-  Pick<Ride, 'id' | 'pathUrl' | 'hasBorder' | 'name' | 'date' | 'distanceMeters' | 'durationSeconds'>
-  & { readonly toSpot?: Maybe<SpotByGuideFragment>, readonly fromSpot?: Maybe<SpotByGuideFragment> }
+export type RideFragment = (
+  Pick<Ride, 'id' | 'position' | 'status' | 'pathUrl' | 'hasBorder' | 'name' | 'date' | 'distanceMeters' | 'durationSeconds'>
+  & { readonly toSpot?: Maybe<SpotFragment>, readonly fromSpot?: Maybe<SpotFragment> }
 );
 
-export type GuideBySlugFragment = (
-  Pick<Guide, 'id' | 'title' | 'slug' | 'owner' | 'startDate'>
-  & { readonly stagesByGuide: Pick<StagesConnection, 'totalCount'>, readonly ridesByGuide: (
-    Pick<RidesConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<RideByGuideFragment>> }
-  ), readonly spotsByGuide: (
-    Pick<SpotsConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<SpotByGuideFragment>> }
-  ) }
+export type GuideFragment = (
+  Pick<Guide, 'id' | 'slug' | 'owner' | 'startDate' | 'title' | 'maxHoursPerRide'>
+  & { readonly stagesByGuide: { readonly nodes: ReadonlyArray<Maybe<StageFragment>> } }
 );
 
-export type GetGuideBySlugSubscriptionVariables = {
-  slug: Scalars['String'];
-  owner: Scalars['String'];
+export type StageFragment = (
+  Pick<Stage, 'id' | 'position' | 'status'>
+  & { readonly toSpot?: Maybe<SpotFragment>, readonly fromSpot?: Maybe<SpotFragment>, readonly ridesByStage: { readonly nodes: ReadonlyArray<Maybe<RideFragment>> } }
+);
+
+export type GuideStagesSubscriptionVariables = {
+  id: Scalars['String'];
 };
 
 
-export type GetGuideBySlugSubscription = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideBySlugFragment>> }> };
+export type GuideStagesSubscription = { readonly guide?: Maybe<GuideFragment> };
 
 export type LoginMutationVariables = {
   email: Scalars['String'];
@@ -4401,15 +4405,8 @@ export type GetUsernameQueryVariables = {
 
 export type GetUsernameQuery = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username'>>> }> };
 
-export const SomeFragFragmentDoc = gql`
-    fragment SomeFrag on GuidesEdge {
-  node {
-    owner
-  }
-}
-    `;
-export const SpotByGuideFragmentDoc = gql`
-    fragment SpotByGuide on Spot {
+export const SpotFragmentDoc = gql`
+    fragment Spot on Spot {
   id
   label
   lat
@@ -4423,14 +4420,16 @@ export const SpotByGuideFragmentDoc = gql`
   nights
 }
     `;
-export const RideByGuideFragmentDoc = gql`
-    fragment RideByGuide on Ride {
+export const RideFragmentDoc = gql`
+    fragment Ride on Ride {
   id
+  position
+  status
   toSpot: spotByToSpot {
-    ...SpotByGuide
+    ...Spot
   }
   fromSpot: spotByFromSpot {
-    ...SpotByGuide
+    ...Spot
   }
   pathUrl
   hasBorder
@@ -4439,32 +4438,41 @@ export const RideByGuideFragmentDoc = gql`
   distanceMeters
   durationSeconds
 }
-    ${SpotByGuideFragmentDoc}`;
-export const GuideBySlugFragmentDoc = gql`
-    fragment GuideBySlug on Guide {
+    ${SpotFragmentDoc}`;
+export const StageFragmentDoc = gql`
+    fragment Stage on Stage {
   id
-  title
-  slug
-  owner
-  startDate
-  stagesByGuide(condition: {status: COMPUTING}) {
-    totalCount
+  position
+  status
+  toSpot: spotByToSpot {
+    ...Spot
   }
-  ridesByGuide(orderBy: [DATE_ASC]) {
-    totalCount
-    nodes {
-      ...RideByGuide
-    }
+  fromSpot: spotByFromSpot {
+    ...Spot
   }
-  spotsByGuide(orderBy: [DATE_ASC]) {
-    totalCount
+  ridesByStage(orderBy: [POSITION_ASC]) {
     nodes {
-      ...SpotByGuide
+      ...Ride
     }
   }
 }
-    ${RideByGuideFragmentDoc}
-${SpotByGuideFragmentDoc}`;
+    ${SpotFragmentDoc}
+${RideFragmentDoc}`;
+export const GuideFragmentDoc = gql`
+    fragment Guide on Guide {
+  id
+  slug
+  owner
+  startDate
+  title
+  maxHoursPerRide
+  stagesByGuide(orderBy: POSITION_ASC) {
+    nodes {
+      ...Stage
+    }
+  }
+}
+    ${StageFragmentDoc}`;
 export const SomeQueryDocument = gql`
     query SomeQuery {
   users {
@@ -4706,6 +4714,48 @@ export function useMoveSpotMutation(baseOptions?: ApolloReactHooks.MutationHookO
 export type MoveSpotMutationHookResult = ReturnType<typeof useMoveSpotMutation>;
 export type MoveSpotMutationResult = ApolloReactCommon.MutationResult<MoveSpotMutation>;
 export type MoveSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<MoveSpotMutation, MoveSpotMutationVariables>;
+export const GetGuideIdForSlugDocument = gql`
+    query GetGuideIdForSlug($slug: String!, $owner: String!) {
+  guides(condition: {owner: $owner, slug: $slug}) {
+    nodes {
+      id
+    }
+  }
+}
+    `;
+export type GetGuideIdForSlugComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetGuideIdForSlugQuery, GetGuideIdForSlugQueryVariables>, 'query'> & ({ variables: GetGuideIdForSlugQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const GetGuideIdForSlugComponent = (props: GetGuideIdForSlugComponentProps) => (
+      <ApolloReactComponents.Query<GetGuideIdForSlugQuery, GetGuideIdForSlugQueryVariables> query={GetGuideIdForSlugDocument} {...props} />
+    );
+    
+
+/**
+ * __useGetGuideIdForSlugQuery__
+ *
+ * To run a query within a React component, call `useGetGuideIdForSlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetGuideIdForSlugQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetGuideIdForSlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *      owner: // value for 'owner'
+ *   },
+ * });
+ */
+export function useGetGuideIdForSlugQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetGuideIdForSlugQuery, GetGuideIdForSlugQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetGuideIdForSlugQuery, GetGuideIdForSlugQueryVariables>(GetGuideIdForSlugDocument, baseOptions);
+      }
+export function useGetGuideIdForSlugLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetGuideIdForSlugQuery, GetGuideIdForSlugQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetGuideIdForSlugQuery, GetGuideIdForSlugQueryVariables>(GetGuideIdForSlugDocument, baseOptions);
+        }
+export type GetGuideIdForSlugQueryHookResult = ReturnType<typeof useGetGuideIdForSlugQuery>;
+export type GetGuideIdForSlugLazyQueryHookResult = ReturnType<typeof useGetGuideIdForSlugLazyQuery>;
+export type GetGuideIdForSlugQueryResult = ApolloReactCommon.QueryResult<GetGuideIdForSlugQuery, GetGuideIdForSlugQueryVariables>;
 export const AllGuideTitlesForUserDocument = gql`
     subscription AllGuideTitlesForUser($owner: String!) {
   guides(condition: {owner: $owner}) {
@@ -4746,44 +4796,41 @@ export function useAllGuideTitlesForUserSubscription(baseOptions?: ApolloReactHo
       }
 export type AllGuideTitlesForUserSubscriptionHookResult = ReturnType<typeof useAllGuideTitlesForUserSubscription>;
 export type AllGuideTitlesForUserSubscriptionResult = ApolloReactCommon.SubscriptionResult<AllGuideTitlesForUserSubscription>;
-export const GetGuideBySlugDocument = gql`
-    subscription GetGuideBySlug($slug: String!, $owner: String!) {
-  guides(condition: {owner: $owner, slug: $slug}) {
-    nodes {
-      ...GuideBySlug
-    }
+export const GuideStagesDocument = gql`
+    subscription GuideStages($id: String!) {
+  guide(id: $id) {
+    ...Guide
   }
 }
-    ${GuideBySlugFragmentDoc}`;
-export type GetGuideBySlugComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<GetGuideBySlugSubscription, GetGuideBySlugSubscriptionVariables>, 'subscription'>;
+    ${GuideFragmentDoc}`;
+export type GuideStagesComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<GuideStagesSubscription, GuideStagesSubscriptionVariables>, 'subscription'>;
 
-    export const GetGuideBySlugComponent = (props: GetGuideBySlugComponentProps) => (
-      <ApolloReactComponents.Subscription<GetGuideBySlugSubscription, GetGuideBySlugSubscriptionVariables> subscription={GetGuideBySlugDocument} {...props} />
+    export const GuideStagesComponent = (props: GuideStagesComponentProps) => (
+      <ApolloReactComponents.Subscription<GuideStagesSubscription, GuideStagesSubscriptionVariables> subscription={GuideStagesDocument} {...props} />
     );
     
 
 /**
- * __useGetGuideBySlugSubscription__
+ * __useGuideStagesSubscription__
  *
- * To run a query within a React component, call `useGetGuideBySlugSubscription` and pass it any options that fit your needs.
- * When your component renders, `useGetGuideBySlugSubscription` returns an object from Apollo Client that contains loading, error, and data properties 
+ * To run a query within a React component, call `useGuideStagesSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGuideStagesSubscription` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetGuideBySlugSubscription({
+ * const { data, loading, error } = useGuideStagesSubscription({
  *   variables: {
- *      slug: // value for 'slug'
- *      owner: // value for 'owner'
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useGetGuideBySlugSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<GetGuideBySlugSubscription, GetGuideBySlugSubscriptionVariables>) {
-        return ApolloReactHooks.useSubscription<GetGuideBySlugSubscription, GetGuideBySlugSubscriptionVariables>(GetGuideBySlugDocument, baseOptions);
+export function useGuideStagesSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<GuideStagesSubscription, GuideStagesSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<GuideStagesSubscription, GuideStagesSubscriptionVariables>(GuideStagesDocument, baseOptions);
       }
-export type GetGuideBySlugSubscriptionHookResult = ReturnType<typeof useGetGuideBySlugSubscription>;
-export type GetGuideBySlugSubscriptionResult = ApolloReactCommon.SubscriptionResult<GetGuideBySlugSubscription>;
+export type GuideStagesSubscriptionHookResult = ReturnType<typeof useGuideStagesSubscription>;
+export type GuideStagesSubscriptionResult = ApolloReactCommon.SubscriptionResult<GuideStagesSubscription>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   authenticate(input: {email: $email, password: $password}) {

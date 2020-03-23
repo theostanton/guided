@@ -1,8 +1,8 @@
 import React from "react"
-import GuideStore from "../../model/GuideStore"
+import GuideStore from "model/GuideStore"
 import { inject, observer } from "mobx-react"
 import { LineState, RideLine } from "./RideLine"
-import { RideByGuideFragment } from "../../api/generated"
+import { RideFragment } from "api/generated"
 
 type Props = {
   guideStore?: GuideStore
@@ -24,7 +24,7 @@ export class Rides extends React.Component<Props> {
     const selectedId = this.props.guideStore?.selectedId
     const highlightedId = this.props.guideStore?.highlightedId
 
-    function add(ride: RideByGuideFragment) {
+    function add(ride: RideFragment) {
       let state: LineState
       switch (true) {
         case selectedId === ride!.id:
@@ -45,7 +45,7 @@ export class Rides extends React.Component<Props> {
       items.push(<RideLine ride={ride!} state={state}/>)
     }
 
-    this.guideStore.guide!.ridesByGuide!.nodes
+    this.guideStore.rides
       .filter(ride => {
         if (!ride) {
           return false

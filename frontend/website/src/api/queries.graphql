@@ -1,0 +1,12 @@
+query GetGuideIdForSlug($slug:String!, $owner:String!){
+    guides(
+        condition:{
+            owner: $owner,
+            slug: $slug
+        }
+    ){
+        nodes{
+            id
+        }
+    }
+}
