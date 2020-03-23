@@ -1,18 +1,16 @@
 import { log, logJson } from "@guided/logger"
 import Dao from "../dao"
 import { ComputeStageMessageBody, ComputeStageResult } from "../types"
-import { database, Guide, Spot } from "@guided/database"
+import { Computation, database, Guide, Spot, updateOne } from "@guided/database"
 import calculateStage from "./calculateStage"
 import getRoute from "./getRoute"
 import ammendDates from "../trigger/ammendDates"
 
 async function runFinalisationIfRequired(guide: Guide): Promise<boolean> {
-  if (guide.start_date) {
-    const activeComputations = await database.manyOrNone("select id from computations where guide=$1 and status in ('computing','scheduled')", [guide.id])
-    if (activeComputations.length === 0) {
-      await ammendDates(guide)
-      return true
-    }
+  const activeComputations = await database.manyOrNone("select id from computations where guide=$1 and status in ('computing','scheduled')", [guide.id])
+  if (activeComputations.length === 0) {
+    await ammendDates(guide)
+    return true
   }
   return false
 }
@@ -27,8 +25,6 @@ export default async function execute(body: ComputeStageMessageBody): Promise<Co
                              started=$2
                          where id = $1`, [computationId, start])
 
-
-    log("updated computations db")
 
     const dao = await Dao.create(computationId)
 

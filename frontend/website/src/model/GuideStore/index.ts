@@ -83,7 +83,6 @@ export default class GuideStore {
     this.highlightedId = undefined
   }
 
-
   @computed
   get spots(): SpotByGuideFragment[] {
     return this.guide?.spotsByGuide!.nodes!.map(spot => {

@@ -18,11 +18,10 @@ export default async function(rideId: string, points: number[][]): Promise<strin
     const response = await s3.upload({
       ACL: "public-read",
       Key: `${rideId}.json`,
-      Body: JSON.stringify(geoJson, null, 4),
-      Bucket: "guided-geojsons-staging",
+      Body: JSON.stringify(geoJson,  null, 4),
+      Bucket: "guided-geojsons-staging", //TODO
     }).promise()
 
-    logJson(response, "response.Location")
     return response.Location
   } catch (e) {
     console.error("Failed to upload")

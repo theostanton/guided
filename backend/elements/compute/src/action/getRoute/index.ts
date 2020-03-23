@@ -1,6 +1,6 @@
 import { DirectionsRoute, LatLng } from "@googlemaps/google-maps-services-js/dist/common"
 import { client, key } from "@guided/google"
-import { database, Spot } from "@guided/database"
+import { Spot } from "@guided/database"
 import { toLatLng } from "../../utils"
 
 export default async function(fromSpot: Spot, toSpot: Spot): Promise<DirectionsRoute | null> {

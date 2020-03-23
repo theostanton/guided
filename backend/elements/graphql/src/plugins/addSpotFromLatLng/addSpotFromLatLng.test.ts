@@ -56,7 +56,7 @@ describe("When adding a spot to a guide with 0 spots and a start date", () => {
     expect(spot.created).toBeDefined()
     expect(spot.created!.getTime()).toBeGreaterThan(timestampBefore)
     expect(spot.updated).toBeNull()
-    expect(spot.position).toBe("0")
+    expect(spot.position).toBe("0.0")
     expect(spot.date).toBeNull()
     expect(spot.locked).toBe(true)
     expect(spot.nights).toBe(2)
@@ -131,7 +131,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
     expect(spot.created).toBeDefined()
     expect(spot.created!.getTime()).toBeGreaterThan(timestampBefore)
     expect(spot.updated).toBeNull()
-    expect(spot.position).toBe("1")
+    expect(spot.position).toBe("1.0")
     expect(spot.date).toBeNull()
     expect(spot.locked).toBe(true)
     expect(spot.nights).toBe(2)
@@ -189,10 +189,10 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
 
   it("Spot positions should be in order", async () => {
     const spot1 = await database.one<Spot>("select * from spots where id=$1", [SPOT_ID_1])
-    expect(spot1.position).toBe("0")
+    expect(spot1.position).toBe("0.0")
 
     const spot2 = await database.one<Spot>("select * from spots where id=$1", [spot2Id])
-    expect(spot2.position).toBe("1")
+    expect(spot2.position).toBe("1.0")
   })
 
   describe("After first execution", () => {
@@ -217,7 +217,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
     })
 
     it("Should have updated 2 stages as 'ready'", async () => {
-      const stages = await database.manyOrNone<Stage>("select * from stages where guide=$1", [GUIDE_ID])
+      const stages = await database.selectStagesForGuide(GUIDE_ID)
       expect(stages.length).toBe(2)
 
       expect(stages[0].status).toBe("ready")
@@ -230,7 +230,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
     })
 
     it("Should have created 2 rides as 'ready'", async () => {
-      const rides = await database.manyOrNone<Ride>("select * from rides where guide=$1", [GUIDE_ID])
+      const rides = await database.selectRidesForGuide(GUIDE_ID)
       expect(rides.length).toBe(2)
 
       expect(rides[0].status).toBe("ready")
@@ -238,21 +238,23 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
       expect(rides[0].duration_seconds).toBeGreaterThan(0)
       expect(rides[0].distance_meters).toBeGreaterThan(0)
       expect(rides[0].date).toBe("2019-08-01")
+      expect(rides[0].position).toBe("0.0")
 
       expect(rides[1].status).toBe("ready")
       expect(rides[1].path_url).toBeDefined()
       expect(rides[1].duration_seconds).toBeGreaterThan(0)
       expect(rides[1].distance_meters).toBeGreaterThan(0)
       expect(rides[1].date).toBe("2019-08-03")
+      expect(rides[1].position).toBe("1.0")
     })
 
     it("Should have updated 2 spots'", async () => {
-      const spots = await database.manyOrNone<Spot>("select * from spots where guide=$1", [GUIDE_ID])
+      const spots = await database.selectSpotsForGuide(GUIDE_ID)
       expect(spots.length).toBe(2)
 
       const spot1 = await database.one<Spot>("select * from spots where id=$1", [SPOT_ID_1])
       expect(spot1.date).toBe("2019-07-31")
-      expect(spot1.position).toBe("0")
+      expect(spot1.position).toBe("0.0")
       expect(spot1.created).toBeDefined()
       expect(spot1.updated).toBeDefined()
       expect(spot1.country).toBeDefined()
@@ -263,7 +265,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
 
       const spot2 = await database.one<Spot>("select * from spots where id=$1", [spot2Id])
       expect(spot2.date).toBe("2019-08-01")
-      expect(spot2.position).toBe("1")
+      expect(spot2.position).toBe("1.0")
       expect(spot2.created).toBeDefined()
       expect(spot2.updated).toBeDefined()
       expect(spot2.country).toBeDefined()
@@ -273,7 +275,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
       expect(spot2.long).toBe(LOCATIONS.Brighton.long)
     })
 
-    describe("Then adding a third spot", async () => {
+    describe("Then adding a third spot", () => {
 
       let spot3Id: string
       let secondPacket: Packet
@@ -298,7 +300,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
         expect(spot.created).toBeDefined()
         expect(spot.created!.getTime()).toBeGreaterThan(timestampBefore)
         expect(spot.updated).toBeNull()
-        expect(spot.position).toBe("2")
+        expect(spot.position).toBe("2.0")
         expect(spot.date).toBeNull()
         expect(spot.locked).toBe(true)
         expect(spot.nights).toBe(5)
@@ -359,13 +361,13 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
 
       it("Spot positions should be in order", async () => {
         const spot1 = await database.one<Spot>("select * from spots where id=$1", [SPOT_ID_1])
-        expect(spot1.position).toBe("0")
+        expect(spot1.position).toBe("0.0")
 
         const spot2 = await database.one<Spot>("select * from spots where id=$1", [spot2Id])
-        expect(spot2.position).toBe("1")
+        expect(spot2.position).toBe("1.0")
 
         const spot3 = await database.one<Spot>("select * from spots where id=$1", [spot3Id])
-        expect(spot3.position).toBe("2")
+        expect(spot3.position).toBe("2.0")
       })
 
 
@@ -399,7 +401,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
         })
 
         it("Should have a total of 3 rides as 'ready'", async () => {
-          const rides = await database.manyOrNone<Ride>("select * from rides where guide=$1 order by date", [GUIDE_ID])
+          const rides = await database.selectRidesForGuide(GUIDE_ID)
           expect(rides.length).toBe(3)
 
           expect(rides[0].status).toBe("ready")
@@ -409,6 +411,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
           expect(rides[0].from_spot).toBe(SPOT_ID_1)
           expect(rides[0].to_spot).toBe(spot2Id)
           expect(rides[0].date).toBe("2019-08-01")
+          expect(rides[0].position).toBe("0.0")
 
           expect(rides[1].status).toBe("ready")
           expect(rides[1].path_url).toBeDefined()
@@ -417,6 +420,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
           expect(rides[1].from_spot).toBe(spot2Id)
           expect(rides[1].to_spot).toBe(spot3Id)
           expect(rides[1].date).toBe("2019-08-03")
+          expect(rides[1].position).toBe("1.0")
 
           expect(rides[2].status).toBe("ready")
           expect(rides[2].path_url).toBeDefined()
@@ -425,6 +429,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
           expect(rides[2].from_spot).toBe(spot3Id)
           expect(rides[2].to_spot).toBe(SPOT_ID_1)
           expect(rides[2].date).toBe("2019-08-08")
+          expect(rides[2].position).toBe("2.0")
         })
 
         it("Should have a total of 3 spots'", async () => {
@@ -433,7 +438,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
 
           const spot1 = await database.one<Spot>("select * from spots where id=$1", [SPOT_ID_1])
           expect(spot1.date).toBe("2019-07-31")
-          expect(spot1.position).toBe("0")
+          expect(spot1.position).toBe("0.0")
           expect(spot1.created).toBeDefined()
           expect(spot1.updated).toBeDefined()
           expect(spot1.country).toBeDefined()
@@ -445,7 +450,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
 
           const spot2 = await database.one<Spot>("select * from spots where id=$1", [spot2Id])
           expect(spot2.date).toBe("2019-08-01")
-          expect(spot2.position).toBe("1")
+          expect(spot2.position).toBe("1.0")
           expect(spot2.created).toBeDefined()
           expect(spot2.updated).toBeDefined()
           expect(spot2.country).toBeDefined()
@@ -457,7 +462,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
 
           const spot3 = await database.one<Spot>("select * from spots where id=$1", [spot3Id])
           expect(spot3.date).toBe("2019-08-03")
-          expect(spot3.position).toBe("2")
+          expect(spot3.position).toBe("2.0")
           expect(spot3.created).toBeDefined()
           expect(spot3.updated).toBeDefined()
           expect(spot3.country).toBeDefined()
@@ -517,7 +522,7 @@ describe("When adding a spot to a guide with 1 spot and no start date", () => {
     expect(spot.created).toBeDefined()
     expect(spot.created!.getTime()).toBeGreaterThan(timestampBefore)
     expect(spot.updated).toBeNull()
-    expect(spot.position).toBe("1")
+    expect(spot.position).toBe("1.0")
     expect(spot.date).toBeNull()
     expect(spot.locked).toBe(true)
     expect(spot.nights).toBe(2)
@@ -575,8 +580,8 @@ describe("When adding a spot to a guide with 1 spot and no start date", () => {
 
   it("Spot positions should be in order", async () => {
     const spots = await database.many<Spot>("select * from spots where guide=$1", [GUIDE_ID])
-    expect(spots[0].position).toBe("0")
-    expect(spots[1].position).toBe("1")
+    expect(spots[0].position).toBe("0.0")
+    expect(spots[1].position).toBe("1.0")
   })
 
   describe("After execution", () => {
@@ -601,7 +606,7 @@ describe("When adding a spot to a guide with 1 spot and no start date", () => {
     })
 
     it("Should have updated 2 stages as 'ready'", async () => {
-      const stages = await database.manyOrNone<Stage>("select * from stages where guide=$1", [GUIDE_ID])
+      const stages = await database.selectStagesForGuide(GUIDE_ID)
       expect(stages.length).toBe(2)
 
       expect(stages[0].status).toBe("ready")
@@ -614,7 +619,7 @@ describe("When adding a spot to a guide with 1 spot and no start date", () => {
     })
 
     it("Should have created 2 rides as 'ready'", async () => {
-      const rides = await database.manyOrNone<Ride>("select * from rides where guide=$1", [GUIDE_ID])
+      const rides = await database.selectRidesForGuide(GUIDE_ID)
       expect(rides.length).toBe(2)
 
       expect(rides[0].status).toBe("ready")
@@ -622,12 +627,14 @@ describe("When adding a spot to a guide with 1 spot and no start date", () => {
       expect(rides[0].duration_seconds).toBeGreaterThan(0)
       expect(rides[0].distance_meters).toBeGreaterThan(0)
       expect(rides[0].date).toBeNull()
+      expect(rides[0].position).toBe("0.0")
 
       expect(rides[1].status).toBe("ready")
       expect(rides[1].path_url).toBeDefined()
       expect(rides[1].duration_seconds).toBeGreaterThan(0)
       expect(rides[1].distance_meters).toBeGreaterThan(0)
       expect(rides[1].date).toBeNull()
+      expect(rides[1].position).toBe("1.0")
     })
 
   })

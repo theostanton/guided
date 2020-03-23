@@ -14,10 +14,11 @@ export async function prepare(args: MutationAddSpotFromLatLngArgs, owner: string
   spotId: string,
   packet: Packet
 }> {
-  const { spotCount } = await database.one(`SELECT count(1) as "spotCount"
-                                            from spots
-                                            where guide = $1`, [args.guideId])
-  logJson(spotCount, "spotCount")
+  const { lockedSpotsCount } = await database.one(`SELECT count(1) as "lockedSpotsCount"
+                                                   from spots
+                                                   where guide = $1
+                                                     and locked = true`, [args.guideId])
+  logJson(lockedSpotsCount, "lockedSpotsCount")
 
   const { label: location, countryCode: country } = await getInfo(args.lat, args.long)
 
@@ -32,7 +33,7 @@ export async function prepare(args: MutationAddSpotFromLatLngArgs, owner: string
     date: null,
     long: args.long,
     nights: args.nights,
-    position: `${parseInt(spotCount)}`,
+    position: `${parseInt(lockedSpotsCount)}.0`,
     location,
     country,
     locked: true,

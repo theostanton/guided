@@ -12,6 +12,7 @@ type SubContext = {
   stage: {
     stageId: string
     stepsCount: number
+    position: number
     guide: Guide
     startSpot: Spot
     endSpot: Spot
@@ -36,7 +37,7 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
   const { stage } = context
   const maxDurationPerRide = stage.guide.max_hours_per_ride! * 60 * 60
 
-  async function append(spot: Spot) {
+  async function append(spot: Spot, position: string) {
     let rideId = generateId("ride")
     const pathUrl = await upload(rideId, context.current.points)
     const newRide: Ride = {
@@ -51,16 +52,16 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
       owner: stage.guide.owner,
       stage: stage.stageId,
       status: "ready",
-      position: "!", //TODO
+      position,
       created: new Date(),
       updated: null,
     }
     context.result.newRides.push(newRide)
   }
 
-// Add spot and start new ride
+  // Add spot and start new ride
   if ((context.current.duration + step.duration.value) > maxDurationPerRide) {
-    const position = `${context.stage.startSpot.position}.${context.result.newSpots.length + 1}`
+    const position = `${context.stage.position}.${context.result.newSpots.length + 1}`
     const placeInfo = await getInfo(step.start_location.lat, step.start_location.lng)
     const newSpot: Spot = {
       id: generateId("spot"),
@@ -80,7 +81,7 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
       position,
     }
     context.result.newSpots.push(newSpot)
-    await append(newSpot)
+    await append(newSpot, position)
 
     // Stored current Ride and new Spot with date, then incremented to next day
     context.result.durationDays += 1
@@ -107,7 +108,8 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
 
   // End of Leg, so store Ride
   if (context.current.index === context.stage.stepsCount - 1) {
-    await append(context.stage.endSpot)
+    const position = `${context.stage.position}.${context.result.newSpots.length}`
+    await append(context.stage.endSpot, position)
     context.result.durationDays++
   }
   context.current.index++
@@ -115,15 +117,13 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
 }
 
 export default async function computeStage(startDate: string | null, stageId: string, guide: Guide, startSpot: Spot, endSpot: Spot, route: DirectionsRoute | null): Promise<StageData> {
+  const position = parseInt(startSpot.position!.split(".")[0])
   let currentDate: string | null = startDate
   let currentStartSpotId: string = startSpot.id
 
   if (!route) {
 
-    // const singlePoints: number[][] = [
-    //   [startSpot.long, startSpot.lat],
-    //   [endSpot.long, endSpot.lat],
-    // ]
+    // TODO Handle failed route calculation
 
     const singleRide: Ride = {
       id: generateId("ride"),
@@ -136,14 +136,11 @@ export default async function computeStage(startDate: string | null, stageId: st
       to_spot: endSpot.id,
       owner: guide.owner,
       stage: stageId,
-      position: "!",
+      position: `${position}.0`,
       status: "ready",
       created: new Date(),
       updated: null,
     }
-
-    //TODO upload fake ride
-    // upload()
 
     return {
       status: "failed",
@@ -165,6 +162,7 @@ export default async function computeStage(startDate: string | null, stageId: st
     stage: {
       stageId,
       guide,
+      position,
       startSpot,
       endSpot,
       stepsCount: leg.steps.length,

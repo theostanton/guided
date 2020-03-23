@@ -81,7 +81,7 @@ export default class GuideBuilder {
       date: null,
       location: null,
       owner: this.username,
-      position: this.position.toString(),
+      position: `${this.position.toString()}.0`,
       stage: null,
     }
     this.position++

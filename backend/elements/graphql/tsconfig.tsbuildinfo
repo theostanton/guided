@@ -1078,8 +1078,8 @@
         "signature": "04ff0bb6dc3fd5ff921302a4131f80941ee62d5b6af1a38a126fcf8c0aae7a4f"
       },
       "../../tools/database/srv/utils.d.ts": {
-        "version": "f0ef579cb9de0c4e24630dda898ae299443868f5dc8508cf7693c5512a55ac3d",
-        "signature": "f0ef579cb9de0c4e24630dda898ae299443868f5dc8508cf7693c5512a55ac3d"
+        "version": "db63af6ab4411ee2b8d1ff07a062c2ed81187ad81bdd51b0d8f725e000e4b7ee",
+        "signature": "db63af6ab4411ee2b8d1ff07a062c2ed81187ad81bdd51b0d8f725e000e4b7ee"
       },
       "../../tools/database/srv/index.d.ts": {
         "version": "17520b521db535eb18c5cb765e8d2921427f493524db79dfa60574a7a291c643",
@@ -1106,7 +1106,7 @@
         "signature": "d57e7755ae8090210be77153776c9b5538a965deb45234f00c5059b664895a71"
       },
       "./src/plugins/addspotfromlatlng/index.ts": {
-        "version": "2e8005c6e7518c03b51216a961258f5175cc1f1ab579ae32e96cfca50d94bcbb",
+        "version": "6c51718c6d3fb59eb4f92ac5d8a70f8025483bc947be7f7382d2e45e84d4e05a",
         "signature": "9b4efd76a3042bcee4d8263bf91183dce6835f51d93c8a2f6d32446cdb367617"
       },
       "./src/plugins/movespot/index.ts": {
@@ -1298,7 +1298,7 @@
         "signature": "ca9a5122325f2494739922ee86b07a58b184223c60268a50e842b27029f81685"
       },
       "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts": {
-        "version": "ed3717d4ff074403f65c86ca88b753c0cbb6e762bece8caaeb119d308ddd8765",
+        "version": "c708521b582b57504808f77956e6966aaefb9a936d3fad2a0e934ee5f53f8cc6",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./src/plugins/movespot/movespot.test.ts": {
@@ -9681,22 +9681,13 @@
       "../../node_modules/pg-promise/typescript/pg-promise.d.ts",
       "../../tools/database/srv/types.d.ts",
       "../../tools/database/srv/extensions.d.ts",
-      "../../tools/database/srv/utils.d.ts",
-      "../../tools/database/srv/index.d.ts",
       "./src/plugins/types.ts",
       "../compute/srv/types.d.ts",
-      "../compute/srv/prepare/index.d.ts",
-      "../compute/srv/trigger/index.d.ts",
-      "../compute/srv/index.d.ts",
-      "./src/plugins/addspotfromlatlng/index.ts",
-      "./src/plugins/movespot/index.ts",
       "../../tools/utils/srv/executeconcurrently.d.ts",
       "../../tools/utils/srv/executewithcontext.d.ts",
       "../../tools/utils/srv/executesequentially.d.ts",
       "../../tools/utils/srv/constants.d.ts",
       "../../tools/utils/srv/index.d.ts",
-      "./src/plugins/removespot/index.ts",
-      "./src/plugins/index.ts",
       "./src/options.ts",
       "../../node_modules/@types/cors/index.d.ts",
       "./src/app.ts",
@@ -9730,13 +9721,7 @@
       "../../node_modules/@types/aws-serverless-express/index.d.ts",
       "./src/lambda.ts",
       "./src/server.ts",
-      "../../tools/spinup/srv/spinup/index.d.ts",
-      "../../tools/spinup/srv/builder/guidebuilder.d.ts",
-      "../../tools/spinup/srv/builder/userbuilder.d.ts",
-      "../../tools/spinup/srv/builder/index.d.ts",
-      "../../tools/spinup/srv/index.d.ts",
       "../../node_modules/@types/faker/index.d.ts",
-      "./src/plugins/movespot/movespot.test.ts",
       "./src/plugins/removespot/removespot.test.ts",
       "../../node_modules/@types/accepts/index.d.ts",
       "../../node_modules/@babel/types/lib/index.d.ts",
@@ -9859,7 +9844,22 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts"
+      "../../tools/database/srv/utils.d.ts",
+      "../../tools/database/srv/index.d.ts",
+      "../compute/srv/prepare/index.d.ts",
+      "../compute/srv/trigger/index.d.ts",
+      "../compute/srv/index.d.ts",
+      "./src/plugins/addspotfromlatlng/index.ts",
+      "./src/plugins/movespot/index.ts",
+      "./src/plugins/removespot/index.ts",
+      "./src/plugins/index.ts",
+      "../../tools/spinup/srv/spinup/index.d.ts",
+      "../../tools/spinup/srv/builder/guidebuilder.d.ts",
+      "../../tools/spinup/srv/builder/userbuilder.d.ts",
+      "../../tools/spinup/srv/builder/index.d.ts",
+      "../../tools/spinup/srv/index.d.ts",
+      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
+      "./src/plugins/movespot/movespot.test.ts"
     ]
   },
   "version": "3.8.3"

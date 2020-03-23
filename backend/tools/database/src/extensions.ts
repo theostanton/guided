@@ -43,11 +43,10 @@ export function extend(db: IDatabase<Extensions> & Extensions) {
                                    order by sp.position`, [guideId])
     },
     selectRidesForGuide(guideId: string): Promise<Ride[]> {
-      return db.manyOrNone<Ride>(`SELECT r.*
+      return db.manyOrNone<Ride>(`SELECT *
                                   from rides as r
-                                           inner join spots as s on r.from_spot = s.id
                                   where r.guide = $1
-                                  order by s.position`, [guideId])
+                                  order by r.position`, [guideId])
     },
     async getGuideIdForSpot(spotId: string): Promise<string> {
       const { guide } = await db.one<{ guide: string }>(`SELECT guide

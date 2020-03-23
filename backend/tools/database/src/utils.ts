@@ -27,13 +27,14 @@ export function insertOne(tableName: string, item: any): string {
 
 }
 
-export function updateOne<T>(tableName: string, item: Partial<T>, onColumn: string): string {
-  const columns = Object.keys(item)
+export function updateOne<T>(tableName: string, item: Partial<T>, onColumn: string = "id"): string {
+  const columns = Object.keys(item).filter(key => {
+    return key !== onColumn
+  })
   return updateMany(tableName, [item], columns, onColumn)
 }
 
-export function updateMany(tableName: string, items: any[], columns: string[], onColumn: string): string {
-
+export function updateMany(tableName: string, items: any[], columns: string[], onColumn: string = "id"): string {
 
   if (columns.includes(onColumn)) {
     throw new Error(`Not smart enough to update on matched column, yet`)
