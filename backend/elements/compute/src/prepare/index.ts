@@ -74,6 +74,7 @@ export default async function(guideId: string): Promise<Packet> {
           status: "computing",
           updated: null,
           guide: guideId,
+          position: parseInt(lockedSpots[i].position!),
           created: new Date(),
           from_spot: thisSpotId,
           to_spot: nextSpotId,

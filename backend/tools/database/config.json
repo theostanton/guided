@@ -2,7 +2,7 @@
   "dialect": "postgres",
   "template": "./src/template.handlebars",
   "connection": {
-    "host": "localhost",
+    "host": "staging-database.ridersbible.com",
     "user": "superuser",
     "password": "password",
     "database": "main"

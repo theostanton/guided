@@ -36,11 +36,10 @@ export function extend(db: IDatabase<Extensions> & Extensions) {
                                   order by position`, [guideId])
     },
     selectStagesForGuide(guideId: string): Promise<Stage[]> {
-      return db.manyOrNone<Stage>(`SELECT st.*
-                                   from stages as st
-                                            inner join spots sp on st.from_spot = sp.id
-                                   where st.guide = $1
-                                   order by sp.position`, [guideId])
+      return db.manyOrNone<Stage>(`SELECT *
+                                   from stages
+                                   where guide = $1
+                                   order by position`, [guideId])
     },
     selectRidesForGuide(guideId: string): Promise<Ride[]> {
       return db.manyOrNone<Ride>(`SELECT *

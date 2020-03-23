@@ -14,7 +14,6 @@ type Packet = {
 
 export async function prepare(guide: Guide): Promise<Packet> {
 
-  log("running", "ammendDates")
   const spots = await database.manyOrNone<Spot>("select * from spots where guide=$1 order by position", [guide.id])
   const rides = await database.manyOrNone<Ride>("select * from rides where guide=$1", [guide.id])
 
@@ -72,8 +71,6 @@ export default async function(guide: Guide): Promise<void> {
 
   const packet: Packet = await prepare(guide)
 
-  logJson(packet, "packet")
-
   const updated = new Date()
   await database.tx(async (transaction: any) => {
     const queries: any[] = []
@@ -84,8 +81,6 @@ export default async function(guide: Guide): Promise<void> {
     packet.rides.forEach(ride => {
       queries.push(transaction.none("update rides set date=$1, updated=$2 where id=$3", [ride.date, updated, ride.id]))
     })
-
-    logJson(queries, "queries")
 
     return transaction.batch(queries)
   })

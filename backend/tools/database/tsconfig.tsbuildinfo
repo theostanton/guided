@@ -202,15 +202,15 @@
         "signature": "4046592570718236ed274564f611f502ca4e9fce87e0e078e1f5905292a22b62"
       },
       "./src/types.ts": {
-        "version": "2b881bbee3ea05da0d9a6af1acec15ed761a2ecea948a08d650d6c6fd62c5a56",
-        "signature": "58eda2c7a7fb753c0e5d62831f7ca9539f40992126f6ee7eb6f9bc54ff587a2f"
+        "version": "dfdcff99f057e9279987cb52c92a5dcec583b53a278538b130232404922b03b3",
+        "signature": "409b627d33966d92a302e6e5ef6fe684ba2600496fc87d0e13246128342e2966"
       },
       "./src/utils.ts": {
         "version": "7ebf2a11b23f5fa98fb37140e60c6866718c9490daa316a882bd9a8106a010ce",
         "signature": "db63af6ab4411ee2b8d1ff07a062c2ed81187ad81bdd51b0d8f725e000e4b7ee"
       },
       "./src/extensions.ts": {
-        "version": "38d96ca2e02e00d67379a9a3fc6630d187509af09fb9038a1efa93c08861ea4e",
+        "version": "8160afa31dfb43686f1baccb1a0061111ec68ba69fbefe0e7b9ed0131e57f101",
         "signature": "04ff0bb6dc3fd5ff921302a4131f80941ee62d5b6af1a38a126fcf8c0aae7a4f"
       },
       "./src/index.ts": {
@@ -5453,7 +5453,7 @@
       "../../node_modules/pg-promise/typescript/pg-promise.d.ts",
       "../../node_modules/cuid/index.d.ts",
       "./src/types.ts",
-      "./src/extensions.ts",
+      "./src/utils.ts",
       "./src/index.ts",
       "./src/client.test.ts",
       "./src/generated.ts",
@@ -5664,7 +5664,7 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "./src/utils.ts"
+      "./src/extensions.ts"
     ]
   },
   "version": "3.8.3"

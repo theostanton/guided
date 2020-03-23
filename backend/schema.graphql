@@ -2226,6 +2226,7 @@ type Stage implements Node {
   created: Datetime!
   updated: Datetime
   status: StageStatus!
+  position: Int
 
   """Reads a single `Guide` that is related to this `Stage`."""
   guideByGuide: Guide
@@ -2348,6 +2349,9 @@ input StageCondition {
 
   """Checks for equality with the object’s `status` field."""
   status: StageStatus
+
+  """Checks for equality with the object’s `position` field."""
+  position: Int
 }
 
 """An input for mutations affecting `Stage`"""
@@ -2359,6 +2363,7 @@ input StageInput {
   created: Datetime!
   updated: Datetime
   status: StageStatus!
+  position: Int
 }
 
 """
@@ -2372,6 +2377,7 @@ input StagePatch {
   created: Datetime
   updated: Datetime
   status: StageStatus
+  position: Int
 }
 
 """A connection to a list of `Stage` values."""
@@ -2417,6 +2423,8 @@ enum StagesOrderBy {
   UPDATED_DESC
   STATUS_ASC
   STATUS_DESC
+  POSITION_ASC
+  POSITION_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }

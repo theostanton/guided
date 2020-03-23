@@ -12,7 +12,7 @@ export interface Computation {
   ended: any | null
   duration: number | null
   status: ComputationStatus
-  stage: string
+  stage: string | null
   guide: string
   created: any
   started: any | null
@@ -72,6 +72,7 @@ export interface Stage {
   created: any
   updated: any | null
   status: StageStatus
+  position: number | null
 }
 
 export interface Temperature {

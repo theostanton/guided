@@ -1890,6 +1890,7 @@ export type Stage = Node & {
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
   readonly status: StageStatus;
+  readonly position?: Maybe<Scalars['Int']>;
   /** Reads a single `Guide` that is related to this `Stage`. */
   readonly guideByGuide?: Maybe<Guide>;
   /** Reads a single `Spot` that is related to this `Stage`. */
@@ -1953,6 +1954,8 @@ export type StageCondition = {
   readonly updated?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `status` field. */
   readonly status?: Maybe<StageStatus>;
+  /** Checks for equality with the object’s `position` field. */
+  readonly position?: Maybe<Scalars['Int']>;
 };
 
 /** An input for mutations affecting `Stage` */
@@ -1964,6 +1967,7 @@ export type StageInput = {
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
   readonly status: StageStatus;
+  readonly position?: Maybe<Scalars['Int']>;
 };
 
 /** Represents an update to a `Stage`. Fields that are set will be updated. */
@@ -1975,6 +1979,7 @@ export type StagePatch = {
   readonly created?: Maybe<Scalars['Datetime']>;
   readonly updated?: Maybe<Scalars['Datetime']>;
   readonly status?: Maybe<StageStatus>;
+  readonly position?: Maybe<Scalars['Int']>;
 };
 
 /** A connection to a list of `Stage` values. */
@@ -2014,6 +2019,8 @@ export enum StagesOrderBy {
   UpdatedDesc = 'UPDATED_DESC',
   StatusAsc = 'STATUS_ASC',
   StatusDesc = 'STATUS_DESC',
+  PositionAsc = 'POSITION_ASC',
+  PositionDesc = 'POSITION_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -4049,6 +4056,7 @@ export type StageResolvers<ContextType = any, ParentType extends ResolversParent
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
   status?: Resolver<ResolversTypes['StageStatus'], ParentType, ContextType>,
+  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
