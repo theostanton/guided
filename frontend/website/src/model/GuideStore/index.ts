@@ -156,7 +156,7 @@ export default class GuideStore {
         const guide = value.data.guides.nodes[0]
         this.updateGuide(guide)
       } else if (value.errors) {
-        console.error("errors")
+        logError("errors")
         value.errors.forEach(error => {
           logError(error)
         })

@@ -41,7 +41,7 @@ alter table spots
 
 create policy create_spot on spots for insert;
 
-create policy select_spots on spots for select using (true)
+create policy select_spots on spots for select using (true);
 
 create policy update_spot on spots for update
     using (owner = nullif(current_setting('jwt.claims.username', true), '')::text);

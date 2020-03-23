@@ -58,7 +58,6 @@ export default async function execute(body: ComputeStageMessageBody): Promise<Co
 
     let ranFinalisation = await runFinalisationIfRequired(guide)
 
-
     await database.none(`update stages
                          set status='ready'
                          where id = $1`, [stage.id])

@@ -17,7 +17,7 @@ echo -- Build website --
 export GATSBY_GUIDED_GRAPHQL="${graphql_endpoint}"
 export GATSBY_STAGE="${STAGE}"
 export GATSBY_APP_VERSION="${app_version}"
-export GATSBY_MAPBOX_TOKEN=pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazV4bXlkN2Qwd21nM2RydnJ5NG5jdXN4In0.ph8Cr6j3AR1SUnX3bOnr-A
+export GATSBY_MAPBOX_TOKEN=pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazgydW0wamEwazQ5M21wdHp2YjNndGJ2In0.qpytCBKZ1IptSm9UrFRbqA
 gatsby build
 
 echo -- Build website --

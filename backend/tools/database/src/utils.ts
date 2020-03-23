@@ -27,6 +27,11 @@ export function insertOne(tableName: string, item: any): string {
 
 }
 
+export function updateOne<T>(tableName: string, item: Partial<T>, onColumn: string): string {
+  const columns = Object.keys(item)
+  return updateMany(tableName, [item], columns, onColumn)
+}
+
 export function updateMany(tableName: string, items: any[], columns: string[], onColumn: string): string {
 
 

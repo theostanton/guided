@@ -1,42 +1,56 @@
-import { logJson } from "@guided/logger"
-
-const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
+import { log, logJson } from "@guided/logger"
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
 import { MutationMoveSpotArgs } from "../../generated"
-import { database, generateId, Spot } from "@guided/database"
+import { database, generateId, Spot, updateOne } from "@guided/database"
 import { getInfo } from "@guided/google"
 import * as computeStage from "@guided/compute"
 import { Packet } from "@guided/compute"
 
-async function moveSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<Spot>> {
-  logJson(args, "moveSpot args")
-  const { spotId, lat, long } = args
+const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 
-  const spot = await database.one<Spot>("SELECT * from spots where id=$1", [spotId])
+export async function prepare(args: MutationMoveSpotArgs): Promise<{
+  newId: string,
+  packet: Packet
+}> {
+  const { label: location, countryCode: country } = await getInfo(args.lat, args.long)
 
-  const { label, countryCode } = await getInfo(lat, long)
+  await database.none(`delete
+                       from stages
+                       where $1 in (to_spot, from_spot)`, [args.spotId])
+
+  const guide = await database.getGuideIdForSpot(args.spotId)
 
   const newId = generateId("spot")
 
   await database.none(`
       update spots
-      set lat=$1,
-          long=$2,
-          location=$3,
-          country=$4,
+      set id=$1,
+          lat=$2,
+          long=$3,
+          location=$4,
+          country=$5,
           stage=null,
           locked = true,
-          updated=$7
-      where id = $6
-  `, [lat, long, label, countryCode, newId, spotId, new Date()])
+          updated=$6
+      where id = $7
+  `, [newId, args.lat, args.long, location, country, new Date(), args.spotId])
 
+  const packet = await computeStage.prepare(guide)
+  return {
+    packet,
+    newId,
+  }
+}
 
-  const packet: Packet = await computeStage.prepare(spot.guide)
+export async function moveSpot(_: any, args: MutationMoveSpotArgs): Promise<Partial<Spot>> {
+  logJson(args, "moveSpot args")
+
+  const { newId, packet } = await prepare(args)
 
   await computeStage.trigger(packet)
 
   return {
-    id: spotId,
+    id: newId,
   }
 }
 

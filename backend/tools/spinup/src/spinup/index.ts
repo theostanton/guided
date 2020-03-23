@@ -1,25 +1,19 @@
 import { database, insertMany } from "@guided/database"
-import { logJson } from "@guided/logger"
-import { actions, Contents } from "../index"
+import { Contents } from "../index"
 
-export default async function(contents: Contents, preTruncate: boolean = false) {
-  if (preTruncate) {
-    throw new Error(`Nothing should be truncating here rn`)
-    // await actions.truncate()
-  }
-
+export default async function(contents: Contents) {
   if (contents.users.length) {
     const usersInsert = insertMany("users", contents.users)
-    await database.none(usersInsert)
+    await database.query(usersInsert)
   }
 
   if (contents.guides.length) {
     const guidesInsert = insertMany("guides", contents.guides)
-    await database.none(guidesInsert)
+    await database.query(guidesInsert)
   }
 
   if (contents.spots.length) {
     const spots = insertMany("spots", contents.spots)
-    await database.none(spots)
+    await database.query(spots)
   }
 }

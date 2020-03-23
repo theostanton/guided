@@ -4,11 +4,10 @@ import { spinup, UserBuilder } from "@guided/spinup"
 import faker from "faker"
 import { prepare } from "./index"
 import { MutationAddSpotFromLatLngArgs } from "../../generated"
-import { LOCATIONS } from "@guided/spinup/srv/builder/GuideBuilder"
 import { log, logJson } from "@guided/logger"
+import { LOCATIONS } from "@guided/spinup/srv/builder/GuideBuilder"
 
 const TIMEOUT = 30_000
-
 
 describe("When adding a spot to a guide with 0 spots and a start date", () => {
 
@@ -46,11 +45,11 @@ describe("When adding a spot to a guide with 0 spots and a start date", () => {
     spotId = result.spotId
   }, TIMEOUT)
 
-  it("Prepare 0 computations to be executed ", () => {
+  it("Prepares 0 computations to be executed ", () => {
     expect(packet.computationIds.length).toBe(0)
   })
 
-  it("Have inserted a spot", async () => {
+  it("Inserted a spot", async () => {
     const spot = await database.one<Spot>("select * from spots where id=$1", [spotId])
 
     expect(spot).toBeDefined()
@@ -202,7 +201,7 @@ describe("When adding a spot to a guide with 1 spot and a start date", () => {
       await trigger(packet)
     }, TIMEOUT)
 
-    it("Should have marked 2 computations as 'complete'", async () => {
+    it("Should have marked 2 computations as 'success'", async () => {
       const computations = await database.manyOrNone<Computation>("select * from computations where guide=$1", [GUIDE_ID])
       expect(computations.length).toBe(2)
 

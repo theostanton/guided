@@ -1,19 +1,20 @@
-// import moment, { Moment } from "moment"
+import { logJson } from "@guided/logger"
 
-export function dateString(year: number, month: number, date: number): string {
-  return `${year}-${month.toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`
+export function dateString(date: Date): string {
+  const year = date.getFullYear()
+  const month = (date.getMonth() + 1).toString().padStart(2, "0")
+  const day = date.getDate().toString().padStart(2, "0")
+  return `${year}-${month}-${day}`
 }
 
-export function plusDays(dateString: string, days: number): string {
-  // const { year, month, date } = extract(dateString)
-  // let utcDate = moment({
-  //   year, month: month - 1, date,
-  // }).utc(true)
-  //
-  // utcDate = utcDate.add("day", days)
-  //
-  // return utcDate.format("YYYY-MM-DD")
-  return ""
+export function plusDays(str: string, days: number): string {
+  const date = new Date(str)
+  logJson(date, `${str} 1`)
+  date.setDate(date.getDate() + days)
+  logJson(date, `${str} 2`)
+  const newDateString = dateString(date)
+  logJson(newDateString, `${str} 3`)
+  return newDateString
 }
 
 export function extract(dateString: string): { year: number, month: number, date: number } {

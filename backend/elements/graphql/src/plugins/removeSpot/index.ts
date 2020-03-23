@@ -7,8 +7,8 @@ import { database, Spot } from "@guided/database"
 import { executeSequentially } from "@guided/utils"
 
 export async function execute(spotId: string): Promise<Partial<Spot>> {
-  const { guideId, locked } = await database.one<{ guideId: string, locked: boolean }>(
-      `SELECT guide as "guideId", locked
+  const { locked } = await database.one<{ locked: boolean }>(
+      `SELECT locked
        from spots
        where id = $1`, [spotId])
 

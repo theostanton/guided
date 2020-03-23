@@ -23,12 +23,13 @@ import {
 } from "./types"
 
 import {
-  insertOne, insertMany, updateMany,
+  insertOne, insertMany, updateMany, updateOne,
 } from "./utils"
 
 export {
   insertOne,
   insertMany,
+  updateOne,
   updateMany,
 }
 

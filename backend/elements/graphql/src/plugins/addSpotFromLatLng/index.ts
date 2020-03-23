@@ -60,7 +60,6 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
   return { id: spotId }
 }
 
-
 const generator: ExtensionDefinition = {
   typeDefs: gql`
       type Result {

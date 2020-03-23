@@ -12,6 +12,8 @@ export default interface Extensions {
   selectRidesForGuide(guideId: string): Promise<Ride[]>
 
   selectStagesForGuide(guideId: string): Promise<Stage[]>
+
+  getGuideIdForSpot(spotId: string): Promise<string>
 }
 
 
@@ -34,14 +36,24 @@ export function extend(db: IDatabase<Extensions> & Extensions) {
                                   order by position`, [guideId])
     },
     selectStagesForGuide(guideId: string): Promise<Stage[]> {
-      return db.manyOrNone<Stage>(`SELECT *
-                                   from stages
-                                   where guide = $1`, [guideId])
+      return db.manyOrNone<Stage>(`SELECT st.*
+                                   from stages as st
+                                            inner join spots sp on st.from_spot = sp.id
+                                   where st.guide = $1
+                                   order by sp.position`, [guideId])
     },
     selectRidesForGuide(guideId: string): Promise<Ride[]> {
-      return db.manyOrNone<Ride>(`SELECT *
-                                  from rides
-                                  where guide = $1`, [guideId])
+      return db.manyOrNone<Ride>(`SELECT r.*
+                                  from rides as r
+                                           inner join spots as s on r.from_spot = s.id
+                                  where r.guide = $1
+                                  order by s.position`, [guideId])
+    },
+    async getGuideIdForSpot(spotId: string): Promise<string> {
+      const { guide } = await db.one<{ guide: string }>(`SELECT guide
+                                                         from spots
+                                                         where id = $1`, [spotId])
+      return guide
     },
   }
   Object.keys(instance).forEach(key => {

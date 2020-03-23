@@ -2,7 +2,7 @@ import slugify from "slugify"
 import { generateId, Guide, Spot } from "@guided/database"
 import { dateString } from "@guided/utils/srv/dates"
 
-export type MockLocation = "Worthing" | "London" | "Brighton"
+export type MockLocation = "Worthing" | "London" | "Brighton" | "Horsham"
 
 type LatLng = {
   lat: number
@@ -21,6 +21,10 @@ export const LOCATIONS: { [location in MockLocation]: LatLng } = {
   Worthing: {
     lat: 50.8179,
     long: -0.3729,
+  },
+  Horsham: {
+    lat: 51.0629,
+    long: -0.3259,
   },
 }
 
@@ -53,7 +57,7 @@ export default class GuideBuilder {
   }
 
   withStartDate(year: number, month: number, date: number): GuideBuilder {
-    this.start_date = dateString(year, month, date)
+    this.start_date = dateString(new Date(year, month - 1, date))
     return this
   }
 
