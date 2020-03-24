@@ -16,8 +16,7 @@ import GuideStore from "model/GuideStore"
 import StartDateForm from "./StartDateForm"
 import EditGuideTitleForm from "./EditGuideTitleForm"
 import { ReactElement } from "react"
-import { humanDate, humanDistance, humanDuration } from "../../../../utils/human"
-import { plusDays } from "backend/tools/utils/src/dates"
+import { humanDate, humanDistance } from "utils/human"
 
 type Props = {
   guideStore?: GuideStore
@@ -25,16 +24,11 @@ type Props = {
 }
 
 type State = {
-  selected: "rides" | "spots"
 }
 
 @inject("guideStore")
 @observer
 export default class LeftRailComponent extends React.Component<Props, State> {
-
-  state: State = {
-    selected: "rides",
-  }
 
   get guideStore(): GuideStore {
     return this.props.guideStore!
