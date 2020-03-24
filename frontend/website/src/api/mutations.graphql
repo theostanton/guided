@@ -35,3 +35,10 @@ mutation MoveSpot($spotId:String!,$lat:Float!,$long:Float!){
         id
     }
 }
+
+mutation EditStartDate($guideId:String!,$date:String){
+    editStartDate(guideId: $guideId,date: $date){
+        success
+        message
+    }
+}

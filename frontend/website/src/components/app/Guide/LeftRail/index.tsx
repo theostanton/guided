@@ -6,14 +6,16 @@ import {
   Statistic,
   GridRow,
   Header,
-  StatisticGroup, Divider, Segment,
+  StatisticGroup, Divider, Segment, Icon,
 } from "semantic-ui-react"
+
 import { client } from "api"
 import { navigate } from "gatsby"
 import { DeleteGuideDocument, DeleteGuideMutationVariables } from "api/generated"
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import StageList from "./StageList"
+import StartDateForm from "./StartDateForm"
 
 type Props = {
   guideStore?: GuideStore
@@ -99,15 +101,20 @@ export default class LeftRailComponent extends React.Component<Props, State> {
             </StatisticGroup>
           </GridColumn>
         </GridRow>
-        {guide.startDate &&
         <GridRow>
           <GridColumn>
-            <StatisticGroup widths='1' size={"small"}>
-              <Statistic label='Starts' value={guide.startDate}/>
-            </StatisticGroup>
+            <StartDateForm guideId={guide.id} startDate={guide.startDate}/>
           </GridColumn>
         </GridRow>
-        }
+        {/*{guide.startDate &&*/}
+        {/*<GridRow>*/}
+        {/*  <GridColumn>*/}
+        {/*    <StatisticGroup widths='1' size={"small"}>*/}
+        {/*      <Statistic label='Starts' value={guide.startDate}/>*/}
+        {/*    </StatisticGroup>*/}
+        {/*  </GridColumn>*/}
+        {/*</GridRow>*/}
+        {/*}*/}
 
         <Divider/>
         <StageList/>

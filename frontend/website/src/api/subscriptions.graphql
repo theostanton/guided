@@ -44,6 +44,24 @@ fragment Ride on Ride{
     durationSeconds
 }
 
+fragment Stage on Stage {
+    id
+    position
+    status
+    name
+    toSpot:spotByToSpot{
+        ...Spot
+    }
+    fromSpot:spotByFromSpot{
+        ...Spot
+    }
+    ridesByStage(orderBy: [POSITION_ASC]){
+        nodes{
+            ...Ride
+        }
+    }
+}
+
 fragment Guide on Guide {
     id
     slug
@@ -54,23 +72,6 @@ fragment Guide on Guide {
     stagesByGuide(orderBy: POSITION_ASC){
         nodes{
             ...Stage
-        }
-    }
-}
-
-fragment Stage on Stage {
-    id
-    position
-    status
-    toSpot:spotByToSpot{
-        ...Spot
-    }
-    fromSpot:spotByFromSpot{
-        ...Spot
-    }
-    ridesByStage(orderBy: [POSITION_ASC]){
-        nodes{
-            ...Ride
         }
     }
 }

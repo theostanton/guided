@@ -1391,6 +1391,7 @@ type Mutation {
   addSpotFromLatLng(guideId: String!, lat: Float!, long: Float!, label: String, nights: Int!): Spot!
   moveSpot(spotId: String!, lat: Float!, long: Float!): Spot!
   removeSpot(spotId: String!): Spot!
+  editStartDate(guideId: String!, date: String): Result!
 }
 
 """An object with a globally unique `ID`."""
@@ -1725,6 +1726,11 @@ type RegisterPayload {
     """The method to use when ordering `User`."""
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
+}
+
+type Result {
+  success: Boolean!
+  message: String!
 }
 
 type Ride implements Node {
@@ -2323,6 +2329,7 @@ type Stage implements Node {
     """
     condition: ComputationCondition
   ): ComputationsConnection!
+  name: String
 }
 
 """

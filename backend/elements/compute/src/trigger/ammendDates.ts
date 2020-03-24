@@ -1,6 +1,5 @@
 import { database, Guide, Ride, Spot } from "@guided/database"
 import { plusDays } from "@guided/utils/srv/dates"
-import { log, logJson } from "@guided/logger"
 
 type Update = {
   id: string

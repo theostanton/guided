@@ -1050,8 +1050,8 @@
         "signature": "9f9bdcfdda0cf651fbbaab37dc27e0cc03ec08ab3ab38ec499ef644b179968b3"
       },
       "./src/generated.ts": {
-        "version": "065bb7f15cd7e78ce541347cdaa4e2b460342e4d79d0fe3ceb73972e76dc123f",
-        "signature": "dd18c0eb1c5c27d4274efd8ee852ef694b8c658f5f684f8d972cdb5b01f31cab"
+        "version": "94f5e46609a1cbc2484b0efd91775e5e84d80eb32d87d11c29077393fda59255",
+        "signature": "f9e16b0aa60b14c952abedcae7145cee9dc871dc58d01c4beb0a2ac7fb5389be"
       },
       "../../node_modules/pg-promise/typescript/pg-subset.d.ts": {
         "version": "c2d551451c7ddb48f776fd038ec5af7922ec0040cd82a69dad1550a697afe9f6",
@@ -1106,12 +1106,24 @@
         "signature": "d57e7755ae8090210be77153776c9b5538a965deb45234f00c5059b664895a71"
       },
       "./src/plugins/addspotfromlatlng/index.ts": {
-        "version": "6c51718c6d3fb59eb4f92ac5d8a70f8025483bc947be7f7382d2e45e84d4e05a",
+        "version": "35e6454380a92c79431e42d55a3c56e8b051af821e90aa7dcc92fd2861adbb16",
         "signature": "9b4efd76a3042bcee4d8263bf91183dce6835f51d93c8a2f6d32446cdb367617"
       },
       "./src/plugins/movespot/index.ts": {
         "version": "949bdbfe969f3c4903286c502d218aa7a37b4cb3905e541c0463386a3725d503",
         "signature": "15fde4c3419cc2fa3c1ccc635be177cf98253eba6c500ed205ef7d2d936f0d3c"
+      },
+      "../../tools/utils/srv/dates.d.ts": {
+        "version": "585a4c07bb62e87eef27f10b9f1dd5ced1cb1a9dbf792a8422bddc592df7a1ca",
+        "signature": "585a4c07bb62e87eef27f10b9f1dd5ced1cb1a9dbf792a8422bddc592df7a1ca"
+      },
+      "../compute/srv/trigger/ammenddates.d.ts": {
+        "version": "2e41bb6861be40fa74a1dbe85fa20376acd6097b471b9a098e538f28d9337f5d",
+        "signature": "2e41bb6861be40fa74a1dbe85fa20376acd6097b471b9a098e538f28d9337f5d"
+      },
+      "./src/plugins/editstartdate/index.ts": {
+        "version": "8296b9b0c92e6604bbcfdcdebe14d326c3811175bf766b49aa3366e21647f45a",
+        "signature": "46a0b34e1264c4d25ca6646ff0e6cfaa7275ea1ae5a6bc23d4dfd84edf2f2b2e"
       },
       "../../tools/utils/srv/executeconcurrently.d.ts": {
         "version": "72e932ec49656781c89bd159489321c6f2bd8570873adce6fe658f521cf535c1",
@@ -1138,7 +1150,7 @@
         "signature": "0e599f9a191af2b610bcdc0a55fafce79fcfa3abe84964064b4b60cb4e5bcc40"
       },
       "./src/plugins/index.ts": {
-        "version": "b0a0ec84d768d39cff8017f41e8e9d827e1c82196a4eacf19d62d33321a45b73",
+        "version": "dc544278c2d38e14e9345cbab0c3b6fb58c862fc26733de2a9b28de8867ee4cf",
         "signature": "ed7ddf06f8a2868a97462ca8c17bb09aa640dad83568c5b19c61491481d836d4"
       },
       "./src/options.ts": {
@@ -4146,6 +4158,32 @@
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../../tools/utils/srv/dates.d.ts": [
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../compute/srv/trigger/ammenddates.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/plugins/editstartdate/index.ts": [
+        "../../node_modules/graphile-utils/node8plus/makeextendschemaplugin.d.ts",
+        "./src/generated.ts",
+        "./src/plugins/types.ts",
+        "../../tools/database/srv/index.d.ts",
+        "../../tools/logger/srv/index.d.ts",
+        "../../tools/utils/srv/dates.d.ts",
+        "../compute/srv/trigger/ammenddates.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../../tools/utils/srv/executeconcurrently.d.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -4195,6 +4233,7 @@
         "./src/plugins/info/index.ts",
         "./src/plugins/addspotfromlatlng/index.ts",
         "./src/plugins/movespot/index.ts",
+        "./src/plugins/editstartdate/index.ts",
         "./src/plugins/removespot/index.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -7965,6 +8004,19 @@
         "../compute/srv/index.d.ts",
         "../../tools/database/srv/index.d.ts"
       ],
+      "../../tools/utils/srv/dates.d.ts": [
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../compute/srv/trigger/ammenddates.d.ts": [
+        "../../tools/database/srv/index.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../../tools/utils/srv/executeconcurrently.d.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -9674,7 +9726,6 @@
       "../../node_modules/@googlemaps/google-maps-services-js/dist/index.d.ts",
       "../../apis/google/srv/getinfo/index.d.ts",
       "../../apis/google/srv/index.d.ts",
-      "./src/generated.ts",
       "../../node_modules/pg-promise/typescript/pg-subset.d.ts",
       "../../node_modules/pg-minify/typescript/pg-minify.d.ts",
       "../../node_modules/spex/typescript/spex.d.ts",
@@ -9688,16 +9739,13 @@
       "../compute/srv/prepare/index.d.ts",
       "../compute/srv/trigger/index.d.ts",
       "../compute/srv/index.d.ts",
-      "./src/plugins/addspotfromlatlng/index.ts",
-      "./src/plugins/movespot/index.ts",
+      "../../tools/utils/srv/dates.d.ts",
+      "../compute/srv/trigger/ammenddates.d.ts",
       "../../tools/utils/srv/executeconcurrently.d.ts",
       "../../tools/utils/srv/executewithcontext.d.ts",
       "../../tools/utils/srv/executesequentially.d.ts",
       "../../tools/utils/srv/constants.d.ts",
       "../../tools/utils/srv/index.d.ts",
-      "./src/plugins/removespot/index.ts",
-      "./src/plugins/index.ts",
-      "./src/options.ts",
       "../../node_modules/@types/cors/index.d.ts",
       "./src/app.ts",
       "./src/buildcache.ts",
@@ -9736,7 +9784,6 @@
       "../../tools/spinup/srv/builder/index.d.ts",
       "../../tools/spinup/srv/index.d.ts",
       "../../node_modules/@types/faker/index.d.ts",
-      "./src/plugins/movespot/movespot.test.ts",
       "./src/plugins/removespot/removespot.test.ts",
       "../../node_modules/@types/accepts/index.d.ts",
       "../../node_modules/@babel/types/lib/index.d.ts",
@@ -9859,7 +9906,15 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts"
+      "./src/generated.ts",
+      "./src/plugins/movespot/movespot.test.ts",
+      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
+      "./src/plugins/removespot/index.ts",
+      "./src/plugins/editstartdate/index.ts",
+      "./src/plugins/movespot/index.ts",
+      "./src/plugins/addspotfromlatlng/index.ts",
+      "./src/plugins/index.ts",
+      "./src/options.ts"
     ]
   },
   "version": "3.8.3"

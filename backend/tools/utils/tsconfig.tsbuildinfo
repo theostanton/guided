@@ -182,11 +182,11 @@
         "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
       },
       "./src/dates.ts": {
-        "version": "7d2a5344f92d760e0d07be4d43b75f88327a21b5e9ce509acb8b73aa9227cb01",
-        "signature": "5c157da8ada68184c863c2c6617bba5dec54b1be6dcc10a831d8b4e2f2deceff"
+        "version": "d5ac13031f7a7dea2234831bcbeb0b4d39eb2c3caf4f5b57e68a28bb9381b4d1",
+        "signature": "585a4c07bb62e87eef27f10b9f1dd5ced1cb1a9dbf792a8422bddc592df7a1ca"
       },
       "./src/dates.test.ts": {
-        "version": "9cdc370d2ada36ae700e3769faad0d0ff18b8eb814348d7dab5d47ac73125f4a",
+        "version": "5de4e81b277de8c2bbf00a33c929f5c5f77b2daad3b899e760d58d05aeeebe66",
         "signature": "17174263d102537bd983d8f0ff9423bc7ecdb9fcfbc36ba787d451071c00dab5"
       },
       "./src/executeconcurrently.ts": {
@@ -1067,6 +1067,7 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
+      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -3468,6 +3469,20 @@
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "../logger/srv/locallogger.d.ts": [
+        "../logger/srv/index.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "../logger/srv/index.d.ts": [
+        "../logger/srv/locallogger.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "./src/index.ts": [
         "./src/executeconcurrently.ts",
         "./src/executewithcontext.ts",
@@ -5295,20 +5310,6 @@
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../logger/srv/locallogger.d.ts": [
-        "../logger/srv/index.d.ts",
-        "../../node_modules/@types/node/fs.d.ts",
-        "../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../node_modules/@types/node/util.d.ts",
-        "../../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../logger/srv/index.d.ts": [
-        "../logger/srv/locallogger.d.ts",
-        "../../node_modules/@types/node/fs.d.ts",
-        "../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../node_modules/@types/node/util.d.ts",
-        "../../node_modules/@types/node/ts3.2/util.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -5355,6 +5356,9 @@
       "../../node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "../../node_modules/typescript/lib/lib.esnext.full.d.ts",
       "./src/constants.ts",
+      "../logger/srv/locallogger.d.ts",
+      "../logger/srv/index.d.ts",
+      "./src/dates.ts",
       "./src/executeconcurrently.ts",
       "./src/executewithcontext.ts",
       "./src/executesequentially.ts",
@@ -5567,9 +5571,6 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "../logger/srv/index.d.ts",
-      "./src/dates.ts",
-      "../logger/srv/locallogger.d.ts",
       "./src/dates.test.ts"
     ]
   },

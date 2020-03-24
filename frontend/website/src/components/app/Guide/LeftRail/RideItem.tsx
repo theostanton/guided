@@ -27,14 +27,7 @@ export default class RideItem extends React.Component<Props> {
       }}
       active={isSelected}
     >
-      <List.Icon size='large' verticalAlign='top'>
-        <Icon name='motorcycle'/>
-      </List.Icon>
-      <List.Content>
-        <List.Header>
-          {ride.name}
-        </List.Header>
-      </List.Content>
+      <Icon name='motorcycle'/>
       {ride.date && <Label>
         <Icon name='calendar'/>{`${humanDate(ride.date)}`}
       </Label>}

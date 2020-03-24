@@ -990,6 +990,7 @@ export type Mutation = {
   readonly addSpotFromLatLng: Spot;
   readonly moveSpot: Spot;
   readonly removeSpot: Spot;
+  readonly editStartDate: Result;
 };
 
 
@@ -1238,9 +1239,16 @@ export type MutationRemoveSpotArgs = {
   spotId: Scalars['String'];
 };
 
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationEditStartDateArgs = {
+  guideId: Scalars['String'];
+  date?: Maybe<Scalars['String']>;
+};
+
 /** An object with a globally unique `ID`. */
 export type Node = {
-  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  /** A globally unique identifier. Can be used in various places throughout the sRemoveSpotystem to identify this single value. */
   readonly nodeId: Scalars['ID'];
 };
 
@@ -1510,6 +1518,11 @@ export type RegisterPayload = {
 /** The output of our `register` mutation. */
 export type RegisterPayloadUserEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
+};
+
+export type Result = {
+  readonly success: Scalars['Boolean'];
+  readonly message: Scalars['String'];
 };
 
 export type Ride = Node & {
@@ -1903,6 +1916,7 @@ export type Stage = Node & {
   readonly ridesByStage: RidesConnection;
   /** Reads and enables pagination through a set of `Computation`. */
   readonly computationsByStage: ComputationsConnection;
+  readonly name?: Maybe<Scalars['String']>;
 };
 
 
@@ -3503,6 +3517,7 @@ export type ResolversTypes = {
   AuthenticatePayload: ResolverTypeWrapper<AuthenticatePayload>,
   RegisterInput: RegisterInput,
   RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
+  Result: ResolverTypeWrapper<Result>,
   Subscription: ResolverTypeWrapper<{}>,
 };
 
@@ -3633,6 +3648,7 @@ export type ResolversParentTypes = {
   AuthenticatePayload: AuthenticatePayload,
   RegisterInput: RegisterInput,
   RegisterPayload: RegisterPayload,
+  Result: Result,
   Subscription: {},
 };
 
@@ -3913,6 +3929,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long' | 'nights'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
+  editStartDate?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditStartDateArgs, 'guideId'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -3962,6 +3979,12 @@ export type RegisterPayloadResolvers<ContextType = any, ParentType extends Resol
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
   userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<RegisterPayloadUserEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4063,6 +4086,7 @@ export type StageResolvers<ContextType = any, ParentType extends ResolversParent
   spotsByStage?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<StageSpotsByStageArgs, 'orderBy'>>,
   ridesByStage?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<StageRidesByStageArgs, 'orderBy'>>,
   computationsByStage?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<StageComputationsByStageArgs, 'orderBy'>>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4262,6 +4286,7 @@ export type Resolvers<ContextType = any> = {
   PageInfo?: PageInfoResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   RegisterPayload?: RegisterPayloadResolvers<ContextType>,
+  Result?: ResultResolvers<ContextType>,
   Ride?: RideResolvers<ContextType>,
   RidesConnection?: RidesConnectionResolvers<ContextType>,
   RidesEdge?: RidesEdgeResolvers<ContextType>,
@@ -4342,6 +4367,14 @@ export type MoveSpotMutationVariables = {
 
 export type MoveSpotMutation = { readonly moveSpot: Pick<Spot, 'id'> };
 
+export type EditStartDateMutationVariables = {
+  guideId: Scalars['String'];
+  date?: Maybe<Scalars['String']>;
+};
+
+
+export type EditStartDateMutation = { readonly editStartDate: Pick<Result, 'success' | 'message'> };
+
 export type GetGuideIdForSlugQueryVariables = {
   slug: Scalars['String'];
   owner: Scalars['String'];
@@ -4364,14 +4397,14 @@ export type RideFragment = (
   & { readonly toSpot?: Maybe<SpotFragment>, readonly fromSpot?: Maybe<SpotFragment> }
 );
 
+export type StageFragment = (
+  Pick<Stage, 'id' | 'position' | 'status' | 'name'>
+  & { readonly toSpot?: Maybe<SpotFragment>, readonly fromSpot?: Maybe<SpotFragment>, readonly ridesByStage: { readonly nodes: ReadonlyArray<Maybe<RideFragment>> } }
+);
+
 export type GuideFragment = (
   Pick<Guide, 'id' | 'slug' | 'owner' | 'startDate' | 'title' | 'maxHoursPerRide'>
   & { readonly stagesByGuide: { readonly nodes: ReadonlyArray<Maybe<StageFragment>> } }
-);
-
-export type StageFragment = (
-  Pick<Stage, 'id' | 'position' | 'status'>
-  & { readonly toSpot?: Maybe<SpotFragment>, readonly fromSpot?: Maybe<SpotFragment>, readonly ridesByStage: { readonly nodes: ReadonlyArray<Maybe<RideFragment>> } }
 );
 
 export type GuideStagesSubscriptionVariables = {
@@ -4444,6 +4477,7 @@ export const StageFragmentDoc = gql`
   id
   position
   status
+  name
   toSpot: spotByToSpot {
     ...Spot
   }
@@ -4714,6 +4748,46 @@ export function useMoveSpotMutation(baseOptions?: ApolloReactHooks.MutationHookO
 export type MoveSpotMutationHookResult = ReturnType<typeof useMoveSpotMutation>;
 export type MoveSpotMutationResult = ApolloReactCommon.MutationResult<MoveSpotMutation>;
 export type MoveSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<MoveSpotMutation, MoveSpotMutationVariables>;
+export const EditStartDateDocument = gql`
+    mutation EditStartDate($guideId: String!, $date: String) {
+  editStartDate(guideId: $guideId, date: $date) {
+    success
+    message
+  }
+}
+    `;
+export type EditStartDateMutationFn = ApolloReactCommon.MutationFunction<EditStartDateMutation, EditStartDateMutationVariables>;
+export type EditStartDateComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<EditStartDateMutation, EditStartDateMutationVariables>, 'mutation'>;
+
+    export const EditStartDateComponent = (props: EditStartDateComponentProps) => (
+      <ApolloReactComponents.Mutation<EditStartDateMutation, EditStartDateMutationVariables> mutation={EditStartDateDocument} {...props} />
+    );
+    
+
+/**
+ * __useEditStartDateMutation__
+ *
+ * To run a mutation, you first call `useEditStartDateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditStartDateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editStartDateMutation, { data, loading, error }] = useEditStartDateMutation({
+ *   variables: {
+ *      guideId: // value for 'guideId'
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useEditStartDateMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<EditStartDateMutation, EditStartDateMutationVariables>) {
+        return ApolloReactHooks.useMutation<EditStartDateMutation, EditStartDateMutationVariables>(EditStartDateDocument, baseOptions);
+      }
+export type EditStartDateMutationHookResult = ReturnType<typeof useEditStartDateMutation>;
+export type EditStartDateMutationResult = ApolloReactCommon.MutationResult<EditStartDateMutation>;
+export type EditStartDateMutationOptions = ApolloReactCommon.BaseMutationOptions<EditStartDateMutation, EditStartDateMutationVariables>;
 export const GetGuideIdForSlugDocument = gql`
     query GetGuideIdForSlug($slug: String!, $owner: String!) {
   guides(condition: {owner: $owner, slug: $slug}) {

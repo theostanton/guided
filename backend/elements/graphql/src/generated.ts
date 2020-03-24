@@ -984,6 +984,7 @@ export type Mutation = {
   readonly addSpotFromLatLng: Spot;
   readonly moveSpot: Spot;
   readonly removeSpot: Spot;
+  readonly editStartDate: Result;
 };
 
 
@@ -1230,6 +1231,13 @@ export type MutationMoveSpotArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationRemoveSpotArgs = {
   spotId: Scalars['String'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationEditStartDateArgs = {
+  guideId: Scalars['String'];
+  date?: Maybe<Scalars['String']>;
 };
 
 /** An object with a globally unique `ID`. */
@@ -1504,6 +1512,11 @@ export type RegisterPayload = {
 /** The output of our `register` mutation. */
 export type RegisterPayloadUserEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
+};
+
+export type Result = {
+  readonly success: Scalars['Boolean'];
+  readonly message: Scalars['String'];
 };
 
 export type Ride = Node & {
@@ -1897,6 +1910,7 @@ export type Stage = Node & {
   readonly ridesByStage: RidesConnection;
   /** Reads and enables pagination through a set of `Computation`. */
   readonly computationsByStage: ComputationsConnection;
+  readonly name?: Maybe<Scalars['String']>;
 };
 
 
@@ -3497,6 +3511,7 @@ export type ResolversTypes = {
   AuthenticatePayload: ResolverTypeWrapper<AuthenticatePayload>,
   RegisterInput: RegisterInput,
   RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
+  Result: ResolverTypeWrapper<Result>,
   Subscription: ResolverTypeWrapper<{}>,
 };
 
@@ -3627,6 +3642,7 @@ export type ResolversParentTypes = {
   AuthenticatePayload: AuthenticatePayload,
   RegisterInput: RegisterInput,
   RegisterPayload: RegisterPayload,
+  Result: Result,
   Subscription: {},
 };
 
@@ -3907,6 +3923,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long' | 'nights'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
+  editStartDate?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditStartDateArgs, 'guideId'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -3956,6 +3973,12 @@ export type RegisterPayloadResolvers<ContextType = any, ParentType extends Resol
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
   userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<RegisterPayloadUserEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4057,6 +4080,7 @@ export type StageResolvers<ContextType = any, ParentType extends ResolversParent
   spotsByStage?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<StageSpotsByStageArgs, 'orderBy'>>,
   ridesByStage?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<StageRidesByStageArgs, 'orderBy'>>,
   computationsByStage?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<StageComputationsByStageArgs, 'orderBy'>>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4256,6 +4280,7 @@ export type Resolvers<ContextType = any> = {
   PageInfo?: PageInfoResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   RegisterPayload?: RegisterPayloadResolvers<ContextType>,
+  Result?: ResultResolvers<ContextType>,
   Ride?: RideResolvers<ContextType>,
   RidesConnection?: RidesConnectionResolvers<ContextType>,
   RidesEdge?: RidesEdgeResolvers<ContextType>,

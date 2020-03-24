@@ -25,4 +25,8 @@ function logObject(object, label) {
     console.log(object);
 }
 exports.logObject = logObject;
+function logError(message) {
+    console.error(message);
+}
+exports.logError = logError;
 //# sourceMappingURL=logger.js.map

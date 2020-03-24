@@ -11,7 +11,6 @@ export default class LoadingStageItem extends React.Component<Props> {
 
   render(): React.ReactElement {
     const { stage } = this.props
-    const name = `${stage.fromSpot.location} to ${stage.toSpot.location}`
     return <List.Item
       key={stage.id}
       value={stage.id}
@@ -21,7 +20,7 @@ export default class LoadingStageItem extends React.Component<Props> {
       </List.Icon>
       <List.Content>
         <List.Header>
-          {name}
+          {stage.name}
         </List.Header>
       </List.Content>
       <Label>

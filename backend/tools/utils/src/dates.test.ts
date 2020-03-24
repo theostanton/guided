@@ -1,4 +1,4 @@
-import { dateString, plusDays } from "./dates"
+import { dateString, isValid, plusDays } from "./dates"
 
 describe("plusDays", () => {
 
@@ -53,5 +53,27 @@ describe("dateString", () => {
     const date = new Date(2020, 0, 31)
     const str = dateString(date)
     expect(str).toBe("2020-01-31")
+  })
+})
+
+describe("isValid", () => {
+  it.each`
+    dateString             | valid     
+    ${"1901-01-01"}        | ${true}  
+    ${"2020-12-31"}        | ${true}  
+    ${" 2020-12-31"}       | ${false}  
+    ${"2020-12-31 "}       | ${false}  
+    ${"2020-12-32"}        | ${false}  
+    ${"2020-13-31"}        | ${false}  
+    ${"2020-1-31"}         | ${false}  
+    ${"2020-01-1"}         | ${false}  
+    ${"20-01-1"}           | ${false}  
+    ${"2020-01/01"}        | ${false}  
+    ${"2020-t-01"}         | ${false}  
+    ${"2020-*-01"}         | ${false}  
+    ${"2020-*-01"}         | ${false}  
+  `("should return $valid for '$dateString'", ({ dateString, valid }) => {
+    const result = isValid(dateString)
+    expect(result).toEqual(valid)
   })
 })

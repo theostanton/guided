@@ -63,9 +63,6 @@ async function addSpotFromLatLng(_: any, args: MutationAddSpotFromLatLngArgs, co
 
 const generator: ExtensionDefinition = {
   typeDefs: gql`
-      type Result {
-          success:Boolean!
-      }
       extend type Mutation {
           addSpotFromLatLng(guideId:String!,lat:Float!,long:Float!,label:String,nights:Int!):Spot!
       }
