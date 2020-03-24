@@ -1050,8 +1050,8 @@
         "signature": "9f9bdcfdda0cf651fbbaab37dc27e0cc03ec08ab3ab38ec499ef644b179968b3"
       },
       "./src/generated.ts": {
-        "version": "94f5e46609a1cbc2484b0efd91775e5e84d80eb32d87d11c29077393fda59255",
-        "signature": "f9e16b0aa60b14c952abedcae7145cee9dc871dc58d01c4beb0a2ac7fb5389be"
+        "version": "67ad7d7d6c8fcc6cbf8e217ac7bbb66fad84d7ae0dfb07ae84c3943eb6ca7d60",
+        "signature": "f9721a95139b2ea7f1f7cc6d17086e67f1f037ab137135fc72269b4db2c5345e"
       },
       "../../node_modules/pg-promise/typescript/pg-subset.d.ts": {
         "version": "c2d551451c7ddb48f776fd038ec5af7922ec0040cd82a69dad1550a697afe9f6",
@@ -1125,6 +1125,10 @@
         "version": "8296b9b0c92e6604bbcfdcdebe14d326c3811175bf766b49aa3366e21647f45a",
         "signature": "46a0b34e1264c4d25ca6646ff0e6cfaa7275ea1ae5a6bc23d4dfd84edf2f2b2e"
       },
+      "./src/plugins/editnights/index.ts": {
+        "version": "d71543a1efbe98941bf84c65a6a185e9f6695ba592c74f4a2403b1c56f6c8868",
+        "signature": "46a0b34e1264c4d25ca6646ff0e6cfaa7275ea1ae5a6bc23d4dfd84edf2f2b2e"
+      },
       "../../tools/utils/srv/executeconcurrently.d.ts": {
         "version": "72e932ec49656781c89bd159489321c6f2bd8570873adce6fe658f521cf535c1",
         "signature": "72e932ec49656781c89bd159489321c6f2bd8570873adce6fe658f521cf535c1"
@@ -1150,7 +1154,7 @@
         "signature": "0e599f9a191af2b610bcdc0a55fafce79fcfa3abe84964064b4b60cb4e5bcc40"
       },
       "./src/plugins/index.ts": {
-        "version": "dc544278c2d38e14e9345cbab0c3b6fb58c862fc26733de2a9b28de8867ee4cf",
+        "version": "1edf91e90e9b415fddb64518f1b249985aa37eff664f005d890bdc0ab55b8ca4",
         "signature": "ed7ddf06f8a2868a97462ca8c17bb09aa640dad83568c5b19c61491481d836d4"
       },
       "./src/options.ts": {
@@ -4184,6 +4188,18 @@
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "./src/plugins/editnights/index.ts": [
+        "../../node_modules/graphile-utils/node8plus/makeextendschemaplugin.d.ts",
+        "./src/generated.ts",
+        "./src/plugins/types.ts",
+        "../../tools/database/srv/index.d.ts",
+        "../compute/srv/trigger/ammenddates.d.ts",
+        "../../tools/logger/srv/index.d.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "../../tools/utils/srv/executeconcurrently.d.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -4234,6 +4250,7 @@
         "./src/plugins/addspotfromlatlng/index.ts",
         "./src/plugins/movespot/index.ts",
         "./src/plugins/editstartdate/index.ts",
+        "./src/plugins/editnights/index.ts",
         "./src/plugins/removespot/index.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -9910,6 +9927,7 @@
       "./src/plugins/movespot/movespot.test.ts",
       "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
       "./src/plugins/removespot/index.ts",
+      "./src/plugins/editnights/index.ts",
       "./src/plugins/editstartdate/index.ts",
       "./src/plugins/movespot/index.ts",
       "./src/plugins/addspotfromlatlng/index.ts",

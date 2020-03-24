@@ -985,6 +985,7 @@ export type Mutation = {
   readonly moveSpot: Spot;
   readonly removeSpot: Spot;
   readonly editStartDate: Result;
+  readonly editNights: Result;
 };
 
 
@@ -1238,6 +1239,13 @@ export type MutationRemoveSpotArgs = {
 export type MutationEditStartDateArgs = {
   guideId: Scalars['String'];
   date?: Maybe<Scalars['String']>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationEditNightsArgs = {
+  spotId: Scalars['String'];
+  nights: Scalars['Int'];
 };
 
 /** An object with a globally unique `ID`. */
@@ -1711,6 +1719,7 @@ export type Spot = Node & {
   readonly ridesByFromSpot: RidesConnection;
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByToSpot: RidesConnection;
+  readonly name?: Maybe<Scalars['String']>;
   readonly temperature?: Maybe<Scalars['Float']>;
 };
 
@@ -3924,6 +3933,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
   editStartDate?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditStartDateArgs, 'guideId'>>,
+  editNights?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditNightsArgs, 'spotId' | 'nights'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -4046,6 +4056,7 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   stagesByToSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByToSpotArgs, 'orderBy'>>,
   ridesByFromSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByFromSpotArgs, 'orderBy'>>,
   ridesByToSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByToSpotArgs, 'orderBy'>>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   temperature?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };

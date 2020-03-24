@@ -991,6 +991,7 @@ export type Mutation = {
   readonly moveSpot: Spot;
   readonly removeSpot: Spot;
   readonly editStartDate: Result;
+  readonly editNights: Result;
 };
 
 
@@ -1246,9 +1247,16 @@ export type MutationEditStartDateArgs = {
   date?: Maybe<Scalars['String']>;
 };
 
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationEditNightsArgs = {
+  spotId: Scalars['String'];
+  nights: Scalars['Int'];
+};
+
 /** An object with a globally unique `ID`. */
 export type Node = {
-  /** A globally unique identifier. Can be used in various places throughout the sRemoveSpotystem to identify this single value. */
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'];
 };
 
@@ -1717,6 +1725,7 @@ export type Spot = Node & {
   readonly ridesByFromSpot: RidesConnection;
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByToSpot: RidesConnection;
+  readonly name?: Maybe<Scalars['String']>;
   readonly temperature?: Maybe<Scalars['Float']>;
 };
 
@@ -3930,6 +3939,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
   editStartDate?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditStartDateArgs, 'guideId'>>,
+  editNights?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditNightsArgs, 'spotId' | 'nights'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -4052,6 +4062,7 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   stagesByToSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByToSpotArgs, 'orderBy'>>,
   ridesByFromSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByFromSpotArgs, 'orderBy'>>,
   ridesByToSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByToSpotArgs, 'orderBy'>>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   temperature?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -4375,6 +4386,14 @@ export type EditStartDateMutationVariables = {
 
 export type EditStartDateMutation = { readonly editStartDate: Pick<Result, 'success' | 'message'> };
 
+export type EditNightsMutationVariables = {
+  spotId: Scalars['String'];
+  nights: Scalars['Int'];
+};
+
+
+export type EditNightsMutation = { readonly editNights: Pick<Result, 'success' | 'message'> };
+
 export type GetGuideIdForSlugQueryVariables = {
   slug: Scalars['String'];
   owner: Scalars['String'];
@@ -4390,7 +4409,7 @@ export type AllGuideTitlesForUserSubscriptionVariables = {
 
 export type AllGuideTitlesForUserSubscription = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id' | 'title' | 'slug' | 'owner'>>> }> };
 
-export type SpotFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'long' | 'locked' | 'location' | 'position' | 'date' | 'temperature' | 'country' | 'nights'>;
+export type SpotFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'name' | 'long' | 'locked' | 'location' | 'position' | 'date' | 'temperature' | 'country' | 'nights'>;
 
 export type RideFragment = (
   Pick<Ride, 'id' | 'position' | 'status' | 'pathUrl' | 'hasBorder' | 'name' | 'date' | 'distanceMeters' | 'durationSeconds'>
@@ -4443,6 +4462,7 @@ export const SpotFragmentDoc = gql`
   id
   label
   lat
+  name
   long
   locked
   location
@@ -4788,6 +4808,46 @@ export function useEditStartDateMutation(baseOptions?: ApolloReactHooks.Mutation
 export type EditStartDateMutationHookResult = ReturnType<typeof useEditStartDateMutation>;
 export type EditStartDateMutationResult = ApolloReactCommon.MutationResult<EditStartDateMutation>;
 export type EditStartDateMutationOptions = ApolloReactCommon.BaseMutationOptions<EditStartDateMutation, EditStartDateMutationVariables>;
+export const EditNightsDocument = gql`
+    mutation EditNights($spotId: String!, $nights: Int!) {
+  editNights(spotId: $spotId, nights: $nights) {
+    success
+    message
+  }
+}
+    `;
+export type EditNightsMutationFn = ApolloReactCommon.MutationFunction<EditNightsMutation, EditNightsMutationVariables>;
+export type EditNightsComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<EditNightsMutation, EditNightsMutationVariables>, 'mutation'>;
+
+    export const EditNightsComponent = (props: EditNightsComponentProps) => (
+      <ApolloReactComponents.Mutation<EditNightsMutation, EditNightsMutationVariables> mutation={EditNightsDocument} {...props} />
+    );
+    
+
+/**
+ * __useEditNightsMutation__
+ *
+ * To run a mutation, you first call `useEditNightsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditNightsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editNightsMutation, { data, loading, error }] = useEditNightsMutation({
+ *   variables: {
+ *      spotId: // value for 'spotId'
+ *      nights: // value for 'nights'
+ *   },
+ * });
+ */
+export function useEditNightsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<EditNightsMutation, EditNightsMutationVariables>) {
+        return ApolloReactHooks.useMutation<EditNightsMutation, EditNightsMutationVariables>(EditNightsDocument, baseOptions);
+      }
+export type EditNightsMutationHookResult = ReturnType<typeof useEditNightsMutation>;
+export type EditNightsMutationResult = ApolloReactCommon.MutationResult<EditNightsMutation>;
+export type EditNightsMutationOptions = ApolloReactCommon.BaseMutationOptions<EditNightsMutation, EditNightsMutationVariables>;
 export const GetGuideIdForSlugDocument = gql`
     query GetGuideIdForSlug($slug: String!, $owner: String!) {
   guides(condition: {owner: $owner, slug: $slug}) {

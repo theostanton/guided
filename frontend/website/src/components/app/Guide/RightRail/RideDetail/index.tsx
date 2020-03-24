@@ -1,9 +1,9 @@
-import { RideByGuideFragment } from "api/generated"
 import * as React from "react"
 import { Grid, GridColumn, Header } from "semantic-ui-react"
+import { RideFragment } from "api/generated"
 
 type Props = {
-  ride: RideByGuideFragment
+  ride: RideFragment
 }
 
 export default class RideDetail extends React.Component<Props> {

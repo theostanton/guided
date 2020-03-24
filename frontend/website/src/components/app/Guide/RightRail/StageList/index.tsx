@@ -1,8 +1,8 @@
 import GuideStore from "model/GuideStore"
 import { inject, observer } from "mobx-react"
 import * as React from "react"
-import { ReactElement } from "react"
-import { Grid, GridColumn, List, Loader, Segment } from "semantic-ui-react"
+import { CSSProperties, ReactElement } from "react"
+import { List, Segment } from "semantic-ui-react"
 import SpotItem from "./SpotItem"
 import RideItem from "./RideItem"
 import LoadingStageItem from "./LoadingStageItem"
@@ -50,17 +50,12 @@ export default class StageList extends React.Component<Props> {
   }
 
   render(): React.ReactElement {
-
     const items: ReactElement[] = this.generateListItems()
-    return <Grid.Row columns='equal'>
-      <GridColumn>
-        <List items={items}
-              celled={true}
-              selection={true}
-              relaxed={true}
-        />
-      </GridColumn>
-    </Grid.Row>
+    return <List items={items}
+                 celled={true}
+                 selection={true}
+                 relaxed={true}
+    />
   }
 
 }

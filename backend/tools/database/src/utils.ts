@@ -1,4 +1,5 @@
 import { isBoolean } from "util"
+import { logJson } from "@guided/logger"
 
 function extract(any: any): string {
   return Object.values(any).map((value: any | undefined | null) => {
@@ -6,6 +7,8 @@ function extract(any: any): string {
       return `'${value.toISOString()}'`
     } else if (value instanceof Boolean) {
       return value ? "true" : "false"
+    } else if (typeof value === "number") {
+      return value
     } else if (isBoolean(value)) {
       return value ? "true" : "false"
     } else if (value instanceof Object) {

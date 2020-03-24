@@ -1,9 +1,9 @@
 const METERS_TO_MILE = 1609.34
 
 
-export function humanDistance(distanceMeters: number): string {
+export function humanDistance(distanceMeters: number, append: boolean = true): string {
   const miles = Math.ceil(distanceMeters / METERS_TO_MILE)
-  return `${miles}m`
+  return `${miles}${append ? "m" : ""}`
 }
 
 export function humanDuration(durationSeconds: number): string {

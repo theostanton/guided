@@ -29,18 +29,6 @@ export default class GuideComponent extends React.Component<Props> {
   render() {
     return <Provider guideStore={this.guideStore}>
       < Content close={this.props.close}/>
-      {/*<GetGuideBySlugComponent client={client}*/}
-      {/*                         variables={this.props}*/}
-      {/*                         fetchPolicy={"network-only"}*/}
-      {/*                         onSubscriptionComplete={() => {*/}
-      {/*                           console.log("onSubscriptionComplete")*/}
-      {/*                         }*/}
-      {/*                         }*/}
-      {/*                         onSubscriptionData={({ subscriptionData }: OnSubscriptionDataOptions<GetGuideBySlugSubscription>) => {*/}
-      {/*                           console.log("onSubscriptionData")*/}
-      {/*                           this.onSubscriptionData(subscriptionData)*/}
-      {/*                         }*/}
-      {/*                         }/>*/}
     </Provider>
   }
 }

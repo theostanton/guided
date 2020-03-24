@@ -16,6 +16,7 @@ fragment Spot on Spot{
     id
     label
     lat
+    name
     long
     locked
     location

@@ -14,6 +14,7 @@ import { log, logError, logObject } from "utils/logger"
 import { ZenObservable } from "zen-observable-ts/lib/types"
 import client, { subscriptionClient } from "api/client"
 import { read } from "fs"
+import { navigate } from "gatsby"
 
 export default class GuideStore {
 

@@ -11224,6 +11224,13 @@ react-side-effect@^1.1.0:
   dependencies:
     shallowequal "^1.0.1"
 
+react-style-proptype@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/react-style-proptype/-/react-style-proptype-3.2.2.tgz#d8e998e62ce79ec35b087252b90f19f1c33968a0"
+  integrity sha512-ywYLSjNkxKHiZOqNlso9PZByNEY+FTyh3C+7uuziK0xFXu9xzdyfHwg4S9iyiRRoPCR4k2LqaBBsWVmSBwCWYQ==
+  dependencies:
+    prop-types "^15.5.4"
+
 react-virtualized-auto-sizer@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.2.tgz#a61dd4f756458bbf63bd895a92379f9b70f803bd"
@@ -11898,6 +11905,11 @@ semantic-ui-less@^2.4.1:
   integrity sha512-/+nhPV6If2ydCz89/SSWzYD8ualDtjh4Tk3F6cqRj2luZj1DRjJ2nM9NKqmeyLlQFNFM94wpnpKXcjxRzZh5GA==
   dependencies:
     jquery x.*
+
+semantic-ui-react-numberpicker@latest:
+  version "0.0.1-b"
+  resolved "https://registry.yarnpkg.com/semantic-ui-react-numberpicker/-/semantic-ui-react-numberpicker-0.0.1-b.tgz#21c3e9217cbeb6ae8368ef82475ecb7c728d4c25"
+  integrity sha1-IcPpIXy+tq6DaO+CR17LfHKNTCU=
 
 semantic-ui-react@^0.88.2:
   version "0.88.2"

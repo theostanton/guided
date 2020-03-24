@@ -173,16 +173,8 @@
         "version": "b221e0b4d96f480f6562a4c08b7ca0f48e3c5157a307c53bc3414b76b27e8be9",
         "signature": "ae5e675aafeac0b27ba95b946eb8f049a00f027f75a4685032dd1d426d30d6b6"
       },
-      "../logger/srv/locallogger.d.ts": {
-        "version": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d",
-        "signature": "b1714e37334d2b90d07c1cbaf205ab51c9d044643da12e257ea5ab351c80e18d"
-      },
-      "../logger/srv/index.d.ts": {
-        "version": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4",
-        "signature": "0df4c56e044196bf1b2514e7631d875be4bb07df1b0ca311104556e66e93c5c4"
-      },
       "./src/dates.ts": {
-        "version": "d5ac13031f7a7dea2234831bcbeb0b4d39eb2c3caf4f5b57e68a28bb9381b4d1",
+        "version": "0592585a7679a830a4b02a2214db14fcf727ae4cf1816dec91ff094de9ba32bd",
         "signature": "585a4c07bb62e87eef27f10b9f1dd5ced1cb1a9dbf792a8422bddc592df7a1ca"
       },
       "./src/dates.test.ts": {
@@ -1329,22 +1321,7 @@
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../logger/srv/locallogger.d.ts": [
-        "../logger/srv/index.d.ts",
-        "../../node_modules/@types/node/fs.d.ts",
-        "../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../node_modules/@types/node/util.d.ts",
-        "../../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../logger/srv/index.d.ts": [
-        "../logger/srv/locallogger.d.ts",
-        "../../node_modules/@types/node/fs.d.ts",
-        "../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../node_modules/@types/node/util.d.ts",
-        "../../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "./src/dates.ts": [
-        "../logger/srv/index.d.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -3469,20 +3446,6 @@
         "../../node_modules/@types/node/util.d.ts",
         "../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../logger/srv/locallogger.d.ts": [
-        "../logger/srv/index.d.ts",
-        "../../node_modules/@types/node/fs.d.ts",
-        "../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../node_modules/@types/node/util.d.ts",
-        "../../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
-      "../logger/srv/index.d.ts": [
-        "../logger/srv/locallogger.d.ts",
-        "../../node_modules/@types/node/fs.d.ts",
-        "../../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../../node_modules/@types/node/util.d.ts",
-        "../../node_modules/@types/node/ts3.2/util.d.ts"
-      ],
       "./src/index.ts": [
         "./src/executeconcurrently.ts",
         "./src/executewithcontext.ts",
@@ -5356,9 +5319,7 @@
       "../../node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "../../node_modules/typescript/lib/lib.esnext.full.d.ts",
       "./src/constants.ts",
-      "../logger/srv/locallogger.d.ts",
-      "../logger/srv/index.d.ts",
-      "./src/dates.ts",
+      "./src/dates.test.ts",
       "./src/executeconcurrently.ts",
       "./src/executewithcontext.ts",
       "./src/executesequentially.ts",
@@ -5571,7 +5532,7 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "./src/dates.test.ts"
+      "./src/dates.ts"
     ]
   },
   "version": "3.8.3"

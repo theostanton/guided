@@ -206,7 +206,7 @@
         "signature": "409b627d33966d92a302e6e5ef6fe684ba2600496fc87d0e13246128342e2966"
       },
       "./src/utils.ts": {
-        "version": "7ebf2a11b23f5fa98fb37140e60c6866718c9490daa316a882bd9a8106a010ce",
+        "version": "6edfeb73bb40cd1ffb25cfee8d6c56854a33af61665050f0d96f46320a438769",
         "signature": "db63af6ab4411ee2b8d1ff07a062c2ed81187ad81bdd51b0d8f725e000e4b7ee"
       },
       "./src/extensions.ts": {
@@ -1402,6 +1402,7 @@
       ],
       "./src/utils.ts": [
         "../../node_modules/@types/node/util.d.ts",
+        "../logger/srv/index.d.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/util.d.ts"
@@ -5453,7 +5454,7 @@
       "../../node_modules/pg-promise/typescript/pg-promise.d.ts",
       "../../node_modules/cuid/index.d.ts",
       "./src/types.ts",
-      "./src/utils.ts",
+      "./src/extensions.ts",
       "./src/index.ts",
       "./src/client.test.ts",
       "./src/generated.ts",
@@ -5664,7 +5665,7 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "./src/extensions.ts"
+      "./src/utils.ts"
     ]
   },
   "version": "3.8.3"

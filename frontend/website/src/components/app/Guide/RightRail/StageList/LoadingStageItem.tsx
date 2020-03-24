@@ -1,8 +1,6 @@
-import { RideFragment, StageFragment } from "api/generated"
+import { StageFragment } from "api/generated"
 import React from "react"
 import { Icon, Label, List } from "semantic-ui-react"
-import GuideStore from "model/GuideStore"
-import { humanDate, humanDistance, humanDuration } from "utils/human"
 
 type Props = {
   stage: StageFragment

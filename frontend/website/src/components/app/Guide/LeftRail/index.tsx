@@ -6,16 +6,18 @@ import {
   Statistic,
   GridRow,
   Header,
-  StatisticGroup, Divider, Segment, Icon,
+  StatisticGroup, Segment, ButtonGroup,
 } from "semantic-ui-react"
 
 import { client } from "api"
-import { navigate } from "gatsby"
 import { DeleteGuideDocument, DeleteGuideMutationVariables } from "api/generated"
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
-import StageList from "./StageList"
 import StartDateForm from "./StartDateForm"
+import EditGuideTitleForm from "./EditGuideTitleForm"
+import { ReactElement } from "react"
+import { humanDate, humanDistance, humanDuration } from "../../../../utils/human"
+import { plusDays } from "backend/tools/utils/src/dates"
 
 type Props = {
   guideStore?: GuideStore
@@ -24,19 +26,6 @@ type Props = {
 
 type State = {
   selected: "rides" | "spots"
-}
-
-async function deleteGuide(guideId: string): Promise<void> {
-  const variables: DeleteGuideMutationVariables = {
-    guideId,
-  }
-  const { data } = await client.mutate({
-    mutation: DeleteGuideDocument,
-    variables,
-  })
-  console.log("deleteGuide data=")
-  console.log(data)
-  await navigate("app/guides")
 }
 
 @inject("guideStore")
@@ -51,6 +40,86 @@ export default class LeftRailComponent extends React.Component<Props, State> {
     return this.props.guideStore!
   }
 
+  async deleteGuide(guideId: string): Promise<void> {
+    this.props.close()
+    const variables: DeleteGuideMutationVariables = {
+      guideId,
+    }
+    await client.mutate({
+      mutation: DeleteGuideDocument,
+      variables,
+    })
+  }
+
+  statistics(): ReactElement {
+    const meters = this.guideStore.rides.reduce((acc, ride) => {
+      return acc + ride.distanceMeters
+    }, 0)
+    const seconds = this.guideStore.rides.reduce((acc, ride) => {
+      return acc + ride.durationSeconds
+    }, 0)
+    const stats: { label: string, value: string | number }[] = [
+      {
+        label: "Rides",
+        value: this.guideStore.rides.length,
+      },
+      {
+        label: "Spots",
+        value: this.guideStore.spots.length,
+      },
+      {
+        label: "Days",
+        value: this.guideStore.spots.reduce((acc, spot) => {
+          return acc + spot.nights
+        }, 1),
+      },
+      {
+        label: "Borders",
+        value: this.guideStore.rides.reduce((acc, ride) => {
+          if (ride.hasBorder) {
+            return acc + 1
+          } else {
+            return acc
+          }
+        }, 0),
+      },
+      {
+        label: "Miles",
+        value: humanDistance(meters, false),
+      },
+      {
+        label: "Hours",
+        value: Math.ceil(seconds / 60 / 60),
+      },
+    ]
+
+    let startDate = this.guideStore.guide.startDate
+    if (startDate) {
+      stats.push({
+        label: "Start",
+        value: humanDate(startDate),
+      })
+      const lastDate = this.guideStore.rides.reduce((acc, ride) => {
+        if (acc < ride.date) {
+          return ride.date
+        } else {
+          return acc
+        }
+      }, startDate)
+      stats.push({
+        label: "End",
+        value: humanDate(lastDate),
+      })
+    }
+
+    return <StatisticGroup widths='2' size={"tiny"}>
+      {stats.map(stat => {
+        return <Statistic label={stat.label} value={stat.value}/>
+      })}
+
+    </StatisticGroup>
+  }
+
   render(): React.ReactElement {
     const guide = this.guideStore.guide
 
@@ -58,47 +127,24 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       return <Segment loading/>
     }
 
-    return <div style={{ backgroundColor: "#ffffff" }}>
-      <Grid padded={true}>
-
-        <Grid.Row columns='equal' stretched verticalAlign='bottom'>
-          <GridColumn width={"4"}>
-            <Button icon='close' onClick={this.props.close}/>
+    return <Segment style={{ backgroundColor: "#ffffff" }}>
+      <Grid divided={"vertically"} padded={false}>
+        <Grid.Row verticalAlign='middle'>
+          <GridColumn width={"10"}>
+            <EditGuideTitleForm guide={guide} edit={false}/>
           </GridColumn>
-          <GridColumn>
-            <Header as='h1'>{guide.title} </Header>
-          </GridColumn>
-          <GridColumn width={"4"} floated={"right"}>
-            <Button icon='trash' onClick={async () => {
-              await deleteGuide(guide.id)
-            }}/>
+          <GridColumn width={"6"}>
+            <ButtonGroup floated={"right"}>
+              <Button icon='trash' onClick={async () => {
+                await this.deleteGuide(guide.id)
+              }}/>
+              <Button icon='close' onClick={this.props.close}/>
+            </ButtonGroup>
           </GridColumn>
         </Grid.Row>
-
-        <Divider/>
-
         <GridRow>
           <GridColumn>
-            <Header subheader={"Slug"} content={guide.slug}/>
-          </GridColumn>
-        </GridRow>
-
-        <Divider/>
-
-        <GridRow>
-          <GridColumn>
-            <StatisticGroup widths='2' size={"tiny"}>
-              <Statistic as='a' label='Rides' value={this.guideStore.rides.length} onClick={() => {
-                this.setState({
-                  selected: "rides",
-                })
-              }}/>
-              <Statistic label='Spots' value={this.guideStore.spots.length} onClick={() => {
-                this.setState({
-                  selected: "spots",
-                })
-              }}/>
-            </StatisticGroup>
+            {this.statistics.bind(this)()}
           </GridColumn>
         </GridRow>
         <GridRow>
@@ -106,19 +152,7 @@ export default class LeftRailComponent extends React.Component<Props, State> {
             <StartDateForm guideId={guide.id} startDate={guide.startDate}/>
           </GridColumn>
         </GridRow>
-        {/*{guide.startDate &&*/}
-        {/*<GridRow>*/}
-        {/*  <GridColumn>*/}
-        {/*    <StatisticGroup widths='1' size={"small"}>*/}
-        {/*      <Statistic label='Starts' value={guide.startDate}/>*/}
-        {/*    </StatisticGroup>*/}
-        {/*  </GridColumn>*/}
-        {/*</GridRow>*/}
-        {/*}*/}
-
-        <Divider/>
-        <StageList/>
       </Grid>
-    </div>
+    </Segment>
   }
 }

@@ -54,12 +54,11 @@ export default class GuideComponent extends React.Component<Props> {
           height: "auto",
           width: "25%",
           paddingTop: "1em",
-          paddingRight: "1em",
           paddingBottom: "2em",
           margin: 0,
           top: 0,
-          right: 0,
           bottom: 0,
+          right: "1em",
           zIndex: 3,
         }}>
           <RightRail/>

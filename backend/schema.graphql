@@ -1392,6 +1392,7 @@ type Mutation {
   moveSpot(spotId: String!, lat: Float!, long: Float!): Spot!
   removeSpot(spotId: String!): Spot!
   editStartDate(guideId: String!, date: String): Result!
+  editNights(spotId: String!, nights: Int!): Result!
 }
 
 """An object with a globally unique `ID`."""
@@ -2066,6 +2067,7 @@ type Spot implements Node {
     """
     condition: RideCondition
   ): RidesConnection!
+  name: String
   temperature: Float
 }
 
