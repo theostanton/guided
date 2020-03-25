@@ -19,13 +19,14 @@ resource "aws_api_gateway_method" "proxy_root" {
 }
 
 
-resource "aws_lambda_permission" "api" {
-  statement_id = "AllowAPIGatewayInvoke"
-  action = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.graphql.function_name
-  principal = "apigateway.amazonaws.com"
-
-  # The "/*/*" portion grants access from any method on any resource
-  # within the API Gateway REST API.
-  source_arn = "${aws_api_gateway_rest_api.guided.execution_arn}/*/*"
-}
+//TODO
+//resource "aws_lambda_permission" "api" {
+//  statement_id = "AllowAPIGatewayInvoke"
+//  action = "lambda:InvokeFunction"
+//  function_name = aws_lambda_function.graphql.function_name
+//  principal = "apigateway.amazonaws.com"
+//
+//  # The "/*/*" portion grants access from any method on any resource
+//  # within the API Gateway REST API.
+//  source_arn = "${aws_api_gateway_rest_api.guided.execution_arn}/*/*"
+//}

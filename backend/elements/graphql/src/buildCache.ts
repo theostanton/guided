@@ -12,10 +12,6 @@ if (!process.env.DATABASE_URL) {
   throw new Error("No connection provided")
 }
 
-//TODO actually pull in envs
-process.env.JWT_SECRET = "someSecret"
-process.env.POSTGRES_SCHEMA = "public"
-
 import { createPostGraphileSchema } from "postgraphile"
 import { options } from "./options"
 

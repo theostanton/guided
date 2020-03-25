@@ -4,12 +4,12 @@ const TerserPlugin = require("terser-webpack-plugin")
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "index.js",
+    path: path.resolve(__dirname, "../dist"),
+    filename: "server.js",
     library: "",
     libraryTarget: "commonjs",
   },
-  entry: "./srv/lambda.js",
+  entry: "./srv/server.js",
   mode: "production",
   target: "node",
   plugins: [
@@ -19,21 +19,15 @@ module.exports = {
         "process.env.NODE_ENV": "\"production\"",
         "process.env.POSTGRAPHILE_ENV": "\"production\"",
         "process.env.NODE_PG_FORCE_NATIVE": JSON.stringify("1"),
-        "process.env.POSTGRAPHILE_OMIT_ASSETS": "\"1\"",
+        "process.env.POSTGRAPHILE_OMIT_ASSETS": "\"0\"",
       }),
       new webpack.NormalModuleReplacementPlugin(/pg\/lib\/native\/index\.js$/, "../client.js"),
     ],
 
-    // Omit websocket functionality from postgraphile:
-    new webpack.NormalModuleReplacementPlugin(
-      /postgraphile\/build\/postgraphile\/http\/subscriptions\.js$/,
-      `${__dirname}/webpack/postgraphile-http-subscriptions.js`,
-    ),
-
     // Just in case you install express:
     new webpack.NormalModuleReplacementPlugin(
       /express\/lib\/view\.js$/,
-      `${__dirname}/webpack/express-lib-view.js`,
+      `${__dirname}/express-lib-view.js`,
     ),
   ],
   node: {

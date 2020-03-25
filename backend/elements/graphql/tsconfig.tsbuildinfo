@@ -1158,19 +1158,19 @@
         "signature": "ed7ddf06f8a2868a97462ca8c17bb09aa640dad83568c5b19c61491481d836d4"
       },
       "./src/options.ts": {
-        "version": "e679e9f73175d18bec5deb643fc9783aba0bd14eafb74d53202de1f83f8f6291",
-        "signature": "1c0ea3dc0a8add2fdc85574e066681106854cc97adbebf7173a51b9f5a4233d5"
+        "version": "8722fe08f9d7780b25bdbc2a940e86698d483e0e9008e13b58737df967aed4b5",
+        "signature": "987e03ccebd9e8466ce93d4aca75ce26920b443568f429f4b9911a6f65581d1c"
       },
       "../../node_modules/@types/cors/index.d.ts": {
         "version": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad",
         "signature": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad"
       },
       "./src/app.ts": {
-        "version": "aa21690c8d76dc5d947e749f90f1dc33e7cb365aec395119afeb465abe27b255",
+        "version": "606f291483a7a270ce85e3e65fdcbb2e33d3b0be05cbf508eab9932de693a7c0",
         "signature": "7723e48a9738998bc314c804157c085a8de3fe819e1ba3589cc428d2e60d55a7"
       },
       "./src/buildcache.ts": {
-        "version": "b9c708e48b0b4c568bdec44109e138a834a8a1512b6057c6d659edea459c45fb",
+        "version": "4defa341f75a541e9bfbaaff03accb1e78c9decc93eb4fd1bd7a634f6658cd10",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "../../node_modules/@types/aws-lambda/handler.d.ts": {
@@ -1286,7 +1286,7 @@
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./src/server.ts": {
-        "version": "0f8917a16fdfd2d222658ea43fdc36fa9009e4a5e991cfe1cf81cf477af7d40b",
+        "version": "d26fc0b09e712cec66fc09e4a1144a0c1bdd2803e68d799ff41f2ebb068b70c6",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "../../tools/spinup/srv/spinup/index.d.ts": {
@@ -1839,7 +1839,6 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
-      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -4261,6 +4260,8 @@
         "../../node_modules/postgraphile/build/index.d.ts",
         "../../node_modules/graphile-build/node8plus/index.d.ts",
         "./src/plugins/index.ts",
+        "../../tools/logger/srv/index.d.ts",
+        "../../node_modules/@types/node/path.d.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -4279,6 +4280,7 @@
         "../../node_modules/@types/express/index.d.ts",
         "../../node_modules/postgraphile/build/index.d.ts",
         "../../node_modules/@types/cors/index.d.ts",
+        "../../tools/logger/srv/index.d.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -9743,6 +9745,7 @@
       "../../node_modules/@googlemaps/google-maps-services-js/dist/index.d.ts",
       "../../apis/google/srv/getinfo/index.d.ts",
       "../../apis/google/srv/index.d.ts",
+      "./src/generated.ts",
       "../../node_modules/pg-promise/typescript/pg-subset.d.ts",
       "../../node_modules/pg-minify/typescript/pg-minify.d.ts",
       "../../node_modules/spex/typescript/spex.d.ts",
@@ -9756,13 +9759,19 @@
       "../compute/srv/prepare/index.d.ts",
       "../compute/srv/trigger/index.d.ts",
       "../compute/srv/index.d.ts",
+      "./src/plugins/addspotfromlatlng/index.ts",
+      "./src/plugins/movespot/index.ts",
       "../../tools/utils/srv/dates.d.ts",
       "../compute/srv/trigger/ammenddates.d.ts",
+      "./src/plugins/editstartdate/index.ts",
+      "./src/plugins/editnights/index.ts",
       "../../tools/utils/srv/executeconcurrently.d.ts",
       "../../tools/utils/srv/executewithcontext.d.ts",
       "../../tools/utils/srv/executesequentially.d.ts",
       "../../tools/utils/srv/constants.d.ts",
       "../../tools/utils/srv/index.d.ts",
+      "./src/plugins/removespot/index.ts",
+      "./src/plugins/index.ts",
       "../../node_modules/@types/cors/index.d.ts",
       "./src/app.ts",
       "./src/buildcache.ts",
@@ -9801,6 +9810,8 @@
       "../../tools/spinup/srv/builder/index.d.ts",
       "../../tools/spinup/srv/index.d.ts",
       "../../node_modules/@types/faker/index.d.ts",
+      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
+      "./src/plugins/movespot/movespot.test.ts",
       "./src/plugins/removespot/removespot.test.ts",
       "../../node_modules/@types/accepts/index.d.ts",
       "../../node_modules/@babel/types/lib/index.d.ts",
@@ -9923,15 +9934,6 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "./src/generated.ts",
-      "./src/plugins/movespot/movespot.test.ts",
-      "./src/plugins/addspotfromlatlng/addspotfromlatlng.test.ts",
-      "./src/plugins/removespot/index.ts",
-      "./src/plugins/editnights/index.ts",
-      "./src/plugins/editstartdate/index.ts",
-      "./src/plugins/movespot/index.ts",
-      "./src/plugins/addspotfromlatlng/index.ts",
-      "./src/plugins/index.ts",
       "./src/options.ts"
     ]
   },

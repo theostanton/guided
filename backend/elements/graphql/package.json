@@ -3,12 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "webpack": "webpack",
+    "webpack:lambda": "tsc && webpack --config webpack/lambda.config.js",
+    "webpack:server": "tsc && webpack --config webpack/server.config.js",
     "build": "tsc",
-    "dist": "yarn build:cache && yarn build:build && yarn build:pack",
+    "build:cache": "node srv/buildCache.js",
     "invoke": "STAGE=staging ts-node src/lambda.ts",
     "logs": "awslogs get /aws/lambda/guided-graphql-staging -w",
     "start": "node srv/server.js",
+    "serve": "node dist/server.js",
     "watch": "tsc -w"
   },
   "dependencies": {

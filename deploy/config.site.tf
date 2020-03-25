@@ -16,13 +16,12 @@ resource "null_resource" "site_push" {
       GATSBY_STAGE = var.stage
       GATSBY_APP_VERSION = local.app_version
       GATSBY_MAPBOX_TOKEN = var.mapbox_token
-      GATSBY_GUIDED_GRAPHQL = "${aws_api_gateway_deployment.graphql.invoke_url}/${aws_api_gateway_resource.guided.path_part}"
+//TODO      GATSBY_GUIDED_GRAPHQL = "${aws_api_gateway_deployment.graphql.invoke_url}/${aws_api_gateway_resource.guided.path_part}"
     }
-//    command = "cd ../frontend/website && yarn deploy"
     command = "echo noop"
   }
 
-  depends_on = [aws_lambda_function.graphql]
+//  TODO depends_on = [aws_lambda_function.graphql]
 }
 
 resource "aws_cloudfront_distribution" "site" {

@@ -7,6 +7,11 @@ variable "macro_version" {
   type = number
 }
 
+variable "aws_account_id" {
+  type = number
+  default = 132788847502
+}
+
 variable "stage" {
   type = string
 }

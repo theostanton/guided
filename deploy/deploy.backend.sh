@@ -64,6 +64,33 @@ function prepareGraphql() {
   echo Zipped to "${graphql_filename}"
 }
 
+function pushGraphql(){
+  cd $work_dir
+  GRAPHQL_CONTAINER_TAG=$(terraform output graphql_container_tag)
+  cd ../backend/elements/graphql || exit
+  rm -rf dist/server.js
+#  rm -rf dist/cache
+
+  echo -- Build graphql source --
+  yarn build
+
+#  echo -- Build graphql cache --
+#  node srv/buildCache.js connection=jdbc://superuser:password@"${STAGE}"-database.ridersbible.com:5432/main
+
+  echo -- Pack graphql --
+  yarn webpack:server
+
+  if [ ! -f "dist/server.js" ]; then
+    echo "dist/server.js does not exist"
+  fi
+
+  echo -- Build image --
+  docker build -t ${GRAPHQL_CONTAINER_TAG} .
+
+  echo -- Push image --
+  docker push ${GRAPHQL_CONTAINER_TAG}
+}
+
 #macro_version=$(incrementVersion)
 macro_version=27
 echo 'macro_version'
@@ -72,15 +99,19 @@ app_version="0.0.${macro_version}"
 
 
 if [ "$BUILD" = 'true' ]; then
-  echo 'Building'
-  buildAll
+#  echo 'Building'
+#  buildAll
 
-  prepareCompute
+#  prepareCompute
 
-  prepareGraphql
+#  prepareGraphql
+
+  pushGraphql
 else
   echo 'Skipping Build'
 fi
+
+
 
 echo -- Deploying --
 cd $work_dir

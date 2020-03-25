@@ -1,8 +1,10 @@
 import { PostGraphileOptions } from "postgraphile"
 import { Plugin } from "graphile-build"
 import customPlugins from "./plugins"
+import { log } from "@guided/logger"
+import path from "path"
 
-export type Mode = "watch" | "buildCache" | "invoke"
+export type Mode = "watch" | "buildCache" | "invoke" | "serve"
 
 function plugins(): Plugin[] {
   return [
@@ -14,11 +16,14 @@ function plugins(): Plugin[] {
 
 export function connection(): string {
   if (process.env.DATABASE_URL) {
+    log(process.env.DATABASE_URL, "connection() process.env.DATABASE_URL")
     return process.env.DATABASE_URL
   } else if (!process.env.POSTGRES_USER) {
     throw new Error("No envs provided")
   } else {
-    return `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+    const connection = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+    log(connection, "connection() connection")
+    return connection
   }
 }
 
@@ -39,7 +44,7 @@ export function watch(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaP
 
 }
 
-export function createCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaPath" | "writeCache" | "ownerConnectionString" | "disableQueryLog" | "sortExport" | "graphiql" | "allowExplain"> {
+export function buildCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaPath" | "writeCache" | "ownerConnectionString" | "disableQueryLog" | "sortExport" | "graphiql" | "allowExplain"> {
 
   if (!process.env.OWNER_USER && !process.env.DATABASE_URL) {
     throw new Error("Need OWNER variables to create cache")
@@ -67,7 +72,7 @@ export function jwt(): Pick<PostGraphileOptions, "jwtSecret" | "jwtPgTypeIdentif
   }
 }
 
-export function fromCache(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "enableQueryBatching"> {
+export function invoke(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "enableQueryBatching"> {
 
   if (process.env.POSTGRAPHILE_WATCH === "true") {
     throw new Error()
@@ -85,15 +90,45 @@ export function fromCache(): Pick<PostGraphileOptions, "watchPg" | "readCache" |
 
 }
 
+export function serve(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "enableQueryBatching" | "ownerConnectionString"> {
+
+  if (process.env.POSTGRAPHILE_WATCH === "true") {
+    throw new Error()
+  }
+
+  if (!process.env.POSTGRES_USER && !process.env.DATABASE_URL) {
+    throw new Error("Variables not loaded")
+  }
+
+
+  if (!process.env.OWNER_USER && !process.env.DATABASE_URL) {
+    throw new Error("Need OWNER variables for Live queries")
+  }
+
+  const ownerConnectionString = `postgresql://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+  log(ownerConnectionString, "ownerConnectionString")
+
+  return {
+    watchPg: false,
+    readCache: path.resolve(__dirname, "cache"),
+    enableQueryBatching: false,
+    ownerConnectionString,
+  }
+
+}
+
 export function options(mode: Mode): PostGraphileOptions {
 
   let cacheOptions: {}
   switch (mode) {
     case "buildCache":
-      cacheOptions = createCache()
+      cacheOptions = buildCache()
       break
     case "invoke":
-      cacheOptions = fromCache()
+      cacheOptions = invoke()
+      break
+    case "serve":
+      cacheOptions = serve()
       break
     case "watch":
       cacheOptions = watch()
