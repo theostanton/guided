@@ -10,7 +10,7 @@ resource "aws_db_parameter_group" "db_logical_replication" {
 
 resource "aws_db_instance" "guided" {
   name = var.db_database
-  identifier = "guided-db-${var.stage}"
+  identifier = "guided-${var.stage}"
   allocated_storage = 300
   engine = "postgres"
   parameter_group_name = aws_db_parameter_group.db_logical_replication.name

@@ -12,6 +12,10 @@ if (!process.env.DATABASE_URL) {
   throw new Error("No connection provided")
 }
 
+if (!process.env.POSTGRES_SCHEMA) {
+  throw new Error("No schema provided")
+}
+
 import { createPostGraphileSchema } from "postgraphile"
 import { options } from "./options"
 
@@ -25,7 +29,9 @@ async function main() {
   await pgPool.end()
 }
 
-main().then(null, e => {
+main().then(() => {
+  process.exit(0)
+}, e => {
   // eslint-disable-next-line no-console
   console.error(e)
   process.exit(1)

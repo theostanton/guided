@@ -50,6 +50,8 @@ export function buildCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSc
     throw new Error("Need OWNER variables to create cache")
   }
 
+  let ownerConnectionString = `postgres://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+  log(ownerConnectionString, "buildCache() ownerConnectionString")
   return {
     watchPg: false,
     exportGqlSchemaPath: "../../schema.graphql",
@@ -57,7 +59,7 @@ export function buildCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSc
     sortExport: true,
     graphiql: false,
     allowExplain: false,
-    ownerConnectionString: `postgres://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`,
+    ownerConnectionString,
   }
 
 }
@@ -90,7 +92,7 @@ export function invoke(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "e
 
 }
 
-export function serve(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "enableQueryBatching" | "ownerConnectionString"> {
+export function serve(): Pick<PostGraphileOptions, "watchPg" | "readCache" |  "allowExplain" | "graphiql" | "enableQueryBatching" | "ownerConnectionString"> {
 
   if (process.env.POSTGRAPHILE_WATCH === "true") {
     throw new Error()
@@ -112,6 +114,8 @@ export function serve(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "en
     watchPg: false,
     readCache: path.resolve(__dirname, "cache"),
     enableQueryBatching: false,
+    graphiql: true,
+    allowExplain: true,
     ownerConnectionString,
   }
 

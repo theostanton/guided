@@ -1,7 +1,7 @@
 [
   {
     "name": "graphql",
-    "image": "service-first",
+    "image": "132788847502.dkr.ecr.eu-west-2.amazonaws.com/guided",
     "cpu": 10,
     "memory": 512,
     "essential": true,

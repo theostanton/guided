@@ -1,4 +1,4 @@
 {
-  "name": "Untitled GraphQL Schema",
+  "name": "Guided GraphQL Schema",
   "schemaPath": "backend/schema.graphql"
 }

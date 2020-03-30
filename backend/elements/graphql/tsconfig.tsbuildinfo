@@ -946,7 +946,7 @@
         "signature": "467a108d081a93ff493a934431395ef603dcc46983fc095f33735b1559315267"
       },
       "./src/plugins/info/index.ts": {
-        "version": "953c63efe58d3a9f7c2af0e0a0a00c963488f123ac7e5467647085f5f6e729aa",
+        "version": "46937917de47f8fe85bf13c6b96a1f621b5ef03120cd8484a7ba2c8c61899246",
         "signature": "46a0b34e1264c4d25ca6646ff0e6cfaa7275ea1ae5a6bc23d4dfd84edf2f2b2e"
       },
       "../../tools/logger/srv/locallogger.d.ts": {
@@ -1158,8 +1158,8 @@
         "signature": "ed7ddf06f8a2868a97462ca8c17bb09aa640dad83568c5b19c61491481d836d4"
       },
       "./src/options.ts": {
-        "version": "8722fe08f9d7780b25bdbc2a940e86698d483e0e9008e13b58737df967aed4b5",
-        "signature": "987e03ccebd9e8466ce93d4aca75ce26920b443568f429f4b9911a6f65581d1c"
+        "version": "60bf724c80c63b51fff9c9105bc58f6cacb312988b8a675bd2c37e3ba625de65",
+        "signature": "f0c1e4d2865a3e4939559e1ff9c1eb63cc95eafe49331823ebbb2009d5a4f0a0"
       },
       "../../node_modules/@types/cors/index.d.ts": {
         "version": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad",
@@ -1170,8 +1170,12 @@
         "signature": "7723e48a9738998bc314c804157c085a8de3fe819e1ba3589cc428d2e60d55a7"
       },
       "./src/buildcache.ts": {
-        "version": "4defa341f75a541e9bfbaaff03accb1e78c9decc93eb4fd1bd7a634f6658cd10",
+        "version": "8ac81c7d7cf02e1d89a3fe4977867b21928f93a64c0c9c1f199ab192d8e44b78",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      },
+      "./src/hello.ts": {
+        "version": "2deeb1137be209d315111e3de8f4c349a9ef7c4c27ad42b53125a41910475ff2",
+        "signature": "a1913e29ed533b05993552ba868fe20d2ac6e67b9b50c4a9067a116b5e464c9f"
       },
       "../../node_modules/@types/aws-lambda/handler.d.ts": {
         "version": "6d366f0f11c05a273060e686ea770c869e9d7b9aa2ba8a40b8bce3de82bd183f",
@@ -1286,7 +1290,7 @@
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./src/server.ts": {
-        "version": "d26fc0b09e712cec66fc09e4a1144a0c1bdd2803e68d799ff41f2ebb068b70c6",
+        "version": "12888c5b1427d2b50897bd132940c0321f738de21c3621936f26013e44a33214",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "../../tools/spinup/srv/spinup/index.d.ts": {
@@ -4290,6 +4294,12 @@
         "../../tools/logger/srv/index.d.ts",
         "../../node_modules/postgraphile/build/index.d.ts",
         "./src/options.ts",
+        "../../node_modules/@types/node/fs.d.ts",
+        "../../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../../node_modules/@types/node/util.d.ts",
+        "../../node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/hello.ts": [
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -9719,7 +9729,6 @@
       "../../node_modules/postgraphile/build/postgraphile/http/subscriptions.d.ts",
       "../../node_modules/postgraphile/build/postgraphile/index.d.ts",
       "../../node_modules/postgraphile/build/index.d.ts",
-      "./src/plugins/info/index.ts",
       "../../tools/logger/srv/locallogger.d.ts",
       "../../tools/logger/srv/index.d.ts",
       "../../node_modules/axios/index.d.ts",
@@ -9772,9 +9781,11 @@
       "../../tools/utils/srv/index.d.ts",
       "./src/plugins/removespot/index.ts",
       "./src/plugins/index.ts",
+      "./src/options.ts",
       "../../node_modules/@types/cors/index.d.ts",
       "./src/app.ts",
       "./src/buildcache.ts",
+      "./src/hello.ts",
       "../../node_modules/@types/aws-lambda/handler.d.ts",
       "../../node_modules/@types/aws-lambda/common/api-gateway.d.ts",
       "../../node_modules/@types/aws-lambda/common/cloudfront.d.ts",
@@ -9934,7 +9945,7 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "./src/options.ts"
+      "./src/plugins/info/index.ts"
     ]
   },
   "version": "3.8.3"

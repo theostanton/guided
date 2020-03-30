@@ -14,7 +14,8 @@ create table stages
             references spots,
     created   timestamp with time zone not null,
     updated   timestamp with time zone,
-    status    stage_status      not null
+    status    stage_status             not null,
+    position  integer
 );
 
 alter table stages

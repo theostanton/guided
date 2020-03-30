@@ -3,7 +3,7 @@ import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPl
 const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 
 async function appVersion(): Promise<string> {
-  return process.env.APP_VERSION || "None"
+  return process.env.APP_VERSION || "NA"
 
 }
 

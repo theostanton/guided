@@ -1434,7 +1434,7 @@
         "signature": "67f73ea3cddaed9ba4179300ec27d538a0999c4d4f165eb683ce8e862d62637c"
       },
       "./src/trigger/index.ts": {
-        "version": "e9f98c0367b6246e2194278008abcc5c94948d502f64b7420256a21e13877971",
+        "version": "354defa95567e564bbca65a9965dde89744204194d20308339ca0eaffaeed1bf",
         "signature": "a7d2df1aed4ae28b3bd5848a2be68452da61f51a6581e622508e96fba933383f"
       },
       "./src/index.ts": {
@@ -2339,7 +2339,6 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
-      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -13566,6 +13565,7 @@
       "./src/action/calculatestage/index.ts",
       "./src/utils/index.ts",
       "./src/action/getroute/index.ts",
+      "./src/trigger/ammenddates.ts",
       "./src/action/index.ts",
       "./src/prepare/index.ts",
       "../../node_modules/aws-sdk/lib/error.d.ts",
@@ -13832,7 +13832,6 @@
       "../../node_modules/aws-sdk/lib/core.d.ts",
       "../../node_modules/aws-sdk/index.d.ts",
       "./src/trigger/sqs.ts",
-      "./src/trigger/index.ts",
       "./src/index.ts",
       "./src/invoke.ts",
       "./src/lambda.ts",
@@ -14051,7 +14050,7 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "./src/trigger/ammenddates.ts"
+      "./src/trigger/index.ts"
     ]
   },
   "version": "3.8.3"

@@ -6,25 +6,24 @@ output "database_url" {
   value = "https://${aws_route53_record.database.name}"
 }
 
-// TODO
-//output "lambda_url" {
-//  value = "https://${aws_route53_record.graphql.name}"
-//}
-//
-//output "lambda_invoke_url" {
-//  value = aws_api_gateway_deployment.graphql.invoke_url
-//}
-//
-//output "lambda_api_url" {
-//  value = "${aws_api_gateway_deployment.graphql.invoke_url}/${aws_api_gateway_resource.guided.path_part}"
-//}
+output "server_url" {
+  value = "http://${aws_route53_record.server.name}"
+}
+
+output "graphql_endpoint" {
+  value = "http://${aws_route53_record.server.name}:5000/graphql"
+}
+
+output "graphql_websocket" {
+  value = "ws://${aws_route53_record.server.name}:5000/graphql"
+}
 
 output "compute_queue" {
   value = aws_sqs_queue.compute.name
 }
 
-output "graphql_container_tag" {
-  value = "${var.aws_account_id}.dkr.ecr.${var.region}.amazonaws.com/${aws_ecr_repository.guided.name}"
+output "env_file" {
+  value = local.env_file
 }
 
 output "deployed_macro_version" {

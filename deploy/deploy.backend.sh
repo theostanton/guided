@@ -6,7 +6,24 @@ echo $work_dir
 [ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
 [ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
 
-echo "Deploying $STAGE backend"
+terraform workspace select $STAGE
+
+ENVS=$(terraform output env_file)
+export $(echo "${ENVS}" | sed 's/#.*//g')
+
+[ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
+
+GREEN="\033[1;32m"
+NOCOLOR="\033[0m"
+
+function log() {
+  echo
+  echo
+  echo -e "${GREEN} -- $1 -- ${NOCOLOR}"
+  echo
+}
+
+log "Deploying $STAGE backend"
 
 function buildAll() {
   cd $work_dir
@@ -25,27 +42,27 @@ function prepareCompute() {
   cd ../backend/elements/compute || exit
   rm -rf dist/index.js
 
-  echo -- Build compute --
+  log Build compute
   yarn build
-  echo -- Pack compute --
+  log Pack compute
   yarn webpack
   if [ ! -f "dist/index.js" ]; then
     echo "compute/dist/index.js does not exist"
     exit 1
   fi
-  echo -- Zip compute --
+  log Zip compute
   compute_filename=dist/"${STAGE}"-"$app_version"-compute.zip
   zip -rj ../../../deploy/"${compute_filename}" dist
   echo Zipped to "${compute_filename}"
 }
 
-function prepareGraphql() {
+function prepareServer() {
   cd $work_dir
   cd ../backend/elements/graphql || exit
   rm -rf dist/index.js
-  echo -- Build graphql source --
+  log Build graphql source
   yarn build
-  echo -- Build graphql cache --
+  log Build graphql cache
   node srv/buildCache.js connection=jdbc://superuser:password@"${STAGE}"-database.ridersbible.com:5432/main
   if [ ! -f "dist/cache" ]; then
     echo "graphql/dist/cache does not exist"
@@ -53,66 +70,36 @@ function prepareGraphql() {
     exit 1
   fi
 
-  echo -- Pack graphql --
-  yarn webpack
-  if [ ! -f "dist/index.js" ]; then
-    echo "dist/index.js does not exist"
-  fi
-  echo -- Zip graphql --
-  graphql_filename=dist/"${STAGE}"-"$app_version"-graphql.zip
-  zip -rj ../../../deploy/"${graphql_filename}" dist
-  echo Zipped to "${graphql_filename}"
-}
+  echo 'Copying cache'
+  cp dist/cache ../../../deploy/dist
 
-function pushGraphql(){
-  cd $work_dir
-  GRAPHQL_CONTAINER_TAG=$(terraform output graphql_container_tag)
-  cd ../backend/elements/graphql || exit
-  rm -rf dist/server.js
-#  rm -rf dist/cache
-
-  echo -- Build graphql source --
-  yarn build
-
-#  echo -- Build graphql cache --
-#  node srv/buildCache.js connection=jdbc://superuser:password@"${STAGE}"-database.ridersbible.com:5432/main
-
-  echo -- Pack graphql --
+  log Pack graphql
   yarn webpack:server
-
   if [ ! -f "dist/server.js" ]; then
     echo "dist/server.js does not exist"
   fi
 
-  echo -- Build image --
-  docker build -t ${GRAPHQL_CONTAINER_TAG} .
-
-  echo -- Push image --
-  docker push ${GRAPHQL_CONTAINER_TAG}
+  cp dist/server.js ../../../deploy/dist/server.js
 }
 
-#macro_version=$(incrementVersion)
-macro_version=27
+macro_version=$(incrementVersion)
+#macro_version=28
 echo 'macro_version'
 echo "${macro_version}"
 app_version="0.0.${macro_version}"
 
-
 if [ "$BUILD" = 'true' ]; then
-#  echo 'Building'
-#  buildAll
+  echo 'Building'
+  buildAll
 
-#  prepareCompute
+  prepareCompute
 
-#  prepareGraphql
-
-  pushGraphql
+  prepareServer
 else
   echo 'Skipping Build'
 fi
 
-
-
-echo -- Deploying --
+log Deploying
 cd $work_dir
+
 terraform apply -var-file vars/"${STAGE}".tfvars -var macro_version="${macro_version}" -auto-approve
