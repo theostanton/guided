@@ -86,7 +86,7 @@ macro_version=$(incrementVersion)
 #macro_version=28
 echo 'macro_version'
 echo "${macro_version}"
-app_version="0.0.${macro_version}"
+app_version="0.1.${macro_version}"
 
 if [ "$BUILD" = 'true' ]; then
   echo 'Building'

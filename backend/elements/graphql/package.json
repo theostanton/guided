@@ -5,7 +5,6 @@
   "scripts": {
     "webpack:lambda": "tsc && webpack --config webpack/lambda.config.js",
     "webpack:server": "tsc && webpack --config webpack/server.config.js",
-    "webpack:hello": "tsc && webpack --config webpack/hello.config.js",
     "build": "tsc",
     "build:cache": "node srv/buildCache.js",
     "invoke": "STAGE=staging ts-node src/lambda.ts",
