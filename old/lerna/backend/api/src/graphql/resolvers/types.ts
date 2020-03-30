@@ -1,1 +1,0 @@
-export type Resolver<T> = (source: any, args: any, context: any) => T | Promise<T>

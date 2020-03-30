@@ -1,0 +1,86 @@
+subscription AllGuideTitlesForUser($owner:String!){
+    guides(
+        condition: {
+            owner: $owner
+        }){
+        nodes{
+            id
+            title
+            slug
+            owner
+        }
+    }
+}
+
+fragment Spot on Spot{
+    id
+    label
+    lat
+    name
+    long
+    locked
+    location
+    position
+    date
+    temperature
+    country
+    nights
+}
+
+fragment Ride on Ride{
+    id
+    position
+    status
+    toSpot:spotByToSpot{
+        ...Spot
+    }
+    fromSpot:spotByFromSpot{
+        ...Spot
+    }
+    pathUrl
+    hasBorder
+    name
+    date
+    distanceMeters
+    durationSeconds
+}
+
+fragment Stage on Stage {
+    id
+    position
+    status
+    name
+    toSpot:spotByToSpot{
+        ...Spot
+    }
+    fromSpot:spotByFromSpot{
+        ...Spot
+    }
+    ridesByStage(orderBy: [POSITION_ASC]){
+        nodes{
+            ...Ride
+        }
+    }
+}
+
+fragment Guide on Guide {
+    id
+    slug
+    owner
+    startDate
+    title
+    maxHoursPerRide
+    stagesByGuide(orderBy: POSITION_ASC){
+        nodes{
+            ...Stage
+        }
+    }
+}
+
+subscription GuideStages($id: String!){
+    guide(
+        id: $id
+    ){
+        ...Guide
+    }
+}

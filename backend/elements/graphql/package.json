@@ -1,0 +1,37 @@
+{
+  "name": "@guided/graphql",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "webpack:lambda": "tsc && webpack --config webpack/lambda.config.js",
+    "webpack:server": "tsc && webpack --config webpack/server.config.js",
+    "build": "tsc",
+    "build:cache": "node srv/buildCache.js",
+    "invoke": "STAGE=staging ts-node src/lambda.ts",
+    "logs": "awslogs get /aws/lambda/guided-graphql-staging -w",
+    "start": "node srv/server.js",
+    "serve": "node dist/server.js",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@guided/logger": "*",
+    "@guided/database": "*",
+    "@guided/utils": "*",
+    "@guided/compute": "*",
+    "@graphile/subscriptions-lds": "^4.6.0-alpha.0",
+    "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
+    "aws-serverless-express": "^3.3.6",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "postgraphile": "^4.6.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.11",
+    "webpack": "^4.42.0",
+    "@types/aws-serverless-express": "^3.3.3",
+    "ts-node": "^8.6.2",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.2"
+  }
+}

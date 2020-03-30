@@ -1,7 +1,0 @@
-**/node_modules
-**/.cache
-**/srv
-**/public
-backend/data
-npm-debug.log
-lerna-debug.logs

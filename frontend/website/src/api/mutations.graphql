@@ -1,0 +1,50 @@
+mutation CreateGuide($guide:GuideInput!){
+    createGuide(input: {
+        guide: $guide
+    }){
+        guide{
+            id
+        }
+    }
+}
+
+mutation AddStayFromLatLong($guideId:String!,$lat:Float!,$long:Float!,$nights:Int!){
+    addSpotFromLatLng(guideId: $guideId,lat:$lat,long: $long,nights: $nights){
+        id
+    }
+}
+
+mutation DeleteGuide($guideId:String!){
+    deleteGuide(input: {
+        id: $guideId
+    }){
+        guide{
+            id
+        }
+    }
+}
+
+mutation RemoveSpot($spotId:String!){
+    removeSpot(spotId: $spotId){
+        id
+    }
+}
+
+mutation MoveSpot($spotId:String!,$lat:Float!,$long:Float!){
+    moveSpot(spotId: $spotId,lat:$lat,long:$long){
+        id
+    }
+}
+
+mutation EditStartDate($guideId:String!,$date:String){
+    editStartDate(guideId: $guideId,date: $date){
+        success
+        message
+    }
+}
+mutation EditNights($spotId:String!,$nights:Int!){
+    editNights(spotId:$spotId,nights: $nights){
+        success
+        message
+    }
+}

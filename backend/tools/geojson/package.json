@@ -1,0 +1,19 @@
+{
+  "name": "@guided/geojson",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./srv/index.js",
+  "types": "./srv/index.d.ts",
+  "scripts": {
+    "prepare": "yarn build",
+    "build": "tsc",
+    "test": "jest",
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@pirxpilot/google-polyline": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.7"
+  }
+}

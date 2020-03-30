@@ -1,0 +1,10 @@
+{
+  "name": "@guided/deploy",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy:backend:staging": "STAGE=staging BUILD=true ./deploy.backend.sh",
+    "deploy:frontend:staging": "STAGE=staging BUILD=true ./deploy.frontend.sh",
+    "deploy:production": "terraform workspace select production && terraform apply -var-file vars/production.tfvars"
+  }
+}

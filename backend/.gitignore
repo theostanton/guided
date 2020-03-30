@@ -1,0 +1,8 @@
+data/**
+reports/
+.env
+build
+srv/
+dist
+node_modules
+tsconfig.tsbuildinfo
