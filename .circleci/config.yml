@@ -84,6 +84,9 @@ jobs:
       - attach_workspace:
           at: ~/workspace
       - run:
+          name: "Make dist dir"
+          command: mkdir dist
+       - run:
           name: "Build cache"
           command: node srv/buildCache.js connection=jdbc://superuser:password@staging-database.ridersbible.com:5432/main
       - run:
