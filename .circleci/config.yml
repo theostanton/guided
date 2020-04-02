@@ -12,7 +12,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        key: frontend
+          key: frontend
       - run:
           name: "Install"
           command: |
