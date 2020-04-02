@@ -43,7 +43,7 @@ jobs:
     parameters:
       filename:
         type: string
-        default: << pipeline.git.branch	>>-<< pipeline.number >>-compute.zip"
+        default: << pipeline.git.branch	>>-<< pipeline.number >>-compute.zip
     steps:
       - attach_workspace:
           at: ~/workspace
