@@ -96,11 +96,19 @@ jobs:
       - deploy
 
   deploy-staging:
+    environment:
+      - STAGE: staging
     docker:
       - image: circleci/node:12.9.1
+    working_directory: ~/workspace/backend/graphql
     steps:
       - attach_workspace:
           at: ~/workspace
+      - run:
+          name: Build
+          command: yarn build
+      - test:
+          directory: ~/workspace/backend/graphql
       - run:
           name: Deploy
           command: yarn workspace @guided/deploy run deploy:staging
