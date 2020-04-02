@@ -32,6 +32,9 @@ jobs:
           command: |
             cd backend
             yarn build
+      - persist_to_workspace:
+          root: .
+          paths: .
 
   build-compute:
     docker:
