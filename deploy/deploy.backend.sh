@@ -8,6 +8,7 @@ echo $work_dir
 
 terraform workspace select $STAGE
 
+
 #ENVS=$(terraform output env_file)
 #export $(echo "${ENVS}" | sed 's/#.*//g')
 
