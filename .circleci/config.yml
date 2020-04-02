@@ -33,7 +33,8 @@ jobs:
       - save_cache:
           paths:
             - backend/node_modules
-          key: node_modules-backend-{{ checksum "yarn.lock" }}
+            -
+          key: backend-{{ checksum "yarn.lock" }}
       - run:
           name: "Deploy"
           command: |
