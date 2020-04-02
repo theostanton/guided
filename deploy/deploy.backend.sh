@@ -6,7 +6,7 @@ echo $work_dir
 [ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
 [ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
 
-terraform workspace select $STAGE
+#terraform workspace select $STAGE
 
 
 #ENVS=$(terraform output env_file)
@@ -32,13 +32,13 @@ function buildAll() {
   yarn build
 }
 
-function incrementVersion() {
-  DEPLOYED_MACRO_VERSION=$(terraform output deployed_macro_version)
-  if [ "$BUILD" = 'true' ]; then
-    ((DEPLOYED_MACRO_VERSION = DEPLOYED_MACRO_VERSION + 1))
-  fi
-  echo "${DEPLOYED_MACRO_VERSION}"
-}
+#function incrementVersion() {
+#  DEPLOYED_MACRO_VERSION=$(terraform output deployed_macro_version)
+#  if [ "$BUILD" = 'true' ]; then
+#    ((DEPLOYED_MACRO_VERSION = DEPLOYED_MACRO_VERSION + 1))
+#  fi
+#  echo "${DEPLOYED_MACRO_VERSION}"
+#}
 
 function prepareCompute() {
   cd $work_dir
