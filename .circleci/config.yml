@@ -54,6 +54,21 @@ jobs:
           name: "Zip"
           command: zip -rj ../../../deploy/<< parameters.filename >> dist
 
+  print-info:
+    docker:
+      - image: circleci/node:12.9.1
+    steps:
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: "PWD"
+          command: pwd
+      - run:
+          name: "CD WORKSPACE"
+          command: |
+            cd workspace
+            pwd
+            ls
   build-server:
     docker:
       - image: circleci/node:12.9.1
@@ -97,6 +112,9 @@ workflows:
           requires:
             - prepare-backend
       - build-server:
+          requires:
+            - prepare-backend
+      - print-info:
           requires:
             - prepare-backend
       - deploy-backend:
