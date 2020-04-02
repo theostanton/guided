@@ -120,15 +120,19 @@ workflows:
             branches:
               only: staging
       - build-compute:
+          context: guided-staging
           requires:
             - prepare-backend
       - build-server:
+          context: guided-staging
           requires:
             - prepare-backend
       - print-info:
+          context: guided-staging
           requires:
             - prepare-backend
       - deploy-backend:
+          context: guided-staging
           requires:
             - build-compute
             - build-server
