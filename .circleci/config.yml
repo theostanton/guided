@@ -55,18 +55,22 @@ jobs:
           command: zip -rj ../../../deploy/<< parameters.filename >> dist
 
   print-info:
+    working_directory: ~/workspace/
     docker:
       - image: circleci/node:12.9.1
     steps:
       - attach_workspace:
           at: ~/workspace
       - run:
+          name: "LS"
+          command: ls
+      - run:
           name: "PWD"
           command: pwd
       - run:
-          name: "CD WORKSPACE"
+          name: "CD backend"
           command: |
-            cd workspace
+            cd backend
             pwd
             ls
   build-server:
