@@ -73,6 +73,7 @@ function prepareServer() {
   fi
 
   echo 'Copying cache'
+  mkdir -p ../../../deploy/dist
   cp dist/cache ../../../deploy/dist
 
   log Pack graphql
