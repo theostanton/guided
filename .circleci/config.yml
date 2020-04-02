@@ -13,25 +13,41 @@ jobs:
   prepare-backend:
     docker:
       - image: circleci/node:12.9.1
-    working_directory: ~/workspace
+    working_directory: ~/workspace/backend
     steps:
       - checkout
       - restore_cache:
           key: node_modules
       - run:
           name: "Install"
-          command: |
-            cd backend
-            yarn install
+          command: yarn install
       - save_cache:
           paths:
-            - ./backend/node_modules
-          key: node_modules-backend-{{ checksum "backend/yarn.lock" }}
+            - ./node_modules
+          key: node_modules-backend-{{ checksum "yarn.lock" }}
       - run:
           name: "Transpile"
-          command: |
-            cd backend
-            yarn build
+          command: yarn build
+  build-compute:
+    docker:
+      - image: circleci/node:12.9.1
+    working_directory: ~/workspace/backend/elements/compute
+    parameters:
+      filename:
+        type: string
+        default: << pipeline.git.branch	>>-<< pipeline.number >>-compute.zip"
+    steps:
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: "Pack"
+          command: yarn webpack
+      - run:
+          name: "Filename"
+          command: echo << parameters.filename >>
+      - run:
+          name: "Zip"
+          command: zip -rj ../../../deploy/<< parameters.filename >> dist
 
 workflows:
   version: 2
