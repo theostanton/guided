@@ -13,21 +13,26 @@ jobs:
   prepare-backend:
     docker:
       - image: circleci/node:12.9.1
-    working_directory: ~/workspace/backend
+    working_directory: ~/workspace/
     steps:
       - checkout
       - restore_cache:
           key: node_modules
       - run:
           name: "Install"
-          command: yarn install
+          command: |
+            cd backend
+            yarn install
       - save_cache:
           paths:
             - ./node_modules
           key: node_modules-backend-{{ checksum "yarn.lock" }}
       - run:
           name: "Transpile"
-          command: yarn build
+          command: |
+            cd backend
+            yarn build
+
   build-compute:
     docker:
       - image: circleci/node:12.9.1
@@ -49,6 +54,37 @@ jobs:
           name: "Zip"
           command: zip -rj ../../../deploy/<< parameters.filename >> dist
 
+  build-server:
+    docker:
+      - image: circleci/node:12.9.1
+    working_directory: ~/workspace/backend/elements/graphql
+    steps:
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: "Build cache"
+          command: node srv/buildCache.js connection=jdbc://superuser:password@staging-database.ridersbible.com:5432/main
+      - run:
+          name: "Copy cache"
+          command: cp dist/cache ../../../deploy/dist
+      - run:
+          name: "Pack source"
+          command: yarn webpack:server
+      - run:
+          name: "Copy source"
+          command: cp dist/server.js ../../../deploy/dist/server.js
+
+  deploy-backend:
+    docker:
+      - image: circleci/node:12.9.1
+    working_directory: ~/workspace/backend/deploy
+    steps:
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: "Apply"
+          command: terraform apply -var-file vars/staging.tfvars -var macro_version=<< pipeline.number >> -auto-approve
+
 workflows:
   version: 2
   Deploy Staging:
@@ -57,3 +93,13 @@ workflows:
           filters:
             branches:
               only: staging
+      - build-compute:
+          requires:
+            - prepare-backend
+      - build-server:
+          requires:
+            - prepare-backend
+      - deploy-backend:
+          requires:
+            - build-compute
+            - build-server
