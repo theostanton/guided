@@ -10,18 +10,18 @@ jobs:
       - image: circleci/node:12.9.1
     working_directory: ~/workspace
     steps:
-        - checkout
-        - restore_cache:
-          key: frontend
-        - run:
-            name: "Install"
-            command: |
-              cd frontend/website
-              yarn install
-        - save_cache:
-            paths:
-              - frontend/website/node_modules
-            key: frontend-{{ checksum "yarn.lock" }}
+      - checkout
+      - restore_cache:
+        key: frontend
+      - run:
+          name: "Install"
+          command: |
+            cd frontend/website
+            yarn install
+      - save_cache:
+          paths:
+            - frontend/website/node_modules
+          key: frontend-{{ checksum "yarn.lock" }}
 
   deploy-backend:
     docker:
