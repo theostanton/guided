@@ -85,25 +85,14 @@ function prepareServer() {
 }
 
 #macro_version=$(incrementVersion)
-macro_version=49
+macro_version=0
 echo 'macro_version'
 echo "${macro_version}"
 app_version="0.1.${macro_version}"
 
-if [ "$BUILD" = 'true' ]; then
-  echo 'Building'
-  buildAll
+echo 'Building'
+buildAll
 
-  prepareCompute
+prepareCompute
 
-  prepareServer
-else
-  echo 'Skipping Build'
-fi
-
-log Deploying
-cd $work_dir
-
-terraform init
-
-terraform apply -var macro_version="${macro_version}" -auto-approve
+prepareServer

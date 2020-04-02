@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: node_modules-backend
+          key: backend
       - run:
           name: "Install terraform"
           command: |
@@ -36,10 +36,22 @@ jobs:
             - backend/node_modules
           key: backend-{{ checksum "yarn.lock" }}
       - run:
-          name: "Deploy"
+          name: "Build"
           command: |
             cd deploy
             yarn deploy:backend:staging
+      - run:
+          name: "Init"
+          command: |
+            cd deploy
+            terraform workspace select staging
+            terraform init
+      - run:
+          name: "Deploy"
+          command: |
+            cd deploy
+            terraform workspace select staging
+            terraform apply -var macro_version=0 -auto-approve
 
 
 workflows:
