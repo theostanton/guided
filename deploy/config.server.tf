@@ -71,7 +71,7 @@ resource "aws_instance" "server" {
 //    user = "ubuntu"
 //    port = 22
 //    agent = true
-//    private_key = local.private_key
+//    private_key = var.private_key
 //  }
 //
 //  provisioner "remote-exec" {
@@ -112,7 +112,7 @@ resource "null_resource" "upload_server" {
     user = "ubuntu"
     port = 22
     agent = true
-    private_key = local.private_key
+    private_key = var.private_key
   }
 
   provisioner "file" {
@@ -137,7 +137,7 @@ resource "null_resource" "upload_envs" {
     user = "ubuntu"
     port = 22
     agent = true
-    private_key = local.private_key
+    private_key = var.private_key
   }
 
   provisioner "file" {
@@ -161,7 +161,7 @@ resource "null_resource" "upload_cache" {
     user = "ubuntu"
     port = 22
     agent = true
-    private_key = local.private_key
+    private_key = var.private_key
   }
 
   provisioner "file" {
@@ -184,7 +184,7 @@ resource "null_resource" "start_server" {
     user = "ubuntu"
     port = 22
     agent = true
-    private_key = local.private_key
+    private_key = var.private_key
   }
 
   provisioner "remote-exec" {
