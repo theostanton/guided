@@ -1,13 +1,12 @@
 locals {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkLQdpXlH2SXRqENxRCOExj7lwWrb3tZkLyjwd5yjSHfwm1a3OFY5msbhyCl8cZt2BdcXii4i279JRu3KvdAg/2lMwzRgZfjcQJmfz2PoPP4OplEWFZ7+lKOjlmduKGrsu1Kn3Il3RaBh04RkqcATuWUu7dCGJPafgqBv8Av8d1Crf89vUNvj1vZangAdoeoOm5c3lmUpxkLjxEcIjdII7IQoA0fZUdMkjaZzcXC+Y7utSMQbv9R78cT0QWs8Xcp/dV5iych55b2RxzD5GAcxXKkowDjM26alTB8h0nW0xGVJtYZrDCGJZd6ItGcAgo7Lvz6IMmV63NJK4E6u97wPJ"
-  private_key = file("guided-server-staging.pem")
   connection = {
     type = "ssh"
     host = aws_instance.server.public_ip
     user = "ubuntu"
     port = 22
     agent = true
-    private_key = local.private_key
+    private_key = var.private_key
   }
 }
 
@@ -37,11 +36,11 @@ resource "aws_key_pair" "server" {
 resource "aws_instance" "server" {
   ami = data.aws_ami.latest-ubuntu.id
   instance_type = "t2.micro"
-//  security_groups = [
-//    aws_security_group.server.arn]
+  //  security_groups = [
+  //    aws_security_group.server.arn]
   //
-//  vpc_security_group_ids = [
-//    aws_security_group.server.id]
+  //  vpc_security_group_ids = [
+  //    aws_security_group.server.id]
 
   key_name = aws_key_pair.server.key_name
 
@@ -204,7 +203,7 @@ resource "null_resource" "start_server" {
 resource "aws_security_group" "server" {
   name = "guided-server-${var.stage}"
 
-//  vpc_id = aws_default_vpc.default.id
+  //  vpc_id = aws_default_vpc.default.id
   egress {
     from_port = 0
     to_port = 0

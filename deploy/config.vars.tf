@@ -22,6 +22,10 @@ variable "aws_account_id" {
   default = 132788847502
 }
 
+variable "private_key" {
+  type = string
+}
+
 variable "stage" {
   type = string
 }
