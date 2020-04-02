@@ -3,12 +3,6 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@0.1.19
 
-commands:
-  deploy:
-    description: "Deploy"
-    steps:
-      - run: yarn deploy
-
 jobs:
   prepare-backend:
     docker:

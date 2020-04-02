@@ -3,6 +3,6 @@ reports/
 .env
 build
 srv/
-dist
+dist/**
 node_modules
 tsconfig.tsbuildinfo
