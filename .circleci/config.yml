@@ -21,8 +21,7 @@ jobs:
           key: node_modules-backend
       - run:
           name: "Install terraform"
-          command:
-            - sh ./install_terraform.sh
+          command: sh ./install_terraform.sh
       - run:
           name: "Install"
           command: |
