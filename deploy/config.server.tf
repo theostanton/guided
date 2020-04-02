@@ -37,8 +37,11 @@ resource "aws_key_pair" "server" {
 resource "aws_instance" "server" {
   ami = data.aws_ami.latest-ubuntu.id
   instance_type = "t2.micro"
-  security_groups = [
-    aws_security_group.server.name]
+//  security_groups = [
+//    aws_security_group.server.arn]
+  //
+//  vpc_security_group_ids = [
+//    aws_security_group.server.id]
 
   key_name = aws_key_pair.server.key_name
 
@@ -187,7 +190,7 @@ resource "null_resource" "start_server" {
 
   provisioner "remote-exec" {
     inline = [
-      "pm2 restart server.js --name guided  --version ${local.app_version}"
+      "pm2 reload server.js --name guided"
     ]
   }
 
@@ -200,6 +203,35 @@ resource "null_resource" "start_server" {
 
 resource "aws_security_group" "server" {
   name = "guided-server-${var.stage}"
+
+//  vpc_id = aws_default_vpc.default.id
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = [
+      "0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = [
+      "0.0.0.0/0"]
+  }
+
+  //  ingress {
+  //    from_port = 22
+  //    to_port = 22
+  //    protocol = "tcp"
+  //    cidr_blocks = [
+  //      "0.0.0.0/0"]
+  //  }
+}
+
+resource "aws_security_group" "graphql" {
+  name = "guided-graphql-${var.stage}"
 
   egress {
     from_port = 0
@@ -217,21 +249,67 @@ resource "aws_security_group" "server" {
       "0.0.0.0/0"]
   }
 
-  ingress {
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
-
-    cidr_blocks = [
-      "0.0.0.0/0"]
-  }
+  //  ingress {
+  //    from_port = 22
+  //    to_port = 22
+  //    protocol = "tcp"
+  //    cidr_blocks = [
+  //      "0.0.0.0/0"]
+  //  }
 }
 
+
+resource "aws_s3_bucket" "access_logs" {
+  bucket = "guided-access-logs-${var.stage}"
+}
+
+resource "aws_s3_bucket_policy" "access_logs" {
+  bucket = aws_s3_bucket.access_logs.bucket
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::652711504416:root"
+      },
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::${aws_s3_bucket.access_logs.bucket}/*"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "delivery.logs.amazonaws.com"
+      },
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::${aws_s3_bucket.access_logs.bucket}/*",
+      "Condition": {
+        "StringEquals": {
+          "s3:x-amz-acl": "bucket-owner-full-control"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "delivery.logs.amazonaws.com"
+      },
+      "Action": "s3:GetBucketAcl",
+      "Resource": "arn:aws:s3:::${aws_s3_bucket.access_logs.bucket}"
+    }
+  ]
+}
+POLICY
+}
+
+
 resource "aws_route53_record" "server" {
+  name = "${var.stage}-server.${var.domain_name}"
+  type = "A"
   zone_id = aws_route53_zone.ridersbible.zone_id
-  name = "${var.stage}-api.${var.domain_name}"
-  type = "CNAME"
-  ttl = "30"
+
+  ttl = 30
   records = [
     aws_instance.server.public_ip]
 }

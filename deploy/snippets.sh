@@ -5,10 +5,13 @@
 
 #aws ec2 create-key-pair --key-name GuidedKeyPair --query 'KeyMaterial' --output text > GuidedKeyPair.pem
 
-chmod 400 guided-server-staging.pem
-ssh-keygen -y -f guided-server-staging.pem
+#chmod 400 guided-server-staging.pem
+#ssh-keygen -y -f guided-server-staging.pem
 
 #terraform import -var-file vars/staging.tfvars aws_key_pair.server 20:5a:17:91:23:27:d7:70:95:82:18:bd:d3:f3:5d:85:3d:6f:85:c4
 #terraform destroy -var-file vars/staging.tfvars
+
+terraform apply -target=aws_route53_record.nameservers -var-file vars/staging.tfvars -var macro_version=0 -auto-approve
+
 
 #ssh -i guided-server-staging.pem ubuntu@staging-api.ridersbible.com

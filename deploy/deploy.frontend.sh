@@ -22,5 +22,5 @@ export GATSBY_APP_VERSION="${app_version}"
 export GATSBY_MAPBOX_TOKEN=pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazgydW0wamEwazQ5M21wdHp2YjNndGJ2In0.qpytCBKZ1IptSm9UrFRbqA
 gatsby build
 
-echo -- Build website --
+echo -- Push website --
 yarn push
