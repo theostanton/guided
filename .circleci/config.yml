@@ -37,6 +37,9 @@ jobs:
           command: |
             cd ../deploy
             yarn deploy:backend:staging
+      - terraform/apply:
+          path: deploy
+          workspace: staging
 
 
 workflows:
@@ -48,6 +51,3 @@ workflows:
           filters:
             branches:
               only: staging
-      - terraform/apply:
-          path: deploy
-          workspace: staging
