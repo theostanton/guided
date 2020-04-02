@@ -54,6 +54,7 @@ function prepareCompute() {
   fi
   log Zip compute
   compute_filename=dist/"${STAGE}"-"$app_version"-compute.zip
+  mkdir -p ../../../deploy/dist
   zip -rj ../../../deploy/"${compute_filename}" dist
   echo Zipped to "${compute_filename}"
 }
