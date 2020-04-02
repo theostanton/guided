@@ -106,4 +106,4 @@ cd $work_dir
 
 terraform init
 
-terraform apply -var-file -var macro_version="${macro_version}" -auto-approve
+terraform apply -var macro_version="${macro_version}" -auto-approve
