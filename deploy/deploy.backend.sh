@@ -8,7 +8,6 @@ echo $work_dir
 
 #terraform workspace select $STAGE
 
-
 #ENVS=$(terraform output env_file)
 #export $(echo "${ENVS}" | sed 's/#.*//g')
 
@@ -107,4 +106,4 @@ cd $work_dir
 
 terraform init
 
-terraform apply -var-file vars/"${STAGE}".tfvars -var macro_version="${macro_version}" -auto-approve
+terraform apply -var-file -var macro_version="${macro_version}" -auto-approve
