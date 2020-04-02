@@ -2,6 +2,8 @@
   "name": "@guided/deploy",
   "version": "0.0.0",
   "private": true,
+  "dependencies": {
+  },
   "scripts": {
     "deploy:backend:staging": "STAGE=staging BUILD=false ./deploy.backend.sh",
     "deploy:frontend:staging": "STAGE=staging BUILD=true ./deploy.frontend.sh",

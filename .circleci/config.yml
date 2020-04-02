@@ -20,6 +20,10 @@ jobs:
       - restore_cache:
           key: node_modules-backend
       - run:
+          name: "Install terraform"
+          command:
+            - sh ./install_terraform.sh
+      - run:
           name: "Install"
           command: |
             cd ../backend
@@ -33,9 +37,7 @@ jobs:
           command: |
             cd ../deploy
             yarn deploy:backend:staging
-      - terraform/apply:
-          path: deploy
-          workspace: staging
+
 
 workflows:
   version: 2
@@ -46,3 +48,6 @@ workflows:
           filters:
             branches:
               only: staging
+      - terraform/apply:
+          path: deploy
+          workspace: staging
