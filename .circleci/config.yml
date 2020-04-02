@@ -8,7 +8,7 @@ jobs:
   deploy-backend:
     docker:
       - image: circleci/node:12.9.1
-    working_directory: ~/workspace/deploy
+    working_directory: ~/workspace
     environment:
       TF_VAR_db_owner_user: $OWNER_USER
       TF_VAR_db_owner_password: $OWNER_PASSWORD
@@ -21,24 +21,23 @@ jobs:
           key: node_modules-backend
       - run:
           name: "Install terraform"
-          command: sh ./install_terraform.sh
+          command: |
+            cd deploy
+            sh ./install_terraform.sh
       - run:
           name: "Install"
           command: |
-            cd ../backend
+            cd backend
             yarn install
       - save_cache:
           paths:
-            - ../backend/node_modules
+            - backend/node_modules
           key: node_modules-backend-{{ checksum "yarn.lock" }}
       - run:
-          name: "Prepare"
+          name: "Deploy"
           command: |
-            cd ../deploy
+            cd deploy
             yarn deploy:backend:staging
-      - terraform/apply:
-          path: deploy
-          workspace: staging
 
 
 workflows:
