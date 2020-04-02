@@ -87,14 +87,11 @@ jobs:
           name: "Build cache"
           command: node srv/buildCache.js connection=jdbc://superuser:password@staging-database.ridersbible.com:5432/main
       - run:
-          name: "Copy cache"
-          command: cp dist/cache ../../../deploy/dist
-      - run:
           name: "Pack source"
           command: yarn webpack:server
-      - run:
-          name: "Copy source"
-          command: cp dist/server.js ../../../deploy/dist/server.js
+      - persist_to_workspace:
+          root: .
+          paths: dist
 
   deploy-backend:
     docker:
@@ -104,6 +101,12 @@ jobs:
       - attach_workspace:
           at: ~/workspace
       - run:
+          name: "Copy server cache"
+          command: cp ../backend/elements/graphql/dist/cache dist
+      - run:
+          name: "Copy server source"
+          command: cp ../backend/elements/graphql/dist/server.js dist
+      - run:
           name: "Apply"
           command: terraform apply -var-file vars/staging.tfvars -var macro_version=<< pipeline.number >> -auto-approve
 
@@ -112,7 +115,7 @@ workflows:
   Deploy Staging:
     jobs:
       - prepare-backend:
-          context: staging
+          context: guided-staging
           filters:
             branches:
               only: staging
