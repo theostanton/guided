@@ -102,16 +102,10 @@ jobs:
   deploy-backend:
     docker:
       - image: circleci/node:12.9.1
-    working_directory: ~/workspace/backend/deploy
+    working_directory: ~/workspace/deploy
     steps:
       - attach_workspace:
           at: ~/workspace
-      - run:
-          name: "Copy server cache"
-          command: cp ../backend/elements/graphql/dist/cache dist
-      - run:
-          name: "Copy server source"
-          command: cp ../backend/elements/graphql/dist/server.js dist
       - run:
           name: "Apply"
           command: terraform apply -var-file vars/staging.tfvars -var macro_version=<< pipeline.number >> -auto-approve
