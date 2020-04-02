@@ -36,16 +36,15 @@ jobs:
             - backend/node_modules
           key: backend-{{ checksum "yarn.lock" }}
       - run:
+          name: "Init"
+          command: |
+            cd deploy
+            terraform init
+      - run:
           name: "Build"
           command: |
             cd deploy
             yarn deploy:backend:staging
-      - run:
-          name: "Init"
-          command: |
-            cd deploy
-            terraform workspace select staging
-            terraform init
       - run:
           name: "Deploy"
           command: |
