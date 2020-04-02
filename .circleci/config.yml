@@ -55,10 +55,13 @@ jobs:
           command: echo << parameters.filename >>
       - run:
           name: "Zip"
-          command: zip -rj ../../../deploy/<< parameters.filename >> dist
+          command: zip -rj dist/<< parameters.filename >> dist
+      - persist_to_workspace:
+          root: ~/workspace/deploy/dist
+          paths: dist/<< parameters.filename >>
 
   print-info:
-    working_directory: ~/workspace/
+    working_directory: ~/workspace/deploy
     docker:
       - image: circleci/node:12.9.1
     steps:
@@ -71,9 +74,9 @@ jobs:
           name: "PWD"
           command: pwd
       - run:
-          name: "CD backend"
+          name: "CD dist"
           command: |
-            cd backend
+            cd dist
             pwd
             ls
   build-server:
@@ -93,7 +96,7 @@ jobs:
           name: "Pack source"
           command: yarn webpack:server
       - persist_to_workspace:
-          root: .
+          root: ~/workspace/deploy/dist
           paths: dist
 
   deploy-backend:
@@ -133,7 +136,8 @@ workflows:
       - print-info:
           context: guided-staging
           requires:
-            - prepare-backend
+            - build-compute
+            - build-server
       - deploy-backend:
           context: guided-staging
           requires:
