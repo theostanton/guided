@@ -2,13 +2,14 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@0.1.19
-  terraform: bulderbank/terraform@2.4.0
+  terraform: ngs/terraform@0.0.1
 
 jobs:
   deploy-backend:
     docker:
       - image: circleci/node:12.9.1
-    working_directory: ~/workspace/
+    working_directory: ~/workspace/deploy
+      name: "Apply"
     environment:
       TF_VAR_db_owner_user: $OWNER_USER
       TF_VAR_db_owner_password: $OWNER_PASSWORD
@@ -22,20 +23,20 @@ jobs:
       - run:
           name: "Install"
           command: |
-            cd backend
+            cd ../backend
             yarn install
       - save_cache:
           paths:
-            - ./node_modules
+            - ../backend/node_modules
           key: node_modules-backend-{{ checksum "yarn.lock" }}
       - run:
           name: "Prepare"
           command: |
-            cd deploy
+            cd ../deploy
             yarn deploy:backend:staging
       - terraform/apply:
-          terraform-path: deploy
-          terraform-workspace: staging
+          path: deploy
+          workspace: staging
 
 workflows:
   version: 2
