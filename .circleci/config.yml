@@ -4,14 +4,14 @@ orbs:
   aws-cli: circleci/aws-cli@0.1.19
 
 jobs:
-  prepare-backend:
+  deploy-backend:
     docker:
       - image: circleci/node:12.9.1
     working_directory: ~/workspace/
     steps:
       - checkout
       - restore_cache:
-          key: node_modules
+          key: node_modules-backend
       - run:
           name: "Install"
           command: |
@@ -22,109 +22,17 @@ jobs:
             - ./node_modules
           key: node_modules-backend-{{ checksum "yarn.lock" }}
       - run:
-          name: "Transpile"
+          name: "Deploy"
           command: |
-            cd backend
-            yarn build
-      - persist_to_workspace:
-          root: .
-          paths: .
-
-  build-compute:
-    docker:
-      - image: circleci/node:12.9.1
-    working_directory: ~/workspace/backend/elements/compute
-    parameters:
-      filename:
-        type: string
-        default: << pipeline.git.branch	>>-<< pipeline.number >>-compute.zip
-    steps:
-      - attach_workspace:
-          at: ~/workspace
-      - run:
-          name: "Pack"
-          command: yarn webpack
-      - run:
-          name: "Filename"
-          command: echo << parameters.filename >>
-      - run:
-          name: "Zip"
-          command: zip -rj dist/<< parameters.filename >> dist
-      - persist_to_workspace:
-          root: ~/workspace/deploy/dist
-          paths: dist/<< parameters.filename >>
-
-  print-info:
-    working_directory: ~/workspace/deploy
-    docker:
-      - image: circleci/node:12.9.1
-    steps:
-      - attach_workspace:
-          at: ~/workspace
-      - run:
-          name: "LS"
-          command: ls
-      - run:
-          name: "PWD"
-          command: pwd
-      - run:
-          name: "CD dist"
-          command: |
-            cd dist
-            pwd
-            ls
-  build-server:
-    docker:
-      - image: circleci/node:12.9.1
-    working_directory: ~/workspace/backend/elements/graphql
-    steps:
-      - attach_workspace:
-          at: ~/workspace
-      - run:
-          name: "Build cache"
-          command: node srv/buildCache.js connection=jdbc://superuser:password@staging-database.ridersbible.com:5432/main
-      - run:
-          name: "Pack source"
-          command: yarn webpack:server
-      - persist_to_workspace:
-          root: ~/workspace/deploy/dist
-          paths: dist
-
-  deploy-backend:
-    docker:
-      - image: circleci/node:12.9.1
-    working_directory: ~/workspace/deploy
-    steps:
-      - attach_workspace:
-          at: ~/workspace
-      - run:
-          name: "Apply"
-          command: terraform apply -var-file vars/staging.tfvars -var macro_version=<< pipeline.number >> -auto-approve
+            cd deploy
+            yarn deploy:backend:staging
 
 workflows:
   version: 2
   Deploy Staging:
     jobs:
-      - prepare-backend:
+      - deploy-backend:
           context: guided-staging
           filters:
             branches:
               only: staging
-      - build-compute:
-          context: guided-staging
-          requires:
-            - prepare-backend
-      - build-server:
-          context: guided-staging
-          requires:
-            - prepare-backend
-      - print-info:
-          context: guided-staging
-          requires:
-            - build-compute
-            - build-server
-      - deploy-backend:
-          context: guided-staging
-          requires:
-            - build-compute
-            - build-server

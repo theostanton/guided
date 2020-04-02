@@ -11,19 +11,6 @@ terraform workspace select $STAGE
 #ENVS=$(terraform output env_file)
 #export $(echo "${ENVS}" | sed 's/#.*//g')
 
-export APP_VERSION=0.1.45
-export COMPUTE_QUEUE_NAME=compute-stage-staging
-export JWT_SECRET=someSecret
-export OWNER_PASSWORD=password
-export OWNER_USER=superuser
-export POSTGRAPHILE_PORT=5000
-export POSTGRES_DB=main
-export POSTGRES_HOST=staging-database.ridersbible.com
-export POSTGRES_PASSWORD=password
-export POSTGRES_PORT=5432
-export POSTGRES_SCHEMA=public
-export POSTGRES_USER=guided_postgraphile
-
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
 
 GREEN="\033[1;32m"
