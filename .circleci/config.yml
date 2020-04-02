@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@0.1.19
-  terraform: ngs/terraform@0.0.1
+  terraform: ovotech/terraform@1.6.5
 
 jobs:
   deploy-backend:
@@ -23,10 +23,20 @@ jobs:
             - ./node_modules
           key: node_modules-backend-{{ checksum "yarn.lock" }}
       - run:
-          name: "Deploy"
+          name: "Prepare"
           command: |
             cd deploy
             yarn deploy:backend:staging
+      - terraform/apply:
+          name: "Apply"
+          environment:
+            TF_VAR_db_owner_user: $OWNER_USER
+            TF_VAR_db_owner_password: $OWNER_PASSWORD
+            TF_VAR_db_postgraphile_user: $POSTGRES_USER
+            TF_VAR_db_postgraphile_password: $POSTGRES_PASSWORD
+            TF_VAR_jwt_secret: $JWT_SECRET
+          path: deploy
+          workspace: staging
 
 workflows:
   version: 2

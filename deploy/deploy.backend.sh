@@ -105,4 +105,4 @@ fi
 log Deploying
 cd $work_dir
 
-terraform apply -var-file vars/"${STAGE}".tfvars -var macro_version="${macro_version}" -auto-approve
+#terraform apply -var-file vars/"${STAGE}".tfvars -var macro_version="${macro_version}" -auto-approve
