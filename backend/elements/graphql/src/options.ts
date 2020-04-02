@@ -92,7 +92,7 @@ export function invoke(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "e
 
 }
 
-export function serve(): Pick<PostGraphileOptions, "watchPg" | "readCache" |  "allowExplain" | "graphiql" | "enableQueryBatching" | "ownerConnectionString"> {
+export function serve(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "allowExplain" | "graphiql" | "enableQueryBatching" | "ownerConnectionString"> {
 
   if (process.env.POSTGRAPHILE_WATCH === "true") {
     throw new Error()
@@ -137,12 +137,12 @@ export function options(mode: Mode): PostGraphileOptions {
     case "watch":
       cacheOptions = watch()
       break
-
   }
 
   return {
     ...cacheOptions,
     ...jwt(),
+    graphqlRoute: "/",
     disableQueryLog: false,
     pgDefaultRole: "guided_anonymous",
     enableCors: true,

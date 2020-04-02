@@ -1158,7 +1158,7 @@
         "signature": "ed7ddf06f8a2868a97462ca8c17bb09aa640dad83568c5b19c61491481d836d4"
       },
       "./src/options.ts": {
-        "version": "60bf724c80c63b51fff9c9105bc58f6cacb312988b8a675bd2c37e3ba625de65",
+        "version": "4d6b26790b2fd671dd59f3319f91ccaf26231a69a24cf0c06ba177dfb79661e0",
         "signature": "f0c1e4d2865a3e4939559e1ff9c1eb63cc95eafe49331823ebbb2009d5a4f0a0"
       },
       "../../node_modules/@types/cors/index.d.ts": {
@@ -1166,7 +1166,7 @@
         "signature": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad"
       },
       "./src/app.ts": {
-        "version": "606f291483a7a270ce85e3e65fdcbb2e33d3b0be05cbf508eab9932de693a7c0",
+        "version": "9a6581ad39f3106ada3f2425b831f7708c85133e348557ae557e9d4f243a464d",
         "signature": "7723e48a9738998bc314c804157c085a8de3fe819e1ba3589cc428d2e60d55a7"
       },
       "./src/buildcache.ts": {
@@ -1290,7 +1290,7 @@
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./src/server.ts": {
-        "version": "12888c5b1427d2b50897bd132940c0321f738de21c3621936f26013e44a33214",
+        "version": "f382889a4f712abe8d831c4e8b7d6f39265aee2aa9ecce11a453a20d31664b69",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "../../tools/spinup/srv/spinup/index.d.ts": {
@@ -1843,6 +1843,7 @@
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "rootDir": "./src",
+      "watch": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
@@ -4533,8 +4534,8 @@
         "../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
       "./src/server.ts": [
-        "./src/app.ts",
         "../../tools/logger/srv/index.d.ts",
+        "./src/app.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../node_modules/@types/node/util.d.ts",
@@ -9729,6 +9730,7 @@
       "../../node_modules/postgraphile/build/postgraphile/http/subscriptions.d.ts",
       "../../node_modules/postgraphile/build/postgraphile/index.d.ts",
       "../../node_modules/postgraphile/build/index.d.ts",
+      "./src/plugins/info/index.ts",
       "../../tools/logger/srv/locallogger.d.ts",
       "../../tools/logger/srv/index.d.ts",
       "../../node_modules/axios/index.d.ts",
@@ -9781,7 +9783,6 @@
       "../../tools/utils/srv/index.d.ts",
       "./src/plugins/removespot/index.ts",
       "./src/plugins/index.ts",
-      "./src/options.ts",
       "../../node_modules/@types/cors/index.d.ts",
       "./src/app.ts",
       "./src/buildcache.ts",
@@ -9945,7 +9946,7 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "./src/plugins/info/index.ts"
+      "./src/options.ts"
     ]
   },
   "version": "3.8.3"

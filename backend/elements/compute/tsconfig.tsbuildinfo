@@ -370,7 +370,7 @@
         "signature": "2e41bb6861be40fa74a1dbe85fa20376acd6097b471b9a098e538f28d9337f5d"
       },
       "./src/action/index.ts": {
-        "version": "826f1583a11e805b46d31ed6e7a73c7d0b0fbdad12c3736031e46aea480f3c36",
+        "version": "4ffc74b7b37faaa72dc829c2877fc74cee333e83694dbc921e7d8372da32900c",
         "signature": "dfcf870339bbc09f56d9dec10a4ec495377580ecaac6d613581e72cdd2375432"
       },
       "./src/prepare/index.ts": {
@@ -13566,7 +13566,6 @@
       "./src/utils/index.ts",
       "./src/action/getroute/index.ts",
       "./src/trigger/ammenddates.ts",
-      "./src/action/index.ts",
       "./src/prepare/index.ts",
       "../../node_modules/aws-sdk/lib/error.d.ts",
       "../../node_modules/aws-sdk/lib/credentials.d.ts",
@@ -13832,6 +13831,7 @@
       "../../node_modules/aws-sdk/lib/core.d.ts",
       "../../node_modules/aws-sdk/index.d.ts",
       "./src/trigger/sqs.ts",
+      "./src/trigger/index.ts",
       "./src/index.ts",
       "./src/invoke.ts",
       "./src/lambda.ts",
@@ -14050,7 +14050,7 @@
       "../../node_modules/@types/yargs-parser/index.d.ts",
       "../../node_modules/@types/yargs/index.d.ts",
       "../../node_modules/@types/zen-observable/index.d.ts",
-      "./src/trigger/index.ts"
+      "./src/action/index.ts"
     ]
   },
   "version": "3.8.3"

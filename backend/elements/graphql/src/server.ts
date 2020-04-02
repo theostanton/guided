@@ -1,3 +1,4 @@
+//TODO env pathh and mode as env vars
 if (process.env.NODE_ENV === "development") {
   require("dotenv").config({
     path: `../../.env`,
@@ -8,8 +9,10 @@ if (process.env.NODE_ENV === "development") {
   })
 }
 
-import app from "./app"
+
 import { log } from "@guided/logger"
 
-app("serve").listen(process.env.POSTGRAPHILE_PORT! )
+import app from "./app"
+
+app(process.env.NODE_ENV === "development" ? "watch" : "serve").listen(process.env.POSTGRAPHILE_PORT!)
 log(`Listening on ${process.env.POSTGRAPHILE_PORT}`)
