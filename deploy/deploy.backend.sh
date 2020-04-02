@@ -6,7 +6,7 @@ echo $work_dir
 [ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
 [ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
 
-#terraform workspace select $STAGE
+terraform workspace select $STAGE
 
 #ENVS=$(terraform output env_file)
 #export $(echo "${ENVS}" | sed 's/#.*//g')
