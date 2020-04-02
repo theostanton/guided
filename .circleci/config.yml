@@ -112,6 +112,7 @@ workflows:
   Deploy Staging:
     jobs:
       - prepare-backend:
+          context: staging
           filters:
             branches:
               only: staging
