@@ -32,10 +32,13 @@ jobs:
       - restore_cache:
           key: backend
       - run:
+          name: "key"
+          command: echo $TF_VAR_private_key
+      - run:
           name: "Install terraform"
           command: |
             cd deploy
-            chmod +x ./install_terraform.sh
+#            chmod +x ./install_terraform.sh
             sudo  sh ./install_terraform.sh
       - run:
           name: "Install"
