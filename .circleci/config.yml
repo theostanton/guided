@@ -38,7 +38,6 @@ jobs:
           name: "Install terraform"
           command: |
             cd deploy
-#            chmod +x ./install_terraform.sh
             sudo  sh ./install_terraform.sh
       - run:
           name: "Install"
