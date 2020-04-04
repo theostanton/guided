@@ -13,6 +13,17 @@ jobs:
       - checkout
 #      - restore_cache:
 #          key: frontend
+
+      - run:
+          name: "Install terraform"
+          command: |
+            cd deploy
+            sudo  sh ./install_terraform.sh
+      - run:
+          name: "Init terraform"
+          command: |
+            cd deploy
+            terraform init
       - run:
           name: "Install"
           command: |
@@ -43,7 +54,7 @@ jobs:
             cd deploy
             sudo  sh ./install_terraform.sh
       - run:
-          name: "Install"
+          name: "Install terraform"
           command: |
             cd backend
             yarn install

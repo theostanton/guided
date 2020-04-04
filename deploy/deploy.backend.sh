@@ -8,8 +8,8 @@ echo $work_dir
 
 terraform workspace select $STAGE
 
-ENVS=$(terraform output env_file)
-export $(echo "${ENVS}" | sed 's/#.*//g')
+#ENVS=$(terraform output env_file)
+#export $(echo "${ENVS}" | sed 's/#.*//g')
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
 
@@ -88,7 +88,7 @@ function prepareServer() {
 }
 
 #macro_version=$(incrementVersion)
-macro_version=0
+macro_version=$DEPLOYED_VERSION
 echo 'macro_version'
 echo "${macro_version}"
 app_version="0.1.${macro_version}"
