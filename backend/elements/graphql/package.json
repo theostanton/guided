@@ -5,7 +5,7 @@
   "scripts": {
     "webpack:lambda": "tsc && webpack --config webpack/lambda.config.js",
     "webpack:server": "tsc && webpack --config webpack/server.config.js",
-    "build": "tsc",
+    "build": "yarn install && tsc",
     "build:cache": "node srv/buildCache.js",
     "invoke": "STAGE=staging ts-node src/lambda.ts",
     "logs": "awslogs get /aws/lambda/guided-graphql-staging -w",

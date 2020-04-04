@@ -7,7 +7,7 @@
   "scripts": {
     "prepare": "yarn build",
     "test": "jest",
-    "build": "tsc",
+    "build": "yarn install && tsc",
     "watch": "tsc -w"
   },
   "dependencies": {
