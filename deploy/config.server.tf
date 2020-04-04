@@ -1,13 +1,13 @@
 locals {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkLQdpXlH2SXRqENxRCOExj7lwWrb3tZkLyjwd5yjSHfwm1a3OFY5msbhyCl8cZt2BdcXii4i279JRu3KvdAg/2lMwzRgZfjcQJmfz2PoPP4OplEWFZ7+lKOjlmduKGrsu1Kn3Il3RaBh04RkqcATuWUu7dCGJPafgqBv8Av8d1Crf89vUNvj1vZangAdoeoOm5c3lmUpxkLjxEcIjdII7IQoA0fZUdMkjaZzcXC+Y7utSMQbv9R78cT0QWs8Xcp/dV5iych55b2RxzD5GAcxXKkowDjM26alTB8h0nW0xGVJtYZrDCGJZd6ItGcAgo7Lvz6IMmV63NJK4E6u97wPJ"
-  connection = {
-    type = "ssh"
-    host = aws_instance.server.public_ip
-    user = "ubuntu"
-    port = 22
-    agent = true
-    private_key = var.private_key
-  }
+//  connection = {
+//    type = "ssh"
+//    host = aws_instance.server.public_ip
+//    user = "ubuntu"
+//    port = 22
+//    agent = true
+//    private_key = var.private_key
+//  }
 }
 
 data "aws_ami" "latest-ubuntu" {
@@ -112,7 +112,7 @@ resource "null_resource" "upload_server" {
     user = "ubuntu"
     port = 22
     agent = true
-    private_key = var.private_key
+    private_key = file(var.private_key_path)
   }
 
   provisioner "file" {
@@ -137,7 +137,7 @@ resource "null_resource" "upload_envs" {
     user = "ubuntu"
     port = 22
     agent = true
-    private_key = var.private_key
+    private_key = file(var.private_key_path)
   }
 
   provisioner "file" {
@@ -161,7 +161,7 @@ resource "null_resource" "upload_cache" {
     user = "ubuntu"
     port = 22
     agent = true
-    private_key = var.private_key
+    private_key = file(var.private_key_path)
   }
 
   provisioner "file" {
@@ -184,7 +184,7 @@ resource "null_resource" "start_server" {
     user = "ubuntu"
     port = 22
     agent = true
-    private_key = var.private_key
+    private_key = file(var.private_key_path)
   }
 
   provisioner "remote-exec" {
