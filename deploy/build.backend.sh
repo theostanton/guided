@@ -76,7 +76,6 @@ function prepareServer() {
   node srv/buildCache.js connection=jdbc://superuser:password@"${STAGE}"-database.ridersbible.com:5432/main
   if [ ! -f "dist/cache" ]; then
     echo "graphql/dist/cache does not exist"
-
     exit 1
   fi
 

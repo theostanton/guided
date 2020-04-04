@@ -6,17 +6,17 @@ output "database_url" {
   value = "https://${aws_route53_record.database.name}"
 }
 
-//output "server_url" {
-//  value = "http://${aws_route53_record.server.name}"
-//}
+output "server_url" {
+  value = "http://${aws_route53_record.server.name}"
+}
 
-//output "graphql_endpoint" {
-//  value = "https://${aws_route53_record.graphql.name}/graphql"
-//}
+output "graphql_endpoint" {
+  value = "https://${aws_route53_record.api.name}"
+}
 
-//output "graphql_websocket" {
-//  value = "wss://${aws_route53_record.websockets.name}/graphql"
-//}
+output "graphql_websocket" {
+  value = "wss://${aws_route53_record.api.name}"
+}
 
 output "compute_queue" {
   value = aws_sqs_queue.compute.name
