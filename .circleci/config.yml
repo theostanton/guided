@@ -33,9 +33,7 @@ jobs:
       - run:
           name: "log keys"
           command: |
-            pwd
-            ls -la
-            cd ..
+            cd ../.ssh
             pwd
             ls -la
       - restore_cache:
