@@ -1,6 +1,6 @@
 import slugify from "slugify"
 import { generateId, Guide, Spot } from "@guided/database"
-import { dateString } from "@guided/utils/srv/dates"
+import { dateString } from "@guided/utils"
 
 export type MockLocation = "Worthing" | "London" | "Brighton" | "Horsham"
 
