@@ -46,7 +46,7 @@ jobs:
             cd deploy
             sudo  sh ./install_terraform.sh
       - run:
-          name: "Install terraform"
+          name: "Install dependencies"
           command: |
             cd backend
             yarn install
@@ -55,19 +55,21 @@ jobs:
           command: |
             cd deploy
             terraform init
-      - run:
-          name: "Build"
-          command: |
-            cd deploy
-            yarn build:backend:staging
+
+      #      - run:
+      #          name: "Build"
+      #          command: |
+      #            cd deploy
+      #            yarn build:backend:staging
 
       - run:
-          name: "Deploy"
+          name: "Build and deploy"
           environment:
             TF_VAR_private_key_path: /home/circleci/.ssh/id_rsa_5eab1ebe72710affd8434c2c6e2f82e0
           command: |
             cd deploy
-            yarn deploy:backend:staging
+            yarn buildAndDeploy:backend:staging
+
 #      - run:
 #          name: "Deploy"
 #          no_output_timeout: 30m
