@@ -114,7 +114,7 @@ if [ "$DEPLOY" = 'true' ]; then
   export TF_VAR_db_postgraphile_user=${POSTGRES_USER}
   export TF_VAR_db_postgraphile_password=${POSTGRES_PASSWORD}
   export TF_VAR_jwt_secret=${JWT_SECRET}
-  terraform apply -var macro_version="${macro_version}" -var private_key_path=./guided-server-staging.pem -auto-approve
+  terraform apply -var macro_version="${macro_version}" -auto-approve
 fi
 
 echo "Done"

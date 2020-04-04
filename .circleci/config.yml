@@ -28,12 +28,7 @@ jobs:
             yarn install
             yarn install
       - run:
-          name: "Build"
-          command: |
-            cd deploy
-            yarn build:frontend:staging
-      - run:
-          name: "Deploy"
+          name: "Build and deploy"
           command: |
             cd deploy
             yarn deploy:frontend:staging
@@ -65,12 +60,20 @@ jobs:
           command: |
             cd deploy
             yarn build:backend:staging
+
       - run:
           name: "Deploy"
-          no_output_timeout: 30m
+          environment:
+            TF_VAR_private_key_path: /home/circleci/.ssh/id_rsa_5eab1ebe72710affd8434c2c6e2f82e0
           command: |
             cd deploy
-            terraform apply -var macro_version=${CIRCLE_BUILD_NUM} -var private_key_path=/home/circleci/.ssh/id_rsa_5eab1ebe72710affd8434c2c6e2f82e0 -auto-approve
+            yarn build:backend:staging
+#      - run:
+#          name: "Deploy"
+#          no_output_timeout: 30m
+#          command: |
+#            cd deploy
+#            terraform apply -var macro_version=${CIRCLE_BUILD_NUM} -auto-approve
 
 
 workflows:
