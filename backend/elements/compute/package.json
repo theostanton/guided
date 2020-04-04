@@ -8,7 +8,7 @@
     "webpack": "webpack  --config webpack.config.js",
     "dist": "yarn build:build && yarn build:pack",
     "logs": "awslogs get /aws/lambda/guided-compute-staging -w",
-    "build": "yarn install && tsc",
+    "build": "tsc",
     "test": "jest",
     "watch": "tsc -w",
     "invoke": "STAGE=staging STAGE_ID=guide_ps03v4w ts-node src/invoke.ts"
