@@ -8,6 +8,7 @@
   },
   "exclude": [
     "./srv",
-    "../../frontend/**"
+    "**/*.test.ts",
+    "**/node_modules"
   ]
 }

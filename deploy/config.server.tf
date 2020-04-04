@@ -49,45 +49,45 @@ resource "aws_instance" "server" {
     aws_route53_record.database]
 }
 
-//resource "null_resource" "install_node" {
-//  triggers = {
-//    public_ip = aws_instance.server.public_ip
-//  }
-//
-//  connection {
-//    type = "ssh"
-//    host = aws_instance.server.public_ip
-//    user = "ubuntu"
-//    port = 22
-//    agent = true
-//    private_key = var.private_key
-//  }
-//
-//  provisioner "remote-exec" {
-//    inline = [
-//      "pwd",
-//      "curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -",
-//      "sudo apt-get update",
-//      "sudo apt-get  --yes install nodejs",
-//      "echo which node",
-//      "which node",
-//      "echo node version",
-//      "node --version",
-//      "sudo apt-get --yes install npm",
-//      "echo npm version",
-//      "npm --version",
-//      "sudo npm install pm2@latest -g",
-//      "echo pm2 version",
-//      "pm2 --version",
-//      "pm2 start server.js --name guided"
-//    ]
-//  }
-//
-//  depends_on = [
-//    aws_instance.server,
-//    null_resource.upload_cache,
-//    null_resource.upload_server]
-//}
+resource "null_resource" "install_node" {
+  triggers = {
+    public_ip = aws_instance.server.public_ip
+  }
+
+  connection {
+    type = "ssh"
+    host = aws_instance.server.public_ip
+    user = "ubuntu"
+    port = 22
+    agent = true
+    private_key = file(var.private_key_path)
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "pwd",
+      "curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -",
+      "sudo apt-get update",
+      "sudo apt-get  --yes install nodejs",
+      "echo which node",
+      "which node",
+      "echo node version",
+      "node --version",
+      "sudo apt-get --yes install npm",
+      "echo npm version",
+      "npm --version",
+      "sudo npm install pm2@latest -g",
+      "echo pm2 version",
+      "pm2 --version",
+      "pm2 start server.js --name guided"
+    ]
+  }
+
+  depends_on = [
+    aws_instance.server,
+    null_resource.upload_cache,
+    null_resource.upload_server]
+}
 
 resource "null_resource" "upload_server" {
   triggers = {
@@ -185,6 +185,7 @@ resource "null_resource" "start_server" {
   depends_on = [
     null_resource.upload_server,
     null_resource.upload_cache,
+    null_resource.install_node,
     aws_instance.server]
 
 }
