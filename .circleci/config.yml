@@ -60,6 +60,10 @@ jobs:
             cd deploy
             yarn deploy:backend:staging
       - run:
+          name: "Ping"
+          command: |
+            ping google.com
+      - run:
           name: "Deploy"
           no_output_timeout: 30m
           command: |
