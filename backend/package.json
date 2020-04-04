@@ -35,6 +35,9 @@
       "tools/*",
       "elements/*",
       "apis/google"
+    ],
+    "nohoist": [
+      "**"
     ]
   }
 }
