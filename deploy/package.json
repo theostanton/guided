@@ -5,9 +5,9 @@
   "dependencies": {
   },
   "scripts": {
-    "build:backend:staging": "STAGE=staging BUILD=true ./deploy.backend.sh",
-    "deploy:backend:staging": "terraform workspace select staging && terraform apply  -var-file vars/staging.tfvars -var macro_version=\"0.1.${CIRCLE_BUILD_NUM}\" -var private_key_path=./guided-server-staging.pem -auto-approve",
-    "deploy:frontend:staging": "STAGE=staging BUILD=true ./deploy.frontend.sh",
-    "deploy:production": "terraform workspace select production && terraform apply  -var-file vars/production.tfvars"
+    "build:backend:staging": "STAGE=staging BUILD=true DEPLOY=false ./build.backend.sh",
+    "deploy:backend:staging": "STAGE=staging BUILD=false DEPLOY=true ./build.backend.sh",
+    "buildAndDeploy:backend:staging": "STAGE=staging BUILD=true DEPLOY=true ./build.backend.sh",
+    "deploy:frontend:staging": "STAGE=staging BUILD=true ./deploy.frontend.sh"
   }
 }

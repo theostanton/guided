@@ -3,3 +3,4 @@ vars/**
 .terraform
 dist
 **.pem
+snippets.sh

@@ -6,10 +6,13 @@ echo $work_dir
 [ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
 [ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
 
-terraform workspace select $STAGE
+echo "Deploying $STAGE backend"
+terraform workspace select "${STAGE}"
 
-#ENVS=$(terraform output env_file)
-#export $(echo "${ENVS}" | sed 's/#.*//g')
+if [ -z "$CI" ]; then
+  ENVS=$(terraform output env_file)
+  export $(echo "${ENVS}" | sed 's/#.*//g')
+fi
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
 
@@ -31,28 +34,29 @@ function buildAll() {
   yarn build
 }
 
-#function incrementVersion() {
-#  DEPLOYED_MACRO_VERSION=$(terraform output deployed_macro_version)
-#  if [ "$BUILD" = 'true' ]; then
-#    ((DEPLOYED_MACRO_VERSION = DEPLOYED_MACRO_VERSION + 1))
-#  fi
-#  echo "${DEPLOYED_MACRO_VERSION}"
-#}
+function generateMacroVersion() {
+  DEPLOYED_MACRO_VERSION=$(terraform output deployed_macro_version)
+  if [ "$BUILD" = 'true' ]; then
+    ((DEPLOYED_MACRO_VERSION = DEPLOYED_MACRO_VERSION + 1))
+  fi
+  echo "${DEPLOYED_MACRO_VERSION}"
+}
 
 function prepareCompute() {
   cd $work_dir
   cd ../backend/elements/compute || exit
   rm -rf dist/index.js
 
-  log Build compute
+  log 'Build compute'
   yarn build
-  log Pack compute
+
+  log 'Pack compute'
   yarn webpack
   if [ ! -f "dist/index.js" ]; then
     echo "compute/dist/index.js does not exist"
     exit 1
   fi
-  log Zip compute
+  log 'Zip compute'
   compute_filename=dist/"${STAGE}"-"$app_version"-compute.zip
   mkdir -p ../../../deploy/dist
   zip -rj ../../../deploy/"${compute_filename}" dist
@@ -63,9 +67,11 @@ function prepareServer() {
   cd $work_dir
   cd ../backend/elements/graphql || exit
   rm -rf dist/index.js
-  log Build graphql source
+
+  log 'Build graphql source'
   yarn build
-  log Build graphql cache
+
+  log 'Build graphql cache'
   export JWT_SECRET=someSecret
   node srv/buildCache.js connection=jdbc://superuser:password@"${STAGE}"-database.ridersbible.com:5432/main
   if [ ! -f "dist/cache" ]; then
@@ -74,11 +80,11 @@ function prepareServer() {
     exit 1
   fi
 
-  echo 'Copying cache'
+  log 'Copying cache'
   mkdir -p ../../../deploy/dist
   cp dist/cache ../../../deploy/dist
 
-  log Pack graphql
+  log 'Packing graphql'
   yarn webpack:server
   if [ ! -f "dist/server.js" ]; then
     echo "dist/server.js does not exist"
@@ -87,17 +93,28 @@ function prepareServer() {
   cp dist/server.js ../../../deploy/dist/server.js
 }
 
-#macro_version=$(incrementVersion)
-macro_version="${CIRCLE_BUILD_NUM}"
-echo 'macro_version'
-echo "${macro_version}"
+macro_version=$(generateMacroVersion)
 app_version="0.1.${macro_version}"
 echo 'app_version'
 echo "${app_version}"
 
-echo 'Building'
-buildAll
+if [ "$BUILD" = 'true' ]; then
+  log 'Building'
+  buildAll
+  prepareCompute
+  prepareServer
+fi
 
-prepareCompute
+if [ "$DEPLOY" = 'true' ]; then
+  cd $work_dir
+  log 'Deploying'
+  export TF_VAR_stage=${STAGE}
+  export TF_VAR_db_owner_user=${OWNER_USER}
+  export TF_VAR_db_owner_password=${OWNER_PASSWORD}
+  export TF_VAR_db_postgraphile_user=${POSTGRES_USER}
+  export TF_VAR_db_postgraphile_password=${POSTGRES_PASSWORD}
+  export TF_VAR_jwt_secret=${JWT_SECRET}
+  terraform apply -var macro_version="${macro_version}" -var private_key_path=./guided-server-staging.pem -auto-approve
+fi
 
-prepareServer
+echo "Done"

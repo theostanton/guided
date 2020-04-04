@@ -20,11 +20,6 @@ data "aws_ami" "latest-ubuntu" {
   }
 }
 
-//resource "aws_key_pair" "server" {
-//  key_name = "guided-server"
-//  public_key = local.public_key
-//}
-
 resource "aws_instance" "server" {
   ami = data.aws_ami.latest-ubuntu.id
   instance_type = "t2.micro"
@@ -291,7 +286,6 @@ resource "aws_s3_bucket_policy" "access_logs" {
 }
 POLICY
 }
-
 
 resource "aws_route53_record" "server" {
   name = "${var.stage}-server.${var.domain_name}"

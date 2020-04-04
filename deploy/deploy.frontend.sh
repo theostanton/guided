@@ -6,6 +6,7 @@ echo $work_dir
 [ -z "$STAGE" ] && echo "No STAGE provided" && exit 1
 
 echo "Deploying $STAGE frontend"
+terraform workspace select "${STAGE}"
 
 graphql_endpoint=$(terraform output graphql_endpoint) || exit
 graphql_websocket=$(terraform output graphql_websocket) || exit
