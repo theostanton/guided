@@ -67,7 +67,7 @@ jobs:
             TF_VAR_private_key_path: /home/circleci/.ssh/id_rsa_5eab1ebe72710affd8434c2c6e2f82e0
           command: |
             cd deploy
-            yarn build:backend:staging
+            yarn deploy:backend:staging
 #      - run:
 #          name: "Deploy"
 #          no_output_timeout: 30m
