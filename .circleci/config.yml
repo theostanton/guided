@@ -11,9 +11,6 @@ jobs:
     working_directory: ~/workspace
     steps:
       - checkout
-#      - restore_cache:
-#          key: frontend
-
       - run:
           name: "Install terraform"
           command: |
@@ -34,10 +31,6 @@ jobs:
           command: |
             cd deploy
             yarn deploy:frontend:staging
-#      - save_cache:
-#          paths:
-#            - frontend/website/node_modules
-#          key: frontend-{{ checksum "yarn.lock" }}
 
   deploy-backend:
     docker:
@@ -46,8 +39,6 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys
-#      - restore_cache:
-#          key: backend
       - run:
           name: "Install terraform"
           command: |
@@ -58,10 +49,6 @@ jobs:
           command: |
             cd backend
             yarn install
-#      - save_cache:
-#          paths:
-#            - backend/node_modules
-#          key: backend-{{ checksum "yarn.lock" }}
       - run:
           name: "Init"
           command: |
@@ -78,7 +65,7 @@ jobs:
           command: |
             cd deploy
             terraform workspace select staging
-            terraform apply -var macro_version=0 -var private_key_path=/home/circleci/.ssh/id_rsa_5eab1ebe72710affd8434c2c6e2f82e0 -auto-approve
+            terraform apply -var macro_version=${CIRCLE_BUILD_NUM} -var private_key_path=/home/circleci/.ssh/id_rsa_5eab1ebe72710affd8434c2c6e2f82e0 -auto-approve
 
 
 workflows:
