@@ -29,6 +29,15 @@ jobs:
     working_directory: ~/workspace
     steps:
       - checkout
+      - add_ssh_keys
+      - run:
+          name: "log keys"
+          command: |
+            pwd
+            ls -la
+            cd ..
+            pwd
+            ls -la
       - restore_cache:
           key: backend
       - run:
