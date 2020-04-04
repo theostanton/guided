@@ -14,10 +14,5 @@
   "dependencies": {
     "@guided/logger": "*",
     "@googlemaps/google-maps-services-js": "^2.0.2"
-  },
-  "workspaces": {
-    "nohoist": [
-      "**"
-    ]
   }
 }
