@@ -88,10 +88,12 @@ function prepareServer() {
 }
 
 #macro_version=$(incrementVersion)
-macro_version=$DEPLOYED_VERSION
+macro_version="${CIRCLE_BUILD_NUM}"
 echo 'macro_version'
 echo "${macro_version}"
 app_version="0.1.${macro_version}"
+echo 'app_version'
+echo "${app_version}"
 
 echo 'Building'
 buildAll

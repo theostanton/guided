@@ -11,6 +11,13 @@ graphql_endpoint=$(terraform output graphql_endpoint) || exit
 graphql_websocket=$(terraform output graphql_websocket) || exit
 app_version=$(terraform output deployed_macro_version) || exit
 
+echo graphql_websocket
+echo "${graphql_websocket}"
+echo graphql_endpoint
+echo "${graphql_endpoint}"
+echo app_version
+echo "${app_version}"
+
 cd ../frontend/website || exit
 rm -rf public
 
