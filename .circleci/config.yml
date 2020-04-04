@@ -36,6 +36,9 @@ jobs:
             cd ../.ssh
             pwd
             ls -la
+            cd id_rsa_7b729a7c92d3ada9ccdd8321246ef5f7
+            pwd
+            ls -la
       - restore_cache:
           key: backend
       - run:

@@ -22,8 +22,9 @@ variable "aws_account_id" {
   default = 132788847502
 }
 
-variable "private_key" {
+variable "private_key_path" {
   type = string
+  default = "/home/circleci/.ssh"
 }
 
 variable "stage" {
