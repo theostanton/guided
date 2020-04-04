@@ -30,8 +30,8 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys
-      - restore_cache:
-          key: backend
+#      - restore_cache:
+#          key: backend
       - run:
           name: "key"
           command: echo $TF_VAR_private_key
@@ -45,10 +45,10 @@ jobs:
           command: |
             cd backend
             yarn install
-      - save_cache:
-          paths:
-            - backend/node_modules
-          key: backend-{{ checksum "yarn.lock" }}
+#      - save_cache:
+#          paths:
+#            - backend/node_modules
+#          key: backend-{{ checksum "yarn.lock" }}
       - run:
           name: "Init"
           command: |
