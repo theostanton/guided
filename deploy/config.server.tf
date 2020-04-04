@@ -1,6 +1,6 @@
-locals {
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkLQdpXlH2SXRqENxRCOExj7lwWrb3tZkLyjwd5yjSHfwm1a3OFY5msbhyCl8cZt2BdcXii4i279JRu3KvdAg/2lMwzRgZfjcQJmfz2PoPP4OplEWFZ7+lKOjlmduKGrsu1Kn3Il3RaBh04RkqcATuWUu7dCGJPafgqBv8Av8d1Crf89vUNvj1vZangAdoeoOm5c3lmUpxkLjxEcIjdII7IQoA0fZUdMkjaZzcXC+Y7utSMQbv9R78cT0QWs8Xcp/dV5iych55b2RxzD5GAcxXKkowDjM26alTB8h0nW0xGVJtYZrDCGJZd6ItGcAgo7Lvz6IMmV63NJK4E6u97wPJ"
-}
+//locals {
+//  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkLQdpXlH2SXRqENxRCOExj7lwWrb3tZkLyjwd5yjSHfwm1a3OFY5msbhyCl8cZt2BdcXii4i279JRu3KvdAg/2lMwzRgZfjcQJmfz2PoPP4OplEWFZ7+lKOjlmduKGrsu1Kn3Il3RaBh04RkqcATuWUu7dCGJPafgqBv8Av8d1Crf89vUNvj1vZangAdoeoOm5c3lmUpxkLjxEcIjdII7IQoA0fZUdMkjaZzcXC+Y7utSMQbv9R78cT0QWs8Xcp/dV5iych55b2RxzD5GAcxXKkowDjM26alTB8h0nW0xGVJtYZrDCGJZd6ItGcAgo7Lvz6IMmV63NJK4E6u97wPJ"
+//}
 
 data "aws_ami" "latest-ubuntu" {
   most_recent = true
@@ -20,21 +20,18 @@ data "aws_ami" "latest-ubuntu" {
   }
 }
 
-resource "aws_key_pair" "server" {
-  key_name = "guided-server"
-  public_key = local.public_key
-}
+//resource "aws_key_pair" "server" {
+//  key_name = "guided-server"
+//  public_key = local.public_key
+//}
 
 resource "aws_instance" "server" {
   ami = data.aws_ami.latest-ubuntu.id
   instance_type = "t2.micro"
-  //  security_groups = [
-  //    aws_security_group.server.arn]
-  //
-  //  vpc_security_group_ids = [
-  //    aws_security_group.server.id]
+  security_groups = [
+    aws_security_group.server.name]
 
-  key_name = aws_key_pair.server.key_name
+  key_name = "guided-server-${var.stage}"
 
   associate_public_ip_address = true
 

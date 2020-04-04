@@ -5,8 +5,9 @@
   "dependencies": {
   },
   "scripts": {
-    "deploy:backend:staging": "STAGE=staging BUILD=true ./deploy.backend.sh",
+    "build:backend:staging": "STAGE=staging BUILD=true ./deploy.backend.sh",
+    "deploy:backend:staging": "terraform workspace select staging && terraform apply  -var-file vars/staging.tfvars -var macro_version=0 -var private_key_path=./guided-server-staging.pem -auto-approve",
     "deploy:frontend:staging": "STAGE=staging BUILD=true ./deploy.frontend.sh",
-    "deploy:production": "terraform workspace select production && terraform apply -var-file vars/production.tfvars"
+    "deploy:production": "terraform workspace select production && terraform apply  -var-file vars/production.tfvars"
   }
 }

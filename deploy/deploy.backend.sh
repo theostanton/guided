@@ -8,8 +8,8 @@ echo $work_dir
 
 terraform workspace select $STAGE
 
-#ENVS=$(terraform output env_file)
-#export $(echo "${ENVS}" | sed 's/#.*//g')
+ENVS=$(terraform output env_file)
+export $(echo "${ENVS}" | sed 's/#.*//g')
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
 
@@ -66,6 +66,7 @@ function prepareServer() {
   log Build graphql source
   yarn build
   log Build graphql cache
+  export JWT_SECRET=someSecret
   node srv/buildCache.js connection=jdbc://superuser:password@"${STAGE}"-database.ridersbible.com:5432/main
   if [ ! -f "dist/cache" ]; then
     echo "graphql/dist/cache does not exist"

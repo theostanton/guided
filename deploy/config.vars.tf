@@ -67,6 +67,7 @@ variable "db_schema" {
 }
 variable "jwt_secret" {
   type = string
+  default = "someSecret"
 }
 variable "mapbox_token" {
   type = string
