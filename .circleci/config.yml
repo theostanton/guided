@@ -80,26 +80,26 @@ workflows:
   Deploy Staging:
     jobs:
       - shellcheck/check
+        filters:
+          branches:
+            only: staging
       - deploy-backend:
           context: guided-staging
           requires:
             - shellcheck/check
-          filters:
-            branches:
-              only: staging
       - deploy-frontend:
           requires:
             - deploy-backend
   Deploy Production:
     jobs:
       - shellcheck/check
+        filters:
+          branches:
+            only: master
       - deploy-backend:
           context: guided-production
           requires:
             - shellcheck/check
-          filters:
-            branches:
-              only: master
       - deploy-frontend:
           requires:
             - deploy-backend

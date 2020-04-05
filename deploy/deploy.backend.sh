@@ -12,7 +12,7 @@ terraform workspace select "${STAGE}"
 if [ -z "$CI" ]; then
 
   ENVS=$(terraform output env_file)
-  export $(echo "${ENVS}" | sed 's/#.*//g')
+  export "$(echo "${ENVS}" | sed 's/#.*//g')"
   export TF_VAR_private_key_path=./guided-server-"${STAGE}".pem
 fi
 
@@ -30,7 +30,7 @@ function log() {
 log "Deploying $STAGE backend"
 
 function buildAll() {
-  cd $work_dir
+  cd "${work_dir}"
   cd ../backend
   yarn build
 }
@@ -44,7 +44,7 @@ function generateMacroVersion() {
 }
 
 function prepareCompute() {
-  cd $work_dir
+  cd "${work_dir}"
   cd ../backend/elements/compute || exit
   rm -rf dist/index.js
 
@@ -65,7 +65,7 @@ function prepareCompute() {
 }
 
 function prepareServer() {
-  cd $work_dir
+  cd "${work_dir}"
   cd ../backend/elements/graphql || exit
   rm -rf dist/index.js
 
@@ -106,7 +106,7 @@ if [ "$BUILD" = 'true' ]; then
 fi
 
 if [ "$DEPLOY" = 'true' ]; then
-  cd $work_dir
+  cd "${work_dir}"
   log 'Deploying'
   export TF_VAR_stage=${STAGE}
   export TF_VAR_db_owner_user=${OWNER_USER}
