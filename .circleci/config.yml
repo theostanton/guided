@@ -39,7 +39,7 @@ jobs:
             DEPLOY: true
           command: |
             cd deploy
-            bash ./deploy.frontend.sh
+            sh ./deploy.frontend.sh
 
   deploy-backend:
     docker:
@@ -73,7 +73,7 @@ jobs:
             DEPLOY: true
           command: |
             cd deploy
-            bash ./deploy.backend.sh
+            sh ./deploy.backend.sh
 
 workflows:
   version: 2
