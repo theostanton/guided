@@ -38,7 +38,7 @@ jobs:
             DEPLOY: true
           command: |
             cd deploy
-            sh ./build.frontend.sh
+            sh ./deploy.frontend.sh
 
   deploy-backend:
     docker:
