@@ -30,7 +30,7 @@ export GATSBY_GUIDED_WEBSOCKET="${graphql_websocket}"
 export GATSBY_STAGE="${STAGE}"
 export GATSBY_APP_VERSION="${app_version}"
 export GATSBY_MAPBOX_TOKEN=pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ
-gatsby build
+yarn build
 
 echo -- Push website --
 yarn push

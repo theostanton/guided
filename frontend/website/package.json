@@ -57,6 +57,7 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "push": "gatsby-plugin-s3 deploy -y",
     "start": "npm run develop",
+    "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   }

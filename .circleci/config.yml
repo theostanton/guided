@@ -23,11 +23,6 @@ jobs:
             cd deploy
             terraform init
       - run:
-          name: "Install gatsby"
-          command: |
-            cd frontend/website
-            yarn global add gatsby-cli
-      - run:
           name: "Install dependencies"
           command: |
             cd frontend/website
@@ -61,7 +56,7 @@ jobs:
             yarn install
 
       - run:
-          name: "Init"
+          name: "Init terraform"
           command: |
             cd deploy
             terraform init
