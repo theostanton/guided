@@ -79,7 +79,7 @@ workflows:
   version: 2
   Deploy Staging:
     jobs:
-      - shellcheck/check
+      - shellcheck/check:
           filters:
             branches:
               only: staging
@@ -92,7 +92,7 @@ workflows:
             - deploy-backend
   Deploy Production:
     jobs:
-      - shellcheck/check
+      - shellcheck/check:
           filters:
             branches:
               only: master
