@@ -59,8 +59,6 @@ export const USER_KEY = "guidedUser"
 
 if (!process.env.GATSBY_GUIDED_GRAPHQL) {
   throw new Error(`Requires GATSBY_GUIDED_GRAPHQL`)
-} else {
-  console.log("process.env.GATSBY_GUIDED_GRAPHQL=" + process.env.GATSBY_GUIDED_GRAPHQL)
 }
 
 

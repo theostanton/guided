@@ -11,16 +11,16 @@ output "server_url" {
 }
 
 output "graphql_endpoint" {
-  value = "http://${aws_route53_record.server.name}:5000/graphql"
+  value = "https://${aws_route53_record.api.name}"
 }
 
 output "graphql_websocket" {
-  value = "ws://${aws_route53_record.server.name}:5000/graphql"
+  value = "wss://${aws_route53_record.api.name}"
 }
 
-output "compute_queue" {
-  value = aws_sqs_queue.compute.name
-}
+//output "compute_queue" {
+//  value = aws_sqs_queue.compute.name
+//}
 
 output "env_file" {
   value = local.env_file

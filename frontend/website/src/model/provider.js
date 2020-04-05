@@ -6,7 +6,6 @@ import { client } from "../api"
 import { ApolloProvider } from "@apollo/react-hooks"
 
 export default function({ element }) {
-  log(`provider() authStore=${authStore}`)
   return (
     <ApolloProvider client={client}>
       <Provider authStore={authStore}>{element}</Provider>

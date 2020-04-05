@@ -18,6 +18,7 @@ async function runFinalisationIfRequired(guide: Guide): Promise<boolean> {
 export default async function execute(body: ComputeStageMessageBody): Promise<ComputeStageResult> {
   const start = new Date()
   logJson(body, "handle compute-stage")
+  logJson(process.env.POSTGRES_HOST!, "process.env.POSTGRES_HOST")
   const { computationId } = body
   try {
     await database.none(`update computations

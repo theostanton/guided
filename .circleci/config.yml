@@ -1,0 +1,98 @@
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@0.1.19
+  terraform: ngs/terraform@0.0.1
+
+jobs:
+  deploy-frontend:
+    docker:
+      - image: circleci/node:12.9.1
+    working_directory: ~/workspace
+    steps:
+      - checkout
+      - run:
+          name: "Install terraform"
+          command: |
+            cd deploy
+            sudo  sh ./install_terraform.sh
+      - run:
+          name: "Init terraform"
+          command: |
+            cd deploy
+            terraform init
+      - run:
+          name: "Install gatsby"
+          command: |
+            cd frontend/website
+            yarn global add gatsby-cli
+      - run:
+          name: "Install dependencies"
+          command: |
+            cd frontend/website
+            yarn install
+      - run:
+          name: "Build and deploy"
+          environment:
+            BUILD: true
+            DEPLOY: true
+          command: |
+            cd deploy
+            sh ./build.backend.sh
+
+  deploy-backend:
+    docker:
+      - image: circleci/node:12.9.1
+    working_directory: ~/workspace
+    steps:
+      - checkout
+      - add_ssh_keys
+      - run:
+          name: "Install terraform"
+          command: |
+            cd deploy
+            sudo  sh ./install_terraform.sh
+
+      - run:
+          name: "Install dependencies"
+          command: |
+            cd backend
+            yarn install
+
+      - run:
+          name: "Init"
+          command: |
+            cd deploy
+            terraform init
+
+      - run:
+          name: "Build and deploy"
+          environment:
+            BUILD: true
+            DEPLOY: true
+          command: |
+            cd deploy
+            sh ./deploy.frontend.sh
+
+workflows:
+  version: 2
+  Deploy Staging:
+    jobs:
+      - deploy-backend:
+          context: guided-staging
+          filters:
+            branches:
+              only: staging
+      - deploy-frontend:
+          requires:
+            - deploy-backend
+  Deploy Production:
+    jobs:
+      - deploy-backend:
+          context: guided-production
+          filters:
+            branches:
+              only: master
+      - deploy-frontend:
+          requires:
+            - deploy-backend

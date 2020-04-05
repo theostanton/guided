@@ -30,6 +30,10 @@ export default function(mode: Mode): Application {
     ),
   )
 
+  app.get("/health", function(req, res) {
+    res.send("OK")
+  })
+
   app.use(combined)
 
   return app

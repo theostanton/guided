@@ -1,6 +1,6 @@
 {
   "exclude": [
-    "**.test.ts",
+    "**/*.test.ts",
     "../../frontend/**",
     "**/node_modules"
   ],

@@ -18,7 +18,8 @@ terraform {
 }
 
 locals {
-  app_version = "0.0.${var.macro_version}"
+  app_version = "0.1.${var.macro_version}"
+  domain_prefix = var.stage=="production" ? "" : "${var.stage}-"
   variables = {
     APP_VERSION = local.app_version
     POSTGRES_HOST = aws_route53_record.database.name
@@ -39,21 +40,3 @@ locals {
   ]
   ]))
 }
-
-resource "aws_route53_zone" "ridersbible" {
-  name = "ridersbible.com"
-}
-
-//resource "aws_api_gateway_rest_api" "guided" {
-//  name = "guided-${var.stage}"
-//}
-//resource "aws_api_gateway_domain_name" "api" {
-//  certificate_arn = aws_acm_certificate.guided.arn
-//  domain_name = "${var.stage}-api.ridersbible.com"
-//}
-//
-//
-//resource "aws_api_gateway_base_path_mapping" "guided" {
-//  api_id = aws_api_gateway_rest_api.guided.id
-//  domain_name = aws_api_gateway_domain_name.api.domain_name
-//}

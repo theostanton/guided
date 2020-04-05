@@ -2,9 +2,19 @@
   "name": "@guided/deploy",
   "version": "0.0.0",
   "private": true,
+  "dependencies": {
+  },
   "scripts": {
-    "deploy:backend:staging": "STAGE=staging BUILD=true ./deploy.backend.sh",
+
+    "build:backend:staging": "STAGE=staging BUILD=true DEPLOY=false ./build.backend.sh",
+    "deploy:backend:staging": "STAGE=staging BUILD=false DEPLOY=true ./build.backend.sh",
+    "buildAndDeploy:backend:staging": "STAGE=staging BUILD=true DEPLOY=true ./build.backend.sh",
+
+    "build:backend:production": "STAGE=production BUILD=true DEPLOY=false ./build.backend.sh",
+    "deploy:backend:production": "STAGE=production BUILD=false DEPLOY=true ./build.backend.sh",
+    "buildAndDeploy:backend:production": "STAGE=production BUILD=true DEPLOY=true ./build.backend.sh",
+
     "deploy:frontend:staging": "STAGE=staging BUILD=true ./deploy.frontend.sh",
-    "deploy:production": "terraform workspace select production && terraform apply -var-file vars/production.tfvars"
+    "deploy:frontend:production": "STAGE=production BUILD=true ./deploy.frontend.sh"
   }
 }

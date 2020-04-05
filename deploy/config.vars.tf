@@ -7,9 +7,23 @@ variable "macro_version" {
   type = number
 }
 
+variable "vpc_cidr" {
+  description = "CIDR for the whole VPC"
+  default = "10.0.0.0/16"
+}
+
+variable "public_subnet_cidr" {
+  description = "CIDR for the Public Subnet"
+  default = "10.0.0.0/24"
+}
+
 variable "aws_account_id" {
   type = number
   default = 132788847502
+}
+
+variable "private_key_path" {
+  type = string
 }
 
 variable "stage" {
@@ -53,6 +67,7 @@ variable "db_schema" {
 }
 variable "jwt_secret" {
   type = string
+  default = "someSecret"
 }
 variable "mapbox_token" {
   type = string
