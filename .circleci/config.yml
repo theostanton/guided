@@ -38,7 +38,7 @@ jobs:
             DEPLOY: true
           command: |
             cd deploy
-            sudo bash ./deploy.frontend.sh
+            bash ./deploy.frontend.sh
 
   deploy-backend:
     docker:
@@ -51,7 +51,7 @@ jobs:
           name: "Install terraform"
           command: |
             cd deploy
-            sudo  sh ./install_terraform.sh
+            sudo sh ./install_terraform.sh
 
       - run:
           name: "Install dependencies"
@@ -72,7 +72,7 @@ jobs:
             DEPLOY: true
           command: |
             cd deploy
-            sudo bash ./deploy.backend.sh
+            bash ./deploy.backend.sh
 
 workflows:
   version: 2
