@@ -38,7 +38,8 @@ jobs:
             cd deploy
             export BUILD=true
             export DEPLOY=true
-            sh ./deploy.frontend.sh
+            chmod +x ./deploy.frontend.sh
+            ./deploy.frontend.sh
 
   deploy-backend:
     docker:
@@ -71,7 +72,8 @@ jobs:
             cd deploy
             export BUILD=true
             export DEPLOY=true
-            sh ./deploy.backend.sh
+            chmod +x ./deploy.backend.sh
+            ./deploy.backend.sh
 
 workflows:
   version: 2
