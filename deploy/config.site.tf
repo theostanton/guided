@@ -70,7 +70,7 @@ resource "aws_cloudfront_distribution" "site" {
 }
 
 resource "aws_route53_record" "site" {
-  for_each = local.domains
+  for_each = toset(local.domains)
   name = each.value
   type = "A"
   zone_id = aws_route53_zone.ridersbible.zone_id
