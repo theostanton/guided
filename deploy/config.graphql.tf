@@ -27,12 +27,27 @@ resource "aws_lb_target_group_attachment" "graphql" {
   port = 5000
 }
 
+resource "aws_lb_listener" "http_only" {
+  load_balancer_arn = aws_lb.server.arn
+  protocol = "HTTP"
+  port = 80
+
+  default_action {
+    type = "fixed-response"
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "HTTPS only"
+      status_code = "400"
+    }
+  }
+  depends_on = [
+    aws_lb_target_group.graphql]
+}
+
 resource "aws_lb_listener" "graphql" {
   load_balancer_arn = aws_lb.server.arn
   port = 443
   protocol = "HTTPS"
-  depends_on = [
-    aws_lb_target_group.graphql]
   ssl_policy = "ELBSecurityPolicy-2016-08"
   certificate_arn = aws_acm_certificate.guided_london.arn
 
@@ -40,4 +55,7 @@ resource "aws_lb_listener" "graphql" {
     type = "forward"
     target_group_arn = aws_lb_target_group.graphql.arn
   }
+
+  depends_on = [
+    aws_lb_target_group.graphql]
 }

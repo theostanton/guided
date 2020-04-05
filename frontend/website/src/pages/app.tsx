@@ -18,12 +18,7 @@ type Props = {
 export default class AppComponent extends React.Component<Props> {
 
   componentDidMount(): void {
-
     const { isLoggedIn } = this.props.authStore
-
-
-    console.log("componentDidMount isLoggedIn=" + isLoggedIn)
-
     if (!isLoggedIn) {
       navigate?.("/")?.then()
     }
@@ -31,11 +26,6 @@ export default class AppComponent extends React.Component<Props> {
   }
 
   render(): React.ReactElement | undefined {
-
-    try {
-      console.log("render() path=" + location.pathname)
-    } catch (e) {
-    }
     return (
       <div style={{ margin: 20 }}>
         <Container>

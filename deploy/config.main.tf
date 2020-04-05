@@ -19,6 +19,7 @@ terraform {
 
 locals {
   app_version = "0.1.${var.macro_version}"
+  domain_prefix = var.stage=="production" ? "" : "${var.stage}-"
   variables = {
     APP_VERSION = local.app_version
     POSTGRES_HOST = aws_route53_record.database.name

@@ -21,13 +21,15 @@ resource "aws_db_instance" "guided" {
   final_snapshot_identifier = "guided-db-${var.stage}"
   apply_immediately = true
   publicly_accessible = true
+  vpc_security_group_ids = [
+    aws_security_group.open.id]
   depends_on = [
     aws_db_parameter_group.db_logical_replication]
 }
 
 resource "aws_route53_record" "database" {
   zone_id = aws_route53_zone.ridersbible.zone_id
-  name = "${var.stage}-database.${var.domain_name}"
+  name = "${local.domain_prefix}database.${var.domain_name}"
   type = "CNAME"
   ttl = "300"
   records = [

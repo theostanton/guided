@@ -10,16 +10,17 @@ echo "Deploying $STAGE backend"
 terraform workspace select "${STAGE}"
 
 if [ -z "$CI" ]; then
+
   ENVS=$(terraform output env_file)
   export $(echo "${ENVS}" | sed 's/#.*//g')
+  export TF_VAR_private_key_path=./guided-server-"${STAGE}".pem
 fi
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
 
-GREEN="\033[1;32m"
-NOCOLOR="\033[0m"
-
 function log() {
+  GREEN="\033[1;32m"
+  NOCOLOR="\033[0m"
   echo
   echo
   echo -e "${GREEN} -- $1 -- ${NOCOLOR}"
@@ -73,7 +74,7 @@ function prepareServer() {
 
   log 'Build graphql cache'
   export JWT_SECRET=someSecret
-  node srv/buildCache.js connection=jdbc://superuser:password@"${STAGE}"-database.ridersbible.com:5432/main
+  node srv/buildCache.js connection=jdbc://superuser:password@database.ridersbible.com:5432/main
   if [ ! -f "dist/cache" ]; then
     echo "graphql/dist/cache does not exist"
     exit 1

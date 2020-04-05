@@ -22,7 +22,10 @@ resource "aws_cloudfront_distribution" "site" {
     }
   }
   enabled = true
-  aliases = [
+  aliases = var.stage=="production"?[
+    local.full_domain,
+    var.domain_name
+  ]:[
     local.full_domain]
   price_class = "PriceClass_100"
   default_root_object = "index.html"

@@ -27,7 +27,7 @@ export GATSBY_GUIDED_GRAPHQL="${graphql_endpoint}"
 export GATSBY_GUIDED_WEBSOCKET="${graphql_websocket}"
 export GATSBY_STAGE="${STAGE}"
 export GATSBY_APP_VERSION="${app_version}"
-export GATSBY_MAPBOX_TOKEN=pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazgydW0wamEwazQ5M21wdHp2YjNndGJ2In0.qpytCBKZ1IptSm9UrFRbqA
+export GATSBY_MAPBOX_TOKEN=pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ
 gatsby build
 
 echo -- Push website --

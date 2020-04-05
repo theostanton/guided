@@ -24,7 +24,7 @@ resource "aws_instance" "server" {
   ami = data.aws_ami.latest-ubuntu.id
   instance_type = "t2.micro"
   security_groups = [
-    aws_security_group.server.name]
+    aws_security_group.open.name]
 
   key_name = "guided-server-${var.stage}"
 
@@ -113,6 +113,7 @@ resource "null_resource" "upload_envs" {
   triggers = {
     public_ip = aws_instance.server.public_ip
     env_file = local.env_file
+    force = timestamp()
   }
 
   connection {
@@ -185,37 +186,8 @@ resource "null_resource" "start_server" {
 
 }
 
-resource "aws_security_group" "server" {
-  name = "guided-server-${var.stage}"
-
-  //  vpc_id = aws_default_vpc.default.id
-  egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    cidr_blocks = [
-      "0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    cidr_blocks = [
-      "0.0.0.0/0"]
-  }
-
-  //  ingress {
-  //    from_port = 22
-  //    to_port = 22
-  //    protocol = "tcp"
-  //    cidr_blocks = [
-  //      "0.0.0.0/0"]
-  //  }
-}
-
-resource "aws_security_group" "graphql" {
-  name = "guided-graphql-${var.stage}"
+resource "aws_security_group" "open" {
+  name = "guided-open-${var.stage}"
 
   egress {
     from_port = 0
@@ -232,16 +204,7 @@ resource "aws_security_group" "graphql" {
     cidr_blocks = [
       "0.0.0.0/0"]
   }
-
-  //  ingress {
-  //    from_port = 22
-  //    to_port = 22
-  //    protocol = "tcp"
-  //    cidr_blocks = [
-  //      "0.0.0.0/0"]
-  //  }
 }
-
 
 resource "aws_s3_bucket" "access_logs" {
   bucket = "guided-access-logs-${var.stage}"
@@ -288,7 +251,7 @@ POLICY
 }
 
 resource "aws_route53_record" "server" {
-  name = "${var.stage}-server.${var.domain_name}"
+  name = "${local.domain_prefix}server.${var.domain_name}"
   type = "A"
   zone_id = aws_route53_zone.ridersbible.zone_id
 

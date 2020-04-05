@@ -33,9 +33,12 @@ jobs:
             yarn install
       - run:
           name: "Build and deploy"
+          environment:
+            BUILD: true
+            DEPLOY: true
           command: |
             cd deploy
-            yarn deploy:frontend:staging
+            sh ./build.backend.sh
 
   deploy-backend:
     docker:
@@ -49,38 +52,27 @@ jobs:
           command: |
             cd deploy
             sudo  sh ./install_terraform.sh
+
       - run:
           name: "Install dependencies"
           command: |
             cd backend
             yarn install
+
       - run:
           name: "Init"
           command: |
             cd deploy
             terraform init
 
-      #      - run:
-      #          name: "Build"
-      #          command: |
-      #            cd deploy
-      #            yarn build:backend:staging
-
       - run:
           name: "Build and deploy"
           environment:
-            TF_VAR_private_key_path: /home/circleci/.ssh/id_rsa_5eab1ebe72710affd8434c2c6e2f82e0
+            BUILD: true
+            DEPLOY: true
           command: |
             cd deploy
-            yarn buildAndDeploy:backend:staging
-
-#      - run:
-#          name: "Deploy"
-#          no_output_timeout: 30m
-#          command: |
-#            cd deploy
-#            terraform apply -var macro_version=${CIRCLE_BUILD_NUM} -auto-approve
-
+            sh ./deploy.frontend.sh
 
 workflows:
   version: 2
@@ -91,6 +83,16 @@ workflows:
           filters:
             branches:
               only: staging
+      - deploy-frontend:
+          requires:
+            - deploy-backend
+  Deploy Production:
+    jobs:
+      - deploy-backend:
+          context: guided-production
+          filters:
+            branches:
+              only: master
       - deploy-frontend:
           requires:
             - deploy-backend
