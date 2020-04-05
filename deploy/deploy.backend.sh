@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 work_dir="$(pwd)"
-echo $work_dir
+echo "${work_dir}"
 
 [ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
 [ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
@@ -12,6 +12,7 @@ terraform workspace select "${STAGE}"
 if [ -z "$CI" ]; then
 
   ENVS=$(terraform output env_file)
+  # shellcheck disable=SC2001
   export "$(echo "${ENVS}" | sed 's/#.*//g')"
   export TF_VAR_private_key_path=./guided-server-"${STAGE}".pem
 fi

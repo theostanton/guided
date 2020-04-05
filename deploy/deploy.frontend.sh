@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 work_dir="$(pwd)"
-echo $work_dir
+echo "${work_dir}"
 
 [ -z "$STAGE" ] && echo "No STAGE provided" && exit 1
 
