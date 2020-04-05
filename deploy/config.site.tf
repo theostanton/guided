@@ -5,6 +5,11 @@ resource "aws_s3_bucket" "site_logs" {
 
 locals {
   full_domain = "${terraform.workspace=="production"?"www":var.stage}.${var.domain_name}"
+  domains = var.stage=="production"?[
+    local.full_domain,
+    var.domain_name
+  ]:[
+    local.full_domain]
 }
 
 resource "aws_cloudfront_distribution" "site" {
@@ -22,11 +27,7 @@ resource "aws_cloudfront_distribution" "site" {
     }
   }
   enabled = true
-  aliases = var.stage=="production"?[
-    local.full_domain,
-    var.domain_name
-  ]:[
-    local.full_domain]
+  aliases = local.domains
   price_class = "PriceClass_100"
   default_root_object = "index.html"
   is_ipv6_enabled = true
@@ -69,7 +70,8 @@ resource "aws_cloudfront_distribution" "site" {
 }
 
 resource "aws_route53_record" "site" {
-  name = local.full_domain
+  for_each = local.domains
+  name = each.value
   type = "A"
   zone_id = aws_route53_zone.ridersbible.zone_id
   alias {
