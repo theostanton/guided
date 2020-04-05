@@ -21,9 +21,7 @@ export function connection(): string {
   } else if (!process.env.POSTGRES_USER) {
     throw new Error("No envs provided")
   } else {
-    const connection = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
-    log(connection, "connection() connection")
-    return connection
+    return `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
   }
 }
 
@@ -51,7 +49,6 @@ export function buildCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSc
   }
 
   let ownerConnectionString = `postgres://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
-  log(ownerConnectionString, "buildCache() ownerConnectionString")
   return {
     watchPg: false,
     exportGqlSchemaPath: "../../schema.graphql",
@@ -121,24 +118,13 @@ export function serve(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "al
 
 }
 
+const CACHE_OPTIONS: { [mode in Mode]: () => Partial<PostGraphileOptions> } = {
+  buildCache, invoke, serve, watch,
+}
+
 export function options(mode: Mode): PostGraphileOptions {
 
-  let cacheOptions: {}
-  switch (mode) {
-    case "buildCache":
-      cacheOptions = buildCache()
-      break
-    case "invoke":
-      cacheOptions = invoke()
-      break
-    case "serve":
-      cacheOptions = serve()
-      break
-    case "watch":
-      cacheOptions = watch()
-      break
-  }
-
+  const cacheOptions = CACHE_OPTIONS[mode]()
   return {
     ...cacheOptions,
     ...jwt(),
@@ -148,6 +134,7 @@ export function options(mode: Mode): PostGraphileOptions {
     enableCors: true,
     dynamicJson: true,
     showErrorStack: true,
+    ignoreRBAC: false,
     subscriptions: true,
     extendedErrors: ["hint", "detail", "errcode"],
     appendPlugins: plugins(),

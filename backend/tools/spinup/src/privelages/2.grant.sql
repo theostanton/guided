@@ -1,6 +1,7 @@
 -- users
-grant select on table users to guided_anonymous, guided_user;
-grant insert, update, delete on table users to guided_user;
+revoke select ON table users from guided_anonymous, guided_user;
+grant select (username) on table users to guided_anonymous;
+grant select, insert, update, delete on table users to guided_user;
 
 -- guides
 grant select on table guides to guided_anonymous, guided_user;

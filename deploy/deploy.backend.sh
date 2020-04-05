@@ -76,7 +76,8 @@ prepareServer() {
 
   log 'Build graphql cache'
   export JWT_SECRET=someSecret
-  node srv/buildCache.js connection=jdbc://superuser:password@database.ridersbible.com:5432/main
+  DATABASE_URL=jdbc://${OWNER_USER}:${OWNER_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+  node srv/buildCache.js connection="${DATABASE_URL}"
   if [ ! -f "dist/cache" ]; then
     echo "graphql/dist/cache does not exist"
     exit 1
