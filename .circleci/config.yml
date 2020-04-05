@@ -80,9 +80,9 @@ workflows:
   Deploy Staging:
     jobs:
       - shellcheck/check
-        filters:
-          branches:
-            only: staging
+          filters:
+            branches:
+              only: staging
       - deploy-backend:
           context: guided-staging
           requires:
@@ -93,9 +93,9 @@ workflows:
   Deploy Production:
     jobs:
       - shellcheck/check
-        filters:
-          branches:
-            only: master
+          filters:
+            branches:
+              only: master
       - deploy-backend:
           context: guided-production
           requires:
