@@ -5,7 +5,6 @@
   "dependencies": {
   },
   "scripts": {
-
     "build:backend:staging": "STAGE=staging BUILD=true DEPLOY=false ./build.backend.sh",
     "deploy:backend:staging": "STAGE=staging BUILD=false DEPLOY=true ./build.backend.sh",
     "buildAndDeploy:backend:staging": "STAGE=staging BUILD=true DEPLOY=true ./build.backend.sh",
@@ -14,6 +13,9 @@
     "deploy:backend:production": "STAGE=production BUILD=false DEPLOY=true ./build.backend.sh",
     "buildAndDeploy:backend:production": "STAGE=production BUILD=true DEPLOY=true ./build.backend.sh",
 
+    "buildAndDeploy:backend": "BUILD=true DEPLOY=true ./build.backend.sh",
+
+    "deploy:frontend": "BUILD=true ./deploy.frontend.sh",
     "deploy:frontend:staging": "STAGE=staging BUILD=true ./deploy.frontend.sh",
     "deploy:frontend:production": "STAGE=production BUILD=true ./deploy.frontend.sh"
   }

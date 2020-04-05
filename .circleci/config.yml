@@ -34,11 +34,10 @@ jobs:
             yarn install
       - run:
           name: "Build and deploy"
-          environment:
-            BUILD: 'true'
-            DEPLOY: 'true'
           command: |
             cd deploy
+            export BUILD=true
+            export DEPLOY=true
             sh ./deploy.frontend.sh
 
   deploy-backend:
@@ -68,11 +67,10 @@ jobs:
 
       - run:
           name: "Build and deploy"
-          environment:
-            BUILD: 'true'
-            DEPLOY: 'true'
           command: |
             cd deploy
+            export BUILD=true
+            export DEPLOY=true
             sh ./deploy.backend.sh
 
 workflows:
