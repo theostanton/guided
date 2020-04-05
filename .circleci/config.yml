@@ -88,6 +88,7 @@ workflows:
           requires:
             - shellcheck/check
       - deploy-frontend:
+          context: guided-staging
           requires:
             - deploy-backend
   Deploy Production:
@@ -101,5 +102,6 @@ workflows:
           requires:
             - shellcheck/check
       - deploy-frontend:
+          context: guided-production
           requires:
             - deploy-backend
