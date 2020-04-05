@@ -19,7 +19,7 @@ fi
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
 
-function log() {
+function log {
   GREEN="\033[1;32m"
   NOCOLOR="\033[0m"
   echo
@@ -30,13 +30,13 @@ function log() {
 
 log "Deploying $STAGE backend"
 
-function buildAll() {
+function buildAll {
   cd "${work_dir}"
   cd ../backend
   yarn build
 }
 
-function generateMacroVersion() {
+function generateMacroVersion {
   DEPLOYED_MACRO_VERSION=$(terraform output deployed_macro_version)
   if [ "$BUILD" = 'true' ]; then
     ((DEPLOYED_MACRO_VERSION = DEPLOYED_MACRO_VERSION + 1))
@@ -44,7 +44,7 @@ function generateMacroVersion() {
   echo "${DEPLOYED_MACRO_VERSION}"
 }
 
-function prepareCompute() {
+function prepareCompute {
   cd "${work_dir}"
   cd ../backend/elements/compute || exit
   rm -rf dist/index.js
@@ -65,7 +65,7 @@ function prepareCompute() {
   echo Zipped to "${compute_filename}"
 }
 
-function prepareServer() {
+function prepareServer {
   cd "${work_dir}"
   cd ../backend/elements/graphql || exit
   rm -rf dist/index.js
