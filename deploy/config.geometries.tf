@@ -62,10 +62,6 @@ resource "aws_cloudfront_distribution" "geometries" {
     domain_name = aws_s3_bucket.geometries.bucket_domain_name
     origin_id = local.geometries_bucket_url
 
-    s3_origin_config {
-      origin_access_identity = "origin-access-identity/cloudfront/ABCDEFG1234567"
-    }
-
     custom_origin_config {
       http_port = 80
       https_port = 443
