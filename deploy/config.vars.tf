@@ -39,10 +39,6 @@ variable "db_owner_user" {
   type = string
 }
 
-variable "db_owner_password" {
-  type = string
-}
-
 variable "db_database" {
   type = string
   default = "main"
@@ -57,18 +53,9 @@ variable "db_postgraphile_user" {
   type = string
 }
 
-variable "db_postgraphile_password" {
-  type = string
-}
-
 variable "db_schema" {
   type = string
   default = "public"
-}
-
-variable "jwt_secret" {
-  type = string
-  default = "someSecret"
 }
 
 variable "mapbox_token" {

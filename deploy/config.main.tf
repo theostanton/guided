@@ -28,11 +28,11 @@ locals {
     POSTGRES_PORT = var.db_port
     POSTGRES_USER = var.db_postgraphile_user
     POSTGRES_SCHEMA = var.db_schema
-    POSTGRES_PASSWORD = var.db_postgraphile_password
+    POSTGRES_PASSWORD = random_password.database_postgraphile.result
     POSTGRAPHILE_PORT = 5000
     OWNER_USER = var.db_owner_user
-    OWNER_PASSWORD = var.db_owner_password
-    JWT_SECRET = var.jwt_secret
+    OWNER_PASSWORD = random_password.database_owner.result
+    JWT_SECRET = random_password.jwt_secret.result
     COMPUTE_QUEUE_NAME = aws_sqs_queue.compute.name
     GEOMETRIES_BUCKET_NAME = aws_s3_bucket.geometries.bucket
   }

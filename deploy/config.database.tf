@@ -8,6 +8,18 @@ resource "aws_db_parameter_group" "db_logical_replication" {
   }
 }
 
+resource "random_password" "database_owner" {
+  length = 16
+}
+
+resource "random_password" "database_postgraphile" {
+  length = 16
+}
+
+resource "random_password" "jwt_secret" {
+  length = 16
+}
+
 resource "aws_db_instance" "guided" {
   name = var.db_database
   identifier = "guided-${var.stage}"
@@ -16,7 +28,7 @@ resource "aws_db_instance" "guided" {
   parameter_group_name = aws_db_parameter_group.db_logical_replication.name
   instance_class = "db.t2.micro"
   username = var.db_owner_user
-  password = var.db_owner_password
+  password = random_password.database_owner.result
   port = var.db_port
   final_snapshot_identifier = "guided-db-${var.stage}"
   apply_immediately = true
