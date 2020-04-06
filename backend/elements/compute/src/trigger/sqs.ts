@@ -3,7 +3,7 @@ import AWS from "aws-sdk"
 export default new AWS.SQS({
   region: "eu-west-2",
   credentials: {
-    accessKeyId: "AKIAR52WVAOHPEKFNX7X",
-    secretAccessKey: "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",
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
   },
 })
