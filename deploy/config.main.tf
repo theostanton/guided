@@ -22,6 +22,7 @@ locals {
   domain_prefix = var.stage=="production" ? "" : "${var.stage}-"
   variables = {
     STAGE = var.stage
+    GOOGLE_KEY=var.google_key
     APP_VERSION = local.app_version
     POSTGRES_HOST = aws_route53_record.database.name
     POSTGRES_DB = var.db_database

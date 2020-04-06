@@ -21,7 +21,7 @@ export default async function(lat: number, lng: number): Promise<PlaceInfo> {
 
   const result = await client.reverseGeocode({
     params: {
-      key,
+      key: process.env.GOOGLE_KEY!,
       latlng: {
         lat, lng,
       },

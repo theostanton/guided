@@ -117,6 +117,7 @@ if [ "$DEPLOY" = 'true' ]; then
   export TF_VAR_db_owner_password=${OWNER_PASSWORD}
   export TF_VAR_db_postgraphile_user=${POSTGRES_USER}
   export TF_VAR_db_postgraphile_password=${POSTGRES_PASSWORD}
+  export TF_VAR_google_key=${GOOGLE_KEY}
   export TF_VAR_jwt_secret=${JWT_SECRET}
   terraform apply -var macro_version="${macro_version}" -auto-approve
 fi
