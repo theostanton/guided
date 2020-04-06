@@ -9,7 +9,9 @@ module.exports = {
     library: "",
     libraryTarget: "commonjs",
   },
-  entry: "./srv/server.js",
+  entry: {
+    main: "./srv/server.js",
+  },
   mode: "production",
   target: "node",
   plugins: [
@@ -34,6 +36,9 @@ module.exports = {
     __dirname: false, // just output `__dirname`
   },
   optimization: {
+    // splitChunks: {
+    //   chunks: "all",
+    // },
     minimizer: [
       new TerserPlugin({
         terserOptions: {

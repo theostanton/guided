@@ -21,7 +21,7 @@ export default async function(rideId: string, points: number[][]): Promise<strin
       Body: JSON.stringify(geoJson, null, 4),
       Bucket: process.env.GEOMETRIES_BUCKET_NAME,
     }).promise()
-    return `${process.env.GEOMETRIES_BUCKET_BASE_URL}/${response.Key}`
+    return `https://${process.env.GEOMETRIES_BUCKET_BASE_URL}/${response.Key}`
   } catch (e) {
     console.error("Failed to upload")
     console.error(e)

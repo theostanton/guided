@@ -12,6 +12,10 @@ if (process.env.NODE_ENV === "development") {
 
 import { log } from "@guided/logger"
 
+if (!process.env.STAGE) {
+  throw new Error("ENVS error. No STAGE")
+}
+
 import app from "./app"
 
 app(process.env.NODE_ENV === "development" ? "watch" : "serve").listen(process.env.POSTGRAPHILE_PORT!)

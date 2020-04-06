@@ -13,6 +13,7 @@ locals {
 }
 
 resource "aws_cloudfront_distribution" "site" {
+  comment = "gudied-site-${var.stage}"
   origin {
     domain_name = aws_s3_bucket.site.website_endpoint
     origin_id = local.full_domain
