@@ -5,15 +5,15 @@
   "dependencies": {
   },
   "scripts": {
-    "build:backend:staging": "STAGE=staging BUILD=true DEPLOY=false ./build.backend.sh",
-    "deploy:backend:staging": "STAGE=staging BUILD=false DEPLOY=true ./build.backend.sh",
-    "buildAndDeploy:backend:staging": "STAGE=staging BUILD=true DEPLOY=true ./build.backend.sh",
+    "build:backend:staging": "STAGE=staging BUILD=true DEPLOY=false ./deploy.backend.sh",
+    "deploy:backend:staging": "STAGE=staging BUILD=false DEPLOY=true ./deploy.backend.sh",
+    "buildAndDeploy:backend:staging": "STAGE=staging BUILD=true DEPLOY=true ./deploy.backend.sh",
 
-    "build:backend:production": "STAGE=production BUILD=true DEPLOY=false ./build.backend.sh",
-    "deploy:backend:production": "STAGE=production BUILD=false DEPLOY=true ./build.backend.sh",
-    "buildAndDeploy:backend:production": "STAGE=production BUILD=true DEPLOY=true ./build.backend.sh",
+    "build:backend:production": "STAGE=production BUILD=true DEPLOY=false ./deploy.backend.sh",
+    "deploy:backend:production": "STAGE=production BUILD=false DEPLOY=true ./deploy.backend.sh",
+    "buildAndDeploy:backend:production": "STAGE=production BUILD=true DEPLOY=true ./deploy.backend.sh",
 
-    "buildAndDeploy:backend": "BUILD=true DEPLOY=true ./build.backend.sh",
+    "buildAndDeploy:backend": "BUILD=true DEPLOY=true ./deploy.backend.sh",
 
     "deploy:frontend": "BUILD=true ./deploy.frontend.sh",
     "deploy:frontend:staging": "STAGE=staging BUILD=true ./deploy.frontend.sh",

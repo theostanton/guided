@@ -33,6 +33,8 @@ locals {
     OWNER_PASSWORD = var.db_owner_password
     JWT_SECRET = var.jwt_secret
     COMPUTE_QUEUE_NAME = aws_sqs_queue.compute.name
+    GEOMETRIES_BUCKET_NAME = aws_s3_bucket.geometries.bucket
+    GEOMETRIES_BUCKET_BASE_URL = aws_route53_record.geometries.name
   }
   env_file = join("\n", flatten([
   for key, value in local.variables:[

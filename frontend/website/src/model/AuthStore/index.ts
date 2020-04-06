@@ -7,13 +7,13 @@ import {
   LoginMutationVariables, SignUpDocument, SignUpMutation,
   SignUpMutationVariables,
 } from "api/generated"
-import gql from "graphql-tag"
 import { USER_KEY } from "api/client"
 import { client } from "api"
+import { logJson } from "utils/logger"
 
 export type User = {
   bearerToken: string
-  username: string
+  username?: string
   email: string
 }
 
@@ -51,6 +51,13 @@ export default class Index {
       variables,
     })
 
+    const bearerToken = result.data!.authenticate!.jwtToken
+
+    this.setUser({
+      email,
+      bearerToken,
+    })
+
     const usernameResult = await client.query<GetUsernameQuery>({
         query: GetUsernameDocument,
         variables: {
@@ -60,8 +67,6 @@ export default class Index {
     )
 
     const username = usernameResult.data!.users!.nodes[0]!.username
-
-    const bearerToken = result.data!.authenticate!.jwtToken
 
     this.setUser({
       username,

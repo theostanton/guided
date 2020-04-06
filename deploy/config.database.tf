@@ -28,8 +28,8 @@ resource "aws_db_instance" "guided" {
 }
 
 resource "aws_route53_record" "database" {
-  zone_id = aws_route53_zone.ridersbible.zone_id
   name = "${local.domain_prefix}database.${var.domain_name}"
+  zone_id = aws_route53_zone.ridersbible.zone_id
   type = "CNAME"
   ttl = "300"
   records = [

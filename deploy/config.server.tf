@@ -1,7 +1,3 @@
-//locals {
-//  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkLQdpXlH2SXRqENxRCOExj7lwWrb3tZkLyjwd5yjSHfwm1a3OFY5msbhyCl8cZt2BdcXii4i279JRu3KvdAg/2lMwzRgZfjcQJmfz2PoPP4OplEWFZ7+lKOjlmduKGrsu1Kn3Il3RaBh04RkqcATuWUu7dCGJPafgqBv8Av8d1Crf89vUNvj1vZangAdoeoOm5c3lmUpxkLjxEcIjdII7IQoA0fZUdMkjaZzcXC+Y7utSMQbv9R78cT0QWs8Xcp/dV5iych55b2RxzD5GAcxXKkowDjM26alTB8h0nW0xGVJtYZrDCGJZd6ItGcAgo7Lvz6IMmV63NJK4E6u97wPJ"
-//}
-
 data "aws_ami" "latest-ubuntu" {
   most_recent = true
   owners = [
@@ -39,9 +35,6 @@ resource "aws_instance" "server" {
   tags = {
     Name = "guided-server-${var.stage}"
   }
-
-  depends_on = [
-    aws_route53_record.database]
 }
 
 resource "null_resource" "install_node" {
@@ -79,8 +72,8 @@ resource "null_resource" "install_node" {
   }
 
   depends_on = [
-    aws_instance.server,
     null_resource.upload_cache,
+    null_resource.upload_envs,
     null_resource.upload_server]
 }
 
@@ -179,10 +172,7 @@ resource "null_resource" "start_server" {
   }
 
   depends_on = [
-    null_resource.upload_server,
-    null_resource.upload_cache,
-    null_resource.install_node,
-    aws_instance.server]
+    null_resource.install_node]
 
 }
 

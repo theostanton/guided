@@ -14,7 +14,8 @@ if [ -z "$CI" ]; then
 
   ENVS=$(terraform output env_file)
   # shellcheck disable=SC2001
-  export "$(echo "${ENVS}" | sed 's/#.*//g')"
+  # shellcheck disable=SC2046
+  export $(echo "${ENVS}" | sed 's/#.*//g')
   export TF_VAR_private_key_path=./guided-server-"${STAGE}".pem
 fi
 

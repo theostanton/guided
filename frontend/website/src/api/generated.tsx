@@ -1,7 +1,7 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import gql from 'graphql-tag';
-import * as React from 'react';
 import * as ApolloReactCommon from '@apollo/react-common';
+import * as React from 'react';
 import * as ApolloReactComponents from '@apollo/react-components';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
@@ -1541,7 +1541,6 @@ export type Ride = Node & {
   readonly owner: Scalars['String'];
   readonly fromSpot: Scalars['String'];
   readonly toSpot: Scalars['String'];
-  readonly pathUrl?: Maybe<Scalars['String']>;
   readonly durationSeconds?: Maybe<Scalars['Int']>;
   readonly distanceMeters?: Maybe<Scalars['Int']>;
   readonly date?: Maybe<Scalars['String']>;
@@ -1550,6 +1549,7 @@ export type Ride = Node & {
   readonly status: RideStatus;
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly pathUrl?: Maybe<Scalars['String']>;
   /** Reads a single `Guide` that is related to this `Ride`. */
   readonly guideByGuide?: Maybe<Guide>;
   /** Reads a single `User` that is related to this `Ride`. */
@@ -1576,8 +1576,6 @@ export type RideCondition = {
   readonly fromSpot?: Maybe<Scalars['String']>;
   /** Checks for equality with the object’s `toSpot` field. */
   readonly toSpot?: Maybe<Scalars['String']>;
-  /** Checks for equality with the object’s `pathUrl` field. */
-  readonly pathUrl?: Maybe<Scalars['String']>;
   /** Checks for equality with the object’s `durationSeconds` field. */
   readonly durationSeconds?: Maybe<Scalars['Int']>;
   /** Checks for equality with the object’s `distanceMeters` field. */
@@ -1594,6 +1592,8 @@ export type RideCondition = {
   readonly created?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `updated` field. */
   readonly updated?: Maybe<Scalars['Datetime']>;
+  /** Checks for equality with the object’s `pathUrl` field. */
+  readonly pathUrl?: Maybe<Scalars['String']>;
 };
 
 /** An input for mutations affecting `Ride` */
@@ -1603,7 +1603,6 @@ export type RideInput = {
   readonly owner: Scalars['String'];
   readonly fromSpot: Scalars['String'];
   readonly toSpot: Scalars['String'];
-  readonly pathUrl?: Maybe<Scalars['String']>;
   readonly durationSeconds?: Maybe<Scalars['Int']>;
   readonly distanceMeters?: Maybe<Scalars['Int']>;
   readonly date?: Maybe<Scalars['String']>;
@@ -1612,6 +1611,7 @@ export type RideInput = {
   readonly status: RideStatus;
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly pathUrl?: Maybe<Scalars['String']>;
 };
 
 /** Represents an update to a `Ride`. Fields that are set will be updated. */
@@ -1621,7 +1621,6 @@ export type RidePatch = {
   readonly owner?: Maybe<Scalars['String']>;
   readonly fromSpot?: Maybe<Scalars['String']>;
   readonly toSpot?: Maybe<Scalars['String']>;
-  readonly pathUrl?: Maybe<Scalars['String']>;
   readonly durationSeconds?: Maybe<Scalars['Int']>;
   readonly distanceMeters?: Maybe<Scalars['Int']>;
   readonly date?: Maybe<Scalars['String']>;
@@ -1630,6 +1629,7 @@ export type RidePatch = {
   readonly status?: Maybe<RideStatus>;
   readonly created?: Maybe<Scalars['Datetime']>;
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly pathUrl?: Maybe<Scalars['String']>;
 };
 
 /** A connection to a list of `Ride` values. */
@@ -1665,8 +1665,6 @@ export enum RidesOrderBy {
   FromSpotDesc = 'FROM_SPOT_DESC',
   ToSpotAsc = 'TO_SPOT_ASC',
   ToSpotDesc = 'TO_SPOT_DESC',
-  PathUrlAsc = 'PATH_URL_ASC',
-  PathUrlDesc = 'PATH_URL_DESC',
   DurationSecondsAsc = 'DURATION_SECONDS_ASC',
   DurationSecondsDesc = 'DURATION_SECONDS_DESC',
   DistanceMetersAsc = 'DISTANCE_METERS_ASC',
@@ -1683,6 +1681,8 @@ export enum RidesOrderBy {
   CreatedDesc = 'CREATED_DESC',
   UpdatedAsc = 'UPDATED_ASC',
   UpdatedDesc = 'UPDATED_DESC',
+  PathUrlAsc = 'PATH_URL_ASC',
+  PathUrlDesc = 'PATH_URL_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -4005,7 +4005,6 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  pathUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   durationSeconds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   distanceMeters?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -4014,6 +4013,7 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   status?: Resolver<ResolversTypes['RideStatus'], ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
+  pathUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
@@ -4330,14 +4330,6 @@ export type Resolvers<ContextType = any> = {
 */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
-export type SomeQueryQueryVariables = {};
-
-
-export type SomeQueryQuery = { readonly users?: Maybe<(
-    Pick<UsersConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<Pick<User, 'email' | 'username'>>> }
-  )> };
-
 export type CreateGuideMutationVariables = {
   guide: GuideInput;
 };
@@ -4448,7 +4440,7 @@ export type SignUpMutationVariables = {
 };
 
 
-export type SignUpMutation = { readonly register?: Maybe<{ readonly user?: Maybe<Pick<User, 'username' | 'email'>> }> };
+export type SignUpMutation = { readonly register?: Maybe<{ readonly user?: Maybe<Pick<User, 'username'>> }> };
 
 export type GetUsernameQueryVariables = {
   email: Scalars['String'];
@@ -4527,48 +4519,6 @@ export const GuideFragmentDoc = gql`
   }
 }
     ${StageFragmentDoc}`;
-export const SomeQueryDocument = gql`
-    query SomeQuery {
-  users {
-    totalCount
-    nodes {
-      email
-      username
-    }
-  }
-}
-    `;
-export type SomeQueryComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<SomeQueryQuery, SomeQueryQueryVariables>, 'query'>;
-
-    export const SomeQueryComponent = (props: SomeQueryComponentProps) => (
-      <ApolloReactComponents.Query<SomeQueryQuery, SomeQueryQueryVariables> query={SomeQueryDocument} {...props} />
-    );
-    
-
-/**
- * __useSomeQueryQuery__
- *
- * To run a query within a React component, call `useSomeQueryQuery` and pass it any options that fit your needs.
- * When your component renders, `useSomeQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useSomeQueryQuery({
- *   variables: {
- *   },
- * });
- */
-export function useSomeQueryQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SomeQueryQuery, SomeQueryQueryVariables>) {
-        return ApolloReactHooks.useQuery<SomeQueryQuery, SomeQueryQueryVariables>(SomeQueryDocument, baseOptions);
-      }
-export function useSomeQueryLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SomeQueryQuery, SomeQueryQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<SomeQueryQuery, SomeQueryQueryVariables>(SomeQueryDocument, baseOptions);
-        }
-export type SomeQueryQueryHookResult = ReturnType<typeof useSomeQueryQuery>;
-export type SomeQueryLazyQueryHookResult = ReturnType<typeof useSomeQueryLazyQuery>;
-export type SomeQueryQueryResult = ApolloReactCommon.QueryResult<SomeQueryQuery, SomeQueryQueryVariables>;
 export const CreateGuideDocument = gql`
     mutation CreateGuide($guide: GuideInput!) {
   createGuide(input: {guide: $guide}) {
@@ -5009,7 +4959,6 @@ export const SignUpDocument = gql`
   register(input: {_email: $email, _username: $username, _password: $password}) {
     user {
       username
-      email
     }
   }
 }

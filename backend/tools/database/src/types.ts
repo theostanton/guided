@@ -35,7 +35,6 @@ export interface Ride {
   owner: string
   from_spot: string
   to_spot: string
-  path_url: string | null
   duration_seconds: number | null
   distance_meters: number | null
   date: string | null
@@ -44,6 +43,7 @@ export interface Ride {
   status: RideStatus
   created: any
   updated: any | null
+  path_url: string | null
 }
 
 export interface Spot {
