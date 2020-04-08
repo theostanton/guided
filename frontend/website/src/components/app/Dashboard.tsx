@@ -3,6 +3,7 @@ import AppContainer from "components/app/Container"
 import { Header } from "semantic-ui-react"
 import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
+import GuidesList from "./Guides/GuidesList"
 
 type Props = {
   authStore: AuthStore
@@ -18,8 +19,13 @@ export default class DashboardComponent extends React.Component<Props, State> {
 
   render(): React.ReactElement | undefined {
     return <AppContainer>
-      <Header>My Dashboard</Header>
-      <p>User:{this.props.authStore.user?.username}</p>
+      <Header>My guides</Header>
+      <GuidesList owner={this.props.authStore.owner} onClick={(guideSlug: string) => {
+        this.setState({
+          selectedGuideSlug: guideSlug,
+        })
+      }
+      }/>
     </AppContainer>
   }
 

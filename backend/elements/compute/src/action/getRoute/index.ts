@@ -1,5 +1,5 @@
 import { DirectionsRoute, LatLng } from "@googlemaps/google-maps-services-js/dist/common"
-import { client, key } from "@guided/google"
+import { client } from "@guided/google"
 import { Spot } from "@guided/database"
 import { toLatLng } from "../../utils"
 
@@ -10,7 +10,7 @@ export default async function(fromSpot: Spot, toSpot: Spot): Promise<DirectionsR
 
   const result = await client.directions({
     params: {
-      key,
+      key: process.env.GOOGLE_KEY!,
       origin,
       destination,
       mode: "driving",
