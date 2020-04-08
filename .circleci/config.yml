@@ -47,6 +47,11 @@ jobs:
           name: "Install terraform"
           command: |
             cd deploy
+            echo AWS_ACCESS_KEY_ID
+            echo "${AWS_ACCESS_KEY_ID}"
+
+            echo AWS_SECRET_ACCESS_KEY
+            echo "${AWS_SECRET_ACCESS_KEY}"
             sudo sh ./install_terraform.sh
 
       - run:

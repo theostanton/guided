@@ -3,12 +3,6 @@ set -e
 work_dir="$(pwd)"
 echo "${work_dir}"
 
-echo AWS_ACCESS_KEY_ID
-echo "${AWS_ACCESS_KEY_ID}"
-
-echo AWS_SECRET_ACCESS_KEY
-echo "${AWS_SECRET_ACCESS_KEY}"
-
 [ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
 [ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
 [ -z "$DEPLOY" ] && echo "No DEPLOY env provided" && exit 1
