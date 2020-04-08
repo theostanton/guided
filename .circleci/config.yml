@@ -48,10 +48,11 @@ jobs:
           command: |
             cd deploy
             echo AWS_ACCESS_KEY_ID
-            echo "${AWS_ACCESS_KEY_ID}"
+            echo $AWS_ACCESS_KEY_ID
 
             echo AWS_SECRET_ACCESS_KEY
-            echo "${AWS_SECRET_ACCESS_KEY}"
+            echo $AWS_SECRET_ACCESS_KEY
+
             sudo sh ./install_terraform.sh
 
       - run:
@@ -79,14 +80,11 @@ workflows:
   version: 2
   Deploy Staging:
     jobs:
-      - shellcheck/check:
+      - deploy-backend:
+          context: guided-staging
           filters:
             branches:
               only: staging
-      - deploy-backend:
-          context: guided-staging
-          requires:
-            - shellcheck/check
       - deploy-frontend:
           context: guided-staging
           requires:
