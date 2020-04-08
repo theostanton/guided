@@ -10,17 +10,14 @@ resource "aws_db_parameter_group" "db_logical_replication" {
 
 resource "random_password" "database_owner" {
   length = 16
-  special = false
 }
 
 resource "random_password" "database_postgraphile" {
   length = 16
-  special = false
 }
 
 resource "random_password" "jwt_secret" {
   length = 16
-  special = false
 }
 
 resource "aws_db_instance" "guided" {

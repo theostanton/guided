@@ -14,38 +14,38 @@ function plugins(): Plugin[] {
   ]
 }
 
+function ownerConnection(): string {
+
+  if (!process.env.OWNER_USER) {
+    throw new Error("Need OWNER_ variables")
+  }
+
+  return `postgres://${process.env.POSTGRES_USER}:${encodeURIComponent(process.env.POSTGRES_PASSWORD!)}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+}
+
 export function connection(): string {
   if (!process.env.POSTGRES_USER) {
     throw new Error("No envs provided")
   } else {
-    return `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
+    return `postgres://${process.env.POSTGRES_USER}:${encodeURIComponent(process.env.POSTGRES_PASSWORD!)}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
   }
 }
 
 
 export function watch(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaPath" | "writeCache" | "ownerConnectionString" | "disableQueryLog" | "sortExport" | "graphiql" | "allowExplain"> {
 
-  if (!process.env.OWNER_USER) {
-    throw new Error("Need OWNER variables to watch")
-  }
-
   return {
     watchPg: true,
     exportGqlSchemaPath: "../../schema.graphql",
     graphiql: true,
     allowExplain: true,
-    ownerConnectionString: `postgres://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`,
+    ownerConnectionString: ownerConnection(),
   }
 
 }
 
 export function buildCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSchemaPath" | "writeCache" | "ownerConnectionString" | "disableQueryLog" | "sortExport" | "graphiql" | "allowExplain"> {
 
-  if (!process.env.OWNER_USER && !process.env.DATABASE_URL) {
-    throw new Error("Need OWNER variables to create cache")
-  }
-
-  let ownerConnectionString = `postgres://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
   return {
     watchPg: false,
     exportGqlSchemaPath: "../../schema.graphql",
@@ -53,7 +53,7 @@ export function buildCache(): Pick<PostGraphileOptions, "watchPg" | "exportGqlSc
     sortExport: true,
     graphiql: false,
     allowExplain: false,
-    ownerConnectionString,
+    ownerConnectionString: ownerConnection(),
   }
 
 }
@@ -101,16 +101,13 @@ export function serve(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "al
     throw new Error("Need OWNER variables for Live queries")
   }
 
-  const ownerConnectionString = `postgresql://${process.env.OWNER_USER}:${process.env.OWNER_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
-  log(ownerConnectionString, "ownerConnectionString")
-
   return {
     watchPg: false,
     readCache: path.resolve(__dirname, "cache"),
     enableQueryBatching: false,
     graphiql: true,
     allowExplain: true,
-    ownerConnectionString,
+    ownerConnectionString: ownerConnection(),
   }
 
 }
