@@ -1,3 +1,11 @@
+variable "aws_access_key_id" {
+  type = string
+}
+
+variable "aws_secret_access_key" {
+  type = string
+}
+
 variable "region" {
   type = string
   default = "eu-west-2"
@@ -19,11 +27,6 @@ variable "vpc_cidr" {
 variable "public_subnet_cidr" {
   description = "CIDR for the Public Subnet"
   default = "10.0.0.0/24"
-}
-
-variable "aws_account_id" {
-  type = number
-  default = 132788847502
 }
 
 variable "private_key_path" {

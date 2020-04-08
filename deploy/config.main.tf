@@ -1,12 +1,16 @@
 provider "aws" {
   profile = "default"
   region = var.region
+  access_key = var.aws_access_key_id
+  secret_key = var.aws_secret_access_key
 }
 
 provider "aws" {
   profile = "default"
   region = "us-east-1"
   alias = "virginia"
+  access_key = var.aws_access_key_id
+  secret_key = var.aws_secret_access_key
 }
 
 terraform {
@@ -22,7 +26,7 @@ locals {
   domain_prefix = var.stage=="production" ? "" : "${var.stage}-"
   variables = {
     STAGE = var.stage
-    GOOGLE_KEY=var.google_key
+    GOOGLE_KEY = var.google_key
     APP_VERSION = local.app_version
     POSTGRES_HOST = aws_route53_record.database.name
     POSTGRES_DB = var.db_database
