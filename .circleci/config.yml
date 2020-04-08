@@ -37,10 +37,12 @@ jobs:
             ./deploy.frontend.sh
 
   deploy-backend:
+    executor: aws-cli/default
     docker:
       - image: circleci/node:12.9.1
     working_directory: ~/workspace
     steps:
+      - aws-cli/setup
       - checkout
       - add_ssh_keys
       - run:
