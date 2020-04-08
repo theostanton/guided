@@ -1,20 +1,18 @@
 provider "aws" {
   profile = "default"
   region = var.region
-  access_key = var.aws_access_key_id
-  secret_key = var.aws_secret_access_key
 }
 
 provider "aws" {
   profile = "default"
   region = "us-east-1"
   alias = "virginia"
-  access_key = var.aws_access_key_id
-  secret_key = var.aws_secret_access_key
 }
 
 terraform {
   backend "s3" {
+    access_key = var.aws_access_key_id
+    secret_key = var.aws_secret_access_key
     bucket = "guided-terraform-states"
     key = "terraform.tfstate"
     region = "eu-west-2"
