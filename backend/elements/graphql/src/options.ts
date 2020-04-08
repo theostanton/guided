@@ -1,8 +1,8 @@
 import { PostGraphileOptions } from "postgraphile"
 import { Plugin } from "graphile-build"
 import customPlugins from "./plugins"
-import { log } from "@guided/logger"
 import path from "path"
+import ownerConnection from "./ownerConnection"
 
 export type Mode = "watch" | "buildCache" | "invoke" | "serve"
 
@@ -12,15 +12,6 @@ function plugins(): Plugin[] {
     require("@graphile-contrib/pg-simplify-inflector").default,
     require("@graphile/subscriptions-lds").default,
   ]
-}
-
-function ownerConnection(): string {
-
-  if (!process.env.OWNER_USER) {
-    throw new Error("Need OWNER_ variables")
-  }
-
-  return `postgres://${process.env.POSTGRES_USER}:${encodeURIComponent(process.env.POSTGRES_PASSWORD!)}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`
 }
 
 export function connection(): string {
@@ -74,7 +65,7 @@ export function invoke(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "e
     throw new Error()
   }
 
-  if (!process.env.POSTGRES_USER && !process.env.DATABASE_URL) {
+  if (!process.env.POSTGRES_USER) {
     throw new Error("Variables not loaded")
   }
 
@@ -92,12 +83,12 @@ export function serve(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "al
     throw new Error()
   }
 
-  if (!process.env.POSTGRES_USER && !process.env.DATABASE_URL) {
+  if (!process.env.POSTGRES_USER) {
     throw new Error("Variables not loaded")
   }
 
 
-  if (!process.env.OWNER_USER && !process.env.DATABASE_URL) {
+  if (!process.env.OWNER_USER) {
     throw new Error("Need OWNER variables for Live queries")
   }
 

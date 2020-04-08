@@ -1,4 +1,4 @@
-import { client, key, PlaceInfo } from "../index"
+import { client, PlaceInfo } from "../index"
 import { GeocodeResult } from "@googlemaps/google-maps-services-js/dist/common"
 
 function extractCountry(results: GeocodeResult[]): string {

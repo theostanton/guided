@@ -17,6 +17,9 @@ if [ -z "$CI" ]; then
   # shellcheck disable=SC2046
   export $(echo "${ENVS}" | sed 's/#.*//g')
   export TF_VAR_private_key_path=./guided-server-"${STAGE}".pem
+  export OWNER_PASSWORD='#l#lmcPg466!Dn#U'
+  export JWT_SECRET='k[O(#Vvii#Mcy6Pi'
+  export POSTGRES_PASSWORD='I*+tba>2JC2cgB*$'
 fi
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
@@ -77,8 +80,7 @@ prepareServer() {
 
   log 'Build graphql cache'
   export JWT_SECRET=someSecret
-  DATABASE_URL=jdbc://${OWNER_USER}:${OWNER_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
-  node srv/buildCache.js connection="${DATABASE_URL}"
+  node srv/buildCache.js
   if [ ! -f "dist/cache" ]; then
     echo "graphql/dist/cache does not exist"
     exit 1

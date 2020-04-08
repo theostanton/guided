@@ -6,7 +6,6 @@ WORKDIR /usr/src/app
 COPY dist .
 
 ENV STAGE staging
-ENV DATABASE_URL postgresql://guided_postgraphile:password@staging-database.ridersbible.com:5432/main
 ENV POSTGRES_HOST staging-database.ridersbible.com
 ENV POSTGRES_PORT 5432
 ENV OWNER_USER superuser
