@@ -15,10 +15,7 @@ function plugins(): Plugin[] {
 }
 
 export function connection(): string {
-  if (process.env.DATABASE_URL) {
-    log(process.env.DATABASE_URL, "connection() process.env.DATABASE_URL")
-    return process.env.DATABASE_URL
-  } else if (!process.env.POSTGRES_USER) {
+  if (!process.env.POSTGRES_USER) {
     throw new Error("No envs provided")
   } else {
     return `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`

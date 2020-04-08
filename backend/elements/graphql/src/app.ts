@@ -5,7 +5,7 @@ import { postgraphile } from "postgraphile"
 
 const { Pool } = require("pg")
 import cors from "cors"
-import { log } from "@guided/logger"
+import { log, logJson } from "@guided/logger"
 
 if (!process.env.POSTGRES_SCHEMA) {
   throw new Error("No POSTGRES_SCHEMA provided")
@@ -14,6 +14,7 @@ if (!process.env.POSTGRES_SCHEMA) {
 
 export default function(mode: Mode): Application {
   const app: express.Application = express()
+  const _options = options(mode)
   const connectionString = connection()
 
   const pgPool = new Pool({
@@ -26,7 +27,7 @@ export default function(mode: Mode): Application {
     postgraphile(
       pgPool,
       process.env.POSTGRES_SCHEMA,
-      options(mode),
+      _options,
     ),
   )
 
