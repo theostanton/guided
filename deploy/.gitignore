@@ -4,3 +4,4 @@ vars/**
 dist
 **.pem
 snippets.sh
+terraform.tfstate.d
