@@ -19,7 +19,7 @@ echo "${graphql_endpoint}"
 echo app_version
 echo "${app_version}"
 
-cd ../../frontend/website || exit
+cd ../frontend/website || exit
 rm -rf public
 
 echo -- Build website --
