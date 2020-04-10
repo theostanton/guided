@@ -1,7 +1,6 @@
 import React from "react"
 import { Provider } from "mobx-react"
 import { authStore } from "./AuthStore"
-import { log } from "utils/logger"
 import { client } from "../api"
 import { ApolloProvider } from "@apollo/react-hooks"
 

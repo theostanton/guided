@@ -20,7 +20,7 @@ export default class GuideComponent extends React.Component<Props> {
     } else if (props.slug) {
       this.guideStore = GuideStore.fromSlug(props.slug!)
     } else {
-      throw new Error('Need a slug or id!')
+      console.error("GuideComponent Need a slug or id!")
     }
   }
 
