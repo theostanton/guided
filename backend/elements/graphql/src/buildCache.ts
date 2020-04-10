@@ -3,7 +3,6 @@ import { log } from "@guided/logger"
 import ownerConnection from "./ownerConnection"
 
 const connectionString = ownerConnection()
-log(connectionString, "connection()")
 
 import { createPostGraphileSchema } from "postgraphile"
 import { options } from "./options"
@@ -12,7 +11,7 @@ const { Pool } = require("pg")
 
 async function main() {
   const pgPool = new Pool({
-    connectionString
+    connectionString,
   })
   await createPostGraphileSchema(pgPool, process.env.POSTGRES_SCHEMA!, options("buildCache"))
   await pgPool.end()

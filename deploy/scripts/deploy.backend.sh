@@ -58,7 +58,7 @@ generateMacroVersion() {
 
 prepareCompute() {
   cd "${backend_dir}/elements/compute" || exit
-  rm -rf dist/index.js
+  mkdir -p dist
 
   log 'Build compute'
   yarn build
@@ -78,7 +78,7 @@ prepareCompute() {
 
 prepareServer() {
   cd "${backend_dir}/elements/graphql" || exit
-  rm -rf dist/index.js
+  mkdir -p dist
 
   log 'Build graphql source'
   yarn build
