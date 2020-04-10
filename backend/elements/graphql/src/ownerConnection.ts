@@ -1,6 +1,6 @@
 export default function(): string {
 
-  if (!process.env.OWNER_USER) {
+  if (!process.env.OWNER_PASSWORD) {
     throw new Error("Need OWNER_ variables")
   }
 

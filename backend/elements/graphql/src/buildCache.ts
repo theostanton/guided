@@ -5,10 +5,6 @@ import ownerConnection from "./ownerConnection"
 const connectionString = ownerConnection()
 log(connectionString, "connection()")
 
-if (!process.env.POSTGRES_SCHEMA) {
-  throw new Error("No schema provided")
-}
-
 import { createPostGraphileSchema } from "postgraphile"
 import { options } from "./options"
 
