@@ -15,8 +15,8 @@
 
     "buildAndDeploy:backend": "BUILD=true DEPLOY=true ./scripts/deploy.backend.sh",
 
-    "deploy:frontend": "BUILD=true ./scripts/deploy.frontend.sh",
-    "deploy:frontend:staging": "STAGE=staging BUILD=true ./scripts/deploy.frontend.sh",
-    "deploy:frontend:production": "STAGE=production BUILD=true ./scripts/deploy.frontend.sh"
+    "deploy:frontend": "./scripts/deploy.frontend.sh",
+    "deploy:frontend:staging": "STAGE=staging ./scripts/deploy.frontend.sh",
+    "deploy:frontend:production": "STAGE=production ./scripts/deploy.frontend.sh"
   }
 }
