@@ -20,9 +20,6 @@ if [ -z "$CI" ]; then
   # shellcheck disable=SC2001
   # shellcheck disable=SC2046
   export $(echo "${ENVS}" | sed 's/#.*//g')
-
-  echo 'OWNER_PASSWORD'
-  logEnv "$OWNER_PASSWORD"
 fi
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
@@ -82,7 +79,6 @@ prepareServer() {
   yarn build
 
   log 'Build graphql cache'
-  export JWT_SECRET=someSecret
   node srv/buildCache.js
   if [ ! -f "dist/cache" ]; then
     echo "graphql/dist/cache does not exist"
@@ -119,11 +115,8 @@ if [ "$DEPLOY" = 'true' ]; then
   log 'Deploying'
   export TF_VAR_stage=${STAGE}
   export TF_VAR_db_owner_user=${OWNER_USER}
-  export TF_VAR_db_owner_password=${OWNER_PASSWORD}
   export TF_VAR_db_postgraphile_user=${POSTGRES_USER}
-  export TF_VAR_db_postgraphile_password=${POSTGRES_PASSWORD}
   export TF_VAR_google_key=${GOOGLE_KEY}
-  export TF_VAR_jwt_secret=${JWT_SECRET}
   terraform apply -var macro_version="${macro_version}" -auto-approve
 fi
 
