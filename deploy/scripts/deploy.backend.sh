@@ -5,7 +5,7 @@ deploy_dir="$(pwd)"
 echo deploy_dir
 echo "${deploy_dir}"
 
-cd "../../backend"
+cd "../backend"
 backend_dir="$(pwd)"
 echo backend_dir
 echo "${backend_dir}"
@@ -55,7 +55,6 @@ generateMacroVersion() {
 }
 
 prepareCompute() {
-  cd "${deploy_dir}"
   cd "${backend_dir}/elements/compute" || exit
   rm -rf dist/index.js
 
