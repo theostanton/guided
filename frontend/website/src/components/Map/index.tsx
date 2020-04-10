@@ -9,6 +9,7 @@ import GuideStore from "model/GuideStore"
 import { Rides } from "./Rides"
 import WebMercatorViewport from "viewport-mercator-project"
 import { logJson } from "utils/logger"
+import { Segment } from "semantic-ui-react"
 
 type ViewPort = {
   width: number,
@@ -43,7 +44,9 @@ export default class Map extends Component<Props, State> {
 
   get viewport(): ViewPort | undefined {
 
-    if (this.guideStore.selectedType === "ride" && this.state.selectedRideId != this.guideStore.selectedId) {
+    if (!this.guideStore) {
+      return
+    } else if (this.guideStore.selectedType === "ride" && this.state.selectedRideId != this.guideStore.selectedId) {
       this.state.selectedRideId = this.guideStore.selectedId
       this.state.selectedSpotId = undefined
       const selectedRide = this.guideStore.selectedRide
@@ -101,7 +104,6 @@ export default class Map extends Component<Props, State> {
     } else if (this.guideStore.guide && this.guideStore.rides.length > 0 && !this.guideStore.selectedType && (this.state.selectedSpotId || this.state.selectedRideId)) {
       this.state.selectedSpotId = undefined
       this.state.selectedRideId = undefined
-      const viewport = new WebMercatorViewport()
       const firstSpot = this.guideStore.spots[0]
       const bounds: {
         north: number
@@ -144,6 +146,9 @@ export default class Map extends Component<Props, State> {
   }
 
   render(): React.ReactElement {
+    if (!this.guideStore) {
+      return <Segment loading/>
+    }
     const guide = this.guideStore?.guide
     return (
       <ReactMapGL

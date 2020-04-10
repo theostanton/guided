@@ -125,7 +125,7 @@ export default class LeftRailComponent extends React.Component<Props, State> {
   }
 
   render(): React.ReactElement {
-    const guide = this.guideStore.guide
+    const guide = this.guideStore?.guide
 
     if (!guide) {
       return <Segment loading/>

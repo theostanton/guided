@@ -45,9 +45,8 @@ export default class RightRailComponent extends React.Component<Props> {
   }
 
   render(): React.ReactElement {
-
     return <Segment style={{ backgroundColor: "#ffffff" }}>
-      {this.contents.bind(this)()}
+      {this.guideStore && this.contents.bind(this)()}
     </Segment>
 
   }

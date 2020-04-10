@@ -57,7 +57,7 @@ export default class DashboardComponent extends React.Component<Props, State> {
 
   render(): React.ReactElement | undefined {
     return <AppContainer>
-      {this.state.selectedGuideId ? this.guide() : this.guides()}
+      {this.props.authStore.isLoggedIn && this.state.selectedGuideId ? this.guide() : this.guides()}
     </AppContainer>
   }
 
