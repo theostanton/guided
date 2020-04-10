@@ -24,11 +24,13 @@ echo "Deploying $STAGE backend"
 terraform workspace select "${STAGE}"
 
 ENVS=$(terraform output env_file)
-# shellcheck disable=SC2001
-# shellcheck disable=SC2046
-export $(echo "${ENVS}" | sed 's/#.*//g')
+while read -r line; do
+  # shellcheck disable=SC2163
+  export "${line}"
+done <<< "${ENVS}"
 
-[ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
+[ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load POSTGRES_SCHEMA" && exit 1
+[ -z "$OWNER_PASSWORD" ] && echo "ENVS did not load OWNER_PASSWORD" && exit 1
 
 log() {
   GREEN="\033[1;32m"
