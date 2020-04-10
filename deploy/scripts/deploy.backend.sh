@@ -48,7 +48,7 @@ generateMacroVersion() {
 
 prepareCompute() {
   cd "${work_dir}"
-  cd ../backend/elements/compute || exit
+  cd ../../backend/elements/compute || exit
   rm -rf dist/index.js
 
   log 'Build compute'
@@ -69,7 +69,7 @@ prepareCompute() {
 
 prepareServer() {
   cd "${work_dir}"
-  cd ../backend/elements/graphql || exit
+  cd ../../../backend/elements/graphql || exit
   rm -rf dist/index.js
 
   log 'Build graphql source'
