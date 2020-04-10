@@ -14,13 +14,10 @@ logEnv(){
 echo "Deploying $STAGE backend"
 terraform workspace select "${STAGE}"
 
-if [ -z "$CI" ]; then
-
-  ENVS=$(terraform output env_file)
-  # shellcheck disable=SC2001
-  # shellcheck disable=SC2046
-  export $(echo "${ENVS}" | sed 's/#.*//g')
-fi
+ENVS=$(terraform output env_file)
+# shellcheck disable=SC2001
+# shellcheck disable=SC2046
+export $(echo "${ENVS}" | sed 's/#.*//g')
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
 
