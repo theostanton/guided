@@ -1,7 +1,5 @@
 #!/bin/bash
 set -e
-work_dir="$(pwd)"
-echo "${work_dir}"
 
 [ -z "$STAGE" ] && echo "No STAGE provided" && exit 1
 [ -z "$BUILD" ] && echo "No BUILD provided" && exit 1
@@ -21,7 +19,7 @@ echo "${graphql_endpoint}"
 echo app_version
 echo "${app_version}"
 
-cd ../frontend/website || exit
+cd ../../frontend/website || exit
 rm -rf public
 
 echo -- Build website --

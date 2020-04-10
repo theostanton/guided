@@ -65,10 +65,11 @@ jobs:
 
       - run:
           name: "Build and deploy"
+          environment:
+            BUILD: 'true'
+            DEPLOY: 'true'
           command: |
             cd deploy
-            export BUILD=true
-            export DEPLOY=true
             chmod +x ./scripts/deploy.backend.sh
             ./scripts/deploy.backend.sh
 
