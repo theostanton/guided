@@ -9,6 +9,7 @@ if (process.env.NODE_ENV === "development") {
   })
 }
 
+log(process.env.APP_VERSION!, "Starting server")
 
 import { log } from "@guided/logger"
 
