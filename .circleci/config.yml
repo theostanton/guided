@@ -48,7 +48,10 @@ jobs:
       - run:
           name: "Log ssh"
           command: |
-            cd .ssh
+            pwd
+            ls -la
+            cd ~/.ssh
+            pwd
             ls -la
       - run:
           name: "Install terraform"
