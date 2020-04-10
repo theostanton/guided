@@ -22,10 +22,15 @@ export default class AppComponent extends React.Component<Props> {
     if (!isLoggedIn) {
       navigate?.("/")?.then()
     }
-
   }
 
   render(): React.ReactElement | undefined {
+
+    const { isLoggedIn } = this.props.authStore
+    if (!isLoggedIn) {
+      return null
+    }
+
     return (
       <div style={{ margin: 20 }}>
         <Container>
