@@ -16,6 +16,11 @@ if [ -z "$CI" ]; then
   # shellcheck disable=SC2001
   # shellcheck disable=SC2046
   export $(echo "${ENVS}" | sed 's/#.*//g')
+
+  if [ "$OWNER_PASSWORD" = 'password' ]; then
+    echo 'placeholder creds'
+    exit 1
+  fi
 fi
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
