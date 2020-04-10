@@ -7,6 +7,10 @@ echo "${work_dir}"
 [ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
 [ -z "$DEPLOY" ] && echo "No DEPLOY env provided" && exit 1
 
+logEnv(){
+  '%s\n' "${$1: -3}"
+}
+
 echo "Deploying $STAGE backend"
 terraform workspace select "${STAGE}"
 
@@ -17,10 +21,8 @@ if [ -z "$CI" ]; then
   # shellcheck disable=SC2046
   export $(echo "${ENVS}" | sed 's/#.*//g')
 
-  if [ "$OWNER_PASSWORD" = 'password' ]; then
-    echo 'placeholder creds'
-    exit 1
-  fi
+  echo 'OWNER_PASSWORD'
+  logEnv "$OWNER_PASSWORD"
 fi
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
