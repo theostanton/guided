@@ -61,7 +61,6 @@ jobs:
           name: "Init terraform"
           command: |
             cd deploy
-            aws configure
             terraform init
 
       - run:

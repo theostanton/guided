@@ -56,9 +56,3 @@ variable "db_schema" {
   type = string
   default = "public"
 }
-
-variable "mapbox_token" {
-  type = string
-  default = "pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazcyMmt2cngwNGY2M2VuczRibTBxZHI2In0.ut-f02WOeLk0IvvyXCMyQg"
-}
-
