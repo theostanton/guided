@@ -16,7 +16,7 @@ jobs:
           name: "Install terraform"
           command: |
             cd deploy
-            sudo  sh ./install_terraform.sh
+            sudo  sh ./scripts/install_terraform.sh
       - run:
           name: "Init terraform"
           command: |
