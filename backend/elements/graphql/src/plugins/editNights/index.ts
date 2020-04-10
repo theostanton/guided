@@ -25,7 +25,7 @@ async function editNights(_: any, args: MutationEditNightsArgs, context: Context
 
   logJson(updateQuery, "updateQuery")
 
-  await database.none(updateQuery)
+  await database.one(updateQuery)
 
   const guide = await database.selectGuide(spot!.guide)
   await ammendDates(guide)

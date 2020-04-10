@@ -11,6 +11,7 @@ function plugins(): Plugin[] {
     ...customPlugins,
     require("@graphile-contrib/pg-simplify-inflector").default,
     require("@graphile/subscriptions-lds").default,
+    require("postgraphile-plugin-connection-filter"),
   ]
 }
 

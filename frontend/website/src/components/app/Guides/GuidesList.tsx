@@ -1,18 +1,22 @@
-import { useAllGuideTitlesForUserQuery, useAllGuideTitlesForUserSubscription } from "api/generated"
+import {
+  OwnersGuideInfosSubscription, useNotOwnersGuideInfosSubscription,
+  useOwnersGuideInfosSubscription,
+} from "api/generated"
 import { Card, List, Message, Segment } from "semantic-ui-react"
 import randomKey from "utils/randomKey"
 import * as React from "react"
 import { log } from "utils/logger"
-import { client } from "../../../api"
-import { subscriptionClient } from "../../../api/client"
+import { subscriptionClient } from "api/client"
 
 type Props = {
   owner: string,
   onClick: (guideId: string) => void
 }
-export default function GuidesList({ owner, onClick }: Props) {
 
-  const { data, loading, error } = useAllGuideTitlesForUserSubscription({
+export function MyGuidesList({ owner, onClick }: Props) {
+
+  const { data, loading, error } = useOwnersGuideInfosSubscription({
+    // @ts-ignore
     client: subscriptionClient,
     variables: {
       owner,
@@ -23,7 +27,27 @@ export default function GuidesList({ owner, onClick }: Props) {
     },
   })
 
-  log("Tick")
+  return <GuidesList isMine={true} data={data} loading={loading} error={error} onClick={onClick}/>
+}
+
+export function SharedGuidesList({ owner, onClick }: Props) {
+
+  const { data, loading, error } = useNotOwnersGuideInfosSubscription({
+    // @ts-ignore
+    client: subscriptionClient,
+    variables: {
+      owner,
+    },
+    onSubscriptionComplete: () => {
+      log("onSubscriptionComplete")
+      return true
+    },
+  })
+
+  return <GuidesList isMine={false} data={data} loading={loading} error={error} onClick={onClick}/>
+}
+
+function GuidesList({ isMine, data, loading, error, onClick }: { isMine: boolean, data: OwnersGuideInfosSubscription, loading: boolean, error: any, onClick: (guideId: string) => void }) {
 
   if (loading) {
     return <Segment loading/>
@@ -44,17 +68,18 @@ export default function GuidesList({ owner, onClick }: Props) {
     const key = guide!.id || randomKey()
     return (
       <Card
-        value={guide!.slug}
+        value={guide!.id}
         key={key}>
         <Card.Content>
           <Card.Header>{guide ? guide.title : "Error"}</Card.Header>
+          {guide && !isMine && <Card.Meta>by {guide.owner}</Card.Meta>}
         </Card.Content>
       </Card>
     )
   })
   return <List
-    onItemClick={(_, { value: guideSlug }) => {
-      onClick(guideSlug)
+    onItemClick={(_, { value: guideId }) => {
+      onClick(guideId)
     }}
     items={items}
     divided

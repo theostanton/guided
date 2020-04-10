@@ -1,13 +1,30 @@
-subscription AllGuideTitlesForUser($owner:String!){
+fragment GuideInfo on Guide{
+    id
+    title
+    slug
+    owner
+}
+
+subscription OwnersGuideInfos($owner:String!){
     guides(
-        condition: {
-            owner: $owner
-        }){
+        filter: {owner: {
+            equalTo: $owner
+        }}
+    ){
         nodes{
-            id
-            title
-            slug
-            owner
+            ...GuideInfo
+        }
+    }
+}
+
+subscription NotOwnersGuideInfos($owner:String!){
+    guides(
+        filter: {owner: {
+            notEqualTo: $owner
+        }}
+    ){
+        nodes{
+            ...GuideInfo
         }
     }
 }

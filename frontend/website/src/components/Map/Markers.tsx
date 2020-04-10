@@ -90,10 +90,69 @@ export class Markers extends React.Component<Props, {}> {
     </Marker>
   }
 
+  createFlag(spot: SpotFragment, index: number, onDragEnd: any): React.ReactElement {
+
+    const pinStyle = {
+      cursor: "pointer",
+      fill: "#000",
+      stroke: "none",
+    }
+
+    let color: SemanticCOLORS
+    const selectedRide: RideFragment | undefined = this.guideStore.selectedRide
+    if (selectedRide && selectedRide.toSpot!.id === spot.id) {
+      color = "red"
+    } else if (selectedRide && selectedRide.fromSpot!.id === spot.id) {
+      color = "green"
+    } else if (selectedRide) {
+      color = "grey"
+    } else if (this.guideStore.selectedId === spot.id) {
+      color = "orange"
+    } else if (this.guideStore.highlightedId === spot.id) {
+      color = "yellow"
+    } else if (spot.locked) {
+      color = "black"
+    } else {
+      color = "grey"
+    }
+
+    return <Marker key={`spot-${spot.id}`}
+                   longitude={spot.long!}
+                   latitude={spot.lat!}
+                   draggable
+                   offsetLeft={-10}
+                   offsetTop={-25}
+                   onDragEnd={async (args) => {
+                     await this.moveSpot(spot.id, args.lngLat[1], args.lngLat[0])
+                   }}
+
+    >
+
+      <Icon name={spot.locked ? "flag" : "flag outline"}
+            color={color}
+            size={"big"}
+            style={{
+              ...pinStyle,
+            }}
+
+            onMouseEnter={() => {
+              this.setState({
+                showPopupForId: spot.id,
+              })
+            }}
+            onMouseLeave={() => {
+              this.setState({
+                showPopupForId: undefined,
+              })
+            }}
+      />
+    </Marker>
+  }
+
   render() {
 
     return this.guideStore.spots.map((spot, index) => {
-      return (this.createMarker(spot!, index, () => {
+      return (this.createFlag(spot!, index, () => {
 
       }))
     })

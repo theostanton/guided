@@ -2,12 +2,12 @@ import * as React from "react"
 import { Button } from "semantic-ui-react"
 import GuideDetailsModalComponent from "components/app/GuideDetailsModal"
 import AppContainer from "components/app/Container"
-import GuidesList from "./GuidesList"
 
 import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import GuideComponent from "../Guide"
+import { MyGuidesList } from "./GuidesList"
 
 type Props = {
   authStore: AuthStore,
@@ -16,7 +16,7 @@ type Props = {
 
 type State = {
   showCreateModal: boolean
-  selectedGuideSlug: string | undefined
+  selectedGuideId: string | undefined
 }
 
 @inject("authStore")
@@ -25,20 +25,23 @@ export default class GuidesComponent extends React.Component<Props, State> {
 
   state: State = {
     showCreateModal: false,
-    selectedGuideSlug: undefined,
+    selectedGuideId: undefined,
   }
 
   content(): React.ReactElement | React.ReactElement[] {
 
     if (this.state.showCreateModal) {
       return <GuideDetailsModalComponent owner={this.props.authStore.owner}
-                                         onClose={() => {
-                                           this.setState({ showCreateModal: false })
+                                         onClose={(guideId: string) => {
+                                           this.setState({
+                                             selectedGuideId: guideId,
+                                             showCreateModal: false,
+                                           })
                                          }}/>
-    } else if (this.state.selectedGuideSlug) {
-      return <GuideComponent slug={this.state.selectedGuideSlug} owner={this.props.authStore.owner} close={() => {
+    } else if (this.state.selectedGuideId) {
+      return <GuideComponent guideId={this.state.selectedGuideId} close={() => {
         this.setState({
-          selectedGuideSlug: undefined,
+          selectedGuideId: undefined,
         })
       }
       }/>
@@ -47,9 +50,9 @@ export default class GuidesComponent extends React.Component<Props, State> {
         content='Create new'
         onClick={() => {
           this.setState({ showCreateModal: true })
-        }}/>, <GuidesList owner={this.props.authStore.owner} onClick={(guideSlug: string) => {
+        }}/>, <MyGuidesList owner={this.props.authStore.owner} onClick={(guideId: string) => {
         this.setState({
-          selectedGuideSlug: guideSlug,
+          selectedGuideId: guideId,
         })
       }
       }/>]

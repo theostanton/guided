@@ -1,7 +1,9 @@
 import { pointsToGeoJson } from "@guided/geojson"
+import { logJson } from "@guided/logger"
 
 const AWS = require("aws-sdk")
 
+logJson(process.env.AWS_ACCESS_KEY_ID!,'process.env.AWS_ACCESS_KEY_ID')
 const s3 = new AWS.S3({
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,

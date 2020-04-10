@@ -4,14 +4,14 @@ import { Modal, Button, Form } from "semantic-ui-react"
 import slugify from "slugify"
 import {
   GuideInput,
-  CreateGuideMutationVariables, CreateGuideMutationResult, CreateGuideDocument,
+  CreateGuideMutationVariables, CreateGuideMutationResult, CreateGuideDocument, CreateGuideMutation,
 } from "api/generated"
 import { generateId } from "api"
 import { client } from "api"
 
 type Props = {
   owner: string
-  onClose: () => void
+  onClose: (guideId: string | undefined) => void
 }
 
 type State = {
@@ -62,7 +62,7 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
       },
     }
 
-    const response = await client.mutate<CreateGuideMutationResult>({
+    const response = await client.mutate<CreateGuideMutation>({
       mutation: CreateGuideDocument,
       variables,
     })
@@ -70,12 +70,12 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
     const data = response.data!
     console.log(data)
 
-    this.close()
+    this.close(data.createGuide.guide.id)
   }
 
-  close() {
+  close(guideId: string | undefined) {
     this.setState({ open: false })
-    this.props.onClose()
+    this.props.onClose(guideId)
   }
 
   render(): React.ReactElement {
@@ -96,7 +96,7 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
         <Button
           negative
           onClick={() => {
-            this.close()
+            this.close(undefined)
           }}
         >Cancel</Button>
         <Button

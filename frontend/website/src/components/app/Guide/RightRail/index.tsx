@@ -29,12 +29,13 @@ export default class RightRailComponent extends React.Component<Props> {
     if (selectedSpot) {
       return <SpotDetail spot={selectedSpot} close={() => {
         this.guideStore.unselect()
-        this.guideStore.refetch()
       }}/>
     }
 
     if (selectedRide) {
-      return <RideDetail ride={selectedRide}/>
+      return <RideDetail ride={selectedRide} guideStore={this.guideStore} close={() => {
+        this.guideStore.unselect()
+      }}/>
     }
 
     if (this.props.guideStore.guide) {

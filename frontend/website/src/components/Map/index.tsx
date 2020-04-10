@@ -45,6 +45,7 @@ export default class Map extends Component<Props, State> {
 
     if (this.guideStore.selectedType === "ride" && this.state.selectedRideId != this.guideStore.selectedId) {
       this.state.selectedRideId = this.guideStore.selectedId
+      this.state.selectedSpotId = undefined
       const selectedRide = this.guideStore.selectedRide
 
       const north = Math.max(selectedRide!.fromSpot!.lat!, selectedRide!.toSpot!.lat!)
@@ -76,14 +77,60 @@ export default class Map extends Component<Props, State> {
         console.error(e)
       }
       // TODO fix guide.bounds issue on subscription
-    // } else if (!this.state.viewport && this.guideStore.guide) {
-    //   const guide = this.guideStore.guide
-    //   const viewport = new WebMercatorViewport()
-    //   this.state.viewport = viewport.fitBounds(
-    //     [
-    //       [guide.bounds!.west!, guide.bounds!.south!], [
-    //       guide.bounds!.east!, guide.bounds!.north!]],
-    //   )
+      // }
+    } else if (this.guideStore.selectedType === "spot" && this.state.selectedSpotId != this.guideStore.selectedId) {
+      this.state.selectedSpotId = this.guideStore.selectedId
+      this.state.selectedRideId = undefined
+      const selectedSpot = this.guideStore.selectedSpot
+
+      try {
+
+        this.state.viewport = {
+          width: this.state.viewport ? this.state.viewport.width : 400,
+          height: this.state.viewport ? this.state.viewport.height : 400,
+          longitude: selectedSpot.long,
+          latitude: selectedSpot.lat,
+          zoom: 10,
+          transitionDuration: 1000,
+          transitionInterpolator: new FlyToInterpolator(),
+        }
+      } catch (e) {
+        console.error(e)
+      }
+      // TODO fix guide.bounds issue on subscription
+    } else if (this.guideStore.guide && this.guideStore.rides.length > 0 && !this.guideStore.selectedType && (this.state.selectedSpotId || this.state.selectedRideId)) {
+      this.state.selectedSpotId = undefined
+      this.state.selectedRideId = undefined
+      const viewport = new WebMercatorViewport()
+      const firstSpot = this.guideStore.spots[0]
+      const bounds: {
+        north: number
+        east: number
+        south: number
+        west: number
+      } = {
+        north: firstSpot.lat,
+        east: firstSpot.long,
+        south: firstSpot.lat,
+        west: firstSpot.long,
+      }
+
+      logJson(bounds, "bounds before")
+      this.guideStore.spots.forEach(spot => {
+        bounds.north = Math.max(spot.lat, bounds.north)
+        bounds.south = Math.min(spot.lat, bounds.south)
+        bounds.east = Math.max(spot.long, bounds.east)
+        bounds.west = Math.min(spot.long, bounds.west)
+      })
+
+      logJson(bounds, "bounds after")
+
+      //TODO fix
+      // this.state.viewport = viewport.fitBounds(
+      //   [
+      //     [bounds.west!, bounds.south!], [
+      //     bounds.east!, bounds.north!]],
+      // )
     } else if (!this.state.viewport) {
       this.state.viewport = {
         width: 400,

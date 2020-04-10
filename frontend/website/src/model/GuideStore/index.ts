@@ -13,18 +13,23 @@ import {
 import { log, logError, logObject } from "utils/logger"
 import { ZenObservable } from "zen-observable-ts/lib/types"
 import client, { subscriptionClient } from "api/client"
-import { read } from "fs"
-import { navigate } from "gatsby"
 
 export default class GuideStore {
 
+  #guideId: string
   #slug: string
-  #owner: string
-  #poll: NodeJS.Timeout | undefined
 
-  constructor(slug: string, owner: string) {
+  static fromSlug(slug: string): GuideStore {
+    return new GuideStore(undefined, slug)
+  }
+
+  static fromId(guideId: string): GuideStore {
+    return new GuideStore(guideId, undefined)
+  }
+
+  private constructor(guideId: string | undefined, slug: string | undefined) {
+    this.#guideId = guideId
     this.#slug = slug
-    this.#owner = owner
   }
 
   @observable
@@ -164,25 +169,28 @@ export default class GuideStore {
   }
 
   async subscribe() {
-    const variables: GetGuideIdForSlugQueryVariables = {
-      owner: this.#owner,
-      slug: this.#slug,
+
+    if (!this.#guideId) {
+
+      const variables: GetGuideIdForSlugQueryVariables = {
+        slug: this.#slug,
+      }
+
+      const response = await client.query<GetGuideIdForSlugQuery>({
+        query: GetGuideIdForSlugDocument,
+        variables,
+      })
+
+      logObject(response, "response")
+
+      this.#guideId = response.data.guides!.nodes[0].id
     }
-
-    const response = await client.query<GetGuideIdForSlugQuery>({
-      query: GetGuideIdForSlugDocument,
-      variables,
-    })
-
-    logObject(response, "response")
-
-    const guideId = response.data.guides!.nodes[0].id
 
     this.#subscription = subscriptionClient.subscribe<GuideStagesSubscription>({
       query: GuideStagesDocument,
       fetchPolicy: "network-only",
       variables: {
-        id: guideId,
+        id: this.#guideId,
       },
     }).subscribe(value => {
       if (value.data) {
