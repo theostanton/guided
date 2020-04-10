@@ -172,6 +172,9 @@ resource "null_resource" "start_server" {
   }
 
   depends_on = [
+    null_resource.upload_server,
+    null_resource.upload_cache,
+    null_resource.upload_envs,
     null_resource.install_node]
 
 }

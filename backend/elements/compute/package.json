@@ -14,24 +14,23 @@
     "invoke": "STAGE=staging STAGE_ID=guide_ps03v4w ts-node src/invoke.ts"
   },
   "dependencies": {
-    "aws-sdk": "^2.619.0",
-    "@guided/utils": "*",
-    "@guided/google": "*",
+    "@googlemaps/google-maps-services-js": "^2.0.2",
     "@guided/database": "*",
-    "@guided/spinup": "*",
     "@guided/geojson": "*",
-    "date-fns": "^2.9.0",
-    "@googlemaps/google-maps-services-js": "^2.0.2"
+    "@guided/google": "*",
+    "@guided/spinup": "*",
+    "@guided/utils": "*",
+    "aws-sdk": "^2.619.0",
+    "date-fns": "^2.9.0"
   },
   "devDependencies": {
-    "webpack-cli": "^3.3.11",
-    "webpack": "^4.42.0",
-    "serverless": "^1.63.0",
-    "jest": "^25.1.0",
+    "@types/faker": "^4.1.0",
     "@types/jest": "^25.1.2",
+    "faker": "^4.1.0",
+    "jest": "^25.1.0",
     "ts-jest": "^25.2.0",
     "ts-node": "^8.6.2",
-    "faker": "^4.1.0",
-    "@types/faker": "^4.1.0"
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
   }
 }

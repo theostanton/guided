@@ -1,11 +1,7 @@
 #!/bin/bash
 set -e
-work_dir="$(pwd)"
-echo "${work_dir}"
 
 [ -z "$STAGE" ] && echo "No STAGE provided" && exit 1
-[ -z "$BUILD" ] && echo "No BUILD provided" && exit 1
-[ -z "$DEPLOY" ] && echo "No DEPLOY provided" && exit 1
 
 echo "Deploying $STAGE frontend"
 terraform workspace select "${STAGE}"

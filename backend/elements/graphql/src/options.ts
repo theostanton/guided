@@ -95,8 +95,8 @@ export function serve(): Pick<PostGraphileOptions, "watchPg" | "readCache" | "al
   return {
     watchPg: false,
     readCache: path.resolve(__dirname, "cache"),
-    enableQueryBatching: false,
-    graphiql: true,
+    enableQueryBatching: true,
+    graphiql: process.env.STAGE !== "production",
     allowExplain: true,
     ownerConnectionString: ownerConnection(),
   }

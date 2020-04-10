@@ -4,7 +4,6 @@ const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 
 async function appVersion(): Promise<string> {
   return process.env.APP_VERSION || "NA"
-
 }
 
 const generator: ExtensionDefinition = {

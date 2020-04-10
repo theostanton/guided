@@ -9,8 +9,10 @@ if (process.env.NODE_ENV === "development") {
   })
 }
 
-
 import { log } from "@guided/logger"
+
+log(process.env.APP_VERSION!, "Starting server")
+
 
 if (!process.env.STAGE) {
   throw new Error("ENVS error. No STAGE")

@@ -12,7 +12,7 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@guided/logger": "*",
-    "@googlemaps/google-maps-services-js": "^2.0.2"
+    "@googlemaps/google-maps-services-js": "^2.0.2",
+    "@guided/logger": "*"
   }
 }

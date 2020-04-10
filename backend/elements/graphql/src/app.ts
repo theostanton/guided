@@ -21,7 +21,6 @@ export default function(mode: Mode): Application {
     connectionString,
   })
 
-  log(connectionString, "connectionString")
   const combined = combineMiddlewares(
     cors(),
     postgraphile(

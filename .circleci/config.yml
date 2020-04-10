@@ -16,7 +16,7 @@ jobs:
           name: "Install terraform"
           command: |
             cd deploy
-            sudo  sh ./install_terraform.sh
+            sudo  sh ./scripts/install_terraform.sh
       - run:
           name: "Init terraform"
           command: |
@@ -33,8 +33,8 @@ jobs:
             cd deploy
             export BUILD=true
             export DEPLOY=true
-            chmod +x ./deploy.frontend.sh
-            ./deploy.frontend.sh
+            chmod +x ./scripts/deploy.frontend.sh
+            ./scripts/deploy.frontend.sh
 
   deploy-backend:
     executor: aws-cli/default
@@ -49,7 +49,7 @@ jobs:
           name: "Install terraform"
           command: |
             cd deploy
-            sudo sh ./install_terraform.sh
+            sudo sh ./scripts/install_terraform.sh
 
       - run:
           name: "Install dependencies"
@@ -65,12 +65,13 @@ jobs:
 
       - run:
           name: "Build and deploy"
+          environment:
+            BUILD: 'true'
+            DEPLOY: 'true'
           command: |
             cd deploy
-            export BUILD=true
-            export DEPLOY=true
-            chmod +x ./deploy.backend.sh
-            ./deploy.backend.sh
+            chmod +x ./scripts/deploy.backend.sh
+            ./scripts/deploy.backend.sh
 
 workflows:
   version: 2

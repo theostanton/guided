@@ -1,24 +1,37 @@
 #!/bin/bash
 set -e
-work_dir="$(pwd)"
-echo "${work_dir}"
+
+deploy_dir="$(pwd)"
+echo deploy_dir
+echo "${deploy_dir}"
+mkdir -p "${deploy_dir}/dist"
+
+cd "../backend"
+backend_dir="$(pwd)"
+echo backend_dir
+echo "${backend_dir}"
+
+cd "${deploy_dir}"
 
 [ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
 [ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
 [ -z "$DEPLOY" ] && echo "No DEPLOY env provided" && exit 1
 
+logEnv(){
+  '%s\n' "${$1: -3}"
+}
+
 echo "Deploying $STAGE backend"
 terraform workspace select "${STAGE}"
 
-if [ -z "$CI" ]; then
+ENVS=$(terraform output env_file)
+while read -r line; do
+  # shellcheck disable=SC2163
+  export "${line}"
+done <<< "${ENVS}"
 
-  ENVS=$(terraform output env_file)
-  # shellcheck disable=SC2001
-  # shellcheck disable=SC2046
-  export $(echo "${ENVS}" | sed 's/#.*//g')
-fi
-
-[ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load" && exit 1
+[ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load POSTGRES_SCHEMA" && exit 1
+[ -z "$OWNER_PASSWORD" ] && echo "ENVS did not load OWNER_PASSWORD" && exit 1
 
 log() {
   GREEN="\033[1;32m"
@@ -32,8 +45,7 @@ log() {
 log "Deploying $STAGE backend"
 
 buildAll() {
-  cd "${work_dir}"
-  cd ../backend
+  cd "${backend_dir}"
   yarn build
 }
 
@@ -46,9 +58,8 @@ generateMacroVersion() {
 }
 
 prepareCompute() {
-  cd "${work_dir}"
-  cd ../backend/elements/compute || exit
-  rm -rf dist/index.js
+  cd "${backend_dir}/elements/compute" || exit
+  mkdir -p dist
 
   log 'Build compute'
   yarn build
@@ -61,21 +72,18 @@ prepareCompute() {
   fi
   log 'Zip compute'
   compute_filename=dist/"${STAGE}"-"$app_version"-compute.zip
-  mkdir -p ../../../deploy/dist
-  zip -rj ../../../deploy/"${compute_filename}" dist
+  zip -rj "${deploy_dir}/${compute_filename}" dist
   echo Zipped to "${compute_filename}"
 }
 
 prepareServer() {
-  cd "${work_dir}"
-  cd ../backend/elements/graphql || exit
-  rm -rf dist/index.js
+  cd "${backend_dir}/elements/graphql" || exit
+  mkdir -p dist
 
   log 'Build graphql source'
   yarn build
 
   log 'Build graphql cache'
-  export JWT_SECRET=someSecret
   node srv/buildCache.js
   if [ ! -f "dist/cache" ]; then
     echo "graphql/dist/cache does not exist"
@@ -83,8 +91,8 @@ prepareServer() {
   fi
 
   log 'Copying cache'
-  mkdir -p ../../../deploy/dist
-  cp dist/cache ../../../deploy/dist
+  mkdir -p "${deploy_dir}/dist"
+  cp dist/cache "${deploy_dir}/dist"
 
   log 'Packing graphql'
   yarn webpack:server
@@ -92,7 +100,7 @@ prepareServer() {
     echo "dist/server.js does not exist"
   fi
 
-  cp dist/server.js ../../../deploy/dist/server.js
+  cp dist/server.js "${deploy_dir}/dist/server.js"
 }
 
 macro_version=$(generateMacroVersion)
@@ -108,15 +116,12 @@ if [ "$BUILD" = 'true' ]; then
 fi
 
 if [ "$DEPLOY" = 'true' ]; then
-  cd "${work_dir}"
+  cd "${deploy_dir}"
   log 'Deploying'
   export TF_VAR_stage=${STAGE}
   export TF_VAR_db_owner_user=${OWNER_USER}
-  export TF_VAR_db_owner_password=${OWNER_PASSWORD}
   export TF_VAR_db_postgraphile_user=${POSTGRES_USER}
-  export TF_VAR_db_postgraphile_password=${POSTGRES_PASSWORD}
   export TF_VAR_google_key=${GOOGLE_KEY}
-  export TF_VAR_jwt_secret=${JWT_SECRET}
   terraform apply -var macro_version="${macro_version}" -auto-approve
 fi
 
