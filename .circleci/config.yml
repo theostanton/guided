@@ -46,14 +46,6 @@ jobs:
       - checkout
       - add_ssh_keys
       - run:
-          name: "Log ssh"
-          command: |
-            pwd
-            ls -la
-            cd ~/.ssh
-            pwd
-            ls -la
-      - run:
           name: "Install terraform"
           command: |
             cd deploy
