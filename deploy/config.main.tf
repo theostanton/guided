@@ -11,6 +11,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
+    skip_requesting_account_id = true
     bucket = "guided-terraform-states"
     key = "terraform.tfstate"
     region = "eu-west-2"
