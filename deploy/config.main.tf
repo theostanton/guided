@@ -14,6 +14,7 @@ terraform {
     bucket = "guided-terraform-states"
     key = "terraform.tfstate"
     region = "eu-west-2"
+    encrypt = true
   }
 }
 

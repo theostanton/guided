@@ -25,7 +25,7 @@ create policy delete_guide on guides for delete to guided_user
 alter table rides
     enable row level security;
 
-create policy create_ride on rides for insert;
+create policy create_ride on rides for insert  with check (true);
 
 create policy select_rides on rides for select using (true);
 
@@ -39,7 +39,7 @@ create policy delete_ride on rides for delete
 alter table spots
     enable row level security;
 
-create policy create_spot on spots for insert;
+create policy create_spot on spots for insert with check (true);
 
 create policy select_spots on spots for select using (true);
 
