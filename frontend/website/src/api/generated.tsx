@@ -4929,7 +4929,7 @@ export type GetGuideIdForSlugQueryVariables = {
 
 export type GetGuideIdForSlugQuery = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id'>>> }> };
 
-export type GuideInfoFragment = Pick<Guide, 'id' | 'title' | 'slug' | 'owner'>;
+export type GuideInfoFragment = Pick<Guide, 'id' | 'title' | 'slug' | 'owner' | 'startDate'>;
 
 export type OwnersGuideInfosSubscriptionVariables = {
   owner: Scalars['String'];
@@ -4999,6 +4999,7 @@ export const GuideInfoFragmentDoc = gql`
   title
   slug
   owner
+  startDate
 }
     `;
 export const SpotFragmentDoc = gql`

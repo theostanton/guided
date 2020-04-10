@@ -3,6 +3,7 @@ fragment GuideInfo on Guide{
     title
     slug
     owner
+    startDate
 }
 
 subscription OwnersGuideInfos($owner:String!){

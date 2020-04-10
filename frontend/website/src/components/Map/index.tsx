@@ -144,7 +144,7 @@ export default class Map extends Component<Props, State> {
   }
 
   render(): React.ReactElement {
-    const guide = this.guideStore.guide
+    const guide = this.guideStore?.guide
     return (
       <ReactMapGL
         mapboxApiAccessToken={process.env.GATSBY_MAPBOX_TOKEN!}
