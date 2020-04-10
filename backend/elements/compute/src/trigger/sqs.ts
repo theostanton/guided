@@ -1,6 +1,6 @@
-import SQS from "aws-sdk/clients/sqs"
+import AWS from "aws-sdk"
 
-export default new SQS({
+export default new AWS.SQS({
   region: "eu-west-2",
   credentials: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
