@@ -4,6 +4,7 @@ set -e
 deploy_dir="$(pwd)"
 echo deploy_dir
 echo "${deploy_dir}"
+mkdir -p "${deploy_dir}/dist"
 
 cd "../backend"
 backend_dir="$(pwd)"
@@ -71,7 +72,6 @@ prepareCompute() {
   fi
   log 'Zip compute'
   compute_filename=dist/"${STAGE}"-"$app_version"-compute.zip
-  mkdir -p "${deploy_dir}/dist"
   zip -rj "${deploy_dir}/${compute_filename}" dist
   echo Zipped to "${compute_filename}"
 }

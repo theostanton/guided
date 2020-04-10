@@ -13,11 +13,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Log ssh"
-          command: |
-            cd .ssh
-            ls -la
-      - run:
           name: "Install terraform"
           command: |
             cd deploy
@@ -50,6 +45,11 @@ jobs:
       - aws-cli/setup
       - checkout
       - add_ssh_keys
+      - run:
+          name: "Log ssh"
+          command: |
+            cd .ssh
+            ls -la
       - run:
           name: "Install terraform"
           command: |
