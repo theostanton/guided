@@ -3,12 +3,31 @@ locals {
 }
 
 resource "aws_iam_role" "compute" {
-  name = "guided_compute_${var.stage}"
+  name = "guided-compute-${var.stage}"
   assume_role_policy = templatefile("${path.module}/templates/lambda-policy.tpl", {})
 }
 
 resource "aws_sqs_queue" "compute" {
   name = "compute-stage-${var.stage}"
+}
+resource "aws_sqs_queue_policy" "compute" {
+  queue_url = aws_sqs_queue.compute.id
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Id": "sqspolicy",
+  "Statement": [
+    {
+      "Sid": "First",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "sqs:*",
+      "Resource": "${aws_sqs_queue.compute.arn}"
+    }
+  ]
+}
+POLICY
 }
 
 resource "aws_lambda_event_source_mapping" "compute" {
@@ -22,27 +41,40 @@ resource "aws_s3_bucket" "compute" {
 }
 
 resource "aws_iam_policy" "compute_logging" {
-  name = "logging_compute_${var.stage}"
+  name = "logging-compute-${var.stage}"
   path = "/"
-  description = "IAM policy for logging from a lambda"
   policy = templatefile("${path.module}/templates/cloudwatch-policy.tpl", {})
 }
 
-resource "aws_iam_policy" "compute_sqs" {
-  name = "sqs_compute_${var.stage}"
-  path = "/"
-  description = "IAM policy for logging from a lambda"
-  policy = templatefile("${path.module}/templates/sqs-policy.tpl", {})
+
+data "aws_iam_policy_document" "compute_s3" {
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl"]
+
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:s3:::*/*",
+      aws_s3_bucket.geometries.arn]
+  }
 }
 
-resource "aws_iam_role_policy_attachment" "compute" {
+resource "aws_iam_policy" "compute_s3" {
+  name = "s3-compute-${var.stage}"
+  path = "/"
+  policy = data.aws_iam_policy_document.compute_s3.json
+}
+
+resource "aws_iam_role_policy_attachment" "compute_logging" {
   role = aws_iam_role.compute.name
   policy_arn = aws_iam_policy.compute_logging.arn
 }
 
-resource "aws_iam_role_policy_attachment" "compute_sqs" {
+resource "aws_iam_role_policy_attachment" "compute_s3" {
   role = aws_iam_role.compute.name
-  policy_arn = aws_iam_policy.compute_sqs.arn
+  policy_arn = aws_iam_policy.compute_s3.arn
 }
 
 
@@ -56,7 +88,9 @@ resource "aws_lambda_function" "compute" {
   runtime = "nodejs12.x"
 
   depends_on = [
-    aws_iam_role_policy_attachment.compute]
+    aws_iam_role.compute,
+    aws_iam_role_policy_attachment.compute_s3,
+    aws_iam_role_policy_attachment.compute_logging]
 
   environment {
     variables = local.variables

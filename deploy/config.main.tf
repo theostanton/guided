@@ -18,6 +18,8 @@ terraform {
   }
 }
 
+data "aws_caller_identity" "current" {}
+
 locals {
   app_version = "0.1.${var.macro_version}"
   domain_prefix = var.stage=="production" ? "" : "${var.stage}-"
@@ -37,6 +39,7 @@ locals {
     JWT_SECRET = random_password.jwt_secret.result
     COMPUTE_QUEUE_NAME = aws_sqs_queue.compute.name
     GEOMETRIES_BUCKET_NAME = aws_s3_bucket.geometries.bucket
+    DEFAULT_REGION = var.region
   }
   env_file = join("\n", flatten([
   for key, value in local.variables:[

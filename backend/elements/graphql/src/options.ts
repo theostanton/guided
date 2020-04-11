@@ -1,8 +1,10 @@
-import { PostGraphileOptions } from "postgraphile"
+import { GraphQLErrorExtended, PostGraphileOptions } from "postgraphile"
 import { Plugin } from "graphile-build"
 import customPlugins from "./plugins"
 import path from "path"
 import ownerConnection from "./ownerConnection"
+import { logError } from "@guided/logger"
+import { GraphQLError } from "graphql"
 
 export type Mode = "watch" | "buildCache" | "invoke" | "serve"
 
@@ -119,10 +121,10 @@ export function options(mode: Mode): PostGraphileOptions {
     pgDefaultRole: "guided_anonymous",
     enableCors: true,
     dynamicJson: true,
-    showErrorStack: true,
+    showErrorStack: "json",
     ignoreRBAC: false,
     subscriptions: true,
-    extendedErrors: ["hint", "detail", "errcode"],
+    extendedErrors: ["severity", "code", "detail", "hint", "position", "internalPosition", "internalQuery", "where", "schema", "table", "column", "dataType", "constraint", "file", "line", "routine"],
     appendPlugins: plugins(),
     live: true,
   }

@@ -27,7 +27,9 @@ export default async function trigger(packet: Packet): Promise<string[]> {
       })
       return []
     default:
-      console.log(`Send ${packet.computationIds.length} SQS events`)
+      console.log(`Send ${packet.computationIds.length} SQS events COMPUTE_QUEUE_NAME=${process.env.COMPUTE_QUEUE_NAME!}`)
+      log(sqs.config.region!, "sqs.config.region")
+      log(sqs.config.credentials ? sqs.config.credentials.accessKeyId! : "no accessKeyId", "sqs.config.credentials?.accessKeyId!")
       const { QueueUrl } = await sqs.getQueueUrl({
         QueueName: process.env.COMPUTE_QUEUE_NAME!,
       }).promise()
