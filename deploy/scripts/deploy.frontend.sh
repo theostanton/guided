@@ -29,5 +29,4 @@ export GATSBY_MAPBOX_TOKEN=pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMn
 yarn build
 
 echo -- Push website --
-#yarn push
-yarn serve
+yarn push
