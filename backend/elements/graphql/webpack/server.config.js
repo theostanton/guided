@@ -1,6 +1,7 @@
 const path = require("path")
 const webpack = require("webpack")
 const TerserPlugin = require("terser-webpack-plugin")
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 
 module.exports = {
   output: {
@@ -31,7 +32,7 @@ module.exports = {
       /express\/lib\/view\.js$/,
       `${__dirname}/express-lib-view.js`,
     ),
-  ],
+  ].concat(process.env.CI ? [] : [new BundleAnalyzerPlugin()]),
   node: {
     __dirname: false, // just output `__dirname`
   },

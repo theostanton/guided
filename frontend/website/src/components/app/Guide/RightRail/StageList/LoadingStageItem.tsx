@@ -22,7 +22,7 @@ export default class LoadingStageItem extends React.Component<Props> {
         </List.Header>
       </List.Content>
       <Label>
-        <Icon name='circle notched'/>Routing...
+        <Icon name='circle notched' loading/>Routing...
       </Label>
     </List.Item>
   }

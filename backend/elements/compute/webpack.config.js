@@ -1,6 +1,7 @@
 const path = require("path")
 const webpack = require("webpack")
 const TerserPlugin = require("terser-webpack-plugin")
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 
 module.exports = {
   output: {
@@ -25,7 +26,7 @@ module.exports = {
         "process.env.POSTGRAPHILE_OMIT_ASSETS": "\"1\"",
       }),
       new webpack.NormalModuleReplacementPlugin(/pg\/lib\/native\/index\.js$/, "../client.js"),
-    ]],
+    ]].concat(process.env.CI ? [] : [new BundleAnalyzerPlugin()]),
   optimization: {
     minimizer: [
       new TerserPlugin({
