@@ -5,7 +5,7 @@
   "main": "./srv/index.js",
   "types": "./srv/index.d.ts",
   "scripts": {
-    "webpack": "webpack  --config webpack.config.js",
+    "webpack": "tsc && webpack  --config webpack.config.js",
     "dist": "yarn build:build && yarn build:pack",
     "logs": "awslogs get /aws/lambda/guided-compute-staging -w",
     "build": "tsc",
@@ -20,12 +20,13 @@
     "@guided/google": "*",
     "@guided/spinup": "*",
     "@guided/utils": "*",
-    "aws-sdk": "^2.619.0",
+    "aws-sdk": "^2.656.0",
     "date-fns": "^2.9.0"
   },
   "devDependencies": {
     "@types/faker": "^4.1.0",
     "@types/jest": "^25.1.2",
+    "webpack-bundle-analyzer": "^3.6.1",
     "faker": "^4.1.0",
     "jest": "^25.1.0",
     "ts-jest": "^25.2.0",
