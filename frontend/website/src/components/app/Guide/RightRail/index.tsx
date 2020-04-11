@@ -4,9 +4,8 @@ import GuideStore from "model/GuideStore"
 import SpotDetail from "./SpotDetail"
 import RideDetail from "./RideDetail"
 import StageList from "./StageList"
-import { CSSProperties } from "react"
 import { Segment } from "semantic-ui-react"
-import { logObject } from "../../../../utils/logger"
+import { logObject } from "utils/logger"
 
 
 type Props = {

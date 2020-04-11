@@ -84,9 +84,9 @@ export default class RideDetail extends React.Component<Props> {
 
     const ride = this.props.ride
     return <Grid>
-      <Grid.Row columns='equal' stretched>
+      <Grid.Row>
         <GridColumn width={6} floated={"right"}>
-          <Button.Group icon size={"tiny"} floated={"right"}>
+          <Button.Group icon floated={"right"}>
             <Button icon='close' onClick={this.props.close}/>
           </Button.Group>
         </GridColumn>
@@ -104,10 +104,6 @@ export default class RideDetail extends React.Component<Props> {
 
       <Wrap>
         {this.stats()}
-      </Wrap>
-
-      <Wrap>
-        <Divider/>
       </Wrap>
 
       <Wrap>

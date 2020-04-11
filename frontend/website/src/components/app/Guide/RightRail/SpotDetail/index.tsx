@@ -26,16 +26,10 @@ type Props = {
   close: () => void
 }
 
-type State = {
-  editMode: boolean
-}
+type State = {}
 
 export default class SpotDetail extends React.Component<Props, State> {
 
-
-  state: State = {
-    editMode: false,
-  }
 
   async removeSpot(): Promise<void> {
     const variables: RemoveSpotMutationVariables = {
@@ -49,20 +43,20 @@ export default class SpotDetail extends React.Component<Props, State> {
     this.props.close()
   }
 
-  toggleEditMode(): void {
-    this.setState({
-      editMode: !this.state.editMode,
-    })
-  }
-
   render(): React.ReactElement {
+
+    if (true) {
+      return <>Some spot</>
+    }
+
     const spot = this.props.spot
 
     const style: CSSProperties = {
       backgroundColor: "white",
     }
 
-    return <Grid key={spot.id} padded={"vertically"} style={style}>
+
+    return <Grid key={spot.id} style={style}>
       <Grid.Row>
         <GridColumn width={10}>
           <Header as='h2'>
@@ -75,14 +69,10 @@ export default class SpotDetail extends React.Component<Props, State> {
           </Header>
         </GridColumn>
         <GridColumn width={6} floated={"right"}>
-          <Button.Group icon size={"tiny"} floated={"right"}>
-            <Button icon={this.state.editMode ? "edit outline" : "edit"} onClick={() => {
-              this.toggleEditMode()
-            }}/>
+          <Button.Group icon floated={"right"}>
             <Button icon='trash' onClick={async () => {
               await this.removeSpot()
             }}/>
-            <Button icon='unlock'/>
             <Button icon='close' onClick={this.props.close}/>
           </Button.Group>
         </GridColumn>
