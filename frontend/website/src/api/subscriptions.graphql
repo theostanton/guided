@@ -88,7 +88,12 @@ fragment Guide on Guide {
     startDate
     title
     maxHoursPerRide
-    stagesByGuide(orderBy: POSITION_ASC){
+    firstSpot:spotsByGuide(filter: {position: {equalTo: "0.0"}}){
+        nodes{
+            ...Spot
+        }
+    }
+    stages:stagesByGuide(orderBy: POSITION_ASC){
         nodes{
             ...Stage
         }

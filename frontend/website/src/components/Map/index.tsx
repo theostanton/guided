@@ -42,10 +42,10 @@ export default class Map extends Component<Props, State> {
     return this.props.guideStore!
   }
 
-  get viewport(): ViewPort | undefined {
+  get viewport(): ViewPort | {} {
 
     if (!this.guideStore) {
-      return
+      return {}
     } else if (this.guideStore.selectedType === "ride" && this.state.selectedRideId != this.guideStore.selectedId) {
       this.state.selectedRideId = this.guideStore.selectedId
       this.state.selectedSpotId = undefined
@@ -101,7 +101,7 @@ export default class Map extends Component<Props, State> {
         console.error(e)
       }
       // TODO fix guide.bounds issue on subscription
-    } else if (this.guideStore.guide && this.guideStore.rides.length > 0 && !this.guideStore.selectedType && (this.state.selectedSpotId || this.state.selectedRideId)) {
+    } else if (this.guideStore.guide && this.guideStore.spots.length > 0 && !this.guideStore.selectedType && (this.state.selectedSpotId || this.state.selectedRideId)) {
       this.state.selectedSpotId = undefined
       this.state.selectedRideId = undefined
       const firstSpot = this.guideStore.spots[0]
@@ -164,8 +164,8 @@ export default class Map extends Component<Props, State> {
         onClick={async (event) => {
           const variables: AddStayFromLatLongMutationVariables = {
             guideId: guide.id,
-            lat: event.lngLat[1],
             long: event.lngLat[0],
+            lat: event.lngLat[1],
             nights: 1,
           }
 

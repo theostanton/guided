@@ -6,6 +6,7 @@ import RideDetail from "./RideDetail"
 import StageList from "./StageList"
 import { CSSProperties } from "react"
 import { Segment } from "semantic-ui-react"
+import { logObject } from "../../../../utils/logger"
 
 
 type Props = {
@@ -22,8 +23,11 @@ export default class RightRailComponent extends React.Component<Props> {
   }
 
   contents(): React.ReactElement {
+    console.log("contents()")
     const selectedSpot = this.guideStore.selectedSpot
+    logObject(selectedSpot, "contents() selectedSpot")
     const selectedRide = this.guideStore.selectedRide
+    logObject(selectedRide, "contents() selectedRide")
 
 
     if (selectedSpot) {

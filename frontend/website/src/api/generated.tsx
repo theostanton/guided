@@ -4959,7 +4959,7 @@ export type StageFragment = (
 
 export type GuideFragment = (
   Pick<Guide, 'id' | 'slug' | 'owner' | 'startDate' | 'title' | 'maxHoursPerRide'>
-  & { readonly stagesByGuide: { readonly nodes: ReadonlyArray<Maybe<StageFragment>> } }
+  & { readonly firstSpot: { readonly nodes: ReadonlyArray<Maybe<SpotFragment>> }, readonly stages: { readonly nodes: ReadonlyArray<Maybe<StageFragment>> } }
 );
 
 export type GuideStagesSubscriptionVariables = {
@@ -5065,13 +5065,19 @@ export const GuideFragmentDoc = gql`
   startDate
   title
   maxHoursPerRide
-  stagesByGuide(orderBy: POSITION_ASC) {
+  firstSpot: spotsByGuide(filter: {position: {equalTo: "0.0"}}) {
+    nodes {
+      ...Spot
+    }
+  }
+  stages: stagesByGuide(orderBy: POSITION_ASC) {
     nodes {
       ...Stage
     }
   }
 }
-    ${StageFragmentDoc}`;
+    ${SpotFragmentDoc}
+${StageFragmentDoc}`;
 export const CreateGuideDocument = gql`
     mutation CreateGuide($guide: GuideInput!) {
   createGuide(input: {guide: $guide}) {

@@ -98,8 +98,16 @@ export default class GuideStore {
 
   @computed
   get spots(): readonly SpotFragment[] {
+    if (this.stages.length === 0) {
+      if (this.guide.firstSpot.nodes.length === 1) {
+        return this.guide.firstSpot.nodes
+      } else {
+        return []
+      }
+    }
+
     const spots: SpotFragment[] = []
-    this.guide?.stagesByGuide!.nodes!.forEach(stage => {
+    this.stages.forEach(stage => {
       if (stage.status === "READY") {
         stage.ridesByStage.nodes.forEach(ride => {
           spots.push(ride.fromSpot)
@@ -114,7 +122,7 @@ export default class GuideStore {
   @computed
   get rides(): readonly RideFragment[] {
     const rides: RideFragment[] = []
-    this.guide?.stagesByGuide!.nodes!.forEach(stage => {
+    this.stages.forEach(stage => {
       stage.ridesByStage.nodes.forEach(ride => {
         rides.push(ride)
       })
@@ -124,7 +132,7 @@ export default class GuideStore {
 
   @computed
   get stages(): readonly StageFragment[] {
-    return this.guide!.stagesByGuide!.nodes!
+    return this.guide!.stages!.nodes!
   }
 
   @computed
