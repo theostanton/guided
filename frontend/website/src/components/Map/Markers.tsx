@@ -8,6 +8,7 @@ import { Marker } from "react-map-gl"
 import GuideStore from "model/GuideStore"
 import { inject, observer } from "mobx-react"
 import { client } from "api"
+import { logInfo } from "../../../../../backend/tools/logger/src"
 
 type Props = {
   guideStore?: GuideStore
@@ -61,6 +62,8 @@ export class Markers extends React.Component<Props, {}> {
                    longitude={spot.long!}
                    latitude={spot.lat!}
                    draggable
+                   captureClick={true}
+                   captureDoubleClick={true}
                    offsetLeft={-30}
                    offsetTop={-53}
                    onDragEnd={async (args) => {
@@ -75,13 +78,21 @@ export class Markers extends React.Component<Props, {}> {
             style={{
               ...pinStyle,
             }}
+            onDoubleClick={() => {
+              console.log(`Double clicked ${spot.name}`)
+            }}
+            onClick={() => {
+              console.log(`Clicked ${spot.name}`)
+            }}
 
             onMouseEnter={() => {
+              console.log(`onMouseEnter ${spot.name}`)
               this.setState({
                 showPopupForId: spot.id,
               })
             }}
             onMouseLeave={() => {
+              console.log(`onMouseLeave ${spot.name}`)
               this.setState({
                 showPopupForId: undefined,
               })

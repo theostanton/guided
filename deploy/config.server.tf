@@ -39,10 +39,11 @@ resource "aws_instance" "server" {
   }
 
   depends_on = [
+    aws_iam_role.server,
     aws_iam_instance_profile.server]
 }
 
-data "aws_iam_policy_document" "server" {
+data "aws_iam_policy_document" "server_assume" {
   statement {
     actions = [
       "sts:AssumeRole"]
@@ -57,11 +58,24 @@ data "aws_iam_policy_document" "server" {
 
 resource "aws_iam_role" "server" {
   name = "guided-server-${var.stage}"
-
-  assume_role_policy = data.aws_iam_policy_document.server.json
+  assume_role_policy = data.aws_iam_policy_document.server_assume.json
   depends_on = [
-    data.aws_iam_policy_document.server]
+    data.aws_iam_policy_document.server_assume]
 }
+
+//resource "aws_iam_role_policy_attachment" "server" {
+//  role = aws_iam_role.server.name
+//  policy_arn = aws_iam_policy.server.arn
+//}
+
+//resource "aws_iam_policy" "server" {
+//  name = "some-policy-${var.stage}"
+//  policy = data.aws_iam_policy_document.server.json
+//}
+//
+//data "aws_iam_policy_document" "server" {
+//
+//}
 
 resource "aws_iam_instance_profile" "server" {
   name = "guided-server-${var.stage}"

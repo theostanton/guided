@@ -19,7 +19,6 @@ import { client } from "api"
 import { logJson } from "utils/logger"
 import NightsForm from "./NightsForm"
 import { CSSProperties } from "react"
-import Divider from "semantic-ui-react/dist/commonjs/elements/Divider"
 
 type Props = {
   spot: SpotFragment
@@ -44,8 +43,6 @@ export default class SpotDetail extends React.Component<Props, State> {
   }
 
   render(): React.ReactElement {
-
-    logJson(this.props, "this.props")
 
     const spot = this.props.spot
 
