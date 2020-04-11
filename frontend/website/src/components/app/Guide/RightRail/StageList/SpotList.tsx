@@ -41,14 +41,14 @@ export default class SpotList extends React.Component<Props> {
       </List.Item>
     })
     return <Grid.Row columns='equal'>
-      <GridColumn>
+      <Grid.Column>
         <List items={items}
               selection={true}
               relaxed={true}
               onItemClick={(event, data) => {
                 this.guideStore.selectSpot(data.value!)
               }}/>
-      </GridColumn>
+      </Grid.Column>
     </Grid.Row>
 
   }

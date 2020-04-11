@@ -1,6 +1,6 @@
 import * as React from "react"
 import {
-  Button,
+  Button, ButtonGroup,
   Divider,
   Flag,
   FlagNameValues,
@@ -85,11 +85,11 @@ export default class RideDetail extends React.Component<Props> {
     const ride = this.props.ride
     return <Grid>
       <Grid.Row>
-        <GridColumn width={6} floated={"right"}>
-          <Button.Group icon floated={"right"}>
+        <Grid.Column width={6} floated={"right"}>
+          <ButtonGroup floated={"right"}>
             <Button icon='close' onClick={this.props.close}/>
-          </Button.Group>
-        </GridColumn>
+          </ButtonGroup>
+        </Grid.Column>
       </Grid.Row>
 
       {this.spot("from", ride.fromSpot!)}

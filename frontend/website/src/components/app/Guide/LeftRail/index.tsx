@@ -134,27 +134,27 @@ export default class LeftRailComponent extends React.Component<Props, State> {
     return <Segment style={{ backgroundColor: "#ffffff" }}>
       <Grid divided={"vertically"} padded={false}>
         <Grid.Row verticalAlign='middle'>
-          <GridColumn width={"10"}>
+          <Grid.Column width={"10"}>
             <EditGuideTitleForm guide={guide} edit={false}/>
-          </GridColumn>
-          <GridColumn width={"6"}>
+          </Grid.Column>
+          <Grid.Column width={"6"}>
             <ButtonGroup floated={"right"}>
               <Button icon='trash' onClick={async () => {
                 await this.deleteGuide(guide.id)
               }}/>
               <Button icon='close' onClick={this.props.close}/>
             </ButtonGroup>
-          </GridColumn>
+          </Grid.Column>
         </Grid.Row>
         <GridRow>
-          <GridColumn>
+          <Grid.Column>
             {this.statistics.bind(this)()}
-          </GridColumn>
+          </Grid.Column>
         </GridRow>
         <GridRow>
-          <GridColumn>
+          <Grid.Column>
             <StartDateForm guideId={guide.id} startDate={guide.startDate}/>
-          </GridColumn>
+          </Grid.Column>
         </GridRow>
       </Grid>
     </Segment>

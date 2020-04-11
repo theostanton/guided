@@ -37,13 +37,13 @@ export default class RideAndSpotList extends React.Component<Props> {
 
     const items: ReactElement[] = this.generateListItems()
     return <Grid.Row columns='equal'>
-      <GridColumn>
+      <Grid.Column>
         <List items={items}
               celled={true}
               selection={true}
               relaxed={true}
         />
-      </GridColumn>
+      </Grid.Column>
     </Grid.Row>
   }
 }

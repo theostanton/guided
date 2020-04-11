@@ -7,7 +7,7 @@ import * as React from "react"
 import {
   Breadcrumb, BreadcrumbDivider,
   BreadcrumbSection,
-  Button,
+  Button, ButtonGroup,
   Flag,
   FlagNameValues,
   Grid,
@@ -55,7 +55,7 @@ export default class SpotDetail extends React.Component<Props, State> {
 
     return <Grid key={spot.id} style={style}>
       <Grid.Row>
-        <GridColumn width={10}>
+        <Grid.Column width={10}>
           <Header as='h2'>
             <Icon name={"marker"} color={"orange"}/>
             <Header.Content>
@@ -64,21 +64,21 @@ export default class SpotDetail extends React.Component<Props, State> {
                 {`${spot.name === spot.location ? "" : spot.location + ", "}${spot.country}`}</Header.Subheader>
             </Header.Content>
           </Header>
-        </GridColumn>
-        <GridColumn width={6} floated={"right"}>
-          <Button.Group icon floated={"right"}>
+        </Grid.Column>
+        <Grid.Column width={2} floated={"right"}>
+          <ButtonGroup floated={"right"}>
             <Button icon='trash' onClick={async () => {
               await this.removeSpot()
             }}/>
             <Button icon='close' onClick={this.props.close}/>
-          </Button.Group>
-        </GridColumn>
+          </ButtonGroup>
+        </Grid.Column>
       </Grid.Row>
-      {/*<Grid.Row>*/}
-      {/*  <Grid.Column>*/}
-      {/*    <NightsForm spot={spot}/>*/}
-      {/*  </Grid.Column>*/}
-      {/*</Grid.Row>*/}
+      <Grid.Row>
+        <Grid.Column>
+          <NightsForm spot={spot}/>
+        </Grid.Column>
+      </Grid.Row>
     </Grid>
   }
 }

@@ -37,6 +37,9 @@ resource "aws_instance" "server" {
   tags = {
     Name = "guided-server-${var.stage}"
   }
+
+  depends_on = [
+    aws_iam_instance_profile.server]
 }
 
 data "aws_iam_policy_document" "server" {
@@ -56,11 +59,15 @@ resource "aws_iam_role" "server" {
   name = "guided-server-${var.stage}"
 
   assume_role_policy = data.aws_iam_policy_document.server.json
+  depends_on = [
+    data.aws_iam_policy_document.server]
 }
 
 resource "aws_iam_instance_profile" "server" {
   name = "guided-server-${var.stage}"
   role = aws_iam_role.server.name
+  depends_on = [
+    aws_iam_role.server]
 }
 
 resource "null_resource" "install_node" {
