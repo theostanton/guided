@@ -1,7 +1,7 @@
 import * as React from "react"
-import { Button, Container, Form, Input, Message, Modal } from "semantic-ui-react"
+import { Button, Container, Form, Header, Input, Message, Modal } from "semantic-ui-react"
 import Layout from "components/root/Layout"
-import { navigate } from "gatsby"
+import { Link, navigate } from "gatsby"
 import { inject } from "mobx-react"
 import AuthStore from "model/AuthStore"
 
@@ -224,7 +224,10 @@ export default class SignUpComponent extends React.Component<Props, State> {
               Continue
             </Button>
           </Modal.Actions>
+
+
         </Modal>}
+        <Header as='h4'><Link to={"/login"}>Already a member? log in</Link></Header>
       </Container>
     </Layout>
   }

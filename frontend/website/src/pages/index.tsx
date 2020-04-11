@@ -1,9 +1,13 @@
 import * as React from "react"
+import { Router, Redirect } from "@reach/router"
 
 import Layout from "components/root/Layout"
 import AuthStore from "../model/AuthStore"
 import { inject } from "mobx-react"
-import { navigate } from "gatsby"
+import Account from "components/app/Account"
+import Guides from "components/app/Guides"
+import Guide from "components/app/Guide"
+import Dashboard from "components/app/Dashboard"
 
 type Props = {
   authStore: AuthStore
@@ -12,18 +16,22 @@ type Props = {
 @inject("authStore")
 export default class RootComponent extends React.Component<Props> {
 
-  componentDidMount(): void {
-    if (this.props.authStore.isLoggedIn) {
-      try {
-        navigate("/app").then().catch()
-      }catch (e) {
-        
-      }
-    }
-  }
-
-
   render(): React.ReactElement {
-    return <Layout/>
+
+    if (this.props.authStore.isLoggedIn) {
+      return <Layout>
+        <Router>
+          <Account path="/app/account"/>
+          <Guide path="/app/guides/:slug"/>
+          <Guides path="/app/guides"/>
+          <Dashboard path="/app"/>
+        </Router>
+      </Layout>
+    } else {
+      return <div>
+        {/*<Redirect to='/login'/>*/}
+        Not logged in
+      </div>
+    }
   }
 }

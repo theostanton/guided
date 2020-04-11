@@ -1,7 +1,7 @@
 import * as React from "react"
-import { Form, Button, Message, Container } from "semantic-ui-react"
+import { Form, Button, Message, Container, Header } from "semantic-ui-react"
 import Layout from "components/root/Layout"
-import { navigate } from "gatsby"
+import { Link, navigate } from "gatsby"
 import { inject } from "mobx-react"
 import AuthStore from "../model/AuthStore"
 
@@ -30,7 +30,7 @@ export default class LoginComponent extends React.Component<Props, State> {
     const { password, email } = this.state
     this.setState({ loading: true })
     try {
-      await this.props.authStore.login(email,password)
+      await this.props.authStore.login(email, password)
       await navigate("/app")
     } catch (e) {
       console.error(e)
@@ -82,6 +82,8 @@ export default class LoginComponent extends React.Component<Props, State> {
               await this.logIn()
             }
             }>Log in</Button>
+
+          <Header as='h4'><Link to={"/signup"}>Not a member? Create an account</Link></Header>
         </Form>
       </Container>
     </Layout>

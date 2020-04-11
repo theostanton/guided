@@ -28,41 +28,31 @@ export default class GuidesComponent extends React.Component<Props, State> {
     selectedGuideId: undefined,
   }
 
-  content(): React.ReactElement | React.ReactElement[] {
-
-    if (this.state.showCreateModal) {
-      return <GuideDetailsModalComponent owner={this.props.authStore.owner}
-                                         onClose={(guideId: string) => {
-                                           this.setState({
-                                             selectedGuideId: guideId,
-                                             showCreateModal: false,
-                                           })
-                                         }}/>
-    } else if (this.state.selectedGuideId) {
-      return <GuideComponent guideId={this.state.selectedGuideId} close={() => {
-        this.setState({
-          selectedGuideId: undefined,
-        })
-      }
-      }/>
-    } else {
-      return [<Button
-        content='Create new'
-        onClick={() => {
-          this.setState({ showCreateModal: true })
-        }}/>, <MyGuidesList owner={this.props.authStore.owner} onClick={(guideId: string) => {
-        this.setState({
-          selectedGuideId: guideId,
-        })
-      }
-      }/>]
-    }
-
-  }
+  // content(): React.ReactElement | React.ReactElement[] {
+  //
+  //   if (this.state.showCreateModal) {
+  //     return <GuideDetailsModalComponent owner={this.props.authStore.owner}
+  //                                        onClose={(guideId: string) => {
+  //                                          this.setState({
+  //                                            selectedGuideId: guideId,
+  //                                            showCreateModal: false,
+  //                                          })
+  //                                        }}/>
+  //   } else if (this.state.selectedGuideId) {
+  //     return <GuideComponent guideId={this.state.selectedGuideId}/>
+  //   } else {
+  //     return [<Button
+  //       content='Create new'
+  //       onClick={() => {
+  //         this.setState({ showCreateModal: true })
+  //       }}/>, <MyGuidesList owner={this.props.authStore.owner}/>]
+  //   }
+  //
+  // }
 
   render(): React.ReactElement | undefined {
     return <AppContainer>
-      {this.content()}
+      {/*{this.content()}*/}
     </AppContainer>
   }
 

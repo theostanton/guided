@@ -5,13 +5,14 @@ import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
 import { MyGuidesList, SharedGuidesList } from "./Guides/GuidesList"
 import GuideComponent from "./Guide"
+import { GuideInfoFragment } from "../../api/generated"
 
 type Props = {
   authStore: AuthStore
 }
 
 type State = {
-  selectedGuideId: string | undefined
+  selectedGuide: GuideInfoFragment | undefined
 }
 
 @inject("authStore")
@@ -19,36 +20,26 @@ type State = {
 export default class DashboardComponent extends React.Component<Props, State> {
 
   state: State = {
-    selectedGuideId: undefined,
+    selectedGuide: undefined,
   }
 
   guides(): React.ReactElement {
     return <Grid columns={2}>
       <Grid.Column>
         <Header>My guides</Header>
-        <MyGuidesList owner={this.props.authStore.owner} onClick={(guideId: string) => {
-          this.setState({
-            selectedGuideId: guideId,
-          })
-        }
-        }/>
+        <MyGuidesList owner={this.props.authStore.owner}/>
       </Grid.Column>
       <Grid.Column>
         <Header>Shared guides</Header>
-        <SharedGuidesList owner={this.props.authStore.owner} onClick={(guideId: string) => {
-          this.setState({
-            selectedGuideId: guideId,
-          })
-        }
-        }/>
+        <SharedGuidesList owner={this.props.authStore.owner}/>
       </Grid.Column>
     </Grid>
   }
 
   guide(): React.ReactElement {
-    return <GuideComponent guideId={this.state.selectedGuideId} close={() => {
+    return <GuideComponent guideId={this.state.selectedGuide.id} slug={this.state.selectedGuide.slug} close={() => {
       this.setState({
-        selectedGuideId: undefined,
+        selectedGuide: undefined,
       })
     }
     }/>
@@ -57,7 +48,7 @@ export default class DashboardComponent extends React.Component<Props, State> {
 
   render(): React.ReactElement | undefined {
     return <AppContainer>
-      {this.props.authStore.isLoggedIn && this.state.selectedGuideId ? this.guide() : this.guides()}
+      {this.props.authStore.isLoggedIn && this.state.selectedGuide ? this.guide() : this.guides()}
     </AppContainer>
   }
 

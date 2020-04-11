@@ -8,6 +8,7 @@ import AppMenu from "components/app/Menu"
 import { inject, observer } from "mobx-react"
 import AuthStore from "../model/AuthStore"
 import { navigate } from "gatsby"
+import Guide from "../components/app/Guide"
 
 type Props = {
   authStore: AuthStore
@@ -17,12 +18,12 @@ type Props = {
 @observer
 export default class AppComponent extends React.Component<Props> {
 
-  componentDidMount(): void {
-    const { isLoggedIn } = this.props.authStore
-    if (!isLoggedIn) {
-      navigate?.("/")?.then()
-    }
-  }
+  // componentDidMount(): void {
+  //   const { isLoggedIn } = this.props.authStore
+  //   if (!isLoggedIn) {
+  //     navigate?.("/")?.then()
+  //   }
+  // }
 
   render(): React.ReactElement | undefined {
 
@@ -35,10 +36,11 @@ export default class AppComponent extends React.Component<Props> {
       <div style={{ margin: 20 }}>
         <Container>
           <AppMenu/>
-          <Router>
-            <Account path="/app/account"/>
-            <Guides path="/app/guides"/>
-            <Dashboard path="/app"/>
+          <Router basePath='/app/'>
+            <Account path="/account/"/>
+            <Guide path="/guides/:slug/"/>
+            <Guides path="/guides/"/>
+            <Dashboard path="/app/"/>
           </Router>
         </Container>
       </div>
