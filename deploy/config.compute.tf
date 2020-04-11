@@ -50,8 +50,7 @@ resource "aws_iam_policy" "compute_logging" {
 data "aws_iam_policy_document" "compute_s3" {
   statement {
     actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl"]
+      "s3:*"]
 
     effect = "Allow"
 

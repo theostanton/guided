@@ -1,4 +1,4 @@
-import ReactMapGL, { FlyToInterpolator, TransitionInterpolator } from "react-map-gl"
+import ReactMapGL, { FlyToInterpolator, Marker, TransitionInterpolator } from "react-map-gl"
 
 import React, { Component } from "react"
 import { Markers } from "./Markers"
@@ -10,6 +10,7 @@ import { Rides } from "./Rides"
 import WebMercatorViewport from "viewport-mercator-project"
 import { logJson } from "utils/logger"
 import { Segment } from "semantic-ui-react"
+import { logInfo } from "../../../../../backend/tools/logger/src"
 
 type ViewPort = {
   width: number,
@@ -161,7 +162,10 @@ export default class Map extends Component<Props, State> {
             this.setState({ viewport })
           }
         }}
+
         onClick={async (event) => {
+          console.log("event")
+          console.log(event)
           const variables: AddStayFromLatLongMutationVariables = {
             guideId: guide.id,
             long: event.lngLat[0],

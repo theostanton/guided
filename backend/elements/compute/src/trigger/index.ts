@@ -2,7 +2,7 @@ import { Packet } from "../prepare"
 import { executeConcurrently } from "@guided/utils"
 import action from "../action"
 
-import sqs from "./sqs"
+import SQS from "./sqs"
 import { log } from "@guided/logger"
 
 
@@ -27,6 +27,7 @@ export default async function trigger(packet: Packet): Promise<string[]> {
       })
       return []
     default:
+      const sqs = SQS()
       console.log(`Send ${packet.computationIds.length} SQS events COMPUTE_QUEUE_NAME=${process.env.COMPUTE_QUEUE_NAME!}`)
       log(sqs.config.region!, "sqs.config.region")
       log(sqs.config.credentials ? sqs.config.credentials.accessKeyId! : "no accessKeyId", "sqs.config.credentials?.accessKeyId!")
