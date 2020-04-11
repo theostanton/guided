@@ -4,8 +4,8 @@ import GuideStore from "model/GuideStore"
 import SpotDetail from "./SpotDetail"
 import RideDetail from "./RideDetail"
 import StageList from "./StageList"
-import { CSSProperties } from "react"
 import { Segment } from "semantic-ui-react"
+import { logObject } from "utils/logger"
 
 
 type Props = {
@@ -22,19 +22,23 @@ export default class RightRailComponent extends React.Component<Props> {
   }
 
   contents(): React.ReactElement {
+    console.log("contents()")
     const selectedSpot = this.guideStore.selectedSpot
+    logObject(selectedSpot, "contents() selectedSpot")
     const selectedRide = this.guideStore.selectedRide
+    logObject(selectedRide, "contents() selectedRide")
 
 
     if (selectedSpot) {
       return <SpotDetail spot={selectedSpot} close={() => {
         this.guideStore.unselect()
-        this.guideStore.refetch()
       }}/>
     }
 
     if (selectedRide) {
-      return <RideDetail ride={selectedRide}/>
+      return <RideDetail ride={selectedRide} guideStore={this.guideStore} close={() => {
+        this.guideStore.unselect()
+      }}/>
     }
 
     if (this.props.guideStore.guide) {
@@ -44,9 +48,8 @@ export default class RightRailComponent extends React.Component<Props> {
   }
 
   render(): React.ReactElement {
-
     return <Segment style={{ backgroundColor: "#ffffff" }}>
-      {this.contents.bind(this)()}
+      {this.guideStore && this.contents.bind(this)()}
     </Segment>
 
   }

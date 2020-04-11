@@ -18,12 +18,9 @@ output "graphql_websocket" {
   value = "wss://${aws_route53_record.api.name}"
 }
 
-//output "compute_queue" {
-//  value = aws_sqs_queue.compute.name
-//}
-
 output "env_file" {
   value = local.env_file
+  sensitive = true
 }
 
 output "deployed_macro_version" {

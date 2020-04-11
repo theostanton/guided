@@ -24,6 +24,48 @@ type AuthenticatePayload {
   query: Query
 }
 
+"""
+A filter to be used against Boolean fields. All fields are combined with a logical ‘and.’
+"""
+input BooleanFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: Boolean
+
+  """Not equal to the specified value."""
+  notEqualTo: Boolean
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: Boolean
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: Boolean
+
+  """Included in the specified list."""
+  in: [Boolean!]
+
+  """Not included in the specified list."""
+  notIn: [Boolean!]
+
+  """Less than the specified value."""
+  lessThan: Boolean
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: Boolean
+
+  """Greater than the specified value."""
+  greaterThan: Boolean
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: Boolean
+}
+
 type Bound {
   north: Float
   east: Float
@@ -80,6 +122,44 @@ input ComputationCondition {
 
   """Checks for equality with the object’s `started` field."""
   started: Datetime
+}
+
+"""
+A filter to be used against `Computation` object types. All fields are combined with a logical ‘and.’
+"""
+input ComputationFilter {
+  """Filter by the object’s `id` field."""
+  id: StringFilter
+
+  """Filter by the object’s `ended` field."""
+  ended: DatetimeFilter
+
+  """Filter by the object’s `duration` field."""
+  duration: IntFilter
+
+  """Filter by the object’s `status` field."""
+  status: ComputationStatusFilter
+
+  """Filter by the object’s `stage` field."""
+  stage: StringFilter
+
+  """Filter by the object’s `guide` field."""
+  guide: StringFilter
+
+  """Filter by the object’s `created` field."""
+  created: DatetimeFilter
+
+  """Filter by the object’s `started` field."""
+  started: DatetimeFilter
+
+  """Checks for all expressions in this list."""
+  and: [ComputationFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [ComputationFilter!]
+
+  """Negates the expression."""
+  not: ComputationFilter
 }
 
 """An input for mutations affecting `Computation`"""
@@ -162,6 +242,48 @@ enum ComputationStatus {
   FAILED
   COMPUTING
   SUCCESS
+}
+
+"""
+A filter to be used against ComputationStatus fields. All fields are combined with a logical ‘and.’
+"""
+input ComputationStatusFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: ComputationStatus
+
+  """Not equal to the specified value."""
+  notEqualTo: ComputationStatus
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: ComputationStatus
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: ComputationStatus
+
+  """Included in the specified list."""
+  in: [ComputationStatus!]
+
+  """Not included in the specified list."""
+  notIn: [ComputationStatus!]
+
+  """Less than the specified value."""
+  lessThan: ComputationStatus
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: ComputationStatus
+
+  """Greater than the specified value."""
+  greaterThan: ComputationStatus
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: ComputationStatus
 }
 
 """All input for the create `Computation` mutation."""
@@ -459,6 +581,48 @@ A point in time as described by the [ISO
 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
 """
 scalar Datetime
+
+"""
+A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’
+"""
+input DatetimeFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: Datetime
+
+  """Not equal to the specified value."""
+  notEqualTo: Datetime
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: Datetime
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: Datetime
+
+  """Included in the specified list."""
+  in: [Datetime!]
+
+  """Not included in the specified list."""
+  notIn: [Datetime!]
+
+  """Less than the specified value."""
+  lessThan: Datetime
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: Datetime
+
+  """Greater than the specified value."""
+  greaterThan: Datetime
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: Datetime
+}
 
 """All input for the `deleteComputationByNodeId` mutation."""
 input DeleteComputationByNodeIdInput {
@@ -838,6 +1002,48 @@ type DeleteUserPayload {
   ): UsersEdge
 }
 
+"""
+A filter to be used against Float fields. All fields are combined with a logical ‘and.’
+"""
+input FloatFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: Float
+
+  """Not equal to the specified value."""
+  notEqualTo: Float
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: Float
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: Float
+
+  """Included in the specified list."""
+  in: [Float!]
+
+  """Not included in the specified list."""
+  notIn: [Float!]
+
+  """Less than the specified value."""
+  lessThan: Float
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: Float
+
+  """Greater than the specified value."""
+  greaterThan: Float
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: Float
+}
+
 type Guide implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -882,6 +1088,11 @@ type Guide implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: SpotCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: SpotFilter
   ): SpotsConnection!
 
   """Reads and enables pagination through a set of `Stage`."""
@@ -911,6 +1122,11 @@ type Guide implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: StageCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: StageFilter
   ): StagesConnection!
 
   """Reads and enables pagination through a set of `Ride`."""
@@ -940,6 +1156,11 @@ type Guide implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: RideCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: RideFilter
   ): RidesConnection!
 
   """Reads and enables pagination through a set of `Computation`."""
@@ -969,8 +1190,14 @@ type Guide implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: ComputationCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: ComputationFilter
   ): ComputationsConnection!
   bounds: Bound
+  isMine: Boolean
 }
 
 """
@@ -1000,6 +1227,47 @@ input GuideCondition {
 
   """Checks for equality with the object’s `updated` field."""
   updated: Datetime
+}
+
+"""
+A filter to be used against `Guide` object types. All fields are combined with a logical ‘and.’
+"""
+input GuideFilter {
+  """Filter by the object’s `id` field."""
+  id: StringFilter
+
+  """Filter by the object’s `title` field."""
+  title: StringFilter
+
+  """Filter by the object’s `slug` field."""
+  slug: StringFilter
+
+  """Filter by the object’s `owner` field."""
+  owner: StringFilter
+
+  """Filter by the object’s `startDate` field."""
+  startDate: StringFilter
+
+  """Filter by the object’s `maxHoursPerRide` field."""
+  maxHoursPerRide: IntFilter
+
+  """Filter by the object’s `created` field."""
+  created: DatetimeFilter
+
+  """Filter by the object’s `updated` field."""
+  updated: DatetimeFilter
+
+  """Filter by the object’s `isMine` field."""
+  isMine: BooleanFilter
+
+  """Checks for all expressions in this list."""
+  and: [GuideFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [GuideFilter!]
+
+  """Negates the expression."""
+  not: GuideFilter
 }
 
 """An input for mutations affecting `Guide`"""
@@ -1075,6 +1343,48 @@ enum GuidesOrderBy {
   UPDATED_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+"""
+A filter to be used against Int fields. All fields are combined with a logical ‘and.’
+"""
+input IntFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: Int
+
+  """Not equal to the specified value."""
+  notEqualTo: Int
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: Int
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: Int
+
+  """Included in the specified list."""
+  in: [Int!]
+
+  """Not included in the specified list."""
+  notIn: [Int!]
+
+  """Less than the specified value."""
+  lessThan: Int
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: Int
+
+  """Greater than the specified value."""
+  greaterThan: Int
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: Int
 }
 
 """
@@ -1464,6 +1774,11 @@ type Query implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: ComputationCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: ComputationFilter
   ): ComputationsConnection
 
   """Reads and enables pagination through a set of `Guide`."""
@@ -1493,6 +1808,11 @@ type Query implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: GuideCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: GuideFilter
   ): GuidesConnection
 
   """Reads and enables pagination through a set of `Ride`."""
@@ -1522,6 +1842,11 @@ type Query implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: RideCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: RideFilter
   ): RidesConnection
 
   """Reads and enables pagination through a set of `Spot`."""
@@ -1551,6 +1876,11 @@ type Query implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: SpotCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: SpotFilter
   ): SpotsConnection
 
   """Reads and enables pagination through a set of `Stage`."""
@@ -1580,6 +1910,11 @@ type Query implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: StageCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: StageFilter
   ): StagesConnection
 
   """Reads and enables pagination through a set of `Temperature`."""
@@ -1609,6 +1944,11 @@ type Query implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: TemperatureCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: TemperatureFilter
   ): TemperaturesConnection
 
   """Reads and enables pagination through a set of `User`."""
@@ -1638,6 +1978,11 @@ type Query implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: UserCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: UserFilter
   ): UsersConnection
   computation(id: String!): Computation
   guide(id: String!): Guide
@@ -1769,6 +2114,7 @@ type Ride implements Node {
   """Reads a single `Stage` that is related to this `Ride`."""
   stageByStage: Stage
   hasBorder: Boolean
+  isMine: Boolean
   name: String
 }
 
@@ -1817,6 +2163,71 @@ input RideCondition {
 
   """Checks for equality with the object’s `pathUrl` field."""
   pathUrl: String
+}
+
+"""
+A filter to be used against `Ride` object types. All fields are combined with a logical ‘and.’
+"""
+input RideFilter {
+  """Filter by the object’s `id` field."""
+  id: StringFilter
+
+  """Filter by the object’s `guide` field."""
+  guide: StringFilter
+
+  """Filter by the object’s `owner` field."""
+  owner: StringFilter
+
+  """Filter by the object’s `fromSpot` field."""
+  fromSpot: StringFilter
+
+  """Filter by the object’s `toSpot` field."""
+  toSpot: StringFilter
+
+  """Filter by the object’s `durationSeconds` field."""
+  durationSeconds: IntFilter
+
+  """Filter by the object’s `distanceMeters` field."""
+  distanceMeters: IntFilter
+
+  """Filter by the object’s `date` field."""
+  date: StringFilter
+
+  """Filter by the object’s `stage` field."""
+  stage: StringFilter
+
+  """Filter by the object’s `position` field."""
+  position: StringFilter
+
+  """Filter by the object’s `status` field."""
+  status: RideStatusFilter
+
+  """Filter by the object’s `created` field."""
+  created: DatetimeFilter
+
+  """Filter by the object’s `updated` field."""
+  updated: DatetimeFilter
+
+  """Filter by the object’s `pathUrl` field."""
+  pathUrl: StringFilter
+
+  """Filter by the object’s `hasBorder` field."""
+  hasBorder: BooleanFilter
+
+  """Filter by the object’s `isMine` field."""
+  isMine: BooleanFilter
+
+  """Filter by the object’s `name` field."""
+  name: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [RideFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [RideFilter!]
+
+  """Negates the expression."""
+  not: RideFilter
 }
 
 """An input for mutations affecting `Ride`"""
@@ -1922,6 +2333,48 @@ enum RideStatus {
   STALE
 }
 
+"""
+A filter to be used against RideStatus fields. All fields are combined with a logical ‘and.’
+"""
+input RideStatusFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: RideStatus
+
+  """Not equal to the specified value."""
+  notEqualTo: RideStatus
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: RideStatus
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: RideStatus
+
+  """Included in the specified list."""
+  in: [RideStatus!]
+
+  """Not included in the specified list."""
+  notIn: [RideStatus!]
+
+  """Less than the specified value."""
+  lessThan: RideStatus
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: RideStatus
+
+  """Greater than the specified value."""
+  greaterThan: RideStatus
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: RideStatus
+}
+
 type Spot implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -1979,6 +2432,11 @@ type Spot implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: StageCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: StageFilter
   ): StagesConnection!
 
   """Reads and enables pagination through a set of `Stage`."""
@@ -2008,6 +2466,11 @@ type Spot implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: StageCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: StageFilter
   ): StagesConnection!
 
   """Reads and enables pagination through a set of `Ride`."""
@@ -2037,6 +2500,11 @@ type Spot implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: RideCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: RideFilter
   ): RidesConnection!
 
   """Reads and enables pagination through a set of `Ride`."""
@@ -2066,7 +2534,13 @@ type Spot implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: RideCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: RideFilter
   ): RidesConnection!
+  isMine: Boolean
   name: String
   temperature: Float
 }
@@ -2119,6 +2593,74 @@ input SpotCondition {
 
   """Checks for equality with the object’s `stage` field."""
   stage: String
+}
+
+"""
+A filter to be used against `Spot` object types. All fields are combined with a logical ‘and.’
+"""
+input SpotFilter {
+  """Filter by the object’s `id` field."""
+  id: StringFilter
+
+  """Filter by the object’s `label` field."""
+  label: StringFilter
+
+  """Filter by the object’s `guide` field."""
+  guide: StringFilter
+
+  """Filter by the object’s `owner` field."""
+  owner: StringFilter
+
+  """Filter by the object’s `nights` field."""
+  nights: IntFilter
+
+  """Filter by the object’s `locked` field."""
+  locked: BooleanFilter
+
+  """Filter by the object’s `lat` field."""
+  lat: FloatFilter
+
+  """Filter by the object’s `long` field."""
+  long: FloatFilter
+
+  """Filter by the object’s `position` field."""
+  position: StringFilter
+
+  """Filter by the object’s `location` field."""
+  location: StringFilter
+
+  """Filter by the object’s `country` field."""
+  country: StringFilter
+
+  """Filter by the object’s `date` field."""
+  date: StringFilter
+
+  """Filter by the object’s `created` field."""
+  created: DatetimeFilter
+
+  """Filter by the object’s `updated` field."""
+  updated: DatetimeFilter
+
+  """Filter by the object’s `stage` field."""
+  stage: StringFilter
+
+  """Filter by the object’s `isMine` field."""
+  isMine: BooleanFilter
+
+  """Filter by the object’s `name` field."""
+  name: StringFilter
+
+  """Filter by the object’s `temperature` field."""
+  temperature: FloatFilter
+
+  """Checks for all expressions in this list."""
+  and: [SpotFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [SpotFilter!]
+
+  """Negates the expression."""
+  not: SpotFilter
 }
 
 """An input for mutations affecting `Spot`"""
@@ -2272,6 +2814,11 @@ type Stage implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: SpotCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: SpotFilter
   ): SpotsConnection!
 
   """Reads and enables pagination through a set of `Ride`."""
@@ -2301,6 +2848,11 @@ type Stage implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: RideCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: RideFilter
   ): RidesConnection!
 
   """Reads and enables pagination through a set of `Computation`."""
@@ -2330,6 +2882,11 @@ type Stage implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: ComputationCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: ComputationFilter
   ): ComputationsConnection!
   name: String
 }
@@ -2361,6 +2918,47 @@ input StageCondition {
 
   """Checks for equality with the object’s `position` field."""
   position: Int
+}
+
+"""
+A filter to be used against `Stage` object types. All fields are combined with a logical ‘and.’
+"""
+input StageFilter {
+  """Filter by the object’s `id` field."""
+  id: StringFilter
+
+  """Filter by the object’s `guide` field."""
+  guide: StringFilter
+
+  """Filter by the object’s `fromSpot` field."""
+  fromSpot: StringFilter
+
+  """Filter by the object’s `toSpot` field."""
+  toSpot: StringFilter
+
+  """Filter by the object’s `created` field."""
+  created: DatetimeFilter
+
+  """Filter by the object’s `updated` field."""
+  updated: DatetimeFilter
+
+  """Filter by the object’s `status` field."""
+  status: StageStatusFilter
+
+  """Filter by the object’s `position` field."""
+  position: IntFilter
+
+  """Filter by the object’s `name` field."""
+  name: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [StageFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [StageFilter!]
+
+  """Negates the expression."""
+  not: StageFilter
 }
 
 """An input for mutations affecting `Stage`"""
@@ -2446,6 +3044,162 @@ enum StageStatus {
 }
 
 """
+A filter to be used against StageStatus fields. All fields are combined with a logical ‘and.’
+"""
+input StageStatusFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: StageStatus
+
+  """Not equal to the specified value."""
+  notEqualTo: StageStatus
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: StageStatus
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: StageStatus
+
+  """Included in the specified list."""
+  in: [StageStatus!]
+
+  """Not included in the specified list."""
+  notIn: [StageStatus!]
+
+  """Less than the specified value."""
+  lessThan: StageStatus
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: StageStatus
+
+  """Greater than the specified value."""
+  greaterThan: StageStatus
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: StageStatus
+}
+
+"""
+A filter to be used against String fields. All fields are combined with a logical ‘and.’
+"""
+input StringFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: String
+
+  """Not equal to the specified value."""
+  notEqualTo: String
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: String
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: String
+
+  """Included in the specified list."""
+  in: [String!]
+
+  """Not included in the specified list."""
+  notIn: [String!]
+
+  """Less than the specified value."""
+  lessThan: String
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: String
+
+  """Greater than the specified value."""
+  greaterThan: String
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: String
+
+  """Contains the specified string (case-sensitive)."""
+  includes: String
+
+  """Does not contain the specified string (case-sensitive)."""
+  notIncludes: String
+
+  """Contains the specified string (case-insensitive)."""
+  includesInsensitive: String
+
+  """Does not contain the specified string (case-insensitive)."""
+  notIncludesInsensitive: String
+
+  """Starts with the specified string (case-sensitive)."""
+  startsWith: String
+
+  """Does not start with the specified string (case-sensitive)."""
+  notStartsWith: String
+
+  """Starts with the specified string (case-insensitive)."""
+  startsWithInsensitive: String
+
+  """Does not start with the specified string (case-insensitive)."""
+  notStartsWithInsensitive: String
+
+  """Ends with the specified string (case-sensitive)."""
+  endsWith: String
+
+  """Does not end with the specified string (case-sensitive)."""
+  notEndsWith: String
+
+  """Ends with the specified string (case-insensitive)."""
+  endsWithInsensitive: String
+
+  """Does not end with the specified string (case-insensitive)."""
+  notEndsWithInsensitive: String
+
+  """
+  Matches the specified pattern (case-sensitive). An underscore (_) matches any
+  single character; a percent sign (%) matches any sequence of zero or more characters.
+  """
+  like: String
+
+  """
+  Does not match the specified pattern (case-sensitive). An underscore (_)
+  matches any single character; a percent sign (%) matches any sequence of zero
+  or more characters.
+  """
+  notLike: String
+
+  """
+  Matches the specified pattern (case-insensitive). An underscore (_) matches
+  any single character; a percent sign (%) matches any sequence of zero or more characters.
+  """
+  likeInsensitive: String
+
+  """
+  Does not match the specified pattern (case-insensitive). An underscore (_)
+  matches any single character; a percent sign (%) matches any sequence of zero
+  or more characters.
+  """
+  notLikeInsensitive: String
+
+  """
+  Matches the specified pattern using the SQL standard's definition of a regular expression.
+  """
+  similarTo: String
+
+  """
+  Does not match the specified pattern using the SQL standard's definition of a regular expression.
+  """
+  notSimilarTo: String
+}
+
+"""
 The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
 
 #### Live Queries
@@ -2512,6 +3266,11 @@ type Subscription {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: ComputationCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: ComputationFilter
   ): ComputationsConnection
 
   """Reads and enables pagination through a set of `Guide`. (live)"""
@@ -2541,6 +3300,11 @@ type Subscription {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: GuideCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: GuideFilter
   ): GuidesConnection
 
   """Reads and enables pagination through a set of `Ride`. (live)"""
@@ -2570,6 +3334,11 @@ type Subscription {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: RideCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: RideFilter
   ): RidesConnection
 
   """Reads and enables pagination through a set of `Spot`. (live)"""
@@ -2599,6 +3368,11 @@ type Subscription {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: SpotCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: SpotFilter
   ): SpotsConnection
 
   """Reads and enables pagination through a set of `Stage`. (live)"""
@@ -2628,6 +3402,11 @@ type Subscription {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: StageCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: StageFilter
   ): StagesConnection
 
   """Reads and enables pagination through a set of `Temperature`. (live)"""
@@ -2657,6 +3436,11 @@ type Subscription {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: TemperatureCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: TemperatureFilter
   ): TemperaturesConnection
 
   """Reads and enables pagination through a set of `User`. (live)"""
@@ -2686,6 +3470,11 @@ type Subscription {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: UserCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: UserFilter
   ): UsersConnection
 
   """ (live)"""
@@ -2797,6 +3586,38 @@ input TemperatureCondition {
 
   """Checks for equality with the object’s `updated` field."""
   updated: Datetime
+}
+
+"""
+A filter to be used against `Temperature` object types. All fields are combined with a logical ‘and.’
+"""
+input TemperatureFilter {
+  """Filter by the object’s `id` field."""
+  id: StringFilter
+
+  """Filter by the object’s `country` field."""
+  country: StringFilter
+
+  """Filter by the object’s `month` field."""
+  month: IntFilter
+
+  """Filter by the object’s `temperature` field."""
+  temperature: FloatFilter
+
+  """Filter by the object’s `created` field."""
+  created: DatetimeFilter
+
+  """Filter by the object’s `updated` field."""
+  updated: DatetimeFilter
+
+  """Checks for all expressions in this list."""
+  and: [TemperatureFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [TemperatureFilter!]
+
+  """Negates the expression."""
+  not: TemperatureFilter
 }
 
 """An input for mutations affecting `Temperature`"""
@@ -3345,6 +4166,11 @@ type User implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: GuideCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: GuideFilter
   ): GuidesConnection!
 
   """Reads and enables pagination through a set of `Spot`."""
@@ -3374,6 +4200,11 @@ type User implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: SpotCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: SpotFilter
   ): SpotsConnection!
 
   """Reads and enables pagination through a set of `Ride`."""
@@ -3403,6 +4234,11 @@ type User implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: RideCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: RideFilter
   ): RidesConnection!
 }
 
@@ -3424,6 +4260,35 @@ input UserCondition {
 
   """Checks for equality with the object’s `updated` field."""
   updated: Datetime
+}
+
+"""
+A filter to be used against `User` object types. All fields are combined with a logical ‘and.’
+"""
+input UserFilter {
+  """Filter by the object’s `username` field."""
+  username: StringFilter
+
+  """Filter by the object’s `email` field."""
+  email: StringFilter
+
+  """Filter by the object’s `passwordHash` field."""
+  passwordHash: StringFilter
+
+  """Filter by the object’s `created` field."""
+  created: DatetimeFilter
+
+  """Filter by the object’s `updated` field."""
+  updated: DatetimeFilter
+
+  """Checks for all expressions in this list."""
+  and: [UserFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [UserFilter!]
+
+  """Negates the expression."""
+  not: UserFilter
 }
 
 """An input for mutations affecting `User`"""

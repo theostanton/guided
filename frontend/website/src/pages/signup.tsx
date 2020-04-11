@@ -8,7 +8,7 @@ import AuthStore from "model/AuthStore"
 type Stage = "enter" | "error" | "submitting" | "validate" | "validating"
 
 type Props = {
-  authStore:AuthStore
+  authStore: AuthStore
 }
 
 type Errors = {
@@ -89,7 +89,7 @@ export default class SignUpComponent extends React.Component<Props, State> {
     } else if (accept) {
       this.setState({ stage: "submitting" })
       try {
-        await this.props.authStore.signUp(username,email,password)
+        await this.props.authStore.signUp(username, email, password)
         this.setState({ stage: "validate", errors: {} })
       } catch (e) {
         console.error(e)
@@ -136,13 +136,13 @@ export default class SignUpComponent extends React.Component<Props, State> {
   render(): React.ReactElement | undefined {
 
     //TODO this smarter
-    if (this.props.authStore.isLoggedIn) {
-      try {
+    try {
+      if (this.props.authStore.isLoggedIn) {
         navigate("/app").then().catch()
         return
-      } catch (e) {
-        console.error(e)
       }
+    } catch (e) {
+      console.error(e)
     }
 
     const { fields: { password, email, username }, accept, errors, stage, validationCode } = this.state

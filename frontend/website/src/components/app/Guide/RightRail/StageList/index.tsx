@@ -24,6 +24,12 @@ export default class StageList extends React.Component<Props> {
 
     const stages = this.guideStore.stages
 
+    if (stages.length === 0) {
+      return this.guideStore.spots.map(spot => {
+        return <SpotItem key={`${spot.id}`} spot={spot} guideStore={this.guideStore}/>
+      })
+    }
+
     const items: ReactElement[] = []
 
     stages.forEach(stage => {

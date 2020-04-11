@@ -6,7 +6,7 @@
   },
   "scripts": {
     "build:backend:staging": "STAGE=staging BUILD=true DEPLOY=false ./scripts/deploy.backend.sh",
-    "deploy:backend:staging": "STAGE=staging BUILD=false DEPLOY=true ./scripts/deploy.backend.sh",
+    "deploy:backend:staging": "STAGE=staging BUILD=false DEPLOY=true TF_VAR_private_key_path=./creds/guided-server-staging.pem ./scripts/deploy.backend.sh",
     "buildAndDeploy:backend:staging": "STAGE=staging BUILD=true DEPLOY=true TF_VAR_private_key_path=./creds/guided-server-staging.pem ./scripts/deploy.backend.sh",
 
     "build:backend:production": "STAGE=production BUILD=true DEPLOY=false ./scripts/deploy.backend.sh",

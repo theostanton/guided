@@ -22,6 +22,8 @@ resource "aws_instance" "server" {
   security_groups = [
     aws_security_group.open.name]
 
+  iam_instance_profile = aws_iam_instance_profile.server.name
+
   key_name = "guided-server-${var.stage}"
 
   associate_public_ip_address = true
@@ -35,6 +37,37 @@ resource "aws_instance" "server" {
   tags = {
     Name = "guided-server-${var.stage}"
   }
+
+  depends_on = [
+    aws_iam_instance_profile.server]
+}
+
+data "aws_iam_policy_document" "server" {
+  statement {
+    actions = [
+      "sts:AssumeRole"]
+
+    principals {
+      type = "Service"
+      identifiers = [
+        "ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "server" {
+  name = "guided-server-${var.stage}"
+
+  assume_role_policy = data.aws_iam_policy_document.server.json
+  depends_on = [
+    data.aws_iam_policy_document.server]
+}
+
+resource "aws_iam_instance_profile" "server" {
+  name = "guided-server-${var.stage}"
+  role = aws_iam_role.server.name
+  depends_on = [
+    aws_iam_role.server]
 }
 
 resource "null_resource" "install_node" {

@@ -45,6 +45,32 @@ export type AuthenticatePayload = {
   readonly query?: Maybe<Query>;
 };
 
+/** A filter to be used against Boolean fields. All fields are combined with a logical ‘and.’ */
+export type BooleanFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<Scalars['Boolean']>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<Scalars['Boolean']>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<Scalars['Boolean']>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<Scalars['Boolean']>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<Scalars['Boolean']>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<Scalars['Boolean']>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<Scalars['Boolean']>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<Scalars['Boolean']>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<Scalars['Boolean']>;
+};
+
 export type Bound = {
   readonly north?: Maybe<Scalars['Float']>;
   readonly east?: Maybe<Scalars['Float']>;
@@ -90,6 +116,32 @@ export type ComputationCondition = {
   readonly created?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `started` field. */
   readonly started?: Maybe<Scalars['Datetime']>;
+};
+
+/** A filter to be used against `Computation` object types. All fields are combined with a logical ‘and.’ */
+export type ComputationFilter = {
+  /** Filter by the object’s `id` field. */
+  readonly id?: Maybe<StringFilter>;
+  /** Filter by the object’s `ended` field. */
+  readonly ended?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `duration` field. */
+  readonly duration?: Maybe<IntFilter>;
+  /** Filter by the object’s `status` field. */
+  readonly status?: Maybe<ComputationStatusFilter>;
+  /** Filter by the object’s `stage` field. */
+  readonly stage?: Maybe<StringFilter>;
+  /** Filter by the object’s `guide` field. */
+  readonly guide?: Maybe<StringFilter>;
+  /** Filter by the object’s `created` field. */
+  readonly created?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `started` field. */
+  readonly started?: Maybe<DatetimeFilter>;
+  /** Checks for all expressions in this list. */
+  readonly and?: Maybe<ReadonlyArray<ComputationFilter>>;
+  /** Checks for any expressions in this list. */
+  readonly or?: Maybe<ReadonlyArray<ComputationFilter>>;
+  /** Negates the expression. */
+  readonly not?: Maybe<ComputationFilter>;
 };
 
 /** An input for mutations affecting `Computation` */
@@ -165,6 +217,32 @@ export enum ComputationStatus {
   Computing = 'COMPUTING',
   Success = 'SUCCESS'
 }
+
+/** A filter to be used against ComputationStatus fields. All fields are combined with a logical ‘and.’ */
+export type ComputationStatusFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<ComputationStatus>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<ComputationStatus>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<ComputationStatus>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<ComputationStatus>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<ComputationStatus>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<ComputationStatus>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<ComputationStatus>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<ComputationStatus>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<ComputationStatus>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<ComputationStatus>;
+};
 
 /** All input for the create `Computation` mutation. */
 export type CreateComputationInput = {
@@ -419,6 +497,32 @@ export type CreateUserPayloadUserEdgeArgs = {
 };
 
 
+
+/** A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’ */
+export type DatetimeFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<Scalars['Datetime']>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<Scalars['Datetime']>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<Scalars['Datetime']>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<Scalars['Datetime']>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<Scalars['Datetime']>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<Scalars['Datetime']>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<Scalars['Datetime']>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<Scalars['Datetime']>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<Scalars['Datetime']>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<Scalars['Datetime']>;
+};
 
 /** All input for the `deleteComputationByNodeId` mutation. */
 export type DeleteComputationByNodeIdInput = {
@@ -749,6 +853,32 @@ export type DeleteUserPayloadUserEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
 };
 
+/** A filter to be used against Float fields. All fields are combined with a logical ‘and.’ */
+export type FloatFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<Scalars['Float']>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<Scalars['Float']>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<Scalars['Float']>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<Scalars['Float']>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<Scalars['Float']>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<Scalars['Float']>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<Scalars['Float']>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<Scalars['Float']>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<Scalars['Float']>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<Scalars['Float']>;
+};
+
 export type Guide = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'];
@@ -771,6 +901,7 @@ export type Guide = Node & {
   /** Reads and enables pagination through a set of `Computation`. */
   readonly computationsByGuide: ComputationsConnection;
   readonly bounds?: Maybe<Bound>;
+  readonly isMine?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -782,6 +913,7 @@ export type GuideSpotsByGuideArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>;
   condition?: Maybe<SpotCondition>;
+  filter?: Maybe<SpotFilter>;
 };
 
 
@@ -793,6 +925,7 @@ export type GuideStagesByGuideArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>;
   condition?: Maybe<StageCondition>;
+  filter?: Maybe<StageFilter>;
 };
 
 
@@ -804,6 +937,7 @@ export type GuideRidesByGuideArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>;
   condition?: Maybe<RideCondition>;
+  filter?: Maybe<RideFilter>;
 };
 
 
@@ -815,6 +949,7 @@ export type GuideComputationsByGuideArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
   condition?: Maybe<ComputationCondition>;
+  filter?: Maybe<ComputationFilter>;
 };
 
 /** A condition to be used against `Guide` object types. All fields are tested for equality and combined with a logical ‘and.’ */
@@ -835,6 +970,34 @@ export type GuideCondition = {
   readonly created?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `updated` field. */
   readonly updated?: Maybe<Scalars['Datetime']>;
+};
+
+/** A filter to be used against `Guide` object types. All fields are combined with a logical ‘and.’ */
+export type GuideFilter = {
+  /** Filter by the object’s `id` field. */
+  readonly id?: Maybe<StringFilter>;
+  /** Filter by the object’s `title` field. */
+  readonly title?: Maybe<StringFilter>;
+  /** Filter by the object’s `slug` field. */
+  readonly slug?: Maybe<StringFilter>;
+  /** Filter by the object’s `owner` field. */
+  readonly owner?: Maybe<StringFilter>;
+  /** Filter by the object’s `startDate` field. */
+  readonly startDate?: Maybe<StringFilter>;
+  /** Filter by the object’s `maxHoursPerRide` field. */
+  readonly maxHoursPerRide?: Maybe<IntFilter>;
+  /** Filter by the object’s `created` field. */
+  readonly created?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `updated` field. */
+  readonly updated?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `isMine` field. */
+  readonly isMine?: Maybe<BooleanFilter>;
+  /** Checks for all expressions in this list. */
+  readonly and?: Maybe<ReadonlyArray<GuideFilter>>;
+  /** Checks for any expressions in this list. */
+  readonly or?: Maybe<ReadonlyArray<GuideFilter>>;
+  /** Negates the expression. */
+  readonly not?: Maybe<GuideFilter>;
 };
 
 /** An input for mutations affecting `Guide` */
@@ -903,6 +1066,32 @@ export enum GuidesOrderBy {
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
+
+/** A filter to be used against Int fields. All fields are combined with a logical ‘and.’ */
+export type IntFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<Scalars['Int']>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<Scalars['Int']>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<Scalars['Int']>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<Scalars['Int']>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<Scalars['Int']>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<Scalars['Int']>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<Scalars['Int']>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<Scalars['Int']>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<Scalars['Int']>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<Scalars['Int']>;
+};
 
 
 /** The root mutation type which contains root level fields which mutate data. */
@@ -1332,6 +1521,7 @@ export type QueryComputationsArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
   condition?: Maybe<ComputationCondition>;
+  filter?: Maybe<ComputationFilter>;
 };
 
 
@@ -1344,6 +1534,7 @@ export type QueryGuidesArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>;
   condition?: Maybe<GuideCondition>;
+  filter?: Maybe<GuideFilter>;
 };
 
 
@@ -1356,6 +1547,7 @@ export type QueryRidesArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>;
   condition?: Maybe<RideCondition>;
+  filter?: Maybe<RideFilter>;
 };
 
 
@@ -1368,6 +1560,7 @@ export type QuerySpotsArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>;
   condition?: Maybe<SpotCondition>;
+  filter?: Maybe<SpotFilter>;
 };
 
 
@@ -1380,6 +1573,7 @@ export type QueryStagesArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>;
   condition?: Maybe<StageCondition>;
+  filter?: Maybe<StageFilter>;
 };
 
 
@@ -1392,6 +1586,7 @@ export type QueryTemperaturesArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<TemperaturesOrderBy>>;
   condition?: Maybe<TemperatureCondition>;
+  filter?: Maybe<TemperatureFilter>;
 };
 
 
@@ -1404,6 +1599,7 @@ export type QueryUsersArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
   condition?: Maybe<UserCondition>;
+  filter?: Maybe<UserFilter>;
 };
 
 
@@ -1555,6 +1751,7 @@ export type Ride = Node & {
   /** Reads a single `Stage` that is related to this `Ride`. */
   readonly stageByStage?: Maybe<Stage>;
   readonly hasBorder?: Maybe<Scalars['Boolean']>;
+  readonly isMine?: Maybe<Scalars['Boolean']>;
   readonly name?: Maybe<Scalars['String']>;
 };
 
@@ -1588,6 +1785,50 @@ export type RideCondition = {
   readonly updated?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `pathUrl` field. */
   readonly pathUrl?: Maybe<Scalars['String']>;
+};
+
+/** A filter to be used against `Ride` object types. All fields are combined with a logical ‘and.’ */
+export type RideFilter = {
+  /** Filter by the object’s `id` field. */
+  readonly id?: Maybe<StringFilter>;
+  /** Filter by the object’s `guide` field. */
+  readonly guide?: Maybe<StringFilter>;
+  /** Filter by the object’s `owner` field. */
+  readonly owner?: Maybe<StringFilter>;
+  /** Filter by the object’s `fromSpot` field. */
+  readonly fromSpot?: Maybe<StringFilter>;
+  /** Filter by the object’s `toSpot` field. */
+  readonly toSpot?: Maybe<StringFilter>;
+  /** Filter by the object’s `durationSeconds` field. */
+  readonly durationSeconds?: Maybe<IntFilter>;
+  /** Filter by the object’s `distanceMeters` field. */
+  readonly distanceMeters?: Maybe<IntFilter>;
+  /** Filter by the object’s `date` field. */
+  readonly date?: Maybe<StringFilter>;
+  /** Filter by the object’s `stage` field. */
+  readonly stage?: Maybe<StringFilter>;
+  /** Filter by the object’s `position` field. */
+  readonly position?: Maybe<StringFilter>;
+  /** Filter by the object’s `status` field. */
+  readonly status?: Maybe<RideStatusFilter>;
+  /** Filter by the object’s `created` field. */
+  readonly created?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `updated` field. */
+  readonly updated?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `pathUrl` field. */
+  readonly pathUrl?: Maybe<StringFilter>;
+  /** Filter by the object’s `hasBorder` field. */
+  readonly hasBorder?: Maybe<BooleanFilter>;
+  /** Filter by the object’s `isMine` field. */
+  readonly isMine?: Maybe<BooleanFilter>;
+  /** Filter by the object’s `name` field. */
+  readonly name?: Maybe<StringFilter>;
+  /** Checks for all expressions in this list. */
+  readonly and?: Maybe<ReadonlyArray<RideFilter>>;
+  /** Checks for any expressions in this list. */
+  readonly or?: Maybe<ReadonlyArray<RideFilter>>;
+  /** Negates the expression. */
+  readonly not?: Maybe<RideFilter>;
 };
 
 /** An input for mutations affecting `Ride` */
@@ -1687,6 +1928,32 @@ export enum RideStatus {
   Stale = 'STALE'
 }
 
+/** A filter to be used against RideStatus fields. All fields are combined with a logical ‘and.’ */
+export type RideStatusFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<RideStatus>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<RideStatus>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<RideStatus>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<RideStatus>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<RideStatus>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<RideStatus>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<RideStatus>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<RideStatus>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<RideStatus>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<RideStatus>;
+};
+
 export type Spot = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'];
@@ -1719,6 +1986,7 @@ export type Spot = Node & {
   readonly ridesByFromSpot: RidesConnection;
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByToSpot: RidesConnection;
+  readonly isMine?: Maybe<Scalars['Boolean']>;
   readonly name?: Maybe<Scalars['String']>;
   readonly temperature?: Maybe<Scalars['Float']>;
 };
@@ -1732,6 +2000,7 @@ export type SpotStagesByFromSpotArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>;
   condition?: Maybe<StageCondition>;
+  filter?: Maybe<StageFilter>;
 };
 
 
@@ -1743,6 +2012,7 @@ export type SpotStagesByToSpotArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>;
   condition?: Maybe<StageCondition>;
+  filter?: Maybe<StageFilter>;
 };
 
 
@@ -1754,6 +2024,7 @@ export type SpotRidesByFromSpotArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>;
   condition?: Maybe<RideCondition>;
+  filter?: Maybe<RideFilter>;
 };
 
 
@@ -1765,6 +2036,7 @@ export type SpotRidesByToSpotArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>;
   condition?: Maybe<RideCondition>;
+  filter?: Maybe<RideFilter>;
 };
 
 /** A condition to be used against `Spot` object types. All fields are tested for equality and combined with a logical ‘and.’ */
@@ -1799,6 +2071,52 @@ export type SpotCondition = {
   readonly updated?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `stage` field. */
   readonly stage?: Maybe<Scalars['String']>;
+};
+
+/** A filter to be used against `Spot` object types. All fields are combined with a logical ‘and.’ */
+export type SpotFilter = {
+  /** Filter by the object’s `id` field. */
+  readonly id?: Maybe<StringFilter>;
+  /** Filter by the object’s `label` field. */
+  readonly label?: Maybe<StringFilter>;
+  /** Filter by the object’s `guide` field. */
+  readonly guide?: Maybe<StringFilter>;
+  /** Filter by the object’s `owner` field. */
+  readonly owner?: Maybe<StringFilter>;
+  /** Filter by the object’s `nights` field. */
+  readonly nights?: Maybe<IntFilter>;
+  /** Filter by the object’s `locked` field. */
+  readonly locked?: Maybe<BooleanFilter>;
+  /** Filter by the object’s `lat` field. */
+  readonly lat?: Maybe<FloatFilter>;
+  /** Filter by the object’s `long` field. */
+  readonly long?: Maybe<FloatFilter>;
+  /** Filter by the object’s `position` field. */
+  readonly position?: Maybe<StringFilter>;
+  /** Filter by the object’s `location` field. */
+  readonly location?: Maybe<StringFilter>;
+  /** Filter by the object’s `country` field. */
+  readonly country?: Maybe<StringFilter>;
+  /** Filter by the object’s `date` field. */
+  readonly date?: Maybe<StringFilter>;
+  /** Filter by the object’s `created` field. */
+  readonly created?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `updated` field. */
+  readonly updated?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `stage` field. */
+  readonly stage?: Maybe<StringFilter>;
+  /** Filter by the object’s `isMine` field. */
+  readonly isMine?: Maybe<BooleanFilter>;
+  /** Filter by the object’s `name` field. */
+  readonly name?: Maybe<StringFilter>;
+  /** Filter by the object’s `temperature` field. */
+  readonly temperature?: Maybe<FloatFilter>;
+  /** Checks for all expressions in this list. */
+  readonly and?: Maybe<ReadonlyArray<SpotFilter>>;
+  /** Checks for any expressions in this list. */
+  readonly or?: Maybe<ReadonlyArray<SpotFilter>>;
+  /** Negates the expression. */
+  readonly not?: Maybe<SpotFilter>;
 };
 
 /** An input for mutations affecting `Spot` */
@@ -1931,6 +2249,7 @@ export type StageSpotsByStageArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>;
   condition?: Maybe<SpotCondition>;
+  filter?: Maybe<SpotFilter>;
 };
 
 
@@ -1942,6 +2261,7 @@ export type StageRidesByStageArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>;
   condition?: Maybe<RideCondition>;
+  filter?: Maybe<RideFilter>;
 };
 
 
@@ -1953,6 +2273,7 @@ export type StageComputationsByStageArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
   condition?: Maybe<ComputationCondition>;
+  filter?: Maybe<ComputationFilter>;
 };
 
 /** A condition to be used against `Stage` object types. All fields are tested for equality and combined with a logical ‘and.’ */
@@ -1973,6 +2294,34 @@ export type StageCondition = {
   readonly status?: Maybe<StageStatus>;
   /** Checks for equality with the object’s `position` field. */
   readonly position?: Maybe<Scalars['Int']>;
+};
+
+/** A filter to be used against `Stage` object types. All fields are combined with a logical ‘and.’ */
+export type StageFilter = {
+  /** Filter by the object’s `id` field. */
+  readonly id?: Maybe<StringFilter>;
+  /** Filter by the object’s `guide` field. */
+  readonly guide?: Maybe<StringFilter>;
+  /** Filter by the object’s `fromSpot` field. */
+  readonly fromSpot?: Maybe<StringFilter>;
+  /** Filter by the object’s `toSpot` field. */
+  readonly toSpot?: Maybe<StringFilter>;
+  /** Filter by the object’s `created` field. */
+  readonly created?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `updated` field. */
+  readonly updated?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `status` field. */
+  readonly status?: Maybe<StageStatusFilter>;
+  /** Filter by the object’s `position` field. */
+  readonly position?: Maybe<IntFilter>;
+  /** Filter by the object’s `name` field. */
+  readonly name?: Maybe<StringFilter>;
+  /** Checks for all expressions in this list. */
+  readonly and?: Maybe<ReadonlyArray<StageFilter>>;
+  /** Checks for any expressions in this list. */
+  readonly or?: Maybe<ReadonlyArray<StageFilter>>;
+  /** Negates the expression. */
+  readonly not?: Maybe<StageFilter>;
 };
 
 /** An input for mutations affecting `Stage` */
@@ -2048,6 +2397,108 @@ export enum StageStatus {
   Computing = 'COMPUTING',
   Stale = 'STALE'
 }
+
+/** A filter to be used against StageStatus fields. All fields are combined with a logical ‘and.’ */
+export type StageStatusFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<StageStatus>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<StageStatus>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<StageStatus>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<StageStatus>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<StageStatus>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<StageStatus>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<StageStatus>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<StageStatus>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<StageStatus>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<StageStatus>;
+};
+
+/** A filter to be used against String fields. All fields are combined with a logical ‘and.’ */
+export type StringFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<Scalars['String']>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<Scalars['String']>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<Scalars['String']>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<Scalars['String']>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<Scalars['String']>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<Scalars['String']>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<Scalars['String']>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<Scalars['String']>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<Scalars['String']>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<Scalars['String']>;
+  /** Contains the specified string (case-sensitive). */
+  readonly includes?: Maybe<Scalars['String']>;
+  /** Does not contain the specified string (case-sensitive). */
+  readonly notIncludes?: Maybe<Scalars['String']>;
+  /** Contains the specified string (case-insensitive). */
+  readonly includesInsensitive?: Maybe<Scalars['String']>;
+  /** Does not contain the specified string (case-insensitive). */
+  readonly notIncludesInsensitive?: Maybe<Scalars['String']>;
+  /** Starts with the specified string (case-sensitive). */
+  readonly startsWith?: Maybe<Scalars['String']>;
+  /** Does not start with the specified string (case-sensitive). */
+  readonly notStartsWith?: Maybe<Scalars['String']>;
+  /** Starts with the specified string (case-insensitive). */
+  readonly startsWithInsensitive?: Maybe<Scalars['String']>;
+  /** Does not start with the specified string (case-insensitive). */
+  readonly notStartsWithInsensitive?: Maybe<Scalars['String']>;
+  /** Ends with the specified string (case-sensitive). */
+  readonly endsWith?: Maybe<Scalars['String']>;
+  /** Does not end with the specified string (case-sensitive). */
+  readonly notEndsWith?: Maybe<Scalars['String']>;
+  /** Ends with the specified string (case-insensitive). */
+  readonly endsWithInsensitive?: Maybe<Scalars['String']>;
+  /** Does not end with the specified string (case-insensitive). */
+  readonly notEndsWithInsensitive?: Maybe<Scalars['String']>;
+  /**
+   * Matches the specified pattern (case-sensitive). An underscore (_) matches any
+   * single character; a percent sign (%) matches any sequence of zero or more characters.
+   */
+  readonly like?: Maybe<Scalars['String']>;
+  /**
+   * Does not match the specified pattern (case-sensitive). An underscore (_)
+   * matches any single character; a percent sign (%) matches any sequence of zero
+   * or more characters.
+   */
+  readonly notLike?: Maybe<Scalars['String']>;
+  /**
+   * Matches the specified pattern (case-insensitive). An underscore (_) matches
+   * any single character; a percent sign (%) matches any sequence of zero or more characters.
+   */
+  readonly likeInsensitive?: Maybe<Scalars['String']>;
+  /**
+   * Does not match the specified pattern (case-insensitive). An underscore (_)
+   * matches any single character; a percent sign (%) matches any sequence of zero
+   * or more characters.
+   */
+  readonly notLikeInsensitive?: Maybe<Scalars['String']>;
+  /** Matches the specified pattern using the SQL standard's definition of a regular expression. */
+  readonly similarTo?: Maybe<Scalars['String']>;
+  /** Does not match the specified pattern using the SQL standard's definition of a regular expression. */
+  readonly notSimilarTo?: Maybe<Scalars['String']>;
+};
 
 /**
  * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
@@ -2187,6 +2638,7 @@ export type SubscriptionComputationsArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
   condition?: Maybe<ComputationCondition>;
+  filter?: Maybe<ComputationFilter>;
 };
 
 
@@ -2220,6 +2672,7 @@ export type SubscriptionGuidesArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>;
   condition?: Maybe<GuideCondition>;
+  filter?: Maybe<GuideFilter>;
 };
 
 
@@ -2253,6 +2706,7 @@ export type SubscriptionRidesArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>;
   condition?: Maybe<RideCondition>;
+  filter?: Maybe<RideFilter>;
 };
 
 
@@ -2286,6 +2740,7 @@ export type SubscriptionSpotsArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>;
   condition?: Maybe<SpotCondition>;
+  filter?: Maybe<SpotFilter>;
 };
 
 
@@ -2319,6 +2774,7 @@ export type SubscriptionStagesArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>;
   condition?: Maybe<StageCondition>;
+  filter?: Maybe<StageFilter>;
 };
 
 
@@ -2352,6 +2808,7 @@ export type SubscriptionTemperaturesArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<TemperaturesOrderBy>>;
   condition?: Maybe<TemperatureCondition>;
+  filter?: Maybe<TemperatureFilter>;
 };
 
 
@@ -2385,6 +2842,7 @@ export type SubscriptionUsersArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
   condition?: Maybe<UserCondition>;
+  filter?: Maybe<UserFilter>;
 };
 
 
@@ -2793,6 +3251,28 @@ export type TemperatureCondition = {
   readonly created?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `updated` field. */
   readonly updated?: Maybe<Scalars['Datetime']>;
+};
+
+/** A filter to be used against `Temperature` object types. All fields are combined with a logical ‘and.’ */
+export type TemperatureFilter = {
+  /** Filter by the object’s `id` field. */
+  readonly id?: Maybe<StringFilter>;
+  /** Filter by the object’s `country` field. */
+  readonly country?: Maybe<StringFilter>;
+  /** Filter by the object’s `month` field. */
+  readonly month?: Maybe<IntFilter>;
+  /** Filter by the object’s `temperature` field. */
+  readonly temperature?: Maybe<FloatFilter>;
+  /** Filter by the object’s `created` field. */
+  readonly created?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `updated` field. */
+  readonly updated?: Maybe<DatetimeFilter>;
+  /** Checks for all expressions in this list. */
+  readonly and?: Maybe<ReadonlyArray<TemperatureFilter>>;
+  /** Checks for any expressions in this list. */
+  readonly or?: Maybe<ReadonlyArray<TemperatureFilter>>;
+  /** Negates the expression. */
+  readonly not?: Maybe<TemperatureFilter>;
 };
 
 /** An input for mutations affecting `Temperature` */
@@ -3229,6 +3709,7 @@ export type UserGuidesByOwnerArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>;
   condition?: Maybe<GuideCondition>;
+  filter?: Maybe<GuideFilter>;
 };
 
 
@@ -3240,6 +3721,7 @@ export type UserSpotsByOwnerArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>;
   condition?: Maybe<SpotCondition>;
+  filter?: Maybe<SpotFilter>;
 };
 
 
@@ -3251,6 +3733,7 @@ export type UserRidesByOwnerArgs = {
   after?: Maybe<Scalars['Cursor']>;
   orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>;
   condition?: Maybe<RideCondition>;
+  filter?: Maybe<RideFilter>;
 };
 
 /** A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’ */
@@ -3265,6 +3748,26 @@ export type UserCondition = {
   readonly created?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `updated` field. */
   readonly updated?: Maybe<Scalars['Datetime']>;
+};
+
+/** A filter to be used against `User` object types. All fields are combined with a logical ‘and.’ */
+export type UserFilter = {
+  /** Filter by the object’s `username` field. */
+  readonly username?: Maybe<StringFilter>;
+  /** Filter by the object’s `email` field. */
+  readonly email?: Maybe<StringFilter>;
+  /** Filter by the object’s `passwordHash` field. */
+  readonly passwordHash?: Maybe<StringFilter>;
+  /** Filter by the object’s `created` field. */
+  readonly created?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `updated` field. */
+  readonly updated?: Maybe<DatetimeFilter>;
+  /** Checks for all expressions in this list. */
+  readonly and?: Maybe<ReadonlyArray<UserFilter>>;
+  /** Checks for any expressions in this list. */
+  readonly or?: Maybe<ReadonlyArray<UserFilter>>;
+  /** Negates the expression. */
+  readonly not?: Maybe<UserFilter>;
 };
 
 /** An input for mutations affecting `User` */
@@ -3405,6 +3908,12 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>,
   Datetime: ResolverTypeWrapper<Scalars['Datetime']>,
   ComputationStatus: ComputationStatus,
+  ComputationFilter: ComputationFilter,
+  StringFilter: StringFilter,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  DatetimeFilter: DatetimeFilter,
+  IntFilter: IntFilter,
+  ComputationStatusFilter: ComputationStatusFilter,
   ComputationsConnection: ResolverTypeWrapper<ComputationsConnection>,
   Computation: ResolverTypeWrapper<Computation>,
   Stage: ResolverTypeWrapper<Stage>,
@@ -3413,22 +3922,29 @@ export type ResolversTypes = {
   User: ResolverTypeWrapper<User>,
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
+  GuideFilter: GuideFilter,
+  BooleanFilter: BooleanFilter,
   GuidesConnection: ResolverTypeWrapper<GuidesConnection>,
   GuidesEdge: ResolverTypeWrapper<GuidesEdge>,
   PageInfo: ResolverTypeWrapper<PageInfo>,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   SpotsOrderBy: SpotsOrderBy,
   SpotCondition: SpotCondition,
   Float: ResolverTypeWrapper<Scalars['Float']>,
+  SpotFilter: SpotFilter,
+  FloatFilter: FloatFilter,
   SpotsConnection: ResolverTypeWrapper<SpotsConnection>,
   Spot: ResolverTypeWrapper<Spot>,
   StagesOrderBy: StagesOrderBy,
   StageCondition: StageCondition,
+  StageFilter: StageFilter,
+  StageStatusFilter: StageStatusFilter,
   StagesConnection: ResolverTypeWrapper<StagesConnection>,
   StagesEdge: ResolverTypeWrapper<StagesEdge>,
   RidesOrderBy: RidesOrderBy,
   RideCondition: RideCondition,
   RideStatus: RideStatus,
+  RideFilter: RideFilter,
+  RideStatusFilter: RideStatusFilter,
   RidesConnection: ResolverTypeWrapper<RidesConnection>,
   Ride: ResolverTypeWrapper<Ride>,
   RidesEdge: ResolverTypeWrapper<RidesEdge>,
@@ -3437,11 +3953,13 @@ export type ResolversTypes = {
   ComputationsEdge: ResolverTypeWrapper<ComputationsEdge>,
   TemperaturesOrderBy: TemperaturesOrderBy,
   TemperatureCondition: TemperatureCondition,
+  TemperatureFilter: TemperatureFilter,
   TemperaturesConnection: ResolverTypeWrapper<TemperaturesConnection>,
   Temperature: ResolverTypeWrapper<Temperature>,
   TemperaturesEdge: ResolverTypeWrapper<TemperaturesEdge>,
   UsersOrderBy: UsersOrderBy,
   UserCondition: UserCondition,
+  UserFilter: UserFilter,
   UsersConnection: ResolverTypeWrapper<UsersConnection>,
   UsersEdge: ResolverTypeWrapper<UsersEdge>,
   JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
@@ -3536,6 +4054,12 @@ export type ResolversParentTypes = {
   String: Scalars['String'],
   Datetime: Scalars['Datetime'],
   ComputationStatus: ComputationStatus,
+  ComputationFilter: ComputationFilter,
+  StringFilter: StringFilter,
+  Boolean: Scalars['Boolean'],
+  DatetimeFilter: DatetimeFilter,
+  IntFilter: IntFilter,
+  ComputationStatusFilter: ComputationStatusFilter,
   ComputationsConnection: ComputationsConnection,
   Computation: Computation,
   Stage: Stage,
@@ -3544,22 +4068,29 @@ export type ResolversParentTypes = {
   User: User,
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
+  GuideFilter: GuideFilter,
+  BooleanFilter: BooleanFilter,
   GuidesConnection: GuidesConnection,
   GuidesEdge: GuidesEdge,
   PageInfo: PageInfo,
-  Boolean: Scalars['Boolean'],
   SpotsOrderBy: SpotsOrderBy,
   SpotCondition: SpotCondition,
   Float: Scalars['Float'],
+  SpotFilter: SpotFilter,
+  FloatFilter: FloatFilter,
   SpotsConnection: SpotsConnection,
   Spot: Spot,
   StagesOrderBy: StagesOrderBy,
   StageCondition: StageCondition,
+  StageFilter: StageFilter,
+  StageStatusFilter: StageStatusFilter,
   StagesConnection: StagesConnection,
   StagesEdge: StagesEdge,
   RidesOrderBy: RidesOrderBy,
   RideCondition: RideCondition,
   RideStatus: RideStatus,
+  RideFilter: RideFilter,
+  RideStatusFilter: RideStatusFilter,
   RidesConnection: RidesConnection,
   Ride: Ride,
   RidesEdge: RidesEdge,
@@ -3568,11 +4099,13 @@ export type ResolversParentTypes = {
   ComputationsEdge: ComputationsEdge,
   TemperaturesOrderBy: TemperaturesOrderBy,
   TemperatureCondition: TemperatureCondition,
+  TemperatureFilter: TemperatureFilter,
   TemperaturesConnection: TemperaturesConnection,
   Temperature: Temperature,
   TemperaturesEdge: TemperaturesEdge,
   UsersOrderBy: UsersOrderBy,
   UserCondition: UserCondition,
+  UserFilter: UserFilter,
   UsersConnection: UsersConnection,
   UsersEdge: UsersEdge,
   JwtToken: Scalars['JwtToken'],
@@ -3870,6 +4403,7 @@ export type GuideResolvers<ContextType = any, ParentType extends ResolversParent
   ridesByGuide?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<GuideRidesByGuideArgs, 'orderBy'>>,
   computationsByGuide?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<GuideComputationsByGuideArgs, 'orderBy'>>,
   bounds?: Resolver<Maybe<ResolversTypes['Bound']>, ParentType, ContextType>,
+  isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4014,6 +4548,7 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   hasBorder?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -4056,6 +4591,7 @@ export type SpotResolvers<ContextType = any, ParentType extends ResolversParentT
   stagesByToSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByToSpotArgs, 'orderBy'>>,
   ridesByFromSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByFromSpotArgs, 'orderBy'>>,
   ridesByToSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByToSpotArgs, 'orderBy'>>,
+  isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   temperature?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,

@@ -23,8 +23,7 @@ type Props = {
   close: () => void
 }
 
-type State = {
-}
+type State = {}
 
 @inject("guideStore")
 @observer
@@ -46,6 +45,12 @@ export default class LeftRailComponent extends React.Component<Props, State> {
   }
 
   statistics(): ReactElement {
+
+
+    const isComputing = this.guideStore.stages.some(stage => {
+      return stage.status === "COMPUTING"
+    })
+
     const meters = this.guideStore.rides.reduce((acc, ride) => {
       return acc + ride.distanceMeters
     }, 0)
@@ -63,13 +68,13 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       },
       {
         label: "Days",
-        value: this.guideStore.spots.reduce((acc, spot) => {
+        value: isComputing ? "..." : this.guideStore.spots.reduce((acc, spot) => {
           return acc + spot.nights
         }, 1),
       },
       {
         label: "Borders",
-        value: this.guideStore.rides.reduce((acc, ride) => {
+        value: isComputing ? "..." : this.guideStore.rides.reduce((acc, ride) => {
           if (ride.hasBorder) {
             return acc + 1
           } else {
@@ -79,20 +84,20 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       },
       {
         label: "Miles",
-        value: humanDistance(meters, false),
+        value: isComputing ? "..." : humanDistance(meters, false),
       },
       {
         label: "Hours",
-        value: Math.ceil(seconds / 60 / 60),
+        value: isComputing ? "..." : Math.ceil(seconds / 60 / 60),
       },
     ]
 
     let startDate = this.guideStore.guide.startDate
+    stats.push({
+      label: "Start",
+      value: startDate ? humanDate(startDate) : "...",
+    })
     if (startDate) {
-      stats.push({
-        label: "Start",
-        value: humanDate(startDate),
-      })
       const lastDate = this.guideStore.rides.reduce((acc, ride) => {
         if (acc < ride.date) {
           return ride.date
@@ -103,6 +108,11 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       stats.push({
         label: "End",
         value: humanDate(lastDate),
+      })
+    } else {
+      stats.push({
+        label: "End",
+        value: "...",
       })
     }
 
@@ -115,7 +125,7 @@ export default class LeftRailComponent extends React.Component<Props, State> {
   }
 
   render(): React.ReactElement {
-    const guide = this.guideStore.guide
+    const guide = this.guideStore?.guide
 
     if (!guide) {
       return <Segment loading/>
@@ -124,27 +134,27 @@ export default class LeftRailComponent extends React.Component<Props, State> {
     return <Segment style={{ backgroundColor: "#ffffff" }}>
       <Grid divided={"vertically"} padded={false}>
         <Grid.Row verticalAlign='middle'>
-          <GridColumn width={"10"}>
+          <Grid.Column width={"10"}>
             <EditGuideTitleForm guide={guide} edit={false}/>
-          </GridColumn>
-          <GridColumn width={"6"}>
+          </Grid.Column>
+          <Grid.Column width={"6"}>
             <ButtonGroup floated={"right"}>
               <Button icon='trash' onClick={async () => {
                 await this.deleteGuide(guide.id)
               }}/>
               <Button icon='close' onClick={this.props.close}/>
             </ButtonGroup>
-          </GridColumn>
+          </Grid.Column>
         </Grid.Row>
         <GridRow>
-          <GridColumn>
+          <Grid.Column>
             {this.statistics.bind(this)()}
-          </GridColumn>
+          </Grid.Column>
         </GridRow>
         <GridRow>
-          <GridColumn>
+          <Grid.Column>
             <StartDateForm guideId={guide.id} startDate={guide.startDate}/>
-          </GridColumn>
+          </Grid.Column>
         </GridRow>
       </Grid>
     </Segment>

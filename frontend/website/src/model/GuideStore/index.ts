@@ -13,18 +13,23 @@ import {
 import { log, logError, logObject } from "utils/logger"
 import { ZenObservable } from "zen-observable-ts/lib/types"
 import client, { subscriptionClient } from "api/client"
-import { read } from "fs"
-import { navigate } from "gatsby"
 
 export default class GuideStore {
 
+  #guideId: string
   #slug: string
-  #owner: string
-  #poll: NodeJS.Timeout | undefined
 
-  constructor(slug: string, owner: string) {
+  static fromSlug(slug: string): GuideStore {
+    return new GuideStore(undefined, slug)
+  }
+
+  static fromId(guideId: string): GuideStore {
+    return new GuideStore(guideId, undefined)
+  }
+
+  private constructor(guideId: string | undefined, slug: string | undefined) {
+    this.#guideId = guideId
     this.#slug = slug
-    this.#owner = owner
   }
 
   @observable
@@ -93,8 +98,16 @@ export default class GuideStore {
 
   @computed
   get spots(): readonly SpotFragment[] {
+    if (this.stages.length === 0) {
+      if (this.guide.firstSpot.nodes.length === 1) {
+        return this.guide.firstSpot.nodes
+      } else {
+        return []
+      }
+    }
+
     const spots: SpotFragment[] = []
-    this.guide?.stagesByGuide!.nodes!.forEach(stage => {
+    this.stages.forEach(stage => {
       if (stage.status === "READY") {
         stage.ridesByStage.nodes.forEach(ride => {
           spots.push(ride.fromSpot)
@@ -109,7 +122,7 @@ export default class GuideStore {
   @computed
   get rides(): readonly RideFragment[] {
     const rides: RideFragment[] = []
-    this.guide?.stagesByGuide!.nodes!.forEach(stage => {
+    this.stages.forEach(stage => {
       stage.ridesByStage.nodes.forEach(ride => {
         rides.push(ride)
       })
@@ -119,7 +132,7 @@ export default class GuideStore {
 
   @computed
   get stages(): readonly StageFragment[] {
-    return this.guide!.stagesByGuide!.nodes!
+    return this.guide!.stages!.nodes!
   }
 
   @computed
@@ -164,25 +177,28 @@ export default class GuideStore {
   }
 
   async subscribe() {
-    const variables: GetGuideIdForSlugQueryVariables = {
-      owner: this.#owner,
-      slug: this.#slug,
+
+    if (!this.#guideId) {
+
+      const variables: GetGuideIdForSlugQueryVariables = {
+        slug: this.#slug,
+      }
+
+      const response = await client.query<GetGuideIdForSlugQuery>({
+        query: GetGuideIdForSlugDocument,
+        variables,
+      })
+
+      logObject(response, "response")
+
+      this.#guideId = response.data.guides!.nodes[0].id
     }
-
-    const response = await client.query<GetGuideIdForSlugQuery>({
-      query: GetGuideIdForSlugDocument,
-      variables,
-    })
-
-    logObject(response, "response")
-
-    const guideId = response.data.guides!.nodes[0].id
 
     this.#subscription = subscriptionClient.subscribe<GuideStagesSubscription>({
       query: GuideStagesDocument,
       fetchPolicy: "network-only",
       variables: {
-        id: guideId,
+        id: this.#guideId,
       },
     }).subscribe(value => {
       if (value.data) {

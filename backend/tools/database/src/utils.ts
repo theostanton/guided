@@ -3,19 +3,31 @@ import { logJson } from "@guided/logger"
 
 function extract(any: any): string {
   return Object.values(any).map((value: any | undefined | null) => {
+
+    function log(type: string) {
+      // console.log(`${value} is a ${type}`)
+    }
+
     if (value instanceof Date) {
+      log("Date")
       return `'${value.toISOString()}'`
     } else if (value instanceof Boolean) {
+      log("Boolean")
       return value ? "true" : "false"
     } else if (typeof value === "number") {
+      log("unmber")
       return value
     } else if (isBoolean(value)) {
+      log("isBoolean")
       return value ? "true" : "false"
     } else if (value instanceof Object) {
+      log("Object")
       return `'${JSON.stringify(value)}'`
     } else if (value != undefined) {
+      log("value != undefined")
       return `'${value.toString()}'`
     } else {
+      log("fallthrough")
       return "null"
     }
   }).join(",")
@@ -27,7 +39,6 @@ export function insertOne(tableName: string, item: any): string {
   } else {
     return ""
   }
-
 }
 
 export function updateOne<T>(tableName: string, item: Partial<T>, onColumn: string = "id"): string {
@@ -81,6 +92,7 @@ export function updateMany(tableName: string, items: any[], columns: string[], o
   set ${sets}
 from (values${values}) as c("${onColumn}"${columnNames.length ? ", " + columnNames : ""})
 where t."${onColumn}" = c."${onColumn}"
+returning t."${onColumn}"
   `
 }
 

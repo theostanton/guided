@@ -39,14 +39,14 @@ export default class RideList extends React.Component<Props> {
       </List.Item>
     })
     return <Grid.Row columns='equal'>
-      <GridColumn>
+      <Grid.Column>
         <List items={items}
               selection={true}
               relaxed={true}
               onItemClick={(event, data) => {
                 this.guideStore.selectRide(data.value!)
               }}/>
-      </GridColumn>
+      </Grid.Column>
     </Grid.Row>
   }
 }

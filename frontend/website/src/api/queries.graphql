@@ -1,7 +1,6 @@
-query GetGuideIdForSlug($slug:String!, $owner:String!){
+query GetGuideIdForSlug($slug:String!){
     guides(
         condition:{
-            owner: $owner,
             slug: $slug
         }
     ){

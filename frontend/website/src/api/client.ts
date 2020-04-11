@@ -76,7 +76,8 @@ const defaultOptions: DefaultOptions = {
 export const subscriptionClient = new ApolloClient(
   {
     connectToDevTools: true,
-    link: authLink().concat(subscriptionLink()),
+    //TODO can't send custom headers on websocket, so cant auth via postgraphile expected method
+    link: subscriptionLink(),
     cache: new InMemoryCache(),
     defaultOptions,
   })

@@ -1,8 +1,8 @@
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
 import { MutationEditStartDateArgs } from "../../generated"
 import { Context } from "../types"
-import { database, Guide, updateOne } from "@guided/database"
-import { logJson } from "@guided/logger"
+import { database, Guide, updateMany, updateOne } from "@guided/database"
+import { log, logJson } from "@guided/logger"
 import { isValid } from "@guided/utils/srv/dates"
 import ammendDates from "@guided/compute/srv/trigger/ammendDates"
 
@@ -32,21 +32,26 @@ async function editStartDate(_: any, args: MutationEditStartDateArgs, context: C
     }
   }
 
-  const updateQuery = updateOne<Guide>("guides", {
+  const updateQuery = updateMany("guides", [{
     id: args.guideId,
     start_date: args.date || null,
-  })
+  }], ["start_date"], "id")
 
-  logJson(updateQuery, "updateQuery")
+  log(updateQuery, "updateQuery!")
 
-  await database.none(updateQuery)
+  await database.one(updateQuery)
 
+  const guideAfter = await database.one<Guide>(`select *
+                                                from guides
+                                                where id = $1`, [args.guideId])
 
-  const guideAfter = await database.one(`select *
-                                         from guides
-                                         where id = $1`, [args.guideId])
+  if (guideAfter.start_date !== args.date) {
+    return {
+      success: false,
+      message: `Date didn't update. Is :${guideAfter.start_date} not ${args.date}`,
+    }
+  }
 
-  //TODO this could maybe be fire and forget but is quite quick
   await ammendDates(guideAfter)
 
   if (args.date) {
