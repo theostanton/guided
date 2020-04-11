@@ -45,16 +45,13 @@ export default class SpotDetail extends React.Component<Props, State> {
 
   render(): React.ReactElement {
 
-    if (true) {
-      return <>Some spot</>
-    }
+    logJson(this.props, "this.props")
 
     const spot = this.props.spot
 
     const style: CSSProperties = {
       backgroundColor: "white",
     }
-
 
     return <Grid key={spot.id} style={style}>
       <Grid.Row>
@@ -77,11 +74,11 @@ export default class SpotDetail extends React.Component<Props, State> {
           </Button.Group>
         </GridColumn>
       </Grid.Row>
-      <Grid.Row>
-        <Grid.Column>
-          <NightsForm spot={spot}/>
-        </Grid.Column>
-      </Grid.Row>
+      {/*<Grid.Row>*/}
+      {/*  <Grid.Column>*/}
+      {/*    <NightsForm spot={spot}/>*/}
+      {/*  </Grid.Column>*/}
+      {/*</Grid.Row>*/}
     </Grid>
   }
 }
