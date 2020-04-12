@@ -3,7 +3,7 @@ mutation CreateGuide($guide:GuideInput!){
         guide: $guide
     }){
         guide{
-            id
+            slug
         }
     }
 }

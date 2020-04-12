@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Menu } from "semantic-ui-react"
-import { navigate } from "gatsby"
+import { navigate } from "@reach/router"
 import { inject, observer } from "mobx-react"
 import AuthStore from "model/AuthStore"
 

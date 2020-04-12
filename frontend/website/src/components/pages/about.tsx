@@ -1,11 +1,13 @@
 import * as React from "react"
 
-import Layout from "components/root/Layout"
-import { Header } from "semantic-ui-react"
+import { Container, Header } from "semantic-ui-react"
+import { RouteProps } from "react-router"
 
-const version = require("../../package.json").version
+const version = require("../../../package.json").version
 
-type Props = {}
+
+interface Props extends RouteProps {
+}
 
 type State = {}
 
@@ -14,10 +16,10 @@ export default class AboutPage extends React.Component<Props, State> {
   state: State = {}
 
   render(): React.ReactElement {
-    return <Layout>
+    return <Container style={{ marginTop: "2em" }}>
       <Header>About</Header>
       <p>Version={version}</p>
-    </Layout>
+    </Container>
   }
 
 }

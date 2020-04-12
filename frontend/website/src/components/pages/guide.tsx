@@ -1,5 +1,5 @@
 import * as React from "react"
-import GuideComponent from "../components/app/Guide"
+import GuideComponent from "components/app/Guide"
 
 type Props = {
   slug: string

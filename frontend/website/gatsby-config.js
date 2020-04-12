@@ -30,8 +30,8 @@ function s3Plugin() {
       removeNonexistentObjects: true,
       generateRoutingRules: true,
       generateRedirectObjectsForPermanentRedirects: false,
-      generateIndexPageForRedirect: true,
-      generateMatchPathRewrites: true,
+      generateIndexPageForRedirect: false,
+      generateMatchPathRewrites: false,
     },
   }
 }

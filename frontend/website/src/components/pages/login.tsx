@@ -1,12 +1,13 @@
 import * as React from "react"
 import { Form, Button, Message, Container, Header } from "semantic-ui-react"
-import Layout from "components/root/Layout"
 import { Link, navigate } from "gatsby"
 import { inject } from "mobx-react"
-import AuthStore from "../model/AuthStore"
+import AuthStore from "model/AuthStore"
+import { logObject } from "../../utils/logger"
+import {  RouteProps } from "react-router"
 
-type Props = {
-  authStore: AuthStore
+interface Props extends RouteProps {
+  authStore?: AuthStore
 }
 
 type State = {
@@ -40,6 +41,8 @@ export default class LoginComponent extends React.Component<Props, State> {
 
   render(): React.ReactElement | undefined {
 
+    logObject(this.props, "this.props")
+
     //TODO this smarter
     if (this.props.authStore.isLoggedIn) {
       try {
@@ -51,41 +54,39 @@ export default class LoginComponent extends React.Component<Props, State> {
     }
 
     const { password, email, error, loading } = this.state
-    return <Layout>
-      <Container text style={{ marginTop: "2em" }}>
-        <Form error={error !== undefined}>
-          <Form.Input
-            label={"Email"}
-            icon='mail'
-            iconPosition='left'
-            value={email}
-            onChange={(e, { value }) => {
-              this.setState({ email: value, error: undefined })
-            }
-            }/>
-          <Form.Input
-            label={"Password"}
-            value={password}
-            icon='lock'
-            iconPosition='left'
-            type={"password"}
-            onChange={(e, { value, error }) => {
-              this.setState({ password: value, error: undefined })
-            }}/>
-          {error && <Message error header={"Error"} content={error.message}/>}
+    return <Container text style={{ marginTop: "2em" }}>
+      <Form error={error !== undefined}>
+        <Form.Input
+          label={"Email"}
+          icon='mail'
+          iconPosition='left'
+          value={email}
+          onChange={(e, { value }) => {
+            this.setState({ email: value, error: undefined })
+          }
+          }/>
+        <Form.Input
+          label={"Password"}
+          value={password}
+          icon='lock'
+          iconPosition='left'
+          type={"password"}
+          onChange={(e, { value, error }) => {
+            this.setState({ password: value, error: undefined })
+          }}/>
+        {error && <Message error header={"Error"} content={error.message}/>}
 
-          <Button
-            type='submit'
-            active={!error}
-            loading={loading}
-            onClick={async () => {
-              await this.logIn()
-            }
-            }>Log in</Button>
+        <Button
+          type='submit'
+          active={!error}
+          loading={loading}
+          onClick={async () => {
+            await this.logIn()
+          }
+          }>Log in</Button>
 
-          <Header as='h4'><Link to={"/signup"}>Not a member? Create an account</Link></Header>
-        </Form>
-      </Container>
-    </Layout>
+        <Header as='h4'><Link to={"/signup"}>Not a member? Create an account</Link></Header>
+      </Form>
+    </Container>
   }
 }

@@ -6,9 +6,12 @@ import { inject, observer } from "mobx-react"
 import { MyGuidesList, SharedGuidesList } from "./Guides/GuidesList"
 import GuideComponent from "./Guide"
 import { GuideInfoFragment } from "../../api/generated"
+import { logInfo } from "../../../../../backend/tools/logger/src"
 
-type Props = {
-  authStore: AuthStore
+import { RouteProps } from "react-router"
+
+interface Props extends RouteProps {
+  authStore?: AuthStore
 }
 
 type State = {
@@ -24,6 +27,11 @@ export default class DashboardComponent extends React.Component<Props, State> {
   }
 
   guides(): React.ReactElement {
+
+    if (!this.props.authStore.owner) {
+      return <div/>
+    }
+
     return <Grid columns={2}>
       <Grid.Column>
         <Header>My guides</Header>
@@ -37,18 +45,12 @@ export default class DashboardComponent extends React.Component<Props, State> {
   }
 
   guide(): React.ReactElement {
-    return <GuideComponent guideId={this.state.selectedGuide.id} slug={this.state.selectedGuide.slug} close={() => {
-      this.setState({
-        selectedGuide: undefined,
-      })
-    }
-    }/>
+    return <GuideComponent guideId={this.state.selectedGuide.id} slug={this.state.selectedGuide.slug}/>
   }
-
 
   render(): React.ReactElement | undefined {
     return <AppContainer>
-      {this.props.authStore.isLoggedIn && this.state.selectedGuide ? this.guide() : this.guides()}
+      {this.props.authStore.isLoggedIn === true && this.state.selectedGuide ? this.guide() : this.guides()}
     </AppContainer>
   }
 

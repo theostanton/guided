@@ -6,17 +6,19 @@ import AppContainer from "components/app/Container"
 import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
-import GuideComponent from "../Guide"
 import { MyGuidesList } from "./GuidesList"
+import { navigate } from "@reach/router"
+import { log } from "utils/logger"
 
-type Props = {
-  authStore: AuthStore,
-  guideStore: GuideStore
+import {  RouteProps } from "react-router"
+
+interface Props extends RouteProps {
+  authStore?: AuthStore,
+  guideStore?: GuideStore
 }
 
 type State = {
   showCreateModal: boolean
-  selectedGuideId: string | undefined
 }
 
 @inject("authStore")
@@ -25,34 +27,31 @@ export default class GuidesComponent extends React.Component<Props, State> {
 
   state: State = {
     showCreateModal: false,
-    selectedGuideId: undefined,
   }
 
-  // content(): React.ReactElement | React.ReactElement[] {
-  //
-  //   if (this.state.showCreateModal) {
-  //     return <GuideDetailsModalComponent owner={this.props.authStore.owner}
-  //                                        onClose={(guideId: string) => {
-  //                                          this.setState({
-  //                                            selectedGuideId: guideId,
-  //                                            showCreateModal: false,
-  //                                          })
-  //                                        }}/>
-  //   } else if (this.state.selectedGuideId) {
-  //     return <GuideComponent guideId={this.state.selectedGuideId}/>
-  //   } else {
-  //     return [<Button
-  //       content='Create new'
-  //       onClick={() => {
-  //         this.setState({ showCreateModal: true })
-  //       }}/>, <MyGuidesList owner={this.props.authStore.owner}/>]
-  //   }
-  //
-  // }
+  content(): React.ReactElement | React.ReactElement[] {
+
+    if (this.state.showCreateModal) {
+      return <GuideDetailsModalComponent owner={this.props.authStore.owner}
+                                         onClose={async (guideSlug: string) => {
+                                           this.setState({
+                                             showCreateModal: false,
+                                           })
+                                           await navigate(`/app/guides/${guideSlug}`)
+                                         }}/>
+    } else {
+      return [<Button
+        content='Create new'
+        onClick={() => {
+          this.setState({ showCreateModal: true })
+        }}/>, <MyGuidesList owner={this.props.authStore.owner}/>]
+    }
+
+  }
 
   render(): React.ReactElement | undefined {
     return <AppContainer>
-      {/*{this.content()}*/}
+      {this.content()}
     </AppContainer>
   }
 

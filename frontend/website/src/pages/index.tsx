@@ -1,6 +1,5 @@
 import * as React from "react"
-import { Router, Redirect } from "@reach/router"
-
+import { Router,RouteComponentProps } from "@reach/router"
 import Layout from "components/root/Layout"
 import AuthStore from "../model/AuthStore"
 import { inject } from "mobx-react"
@@ -8,8 +7,15 @@ import Account from "components/app/Account"
 import Guides from "components/app/Guides"
 import Guide from "components/app/Guide"
 import Dashboard from "components/app/Dashboard"
+import Login from "components/pages/login"
+import Signup from "components/pages/signup"
+import { Container } from "semantic-ui-react"
+import AppMenu from "components/app/Menu"
+import About from "../components/pages/about"
 
-type Props = {
+import {  RouteProps } from "react-router"
+
+interface Props extends RouteProps {
   authStore: AuthStore
 }
 
@@ -18,20 +24,29 @@ export default class RootComponent extends React.Component<Props> {
 
   render(): React.ReactElement {
 
-    if (this.props.authStore.isLoggedIn) {
+    const { isLoggedIn } = this.props.authStore
+
+    if (isLoggedIn) {
+      return <div style={{ margin: 20 }}>
+        <Container>
+          <AppMenu/>
+          <Router>
+            <Account path="/app/account"/>
+            <Guide path="/app/guides/:slug"/>
+            <Guides path="/app/guides"/>
+            <Dashboard path="/app"/>
+          </Router>
+        </Container>
+      </div>
+    } else {
       return <Layout>
         <Router>
-          <Account path="/app/account"/>
-          <Guide path="/app/guides/:slug"/>
-          <Guides path="/app/guides"/>
-          <Dashboard path="/app"/>
+          <About path="/"/>
+          <Login path="/login"/>
+          <Signup path="/signup"/>
+          <Guide path="/:slug"/>
         </Router>
       </Layout>
-    } else {
-      return <div>
-        {/*<Redirect to='/login'/>*/}
-        Not logged in
-      </div>
     }
   }
 }
