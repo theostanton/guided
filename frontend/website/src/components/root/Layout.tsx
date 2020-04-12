@@ -32,7 +32,7 @@ export default class RootLayoutComponent extends React.Component<Props> {
             <Menu.Item
               name='Dashboard'
               onClick={async () => {
-                await navigate("/app")
+                await navigate(`/${this.props.authStore.owner}`)
               }}/>
             <Menu.Item
               name='Logout'

@@ -1,10 +1,7 @@
 import { action, computed, observable, runInAction } from "mobx"
 import {
-  GetGuideIdForSlugDocument,
-  GetGuideIdForSlugQuery,
-  GetGuideIdForSlugQueryVariables,
   GuideFragment,
-  GuideStagesDocument,
+  GuideStagesDocument, GuideStagesPublicDocument, GuideStagesPublicQuery,
   GuideStagesSubscription,
   RideFragment,
   SpotFragment,
@@ -12,24 +9,27 @@ import {
 } from "api/generated"
 import { log, logError, logObject } from "utils/logger"
 import { ZenObservable } from "zen-observable-ts/lib/types"
-import client, { subscriptionClient } from "api/client"
+import { subscriptionClient } from "api/client"
+import client from "api/client"
+import { FetchResult } from "apollo-boost"
 
 export default class GuideStore {
 
   #guideId: string
-  #slug: string
+  #isOwner: boolean
 
-  static fromSlug(slug: string): GuideStore {
-    return new GuideStore(undefined, slug)
+  static fromSlug(owner: string, slug: string, self: string | undefined): GuideStore {
+    return new GuideStore(`${owner}_${slug}`, !!self && self === owner)
   }
 
-  static fromId(guideId: string): GuideStore {
-    return new GuideStore(guideId, undefined)
+  static fromId(guideId: string, self: string | undefined): GuideStore {
+    const owner = guideId.split("_")[0]
+    return new GuideStore(guideId, !!self && self === owner)
   }
 
-  private constructor(guideId: string | undefined, slug: string | undefined) {
+  private constructor(guideId: string, isOwner: boolean) {
     this.#guideId = guideId
-    this.#slug = slug
+    this.#isOwner = isOwner
   }
 
   @observable
@@ -64,6 +64,10 @@ export default class GuideStore {
     if (this.selectedId?.startsWith("spot")) {
       return "spot"
     }
+  }
+
+  get isOwner(): boolean {
+    return this.#isOwner
   }
 
   @computed
@@ -178,42 +182,51 @@ export default class GuideStore {
 
   async subscribe() {
 
-    if (!this.#guideId) {
+    log(this.#guideId, "this.#guideId")
+    log(this.#isOwner.toString(), "this.#isOwner")
 
-      const variables: GetGuideIdForSlugQueryVariables = {
-        slug: this.#slug,
-      }
 
-      const response = await client.query<GetGuideIdForSlugQuery>({
-        query: GetGuideIdForSlugDocument,
-        variables,
+    if (this.isOwner) {
+      this.#subscription = subscriptionClient.subscribe<GuideStagesSubscription>({
+        query: GuideStagesDocument,
+        fetchPolicy: "network-only",
+        variables: {
+          id: this.#guideId,
+        },
+      }).subscribe(value => {
+        if (value.data) {
+          logObject(value.data, "value.data!")
+          const guide = value.data.guide
+          this.updateGuide(guide)
+        } else if (value.errors) {
+          logError("errors")
+          value.errors.forEach(error => {
+            logError(error.message)
+          })
+        } else {
+          logError("No data or errors")
+        }
       })
-
-      logObject(response, "response")
-
-      this.#guideId = response.data.guides!.nodes[0].id
-    }
-
-    this.#subscription = subscriptionClient.subscribe<GuideStagesSubscription>({
-      query: GuideStagesDocument,
-      fetchPolicy: "network-only",
-      variables: {
-        id: this.#guideId,
-      },
-    }).subscribe(value => {
-      if (value.data) {
-        logObject(value.data, "value.data!")
-        const guide = value.data.guide
+    } else {
+      const result = await client.query<GuideStagesPublicQuery>({
+        query: GuideStagesPublicDocument,
+        variables: {
+          id: this.#guideId,
+        },
+      })
+      if (result.data) {
+        logObject(result.data, "result.data!")
+        const guide = result.data.guide
         this.updateGuide(guide)
-      } else if (value.errors) {
+      } else if (result.errors) {
         logError("errors")
-        value.errors.forEach(error => {
+        result.errors.forEach(error => {
           logError(error.message)
         })
       } else {
         logError("No data or errors")
       }
-    })
+    }
   }
 
   updateGuide(guide: GuideFragment) {

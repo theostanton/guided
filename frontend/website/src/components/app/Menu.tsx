@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Menu } from "semantic-ui-react"
+import { Icon, Menu } from "semantic-ui-react"
 import { navigate } from "@reach/router"
 import { inject, observer } from "mobx-react"
 import AuthStore from "model/AuthStore"
@@ -24,13 +24,13 @@ export default class AppMenu extends React.Component<Props, State> {
           name={"Home"}
           link={true}
           onClick={async () => {
-            await navigate("/app")
+            await navigate(`/`)
           }}/>
         <Menu.Item
           name={"My Guides"}
           link={true}
           onClick={async () => {
-            await navigate("/app/guides")
+            await navigate(`/guides`)
           }}/>
         <Menu.Menu
           position='right'
@@ -38,9 +38,9 @@ export default class AppMenu extends React.Component<Props, State> {
           <Menu.Item
             name={user?.username!}
             link={true}
-            icon='user'
+            icon={<Icon name={"user"} color={user?.colour?.toLowerCase()}/>}
             onClick={async () => {
-              await navigate("/app/account")
+              await navigate(`/account`)
             }}
           />
           <Menu.Item

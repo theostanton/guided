@@ -1,6 +1,7 @@
 import { observable, action, computed, runInAction } from "mobx"
 import store from "store"
 import {
+  Colour,
   GetUsernameDocument, GetUsernameQuery, GetUsernameQueryVariables,
   LoginDocument,
   LoginMutation,
@@ -14,6 +15,7 @@ import { logJson } from "utils/logger"
 export type User = {
   bearerToken: string
   username?: string
+  colour?: Colour
   email: string
 }
 
@@ -38,6 +40,13 @@ export default class Index {
   get owner(): string | undefined {
     if (this.isLoggedIn) {
       return this.user?.username!
+    }
+  }
+
+  @computed
+  get colour(): string | undefined {
+    if (this.isLoggedIn) {
+      return this.user?.colour!
     }
   }
 
@@ -66,12 +75,13 @@ export default class Index {
       },
     )
 
-    const username = usernameResult.data!.users!.nodes[0]!.username
+    const { colour, username } = usernameResult.data!.users!.nodes[0]!
 
     this.setUser({
       username,
       email,
       bearerToken,
+      colour,
     })
 
   }

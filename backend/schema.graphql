@@ -66,11 +66,62 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
-type Bound {
-  north: Float
-  east: Float
-  south: Float
-  west: Float
+enum Colour {
+  RED
+  ORANGE
+  YELLOW
+  OLIVE
+  GREEN
+  TEAL
+  BLUE
+  VIOLET
+  PURPLE
+  PINK
+  BROWN
+  GREY
+  BLACK
+}
+
+"""
+A filter to be used against Colour fields. All fields are combined with a logical ‘and.’
+"""
+input ColourFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: Colour
+
+  """Not equal to the specified value."""
+  notEqualTo: Colour
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: Colour
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: Colour
+
+  """Included in the specified list."""
+  in: [Colour!]
+
+  """Not included in the specified list."""
+  notIn: [Colour!]
+
+  """Less than the specified value."""
+  lessThan: Colour
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: Colour
+
+  """Greater than the specified value."""
+  greaterThan: Colour
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: Colour
 }
 
 type Computation implements Node {
@@ -1196,7 +1247,6 @@ type Guide implements Node {
     """
     filter: ComputationFilter
   ): ComputationsConnection!
-  bounds: Bound
   isMine: Boolean
 }
 
@@ -2089,6 +2139,7 @@ type Ride implements Node {
   owner: String!
   fromSpot: String!
   toSpot: String!
+  pathUrl: String
   durationSeconds: Int
   distanceMeters: Int
   date: String
@@ -2097,7 +2148,6 @@ type Ride implements Node {
   status: RideStatus!
   created: Datetime!
   updated: Datetime
-  pathUrl: String
 
   """Reads a single `Guide` that is related to this `Ride`."""
   guideByGuide: Guide
@@ -2137,6 +2187,9 @@ input RideCondition {
   """Checks for equality with the object’s `toSpot` field."""
   toSpot: String
 
+  """Checks for equality with the object’s `pathUrl` field."""
+  pathUrl: String
+
   """Checks for equality with the object’s `durationSeconds` field."""
   durationSeconds: Int
 
@@ -2160,9 +2213,6 @@ input RideCondition {
 
   """Checks for equality with the object’s `updated` field."""
   updated: Datetime
-
-  """Checks for equality with the object’s `pathUrl` field."""
-  pathUrl: String
 }
 
 """
@@ -2183,6 +2233,9 @@ input RideFilter {
 
   """Filter by the object’s `toSpot` field."""
   toSpot: StringFilter
+
+  """Filter by the object’s `pathUrl` field."""
+  pathUrl: StringFilter
 
   """Filter by the object’s `durationSeconds` field."""
   durationSeconds: IntFilter
@@ -2207,9 +2260,6 @@ input RideFilter {
 
   """Filter by the object’s `updated` field."""
   updated: DatetimeFilter
-
-  """Filter by the object’s `pathUrl` field."""
-  pathUrl: StringFilter
 
   """Filter by the object’s `hasBorder` field."""
   hasBorder: BooleanFilter
@@ -2237,6 +2287,7 @@ input RideInput {
   owner: String!
   fromSpot: String!
   toSpot: String!
+  pathUrl: String
   durationSeconds: Int
   distanceMeters: Int
   date: String
@@ -2245,7 +2296,6 @@ input RideInput {
   status: RideStatus!
   created: Datetime!
   updated: Datetime
-  pathUrl: String
 }
 
 """Represents an update to a `Ride`. Fields that are set will be updated."""
@@ -2255,6 +2305,7 @@ input RidePatch {
   owner: String
   fromSpot: String
   toSpot: String
+  pathUrl: String
   durationSeconds: Int
   distanceMeters: Int
   date: String
@@ -2263,7 +2314,6 @@ input RidePatch {
   status: RideStatus
   created: Datetime
   updated: Datetime
-  pathUrl: String
 }
 
 """A connection to a list of `Ride` values."""
@@ -2305,6 +2355,8 @@ enum RidesOrderBy {
   FROM_SPOT_DESC
   TO_SPOT_ASC
   TO_SPOT_DESC
+  PATH_URL_ASC
+  PATH_URL_DESC
   DURATION_SECONDS_ASC
   DURATION_SECONDS_DESC
   DISTANCE_METERS_ASC
@@ -2321,8 +2373,6 @@ enum RidesOrderBy {
   CREATED_DESC
   UPDATED_ASC
   UPDATED_DESC
-  PATH_URL_ASC
-  PATH_URL_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -4138,6 +4188,7 @@ type User implements Node {
   passwordHash: String!
   created: Datetime!
   updated: Datetime
+  colour: Colour
 
   """Reads and enables pagination through a set of `Guide`."""
   guidesByOwner(
@@ -4260,6 +4311,9 @@ input UserCondition {
 
   """Checks for equality with the object’s `updated` field."""
   updated: Datetime
+
+  """Checks for equality with the object’s `colour` field."""
+  colour: Colour
 }
 
 """
@@ -4281,6 +4335,9 @@ input UserFilter {
   """Filter by the object’s `updated` field."""
   updated: DatetimeFilter
 
+  """Filter by the object’s `colour` field."""
+  colour: ColourFilter
+
   """Checks for all expressions in this list."""
   and: [UserFilter!]
 
@@ -4298,6 +4355,7 @@ input UserInput {
   passwordHash: String!
   created: Datetime!
   updated: Datetime
+  colour: Colour
 }
 
 """Represents an update to a `User`. Fields that are set will be updated."""
@@ -4307,6 +4365,7 @@ input UserPatch {
   passwordHash: String
   created: Datetime
   updated: Datetime
+  colour: Colour
 }
 
 """A connection to a list of `User` values."""
@@ -4348,6 +4407,8 @@ enum UsersOrderBy {
   CREATED_DESC
   UPDATED_ASC
   UPDATED_DESC
+  COLOUR_ASC
+  COLOUR_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }

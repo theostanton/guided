@@ -20,5 +20,6 @@ if (!process.env.STAGE) {
 
 import app from "./app"
 
+process.env.DEBUG = "graphile-build-pg:warn"
 app(process.env.NODE_ENV === "development" ? "watch" : "serve").listen(process.env.POSTGRAPHILE_PORT!)
 log(`Listening on ${process.env.POSTGRAPHILE_PORT}`)

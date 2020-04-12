@@ -10,7 +10,7 @@ export default class AppContainerComponent extends React.Component<Props, State>
   state: State = {}
 
   render(): React.ReactElement {
-    return <Container style={{ marginTop: "1em" }}>
+    return <Container style={{ marginTop: "2em" }}>
       {this.props.children}
     </Container>
   }

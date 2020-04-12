@@ -74,6 +74,8 @@ export default class RideDetail extends React.Component<Props> {
 
   render(): React.ReactElement {
 
+    const isOwner = this.props.guideStore.isOwner
+
     function Wrap({ children }): React.ReactElement {
       return <Grid.Row>
         <Grid.Column>
@@ -106,9 +108,9 @@ export default class RideDetail extends React.Component<Props> {
         {this.stats()}
       </Wrap>
 
-      <Wrap>
+      {isOwner && <Wrap>
         <Button icon='flag checkered' labelPosition='right' fluid content='Mark as completed'/>
-      </Wrap>
+      </Wrap>}
     </Grid>
   }
 }

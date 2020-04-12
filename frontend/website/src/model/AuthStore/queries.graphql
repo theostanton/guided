@@ -4,6 +4,7 @@ query GetUsername($email:String!){
     }){
         nodes{
             username
+            colour
         }
     }
 }

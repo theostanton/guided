@@ -31,3 +31,19 @@ create type computation_status as enum (
     'failed',
     'computing',
     'success');
+
+create type colour as enum (
+    'red'
+    , 'orange'
+    , 'yellow'
+    , 'olive'
+    , 'green'
+    , 'teal'
+    , 'blue'
+    , 'violet'
+    , 'purple'
+    , 'pink'
+    , 'brown'
+    , 'grey'
+    , 'black'
+    );

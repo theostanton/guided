@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Router,RouteComponentProps } from "@reach/router"
+import { Router, RouteComponentProps } from "@reach/router"
 import Layout from "components/root/Layout"
 import AuthStore from "../model/AuthStore"
 import { inject } from "mobx-react"
@@ -7,13 +7,14 @@ import Account from "components/app/Account"
 import Guides from "components/app/Guides"
 import Guide from "components/app/Guide"
 import Dashboard from "components/app/Dashboard"
+import Profile from "components/app/Profile"
 import Login from "components/pages/login"
 import Signup from "components/pages/signup"
 import { Container } from "semantic-ui-react"
 import AppMenu from "components/app/Menu"
 import About from "../components/pages/about"
 
-import {  RouteProps } from "react-router"
+import { RouteProps } from "react-router"
 
 interface Props extends RouteProps {
   authStore: AuthStore
@@ -26,15 +27,18 @@ export default class RootComponent extends React.Component<Props> {
 
     const { isLoggedIn } = this.props.authStore
 
-    if (isLoggedIn) {
+    if (isLoggedIn === true) {
       return <div style={{ margin: 20 }}>
         <Container>
           <AppMenu/>
+        </Container>
+        <Container>
           <Router>
-            <Account path="/app/account"/>
-            <Guide path="/app/guides/:slug"/>
-            <Guides path="/app/guides"/>
-            <Dashboard path="/app"/>
+            <Account path="/account"/>
+            <Guides path="/guides"/>
+            <Guide path="/:owner/:slug"/>
+            <Profile path="/:owner"/>
+            <Dashboard path="/"/>
           </Router>
         </Container>
       </div>
@@ -44,7 +48,8 @@ export default class RootComponent extends React.Component<Props> {
           <About path="/"/>
           <Login path="/login"/>
           <Signup path="/signup"/>
-          <Guide path="/:slug"/>
+          <Guide path="/:owner/:slug"/>
+          <Profile path="/:owner"/>
         </Router>
       </Layout>
     }

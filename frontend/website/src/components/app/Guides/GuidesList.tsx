@@ -1,14 +1,11 @@
-import {
-  OwnersGuideInfosSubscription, useNotOwnersGuideInfosSubscription,
-  useOwnersGuideInfosSubscription,
-} from "api/generated"
-import { Card, List, Message, Segment, Label, Icon } from "semantic-ui-react"
+import { Card, List, Message, Segment, Label, Icon, Button } from "semantic-ui-react"
 import randomKey from "utils/randomKey"
 import * as React from "react"
 import { log } from "utils/logger"
 import { subscriptionClient } from "api/client"
 import { humanDate } from "utils/human"
 import { navigate } from "@reach/router"
+import { GuideInfosSubscription, useGuideInfosSubscription } from "api/generated"
 
 type Props = {
   owner: string,
@@ -16,7 +13,7 @@ type Props = {
 
 export function MyGuidesList({ owner }: Props) {
 
-  const { data, loading, error } = useOwnersGuideInfosSubscription({
+  const { data, loading, error } = useGuideInfosSubscription({
     // @ts-ignore
     client: subscriptionClient,
     variables: {
@@ -28,27 +25,10 @@ export function MyGuidesList({ owner }: Props) {
     },
   })
 
-  return <GuidesList isMine={true} data={data} loading={loading} error={error}/>
+  return <GuidesList data={data} loading={loading} error={error}/>
 }
 
-export function SharedGuidesList({ owner }: Props) {
-
-  const { data, loading, error } = useNotOwnersGuideInfosSubscription({
-    // @ts-ignore
-    client: subscriptionClient,
-    variables: {
-      owner,
-    },
-    onSubscriptionComplete: () => {
-      log("onSubscriptionComplete")
-      return true
-    },
-  })
-
-  return <GuidesList isMine={false} data={data} loading={loading} error={error}/>
-}
-
-function GuidesList({ isMine, data, loading, error }: { isMine: boolean, data: OwnersGuideInfosSubscription, loading: boolean, error: any }) {
+function GuidesList({ data, loading, error }: { data: GuideInfosSubscription, loading: boolean, error: any }) {
 
   if (loading) {
     return <Segment loading/>
@@ -72,12 +52,12 @@ function GuidesList({ isMine, data, loading, error }: { isMine: boolean, data: O
 
     return (
       <Card
-        value={guide.slug}
+        value={`/${guide.owner}/${guide.slug}`}
         key={key}
+        fluid
         extra={Extra}>
         <Card.Content>
           <Card.Header>{guide.title}</Card.Header>
-          {!isMine && <Card.Meta>by {guide.owner}</Card.Meta>}
         </Card.Content>
         <Card.Content>
           <Label color={"olive"}>Planning</Label>
@@ -89,8 +69,8 @@ function GuidesList({ isMine, data, loading, error }: { isMine: boolean, data: O
     )
   })
   return <List
-    onItemClick={async (_, { value: slug }) => {
-      await navigate(`/app/guides/${slug}`)
+    onItemClick={async (_, { value: route }) => {
+      await navigate(route)
     }}
     items={items}
     divided

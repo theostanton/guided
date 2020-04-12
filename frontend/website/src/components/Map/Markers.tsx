@@ -31,77 +31,9 @@ export class Markers extends React.Component<Props, {}> {
       mutation: MoveSpotDocument,
       variables,
     })
-    this.props.guideStore?.refetch()
   }
 
-  createMarker(spot: SpotFragment, index: number, onDragEnd: any): React.ReactElement {
-
-    const pinStyle = {
-      cursor: "pointer",
-      fill: "#000",
-      stroke: "none",
-    }
-
-    let color: SemanticCOLORS
-    const selectedRide: RideFragment | undefined = this.guideStore.selectedRide
-    if (selectedRide && selectedRide.toSpot!.id === spot.id) {
-      color = "red"
-    } else if (selectedRide && selectedRide.fromSpot!.id === spot.id) {
-      color = "green"
-    } else if (this.guideStore.selectedId === spot.id) {
-      color = "orange"
-    } else if (this.guideStore.highlightedId === spot.id) {
-      color = "yellow"
-    } else if (spot.locked) {
-      color = "black"
-    } else {
-      color = "grey"
-    }
-
-    return <Marker key={`spot-${spot.id}`}
-                   longitude={spot.long!}
-                   latitude={spot.lat!}
-                   draggable
-                   captureClick={true}
-                   captureDoubleClick={true}
-                   offsetLeft={-30}
-                   offsetTop={-53}
-                   onDragEnd={async (args) => {
-                     await this.moveSpot(spot.id, args.lngLat[1], args.lngLat[0])
-                   }}
-
-    >
-
-      <Icon name={"marker"}
-            color={color}
-            size={"huge"}
-            style={{
-              ...pinStyle,
-            }}
-            onDoubleClick={() => {
-              console.log(`Double clicked ${spot.name}`)
-            }}
-            onClick={() => {
-              console.log(`Clicked ${spot.name}`)
-            }}
-
-            onMouseEnter={() => {
-              console.log(`onMouseEnter ${spot.name}`)
-              this.setState({
-                showPopupForId: spot.id,
-              })
-            }}
-            onMouseLeave={() => {
-              console.log(`onMouseLeave ${spot.name}`)
-              this.setState({
-                showPopupForId: undefined,
-              })
-            }}
-      />
-    </Marker>
-  }
-
-  createFlag(spot: SpotFragment, index: number, onDragEnd: any): React.ReactElement {
+  createFlag(spot: SpotFragment, isOwner: boolean): React.ReactElement {
 
     const pinStyle = {
       cursor: "pointer",
@@ -127,16 +59,17 @@ export class Markers extends React.Component<Props, {}> {
       color = "grey"
     }
 
+    const onDragEnd = (async (args) => {
+      await this.moveSpot(spot.id, args.lngLat[1], args.lngLat[0])
+    })
+
     return <Marker key={`spot-${spot.id}`}
                    longitude={spot.long!}
                    latitude={spot.lat!}
-                   draggable
+                   draggable={isOwner}
                    offsetLeft={-10}
                    offsetTop={-25}
-                   onDragEnd={async (args) => {
-                     await this.moveSpot(spot.id, args.lngLat[1], args.lngLat[0])
-                   }}
-
+                   onDragEnd={onDragEnd}
     >
 
       <Icon name={spot.locked ? "flag" : "flag outline"}
@@ -162,10 +95,9 @@ export class Markers extends React.Component<Props, {}> {
 
   render() {
 
+    const isOwner = this.props.guideStore.isOwner
     return this.guideStore.spots.map((spot, index) => {
-      return (this.createFlag(spot!, index, () => {
-
-      }))
+      return (this.createFlag(spot!, isOwner))
     })
   }
 }

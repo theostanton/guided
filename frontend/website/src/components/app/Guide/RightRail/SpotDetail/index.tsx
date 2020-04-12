@@ -13,15 +13,17 @@ import {
   Grid,
   GridColumn,
   Header,
-  Icon,
+  Icon, Label,
 } from "semantic-ui-react"
 import { client } from "api"
 import { logJson } from "utils/logger"
 import NightsForm from "./NightsForm"
 import { CSSProperties } from "react"
+import { plural } from "../../../../../utils/human"
 
 type Props = {
   spot: SpotFragment
+  isOwner: boolean
   close: () => void
 }
 
@@ -45,9 +47,25 @@ export default class SpotDetail extends React.Component<Props, State> {
   render(): React.ReactElement {
 
     const spot = this.props.spot
+    const isOwner = this.props.isOwner
 
     const style: CSSProperties = {
       backgroundColor: "white",
+    }
+
+    let Nights: React.ReactElement
+    if (isOwner) {
+      Nights = <Grid.Row>
+        <Grid.Column>
+          <NightsForm spot={spot}/>
+        </Grid.Column>
+      </Grid.Row>
+    } else {
+      Nights = <Grid.Row>
+        <Grid.Column>
+          <Label> <Icon name='moon'/>{spot.nights} {plural("night", spot.nights)}</Label>
+        </Grid.Column>
+      </Grid.Row>
     }
 
     return <Grid key={spot.id} style={style}>
@@ -64,18 +82,14 @@ export default class SpotDetail extends React.Component<Props, State> {
         </Grid.Column>
         <Grid.Column width={2} floated={"right"}>
           <ButtonGroup floated={"right"}>
-            <Button icon='trash' onClick={async () => {
+            {isOwner && <Button icon='trash' onClick={async () => {
               await this.removeSpot()
-            }}/>
+            }}/>}
             <Button icon='close' onClick={this.props.close}/>
           </ButtonGroup>
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row>
-        <Grid.Column>
-          <NightsForm spot={spot}/>
-        </Grid.Column>
-      </Grid.Row>
+      {Nights}
     </Grid>
   }
 }

@@ -75,17 +75,23 @@ jobs:
 
 workflows:
   version: 2
-  Deploy Staging:
+
+  Deploy Staging backend:
     jobs:
       - deploy-backend:
           context: guided-staging
           filters:
             branches:
               only: staging
+
+  Deploy Staging frontend:
+    jobs:
       - deploy-frontend:
           context: guided-staging
-          requires:
-            - deploy-backend
+          filters:
+            branches:
+              only: staging
+
   Deploy Production:
     jobs:
       - shellcheck/check:
