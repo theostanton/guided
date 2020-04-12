@@ -4,10 +4,10 @@ import { List } from "semantic-ui-react"
 import { inject, observer } from "mobx-react"
 import AuthStore from "model/AuthStore"
 
-import {  RouteProps } from "react-router"
+import { RouteProps } from "react-router"
 
 interface Props extends RouteProps {
-  authStore?:AuthStore
+  authStore?: AuthStore
 }
 
 type State = {}

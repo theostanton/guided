@@ -47,16 +47,17 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
     this.setState({ stage: "creating" })
 
     let title = this.state.guideInfo.title!
+    const slug = slugify(title, {
+      lower: true,
+      remove: /[*+~.()'"!:@_]/g,
+    })
 
     const variables: CreateGuideMutationVariables = {
       guide: {
-        id: generateId("guide"),
+        id: `${this.props.owner}_${slug}`,
         title,
         owner: this.props.owner,
-        slug: slugify(title, {
-          lower: true,
-          remove: /[*+~.()'"!:@]/g,
-        }),
+        slug,
         created: new Date().toISOString(),
         updated: null,
       },

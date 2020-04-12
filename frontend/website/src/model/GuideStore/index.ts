@@ -17,19 +17,17 @@ import client, { subscriptionClient } from "api/client"
 export default class GuideStore {
 
   #guideId: string
-  #slug: string
 
-  static fromSlug(slug: string): GuideStore {
-    return new GuideStore(undefined, slug)
+  static fromSlug(owner: string, slug: string): GuideStore {
+    return new GuideStore(`${owner}_${slug}`)
   }
 
   static fromId(guideId: string): GuideStore {
-    return new GuideStore(guideId, undefined)
+    return new GuideStore(guideId)
   }
 
-  private constructor(guideId: string | undefined, slug: string | undefined) {
+  private constructor(guideId: string) {
     this.#guideId = guideId
-    this.#slug = slug
   }
 
   @observable
@@ -178,21 +176,7 @@ export default class GuideStore {
 
   async subscribe() {
 
-    if (!this.#guideId) {
-
-      const variables: GetGuideIdForSlugQueryVariables = {
-        slug: this.#slug,
-      }
-
-      const response = await client.query<GetGuideIdForSlugQuery>({
-        query: GetGuideIdForSlugDocument,
-        variables,
-      })
-
-      logObject(response, "response")
-
-      this.#guideId = response.data.guides!.nodes[0].id
-    }
+    log(this.#guideId, "this.#guideId")
 
     this.#subscription = subscriptionClient.subscribe<GuideStagesSubscription>({
       query: GuideStagesDocument,

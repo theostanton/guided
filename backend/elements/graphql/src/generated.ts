@@ -71,13 +71,6 @@ export type BooleanFilter = {
   readonly greaterThanOrEqualTo?: Maybe<Scalars['Boolean']>;
 };
 
-export type Bound = {
-  readonly north?: Maybe<Scalars['Float']>;
-  readonly east?: Maybe<Scalars['Float']>;
-  readonly south?: Maybe<Scalars['Float']>;
-  readonly west?: Maybe<Scalars['Float']>;
-};
-
 export type Computation = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'];
@@ -900,7 +893,6 @@ export type Guide = Node & {
   readonly ridesByGuide: RidesConnection;
   /** Reads and enables pagination through a set of `Computation`. */
   readonly computationsByGuide: ComputationsConnection;
-  readonly bounds?: Maybe<Bound>;
   readonly isMine?: Maybe<Scalars['Boolean']>;
 };
 
@@ -1731,6 +1723,7 @@ export type Ride = Node & {
   readonly owner: Scalars['String'];
   readonly fromSpot: Scalars['String'];
   readonly toSpot: Scalars['String'];
+  readonly pathUrl?: Maybe<Scalars['String']>;
   readonly durationSeconds?: Maybe<Scalars['Int']>;
   readonly distanceMeters?: Maybe<Scalars['Int']>;
   readonly date?: Maybe<Scalars['String']>;
@@ -1739,7 +1732,6 @@ export type Ride = Node & {
   readonly status: RideStatus;
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
-  readonly pathUrl?: Maybe<Scalars['String']>;
   /** Reads a single `Guide` that is related to this `Ride`. */
   readonly guideByGuide?: Maybe<Guide>;
   /** Reads a single `User` that is related to this `Ride`. */
@@ -1767,6 +1759,8 @@ export type RideCondition = {
   readonly fromSpot?: Maybe<Scalars['String']>;
   /** Checks for equality with the object’s `toSpot` field. */
   readonly toSpot?: Maybe<Scalars['String']>;
+  /** Checks for equality with the object’s `pathUrl` field. */
+  readonly pathUrl?: Maybe<Scalars['String']>;
   /** Checks for equality with the object’s `durationSeconds` field. */
   readonly durationSeconds?: Maybe<Scalars['Int']>;
   /** Checks for equality with the object’s `distanceMeters` field. */
@@ -1783,8 +1777,6 @@ export type RideCondition = {
   readonly created?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `updated` field. */
   readonly updated?: Maybe<Scalars['Datetime']>;
-  /** Checks for equality with the object’s `pathUrl` field. */
-  readonly pathUrl?: Maybe<Scalars['String']>;
 };
 
 /** A filter to be used against `Ride` object types. All fields are combined with a logical ‘and.’ */
@@ -1799,6 +1791,8 @@ export type RideFilter = {
   readonly fromSpot?: Maybe<StringFilter>;
   /** Filter by the object’s `toSpot` field. */
   readonly toSpot?: Maybe<StringFilter>;
+  /** Filter by the object’s `pathUrl` field. */
+  readonly pathUrl?: Maybe<StringFilter>;
   /** Filter by the object’s `durationSeconds` field. */
   readonly durationSeconds?: Maybe<IntFilter>;
   /** Filter by the object’s `distanceMeters` field. */
@@ -1815,8 +1809,6 @@ export type RideFilter = {
   readonly created?: Maybe<DatetimeFilter>;
   /** Filter by the object’s `updated` field. */
   readonly updated?: Maybe<DatetimeFilter>;
-  /** Filter by the object’s `pathUrl` field. */
-  readonly pathUrl?: Maybe<StringFilter>;
   /** Filter by the object’s `hasBorder` field. */
   readonly hasBorder?: Maybe<BooleanFilter>;
   /** Filter by the object’s `isMine` field. */
@@ -1838,6 +1830,7 @@ export type RideInput = {
   readonly owner: Scalars['String'];
   readonly fromSpot: Scalars['String'];
   readonly toSpot: Scalars['String'];
+  readonly pathUrl?: Maybe<Scalars['String']>;
   readonly durationSeconds?: Maybe<Scalars['Int']>;
   readonly distanceMeters?: Maybe<Scalars['Int']>;
   readonly date?: Maybe<Scalars['String']>;
@@ -1846,7 +1839,6 @@ export type RideInput = {
   readonly status: RideStatus;
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
-  readonly pathUrl?: Maybe<Scalars['String']>;
 };
 
 /** Represents an update to a `Ride`. Fields that are set will be updated. */
@@ -1856,6 +1848,7 @@ export type RidePatch = {
   readonly owner?: Maybe<Scalars['String']>;
   readonly fromSpot?: Maybe<Scalars['String']>;
   readonly toSpot?: Maybe<Scalars['String']>;
+  readonly pathUrl?: Maybe<Scalars['String']>;
   readonly durationSeconds?: Maybe<Scalars['Int']>;
   readonly distanceMeters?: Maybe<Scalars['Int']>;
   readonly date?: Maybe<Scalars['String']>;
@@ -1864,7 +1857,6 @@ export type RidePatch = {
   readonly status?: Maybe<RideStatus>;
   readonly created?: Maybe<Scalars['Datetime']>;
   readonly updated?: Maybe<Scalars['Datetime']>;
-  readonly pathUrl?: Maybe<Scalars['String']>;
 };
 
 /** A connection to a list of `Ride` values. */
@@ -1900,6 +1892,8 @@ export enum RidesOrderBy {
   FromSpotDesc = 'FROM_SPOT_DESC',
   ToSpotAsc = 'TO_SPOT_ASC',
   ToSpotDesc = 'TO_SPOT_DESC',
+  PathUrlAsc = 'PATH_URL_ASC',
+  PathUrlDesc = 'PATH_URL_DESC',
   DurationSecondsAsc = 'DURATION_SECONDS_ASC',
   DurationSecondsDesc = 'DURATION_SECONDS_DESC',
   DistanceMetersAsc = 'DISTANCE_METERS_ASC',
@@ -1916,8 +1910,6 @@ export enum RidesOrderBy {
   CreatedDesc = 'CREATED_DESC',
   UpdatedAsc = 'UPDATED_ASC',
   UpdatedDesc = 'UPDATED_DESC',
-  PathUrlAsc = 'PATH_URL_ASC',
-  PathUrlDesc = 'PATH_URL_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -3949,7 +3941,6 @@ export type ResolversTypes = {
   Ride: ResolverTypeWrapper<Ride>,
   RidesEdge: ResolverTypeWrapper<RidesEdge>,
   SpotsEdge: ResolverTypeWrapper<SpotsEdge>,
-  Bound: ResolverTypeWrapper<Bound>,
   ComputationsEdge: ResolverTypeWrapper<ComputationsEdge>,
   TemperaturesOrderBy: TemperaturesOrderBy,
   TemperatureCondition: TemperatureCondition,
@@ -4095,7 +4086,6 @@ export type ResolversParentTypes = {
   Ride: Ride,
   RidesEdge: RidesEdge,
   SpotsEdge: SpotsEdge,
-  Bound: Bound,
   ComputationsEdge: ComputationsEdge,
   TemperaturesOrderBy: TemperaturesOrderBy,
   TemperatureCondition: TemperatureCondition,
@@ -4192,14 +4182,6 @@ export type AuthenticatePayloadResolvers<ContextType = any, ParentType extends R
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   jwtToken?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type BoundResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bound'] = ResolversParentTypes['Bound']> = {
-  north?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  east?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  south?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  west?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4402,7 +4384,6 @@ export type GuideResolvers<ContextType = any, ParentType extends ResolversParent
   stagesByGuide?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<GuideStagesByGuideArgs, 'orderBy'>>,
   ridesByGuide?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<GuideRidesByGuideArgs, 'orderBy'>>,
   computationsByGuide?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<GuideComputationsByGuideArgs, 'orderBy'>>,
-  bounds?: Resolver<Maybe<ResolversTypes['Bound']>, ParentType, ContextType>,
   isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -4533,6 +4514,7 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  pathUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   durationSeconds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   distanceMeters?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -4541,7 +4523,6 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   status?: Resolver<ResolversTypes['RideStatus'], ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
-  pathUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
@@ -4798,7 +4779,6 @@ export type UsersEdgeResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type Resolvers<ContextType = any> = {
   AuthenticatePayload?: AuthenticatePayloadResolvers<ContextType>,
-  Bound?: BoundResolvers<ContextType>,
   Computation?: ComputationResolvers<ContextType>,
   ComputationsConnection?: ComputationsConnectionResolvers<ContextType>,
   ComputationsEdge?: ComputationsEdgeResolvers<ContextType>,

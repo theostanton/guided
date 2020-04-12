@@ -10,6 +10,7 @@ import { client } from "api"
 import { DeleteGuideDocument, DeleteGuideMutationVariables } from "api/generated"
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
+import AuthStore from "model/AuthStore"
 import StartDateForm from "./StartDateForm"
 import EditGuideTitleForm from "./EditGuideTitleForm"
 import { ReactElement } from "react"
@@ -18,11 +19,12 @@ import { humanDate, humanDistance } from "utils/human"
 
 type Props = {
   guideStore?: GuideStore
+  authStore?: AuthStore
 }
 
 type State = {}
 
-@inject("guideStore")
+@inject("guideStore", "authStore")
 @observer
 export default class LeftRailComponent extends React.Component<Props, State> {
 
@@ -38,7 +40,7 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       mutation: DeleteGuideDocument,
       variables,
     })
-    navigate("/app/guides")
+    await navigate(`/${this.props.authStore.owner}/guides`)
   }
 
   statistics(): ReactElement {

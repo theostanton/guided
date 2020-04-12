@@ -32,7 +32,7 @@ export default class LoginComponent extends React.Component<Props, State> {
     this.setState({ loading: true })
     try {
       await this.props.authStore.login(email, password)
-      await navigate("/app")
+      await navigate(`/${this.props.authStore.owner}`)
     } catch (e) {
       console.error(e)
       this.setState({ error: e, loading: false })
@@ -46,7 +46,7 @@ export default class LoginComponent extends React.Component<Props, State> {
     //TODO this smarter
     if (this.props.authStore.isLoggedIn) {
       try {
-        navigate("/app").then().catch()
+        navigate(`/${this.props.authStore.owner}`).then().catch()
         return
       } catch (e) {
         console.error(e)

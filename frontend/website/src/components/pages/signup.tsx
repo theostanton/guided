@@ -126,7 +126,7 @@ export default class SignUpComponent extends React.Component<Props, State> {
     //TODO this smarter
     try {
       if (this.props.authStore.isLoggedIn) {
-        navigate("/app").then().catch()
+        navigate(`/${this.props.authStore.owner}`).then().catch()
         return
       }
     } catch (e) {

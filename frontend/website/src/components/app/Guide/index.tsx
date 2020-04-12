@@ -3,10 +3,12 @@ import GuideStore from "model/GuideStore"
 import { Provider } from "mobx-react"
 import Content from "./content"
 
-import {  RouteProps } from "react-router"
+import { RouteProps } from "react-router"
+import { logObject } from "../../../utils/logger"
 
 interface Props extends RouteProps {
   slug?: string
+  owner?: string
   guideId?: string
 }
 
@@ -16,12 +18,13 @@ export default class GuideComponent extends React.Component<Props> {
 
   constructor(props) {
     super(props)
+    logObject(props, "GuideComponent.props")
     if (props.guideId) {
       this.guideStore = GuideStore.fromId(props.guideId!)
-    } else if (props.slug) {
-      this.guideStore = GuideStore.fromSlug(props.slug!)
+    } else if (props.slug && props.owner) {
+      this.guideStore = GuideStore.fromSlug(props.owner!, props.slug!)
     } else {
-      console.error("GuideComponent Need a slug or id!")
+      console.error("GuideComponent Need a slug+owner or id !")
     }
   }
 

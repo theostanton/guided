@@ -164,8 +164,6 @@ export default class Map extends Component<Props, State> {
         }}
 
         onClick={async (event) => {
-          console.log("event")
-          console.log(event)
           if (guide) {
             const variables: AddStayFromLatLongMutationVariables = {
               guideId: guide.id,

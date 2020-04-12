@@ -72,7 +72,7 @@ function GuidesList({ isMine, data, loading, error }: { isMine: boolean, data: O
 
     return (
       <Card
-        value={guide.slug}
+        value={`/${guide.owner}/${guide.slug}`}
         key={key}
         extra={Extra}>
         <Card.Content>
@@ -89,8 +89,8 @@ function GuidesList({ isMine, data, loading, error }: { isMine: boolean, data: O
     )
   })
   return <List
-    onItemClick={async (_, { value: slug }) => {
-      await navigate(`/app/guides/${slug}`)
+    onItemClick={async (_, { value: route }) => {
+      await navigate(route)
     }}
     items={items}
     divided

@@ -46,12 +46,12 @@ export default class GuideBuilder {
 
   private constructor(username: string, title: string, guideId?: string) {
     this.username = username
-    this.id = guideId || generateId("guide")
     this.title = title
     this.slug = slugify(title, {
       lower: true,
-      remove: /[*+~.()'"!:@]/g,
+      remove: /[*+~.()'"!:@_]/g,
     })
+    this.id = guideId || `${this.username}_${this.slug}`
     this.max_hours_per_ride = 6
     this.start_date = null
   }

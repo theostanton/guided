@@ -24,13 +24,13 @@ export default class AppMenu extends React.Component<Props, State> {
           name={"Home"}
           link={true}
           onClick={async () => {
-            await navigate("/app")
+            await navigate(`/${user.username}`)
           }}/>
         <Menu.Item
           name={"My Guides"}
           link={true}
           onClick={async () => {
-            await navigate("/app/guides")
+            await navigate(`/${user.username}/guides`)
           }}/>
         <Menu.Menu
           position='right'
@@ -40,7 +40,7 @@ export default class AppMenu extends React.Component<Props, State> {
             link={true}
             icon='user'
             onClick={async () => {
-              await navigate("/app/account")
+              await navigate(`/${user.username}/account`)
             }}
           />
           <Menu.Item
