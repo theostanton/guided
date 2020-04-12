@@ -4949,6 +4949,13 @@ export type GuideStagesSubscriptionVariables = {
 
 export type GuideStagesSubscription = { readonly guide?: Maybe<GuideFragment> };
 
+export type GuideStagesPublicQueryVariables = {
+  id: Scalars['String'];
+};
+
+
+export type GuideStagesPublicQuery = { readonly guide?: Maybe<GuideFragment> };
+
 export type LoginMutationVariables = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -5487,6 +5494,45 @@ export function useGuideStagesSubscription(baseOptions?: ApolloReactHooks.Subscr
       }
 export type GuideStagesSubscriptionHookResult = ReturnType<typeof useGuideStagesSubscription>;
 export type GuideStagesSubscriptionResult = ApolloReactCommon.SubscriptionResult<GuideStagesSubscription>;
+export const GuideStagesPublicDocument = gql`
+    query GuideStagesPublic($id: String!) {
+  guide(id: $id) {
+    ...Guide
+  }
+}
+    ${GuideFragmentDoc}`;
+export type GuideStagesPublicComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>, 'query'> & ({ variables: GuideStagesPublicQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const GuideStagesPublicComponent = (props: GuideStagesPublicComponentProps) => (
+      <ApolloReactComponents.Query<GuideStagesPublicQuery, GuideStagesPublicQueryVariables> query={GuideStagesPublicDocument} {...props} />
+    );
+    
+
+/**
+ * __useGuideStagesPublicQuery__
+ *
+ * To run a query within a React component, call `useGuideStagesPublicQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGuideStagesPublicQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGuideStagesPublicQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGuideStagesPublicQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>) {
+        return ApolloReactHooks.useQuery<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>(GuideStagesPublicDocument, baseOptions);
+      }
+export function useGuideStagesPublicLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>(GuideStagesPublicDocument, baseOptions);
+        }
+export type GuideStagesPublicQueryHookResult = ReturnType<typeof useGuideStagesPublicQuery>;
+export type GuideStagesPublicLazyQueryHookResult = ReturnType<typeof useGuideStagesPublicLazyQuery>;
+export type GuideStagesPublicQueryResult = ApolloReactCommon.QueryResult<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   authenticate(input: {email: $email, password: $password}) {

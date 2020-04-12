@@ -45,7 +45,7 @@ async function editStartDate(_: any, args: MutationEditStartDateArgs, context: C
                                                 from guides
                                                 where id = $1`, [args.guideId])
 
-  if (guideAfter.start_date !== args.date) {
+  if (guideAfter.start_date !== args.date && (guideAfter.start_date === null && args.date === "")) {
     return {
       success: false,
       message: `Date didn't update. Is :${guideAfter.start_date} not ${args.date}`,

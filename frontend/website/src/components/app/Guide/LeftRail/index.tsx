@@ -4,17 +4,17 @@ import {
   Grid,
   Statistic,
   GridRow,
-  StatisticGroup, Segment, ButtonGroup,
+  StatisticGroup, Segment, ButtonGroup, Icon, Form,
 } from "semantic-ui-react"
 import { client } from "api"
-import { DeleteGuideDocument, DeleteGuideMutationVariables } from "api/generated"
+import { DeleteGuideDocument, DeleteGuideMutationVariables, GuideFragment } from "api/generated"
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import AuthStore from "model/AuthStore"
 import StartDateForm from "./StartDateForm"
 import EditGuideTitleForm from "./EditGuideTitleForm"
-import { ReactElement } from "react"
-import {navigate} from "@reach/router"
+import { CSSProperties, ReactElement } from "react"
+import { navigate } from "@reach/router"
 import { humanDate, humanDistance } from "utils/human"
 
 type Props = {
@@ -56,7 +56,13 @@ export default class LeftRailComponent extends React.Component<Props, State> {
     const seconds = this.guideStore.rides.reduce((acc, ride) => {
       return acc + ride.durationSeconds
     }, 0)
-    const stats: { label: string, value: string | number }[] = [
+    const style: CSSProperties = {
+      height: "1.9em", //TODO this differently
+      textAlign: "center",
+    }
+    const Loading = <div style={style}><Icon name='circle notched' loading/></div>
+
+    const stats: { label: string, value: string | React.ReactElement | number }[] = [
       {
         label: "Rides",
         value: this.guideStore.rides.length,
@@ -67,13 +73,13 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       },
       {
         label: "Days",
-        value: isComputing ? "..." : this.guideStore.spots.reduce((acc, spot) => {
+        value: isComputing ? Loading : this.guideStore.spots.reduce((acc, spot) => {
           return acc + spot.nights
         }, 1),
       },
       {
         label: "Borders",
-        value: isComputing ? "..." : this.guideStore.rides.reduce((acc, ride) => {
+        value: isComputing ? Loading : this.guideStore.rides.reduce((acc, ride) => {
           if (ride.hasBorder) {
             return acc + 1
           } else {
@@ -83,36 +89,33 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       },
       {
         label: "Miles",
-        value: isComputing ? "..." : humanDistance(meters, false),
+        value: isComputing ? Loading : humanDistance(meters, false),
       },
       {
         label: "Hours",
-        value: isComputing ? "..." : Math.ceil(seconds / 60 / 60),
+        value: isComputing ? Loading : Math.ceil(seconds / 60 / 60),
       },
     ]
 
     let startDate = this.guideStore.guide.startDate
-    stats.push({
-      label: "Start",
-      value: startDate ? humanDate(startDate) : "...",
-    })
     if (startDate) {
-      const lastDate = this.guideStore.rides.reduce((acc, ride) => {
-        if (acc < ride.date) {
-          return ride.date
-        } else {
-          return acc
-        }
-      }, startDate)
       stats.push({
-        label: "End",
-        value: humanDate(lastDate),
+        label: "Start",
+        value: humanDate(startDate),
       })
-    } else {
-      stats.push({
-        label: "End",
-        value: "...",
-      })
+      if (startDate) {
+        const lastDate = this.guideStore.rides.reduce((acc, ride) => {
+          if (acc < ride.date) {
+            return ride.date
+          } else {
+            return acc
+          }
+        }, startDate)
+        stats.push({
+          label: "End",
+          value: humanDate(lastDate),
+        })
+      }
     }
 
     return <StatisticGroup widths='2' size={"tiny"}>
@@ -123,12 +126,27 @@ export default class LeftRailComponent extends React.Component<Props, State> {
     </StatisticGroup>
   }
 
+  startDate(guide: GuideFragment, isOwner: boolean): React.ReactElement | undefined {
+
+    if (isOwner) {
+      return <GridRow>
+        <Grid.Column>
+          <StartDateForm guideId={guide.id} startDate={guide.startDate}/>
+        </Grid.Column>
+      </GridRow>
+    } else {
+      return undefined
+    }
+  }
+
   render(): React.ReactElement {
     const guide = this.guideStore?.guide
 
     if (!guide) {
       return <Segment loading/>
     }
+
+    const isOwner = this.guideStore!.isOwner
 
     return <Segment style={{ backgroundColor: "#ffffff" }}>
       <Grid divided={"vertically"} padded={false}>
@@ -138,9 +156,9 @@ export default class LeftRailComponent extends React.Component<Props, State> {
           </Grid.Column>
           <Grid.Column width={"6"}>
             <ButtonGroup floated={"right"}>
-              <Button icon='trash' onClick={async () => {
+              {isOwner && <Button icon='trash' onClick={async () => {
                 await this.deleteGuide(guide.id)
-              }}/>
+              }}/>}
               <Button icon='close' onClick={() => {
                 window.history.back()
               }}/>
@@ -152,11 +170,7 @@ export default class LeftRailComponent extends React.Component<Props, State> {
             {this.statistics.bind(this)()}
           </Grid.Column>
         </GridRow>
-        <GridRow>
-          <Grid.Column>
-            <StartDateForm guideId={guide.id} startDate={guide.startDate}/>
-          </Grid.Column>
-        </GridRow>
+        {this.startDate(guide, isOwner)}
       </Grid>
     </Segment>
   }

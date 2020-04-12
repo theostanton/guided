@@ -22,18 +22,20 @@ export default class RightRailComponent extends React.Component<Props> {
   }
 
   contents(): React.ReactElement {
+
+    const isOwner = this.guideStore.isOwner
     const selectedSpot = this.guideStore.selectedSpot
     const selectedRide = this.guideStore.selectedRide
 
 
     if (selectedSpot) {
-      return <SpotDetail spot={selectedSpot} close={() => {
+      return <SpotDetail spot={selectedSpot} isOwner={isOwner} close={() => {
         this.guideStore.unselect()
       }}/>
     }
 
     if (selectedRide) {
-      return <RideDetail ride={selectedRide} guideStore={this.guideStore} close={() => {
+      return <RideDetail ride={selectedRide} isOwner={isOwner} guideStore={this.guideStore} close={() => {
         this.guideStore.unselect()
       }}/>
     }

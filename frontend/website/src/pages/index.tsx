@@ -26,7 +26,7 @@ export default class RootComponent extends React.Component<Props> {
 
     const { isLoggedIn } = this.props.authStore
 
-    if (isLoggedIn) {
+    if (isLoggedIn === true) {
       return <div style={{ margin: 20 }}>
         <Container>
           <AppMenu/>

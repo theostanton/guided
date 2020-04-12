@@ -107,3 +107,11 @@ subscription GuideStages($id: String!){
         ...Guide
     }
 }
+
+query GuideStagesPublic($id: String!){
+    guide(
+        id: $id
+    ){
+        ...Guide
+    }
+}

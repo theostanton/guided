@@ -23,3 +23,7 @@ export function humanDate(date: string): string {
 export function humanTemperature(temperature: number): string {
   return `${Math.floor(temperature)}°`
 }
+
+export function plural(word: string, count: number): string {
+  return count === 1 ? word : `${word}s`
+}
