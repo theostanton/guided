@@ -34,8 +34,8 @@ export default class RootComponent extends React.Component<Props> {
         <Container>
           <Router>
             <Account path="/:owner/account"/>
-            <Guide path="/:owner/:slug"/>
             <Guides path="/:owner/guides"/>
+            <Guide path="/:owner/:slug"/>
             <Dashboard path="/:owner"/>
           </Router>
         </Container>
@@ -46,7 +46,7 @@ export default class RootComponent extends React.Component<Props> {
           <About path="/"/>
           <Login path="/login"/>
           <Signup path="/signup"/>
-          <Guide path=":owner/:slug"/>
+          <Guide path="/:owner/:slug"/>
         </Router>
       </Layout>
     }
