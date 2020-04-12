@@ -32,7 +32,7 @@ module.exports = {
       /express\/lib\/view\.js$/,
       `${__dirname}/express-lib-view.js`,
     ),
-  ].concat(process.env.CI ? [] : [new BundleAnalyzerPlugin()]),
+  ].concat(process.env.BUILD ? [] : [new BundleAnalyzerPlugin()]),
   node: {
     __dirname: false, // just output `__dirname`
   },

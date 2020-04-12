@@ -26,7 +26,7 @@ module.exports = {
         "process.env.POSTGRAPHILE_OMIT_ASSETS": "\"1\"",
       }),
       new webpack.NormalModuleReplacementPlugin(/pg\/lib\/native\/index\.js$/, "../client.js"),
-    ]].concat(process.env.CI ? [] : [new BundleAnalyzerPlugin()]),
+    ]].concat(process.env.BUILD ? [] : [new BundleAnalyzerPlugin()]),
   optimization: {
     minimizer: [
       new TerserPlugin({
