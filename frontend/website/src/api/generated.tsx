@@ -4871,7 +4871,7 @@ export type CreateGuideMutationVariables = {
 };
 
 
-export type CreateGuideMutation = { readonly createGuide?: Maybe<{ readonly guide?: Maybe<Pick<Guide, 'id'>> }> };
+export type CreateGuideMutation = { readonly createGuide?: Maybe<{ readonly guide?: Maybe<Pick<Guide, 'slug'>> }> };
 
 export type AddStayFromLatLongMutationVariables = {
   guideId: Scalars['String'];
@@ -5082,7 +5082,7 @@ export const CreateGuideDocument = gql`
     mutation CreateGuide($guide: GuideInput!) {
   createGuide(input: {guide: $guide}) {
     guide {
-      id
+      slug
     }
   }
 }

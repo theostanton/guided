@@ -3,10 +3,11 @@ import GuideStore from "model/GuideStore"
 import { Provider } from "mobx-react"
 import Content from "./content"
 
-export type Props = {
+import {  RouteProps } from "react-router"
+
+interface Props extends RouteProps {
   slug?: string
   guideId?: string
-  close: () => void
 }
 
 export default class GuideComponent extends React.Component<Props> {
@@ -34,7 +35,7 @@ export default class GuideComponent extends React.Component<Props> {
 
   render() {
     return <Provider guideStore={this.guideStore}>
-      < Content close={this.props.close}/>
+      <Content/>
     </Provider>
   }
 }

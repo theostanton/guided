@@ -166,19 +166,21 @@ export default class Map extends Component<Props, State> {
         onClick={async (event) => {
           console.log("event")
           console.log(event)
-          const variables: AddStayFromLatLongMutationVariables = {
-            guideId: guide.id,
-            long: event.lngLat[0],
-            lat: event.lngLat[1],
-            nights: 1,
+          if (guide) {
+            const variables: AddStayFromLatLongMutationVariables = {
+              guideId: guide.id,
+              long: event.lngLat[0],
+              lat: event.lngLat[1],
+              nights: 1,
+            }
+
+            await client.mutate({
+              mutation: AddStayFromLatLongDocument,
+              variables,
+            })
+          } else {
+            console.error("Guide not loaded")
           }
-
-          await client.mutate({
-            mutation: AddStayFromLatLongDocument,
-            variables,
-          })
-
-          this.guideStore.refetch()
         }}
       >
         {guide && <Markers/>}

@@ -1,14 +1,15 @@
 import * as React from "react"
-import { Button, Container, Form, Input, Message, Modal } from "semantic-ui-react"
-import Layout from "components/root/Layout"
-import { navigate } from "gatsby"
+import { Button, Container, Form, Header, Message } from "semantic-ui-react"
+import { Link, navigate } from "gatsby"
 import { inject } from "mobx-react"
 import AuthStore from "model/AuthStore"
+import { RouteProps } from "react-router"
 
-type Stage = "enter" | "error" | "submitting" | "validate" | "validating"
+type Stage = "enter" | "error" | "submitting" | "validate"
 
-type Props = {
-  authStore: AuthStore
+
+interface Props extends RouteProps {
+  authStore?: AuthStore
 }
 
 type Errors = {
@@ -120,19 +121,6 @@ export default class SignUpComponent extends React.Component<Props, State> {
     this.setState({ fields, errors, stage: "enter" })
   }
 
-  async validateEmail(): Promise<void> {
-    const { fields: { email }, validationCode } = this.state
-    try {
-      await this.props.authStore.confirmSignUp(email, validationCode!!)
-      // await fetchUser()
-      await navigate("/app")
-    } catch (e) {
-      console.error(e)
-      this.setState({ stage: "error", errors: { message: e.message } })
-    }
-
-  }
-
   render(): React.ReactElement | undefined {
 
     //TODO this smarter
@@ -146,86 +134,59 @@ export default class SignUpComponent extends React.Component<Props, State> {
     }
 
     const { fields: { password, email, username }, accept, errors, stage, validationCode } = this.state
-    return <Layout>
-      <Container text style={{ marginTop: "2em" }}>
-        <Form error={stage === "error"}>
-          <Form.Input
-            label="Username"
-            icon='user'
-            error={errors["username"]}
-            iconPosition='left'
-            value={username}
-            onChange={(e, { value }) => {
-              this.updateValue("username", value)
-            }
-            }/>
-          <Form.Input
-            label="Email"
-            icon='mail'
-            iconPosition='left'
-            error={errors["email"]}
-            value={email}
-            type={"email"}
-            onChange={(e, { value }) => {
-              this.updateValue("email", value)
-            }
-            }/>
-          <Form.Input
-            label={"Password"}
-            value={password}
-            error={errors["password"]}
-            icon='lock'
-            iconPosition='left'
-            type={"password"}
-            onChange={(e, { value, error }) => {
-              this.updateValue("password", value)
-            }}/>
-          <Form.Checkbox
-            label='I agree to the Terms and Conditions'
-            checked={accept}
-            onChange={((event, { checked }) => {
-              this.setState({ accept: checked || false, stage: "enter" })
-            })}/>
+    return <Container text style={{ marginTop: "2em" }}>
+      <Form error={stage === "error"}>
+        <Form.Input
+          label="Username"
+          icon='user'
+          error={errors["username"]}
+          iconPosition='left'
+          value={username}
+          onChange={(e, { value }) => {
+            this.updateValue("username", value)
+          }
+          }/>
+        <Form.Input
+          label="Email"
+          icon='mail'
+          iconPosition='left'
+          error={errors["email"]}
+          value={email}
+          type={"email"}
+          onChange={(e, { value }) => {
+            this.updateValue("email", value)
+          }
+          }/>
+        <Form.Input
+          label={"Password"}
+          value={password}
+          error={errors["password"]}
+          icon='lock'
+          iconPosition='left'
+          type={"password"}
+          onChange={(e, { value, error }) => {
+            this.updateValue("password", value)
+          }}/>
+        <Form.Checkbox
+          label='I agree to the Terms and Conditions'
+          checked={accept}
+          onChange={((event, { checked }) => {
+            this.setState({ accept: checked || false, stage: "enter" })
+          })}/>
 
-          {errors.message && <Message error header={"Error"} content={errors.message}/>}
+        {errors.message && <Message error header={"Error"} content={errors.message}/>}
 
-          <Button
-            type='submit'
-            active={stage === "enter"}
-            loading={stage === "submitting"}
-            onClick={async () => {
-              await this.signUp()
-            }
-            }>Sign up</Button>
-        </Form>
+        <Button
+          type='submit'
+          active={stage === "enter"}
+          loading={stage === "submitting"}
+          onClick={async () => {
+            await this.signUp()
+          }
+          }>Sign up</Button>
+      </Form>
 
-        {(stage === "validate" || stage === "validating") && <Modal
-          open={true}
-        >
-          <Modal.Header>Validate your email</Modal.Header>
-          <Modal.Content>
-            <Input
-              label={"Validation code"}
-              onChange={(e, { value }) => {
-                this.setState({ validationCode: value })
-              }}/>
-          </Modal.Content>
-
-          <Modal.Actions>
-            <Button
-              positive
-              loading={stage === "validating"}
-              active={validationCode !== undefined && validationCode.length > 0}
-              onClick={async () => {
-                await this.validateEmail()
-              }
-              }
-            >
-              Continue
-            </Button>
-          </Modal.Actions>
-        </Modal>}
-      </Container>
-    </Layout>
+      <Header as='h4'><Link to={"/login"}>Already a member? log in</Link></Header>
+    </Container>
   }
 }
