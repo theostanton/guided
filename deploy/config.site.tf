@@ -32,6 +32,14 @@ resource "aws_cloudfront_distribution" "site" {
   price_class = "PriceClass_100"
   default_root_object = "index.html"
   is_ipv6_enabled = true
+
+  custom_error_response {
+    error_code = 404
+    error_caching_min_ttl = 0
+    response_code = 200
+    response_page_path = "/index.html"
+  }
+
   default_cache_behavior {
     allowed_methods = [
       "GET",

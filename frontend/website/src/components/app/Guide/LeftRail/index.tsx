@@ -2,13 +2,10 @@ import * as React from "react"
 import {
   Button,
   Grid,
-  GridColumn,
   Statistic,
   GridRow,
-  Header,
   StatisticGroup, Segment, ButtonGroup,
 } from "semantic-ui-react"
-
 import { client } from "api"
 import { DeleteGuideDocument, DeleteGuideMutationVariables } from "api/generated"
 import { inject, observer } from "mobx-react"
@@ -16,11 +13,11 @@ import GuideStore from "model/GuideStore"
 import StartDateForm from "./StartDateForm"
 import EditGuideTitleForm from "./EditGuideTitleForm"
 import { ReactElement } from "react"
+import {navigate} from "@reach/router"
 import { humanDate, humanDistance } from "utils/human"
 
 type Props = {
   guideStore?: GuideStore
-  close: () => void
 }
 
 type State = {}
@@ -34,7 +31,6 @@ export default class LeftRailComponent extends React.Component<Props, State> {
   }
 
   async deleteGuide(guideId: string): Promise<void> {
-    this.props.close()
     const variables: DeleteGuideMutationVariables = {
       guideId,
     }
@@ -42,6 +38,7 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       mutation: DeleteGuideDocument,
       variables,
     })
+    navigate("/app/guides")
   }
 
   statistics(): ReactElement {
@@ -142,7 +139,9 @@ export default class LeftRailComponent extends React.Component<Props, State> {
               <Button icon='trash' onClick={async () => {
                 await this.deleteGuide(guide.id)
               }}/>
-              <Button icon='close' onClick={this.props.close}/>
+              <Button icon='close' onClick={() => {
+                window.history.back()
+              }}/>
             </ButtonGroup>
           </Grid.Column>
         </Grid.Row>

@@ -11,7 +11,7 @@ import { client } from "api"
 
 type Props = {
   owner: string
-  onClose: (guideId: string | undefined) => void
+  onClose: (guideSlug: string | undefined) => void
 }
 
 type State = {
@@ -70,12 +70,12 @@ export default class GuideDetailsModalComponent extends React.Component<Props, S
     const data = response.data!
     console.log(data)
 
-    this.close(data.createGuide.guide.id)
+    this.close(data.createGuide.guide.slug)
   }
 
-  close(guideId: string | undefined) {
+  close(guideSlug: string | undefined) {
     this.setState({ open: false })
-    this.props.onClose(guideId)
+    this.props.onClose(guideSlug)
   }
 
   render(): React.ReactElement {

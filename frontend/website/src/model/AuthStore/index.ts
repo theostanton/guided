@@ -29,16 +29,16 @@ export default class Index {
     }
   }
 
+  @computed
   get isLoggedIn(): boolean {
     return this.user !== undefined
   }
 
   @computed
-  get owner(): string {
+  get owner(): string | undefined {
     if (this.isLoggedIn) {
       return this.user?.username!
     }
-    throw new Error("AuthStore.owner - not logged in")
   }
 
   async login(email: string, password: string): Promise<void> {

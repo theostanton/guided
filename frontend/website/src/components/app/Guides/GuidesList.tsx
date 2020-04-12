@@ -2,19 +2,19 @@ import {
   OwnersGuideInfosSubscription, useNotOwnersGuideInfosSubscription,
   useOwnersGuideInfosSubscription,
 } from "api/generated"
-import { Card, List, Message, Segment, Label, Icon, Divider } from "semantic-ui-react"
+import { Card, List, Message, Segment, Label, Icon } from "semantic-ui-react"
 import randomKey from "utils/randomKey"
 import * as React from "react"
 import { log } from "utils/logger"
 import { subscriptionClient } from "api/client"
-import { humanDate } from "../../../utils/human"
+import { humanDate } from "utils/human"
+import { navigate } from "@reach/router"
 
 type Props = {
   owner: string,
-  onClick: (guideId: string) => void
 }
 
-export function MyGuidesList({ owner, onClick }: Props) {
+export function MyGuidesList({ owner }: Props) {
 
   const { data, loading, error } = useOwnersGuideInfosSubscription({
     // @ts-ignore
@@ -28,10 +28,10 @@ export function MyGuidesList({ owner, onClick }: Props) {
     },
   })
 
-  return <GuidesList isMine={true} data={data} loading={loading} error={error} onClick={onClick}/>
+  return <GuidesList isMine={true} data={data} loading={loading} error={error}/>
 }
 
-export function SharedGuidesList({ owner, onClick }: Props) {
+export function SharedGuidesList({ owner }: Props) {
 
   const { data, loading, error } = useNotOwnersGuideInfosSubscription({
     // @ts-ignore
@@ -45,10 +45,10 @@ export function SharedGuidesList({ owner, onClick }: Props) {
     },
   })
 
-  return <GuidesList isMine={false} data={data} loading={loading} error={error} onClick={onClick}/>
+  return <GuidesList isMine={false} data={data} loading={loading} error={error}/>
 }
 
-function GuidesList({ isMine, data, loading, error, onClick }: { isMine: boolean, data: OwnersGuideInfosSubscription, loading: boolean, error: any, onClick: (guideId: string) => void }) {
+function GuidesList({ isMine, data, loading, error }: { isMine: boolean, data: OwnersGuideInfosSubscription, loading: boolean, error: any }) {
 
   if (loading) {
     return <Segment loading/>
@@ -72,7 +72,7 @@ function GuidesList({ isMine, data, loading, error, onClick }: { isMine: boolean
 
     return (
       <Card
-        value={guide!.id}
+        value={guide.slug}
         key={key}
         extra={Extra}>
         <Card.Content>
@@ -89,8 +89,8 @@ function GuidesList({ isMine, data, loading, error, onClick }: { isMine: boolean
     )
   })
   return <List
-    onItemClick={(_, { value: guideId }) => {
-      onClick(guideId)
+    onItemClick={async (_, { value: slug }) => {
+      await navigate(`/app/guides/${slug}`)
     }}
     items={items}
     divided

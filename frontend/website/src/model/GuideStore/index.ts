@@ -202,7 +202,7 @@ export default class GuideStore {
       },
     }).subscribe(value => {
       if (value.data) {
-        logObject(value.data, "value.data")
+        logObject(value.data, "value.data!")
         const guide = value.data.guide
         this.updateGuide(guide)
       } else if (value.errors) {
@@ -220,10 +220,6 @@ export default class GuideStore {
     runInAction(() => {
       this.guide = guide
     })
-  }
-
-  refetch(): void {
-
   }
 
   unsubscribe() {

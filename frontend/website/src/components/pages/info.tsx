@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Container, GridColumn, Segment, Statistic, StatisticGroup } from "semantic-ui-react"
-import Layout from "../components/root/Layout"
+import Layout from "components/root/Layout"
 
 export default class InfoComponent extends React.Component {
 

@@ -9,7 +9,6 @@ import RightRail from "./RightRail"
 type Props = {
   guideStore?: GuideStore
   authStore?: AuthStore
-  close: () => void
 }
 
 @inject("authStore", "guideStore")
@@ -45,7 +44,7 @@ export default class GuideComponent extends React.Component<Props> {
           bottom: 0,
           zIndex: 3,
         }}>
-          <LeftRail close={this.props.close}/>
+          <LeftRail/>
         </div>
 
 
