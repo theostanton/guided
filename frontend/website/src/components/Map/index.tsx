@@ -10,7 +10,6 @@ import { Rides } from "./Rides"
 import WebMercatorViewport from "viewport-mercator-project"
 import { logJson } from "utils/logger"
 import { Segment } from "semantic-ui-react"
-import { logInfo } from "../../../../../backend/tools/logger/src"
 
 type ViewPort = {
   width: number,
@@ -151,6 +150,24 @@ export default class Map extends Component<Props, State> {
       return <Segment loading/>
     }
     const guide = this.guideStore?.guide
+
+    const onClick = this.props.guideStore.isOwner && (async (event) => {
+      if (guide) {
+        const variables: AddStayFromLatLongMutationVariables = {
+          guideId: guide.id,
+          long: event.lngLat[0],
+          lat: event.lngLat[1],
+          nights: 1,
+        }
+
+        await client.mutate({
+          mutation: AddStayFromLatLongDocument,
+          variables,
+        })
+      } else {
+        console.error("Guide not loaded")
+      }
+    })
     return (
       <ReactMapGL
         mapboxApiAccessToken={process.env.GATSBY_MAPBOX_TOKEN!}
@@ -163,23 +180,7 @@ export default class Map extends Component<Props, State> {
           }
         }}
 
-        onClick={async (event) => {
-          if (guide) {
-            const variables: AddStayFromLatLongMutationVariables = {
-              guideId: guide.id,
-              long: event.lngLat[0],
-              lat: event.lngLat[1],
-              nights: 1,
-            }
-
-            await client.mutate({
-              mutation: AddStayFromLatLongDocument,
-              variables,
-            })
-          } else {
-            console.error("Guide not loaded")
-          }
-        }}
+        onClick={onClick}
       >
         {guide && <Markers/>}
         {guide && <Rides/>}

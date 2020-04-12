@@ -77,6 +77,48 @@ export type BooleanFilter = {
   readonly greaterThanOrEqualTo?: Maybe<Scalars['Boolean']>;
 };
 
+export enum Colour {
+  Red = 'RED',
+  Orange = 'ORANGE',
+  Yellow = 'YELLOW',
+  Olive = 'OLIVE',
+  Green = 'GREEN',
+  Teal = 'TEAL',
+  Blue = 'BLUE',
+  Violet = 'VIOLET',
+  Purple = 'PURPLE',
+  Pink = 'PINK',
+  Brown = 'BROWN',
+  Grey = 'GREY',
+  Black = 'BLACK'
+}
+
+/** A filter to be used against Colour fields. All fields are combined with a logical ‘and.’ */
+export type ColourFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<Colour>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<Colour>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<Colour>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<Colour>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<Colour>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<Colour>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<Colour>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<Colour>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<Colour>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<Colour>;
+};
+
 export type Computation = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'];
@@ -3690,6 +3732,7 @@ export type User = Node & {
   readonly passwordHash: Scalars['String'];
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly colour?: Maybe<Colour>;
   /** Reads and enables pagination through a set of `Guide`. */
   readonly guidesByOwner: GuidesConnection;
   /** Reads and enables pagination through a set of `Spot`. */
@@ -3746,6 +3789,8 @@ export type UserCondition = {
   readonly created?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `updated` field. */
   readonly updated?: Maybe<Scalars['Datetime']>;
+  /** Checks for equality with the object’s `colour` field. */
+  readonly colour?: Maybe<Colour>;
 };
 
 /** A filter to be used against `User` object types. All fields are combined with a logical ‘and.’ */
@@ -3760,6 +3805,8 @@ export type UserFilter = {
   readonly created?: Maybe<DatetimeFilter>;
   /** Filter by the object’s `updated` field. */
   readonly updated?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `colour` field. */
+  readonly colour?: Maybe<ColourFilter>;
   /** Checks for all expressions in this list. */
   readonly and?: Maybe<ReadonlyArray<UserFilter>>;
   /** Checks for any expressions in this list. */
@@ -3775,6 +3822,7 @@ export type UserInput = {
   readonly passwordHash: Scalars['String'];
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly colour?: Maybe<Colour>;
 };
 
 /** Represents an update to a `User`. Fields that are set will be updated. */
@@ -3784,6 +3832,7 @@ export type UserPatch = {
   readonly passwordHash?: Maybe<Scalars['String']>;
   readonly created?: Maybe<Scalars['Datetime']>;
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly colour?: Maybe<Colour>;
 };
 
 /** A connection to a list of `User` values. */
@@ -3819,6 +3868,8 @@ export enum UsersOrderBy {
   CreatedDesc = 'CREATED_DESC',
   UpdatedAsc = 'UPDATED_ASC',
   UpdatedDesc = 'UPDATED_DESC',
+  ColourAsc = 'COLOUR_ASC',
+  ColourDesc = 'COLOUR_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -3918,6 +3969,7 @@ export type ResolversTypes = {
   StageStatus: StageStatus,
   Guide: ResolverTypeWrapper<Guide>,
   User: ResolverTypeWrapper<User>,
+  Colour: Colour,
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
   GuideFilter: GuideFilter,
@@ -3957,6 +4009,7 @@ export type ResolversTypes = {
   UsersOrderBy: UsersOrderBy,
   UserCondition: UserCondition,
   UserFilter: UserFilter,
+  ColourFilter: ColourFilter,
   UsersConnection: ResolverTypeWrapper<UsersConnection>,
   UsersEdge: ResolverTypeWrapper<UsersEdge>,
   JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
@@ -4063,6 +4116,7 @@ export type ResolversParentTypes = {
   StageStatus: StageStatus,
   Guide: Guide,
   User: User,
+  Colour: Colour,
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
   GuideFilter: GuideFilter,
@@ -4102,6 +4156,7 @@ export type ResolversParentTypes = {
   UsersOrderBy: UsersOrderBy,
   UserCondition: UserCondition,
   UserFilter: UserFilter,
+  ColourFilter: ColourFilter,
   UsersConnection: UsersConnection,
   UsersEdge: UsersEdge,
   JwtToken: Scalars['JwtToken'],
@@ -4763,6 +4818,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   passwordHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
+  colour?: Resolver<Maybe<ResolversTypes['Colour']>, ParentType, ContextType>,
   guidesByOwner?: Resolver<ResolversTypes['GuidesConnection'], ParentType, ContextType, RequireFields<UserGuidesByOwnerArgs, 'orderBy'>>,
   spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>,
   ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>,
@@ -4909,21 +4965,27 @@ export type GetGuideIdForSlugQueryVariables = {
 
 export type GetGuideIdForSlugQuery = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id'>>> }> };
 
-export type GuideInfoFragment = Pick<Guide, 'id' | 'title' | 'slug' | 'owner' | 'startDate'>;
+export type GuideInfoFragment = Pick<Guide, 'id' | 'title' | 'slug' | 'startDate' | 'owner'>;
 
-export type OwnersGuideInfosSubscriptionVariables = {
+export type GuideInfosSubscriptionVariables = {
   owner: Scalars['String'];
 };
 
 
-export type OwnersGuideInfosSubscription = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }> };
+export type GuideInfosSubscription = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }> };
 
-export type NotOwnersGuideInfosSubscriptionVariables = {
-  owner: Scalars['String'];
-};
+export type GuideFeedItemFragment = (
+  Pick<Guide, 'id' | 'title' | 'slug' | 'startDate' | 'updated' | 'created'>
+  & { readonly owner?: Maybe<Pick<User, 'username' | 'colour'>>, readonly rides: { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'distanceMeters' | 'durationSeconds'>>> }, readonly stages: Pick<StagesConnection, 'totalCount'>, readonly spots: (
+    Pick<SpotsConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<Pick<Spot, 'nights'>>> }
+  ) }
+);
+
+export type FeedSubscriptionVariables = {};
 
 
-export type NotOwnersGuideInfosSubscription = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }> };
+export type FeedSubscription = { readonly items: { readonly newGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }>, readonly updatedGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }> } };
 
 export type SpotFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'name' | 'long' | 'locked' | 'location' | 'position' | 'date' | 'temperature' | 'country' | 'nights'>;
 
@@ -4948,6 +5010,21 @@ export type GuideStagesSubscriptionVariables = {
 
 
 export type GuideStagesSubscription = { readonly guide?: Maybe<GuideFragment> };
+
+export type ProfileFragment = (
+  Pick<User, 'colour' | 'username' | 'created'>
+  & { readonly guides: Pick<GuidesConnection, 'totalCount'>, readonly rides: (
+    Pick<RidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'distanceMeters' | 'durationSeconds'>>> }
+  ) }
+);
+
+export type UserProfileSubscriptionVariables = {
+  username: Scalars['String'];
+};
+
+
+export type UserProfileSubscription = { readonly profile?: Maybe<ProfileFragment> };
 
 export type GuideStagesPublicQueryVariables = {
   id: Scalars['String'];
@@ -4978,15 +5055,44 @@ export type GetUsernameQueryVariables = {
 };
 
 
-export type GetUsernameQuery = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username'>>> }> };
+export type GetUsernameQuery = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username' | 'colour'>>> }> };
 
 export const GuideInfoFragmentDoc = gql`
     fragment GuideInfo on Guide {
   id
   title
   slug
-  owner
   startDate
+  owner
+}
+    `;
+export const GuideFeedItemFragmentDoc = gql`
+    fragment GuideFeedItem on Guide {
+  id
+  title
+  slug
+  startDate
+  updated
+  created
+  owner: userByOwner {
+    username
+    colour
+  }
+  rides: ridesByGuide {
+    nodes {
+      distanceMeters
+      durationSeconds
+    }
+  }
+  stages: stagesByGuide {
+    totalCount
+  }
+  spots: spotsByGuide {
+    totalCount
+    nodes {
+      nights
+    }
+  }
 }
     `;
 export const SpotFragmentDoc = gql`
@@ -5065,6 +5171,23 @@ export const GuideFragmentDoc = gql`
 }
     ${SpotFragmentDoc}
 ${StageFragmentDoc}`;
+export const ProfileFragmentDoc = gql`
+    fragment Profile on User {
+  colour
+  username
+  created
+  guides: guidesByOwner {
+    totalCount
+  }
+  rides: ridesByOwner {
+    totalCount
+    nodes {
+      distanceMeters
+      durationSeconds
+    }
+  }
+}
+    `;
 export const CreateGuideDocument = gql`
     mutation CreateGuide($guide: GuideInput!) {
   createGuide(input: {guide: $guide}) {
@@ -5385,8 +5508,8 @@ export function useGetGuideIdForSlugLazyQuery(baseOptions?: ApolloReactHooks.Laz
 export type GetGuideIdForSlugQueryHookResult = ReturnType<typeof useGetGuideIdForSlugQuery>;
 export type GetGuideIdForSlugLazyQueryHookResult = ReturnType<typeof useGetGuideIdForSlugLazyQuery>;
 export type GetGuideIdForSlugQueryResult = ApolloReactCommon.QueryResult<GetGuideIdForSlugQuery, GetGuideIdForSlugQueryVariables>;
-export const OwnersGuideInfosDocument = gql`
-    subscription OwnersGuideInfos($owner: String!) {
+export const GuideInfosDocument = gql`
+    subscription GuideInfos($owner: String!) {
   guides(filter: {owner: {equalTo: $owner}}) {
     nodes {
       ...GuideInfo
@@ -5394,71 +5517,77 @@ export const OwnersGuideInfosDocument = gql`
   }
 }
     ${GuideInfoFragmentDoc}`;
-export type OwnersGuideInfosComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<OwnersGuideInfosSubscription, OwnersGuideInfosSubscriptionVariables>, 'subscription'>;
+export type GuideInfosComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<GuideInfosSubscription, GuideInfosSubscriptionVariables>, 'subscription'>;
 
-    export const OwnersGuideInfosComponent = (props: OwnersGuideInfosComponentProps) => (
-      <ApolloReactComponents.Subscription<OwnersGuideInfosSubscription, OwnersGuideInfosSubscriptionVariables> subscription={OwnersGuideInfosDocument} {...props} />
+    export const GuideInfosComponent = (props: GuideInfosComponentProps) => (
+      <ApolloReactComponents.Subscription<GuideInfosSubscription, GuideInfosSubscriptionVariables> subscription={GuideInfosDocument} {...props} />
     );
     
 
 /**
- * __useOwnersGuideInfosSubscription__
+ * __useGuideInfosSubscription__
  *
- * To run a query within a React component, call `useOwnersGuideInfosSubscription` and pass it any options that fit your needs.
- * When your component renders, `useOwnersGuideInfosSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGuideInfosSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGuideInfosSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useOwnersGuideInfosSubscription({
+ * const { data, loading, error } = useGuideInfosSubscription({
  *   variables: {
  *      owner: // value for 'owner'
  *   },
  * });
  */
-export function useOwnersGuideInfosSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<OwnersGuideInfosSubscription, OwnersGuideInfosSubscriptionVariables>) {
-        return ApolloReactHooks.useSubscription<OwnersGuideInfosSubscription, OwnersGuideInfosSubscriptionVariables>(OwnersGuideInfosDocument, baseOptions);
+export function useGuideInfosSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<GuideInfosSubscription, GuideInfosSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<GuideInfosSubscription, GuideInfosSubscriptionVariables>(GuideInfosDocument, baseOptions);
       }
-export type OwnersGuideInfosSubscriptionHookResult = ReturnType<typeof useOwnersGuideInfosSubscription>;
-export type OwnersGuideInfosSubscriptionResult = ApolloReactCommon.SubscriptionResult<OwnersGuideInfosSubscription>;
-export const NotOwnersGuideInfosDocument = gql`
-    subscription NotOwnersGuideInfos($owner: String!) {
-  guides(filter: {owner: {notEqualTo: $owner}}) {
-    nodes {
-      ...GuideInfo
+export type GuideInfosSubscriptionHookResult = ReturnType<typeof useGuideInfosSubscription>;
+export type GuideInfosSubscriptionResult = ApolloReactCommon.SubscriptionResult<GuideInfosSubscription>;
+export const FeedDocument = gql`
+    subscription Feed {
+  items: query {
+    newGuides: guides(orderBy: [CREATED_DESC]) {
+      nodes {
+        ...GuideFeedItem
+      }
+    }
+    updatedGuides: guides(orderBy: [UPDATED_DESC]) {
+      nodes {
+        ...GuideFeedItem
+      }
     }
   }
 }
-    ${GuideInfoFragmentDoc}`;
-export type NotOwnersGuideInfosComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<NotOwnersGuideInfosSubscription, NotOwnersGuideInfosSubscriptionVariables>, 'subscription'>;
+    ${GuideFeedItemFragmentDoc}`;
+export type FeedComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<FeedSubscription, FeedSubscriptionVariables>, 'subscription'>;
 
-    export const NotOwnersGuideInfosComponent = (props: NotOwnersGuideInfosComponentProps) => (
-      <ApolloReactComponents.Subscription<NotOwnersGuideInfosSubscription, NotOwnersGuideInfosSubscriptionVariables> subscription={NotOwnersGuideInfosDocument} {...props} />
+    export const FeedComponent = (props: FeedComponentProps) => (
+      <ApolloReactComponents.Subscription<FeedSubscription, FeedSubscriptionVariables> subscription={FeedDocument} {...props} />
     );
     
 
 /**
- * __useNotOwnersGuideInfosSubscription__
+ * __useFeedSubscription__
  *
- * To run a query within a React component, call `useNotOwnersGuideInfosSubscription` and pass it any options that fit your needs.
- * When your component renders, `useNotOwnersGuideInfosSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFeedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useFeedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useNotOwnersGuideInfosSubscription({
+ * const { data, loading, error } = useFeedSubscription({
  *   variables: {
- *      owner: // value for 'owner'
  *   },
  * });
  */
-export function useNotOwnersGuideInfosSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<NotOwnersGuideInfosSubscription, NotOwnersGuideInfosSubscriptionVariables>) {
-        return ApolloReactHooks.useSubscription<NotOwnersGuideInfosSubscription, NotOwnersGuideInfosSubscriptionVariables>(NotOwnersGuideInfosDocument, baseOptions);
+export function useFeedSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<FeedSubscription, FeedSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<FeedSubscription, FeedSubscriptionVariables>(FeedDocument, baseOptions);
       }
-export type NotOwnersGuideInfosSubscriptionHookResult = ReturnType<typeof useNotOwnersGuideInfosSubscription>;
-export type NotOwnersGuideInfosSubscriptionResult = ApolloReactCommon.SubscriptionResult<NotOwnersGuideInfosSubscription>;
+export type FeedSubscriptionHookResult = ReturnType<typeof useFeedSubscription>;
+export type FeedSubscriptionResult = ApolloReactCommon.SubscriptionResult<FeedSubscription>;
 export const GuideStagesDocument = gql`
     subscription GuideStages($id: String!) {
   guide(id: $id) {
@@ -5494,6 +5623,41 @@ export function useGuideStagesSubscription(baseOptions?: ApolloReactHooks.Subscr
       }
 export type GuideStagesSubscriptionHookResult = ReturnType<typeof useGuideStagesSubscription>;
 export type GuideStagesSubscriptionResult = ApolloReactCommon.SubscriptionResult<GuideStagesSubscription>;
+export const UserProfileDocument = gql`
+    subscription UserProfile($username: String!) {
+  profile: user(username: $username) {
+    ...Profile
+  }
+}
+    ${ProfileFragmentDoc}`;
+export type UserProfileComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<UserProfileSubscription, UserProfileSubscriptionVariables>, 'subscription'>;
+
+    export const UserProfileComponent = (props: UserProfileComponentProps) => (
+      <ApolloReactComponents.Subscription<UserProfileSubscription, UserProfileSubscriptionVariables> subscription={UserProfileDocument} {...props} />
+    );
+    
+
+/**
+ * __useUserProfileSubscription__
+ *
+ * To run a query within a React component, call `useUserProfileSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useUserProfileSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserProfileSubscription({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useUserProfileSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<UserProfileSubscription, UserProfileSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<UserProfileSubscription, UserProfileSubscriptionVariables>(UserProfileDocument, baseOptions);
+      }
+export type UserProfileSubscriptionHookResult = ReturnType<typeof useUserProfileSubscription>;
+export type UserProfileSubscriptionResult = ApolloReactCommon.SubscriptionResult<UserProfileSubscription>;
 export const GuideStagesPublicDocument = gql`
     query GuideStagesPublic($id: String!) {
   guide(id: $id) {
@@ -5619,6 +5783,7 @@ export const GetUsernameDocument = gql`
   users(condition: {email: $email}) {
     nodes {
       username
+      colour
     }
   }
 }

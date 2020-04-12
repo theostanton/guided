@@ -71,6 +71,48 @@ export type BooleanFilter = {
   readonly greaterThanOrEqualTo?: Maybe<Scalars['Boolean']>;
 };
 
+export enum Colour {
+  Red = 'RED',
+  Orange = 'ORANGE',
+  Yellow = 'YELLOW',
+  Olive = 'OLIVE',
+  Green = 'GREEN',
+  Teal = 'TEAL',
+  Blue = 'BLUE',
+  Violet = 'VIOLET',
+  Purple = 'PURPLE',
+  Pink = 'PINK',
+  Brown = 'BROWN',
+  Grey = 'GREY',
+  Black = 'BLACK'
+}
+
+/** A filter to be used against Colour fields. All fields are combined with a logical ‘and.’ */
+export type ColourFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<Colour>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<Colour>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<Colour>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<Colour>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<Colour>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<Colour>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<Colour>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<Colour>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<Colour>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<Colour>;
+};
+
 export type Computation = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'];
@@ -3684,6 +3726,7 @@ export type User = Node & {
   readonly passwordHash: Scalars['String'];
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly colour?: Maybe<Colour>;
   /** Reads and enables pagination through a set of `Guide`. */
   readonly guidesByOwner: GuidesConnection;
   /** Reads and enables pagination through a set of `Spot`. */
@@ -3740,6 +3783,8 @@ export type UserCondition = {
   readonly created?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `updated` field. */
   readonly updated?: Maybe<Scalars['Datetime']>;
+  /** Checks for equality with the object’s `colour` field. */
+  readonly colour?: Maybe<Colour>;
 };
 
 /** A filter to be used against `User` object types. All fields are combined with a logical ‘and.’ */
@@ -3754,6 +3799,8 @@ export type UserFilter = {
   readonly created?: Maybe<DatetimeFilter>;
   /** Filter by the object’s `updated` field. */
   readonly updated?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `colour` field. */
+  readonly colour?: Maybe<ColourFilter>;
   /** Checks for all expressions in this list. */
   readonly and?: Maybe<ReadonlyArray<UserFilter>>;
   /** Checks for any expressions in this list. */
@@ -3769,6 +3816,7 @@ export type UserInput = {
   readonly passwordHash: Scalars['String'];
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly colour?: Maybe<Colour>;
 };
 
 /** Represents an update to a `User`. Fields that are set will be updated. */
@@ -3778,6 +3826,7 @@ export type UserPatch = {
   readonly passwordHash?: Maybe<Scalars['String']>;
   readonly created?: Maybe<Scalars['Datetime']>;
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly colour?: Maybe<Colour>;
 };
 
 /** A connection to a list of `User` values. */
@@ -3813,6 +3862,8 @@ export enum UsersOrderBy {
   CreatedDesc = 'CREATED_DESC',
   UpdatedAsc = 'UPDATED_ASC',
   UpdatedDesc = 'UPDATED_DESC',
+  ColourAsc = 'COLOUR_ASC',
+  ColourDesc = 'COLOUR_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -3912,6 +3963,7 @@ export type ResolversTypes = {
   StageStatus: StageStatus,
   Guide: ResolverTypeWrapper<Guide>,
   User: ResolverTypeWrapper<User>,
+  Colour: Colour,
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
   GuideFilter: GuideFilter,
@@ -3951,6 +4003,7 @@ export type ResolversTypes = {
   UsersOrderBy: UsersOrderBy,
   UserCondition: UserCondition,
   UserFilter: UserFilter,
+  ColourFilter: ColourFilter,
   UsersConnection: ResolverTypeWrapper<UsersConnection>,
   UsersEdge: ResolverTypeWrapper<UsersEdge>,
   JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
@@ -4057,6 +4110,7 @@ export type ResolversParentTypes = {
   StageStatus: StageStatus,
   Guide: Guide,
   User: User,
+  Colour: Colour,
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
   GuideFilter: GuideFilter,
@@ -4096,6 +4150,7 @@ export type ResolversParentTypes = {
   UsersOrderBy: UsersOrderBy,
   UserCondition: UserCondition,
   UserFilter: UserFilter,
+  ColourFilter: ColourFilter,
   UsersConnection: UsersConnection,
   UsersEdge: UsersEdge,
   JwtToken: Scalars['JwtToken'],
@@ -4757,6 +4812,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   passwordHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
+  colour?: Resolver<Maybe<ResolversTypes['Colour']>, ParentType, ContextType>,
   guidesByOwner?: Resolver<ResolversTypes['GuidesConnection'], ParentType, ContextType, RequireFields<UserGuidesByOwnerArgs, 'orderBy'>>,
   spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>,
   ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>,

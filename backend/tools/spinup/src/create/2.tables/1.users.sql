@@ -5,6 +5,7 @@ create table users
             primary key,
     email         varchar(128)             not null,
     password_hash varchar(128)             not null,
+    colour        colour,
     created       timestamp with time zone not null,
     updated       timestamp with time zone
 );

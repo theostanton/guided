@@ -3,10 +3,10 @@ import AppContainer from "components/app/Container"
 import { Grid, Header } from "semantic-ui-react"
 import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
-import { MyGuidesList, SharedGuidesList } from "./Guides/GuidesList"
+import { MyGuidesList } from "./Guides/GuidesList"
+import Feed from "./Feed"
 import GuideComponent from "./Guide"
 import { GuideInfoFragment } from "../../api/generated"
-import { logInfo } from "../../../../../backend/tools/logger/src"
 
 import { RouteProps } from "react-router"
 
@@ -38,8 +38,8 @@ export default class DashboardComponent extends React.Component<Props, State> {
         <MyGuidesList owner={this.props.authStore.owner}/>
       </Grid.Column>
       <Grid.Column>
-        <Header>Shared guides</Header>
-        <SharedGuidesList owner={this.props.authStore.owner}/>
+        <Header>Feed</Header>
+        <Feed/>
       </Grid.Column>
     </Grid>
   }

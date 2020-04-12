@@ -33,7 +33,7 @@ export class Markers extends React.Component<Props, {}> {
     })
   }
 
-  createFlag(spot: SpotFragment, index: number, onDragEnd: any): React.ReactElement {
+  createFlag(spot: SpotFragment, isOwner: boolean): React.ReactElement {
 
     const pinStyle = {
       cursor: "pointer",
@@ -59,16 +59,17 @@ export class Markers extends React.Component<Props, {}> {
       color = "grey"
     }
 
+    const onDragEnd = (async (args) => {
+      await this.moveSpot(spot.id, args.lngLat[1], args.lngLat[0])
+    })
+
     return <Marker key={`spot-${spot.id}`}
                    longitude={spot.long!}
                    latitude={spot.lat!}
-                   draggable
+                   draggable={isOwner}
                    offsetLeft={-10}
                    offsetTop={-25}
-                   onDragEnd={async (args) => {
-                     await this.moveSpot(spot.id, args.lngLat[1], args.lngLat[0])
-                   }}
-
+                   onDragEnd={onDragEnd}
     >
 
       <Icon name={spot.locked ? "flag" : "flag outline"}
@@ -94,10 +95,9 @@ export class Markers extends React.Component<Props, {}> {
 
   render() {
 
+    const isOwner = this.props.guideStore.isOwner
     return this.guideStore.spots.map((spot, index) => {
-      return (this.createFlag(spot!, index, () => {
-
-      }))
+      return (this.createFlag(spot!, isOwner))
     })
   }
 }

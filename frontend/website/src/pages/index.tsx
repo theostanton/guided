@@ -7,6 +7,7 @@ import Account from "components/app/Account"
 import Guides from "components/app/Guides"
 import Guide from "components/app/Guide"
 import Dashboard from "components/app/Dashboard"
+import Profile from "components/app/Profile"
 import Login from "components/pages/login"
 import Signup from "components/pages/signup"
 import { Container } from "semantic-ui-react"
@@ -33,10 +34,11 @@ export default class RootComponent extends React.Component<Props> {
         </Container>
         <Container>
           <Router>
-            <Account path="/:owner/account"/>
-            <Guides path="/:owner/guides"/>
+            <Account path="/account"/>
+            <Guides path="/guides"/>
             <Guide path="/:owner/:slug"/>
-            <Dashboard path="/:owner"/>
+            <Profile path="/:owner"/>
+            <Dashboard path="/"/>
           </Router>
         </Container>
       </div>
@@ -47,6 +49,7 @@ export default class RootComponent extends React.Component<Props> {
           <Login path="/login"/>
           <Signup path="/signup"/>
           <Guide path="/:owner/:slug"/>
+          <Profile path="/:owner"/>
         </Router>
       </Layout>
     }

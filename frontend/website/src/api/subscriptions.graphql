@@ -2,11 +2,11 @@ fragment GuideInfo on Guide{
     id
     title
     slug
-    owner
     startDate
+    owner
 }
 
-subscription OwnersGuideInfos($owner:String!){
+subscription GuideInfos($owner:String!){
     guides(
         filter: {owner: {
             equalTo: $owner
@@ -18,14 +18,49 @@ subscription OwnersGuideInfos($owner:String!){
     }
 }
 
-subscription NotOwnersGuideInfos($owner:String!){
-    guides(
-        filter: {owner: {
-            notEqualTo: $owner
-        }}
-    ){
+fragment GuideFeedItem on Guide {
+    id
+    title
+    slug
+    startDate
+    updated
+    created
+    owner:userByOwner{
+        username
+        colour
+    }
+    rides:ridesByGuide{
         nodes{
-            ...GuideInfo
+            distanceMeters
+            durationSeconds
+        }
+    }
+    stages:stagesByGuide{
+        totalCount
+    }
+    spots:spotsByGuide{
+        totalCount
+        nodes{
+            nights
+        }
+    }
+}
+
+subscription Feed{
+    items:query{
+        newGuides:guides(
+            orderBy: [CREATED_DESC]
+        ){
+            nodes{
+                ...GuideFeedItem
+            }
+        }
+        updatedGuides:guides(
+            orderBy: [UPDATED_DESC]
+        ){
+            nodes{
+                ...GuideFeedItem
+            }
         }
     }
 }
@@ -105,6 +140,28 @@ subscription GuideStages($id: String!){
         id: $id
     ){
         ...Guide
+    }
+}
+
+fragment Profile on User {
+    colour
+    username
+    created
+    guides:guidesByOwner{
+        totalCount
+    }
+    rides:ridesByOwner{
+        totalCount
+        nodes{
+            distanceMeters
+            durationSeconds
+        }
+    }
+}
+
+subscription UserProfile($username:String!){
+    profile:user(username: $username){
+        ...Profile
     }
 }
 
