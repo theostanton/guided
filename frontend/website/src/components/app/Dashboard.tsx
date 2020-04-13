@@ -1,6 +1,6 @@
 import * as React from "react"
 import AppContainer from "components/app/Container"
-import { Grid, Header } from "semantic-ui-react"
+import { Button, Grid, Header, ListList, Segment } from "semantic-ui-react"
 import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
 import { MyGuidesList } from "./Guides/GuidesList"
@@ -9,16 +9,21 @@ import GuideComponent from "./Guide"
 import { GuideInfoFragment } from "../../api/generated"
 
 import { RouteProps } from "react-router"
+import { CSSProperties } from "react"
+import OverlayStore from "../../model/OverlayStore"
+import { MessageToast } from "../../model/OverlayStore/toast"
+import { CreateGuideModal } from "../../model/OverlayStore/modals"
 
 interface Props extends RouteProps {
   authStore?: AuthStore
+  overlayStore?: OverlayStore
 }
 
 type State = {
   selectedGuide: GuideInfoFragment | undefined
 }
 
-@inject("authStore")
+@inject("authStore", "overlayStore")
 @observer
 export default class DashboardComponent extends React.Component<Props, State> {
 
@@ -32,15 +37,36 @@ export default class DashboardComponent extends React.Component<Props, State> {
       return <div/>
     }
 
-    return <Grid columns={2}>
-      <Grid.Column>
-        <Header>My guides</Header>
-        <MyGuidesList owner={this.props.authStore.owner}/>
-      </Grid.Column>
-      <Grid.Column>
-        <Header>Feed</Header>
-        <Feed/>
-      </Grid.Column>
+    //TODO learn css
+    return <Grid columns={2} relaxed>
+
+      <Grid.Row>
+        <Grid.Column>
+          <Grid columns={2}>
+            <Grid.Column verticalAlign={"bottom"}>
+              <Header as={"h1"}>My guides</Header>
+            </Grid.Column>
+            <Grid.Column width={4} floated={"right"}>
+              <Button floated={"right"} onClick={() => {
+                this.props.overlayStore!.showModal(new CreateGuideModal())
+              }}>Create</Button>
+            </Grid.Column>
+          </Grid>
+        </Grid.Column>
+
+        <Grid.Column verticalAlign={"bottom"}>
+          <Header as={"h1"}>Feed</Header>
+        </Grid.Column>
+
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Column>
+          <MyGuidesList owner={this.props.authStore.owner}/>
+        </Grid.Column>
+        <Grid.Column>
+          <Feed/>
+        </Grid.Column>
+      </Grid.Row>
     </Grid>
   }
 

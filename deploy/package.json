@@ -17,6 +17,9 @@
 
     "deploy:frontend": "./scripts/deploy.frontend.sh",
     "deploy:frontend:staging": "STAGE=staging ./scripts/deploy.frontend.sh",
-    "deploy:frontend:production": "STAGE=production ./scripts/deploy.frontend.sh"
+    "deploy:frontend:production": "STAGE=production ./scripts/deploy.frontend.sh",
+
+    "ssh:staging": "ssh -i creds/guided-server-staging.pem ubuntu@staging-server.ridersbible.com",
+    "ssh:production": "ssh -i creds/guided-server-production.pem ubuntu@server.ridersbible.com"
   }
 }

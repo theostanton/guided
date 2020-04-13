@@ -72,7 +72,7 @@ export default class SpotDetail extends React.Component<Props, State> {
       <Grid.Row>
         <Grid.Column width={10}>
           <Header as='h2'>
-            <Icon name={"marker"} color={"orange"}/>
+            <Icon name={spot.locked ? "flag" : "flag outline"} color={"orange"}/>
             <Header.Content>
               {spot.name}
               <Header.Subheader><Flag name={spot.country!.toLowerCase() as FlagNameValues}/>

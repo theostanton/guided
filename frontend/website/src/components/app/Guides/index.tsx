@@ -10,7 +10,7 @@ import { MyGuidesList } from "./GuidesList"
 import { navigate } from "@reach/router"
 import { log } from "utils/logger"
 
-import {  RouteProps } from "react-router"
+import { RouteProps } from "react-router"
 
 interface Props extends RouteProps {
   authStore?: AuthStore,
@@ -37,7 +37,7 @@ export default class GuidesComponent extends React.Component<Props, State> {
                                            this.setState({
                                              showCreateModal: false,
                                            })
-                                           await navigate(`/app/guides/${guideSlug}`)
+                                           await navigate(`/${this.props.authStore.owner}/${guideSlug}`)
                                          }}/>
     } else {
       return [<Button

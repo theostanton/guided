@@ -15,6 +15,7 @@ import AppMenu from "components/app/Menu"
 import About from "../components/pages/about"
 
 import { RouteProps } from "react-router"
+import OverlayComponent from "../components/app/Overlay"
 
 interface Props extends RouteProps {
   authStore: AuthStore
@@ -29,6 +30,7 @@ export default class RootComponent extends React.Component<Props> {
 
     if (isLoggedIn === true) {
       return <div style={{ margin: 20 }}>
+        <OverlayComponent />
         <Container>
           <AppMenu/>
         </Container>

@@ -40,7 +40,7 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       mutation: DeleteGuideDocument,
       variables,
     })
-    await navigate(`/${this.props.authStore.owner}/guides`)
+    await navigate(`/guides`)
   }
 
   statistics(): ReactElement {

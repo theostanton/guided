@@ -4,7 +4,7 @@ import { Link, navigate } from "gatsby"
 import { inject } from "mobx-react"
 import AuthStore from "model/AuthStore"
 import { logObject } from "../../utils/logger"
-import {  RouteProps } from "react-router"
+import { RouteProps } from "react-router"
 
 interface Props extends RouteProps {
   authStore?: AuthStore
@@ -32,7 +32,7 @@ export default class LoginComponent extends React.Component<Props, State> {
     this.setState({ loading: true })
     try {
       await this.props.authStore.login(email, password)
-      await navigate(`/${this.props.authStore.owner}`)
+      await navigate(`/`)
     } catch (e) {
       console.error(e)
       this.setState({ error: e, loading: false })
@@ -41,12 +41,10 @@ export default class LoginComponent extends React.Component<Props, State> {
 
   render(): React.ReactElement | undefined {
 
-    logObject(this.props, "this.props")
-
     //TODO this smarter
     if (this.props.authStore.isLoggedIn) {
       try {
-        navigate(`/${this.props.authStore.owner}`).then().catch()
+        navigate(`/`).then().catch()
         return
       } catch (e) {
         console.error(e)
