@@ -1,32 +1,25 @@
 import React from "react"
 import { GuideFragment } from "api/generated"
 import { Header } from "semantic-ui-react"
+import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
+import { Link } from "@reach/router"
 
 type Props = {
   guide: GuideFragment
-  edit: boolean
+  isOwner: boolean
 }
 
-type State = {
-  value: string
-  edit: boolean
-}
+type State = {}
 
 export default class EditGuideTitleForm extends React.Component<Props, State> {
 
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      value: props.guide.title,
-      edit: props.edit,
-    }
-  }
-
   render(): React.ReactElement {
-    if (this.state.edit) {
-      return <Header as='h2'>{this.state.value}</Header>
+    const guide = this.props.guide
+    if (this.props.isOwner) {
+      return <Header as='h2'>{guide.title}</Header>
     } else {
-      return <Header as='h2'>{this.state.value}</Header>
+      return <Header
+        as='h2'>{guide.title}<HeaderSubHeader>by <Link to={`/${guide.owner}`}>{guide.owner}</Link></HeaderSubHeader></Header>
     }
   }
 

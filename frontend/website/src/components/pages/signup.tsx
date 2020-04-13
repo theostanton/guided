@@ -1,14 +1,15 @@
 import * as React from "react"
 import { Button, Container, Form, Header, Message } from "semantic-ui-react"
-import { Link, navigate } from "gatsby"
+import { Link } from "@reach/router"
+import { navigate } from "@reach/router"
 import { inject } from "mobx-react"
 import AuthStore from "model/AuthStore"
-import { RouteProps } from "react-router"
+ import { RouteComponentProps } from "@reach/router"
 
 type Stage = "enter" | "error" | "submitting" | "validate"
 
 
-interface Props extends RouteProps {
+interface Props extends RouteComponentProps {
   authStore?: AuthStore
 }
 
@@ -90,7 +91,12 @@ export default class SignUpComponent extends React.Component<Props, State> {
     } else if (accept) {
       this.setState({ stage: "submitting" })
       try {
-        await this.props.authStore.signUp(username, email, password)
+        const result = await this.props.authStore.signUp(username, email, password)
+        if (result.success) {
+          await navigate("/")
+        } else {
+          this.setState({ errors: { message: result.message }, stage: "error" })
+        }
         this.setState({ stage: "validate", errors: {} })
       } catch (e) {
         console.error(e)
@@ -122,16 +128,6 @@ export default class SignUpComponent extends React.Component<Props, State> {
   }
 
   render(): React.ReactElement | undefined {
-
-    //TODO this smarter
-    try {
-      if (this.props.authStore.isLoggedIn) {
-        navigate(`/${this.props.authStore.owner}`).then().catch()
-        return
-      }
-    } catch (e) {
-      console.error(e)
-    }
 
     const { fields: { password, email, username }, accept, errors, stage, validationCode } = this.state
     return <Container text style={{ marginTop: "2em" }}>

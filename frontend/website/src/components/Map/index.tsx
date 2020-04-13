@@ -8,7 +8,7 @@ import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import { Rides } from "./Rides"
 import WebMercatorViewport from "viewport-mercator-project"
-import { logJson } from "utils/logger"
+import { log, logJson } from "utils/logger"
 import { Segment } from "semantic-ui-react"
 
 type ViewPort = {
@@ -42,10 +42,19 @@ export default class Map extends Component<Props, State> {
     return this.props.guideStore!
   }
 
-  get viewport(): ViewPort | {} {
+  generateViewport(): ViewPort | undefined {
+
+    const padding = {
+      right: window.innerWidth / 4 + 100,
+      left: window.innerWidth / 4 + 100,
+      top: 100,
+      bottom: 100,
+    }
 
     if (!this.guideStore) {
-      return {}
+      return
+    } else if (!this.guideStore.guide) {
+      return
     } else if (this.guideStore.selectedType === "ride" && this.state.selectedRideId != this.guideStore.selectedId) {
       this.state.selectedRideId = this.guideStore.selectedId
       this.state.selectedSpotId = undefined
@@ -59,17 +68,12 @@ export default class Map extends Component<Props, State> {
       try {
         const { longitude, latitude, zoom } = new WebMercatorViewport(this.state.viewport)
           .fitBounds([[west, south], [east, north]], {
-            padding: {
-              right: 200,
-              left: 200,
-              top: 200,
-              bottom: 200,
-            },
+            padding,
           })
 
-        this.state.viewport = {
-          width: this.state.viewport ? this.state.viewport.width : 400,
-          height: this.state.viewport ? this.state.viewport.height : 400,
+        return {
+          width: window.innerWidth,
+          height: window.innerHeight,
           longitude,
           latitude,
           zoom,
@@ -79,8 +83,6 @@ export default class Map extends Component<Props, State> {
       } catch (e) {
         console.error(e)
       }
-      // TODO fix guide.bounds issue on subscription
-      // }
     } else if (this.guideStore.selectedType === "spot" && this.state.selectedSpotId != this.guideStore.selectedId) {
       this.state.selectedSpotId = this.guideStore.selectedId
       this.state.selectedRideId = undefined
@@ -88,9 +90,9 @@ export default class Map extends Component<Props, State> {
 
       try {
 
-        this.state.viewport = {
-          width: this.state.viewport ? this.state.viewport.width : 400,
-          height: this.state.viewport ? this.state.viewport.height : 400,
+        return {
+          width: window.innerWidth,
+          height: window.innerHeight,
           longitude: selectedSpot.long,
           latitude: selectedSpot.lat,
           zoom: 10,
@@ -101,7 +103,10 @@ export default class Map extends Component<Props, State> {
         console.error(e)
       }
       // TODO fix guide.bounds issue on subscription
-    } else if (this.guideStore.guide && this.guideStore.spots.length > 0 && !this.guideStore.selectedType && (this.state.selectedSpotId || this.state.selectedRideId)) {
+    } else if (!this.state.viewport || !this.guideStore.selectedType && (this.state.selectedSpotId || this.state.selectedRideId)) {
+      if (this.guideStore.spots.length < 2) {
+        return
+      }
       this.state.selectedSpotId = undefined
       this.state.selectedRideId = undefined
       const firstSpot = this.guideStore.spots[0]
@@ -117,7 +122,6 @@ export default class Map extends Component<Props, State> {
         west: firstSpot.long,
       }
 
-      logJson(bounds, "bounds before")
       this.guideStore.spots.forEach(spot => {
         bounds.north = Math.max(spot.lat, bounds.north)
         bounds.south = Math.min(spot.lat, bounds.south)
@@ -125,24 +129,43 @@ export default class Map extends Component<Props, State> {
         bounds.west = Math.min(spot.long, bounds.west)
       })
 
-      logJson(bounds, "bounds after")
+      const viewport = new WebMercatorViewport({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      }).fitBounds(
+        [
+          [bounds.west!, bounds.south!], [
+          bounds.east!, bounds.north!]],
+        {
+          padding,
+        },
+      )
+      return {
+        latitude: viewport.latitude,
+        longitude: viewport.longitude,
+        zoom: viewport.zoom,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        transitionDuration: this.state.viewport && 1000,
+        transitionInterpolator: this.state.viewport && new FlyToInterpolator(),
+      }
+    } else {
+      return undefined
+    }
 
-      //TODO fix
-      // this.state.viewport = viewport.fitBounds(
-      //   [
-      //     [bounds.west!, bounds.south!], [
-      //     bounds.east!, bounds.north!]],
-      // )
-    } else if (!this.state.viewport) {
-      this.state.viewport = {
-        width: 400,
-        height: 400,
-        latitude: 51.5007,
-        longitude: -0.1246,
-        zoom: 8,
+  }
+
+  updateViewport() {
+    const viewport = this.generateViewport()
+    if (viewport) {
+      if (this.state.viewport && this.state.viewport.latitude === viewport.longitude) {
+        console.error("unnecessary viewport calculation")
+      } else {
+        this.setState({
+          viewport,
+        })
       }
     }
-    return this.state.viewport
   }
 
   render(): React.ReactElement {
@@ -151,8 +174,11 @@ export default class Map extends Component<Props, State> {
     }
     const guide = this.guideStore?.guide
 
-    const onClick = this.props.guideStore.isOwner && (async (event) => {
-      if (guide) {
+    this.updateViewport()
+
+    let onClick
+    if (guide && this.props.guideStore.isOwner) {
+      onClick = (async (event) => {
         const variables: AddStayFromLatLongMutationVariables = {
           guideId: guide.id,
           long: event.lngLat[0],
@@ -164,14 +190,19 @@ export default class Map extends Component<Props, State> {
           mutation: AddStayFromLatLongDocument,
           variables,
         })
-      } else {
-        console.error("Guide not loaded")
-      }
-    })
+      })
+    }
+
+    const viewport: Partial<ViewPort> = this.state.viewport || {
+      longitude: -0.1278,
+      latitude: 51.5074,
+      zoom: 4,
+    }
+
     return (
       <ReactMapGL
         mapboxApiAccessToken={process.env.GATSBY_MAPBOX_TOKEN!}
-        {...this.viewport}
+        {...viewport}
         height={"100%"}
         width={"100%"}
         onViewportChange={(viewport: any) => {

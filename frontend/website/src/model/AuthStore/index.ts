@@ -10,7 +10,8 @@ import {
 } from "api/generated"
 import { USER_KEY } from "api/client"
 import { client } from "api"
-import { logJson } from "utils/logger"
+import { logError, logJson } from "utils/logger"
+import { act } from "react-dom/test-utils"
 
 export type User = {
   bearerToken: string
@@ -50,7 +51,10 @@ export default class Index {
     }
   }
 
-  async login(email: string, password: string): Promise<void> {
+  async login(email: string, password: string): Promise<{
+    success: boolean
+    message?: string
+  }> {
     const variables: LoginMutationVariables = {
       email,
       password,
@@ -59,6 +63,26 @@ export default class Index {
       mutation: LoginDocument,
       variables,
     })
+
+    if (result.errors && result.errors.length > 0) {
+      logError("LoginMutation error")
+      result.errors.forEach(error => {
+        logError(error.message)
+      })
+      return {
+        success: false,
+        message: result.errors.map(error => {
+          return error.message
+        }).join("\n"),
+      }
+    }
+
+    if (!result.data.authenticate?.jwtToken) {
+      return {
+        success: false,
+        message: "Failed to login",
+      }
+    }
 
     const bearerToken = result.data!.authenticate!.jwtToken
 
@@ -75,6 +99,21 @@ export default class Index {
       },
     )
 
+    if (usernameResult.errors && usernameResult.errors.length > 0) {
+      logError("GetUsername error")
+      usernameResult.errors.forEach(error => {
+        logError(error.message)
+      })
+
+      this.setUser(undefined)
+      return {
+        success: false,
+        message: result.errors.map(error => {
+          return error.message
+        }).join("\n"),
+      }
+    }
+
     const { colour, username } = usernameResult.data!.users!.nodes[0]!
 
     this.setUser({
@@ -84,20 +123,34 @@ export default class Index {
       colour,
     })
 
+    return {
+      success: true,
+    }
+
   }
 
-  async signUp(username: string, email: string, password: string): Promise<void> {
+
+  async signUp(username: string, email: string, password: string): Promise<{ success: boolean, message?: string }> {
     const variables: SignUpMutationVariables = {
       username,
       email,
       password,
     }
-    await client.mutate<SignUpMutation>({
+    const result = await client.mutate<SignUpMutation>({
       mutation: SignUpDocument,
       variables,
     })
 
-    await this.login(email, password)
+    if (result.errors && result.errors.length > 0) {
+      return {
+        success: false,
+        message: result.errors.map(error => {
+          return error.message
+        }).join("\n"),
+      }
+    }
+
+    return this.login(email, password)
   }
 
   setUser(user: User | undefined) {
@@ -111,12 +164,15 @@ export default class Index {
     })
   }
 
+  @action
   logOut() {
     this.setUser(undefined)
   }
 }
 
-const authStore = new Index()
+const
+  authStore = new Index()
 export {
-  authStore,
+  authStore
+  ,
 }

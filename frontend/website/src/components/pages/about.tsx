@@ -1,9 +1,9 @@
 import * as React from "react"
 
 import { Container, Header } from "semantic-ui-react"
-import { RouteProps } from "react-router"
+ import { RouteComponentProps } from "@reach/router"
 
-interface Props extends RouteProps {
+interface Props extends RouteComponentProps {
 }
 
 type State = {}

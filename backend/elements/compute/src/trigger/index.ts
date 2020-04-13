@@ -16,7 +16,9 @@ export default async function trigger(packet: Packet): Promise<string[]> {
         await action({
           computationId,
         })
-      }).then()
+      }).then().catch(error => {
+        console.error(error)
+      })
       return []
     case "testing":
       await executeConcurrently(packet.computationIds, async (computationId: string) => {

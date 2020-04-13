@@ -1,14 +1,14 @@
 import * as React from "react"
 import GuideStore from "model/GuideStore"
 
-import { RouteProps } from "react-router"
+ import { RouteComponentProps } from "@reach/router"
 import AuthStore from "model/AuthStore"
 import { Segment, Grid, GridColumn, Icon, Header, GridRow } from "semantic-ui-react"
 import { ZenObservable } from "zen-observable-ts/lib/types"
 import { subscriptionClient } from "api/client"
 import { ProfileFragment, UserProfileDocument, UserProfileSubscription } from "api/generated"
 
-interface Props extends RouteProps {
+interface Props extends RouteComponentProps {
   owner?: string
   authStore?: AuthStore
 }

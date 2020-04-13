@@ -1,4 +1,4 @@
-import { Card, List, Message, Segment, Label, Icon, Button } from "semantic-ui-react"
+import { Card, List, Message, Segment, Label, Icon, Button, Grid, Header, Divider } from "semantic-ui-react"
 import randomKey from "utils/randomKey"
 import * as React from "react"
 import { log } from "utils/logger"
@@ -6,6 +6,8 @@ import { subscriptionClient } from "api/client"
 import { humanDate } from "utils/human"
 import { navigate } from "@reach/router"
 import { GuideInfosSubscription, useGuideInfosSubscription } from "api/generated"
+import { CSSProperties } from "react"
+import { CreateGuideModal } from "../../../model/OverlayStore/modals"
 
 type Props = {
   owner: string,
@@ -68,10 +70,19 @@ function GuidesList({ data, loading, error }: { data: GuideInfosSubscription, lo
       </Card>
     )
   })
+
+
+  const style: CSSProperties = {
+    height: "500px",
+    overflowY: "scroll",
+    padding: "0.1em",
+  }
+
   return <List
     onItemClick={async (_, { value: route }) => {
       await navigate(route)
     }}
+    style={style}
     items={items}
     divided
   />

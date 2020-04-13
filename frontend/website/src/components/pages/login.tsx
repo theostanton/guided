@@ -1,12 +1,12 @@
 import * as React from "react"
 import { Form, Button, Message, Container, Header } from "semantic-ui-react"
-import { Link, navigate } from "gatsby"
+import { Link } from "@reach/router"
 import { inject } from "mobx-react"
 import AuthStore from "model/AuthStore"
-import { logObject } from "../../utils/logger"
-import {  RouteProps } from "react-router"
+ import { RouteComponentProps } from "@reach/router"
+import { navigate } from "@reach/router"
 
-interface Props extends RouteProps {
+interface Props extends RouteComponentProps {
   authStore?: AuthStore
 }
 
@@ -31,8 +31,15 @@ export default class LoginComponent extends React.Component<Props, State> {
     const { password, email } = this.state
     this.setState({ loading: true })
     try {
-      await this.props.authStore.login(email, password)
-      await navigate(`/${this.props.authStore.owner}`)
+      const result = await this.props.authStore.login(email, password)
+      if (result.success) {
+        await navigate(`/`)
+      } else {
+        this.setState({
+          error: result.message || "Something went wrong",
+          loading: false,
+        })
+      }
     } catch (e) {
       console.error(e)
       this.setState({ error: e, loading: false })
@@ -40,18 +47,6 @@ export default class LoginComponent extends React.Component<Props, State> {
   }
 
   render(): React.ReactElement | undefined {
-
-    logObject(this.props, "this.props")
-
-    //TODO this smarter
-    if (this.props.authStore.isLoggedIn) {
-      try {
-        navigate(`/${this.props.authStore.owner}`).then().catch()
-        return
-      } catch (e) {
-        console.error(e)
-      }
-    }
 
     const { password, email, error, loading } = this.state
     return <Container text style={{ marginTop: "2em" }}>

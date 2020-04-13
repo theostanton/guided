@@ -39,6 +39,7 @@ export default class RideAndSpotList extends React.Component<Props> {
     return <Grid.Row columns='equal'>
       <Grid.Column>
         <List items={items}
+              animated={true}
               celled={true}
               selection={true}
               relaxed={true}

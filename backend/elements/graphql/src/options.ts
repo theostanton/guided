@@ -3,7 +3,7 @@ import { Plugin } from "graphile-build"
 import customPlugins from "./plugins"
 import path from "path"
 import ownerConnection from "./ownerConnection"
-import { logError } from "@guided/logger"
+import { log, logError } from "@guided/logger"
 import { GraphQLError } from "graphql"
 
 export type Mode = "watch" | "buildCache" | "invoke" | "serve"
@@ -111,6 +111,8 @@ const CACHE_OPTIONS: { [mode in Mode]: () => Partial<PostGraphileOptions> } = {
 }
 
 export function options(mode: Mode): PostGraphileOptions {
+
+  log(mode, "mode")
 
   const cacheOptions = CACHE_OPTIONS[mode]()
   return {

@@ -19,7 +19,7 @@ import { client } from "api"
 import { logJson } from "utils/logger"
 import NightsForm from "./NightsForm"
 import { CSSProperties } from "react"
-import { plural } from "../../../../../utils/human"
+import { humanDate, plural } from "../../../../../utils/human"
 
 type Props = {
   spot: SpotFragment
@@ -44,7 +44,28 @@ export default class SpotDetail extends React.Component<Props, State> {
     this.props.close()
   }
 
+  details(): React.ReactElement {
+
+    const spot = this.props.spot
+    const isOwner = this.props.isOwner
+    if (isOwner) {
+      return <Grid.Row>
+        <Grid.Column>
+          <NightsForm spot={spot}/>
+        </Grid.Column>
+      </Grid.Row>
+    } else {
+      return <Grid.Row>
+        <Grid.Column>
+          <Label> <Icon name='moon'/>{spot.nights} {plural("night", spot.nights)}</Label>
+          {spot.date && <Label> <Icon name='calendar'/>{humanDate(spot.date)}</Label>}
+        </Grid.Column>
+      </Grid.Row>
+    }
+  }
+
   render(): React.ReactElement {
+
 
     const spot = this.props.spot
     const isOwner = this.props.isOwner
@@ -53,26 +74,11 @@ export default class SpotDetail extends React.Component<Props, State> {
       backgroundColor: "white",
     }
 
-    let Nights: React.ReactElement
-    if (isOwner) {
-      Nights = <Grid.Row>
-        <Grid.Column>
-          <NightsForm spot={spot}/>
-        </Grid.Column>
-      </Grid.Row>
-    } else {
-      Nights = <Grid.Row>
-        <Grid.Column>
-          <Label> <Icon name='moon'/>{spot.nights} {plural("night", spot.nights)}</Label>
-        </Grid.Column>
-      </Grid.Row>
-    }
-
     return <Grid key={spot.id} style={style}>
       <Grid.Row>
         <Grid.Column width={10}>
           <Header as='h2'>
-            <Icon name={"marker"} color={"orange"}/>
+            <Icon name={spot.locked ? "flag" : "flag outline"} color={"orange"}/>
             <Header.Content>
               {spot.name}
               <Header.Subheader><Flag name={spot.country!.toLowerCase() as FlagNameValues}/>
@@ -89,7 +95,7 @@ export default class SpotDetail extends React.Component<Props, State> {
           </ButtonGroup>
         </Grid.Column>
       </Grid.Row>
-      {Nights}
+      {this.details()}
     </Grid>
   }
 }

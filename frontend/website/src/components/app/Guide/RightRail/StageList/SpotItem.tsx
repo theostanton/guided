@@ -1,6 +1,6 @@
 import { SpotFragment } from "api/generated"
 import React from "react"
-import { Flag, List, Label, Icon, Divider, FlagNameValues } from "semantic-ui-react"
+import { Flag, List, Label, Icon, Divider, FlagNameValues, Header } from "semantic-ui-react"
 import GuideStore from "model/GuideStore"
 import { humanDate, humanTemperature } from "utils/human"
 
@@ -28,16 +28,14 @@ export default class SpotItem extends React.Component<Props> {
         guideStore.unhighlight()
       }}
       active={isSelected}>
-      <List.Icon size='large' verticalAlign='top'>
-        <Flag name={spot.country!.toLowerCase() as FlagNameValues}/>
-      </List.Icon>
-      <List.Content>
-        <List.Header
-          content={`${spot.label || spot.location}`}
-        />
-        {spot.label && <List.Description content={spot.location}/>}
-
-      </List.Content>
+      <Header>
+        <Icon name={spot.locked ? "flag" : "flag outline"} color={"black"}/>
+        <Header.Content>
+          {spot.name}
+          <Header.Subheader><Flag name={spot.country!.toLowerCase() as FlagNameValues}/>
+            {`${spot.name === spot.location ? "" : spot.location + ", "}${spot.country}`}</Header.Subheader>
+        </Header.Content>
+      </Header>
       <Divider hidden/>
       <Label>
         <Icon name='moon'/>{spot.nights}

@@ -1,5 +1,6 @@
 import * as React from "react"
-import { Link, navigate } from "gatsby"
+import { Link } from "@reach/router"
+import { navigate } from "@reach/router"
 
 import { Menu, Container } from "semantic-ui-react"
 import { inject, observer } from "mobx-react"
@@ -32,7 +33,7 @@ export default class RootLayoutComponent extends React.Component<Props> {
             <Menu.Item
               name='Dashboard'
               onClick={async () => {
-                await navigate(`/${this.props.authStore.owner}`)
+                await navigate(`/`)
               }}/>
             <Menu.Item
               name='Logout'
