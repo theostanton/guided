@@ -1,8 +1,8 @@
 import React from "react"
 
-import { Feed, Header, Icon } from "semantic-ui-react"
+import { Feed, Icon } from "semantic-ui-react"
 import { GuideFeedItemFragment } from "api/generated"
-import { humanDistance, humanDuration, humanElapsed, plural } from "utils/human"
+import { humanDate, humanDistance, humanDuration, humanElapsed, plural } from "utils/human"
 import { Link } from "gatsby"
 
 type Props = {
@@ -37,6 +37,7 @@ export default class NewGuideFeedItem extends React.Component<Props> {
           <Icon name='road'/>{humanDistance(distanceMeters, true, true)}
           <Icon name='clock'/>{humanDuration(durationSeconds, true)}
           <Icon name='moon'/>{nights} {plural("night", nights)}
+          {item.startDate && <><Icon name='calendar'/>{humanDate(item.startDate)}</>}
         </Feed.Meta>
         <Feed.Extra>
           <Feed.Date>{humanElapsed(new Date(item.created))}</Feed.Date>

@@ -21,17 +21,12 @@ export default class AppMenu extends React.Component<Props, State> {
     return (
       <Menu attached={true} borderless={true}>
         <Menu.Item
-          name={"Home"}
+          name={"Dashboard"}
           link={true}
           onClick={async () => {
             await navigate(`/`)
           }}/>
-        <Menu.Item
-          name={"My Guides"}
-          link={true}
-          onClick={async () => {
-            await navigate(`/guides`)
-          }}/>
+
         <Menu.Menu
           position='right'
         >

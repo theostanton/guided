@@ -3,7 +3,6 @@ import * as React from "react"
 import OverlayStore from "model/OverlayStore"
 import ToastComponent from "./Toast"
 import CreateGuideModal from "./modals/CreateGuideModal"
-import { log, logObject } from "../../../utils/logger"
 
 type Props = {
   overlayStore?: OverlayStore

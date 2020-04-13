@@ -182,10 +182,6 @@ export default class GuideStore {
 
   async subscribe() {
 
-    log(this.#guideId, "this.#guideId")
-    log(this.#isOwner.toString(), "this.#isOwner")
-
-
     if (this.isOwner) {
       this.#subscription = subscriptionClient.subscribe<GuideStagesSubscription>({
         query: GuideStagesDocument,
@@ -195,7 +191,6 @@ export default class GuideStore {
         },
       }).subscribe(value => {
         if (value.data) {
-          logObject(value.data, "value.data!")
           const guide = value.data.guide
           this.updateGuide(guide)
         } else if (value.errors) {
@@ -215,7 +210,6 @@ export default class GuideStore {
         },
       })
       if (result.data) {
-        logObject(result.data, "result.data!")
         const guide = result.data.guide
         this.updateGuide(guide)
       } else if (result.errors) {

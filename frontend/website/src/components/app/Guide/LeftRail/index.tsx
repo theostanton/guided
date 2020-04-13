@@ -16,6 +16,8 @@ import EditGuideTitleForm from "./EditGuideTitleForm"
 import { CSSProperties, ReactElement } from "react"
 import { navigate } from "@reach/router"
 import { humanDate, humanDistance } from "utils/human"
+import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
+import { Link } from "gatsby"
 
 type Props = {
   guideStore?: GuideStore
@@ -120,7 +122,7 @@ export default class LeftRailComponent extends React.Component<Props, State> {
 
     return <StatisticGroup widths='2' size={"tiny"}>
       {stats.map(stat => {
-        return <Statistic label={stat.label} value={stat.value}/>
+        return <Statistic key={stat.label} label={stat.label} value={stat.value}/>
       })}
 
     </StatisticGroup>
@@ -152,7 +154,7 @@ export default class LeftRailComponent extends React.Component<Props, State> {
       <Grid divided={"vertically"} padded={false}>
         <Grid.Row verticalAlign='middle'>
           <Grid.Column width={"10"}>
-            <EditGuideTitleForm guide={guide} edit={false}/>
+            <EditGuideTitleForm guide={guide} isOwner={isOwner}/>
           </Grid.Column>
           <Grid.Column width={"6"}>
             <ButtonGroup floated={"right"}>
