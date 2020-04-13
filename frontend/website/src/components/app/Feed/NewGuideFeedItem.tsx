@@ -6,6 +6,7 @@ import { humanDate, humanDistance, humanDuration, humanElapsed, plural } from "u
 import { Link } from "@reach/router"
 
 type Props = {
+  isOwner: boolean
   item: GuideFeedItemFragment
 }
 
@@ -26,11 +27,12 @@ export default class NewGuideFeedItem extends React.Component<Props> {
       return acc + ride.nights
     }, 0)
 
+
     return <Feed.Event key={item.id}>
       <Feed.Label icon={<Icon name={"user"} color={item.owner.colour?.toLowerCase()}/>}/>
       <Feed.Content>
         <Feed.Summary>
-          <Link to={`/${item.owner.username}`}>{item.owner.username}</Link> created <Link
+          <Link to={`/${item.owner.username}`}>{this.props.isOwner ? "You" : item.owner.username}</Link> created <Link
           to={`/${item.owner.username}/${item.slug}`}>{item.title}</Link>
         </Feed.Summary>
         <Feed.Meta>

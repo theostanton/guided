@@ -114,7 +114,7 @@ export default class CreateGuideModal extends React.Component<Props, State> {
             }}
           />
           <Form.Group>
-            <Form.Field>
+            <Form.Field width={4}>
               <label>Max ride duration</label>
               <Form.Input>
                 <MaxHoursPerRideForm hours={this.state.guideInfo.maxHoursPerRide} onChange={(hours) => {
@@ -123,7 +123,7 @@ export default class CreateGuideModal extends React.Component<Props, State> {
               </Form.Input>
             </Form.Field>
 
-            <Form.Field>
+            <Form.Field >
               <label>Start date</label>
               <DateInput
                 closeOnMouseLeave={true}
@@ -150,6 +150,10 @@ export default class CreateGuideModal extends React.Component<Props, State> {
               />
             </Form.Field>
           </Form.Group>
+          <Form.Field>
+            <label>Circular</label>
+            <Form.Checkbox label={'Guide ends at same place it begins'} checked={true} disabled={true}/>
+          </Form.Field>
         </Form>
       </Modal.Content>
       <Modal.Actions>
