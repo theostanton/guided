@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Button, Container, Form, Header, Message } from "semantic-ui-react"
-import { Link, navigate } from "gatsby"
+import { Link } from "gatsby"
+import {  navigate } from "@reach/router"
 import { inject } from "mobx-react"
 import AuthStore from "model/AuthStore"
 import { RouteProps } from "react-router"

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import { subscriptionClient } from "api/client"
 import {
   FeedDocument,
@@ -27,10 +27,10 @@ export default class FeedComponent extends React.Component<Props, State> {
     }
   }
 
-  #subscription: ZenObservable.Subscription | undefined
+  subscription: ZenObservable.Subscription | undefined
 
   componentDidMount(): void {
-    this.#subscription = subscriptionClient.subscribe<FeedSubscription>({
+    this.subscription = subscriptionClient.subscribe<FeedSubscription>({
       query: FeedDocument,
       fetchPolicy: "network-only",
     }).subscribe(value => {
@@ -51,20 +51,26 @@ export default class FeedComponent extends React.Component<Props, State> {
   }
 
   componentWillUnmount(): void {
-    this.#subscription?.unsubscribe()
+    this.subscription?.unsubscribe()
   }
 
   render(): React.ReactElement {
     const feedItems = this.state.feedItems
 
+    const style: CSSProperties = {
+      height: "500px",
+      overflowY:"scroll"
+    }
+
     if (feedItems) {
-      return <Segment><Feed key={"feed"} >
-        {feedItems.newGuides.map(guide => {
-          return <NewGuideFeedItem item={guide}/>
-        })}
-      </Feed></Segment>
+      return <Segment style={style}>
+        <Feed key={"feed"}>
+          {[...feedItems.newGuides, ...feedItems.newGuides, ...feedItems.newGuides, ...feedItems.newGuides].map(guide => {
+            return <NewGuideFeedItem item={guide}/>
+          })}
+        </Feed></Segment>
     } else {
-      return <Segment loading/>
+      return <Segment loading style={style}/>
     }
   }
 }

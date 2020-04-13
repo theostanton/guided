@@ -26,5 +26,6 @@ export default class OverlayComponent extends React.Component<Props> {
 
     // TODO this doesn't work when static
     // return <ToastComponent toast={this.overlayStore.toast}/>
+    return <div/>
   }
 }

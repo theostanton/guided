@@ -1,10 +1,10 @@
 import * as React from "react"
 import { Form, Button, Message, Container, Header } from "semantic-ui-react"
-import { Link, navigate } from "gatsby"
+import { Link } from "gatsby"
 import { inject } from "mobx-react"
 import AuthStore from "model/AuthStore"
-import { logObject } from "../../utils/logger"
 import { RouteProps } from "react-router"
+import { navigate } from "@reach/router"
 
 interface Props extends RouteProps {
   authStore?: AuthStore

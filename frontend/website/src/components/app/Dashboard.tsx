@@ -37,12 +37,17 @@ export default class DashboardComponent extends React.Component<Props, State> {
       return <div/>
     }
 
+    const listStyle: CSSProperties = {
+      maxHeight: "50px",
+      height: "50px",
+    }
+
     //TODO learn css
-    return <Grid columns={2} relaxed>
+    return <Grid columns={2}>
 
       <Grid.Row>
-        <Grid.Column>
-          <Grid columns={2}>
+        <Grid.Column >
+          <Grid columns={2} >
             <Grid.Column verticalAlign={"bottom"}>
               <Header as={"h1"}>My guides</Header>
             </Grid.Column>
@@ -63,7 +68,7 @@ export default class DashboardComponent extends React.Component<Props, State> {
         <Grid.Column>
           <MyGuidesList owner={this.props.authStore.owner}/>
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column style={listStyle}>
           <Feed/>
         </Grid.Column>
       </Grid.Row>

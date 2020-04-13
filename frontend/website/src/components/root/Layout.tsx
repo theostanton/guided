@@ -1,5 +1,6 @@
 import * as React from "react"
-import { Link, navigate } from "gatsby"
+import { Link } from "gatsby"
+import { navigate } from "@reach/router"
 
 import { Menu, Container } from "semantic-ui-react"
 import { inject, observer } from "mobx-react"
