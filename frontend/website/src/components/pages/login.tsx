@@ -31,8 +31,15 @@ export default class LoginComponent extends React.Component<Props, State> {
     const { password, email } = this.state
     this.setState({ loading: true })
     try {
-      await this.props.authStore.login(email, password)
-      await navigate(`/`)
+      const result = await this.props.authStore.login(email, password)
+      if (result.success) {
+        await navigate(`/`)
+      } else {
+        this.setState({
+          error: result.message || "Something went wrong",
+          loading: false,
+        })
+      }
     } catch (e) {
       console.error(e)
       this.setState({ error: e, loading: false })
@@ -42,14 +49,14 @@ export default class LoginComponent extends React.Component<Props, State> {
   render(): React.ReactElement | undefined {
 
     //TODO this smarter
-    if (this.props.authStore.isLoggedIn) {
-      try {
-        navigate(`/`).then().catch()
-        return
-      } catch (e) {
-        console.error(e)
-      }
-    }
+    // if (this.props.authStore.isLoggedIn) {
+    //   try {
+    //     navigate(`/`).then().catch()
+    //     return
+    //   } catch (e) {
+    //     console.error(e)
+    //   }
+    // }
 
     const { password, email, error, loading } = this.state
     return <Container text style={{ marginTop: "2em" }}>
