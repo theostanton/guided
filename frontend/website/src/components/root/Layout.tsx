@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { Link } from "@reach/router"
 import { navigate } from "@reach/router"
 
 import { Menu, Container } from "semantic-ui-react"

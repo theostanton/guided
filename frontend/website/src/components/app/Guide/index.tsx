@@ -3,11 +3,11 @@ import GuideStore from "model/GuideStore"
 import { inject, observer, Provider } from "mobx-react"
 import Content from "./content"
 
-import { RouteProps } from "react-router"
+ import { RouteComponentProps } from "@reach/router"
 import { logObject } from "utils/logger"
 import AuthStore from "model/AuthStore"
 
-interface Props extends RouteProps {
+interface Props extends RouteComponentProps {
   slug?: string
   owner?: string
   guideId?: string

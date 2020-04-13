@@ -1,12 +1,12 @@
 import * as React from "react"
 import { Form, Button, Message, Container, Header } from "semantic-ui-react"
-import { Link } from "gatsby"
+import { Link } from "@reach/router"
 import { inject } from "mobx-react"
 import AuthStore from "model/AuthStore"
-import { RouteProps } from "react-router"
+ import { RouteComponentProps } from "@reach/router"
 import { navigate } from "@reach/router"
 
-interface Props extends RouteProps {
+interface Props extends RouteComponentProps {
   authStore?: AuthStore
 }
 
@@ -47,16 +47,6 @@ export default class LoginComponent extends React.Component<Props, State> {
   }
 
   render(): React.ReactElement | undefined {
-
-    //TODO this smarter
-    // if (this.props.authStore.isLoggedIn) {
-    //   try {
-    //     navigate(`/`).then().catch()
-    //     return
-    //   } catch (e) {
-    //     console.error(e)
-    //   }
-    // }
 
     const { password, email, error, loading } = this.state
     return <Container text style={{ marginTop: "2em" }}>

@@ -3,7 +3,7 @@ import React from "react"
 import { Feed, Icon } from "semantic-ui-react"
 import { GuideFeedItemFragment } from "api/generated"
 import { humanDate, humanDistance, humanDuration, humanElapsed, plural } from "utils/human"
-import { Link } from "gatsby"
+import { Link } from "@reach/router"
 
 type Props = {
   item: GuideFeedItemFragment

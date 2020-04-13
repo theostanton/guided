@@ -17,7 +17,7 @@ import { CSSProperties, ReactElement } from "react"
 import { navigate } from "@reach/router"
 import { humanDate, humanDistance } from "utils/human"
 import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
-import { Link } from "gatsby"
+import { Link } from "@reach/router"
 
 type Props = {
   guideStore?: GuideStore

@@ -8,13 +8,13 @@ import Feed from "./Feed"
 import GuideComponent from "./Guide"
 import { GuideInfoFragment } from "../../api/generated"
 
-import { RouteProps } from "react-router"
+ import { RouteComponentProps } from "@reach/router"
 import { CSSProperties } from "react"
 import OverlayStore from "../../model/OverlayStore"
 import { MessageToast } from "../../model/OverlayStore/toast"
 import { CreateGuideModal } from "../../model/OverlayStore/modals"
 
-interface Props extends RouteProps {
+interface Props extends RouteComponentProps {
   authStore?: AuthStore
   overlayStore?: OverlayStore
 }

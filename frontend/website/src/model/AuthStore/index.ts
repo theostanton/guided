@@ -11,6 +11,7 @@ import {
 import { USER_KEY } from "api/client"
 import { client } from "api"
 import { logError, logJson } from "utils/logger"
+import { act } from "react-dom/test-utils"
 
 export type User = {
   bearerToken: string
@@ -76,6 +77,13 @@ export default class Index {
       }
     }
 
+    if (!result.data.authenticate?.jwtToken) {
+      return {
+        success: false,
+        message: "Failed to login",
+      }
+    }
+
     const bearerToken = result.data!.authenticate!.jwtToken
 
     this.setUser({
@@ -121,6 +129,7 @@ export default class Index {
 
   }
 
+
   async signUp(username: string, email: string, password: string): Promise<{ success: boolean, message?: string }> {
     const variables: SignUpMutationVariables = {
       username,
@@ -155,12 +164,15 @@ export default class Index {
     })
   }
 
+  @action
   logOut() {
     this.setUser(undefined)
   }
 }
 
-const authStore = new Index()
+const
+  authStore = new Index()
 export {
-  authStore,
+  authStore
+  ,
 }

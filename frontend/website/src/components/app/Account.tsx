@@ -4,9 +4,9 @@ import { List } from "semantic-ui-react"
 import { inject, observer } from "mobx-react"
 import AuthStore from "model/AuthStore"
 
-import { RouteProps } from "react-router"
+ import { RouteComponentProps } from "@reach/router"
 
-interface Props extends RouteProps {
+interface Props extends RouteComponentProps {
   authStore?: AuthStore
 }
 

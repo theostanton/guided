@@ -1,10 +1,9 @@
 import * as React from "react"
-import { Router, RouteComponentProps } from "@reach/router"
+import { Router, Redirect } from "@reach/router"
 import Layout from "components/root/Layout"
 import AuthStore from "../model/AuthStore"
-import { inject } from "mobx-react"
+import { inject, observer } from "mobx-react"
 import Account from "components/app/Account"
-import Guides from "components/app/Guides"
 import Guide from "components/app/Guide"
 import Dashboard from "components/app/Dashboard"
 import Profile from "components/app/Profile"
@@ -14,43 +13,47 @@ import { Container } from "semantic-ui-react"
 import AppMenu from "components/app/Menu"
 import About from "../components/pages/about"
 
-import { RouteProps } from "react-router"
 import OverlayComponent from "../components/app/Overlay"
+import { logJson } from "../utils/logger"
 
-interface Props extends RouteProps {
+interface Props {
   authStore: AuthStore
 }
 
 @inject("authStore")
+@observer
 export default class RootComponent extends React.Component<Props> {
 
   render(): React.ReactElement {
 
     const { isLoggedIn } = this.props.authStore
 
+    logJson(isLoggedIn, "isLoggedIn")
     if (isLoggedIn === true) {
       return <div style={{ margin: 20 }}>
-        <OverlayComponent />
+        <OverlayComponent/>
         <Container>
           <AppMenu/>
         </Container>
         <Container>
           <Router>
+            <Redirect from={"/login"} to={"/"} noThrow={true}/>
+            <Redirect from={"/signup"} to={"/"} noThrow={true}/>
             <Account path="/account"/>
-            <Guide path="/:owner/:slug"/>
             <Profile path="/:owner"/>
-            <Dashboard path="/"/>
+            <Guide path="/:owner/:slug"/>
+            <Dashboard default path="*"/>
           </Router>
         </Container>
       </div>
     } else {
       return <Layout>
         <Router>
-          <About path="/"/>
           <Login path="/login"/>
           <Signup path="/signup"/>
           <Guide path="/:owner/:slug"/>
           <Profile path="/:owner"/>
+          <About default path="*"/>
         </Router>
       </Layout>
     }
