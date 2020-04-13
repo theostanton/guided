@@ -24,6 +24,7 @@ export default class OverlayComponent extends React.Component<Props> {
         return <CreateGuideModal/>
     }
 
-    return <ToastComponent toast={this.overlayStore.toast}/>
+    // TODO this doesn't work when static
+    // return <ToastComponent toast={this.overlayStore.toast}/>
   }
 }
