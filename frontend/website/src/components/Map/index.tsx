@@ -42,7 +42,7 @@ export default class Map extends Component<Props, State> {
     return this.props.guideStore!
   }
 
-  get viewport(): ViewPort | undefined {
+  generateViewport(): ViewPort | undefined {
 
     const padding = {
       right: window.innerWidth / 4 + 100,
@@ -103,7 +103,10 @@ export default class Map extends Component<Props, State> {
         console.error(e)
       }
       // TODO fix guide.bounds issue on subscription
-    } else if (!this.state.viewport || this.guideStore.spots.length > 0 && !this.guideStore.selectedType && (this.state.selectedSpotId || this.state.selectedRideId)) {
+    } else if (!this.state.viewport || !this.guideStore.selectedType && (this.state.selectedSpotId || this.state.selectedRideId)) {
+      if (this.guideStore.spots.length < 2) {
+        return
+      }
       this.state.selectedSpotId = undefined
       this.state.selectedRideId = undefined
       const firstSpot = this.guideStore.spots[0]
@@ -153,7 +156,7 @@ export default class Map extends Component<Props, State> {
   }
 
   updateViewport() {
-    const viewport = this.viewport
+    const viewport = this.generateViewport()
     if (viewport) {
       if (this.state.viewport && this.state.viewport.latitude === viewport.longitude) {
         console.error("unnecessary viewport calculation")
@@ -173,8 +176,9 @@ export default class Map extends Component<Props, State> {
 
     this.updateViewport()
 
-    const onClick = this.props.guideStore.isOwner && (async (event) => {
-      if (guide) {
+    let onClick
+    if (guide && this.props.guideStore.isOwner) {
+      onClick = (async (event) => {
         const variables: AddStayFromLatLongMutationVariables = {
           guideId: guide.id,
           long: event.lngLat[0],
@@ -186,14 +190,19 @@ export default class Map extends Component<Props, State> {
           mutation: AddStayFromLatLongDocument,
           variables,
         })
-      } else {
-        console.error("Guide not loaded")
-      }
-    })
+      })
+    }
+
+    const viewport: Partial<ViewPort> = this.state.viewport || {
+      longitude: -0.1278,
+      latitude: 51.5074,
+      zoom: 4,
+    }
+
     return (
       <ReactMapGL
         mapboxApiAccessToken={process.env.GATSBY_MAPBOX_TOKEN!}
-        {...this.state.viewport}
+        {...viewport}
         height={"100%"}
         width={"100%"}
         onViewportChange={(viewport: any) => {
