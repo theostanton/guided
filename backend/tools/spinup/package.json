@@ -12,10 +12,7 @@
     "action:truncate": "ts-node src/invoke.ts truncate",
     "action:1:roles": "ts-node src/invoke.ts roles",
     "action:2:create": "ts-node src/invoke.ts create",
-    "action:3:privelages": "ts-node src/invoke.ts privelages",
-    "start:local": "tsc && STAGE=local node srv/index.js",
-    "start:production": "tsc && STAGE=production node srv/index.js",
-    "start:staging": "STAGE=staging ts-node src/index.ts"
+    "action:3:privelages": "ts-node src/invoke.ts privelages"
   },
   "dependencies": {
     "@guided/database": "*",

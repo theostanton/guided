@@ -8,21 +8,19 @@ orbs:
 
 commands:
   test:
-    parameters:
-      directory:
-        type: string
     steps:
       - run:
-          name: Test << parameters.directory >>
+          name: "Test"
           environment:
-            JEST_JUNIT_OUTPUT_DIR: "reports/junit/"
+            TEST_DATABASE_URL: 'postgresql://root@localhost/circle_test'
           command: |
-            cd << parameters.directory >>
-      #            yarn test --passWithNoTests --ci --runInBand --reporters=default --reporters=jest-junit
+            cd backend
+            yarn test:all
+
       - store_artifacts:
-          path: << parameters.directory >>/reports/junit
+          path: ~workspace/backend/reports/junit
       - store_test_results:
-          path: << parameters.directory >>/reports/junit
+          path: ~workspace/backend/reports/junit
 
 jobs:
   tests:
@@ -109,19 +107,6 @@ jobs:
             export DEPLOY=false
             chmod +x ./scripts/deploy.backend.sh
             ./scripts/deploy.backend.sh
-
-      - run:
-          name: "Test"
-          environment:
-            TEST_DATABASE_URL: 'postgresql://root@localhost/circle_test'
-          command: |
-            cd backend
-            yarn test:all
-
-      - store_artifacts:
-          path: ~workspace/backend/reports/junit
-      - store_test_results:
-          path: ~workspace/backend/reports/junit
 
       - run:
           name: "Deploy"
