@@ -138,7 +138,7 @@ export default class ProfileComponent extends React.Component<Props, State> {
           <Icon name={"user"} size={"massive"} fitted bordered color={profile.colour?.toLowerCase()}/>
           <Header>
             {profile.username}
-            <HeaderSubHeader>Member since {humanDate(profile.created)}</HeaderSubHeader>
+            <HeaderSubHeader>Member since {humanDate(profile.created, true)}</HeaderSubHeader>
           </Header>
           {this.follow()}
           {this.stats(profile)}

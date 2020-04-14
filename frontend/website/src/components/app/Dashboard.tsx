@@ -44,8 +44,9 @@ export default class DashboardComponent extends React.Component<Props, State> {
 
     //TODO learn css
     return <Grid columns={2}>
+
       <Grid.Row>
-        <Grid.Column>
+        <Grid.Column width={9}>
           <Grid columns={2}>
             <Grid.Column verticalAlign={"bottom"}>
               <Header as={"h1"}>My guides</Header>
@@ -56,18 +57,11 @@ export default class DashboardComponent extends React.Component<Props, State> {
               }}>Create</Button>
             </Grid.Column>
           </Grid>
-        </Grid.Column>
-
-        <Grid.Column verticalAlign={"bottom"}>
-          <Header as={"h1"}>Feed</Header>
-        </Grid.Column>
-
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column>
           <GuidesList owner={this.props.authStore.owner}/>
         </Grid.Column>
-        <Grid.Column style={listStyle}>
+        <Grid.Column width={7} style={listStyle}>
+
+          <Header as={"h1"}>Feed</Header>
           <Feed/>
           <Header as={"h1"}>Following</Header>
           <FollowingList username={this.props.authStore.owner} type={"following"}/>
