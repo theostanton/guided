@@ -1,3 +1,5 @@
+import { format } from "date-fns/fp"
+
 const METERS_TO_MILE = 1609.34
 import * as timeago from "timeago.js"
 
@@ -17,8 +19,12 @@ export function humanDuration(durationSeconds: number, long: boolean = false): s
   }
 }
 
-export function humanDate(date: string): string {
-  return `${date.slice(8, 10)}/${date.slice(5, 7)}`
+export function humanDate(date: string, long: boolean = false): string {
+  if (long) {
+    return format("MMMM Mo", new Date(date))
+  } else {
+    return `${date.slice(8, 10)}/${date.slice(5, 7)}`
+  }
 }
 
 export function humanTemperature(temperature: number): string {

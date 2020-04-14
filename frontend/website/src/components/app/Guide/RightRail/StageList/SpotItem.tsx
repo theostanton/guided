@@ -46,7 +46,7 @@ export default class SpotItem extends React.Component<Props> {
         <Icon name='moon'/>{spot.nights}
       </Label>
       {spot.date && <Label>
-        <Icon name='calendar'/>{humanDate(spot.date)}
+        <Icon name='calendar'/>{humanDate(spot.date, true)}
       </Label>}
       {spot.temperature && <Label color='orange'>
         <Icon name='thermometer'/>{humanTemperature(spot.temperature)}

@@ -19,7 +19,7 @@ export default class AppMenu extends React.Component<Props, State> {
   render(): React.ReactElement {
     const user = this.props.authStore!.user
     return (
-      <Menu attached={true} borderless={true}>
+      <Menu borderless={true}>
         <Menu.Item
           name={"Dashboard"}
           link={true}

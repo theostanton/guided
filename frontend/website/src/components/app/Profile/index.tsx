@@ -9,7 +9,7 @@ import client, { subscriptionClient } from "api/client"
 import { ProfileFragment, UserProfileDocument, UserProfileQuery, UserProfileSubscription } from "api/generated"
 import MyGuidesList from "../Guides/GuidesList"
 import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
-import { humanDate } from "../../../utils/human"
+import { humanDate, humanDistance } from "../../../utils/human"
 
 interface Props extends RouteComponentProps {
   owner?: string
@@ -64,9 +64,17 @@ export default class ProfileComponent extends React.Component<Props, State> {
           label: "Countries",
           value: profile.countries.length,
         },
+        {
+          label: "Miles",
+          value: humanDistance(profile.distanceMeters, false),
+        },
+        {
+          label: "Hours",
+          value: Math.ceil(profile.durationSeconds / 60 / 60),
+        },
       ]
 
-      return <StatisticGroup>
+      return <StatisticGroup widths={4} size={"tiny"}>
         {items.map(({ label, value }) => {
           return <Statistic label={label} value={value}/>
         })}

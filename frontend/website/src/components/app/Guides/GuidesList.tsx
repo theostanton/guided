@@ -1,4 +1,4 @@
-import { List, Message, Segment } from "semantic-ui-react"
+import { CardGroup, List, Message, Segment } from "semantic-ui-react"
 import * as React from "react"
 import client, { subscriptionClient } from "api/client"
 import { navigate } from "@reach/router"
@@ -8,10 +8,13 @@ import {
 } from "api/generated"
 import { CSSProperties } from "react"
 import GuideItem from "./GuideItem"
-import { log } from "../../../utils/logger"
+import AuthStore from "model/AuthStore"
+import { log } from "utils/logger"
+import { inject } from "mobx-react"
 
 type Props = {
   owner: string,
+  authStore?: AuthStore
 }
 
 type State = {
@@ -21,7 +24,9 @@ type State = {
   } | undefined
 }
 
-export default class MyGuidesList extends React.Component<Props, State> {
+
+@inject("authStore")
+export default class GuidesList extends React.Component<Props, State> {
 
   subscription: ZenObservable.Subscription | undefined
 
@@ -115,9 +120,10 @@ export default class MyGuidesList extends React.Component<Props, State> {
       return <Segment>No guides</Segment>
     }
 
+    const self = this.props.authStore.owner
     const items = guides.map(guide => {
       return (
-        <GuideItem guide={guide}/>
+        <GuideItem key={guide.id} guide={guide} isOwner={guide.owner === self}/>
       )
     })
 
@@ -130,15 +136,9 @@ export default class MyGuidesList extends React.Component<Props, State> {
     }
 
     return <List
-      onItemClick={async (_, { value: route }) => {
-        log("click")
-        await navigate(route)
-      }}
-      link
+      animated
       style={style}
       items={items}
-      selection
-      divided
     />
   }
 }

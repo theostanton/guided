@@ -36,7 +36,7 @@ export default class RideItem extends React.Component<Props> {
     >
       <Icon name='motorcycle'/>
       {ride.date && <Label>
-        <Icon name='calendar'/>{`${humanDate(ride.date)}`}
+        <Icon name='calendar'/>{`${humanDate(ride.date,true)}`}
       </Label>}
       <Label>
         <Icon name='clock'/>{`${humanDuration(ride.durationSeconds!)}`}

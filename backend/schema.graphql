@@ -4424,6 +4424,8 @@ type User implements Node {
     filter: RideFilter
   ): RidesConnection!
   countries: [String]
+  distanceMeters: BigInt
+  durationSeconds: BigInt
 }
 
 """
@@ -4473,6 +4475,12 @@ input UserFilter {
 
   """Filter by the object’s `countries` field."""
   countries: StringListFilter
+
+  """Filter by the object’s `distanceMeters` field."""
+  distanceMeters: BigIntFilter
+
+  """Filter by the object’s `durationSeconds` field."""
+  durationSeconds: BigIntFilter
 
   """Checks for all expressions in this list."""
   and: [UserFilter!]

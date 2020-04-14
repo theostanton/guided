@@ -64,6 +64,8 @@ fragment Profile on User {
     username
     created
     countries
+    distanceMeters
+    durationSeconds
     guides:guidesByOwner{
         totalCount
         nodes{

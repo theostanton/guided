@@ -3824,6 +3824,8 @@ export type User = Node & {
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByOwner: RidesConnection;
   readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly distanceMeters?: Maybe<Scalars['BigInt']>;
+  readonly durationSeconds?: Maybe<Scalars['BigInt']>;
 };
 
 
@@ -3894,6 +3896,10 @@ export type UserFilter = {
   readonly colour?: Maybe<ColourFilter>;
   /** Filter by the object’s `countries` field. */
   readonly countries?: Maybe<StringListFilter>;
+  /** Filter by the object’s `distanceMeters` field. */
+  readonly distanceMeters?: Maybe<BigIntFilter>;
+  /** Filter by the object’s `durationSeconds` field. */
+  readonly durationSeconds?: Maybe<BigIntFilter>;
   /** Checks for all expressions in this list. */
   readonly and?: Maybe<ReadonlyArray<UserFilter>>;
   /** Checks for any expressions in this list. */
@@ -4934,6 +4940,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>,
   ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>,
   countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
+  distanceMeters?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
+  durationSeconds?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
