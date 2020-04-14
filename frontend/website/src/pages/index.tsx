@@ -33,6 +33,8 @@ export default class RootComponent extends React.Component<Props> {
       return <div style={{ paddingTop: "1em" }}>
         <Container>
           <AppMenu/>
+        </Container>
+        <Container>
           <Router style={{ paddingTop: "1em" }}>
             <Redirect from={"/login"} to={"/"} noThrow={true}/>
             <Redirect from={"/signup"} to={"/"} noThrow={true}/>

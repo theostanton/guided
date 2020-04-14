@@ -3,7 +3,7 @@ import React from "react"
 import { Feed, Icon } from "semantic-ui-react"
 import { Link } from "@reach/router"
 import { FollowFeedItemFragment } from "api/generated"
-import { humanElapsed } from "../../../utils/human"
+import { humanElapsed } from "utils/human"
 
 type Props = {
   self: string

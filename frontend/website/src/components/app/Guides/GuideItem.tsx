@@ -260,8 +260,8 @@ export default class GuideItem extends React.Component<Props, State> {
         })
       }}>
       {this.header()}
-      {this.map()}
       {this.stats()}
+      {this.map()}
       {this.footer()}
     </Card>
   }
