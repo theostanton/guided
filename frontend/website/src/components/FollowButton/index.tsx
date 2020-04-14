@@ -111,7 +111,7 @@ export default class FollowButton extends React.Component<Props, State> {
         }
         }>Follow</Button>
       case FollowingStatus.IsSelf:
-        return
+        return null
     }
 
   }
