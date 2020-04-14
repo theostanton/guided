@@ -20,6 +20,7 @@ export default class UserBuilder {
     return new UserBuilder({
       email,
       username,
+      colour: null,
       password_hash: PASSWORD_HASH,
       created: new Date(),
       updated: null,
