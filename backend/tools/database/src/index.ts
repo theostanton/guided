@@ -20,6 +20,7 @@ import {
   Guide,
   Ride,
   Stage,
+  Follow,
   Computation,
   StageStatus,
   SpotStatus,

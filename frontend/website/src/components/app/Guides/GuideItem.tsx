@@ -114,7 +114,7 @@ export default class GuideItem extends React.Component<Props, State> {
         }
       }, guide.startDate)
       items.push({
-        label: "Starts",
+        label: "Ends",
         value: humanDate(lastDate),
       })
     }
