@@ -30,9 +30,9 @@ export default class RootComponent extends React.Component<Props> {
 
     logJson(isLoggedIn, "isLoggedIn")
     if (isLoggedIn === true) {
-      return <div>
+      return <div style={{ paddingTop: 20 }}>
         {/*<OverlayComponent/>*/}
-        <Container style={{ margin: 20 }}>
+        <Container>
           <AppMenu/>
         </Container>
         <Container>
