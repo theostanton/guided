@@ -30,12 +30,12 @@ export default class RootComponent extends React.Component<Props> {
 
     logJson(isLoggedIn, "isLoggedIn")
     if (isLoggedIn === true) {
-      return <div style={{ paddingTop: "1em" }}>
+      return <div style={{ marginTop: "1em" }}>
         <Container>
           <AppMenu/>
         </Container>
         <Container>
-          <Router style={{ paddingTop: "1em" }}>
+          <Router style={{ marginTop: "1em" }}>
             <Redirect from={"/login"} to={"/"} noThrow={true}/>
             <Redirect from={"/signup"} to={"/"} noThrow={true}/>
             <Account path="/account"/>

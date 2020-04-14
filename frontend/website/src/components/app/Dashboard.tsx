@@ -43,7 +43,7 @@ export default class DashboardComponent extends React.Component<Props, State> {
 
     //TODO learn css
     return <Grid columns={2}>
-      <Grid.Row>
+      <Grid.Row columns={16}>
         <Grid.Column width={9}>
           <Grid columns={2}>
             <Grid.Column verticalAlign={"bottom"}>
