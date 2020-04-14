@@ -77,7 +77,7 @@ export default class ProfileComponent extends React.Component<Props, State> {
     if (profile) {
       return <Grid style={{ marginTop: 20 }}>
         <GridColumn width={6}>
-          <Icon name={"user"} size={"massive"} fitted bordered color={profile.colour?.toLowerCase}/>
+          <Icon name={"user"} size={"massive"} fitted bordered color={profile.colour?.toLowerCase()}/>
           <Header>
             {profile.username}
             <HeaderSubHeader>Member since {humanDate(profile.created)}</HeaderSubHeader>

@@ -100,19 +100,10 @@ jobs:
             terraform init
 
       - run:
-          name: "Build"
+          name: "Build and deploy"
           command: |
             cd deploy
             export BUILD=true
-            export DEPLOY=false
-            chmod +x ./scripts/deploy.backend.sh
-            ./scripts/deploy.backend.sh
-
-      - run:
-          name: "Deploy"
-          command: |
-            cd deploy
-            export BUILD=false
             export DEPLOY=true
             chmod +x ./scripts/deploy.backend.sh
             ./scripts/deploy.backend.sh

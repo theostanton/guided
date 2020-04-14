@@ -60,7 +60,6 @@ export default class GuideHeader extends React.Component<Props, State> {
 
   status(): Status | undefined {
 
-
     const guide = this.props.guideStore.guide
 
     if (!guide) {

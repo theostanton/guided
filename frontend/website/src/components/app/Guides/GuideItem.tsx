@@ -19,7 +19,7 @@ import ReactMapGL from "react-map-gl"
 import WebMercatorViewport from "viewport-mercator-project"
 import { RideLine } from "../../Map/RideLine"
 import { navigate } from "@reach/router"
-import { logJson } from "../../../utils/logger"
+import { log } from "../../../utils/logger"
 
 type Props = {
   guide: GuideInfoFragment
@@ -32,7 +32,7 @@ type ViewPort = {
   zoom: number
 }
 
-const HEIGHT = 200
+const HEIGHT = 300
 
 function generateViewport(bounds: Bound): ViewPort {
 
@@ -62,6 +62,12 @@ function generateViewport(bounds: Bound): ViewPort {
 
 export default class GuideItem extends React.Component<Props> {
 
+  ref: React.RefObject<unknown>
+
+  constructor(props) {
+    super(props)
+    this.ref = React.createRef()
+  }
 
   render(): React.ReactElement {
 
