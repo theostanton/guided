@@ -30,10 +30,12 @@ export default class RootComponent extends React.Component<Props> {
 
     logJson(isLoggedIn, "isLoggedIn")
     if (isLoggedIn === true) {
-      return <div style={{ margin: 20 }}>
+      return <div>
         {/*<OverlayComponent/>*/}
-        <Container>
+        <Container style={{ margin: 20 }}>
           <AppMenu/>
+        </Container>
+        <Container>
           <Router>
             <Redirect from={"/login"} to={"/"} noThrow={true}/>
             <Redirect from={"/signup"} to={"/"} noThrow={true}/>
