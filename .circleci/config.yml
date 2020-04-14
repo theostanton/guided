@@ -64,33 +64,12 @@ jobs:
           command: |
             cd frontend/website
             yarn install
+
       - run:
-          name: "Build"
+          name: "Deploy and Deploy"
           command: |
             cd deploy
             export BUILD=true
-            export DEPLOY=false
-            chmod +x ./scripts/deploy.frontend.sh
-            ./scripts/deploy.frontend.sh
-
-      - run:
-          name: "Test"
-          environment:
-            TEST_DATABASE_URL: 'postgresql://root@localhost/circle_test'
-          command: |
-            cd backend
-            yarn test:all
-
-      - store_artifacts:
-          path: ~workspace/backend/reports/junit
-      - store_test_results:
-          path: ~workspace/backend/reports/junit
-
-      - run:
-          name: "Deploy"
-          command: |
-            cd deploy
-            export BUILD=false
             export DEPLOY=true
             chmod +x ./scripts/deploy.frontend.sh
             ./scripts/deploy.frontend.sh
@@ -123,12 +102,33 @@ jobs:
             terraform init
 
       - run:
-          name: "Build and deploy"
-          environment:
-            BUILD: 'true'
-            DEPLOY: 'true'
+          name: "Build"
           command: |
             cd deploy
+            export BUILD=true
+            export DEPLOY=false
+            chmod +x ./scripts/deploy.backend.sh
+            ./scripts/deploy.backend.sh
+
+      - run:
+          name: "Test"
+          environment:
+            TEST_DATABASE_URL: 'postgresql://root@localhost/circle_test'
+          command: |
+            cd backend
+            yarn test:all
+
+      - store_artifacts:
+          path: ~workspace/backend/reports/junit
+      - store_test_results:
+          path: ~workspace/backend/reports/junit
+
+      - run:
+          name: "Deploy"
+          command: |
+            cd deploy
+            export BUILD=false
+            export DEPLOY=true
             chmod +x ./scripts/deploy.backend.sh
             ./scripts/deploy.backend.sh
 
