@@ -43,30 +43,28 @@ export default class DashboardComponent extends React.Component<Props, State> {
 
     //TODO learn css
     return <Grid columns={2}>
-      <Grid.Row columns={16}>
-        <Grid.Column width={9}>
-          <Grid columns={2}>
-            <Grid.Column verticalAlign={"bottom"}>
-              <Header as={"h1"}>My guides</Header>
-            </Grid.Column>
-            <Grid.Column width={4} floated={"right"}>
-              <Button floated={"right"} onClick={() => {
-                this.props.overlayStore!.showModal(new CreateGuideModal())
-              }}>Create</Button>
-            </Grid.Column>
-          </Grid>
-          <GuidesList owner={this.props.authStore.owner}/>
-        </Grid.Column>
-        <Grid.Column width={7} style={listStyle}>
+      <Grid.Column>
+        <Grid columns={2}>
+          <Grid.Column verticalAlign={"bottom"}>
+            <Header as={"h1"}>My guides</Header>
+          </Grid.Column>
+          <Grid.Column width={4} floated={"right"}>
+            <Button floated={"right"} onClick={() => {
+              this.props.overlayStore!.showModal(new CreateGuideModal())
+            }}>Create</Button>
+          </Grid.Column>
+        </Grid>
+        <GuidesList owner={this.props.authStore.owner}/>
+      </Grid.Column>
+      <Grid.Column style={listStyle}>
 
-          <Header as={"h1"}>Feed</Header>
-          <Feed/>
-          <Header as={"h1"}>Following</Header>
-          <FollowingList username={this.props.authStore.owner} type={"following"}/>
-          <Header as={"h1"}>Followers</Header>
-          <FollowingList username={this.props.authStore.owner} type={"followers"}/>
-        </Grid.Column>
-      </Grid.Row>
+        <Header as={"h1"}>Feed</Header>
+        <Feed/>
+        <Header as={"h1"}>Following</Header>
+        <FollowingList username={this.props.authStore.owner} type={"following"}/>
+        <Header as={"h1"}>Followers</Header>
+        <FollowingList username={this.props.authStore.owner} type={"followers"}/>
+      </Grid.Column>
     </Grid>
   }
 
