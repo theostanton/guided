@@ -123,11 +123,10 @@ export default class GuideItem extends React.Component<Props> {
     })
 
     return <Card
-      value={`/${guide.owner}/${guide.slug}`}
       key={key}
       fluid
       onClick={async () => {
-        await navigate(`${guide.owner}/${guide.slug}`)
+        await navigate(`/${guide.owner}/${guide.slug}`)
       }}
       extra={Extra}>
       <Card.Content>

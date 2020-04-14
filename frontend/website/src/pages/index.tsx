@@ -34,8 +34,6 @@ export default class RootComponent extends React.Component<Props> {
         <OverlayComponent/>
         <Container>
           <AppMenu/>
-        </Container>
-        <Container>
           <Router>
             <Redirect from={"/login"} to={"/"} noThrow={true}/>
             <Redirect from={"/signup"} to={"/"} noThrow={true}/>
