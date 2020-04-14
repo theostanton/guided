@@ -47,7 +47,7 @@ export default class FollowButton extends React.Component<Props, State> {
         return <Button color={"olive"} fluid onClick={async () => {
           await navigate("/login")
         }
-        }>Log in to follow</Button>
+        }>Log in to follow {this.props.username}</Button>
       case FollowingStatus.Following:
         return <Button color={"olive"} fluid loading={this.state.loading} onClick={async () => {
           this.setState({

@@ -30,13 +30,10 @@ export default class RootComponent extends React.Component<Props> {
 
     logJson(isLoggedIn, "isLoggedIn")
     if (isLoggedIn === true) {
-      return <div style={{ paddingTop: 20 }}>
-        <OverlayComponent/>
+      return <div style={{ paddingTop: "1em" }}>
         <Container>
           <AppMenu/>
-        </Container>
-        <Container>
-          <Router>
+          <Router style={{ paddingTop: "1em" }}>
             <Redirect from={"/login"} to={"/"} noThrow={true}/>
             <Redirect from={"/signup"} to={"/"} noThrow={true}/>
             <Account path="/account"/>
@@ -45,6 +42,7 @@ export default class RootComponent extends React.Component<Props> {
             <Dashboard default path="*"/>
           </Router>
         </Container>
+        <OverlayComponent/>
       </div>
     } else {
       return <Layout>

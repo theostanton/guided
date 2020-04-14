@@ -1,6 +1,5 @@
 import * as React from "react"
-import AppContainer from "components/app/Container"
-import { Button, Grid, Header, ListList, Segment } from "semantic-ui-react"
+import { Button, Grid, Header } from "semantic-ui-react"
 import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
 import Feed from "./Feed"
@@ -9,8 +8,8 @@ import { GuideInfoFragment } from "../../api/generated"
 
 import { RouteComponentProps } from "@reach/router"
 import { CSSProperties } from "react"
-import OverlayStore from "../../model/OverlayStore"
-import { CreateGuideModal } from "../../model/OverlayStore/modals"
+import OverlayStore from "model/OverlayStore"
+import { CreateGuideModal } from "model/OverlayStore/modals"
 import FollowingList from "../FollowerList/FollowingList"
 import GuidesList from "./Guides/GuidesList"
 
@@ -44,7 +43,6 @@ export default class DashboardComponent extends React.Component<Props, State> {
 
     //TODO learn css
     return <Grid columns={2}>
-
       <Grid.Row>
         <Grid.Column width={9}>
           <Grid columns={2}>
@@ -76,10 +74,8 @@ export default class DashboardComponent extends React.Component<Props, State> {
     return <GuideComponent guideId={this.state.selectedGuide.id} slug={this.state.selectedGuide.slug}/>
   }
 
-  render(): React.ReactElement | undefined {
-    return <AppContainer>
-      {this.props.authStore.isLoggedIn === true && this.state.selectedGuide ? this.guide() : this.guides()}
-    </AppContainer>
+  render(): React.ReactElement {
+    return this.props.authStore.isLoggedIn === true && this.state.selectedGuide ? this.guide() : this.guides()
   }
 
 }
