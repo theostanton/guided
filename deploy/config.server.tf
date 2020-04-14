@@ -26,6 +26,9 @@ resource "aws_instance" "server" {
 
   key_name = "guided-server-${var.stage}"
 
+  volume_tags = {
+    Name = "guided-server-${var.stage}"
+  }
   associate_public_ip_address = true
 
   monitoring = true
@@ -114,7 +117,7 @@ resource "null_resource" "install_node" {
       "sudo npm install pm2@latest -g",
       "echo pm2 version",
       "pm2 --version",
-      "pm2 start server.js --name guided"
+//      "pm2 start server.js --name guided"
     ]
   }
 

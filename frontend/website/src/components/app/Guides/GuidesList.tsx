@@ -1,89 +1,144 @@
-import { Card, List, Message, Segment, Label, Icon, Button, Grid, Header, Divider } from "semantic-ui-react"
-import randomKey from "utils/randomKey"
+import { List, Message, Segment } from "semantic-ui-react"
 import * as React from "react"
-import { log } from "utils/logger"
-import { subscriptionClient } from "api/client"
-import { humanDate } from "utils/human"
+import client, { subscriptionClient } from "api/client"
 import { navigate } from "@reach/router"
-import { GuideInfosSubscription, useGuideInfosSubscription } from "api/generated"
+import {
+  GuideIDsDocument, GuideIDsSubscription,
+  GuideInfoFragment, GuideInfosDocument, GuideInfosQuery,
+} from "api/generated"
 import { CSSProperties } from "react"
-import { CreateGuideModal } from "../../../model/OverlayStore/modals"
+import GuideItem from "./GuideItem"
+import { log } from "../../../utils/logger"
 
 type Props = {
   owner: string,
 }
 
-export function MyGuidesList({ owner }: Props) {
-
-  const { data, loading, error } = useGuideInfosSubscription({
-    // @ts-ignore
-    client: subscriptionClient,
-    variables: {
-      owner,
-    },
-    onSubscriptionComplete: () => {
-      log("onSubscriptionComplete")
-      return true
-    },
-  })
-
-  return <GuidesList data={data} loading={loading} error={error}/>
+type State = {
+  guides: readonly GuideInfoFragment[] | undefined
+  error: {
+    message: string
+  } | undefined
 }
 
-function GuidesList({ data, loading, error }: { data: GuideInfosSubscription, loading: boolean, error: any }) {
+export default class MyGuidesList extends React.Component<Props, State> {
 
-  if (loading) {
-    return <Segment loading/>
+  subscription: ZenObservable.Subscription | undefined
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      guides: undefined,
+      error: undefined,
+    }
   }
 
-  if (error) {
-    return <Segment>
-      <Message error>{error.message}</Message>
-    </Segment>
-  }
+  async subscribe() {
 
-  let guides = data!.guides!.nodes
-  if (guides.length === 0) {
-    return <Segment>No guides</Segment>
-  }
+    this.subscription = await subscriptionClient.subscribe<GuideIDsSubscription>({
+      query: GuideIDsDocument,
+      variables: {
+        owner: this.props.owner,
+      },
+    }).subscribe(async (value) => {
+        if (value.data) {
+          const ids = value.data.guides.nodes.map(guide => {
+            return guide.id
+          })
 
-  const items = guides.map(guide => {
-    const key = guide!.id || randomKey()
+          const result = await client.query<GuideInfosQuery>({
+            query: GuideInfosDocument,
+            variables: {
+              ids,
+            },
+          })
 
-    const Extra = <><Icon name='user'/><Label>12 miles</Label></>
+          if (result.errors && result.errors.length > 0) {
+            value.errors.forEach(error => {
+              console.error(error)
+            })
+            const message = result.errors.map(error => {
+              return error.message
+            }).join("\n")
+            this.setState({
+              error: {
+                message,
+              },
+            })
+          } else if (result.data) {
+            const guides = result.data.guides.nodes
+            this.setState({
+              guides,
+              error: undefined,
+            })
+          }
 
-    return (
-      <Card
-        value={`/${guide.owner}/${guide.slug}`}
-        key={key}
-        fluid
-        extra={Extra}>
-        <Card.Content>
-          <Card.Header>{guide.title}</Card.Header>
-        </Card.Content>
-        <Card.Content>
-          <Label color={"olive"}>Planning</Label>
-          {guide.startDate && <Label>
-            <Icon name='calendar'/>{`${humanDate(guide.startDate)}`}
-          </Label>}
-        </Card.Content>
-      </Card>
+        } else {
+          value.errors.forEach(error => {
+            console.error(error)
+          })
+          const message = value.errors.map(error => {
+            return error.message
+          }).join("\n")
+          this.setState({
+            error: {
+              message,
+            },
+          })
+        }
+      },
     )
-  })
-
-
-  const style: CSSProperties = {
-    height: "500px",
-    overflowY: "scroll",
-    padding: "0.1em",
   }
 
-  return <List
-    onItemClick={async (_, { value: route }) => {
-      await navigate(route)
-    }}
-    style={style}
-    items={items}
-    divided
-  />
+  componentDidMount(): void {
+    this.subscribe()
+  }
+
+  componentWillUnmount(): void {
+    this.subscription?.unsubscribe()
+  }
+
+  render(): React.ReactElement {
+
+    const { guides, error } = this.state
+    if (!guides) {
+      return <Segment loading/>
+    }
+
+    if (error) {
+      return <Segment>
+        <Message error>{error.message}</Message>
+      </Segment>
+    }
+
+    if (guides.length === 0) {
+      return <Segment>No guides</Segment>
+    }
+
+    const items = guides.map(guide => {
+      return (
+        <GuideItem guide={guide}/>
+      )
+    })
+
+    const style: CSSProperties = {
+      height: "800px",
+      overflowY: "scroll",
+      paddingLeft: "0.1em",
+      paddingRight: "0.1em",
+      paddingTop: "0.3em",
+    }
+
+    return <List
+      onItemClick={async (_, { value: route }) => {
+        log("click")
+        await navigate(route)
+      }}
+      link
+      style={style}
+      items={items}
+      selection
+      divided
+    />
+  }
 }

@@ -1,7 +1,7 @@
 import { client, PlaceInfo } from "../index"
 import { GeocodeResult } from "@googlemaps/google-maps-services-js/dist/common"
 
-function extractCountry(results: GeocodeResult[]): string {
+function extractCountry(results: GeocodeResult[]): string|null {
   for (let i = 0; i < results.length - 1; i++) {
     const result = results[i]
     for (let j = 0; j < result.address_components.length - 1; j++) {
@@ -14,7 +14,7 @@ function extractCountry(results: GeocodeResult[]): string {
       }
     }
   }
-  return "NA"
+  return null
 }
 
 export default async function(lat: number, lng: number): Promise<PlaceInfo> {

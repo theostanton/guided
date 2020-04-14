@@ -14,6 +14,7 @@ import {
 import { RideFragment, SpotFragment, StageFragment } from "api/generated"
 import { humanDate, humanDistance, humanDuration } from "utils/human"
 import GuideStore from "../../../../../model/GuideStore"
+import { CSSProperties } from "react"
 
 type Props = {
   ride: RideFragment
@@ -33,7 +34,7 @@ export default class RideDetail extends React.Component<Props> {
           <Icon name={spot.locked ? "flag" : "flag outline"} color={markerColour}/>
           <Header.Content>
             {spot.name}
-            <Header.Subheader><Flag name={spot.country!.toLowerCase() as FlagNameValues}/>
+            <Header.Subheader><Flag name={spot.country?.toLowerCase() as FlagNameValues}/>
               {`${spot.name === spot.location ? "" : spot.location + ", "}${spot.country}`}</Header.Subheader>
           </Header.Content>
         </Header>
@@ -74,6 +75,10 @@ export default class RideDetail extends React.Component<Props> {
 
   render(): React.ReactElement {
 
+
+    const style: CSSProperties = {
+      padding: "1em",
+    }
     const isOwner = this.props.guideStore.isOwner
 
     function Wrap({ children }): React.ReactElement {
@@ -85,7 +90,7 @@ export default class RideDetail extends React.Component<Props> {
     }
 
     const ride = this.props.ride
-    return <Grid>
+    return <Grid style={style}>
       <Grid.Row>
         <Grid.Column width={6} floated={"right"}>
           <ButtonGroup floated={"right"}>

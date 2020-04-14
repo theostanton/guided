@@ -1,9 +1,11 @@
-import { RideByGuideFragment } from "api/generated"
-import React, { ReactElement } from "react"
+import React from "react"
 import { Layer, Source } from "react-map-gl"
 
 type Props = {
-  ride: RideByGuideFragment
+  ride: {
+    id: string,
+    pathUrl: string
+  }
   state: LineState
 }
 
@@ -44,7 +46,7 @@ export class RideLine extends React.Component<Props> {
       case "none":
         return {
           paint: {
-            "line-color": "#555555",
+            "line-color": "#b25757",
             "line-width": 5,
           },
         }

@@ -4,7 +4,6 @@ import { inject, observer, Provider } from "mobx-react"
 import Content from "./content"
 
  import { RouteComponentProps } from "@reach/router"
-import { logObject } from "utils/logger"
 import AuthStore from "model/AuthStore"
 
 interface Props extends RouteComponentProps {

@@ -16,6 +16,12 @@ export type Scalars = {
    */
   Datetime: string;
   /**
+   * A signed eight-byte integer. The upper big integer values are greater than the
+   * max value for a JavaScript number. Therefore all big integers will be output as
+   * strings and not numbers.
+   */
+  BigInt: any;
+  /**
    * A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
    * which securely represents claims between two parties.
    */
@@ -45,6 +51,33 @@ export type AuthenticatePayload = {
   readonly query?: Maybe<Query>;
 };
 
+
+/** A filter to be used against BigInt fields. All fields are combined with a logical ‘and.’ */
+export type BigIntFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<Scalars['BigInt']>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<Scalars['BigInt']>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<Scalars['BigInt']>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<Scalars['BigInt']>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<Scalars['BigInt']>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<Scalars['BigInt']>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<Scalars['BigInt']>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<Scalars['BigInt']>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<Scalars['BigInt']>;
+};
+
 /** A filter to be used against Boolean fields. All fields are combined with a logical ‘and.’ */
 export type BooleanFilter = {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
@@ -69,6 +102,13 @@ export type BooleanFilter = {
   readonly greaterThan?: Maybe<Scalars['Boolean']>;
   /** Greater than or equal to the specified value. */
   readonly greaterThanOrEqualTo?: Maybe<Scalars['Boolean']>;
+};
+
+export type Bound = {
+  readonly north?: Maybe<Scalars['Float']>;
+  readonly east?: Maybe<Scalars['Float']>;
+  readonly south?: Maybe<Scalars['Float']>;
+  readonly west?: Maybe<Scalars['Float']>;
 };
 
 export enum Colour {
@@ -935,6 +975,10 @@ export type Guide = Node & {
   readonly ridesByGuide: RidesConnection;
   /** Reads and enables pagination through a set of `Computation`. */
   readonly computationsByGuide: ComputationsConnection;
+  readonly bounds?: Maybe<Bound>;
+  readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly distanceMeters?: Maybe<Scalars['BigInt']>;
+  readonly durationSeconds?: Maybe<Scalars['BigInt']>;
   readonly isMine?: Maybe<Scalars['Boolean']>;
 };
 
@@ -1024,6 +1068,12 @@ export type GuideFilter = {
   readonly created?: Maybe<DatetimeFilter>;
   /** Filter by the object’s `updated` field. */
   readonly updated?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `countries` field. */
+  readonly countries?: Maybe<StringListFilter>;
+  /** Filter by the object’s `distanceMeters` field. */
+  readonly distanceMeters?: Maybe<BigIntFilter>;
+  /** Filter by the object’s `durationSeconds` field. */
+  readonly durationSeconds?: Maybe<BigIntFilter>;
   /** Filter by the object’s `isMine` field. */
   readonly isMine?: Maybe<BooleanFilter>;
   /** Checks for all expressions in this list. */
@@ -2534,6 +2584,46 @@ export type StringFilter = {
   readonly notSimilarTo?: Maybe<Scalars['String']>;
 };
 
+/** A filter to be used against String List fields. All fields are combined with a logical ‘and.’ */
+export type StringListFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Contains the specified list of values. */
+  readonly contains?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Contained by the specified list of values. */
+  readonly containedBy?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Overlaps the specified list of values. */
+  readonly overlaps?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Any array item is equal to the specified value. */
+  readonly anyEqualTo?: Maybe<Scalars['String']>;
+  /** Any array item is not equal to the specified value. */
+  readonly anyNotEqualTo?: Maybe<Scalars['String']>;
+  /** Any array item is less than the specified value. */
+  readonly anyLessThan?: Maybe<Scalars['String']>;
+  /** Any array item is less than or equal to the specified value. */
+  readonly anyLessThanOrEqualTo?: Maybe<Scalars['String']>;
+  /** Any array item is greater than the specified value. */
+  readonly anyGreaterThan?: Maybe<Scalars['String']>;
+  /** Any array item is greater than or equal to the specified value. */
+  readonly anyGreaterThanOrEqualTo?: Maybe<Scalars['String']>;
+};
+
 /**
  * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
  * 
@@ -3733,6 +3823,7 @@ export type User = Node & {
   readonly spotsByOwner: SpotsConnection;
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByOwner: RidesConnection;
+  readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
 };
 
 
@@ -3801,6 +3892,8 @@ export type UserFilter = {
   readonly updated?: Maybe<DatetimeFilter>;
   /** Filter by the object’s `colour` field. */
   readonly colour?: Maybe<ColourFilter>;
+  /** Filter by the object’s `countries` field. */
+  readonly countries?: Maybe<StringListFilter>;
   /** Checks for all expressions in this list. */
   readonly and?: Maybe<ReadonlyArray<UserFilter>>;
   /** Checks for any expressions in this list. */
@@ -3967,6 +4060,9 @@ export type ResolversTypes = {
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
   GuideFilter: GuideFilter,
+  StringListFilter: StringListFilter,
+  BigIntFilter: BigIntFilter,
+  BigInt: ResolverTypeWrapper<Scalars['BigInt']>,
   BooleanFilter: BooleanFilter,
   GuidesConnection: ResolverTypeWrapper<GuidesConnection>,
   GuidesEdge: ResolverTypeWrapper<GuidesEdge>,
@@ -3993,6 +4089,7 @@ export type ResolversTypes = {
   Ride: ResolverTypeWrapper<Ride>,
   RidesEdge: ResolverTypeWrapper<RidesEdge>,
   SpotsEdge: ResolverTypeWrapper<SpotsEdge>,
+  Bound: ResolverTypeWrapper<Bound>,
   ComputationsEdge: ResolverTypeWrapper<ComputationsEdge>,
   TemperaturesOrderBy: TemperaturesOrderBy,
   TemperatureCondition: TemperatureCondition,
@@ -4114,6 +4211,9 @@ export type ResolversParentTypes = {
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
   GuideFilter: GuideFilter,
+  StringListFilter: StringListFilter,
+  BigIntFilter: BigIntFilter,
+  BigInt: Scalars['BigInt'],
   BooleanFilter: BooleanFilter,
   GuidesConnection: GuidesConnection,
   GuidesEdge: GuidesEdge,
@@ -4140,6 +4240,7 @@ export type ResolversParentTypes = {
   Ride: Ride,
   RidesEdge: RidesEdge,
   SpotsEdge: SpotsEdge,
+  Bound: Bound,
   ComputationsEdge: ComputationsEdge,
   TemperaturesOrderBy: TemperaturesOrderBy,
   TemperatureCondition: TemperatureCondition,
@@ -4237,6 +4338,18 @@ export type AuthenticatePayloadResolvers<ContextType = any, ParentType extends R
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   jwtToken?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export interface BigIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['BigInt'], any> {
+  name: 'BigInt'
+}
+
+export type BoundResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bound'] = ResolversParentTypes['Bound']> = {
+  north?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  east?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  south?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  west?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4439,6 +4552,10 @@ export type GuideResolvers<ContextType = any, ParentType extends ResolversParent
   stagesByGuide?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<GuideStagesByGuideArgs, 'orderBy'>>,
   ridesByGuide?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<GuideRidesByGuideArgs, 'orderBy'>>,
   computationsByGuide?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<GuideComputationsByGuideArgs, 'orderBy'>>,
+  bounds?: Resolver<Maybe<ResolversTypes['Bound']>, ParentType, ContextType>,
+  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
+  distanceMeters?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
+  durationSeconds?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
   isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -4816,6 +4933,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   guidesByOwner?: Resolver<ResolversTypes['GuidesConnection'], ParentType, ContextType, RequireFields<UserGuidesByOwnerArgs, 'orderBy'>>,
   spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>,
   ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>,
+  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4835,6 +4953,8 @@ export type UsersEdgeResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type Resolvers<ContextType = any> = {
   AuthenticatePayload?: AuthenticatePayloadResolvers<ContextType>,
+  BigInt?: GraphQLScalarType,
+  Bound?: BoundResolvers<ContextType>,
   Computation?: ComputationResolvers<ContextType>,
   ComputationsConnection?: ComputationsConnectionResolvers<ContextType>,
   ComputationsEdge?: ComputationsEdgeResolvers<ContextType>,

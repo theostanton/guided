@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Icon, Menu } from "semantic-ui-react"
+import { Divider, Icon, Menu } from "semantic-ui-react"
 import { navigate } from "@reach/router"
 import { inject, observer } from "mobx-react"
 import AuthStore from "model/AuthStore"
@@ -23,10 +23,17 @@ export default class AppMenu extends React.Component<Props, State> {
         <Menu.Item
           name={"Dashboard"}
           link={true}
+          icon={"home"}
           onClick={async () => {
             await navigate(`/`)
           }}/>
-
+        <Menu.Item
+          name={"My profile"}
+          link={true}
+          icon={"user"}
+          onClick={async () => {
+            await navigate(`/${this.props.authStore!.owner}`)
+          }}/>
         <Menu.Menu
           position='right'
         >

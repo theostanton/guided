@@ -6,6 +6,7 @@ import RideDetail from "./RideDetail"
 import StageList from "./StageList"
 import { Segment } from "semantic-ui-react"
 import { logObject } from "utils/logger"
+import { CSSProperties } from "react"
 
 
 type Props = {
@@ -35,7 +36,7 @@ export default class RightRailComponent extends React.Component<Props> {
     }
 
     if (selectedRide) {
-      return <RideDetail ride={selectedRide} isOwner={isOwner} guideStore={this.guideStore} close={() => {
+      return <RideDetail ride={selectedRide}  guideStore={this.guideStore} close={() => {
         this.guideStore.unselect()
       }}/>
     }
@@ -47,7 +48,16 @@ export default class RightRailComponent extends React.Component<Props> {
   }
 
   render(): React.ReactElement {
-    return <Segment style={{ backgroundColor: "#ffffff" }}>
+
+    const style:CSSProperties={
+      // overflowY: "scroll",
+      // height: "100%",
+      // maxHeight: "2em",
+      padding:0,
+      margin:0,
+      backgroundColor: "#ffffff"
+    }
+    return <Segment style={style} padded={false}>
       {this.guideStore && this.contents.bind(this)()}
     </Segment>
 

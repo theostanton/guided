@@ -205,6 +205,7 @@ export default class Map extends Component<Props, State> {
         {...viewport}
         height={"100%"}
         width={"100%"}
+        mapStyle={"mapbox://styles/theodev/ck8zy18o108v11im40uij8t14"}
         onViewportChange={(viewport: any) => {
           if (this.guideStore.guide) {
             this.setState({ viewport })
@@ -213,8 +214,8 @@ export default class Map extends Component<Props, State> {
 
         onClick={onClick}
       >
-        {guide && <Markers/>}
         {guide && <Rides/>}
+        {guide && <Markers/>}
       </ReactMapGL>
     )
   }

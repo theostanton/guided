@@ -71,7 +71,7 @@ export default class SpotDetail extends React.Component<Props, State> {
     const isOwner = this.props.isOwner
 
     const style: CSSProperties = {
-      backgroundColor: "white",
+      padding: "1em",
     }
 
     return <Grid key={spot.id} style={style}>
@@ -81,7 +81,7 @@ export default class SpotDetail extends React.Component<Props, State> {
             <Icon name={spot.locked ? "flag" : "flag outline"} color={"orange"}/>
             <Header.Content>
               {spot.name}
-              <Header.Subheader><Flag name={spot.country!.toLowerCase() as FlagNameValues}/>
+              <Header.Subheader><Flag name={spot.country?.toLowerCase() as FlagNameValues}/>
                 {`${spot.name === spot.location ? "" : spot.location + ", "}${spot.country}`}</Header.Subheader>
             </Header.Content>
           </Header>

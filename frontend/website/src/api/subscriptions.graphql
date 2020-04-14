@@ -1,19 +1,15 @@
-fragment GuideInfo on Guide{
+fragment GuideIDs on Guide{
     id
-    title
-    slug
-    startDate
-    owner
 }
 
-subscription GuideInfos($owner:String!){
+subscription GuideIDs($owner:String!){
     guides(
         filter: {owner: {
             equalTo: $owner
         }}
     ){
         nodes{
-            ...GuideInfo
+            ...GuideIDs
         }
     }
 }
@@ -143,27 +139,6 @@ subscription GuideStages($id: String!){
     }
 }
 
-fragment Profile on User {
-    colour
-    username
-    created
-    guides:guidesByOwner{
-        totalCount
-    }
-    rides:ridesByOwner{
-        totalCount
-        nodes{
-            distanceMeters
-            durationSeconds
-        }
-    }
-}
-
-subscription UserProfile($username:String!){
-    profile:user(username: $username){
-        ...Profile
-    }
-}
 
 query GuideStagesPublic($id: String!){
     guide(

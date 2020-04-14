@@ -2,7 +2,7 @@ import GuideStore from "model/GuideStore"
 import { inject, observer } from "mobx-react"
 import * as React from "react"
 import { CSSProperties, ReactElement } from "react"
-import { List, Segment } from "semantic-ui-react"
+import { Header, List, Segment } from "semantic-ui-react"
 import SpotItem from "./SpotItem"
 import RideItem from "./RideItem"
 import LoadingStageItem from "./LoadingStageItem"
@@ -57,11 +57,23 @@ export default class StageList extends React.Component<Props> {
 
   render(): React.ReactElement {
     const items: ReactElement[] = this.generateListItems()
-    return <List items={items}
-                 celled={true}
-                 selection={true}
-                 relaxed={true}
-    />
+    const style: CSSProperties = {
+      margin: 0,
+      padding: 0,
+    }
+    const listStyle: CSSProperties = {
+      overflowY: "scroll",
+      maxHeight: "35em",
+    }
+    return <Segment
+      style={style}>
+      <List items={items}
+            style={listStyle}
+            celled={true}
+            padded={true}
+            selection={true}
+            relaxed={true}
+      /></Segment>
   }
 
 }

@@ -5,6 +5,7 @@ import GuideStore from "model/GuideStore"
 import Map from "components/Map"
 import LeftRail from "./LeftRail"
 import RightRail from "./RightRail"
+import GuideHeader from "./Header"
 
 type Props = {
   guideStore?: GuideStore
@@ -30,9 +31,25 @@ export default class GuideComponent extends React.Component<Props> {
           <Map/>
         </div>
 
+
         <div style={{
           position: "fixed",
-          height: "100%",
+          height: "min-content",
+          top: 0,
+          left: "25%",
+          right: "25%",
+          marginLeft: "1em",
+          marginTop: "1em",
+          marginRight: "2em",
+          bottom: 0,
+          zIndex: 2,
+        }}>
+          <GuideHeader/>
+        </div>
+
+        <div style={{
+          position: "fixed",
+          height: "min-content",
           width: "25%",
           overflowY: "scroll",
           paddingTop: "1em",
@@ -50,13 +67,13 @@ export default class GuideComponent extends React.Component<Props> {
 
         <div style={{
           position: "fixed",
-          height: "auto",
+          height: "200",
           width: "25%",
           paddingTop: "1em",
           paddingBottom: "2em",
           margin: 0,
+          marginBottom: "5em",
           top: 0,
-          bottom: 0,
           right: "1em",
           zIndex: 3,
         }}>

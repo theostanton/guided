@@ -42,7 +42,7 @@ export class Rides extends React.Component<Props> {
         default:
           state = "none"
       }
-      items.push(<RideLine ride={ride!} state={state}/>)
+      items.push(<RideLine ride={ride!} state={state} key={ride.id}/>)
     }
 
     this.guideStore.rides

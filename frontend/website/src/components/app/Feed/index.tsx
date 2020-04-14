@@ -35,8 +35,7 @@ export default class FeedComponent extends React.Component<Props, State> {
 
   componentDidMount(): void {
     this.subscription = subscriptionClient.subscribe<FeedSubscription>({
-      query: FeedDocument,
-      fetchPolicy: "network-only",
+      query: FeedDocument
     }).subscribe(value => {
       if (value.data) {
         this.setState({
@@ -62,7 +61,7 @@ export default class FeedComponent extends React.Component<Props, State> {
     const feedItems = this.state.feedItems
 
     const style: CSSProperties = {
-      height: "500px",
+      height: "400px",
       overflowY: "scroll",
     }
 

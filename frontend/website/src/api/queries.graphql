@@ -6,6 +6,82 @@ query GetGuideIdForSlug($slug:String!){
     ){
         nodes{
             id
+            ridesByGuide{
+                totalCount
+            }
+            spotsByGuide{
+                totalCount
+            }
+            computationsByGuide{
+                totalCount
+            }
         }
+    }
+}
+
+fragment GuideInfo on Guide{
+    id
+    title
+    slug
+    startDate
+    owner
+    durationSeconds
+    distanceMeters
+    countries
+    bounds{
+        east
+        north
+        south
+        west
+    }
+    rides:ridesByGuide{
+        totalCount
+        nodes{
+            id
+            pathUrl
+            date
+        }
+    }
+    spots:spotsByGuide{
+        totalCount
+    }
+}
+
+
+query GuideInfos($ids:[String!]!){
+    guides(filter: {id: {
+        in: $ids
+    }}){
+        nodes{
+            ...GuideInfo
+        }
+    }
+}
+
+
+fragment Profile on User {
+    colour
+    username
+    created
+    countries
+    guides:guidesByOwner{
+        totalCount
+        nodes{
+            distanceMeters
+            durationSeconds
+        }
+    }
+    rides:ridesByOwner{
+        totalCount
+        nodes{
+            distanceMeters
+            durationSeconds
+        }
+    }
+}
+
+query UserProfile($username:String!){
+    profile:user(username: $username){
+        ...Profile
     }
 }

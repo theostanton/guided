@@ -5,7 +5,7 @@ const client = new Client({})
 
 export type PlaceInfo = {
   label: string
-  countryCode: string
+  countryCode: string | null
 }
 
 export {

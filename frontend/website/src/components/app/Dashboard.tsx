@@ -3,7 +3,6 @@ import AppContainer from "components/app/Container"
 import { Button, Grid, Header, ListList, Segment } from "semantic-ui-react"
 import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
-import { MyGuidesList } from "./Guides/GuidesList"
 import Feed from "./Feed"
 import GuideComponent from "./Guide"
 import { GuideInfoFragment } from "../../api/generated"
@@ -13,6 +12,7 @@ import { CSSProperties } from "react"
 import OverlayStore from "../../model/OverlayStore"
 import { MessageToast } from "../../model/OverlayStore/toast"
 import { CreateGuideModal } from "../../model/OverlayStore/modals"
+import MyGuidesList from "./Guides/GuidesList"
 
 interface Props extends RouteComponentProps {
   authStore?: AuthStore
