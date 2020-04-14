@@ -31,8 +31,8 @@ export const LOCATIONS: { [location in MockLocation]: LatLng } = {
 
 export default class GuideBuilder {
 
-  static create(username: string, title: string, guideId?: string): GuideBuilder {
-    return new GuideBuilder(username, title, guideId)
+  static create(username: string, title: string): GuideBuilder {
+    return new GuideBuilder(username, title)
   }
 
   private readonly username: string
@@ -44,16 +44,20 @@ export default class GuideBuilder {
   private spots: Spot[] = []
   private position: number = 0
 
-  private constructor(username: string, title: string, guideId?: string) {
+  private constructor(username: string, title: string) {
     this.username = username
     this.title = title
     this.slug = slugify(title, {
       lower: true,
       remove: /[*+~.()'"!:@_]/g,
     })
-    this.id = guideId || `${this.username}_${this.slug}`
+    this.id = `${this.username}_${this.slug}`
     this.max_hours_per_ride = 6
     this.start_date = null
+  }
+
+  get guideId() {
+    return this.id
   }
 
   withStartDate(year: number, month: number, date: number): GuideBuilder {

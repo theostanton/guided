@@ -14,7 +14,7 @@ const TIMEOUT = 60_000
 describe("When moving a spot on a guide with 1 spot", () => {
 
   const owner: string = faker.internet.userName()
-  const GUIDE_ID: string = generateId("guide")
+  let guideId: string
   const GUIDE_TITLE: string = faker.random.words(3)
   const START_YEAR: number = 2019
   const START_MONTH: number = 8
@@ -27,19 +27,20 @@ describe("When moving a spot on a guide with 1 spot", () => {
   beforeAll(async () => {
 
     const contents = UserBuilder.create(faker.internet.email(), owner)
-      .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
+      .addGuide(GUIDE_TITLE, (builder) => {
+        guideId = builder.guideId
         builder.withStartDate(START_YEAR, START_MONTH, START_DATE)
         builder.nextSpot(LOCATIONS.London.lat, LOCATIONS.London.long, 1, undefined, SPOT_ID)
       })
       .build()
     await spinup(contents)
-    const initialPacket = await compute.prepare(GUIDE_ID)
+    const initialPacket = await compute.prepare(guideId)
     await compute.trigger(initialPacket)
 
-    const guide = await database.selectGuide(GUIDE_ID)
+    const guide = await database.selectGuide(guideId)
     expect(guide.title).toBe(GUIDE_TITLE)
     expect(guide.start_date).toBe("2019-08-01")
-    const spots = await database.selectSpotsForGuide(GUIDE_ID)
+    const spots = await database.selectSpotsForGuide(guideId)
     expect(spots.length).toBe(1)
     expect(spots[0].id).toBe(SPOT_ID)
 
@@ -94,7 +95,7 @@ describe("When moving a spot on a guide with 1 spot", () => {
 describe("When moving a spot on a guide with 2 spots", () => {
 
   const owner: string = faker.internet.userName()
-  const GUIDE_ID: string = generateId("guide")
+  let guideId: string
   const GUIDE_TITLE: string = faker.random.words(3)
   const START_YEAR: number = 2019
   const START_MONTH: number = 8
@@ -109,7 +110,8 @@ describe("When moving a spot on a guide with 2 spots", () => {
   beforeAll(async () => {
 
     const contents = UserBuilder.create(faker.internet.email(), owner)
-      .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
+      .addGuide(GUIDE_TITLE, (builder) => {
+        guideId = builder.guideId
         builder.withStartDate(START_YEAR, START_MONTH, START_DATE)
         builder.nextSpot(LOCATIONS.London.lat, LOCATIONS.London.long, 1, undefined, SPOT_ID_1)
         builder.nextSpot(LOCATIONS.Brighton.lat, LOCATIONS.Brighton.long, 1, undefined, SPOT_ID_2)
@@ -117,17 +119,17 @@ describe("When moving a spot on a guide with 2 spots", () => {
       .build()
     await spinup(contents)
 
-    const initialPacket = await compute.prepare(GUIDE_ID)
+    const initialPacket = await compute.prepare(guideId)
     await compute.trigger(initialPacket)
 
-    const guide = await database.selectGuide(GUIDE_ID)
+    const guide = await database.selectGuide(guideId)
     expect(guide.title).toBe(GUIDE_TITLE)
     expect(guide.start_date).toBe("2019-08-01")
-    const spots = await database.selectSpotsForGuide(GUIDE_ID)
+    const spots = await database.selectSpotsForGuide(guideId)
     expect(spots.length).toBe(2)
-    const rides = await database.selectRidesForGuide(GUIDE_ID)
+    const rides = await database.selectRidesForGuide(guideId)
     expect(rides.length).toBe(2)
-    const stages = await database.selectStagesForGuide(GUIDE_ID)
+    const stages = await database.selectStagesForGuide(guideId)
     expect(stages.length).toBe(2)
 
     dateBefore = new Date()
@@ -178,7 +180,7 @@ describe("When moving a spot on a guide with 2 spots", () => {
 
 
   it("Create 2 stages in 'computing' stage", async () => {
-    const stages = await database.manyOrNone<Stage>("select stages.* from stages inner join spots on stages.from_spot=spots.id where stages.guide=$1 order by spots.position", GUIDE_ID)
+    const stages = await database.manyOrNone<Stage>("select stages.* from stages inner join spots on stages.from_spot=spots.id where stages.guide=$1 order by spots.position", guideId)
     expect(stages.length).toBe(2)
 
     log(`stages[0].id=${stages[0].id}`)
@@ -194,7 +196,7 @@ describe("When moving a spot on a guide with 2 spots", () => {
 
   it("Schedule 2 computations to be executed ", async () => {
     expect(packet.computationIds.length).toBe(2)
-    const computations = await database.manyOrNone<Computation>("select * from computations where guide=$1 and created>$2", [GUIDE_ID, dateBefore])
+    const computations = await database.manyOrNone<Computation>("select * from computations where guide=$1 and created>$2", [guideId, dateBefore])
     expect(computations.length).toBe(2)
 
     expect(computations[0].status).toBe("scheduled")
@@ -217,7 +219,7 @@ describe("When moving a spot on a guide with 2 spots", () => {
     }, TIMEOUT)
 
     it("marked 2 computations as complete", async () => {
-      const computations = await database.manyOrNone<Computation>("select * from computations where guide=$1 and created>$2", [GUIDE_ID, dateBefore])
+      const computations = await database.manyOrNone<Computation>("select * from computations where guide=$1 and created>$2", [guideId, dateBefore])
       expect(computations.length).toBe(2)
 
       expect(computations[0].status).toBe("success")
@@ -233,7 +235,7 @@ describe("When moving a spot on a guide with 2 spots", () => {
 
 
     it("Should have updated 2 stages as 'ready'", async () => {
-      const stages = await database.manyOrNone<Stage>("select * from stages where guide=$1", [GUIDE_ID])
+      const stages = await database.manyOrNone<Stage>("select * from stages where guide=$1", [guideId])
       expect(stages.length).toBe(2)
 
       expect(stages[0].status).toBe("ready")
@@ -246,7 +248,7 @@ describe("When moving a spot on a guide with 2 spots", () => {
     })
 
     it("Should have created 2 rides as 'ready'", async () => {
-      const rides = await database.selectRidesForGuide(GUIDE_ID)
+      const rides = await database.selectRidesForGuide(guideId)
       expect(rides.length).toBe(2)
 
       expect(rides[0].status).toBe("ready")
@@ -269,7 +271,7 @@ describe("When moving a spot on a guide with 2 spots", () => {
 describe("When moving a spot on a guide with 3 spots", () => {
 
   const owner: string = faker.internet.userName()
-  const GUIDE_ID: string = generateId("guide")
+  let guideId: string
   const GUIDE_TITLE: string = faker.random.words(3)
   const START_YEAR: number = 2019
   const START_MONTH: number = 8
@@ -285,7 +287,8 @@ describe("When moving a spot on a guide with 3 spots", () => {
   beforeAll(async () => {
 
     const contents = UserBuilder.create(faker.internet.email(), owner)
-      .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
+      .addGuide(GUIDE_TITLE, (builder) => {
+        guideId = builder.guideId
         builder.withStartDate(START_YEAR, START_MONTH, START_DATE)
         builder.nextSpot(LOCATIONS.London.lat, LOCATIONS.London.long, 1, undefined, SPOT_ID_1)
         builder.nextSpot(LOCATIONS.Brighton.lat, LOCATIONS.Brighton.long, 1, undefined, SPOT_ID_2)
@@ -294,18 +297,18 @@ describe("When moving a spot on a guide with 3 spots", () => {
       .build()
     await spinup(contents)
 
-    const initialPacket = await compute.prepare(GUIDE_ID)
+    const initialPacket = await compute.prepare(guideId)
     logJson(initialPacket, "initialPacket")
     await compute.trigger(initialPacket)
 
-    const guide = await database.selectGuide(GUIDE_ID)
+    const guide = await database.selectGuide(guideId)
     expect(guide.title).toBe(GUIDE_TITLE)
     expect(guide.start_date).toBe("2019-08-01")
-    const spots = await database.selectSpotsForGuide(GUIDE_ID)
+    const spots = await database.selectSpotsForGuide(guideId)
     expect(spots.length).toBe(3)
-    const stages = await database.selectStagesForGuide(GUIDE_ID)
+    const stages = await database.selectStagesForGuide(guideId)
     expect(stages.length).toBe(3)
-    const rides = await database.selectRidesForGuide(GUIDE_ID)
+    const rides = await database.selectRidesForGuide(guideId)
     expect(rides.length).toBe(3)
 
     dateBefore = new Date()
@@ -356,7 +359,7 @@ describe("When moving a spot on a guide with 3 spots", () => {
 
 
   it("Create 2 stages in 'computing' stage and 1 in 'ready'", async () => {
-    const stages = await database.selectStagesForGuide(GUIDE_ID)
+    const stages = await database.selectStagesForGuide(guideId)
     expect(stages.length).toBe(3)
 
     expect(stages[0].status).toBe("ready")
@@ -374,7 +377,7 @@ describe("When moving a spot on a guide with 3 spots", () => {
 
   it("Schedule 2 computations to be executed ", async () => {
     expect(packet.computationIds.length).toBe(2)
-    const computations = await database.manyOrNone<Computation>("select * from computations where guide=$1 and created>$2", [GUIDE_ID, dateBefore])
+    const computations = await database.manyOrNone<Computation>("select * from computations where guide=$1 and created>$2", [guideId, dateBefore])
     expect(computations.length).toBe(2)
 
     expect(computations[0].status).toBe("scheduled")
@@ -399,13 +402,13 @@ describe("When moving a spot on a guide with 3 spots", () => {
     }, TIMEOUT)
 
     it("marked all computations as success", async () => {
-      const computations = await database.manyOrNone<Computation>("select * from computations where guide=$1 and status!='success'", [GUIDE_ID])
+      const computations = await database.manyOrNone<Computation>("select * from computations where guide=$1 and status!='success'", [guideId])
       expect(computations.length).toBe(0)
     })
 
 
     it("Should have 3 stages as 'ready'", async () => {
-      const stages = await database.selectStagesForGuide(GUIDE_ID)
+      const stages = await database.selectStagesForGuide(guideId)
       expect(stages.length).toBe(3)
 
       expect(stages[0].status).toBe("ready")
@@ -422,7 +425,7 @@ describe("When moving a spot on a guide with 3 spots", () => {
     })
 
     it("Should have 3 rides as 'ready'", async () => {
-      const rides = await database.selectRidesForGuide(GUIDE_ID)
+      const rides = await database.selectRidesForGuide(guideId)
       expect(rides.length).toBe(3)
 
       expect(rides[0].status).toBe("ready")

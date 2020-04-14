@@ -1,6 +1,7 @@
 export default function(): string {
-
-  if (!process.env.OWNER_PASSWORD) {
+  if (process.env.TEST_DATABASE_URL) {
+    return process.env.TEST_DATABASE_URL
+  } else if (!process.env.OWNER_PASSWORD) {
     throw new Error("Need OWNER_ variables")
   }
 

@@ -37,12 +37,14 @@ describe("updateMany queries", () => {
       const userBefore = users[0]
       userBefore.email = faker.internet.email()
       const updateQuery = updateMany(TABLE_NAME, [userBefore], ["email"], "username")
-      await database.none(updateQuery)
+      const results = await database.many<{ username: string }>(updateQuery)
+      expect(results.length).toBe(1)
+      expect(results[0].username).toBe(userBefore.username)
       const userAfter = await database.one<User>("select * from users where username=$1", [userBefore.username])
       expect(userAfter.email).toBe(userBefore.email)
     })
 
-    it("For 3 item", async () => {
+    it("For 3 items", async () => {
       const usersBefore = [
         users[1],
         users[2],
@@ -51,7 +53,12 @@ describe("updateMany queries", () => {
       usersBefore[0].email = faker.internet.email()
       usersBefore[1].email = faker.internet.email()
       const updateQuery = updateMany(TABLE_NAME, usersBefore, ["email"], "username")
-      await database.none(updateQuery)
+      const results = await database.many<{ username: string }>(updateQuery)
+
+      expect(results.length).toBe(3)
+      expect(results[0].username).toBe(usersBefore[0].username)
+      expect(results[1].username).toBe(usersBefore[1].username)
+      expect(results[2].username).toBe(usersBefore[2].username)
 
       const user1After = await database.one<User>("select * from users where username =$1", [usersBefore[0].username])
       expect(user1After.email).toBe(usersBefore[0].email)

@@ -3,6 +3,10 @@ import S3 from "./S3"
 
 export default async function(rideId: string, points: number[][]): Promise<string> {
 
+  if (process.env.STAGE === "testing") {
+    throw new Error("Dont do this in testing")
+  }
+
   try {
     const geoJson = pointsToGeoJson(points)
 

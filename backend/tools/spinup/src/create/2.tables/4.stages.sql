@@ -5,13 +5,16 @@ create table stages
             primary key,
     guide     varchar(64)              not null
         constraint stages_guides_id_fk
-            references guides,
+            references guides
+            on delete cascade,
     from_spot varchar(64)              not null
         constraint stages_spots_id_fk
-            references spots,
+            references spots
+            on delete cascade,
     to_spot   varchar(64)              not null
         constraint stages_spots_id_fk_2
-            references spots,
+            references spots
+            on delete cascade,
     created   timestamp with time zone not null,
     updated   timestamp with time zone,
     status    stage_status             not null,

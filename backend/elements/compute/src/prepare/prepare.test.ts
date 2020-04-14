@@ -7,19 +7,21 @@ const TIMEOUT = 60000
 
 describe("When first computing a guide with no spots", () => {
 
-  const GUIDE_ID: string = generateId("guide")
+  let guideId: string
   const GUIDE_TITLE: string = faker.random.words(3)
   let packet: Packet
 
   const contents: Contents = UserBuilder.create()
-    .addGuide(GUIDE_TITLE, GUIDE_ID)
+    .addGuide(GUIDE_TITLE, (builder) => {
+      guideId = builder.guideId
+    })
     .build()
 
   beforeAll(async () => {
     await spinup(contents)
-    const guide = await database.selectGuide(GUIDE_ID)
+    const guide = await database.selectGuide(guideId)
     expect(guide.title).toBe(GUIDE_TITLE)
-    packet = await prep(GUIDE_ID)
+    packet = await prep(guideId)
   }, TIMEOUT)
 
   it("Returns no computations", async () => {
@@ -35,24 +37,25 @@ describe("When first computing a guide with no spots", () => {
 
 describe("When adding a spot to a guide with 0 spots", () => {
 
-  const GUIDE_ID: string = generateId("guide")
+  let guideId: string
   const GUIDE_TITLE: string = faker.random.words(3)
   const SPOT_ID_1: string = generateId("spot_1")
   let packet: Packet
   let timestampBefore: number
 
   const contents: Contents = UserBuilder.create()
-    .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
+    .addGuide(GUIDE_TITLE, (builder) => {
+      guideId = builder.guideId
       builder.nextSpotLocation("Worthing", 1, SPOT_ID_1, "Spot 1")
     })
     .build()
 
   beforeAll(async () => {
     await spinup(contents)
-    const guide = await database.selectGuide(GUIDE_ID)
+    const guide = await database.selectGuide(guideId)
     expect(guide.title).toBe(GUIDE_TITLE)
     timestampBefore = new Date().getTime()
-    packet = await prep(GUIDE_ID)
+    packet = await prep(guideId)
   }, TIMEOUT)
 
   it("Returns no stages to compute", async () => {
@@ -73,23 +76,23 @@ describe("When adding a spot to a guide with 0 spots", () => {
 })
 describe("When adding a spot to a guide with 1 spot", () => {
 
-  const GUIDE_ID: string = generateId("guide")
+  let guideId: string
   const GUIDE_TITLE: string = faker.random.words(3)
   const SPOT_ID_1: string = generateId("spot_1")
-  const SPOT_ID_2: string = generateId("spot_2")
   let packet: Packet
 
   const contents: Contents = UserBuilder.create()
-    .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
+    .addGuide(GUIDE_TITLE, (builder) => {
+      guideId = builder.guideId
       builder.nextSpotLocation("Worthing", 1, SPOT_ID_1, "Spot 1")
     })
     .build()
 
   beforeAll(async () => {
     await spinup(contents)
-    const guide = await database.selectGuide(GUIDE_ID)
+    const guide = await database.selectGuide(guideId)
     expect(guide.title).toBe(GUIDE_TITLE)
-    await prep(GUIDE_ID)
+    packet = await prep(guideId)
   }, TIMEOUT)
 
   it("Returns no stages to compute", async () => {

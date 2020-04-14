@@ -1,5 +1,7 @@
 function ownerConnection(): string {
-  if (!process.env.OWNER_USER) {
+  if (process.env.TEST_DATABASE_URL) {
+    return process.env.TEST_DATABASE_URL
+  } else if (!process.env.OWNER_USER) {
     throw new Error("Need OWNER_ variables")
   }
 

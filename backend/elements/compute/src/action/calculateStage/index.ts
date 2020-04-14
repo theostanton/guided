@@ -32,6 +32,15 @@ type SubContext = {
   }
 }
 
+async function uploadPath(rideId: string, points: number[][]): Promise<string> {
+  if (process.env.STAGE === "testing") {
+    //TODO this differently
+    return "testing"
+  } else {
+    return upload(rideId, points)
+  }
+}
+
 async function subaction(step: DirectionsStep, context: SubContext): Promise<SubContext> {
 
   const { stage } = context
@@ -39,7 +48,7 @@ async function subaction(step: DirectionsStep, context: SubContext): Promise<Sub
 
   async function append(spot: Spot, position: string) {
     let rideId = generateId("ride")
-    const pathUrl = await upload(rideId, context.current.points)
+    const pathUrl = await uploadPath(rideId, context.current.points)
     const newRide: Ride = {
       id: rideId,
       from_spot: context.current.startSpotId,

@@ -25,9 +25,8 @@ export default async function(spots: Spot[]): Promise<Spot[]> {
   })
 
   const updateQuery = updateMany("spots", spotsToInsert, ["position"], "id")
-  log(updateQuery, "updateQuery")
 
-  await database.none(updateQuery)
+  await database.manyOrNone(updateQuery)
 
   return spotsToInsert
 }

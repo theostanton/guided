@@ -34,9 +34,9 @@ export default class UserBuilder {
     this.user = user
   }
 
-  addGuide(title: string, id: string | undefined, action?: (builder: GuideBuilder) => void): UserBuilder {
+  addGuide(title: string, action?: (builder: GuideBuilder) => void): UserBuilder {
 
-    const builder = GuideBuilder.create(this.user.username, title, id)
+    const builder = GuideBuilder.create(this.user.username, title)
     if (action) {
       action(builder)
     }

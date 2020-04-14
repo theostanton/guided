@@ -1,6 +1,6 @@
 create table guides
 (
-    id                 varchar(64)              not null
+    id                 varchar(128)              not null
         constraint guides_pk
             primary key,
     title              varchar(64)              not null,

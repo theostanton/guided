@@ -10,7 +10,7 @@ const TIMEOUT = 30_000
 describe("When adding a start date to guide with 3 spots", () => {
 
   const owner: string = faker.internet.userName()
-  const GUIDE_ID: string = generateId("guide")
+  let guideId: string
   const GUIDE_TITLE: string = faker.random.words(3)
   const START_DATE: string = "2020-01-01"
   const SPOT_ID_1: string = generateId("spot_1")
@@ -20,7 +20,8 @@ describe("When adding a start date to guide with 3 spots", () => {
 
   beforeAll(async () => {
     const contents = UserBuilder.create(faker.internet.email(), owner)
-      .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
+      .addGuide(GUIDE_TITLE, (builder) => {
+        guideId = builder.guideId
         builder.nextSpotLocation("Worthing", 1, SPOT_ID_1)
         builder.nextSpotLocation("Brighton", 3, SPOT_ID_2)
         builder.nextSpotLocation("Horsham", 2, SPOT_ID_3)
@@ -29,11 +30,11 @@ describe("When adding a start date to guide with 3 spots", () => {
 
     await spinup(contents)
 
-    const packet = await prepare(GUIDE_ID)
+    const packet = await prepare(guideId)
     await trigger(packet)
 
-    await database.query("update guides set start_date=$1 where id=$2", [START_DATE, GUIDE_ID])
-    const guide = await database.one<Guide>("select * from guides where id=$1", [GUIDE_ID])
+    await database.query("update guides set start_date=$1 where id=$2", [START_DATE, guideId])
+    const guide = await database.one<Guide>("select * from guides where id=$1", [guideId])
     timestampBefore = new Date().getTime()
 
     await ammendDates(guide)
@@ -41,12 +42,12 @@ describe("When adding a start date to guide with 3 spots", () => {
   }, TIMEOUT)
 
   it("should have correct date for guide", async () => {
-    const guide = await database.one<Guide>("select * from guides where id=$1", [GUIDE_ID])
+    const guide = await database.one<Guide>("select * from guides where id=$1", [guideId])
     expect(guide.start_date).toBe(START_DATE)
   })
 
   it("should update dates for 3 spots", async () => {
-    const spots = await database.selectSpotsForGuide(GUIDE_ID)
+    const spots = await database.selectSpotsForGuide(guideId)
     expect(spots.length).toBe(3)
 
     expect(spots[0].date).toBe("2019-12-31")
@@ -60,7 +61,7 @@ describe("When adding a start date to guide with 3 spots", () => {
   })
 
   it("should update dates for 3 rides", async () => {
-    const rides = await database.selectRidesForGuide(GUIDE_ID)
+    const rides = await database.selectRidesForGuide(guideId)
     expect(rides.length).toBe(3)
 
     expect(rides[0].date).toBe("2020-01-01")
@@ -78,7 +79,7 @@ describe("When adding a start date to guide with 3 spots", () => {
 describe("When editing a start date to guide with 3 spots", () => {
 
   const owner: string = faker.internet.userName()
-  const GUIDE_ID: string = generateId("guide")
+  let guideId: string
   const GUIDE_TITLE: string = faker.random.words(3)
   const START_DATE: string = "2020-01-01"
   const SPOT_ID_1: string = generateId("spot_1")
@@ -88,7 +89,8 @@ describe("When editing a start date to guide with 3 spots", () => {
 
   beforeAll(async () => {
     const contents = UserBuilder.create(faker.internet.email(), owner)
-      .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
+      .addGuide(GUIDE_TITLE, (builder) => {
+        guideId = builder.guideId
         builder.withStartDate(2019, 6, 6)
         builder.nextSpotLocation("Worthing", 1, SPOT_ID_1)
         builder.nextSpotLocation("Brighton", 3, SPOT_ID_2)
@@ -98,11 +100,11 @@ describe("When editing a start date to guide with 3 spots", () => {
 
     await spinup(contents)
 
-    const packet = await prepare(GUIDE_ID)
+    const packet = await prepare(guideId)
     await trigger(packet)
 
-    await database.query("update guides set start_date=$1 where id=$2", [START_DATE, GUIDE_ID])
-    const guide = await database.one<Guide>("select * from guides where id=$1", [GUIDE_ID])
+    await database.query("update guides set start_date=$1 where id=$2", [START_DATE, guideId])
+    const guide = await database.one<Guide>("select * from guides where id=$1", [guideId])
     timestampBefore = new Date().getTime()
 
     await ammendDates(guide)
@@ -110,12 +112,12 @@ describe("When editing a start date to guide with 3 spots", () => {
   }, TIMEOUT)
 
   it("should have correct date for guide", async () => {
-    const guide = await database.one<Guide>("select * from guides where id=$1", [GUIDE_ID])
+    const guide = await database.one<Guide>("select * from guides where id=$1", [guideId])
     expect(guide.start_date).toBe(START_DATE)
   })
 
   it("should update dates for 3 spots", async () => {
-    const spots = await database.selectSpotsForGuide(GUIDE_ID)
+    const spots = await database.selectSpotsForGuide(guideId)
     expect(spots.length).toBe(3)
 
     expect(spots[0].date).toBe("2019-12-31")
@@ -129,7 +131,7 @@ describe("When editing a start date to guide with 3 spots", () => {
   })
 
   it("should update dates for 3 rides", async () => {
-    const rides = await database.selectRidesForGuide(GUIDE_ID)
+    const rides = await database.selectRidesForGuide(guideId)
     expect(rides.length).toBe(3)
 
     expect(rides[0].date).toBe("2020-01-01")
@@ -147,7 +149,7 @@ describe("When editing a start date to guide with 3 spots", () => {
 describe("When removing a start date to guide with 3 spots", () => {
 
   const owner: string = faker.internet.userName()
-  const GUIDE_ID: string = generateId("guide")
+  let guideId:string
   const GUIDE_TITLE: string = faker.random.words(3)
   const SPOT_ID_1: string = generateId("spot_1")
   const SPOT_ID_2: string = generateId("spot_2")
@@ -156,7 +158,8 @@ describe("When removing a start date to guide with 3 spots", () => {
 
   beforeAll(async () => {
     const contents = UserBuilder.create(faker.internet.email(), owner)
-      .addGuide(GUIDE_TITLE, GUIDE_ID, (builder) => {
+      .addGuide(GUIDE_TITLE, (builder) => {
+        guideId=builder.guideId
         builder.withStartDate(2019, 6, 6)
         builder.nextSpotLocation("Worthing", 1, SPOT_ID_1)
         builder.nextSpotLocation("Brighton", 3, SPOT_ID_2)
@@ -166,11 +169,11 @@ describe("When removing a start date to guide with 3 spots", () => {
 
     await spinup(contents)
 
-    const packet = await prepare(GUIDE_ID)
+    const packet = await prepare(guideId)
     await trigger(packet)
 
-    await database.query("update guides set start_date=null where id=$1", [GUIDE_ID])
-    const guide = await database.one<Guide>("select * from guides where id=$1", [GUIDE_ID])
+    await database.query("update guides set start_date=null where id=$1", [guideId])
+    const guide = await database.one<Guide>("select * from guides where id=$1", [guideId])
     timestampBefore = new Date().getTime()
 
     await ammendDates(guide)
@@ -178,12 +181,12 @@ describe("When removing a start date to guide with 3 spots", () => {
   }, TIMEOUT)
 
   it("should have removed date for guide", async () => {
-    const guide = await database.one<Guide>("select * from guides where id=$1", [GUIDE_ID])
+    const guide = await database.one<Guide>("select * from guides where id=$1", [guideId])
     expect(guide.start_date).toBeNull()
   })
 
   it("should have remove dates for 3 spots", async () => {
-    const spots = await database.selectSpotsForGuide(GUIDE_ID)
+    const spots = await database.selectSpotsForGuide(guideId)
     expect(spots.length).toBe(3)
 
     expect(spots[0].date).toBeNull()
@@ -197,7 +200,7 @@ describe("When removing a start date to guide with 3 spots", () => {
   })
 
   it("should have removed dates for 3 rides", async () => {
-    const rides = await database.selectRidesForGuide(GUIDE_ID)
+    const rides = await database.selectRidesForGuide(guideId)
     expect(rides.length).toBe(3)
 
     expect(rides[0].date).toBeNull()
