@@ -33,6 +33,7 @@ export async function follow(_: any, args: MutationFollowArgs, context: Context)
   const insertQuery = insertOne<Follow>("follows", {
     follower,
     followed,
+    timestamp: new Date(),
   })
 
   await database.none(insertQuery)

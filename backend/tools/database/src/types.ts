@@ -21,6 +21,7 @@ export interface Computation {
 export interface Follow {
   followed: string
   follower: string
+  timestamp: any
 }
 
 export interface Guide {
