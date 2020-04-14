@@ -361,6 +361,42 @@ export type CreateComputationPayloadComputationEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
 };
 
+/** All input for the create `Follow` mutation. */
+export type CreateFollowInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Follow` to be created by this mutation. */
+  readonly follow: FollowInput;
+};
+
+/** The output of our create `Follow` mutation. */
+export type CreateFollowPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Follow` that was created by this mutation. */
+  readonly follow?: Maybe<Follow>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** Reads a single `User` that is related to this `Follow`. */
+  readonly userByFollowed?: Maybe<User>;
+  /** Reads a single `User` that is related to this `Follow`. */
+  readonly userByFollower?: Maybe<User>;
+  /** An edge for our `Follow`. May be used by Relay 1. */
+  readonly followEdge?: Maybe<FollowsEdge>;
+};
+
+
+/** The output of our create `Follow` mutation. */
+export type CreateFollowPayloadFollowEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<FollowsOrderBy>>;
+};
+
 /** All input for the create `Guide` mutation. */
 export type CreateGuideInput = {
   /**
@@ -960,6 +996,113 @@ export type FloatFilter = {
   readonly greaterThanOrEqualTo?: Maybe<Scalars['Float']>;
 };
 
+export type Follow = {
+  readonly followed: Scalars['String'];
+  readonly follower: Scalars['String'];
+  readonly timestamp: Scalars['Datetime'];
+  /** Reads a single `User` that is related to this `Follow`. */
+  readonly userByFollowed?: Maybe<User>;
+  /** Reads a single `User` that is related to this `Follow`. */
+  readonly userByFollower?: Maybe<User>;
+};
+
+/** A condition to be used against `Follow` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type FollowCondition = {
+  /** Checks for equality with the object’s `followed` field. */
+  readonly followed?: Maybe<Scalars['String']>;
+  /** Checks for equality with the object’s `follower` field. */
+  readonly follower?: Maybe<Scalars['String']>;
+  /** Checks for equality with the object’s `timestamp` field. */
+  readonly timestamp?: Maybe<Scalars['Datetime']>;
+};
+
+/** A filter to be used against `Follow` object types. All fields are combined with a logical ‘and.’ */
+export type FollowFilter = {
+  /** Filter by the object’s `followed` field. */
+  readonly followed?: Maybe<StringFilter>;
+  /** Filter by the object’s `follower` field. */
+  readonly follower?: Maybe<StringFilter>;
+  /** Filter by the object’s `timestamp` field. */
+  readonly timestamp?: Maybe<DatetimeFilter>;
+  /** Checks for all expressions in this list. */
+  readonly and?: Maybe<ReadonlyArray<FollowFilter>>;
+  /** Checks for any expressions in this list. */
+  readonly or?: Maybe<ReadonlyArray<FollowFilter>>;
+  /** Negates the expression. */
+  readonly not?: Maybe<FollowFilter>;
+};
+
+export enum FollowingStatus {
+  Following = 'FOLLOWING',
+  IsSelf = 'IS_SELF',
+  NotFollowing = 'NOT_FOLLOWING',
+  Anonymous = 'ANONYMOUS'
+}
+
+/** A filter to be used against FollowingStatus fields. All fields are combined with a logical ‘and.’ */
+export type FollowingStatusFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<FollowingStatus>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<FollowingStatus>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<FollowingStatus>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<FollowingStatus>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<FollowingStatus>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<FollowingStatus>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<FollowingStatus>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<FollowingStatus>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<FollowingStatus>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<FollowingStatus>;
+};
+
+/** An input for mutations affecting `Follow` */
+export type FollowInput = {
+  readonly followed: Scalars['String'];
+  readonly follower: Scalars['String'];
+  readonly timestamp: Scalars['Datetime'];
+};
+
+/** A connection to a list of `Follow` values. */
+export type FollowsConnection = {
+  /** A list of `Follow` objects. */
+  readonly nodes: ReadonlyArray<Maybe<Follow>>;
+  /** A list of edges which contains the `Follow` and cursor to aid in pagination. */
+  readonly edges: ReadonlyArray<FollowsEdge>;
+  /** Information to aid in pagination. */
+  readonly pageInfo: PageInfo;
+  /** The count of *all* `Follow` you could get from the connection. */
+  readonly totalCount: Scalars['Int'];
+};
+
+/** A `Follow` edge in the connection. */
+export type FollowsEdge = {
+  /** A cursor for use in pagination. */
+  readonly cursor?: Maybe<Scalars['Cursor']>;
+  /** The `Follow` at the end of the edge. */
+  readonly node?: Maybe<Follow>;
+};
+
+/** Methods to use when ordering `Follow`. */
+export enum FollowsOrderBy {
+  Natural = 'NATURAL',
+  FollowedAsc = 'FOLLOWED_ASC',
+  FollowedDesc = 'FOLLOWED_DESC',
+  FollowerAsc = 'FOLLOWER_ASC',
+  FollowerDesc = 'FOLLOWER_DESC',
+  TimestampAsc = 'TIMESTAMP_ASC',
+  TimestampDesc = 'TIMESTAMP_DESC'
+}
+
 export type Guide = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'];
@@ -1188,6 +1331,8 @@ export type IntFilter = {
 export type Mutation = {
   /** Creates a single `Computation`. */
   readonly createComputation?: Maybe<CreateComputationPayload>;
+  /** Creates a single `Follow`. */
+  readonly createFollow?: Maybe<CreateFollowPayload>;
   /** Creates a single `Guide`. */
   readonly createGuide?: Maybe<CreateGuidePayload>;
   /** Creates a single `Ride`. */
@@ -1260,6 +1405,8 @@ export type Mutation = {
   readonly authenticate?: Maybe<AuthenticatePayload>;
   /** Registers a single user */
   readonly register?: Maybe<RegisterPayload>;
+  readonly follow: Result;
+  readonly unfollow: Result;
   readonly addSpotFromLatLng: Spot;
   readonly moveSpot: Spot;
   readonly removeSpot: Spot;
@@ -1271,6 +1418,12 @@ export type Mutation = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateComputationArgs = {
   input: CreateComputationInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateFollowArgs = {
+  input: CreateFollowInput;
 };
 
 
@@ -1491,6 +1644,18 @@ export type MutationRegisterArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationFollowArgs = {
+  username: Scalars['String'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUnfollowArgs = {
+  username: Scalars['String'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationAddSpotFromLatLngArgs = {
   guideId: Scalars['String'];
   lat: Scalars['Float'];
@@ -1558,6 +1723,8 @@ export type Query = Node & {
   readonly node?: Maybe<Node>;
   /** Reads and enables pagination through a set of `Computation`. */
   readonly computations?: Maybe<ComputationsConnection>;
+  /** Reads and enables pagination through a set of `Follow`. */
+  readonly follows?: Maybe<FollowsConnection>;
   /** Reads and enables pagination through a set of `Guide`. */
   readonly guides?: Maybe<GuidesConnection>;
   /** Reads and enables pagination through a set of `Ride`. */
@@ -1612,6 +1779,19 @@ export type QueryComputationsArgs = {
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
   condition?: Maybe<ComputationCondition>;
   filter?: Maybe<ComputationFilter>;
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryFollowsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<ReadonlyArray<FollowsOrderBy>>;
+  condition?: Maybe<FollowCondition>;
+  filter?: Maybe<FollowFilter>;
 };
 
 
@@ -2664,6 +2844,8 @@ export type Subscription = {
   readonly node?: Maybe<Node>;
   /** Reads and enables pagination through a set of `Computation`. (live) */
   readonly computations?: Maybe<ComputationsConnection>;
+  /** Reads and enables pagination through a set of `Follow`. (live) */
+  readonly follows?: Maybe<FollowsConnection>;
   /** Reads and enables pagination through a set of `Guide`. (live) */
   readonly guides?: Maybe<GuidesConnection>;
   /** Reads and enables pagination through a set of `Ride`. (live) */
@@ -2769,6 +2951,40 @@ export type SubscriptionComputationsArgs = {
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
   condition?: Maybe<ComputationCondition>;
   filter?: Maybe<ComputationFilter>;
+};
+
+
+/**
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionFollowsArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<ReadonlyArray<FollowsOrderBy>>;
+  condition?: Maybe<FollowCondition>;
+  filter?: Maybe<FollowFilter>;
 };
 
 
@@ -3829,9 +4045,14 @@ export type User = Node & {
   readonly spotsByOwner: SpotsConnection;
   /** Reads and enables pagination through a set of `Ride`. */
   readonly ridesByOwner: RidesConnection;
+  /** Reads and enables pagination through a set of `Follow`. */
+  readonly followsByFollowed: FollowsConnection;
+  /** Reads and enables pagination through a set of `Follow`. */
+  readonly followsByFollower: FollowsConnection;
   readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly distanceMeters?: Maybe<Scalars['BigInt']>;
   readonly durationSeconds?: Maybe<Scalars['BigInt']>;
+  readonly followingStatus?: Maybe<FollowingStatus>;
 };
 
 
@@ -3870,6 +4091,30 @@ export type UserRidesByOwnerArgs = {
   filter?: Maybe<RideFilter>;
 };
 
+
+export type UserFollowsByFollowedArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<ReadonlyArray<FollowsOrderBy>>;
+  condition?: Maybe<FollowCondition>;
+  filter?: Maybe<FollowFilter>;
+};
+
+
+export type UserFollowsByFollowerArgs = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  orderBy?: Maybe<ReadonlyArray<FollowsOrderBy>>;
+  condition?: Maybe<FollowCondition>;
+  filter?: Maybe<FollowFilter>;
+};
+
 /** A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type UserCondition = {
   /** Checks for equality with the object’s `username` field. */
@@ -3906,6 +4151,8 @@ export type UserFilter = {
   readonly distanceMeters?: Maybe<BigIntFilter>;
   /** Filter by the object’s `durationSeconds` field. */
   readonly durationSeconds?: Maybe<BigIntFilter>;
+  /** Filter by the object’s `followingStatus` field. */
+  readonly followingStatus?: Maybe<FollowingStatusFilter>;
   /** Checks for all expressions in this list. */
   readonly and?: Maybe<ReadonlyArray<UserFilter>>;
   /** Checks for any expressions in this list. */
@@ -4101,6 +4348,13 @@ export type ResolversTypes = {
   Ride: ResolverTypeWrapper<Ride>,
   RidesEdge: ResolverTypeWrapper<RidesEdge>,
   SpotsEdge: ResolverTypeWrapper<SpotsEdge>,
+  FollowsOrderBy: FollowsOrderBy,
+  FollowCondition: FollowCondition,
+  FollowFilter: FollowFilter,
+  FollowsConnection: ResolverTypeWrapper<FollowsConnection>,
+  Follow: ResolverTypeWrapper<Follow>,
+  FollowsEdge: ResolverTypeWrapper<FollowsEdge>,
+  FollowingStatus: FollowingStatus,
   Bound: ResolverTypeWrapper<Bound>,
   ComputationsEdge: ResolverTypeWrapper<ComputationsEdge>,
   TemperaturesOrderBy: TemperaturesOrderBy,
@@ -4113,6 +4367,7 @@ export type ResolversTypes = {
   UserCondition: UserCondition,
   UserFilter: UserFilter,
   ColourFilter: ColourFilter,
+  FollowingStatusFilter: FollowingStatusFilter,
   UsersConnection: ResolverTypeWrapper<UsersConnection>,
   UsersEdge: ResolverTypeWrapper<UsersEdge>,
   JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
@@ -4120,6 +4375,9 @@ export type ResolversTypes = {
   CreateComputationInput: CreateComputationInput,
   ComputationInput: ComputationInput,
   CreateComputationPayload: ResolverTypeWrapper<CreateComputationPayload>,
+  CreateFollowInput: CreateFollowInput,
+  FollowInput: FollowInput,
+  CreateFollowPayload: ResolverTypeWrapper<CreateFollowPayload>,
   CreateGuideInput: CreateGuideInput,
   GuideInput: GuideInput,
   CreateGuidePayload: ResolverTypeWrapper<CreateGuidePayload>,
@@ -4252,6 +4510,13 @@ export type ResolversParentTypes = {
   Ride: Ride,
   RidesEdge: RidesEdge,
   SpotsEdge: SpotsEdge,
+  FollowsOrderBy: FollowsOrderBy,
+  FollowCondition: FollowCondition,
+  FollowFilter: FollowFilter,
+  FollowsConnection: FollowsConnection,
+  Follow: Follow,
+  FollowsEdge: FollowsEdge,
+  FollowingStatus: FollowingStatus,
   Bound: Bound,
   ComputationsEdge: ComputationsEdge,
   TemperaturesOrderBy: TemperaturesOrderBy,
@@ -4264,6 +4529,7 @@ export type ResolversParentTypes = {
   UserCondition: UserCondition,
   UserFilter: UserFilter,
   ColourFilter: ColourFilter,
+  FollowingStatusFilter: FollowingStatusFilter,
   UsersConnection: UsersConnection,
   UsersEdge: UsersEdge,
   JwtToken: Scalars['JwtToken'],
@@ -4271,6 +4537,9 @@ export type ResolversParentTypes = {
   CreateComputationInput: CreateComputationInput,
   ComputationInput: ComputationInput,
   CreateComputationPayload: CreateComputationPayload,
+  CreateFollowInput: CreateFollowInput,
+  FollowInput: FollowInput,
+  CreateFollowPayload: CreateFollowPayload,
   CreateGuideInput: CreateGuideInput,
   GuideInput: GuideInput,
   CreateGuidePayload: CreateGuidePayload,
@@ -4401,6 +4670,16 @@ export type CreateComputationPayloadResolvers<ContextType = any, ParentType exte
   stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   computationEdge?: Resolver<Maybe<ResolversTypes['ComputationsEdge']>, ParentType, ContextType, RequireFields<CreateComputationPayloadComputationEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateFollowPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateFollowPayload'] = ResolversParentTypes['CreateFollowPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  follow?: Resolver<Maybe<ResolversTypes['Follow']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  userByFollowed?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  userByFollower?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  followEdge?: Resolver<Maybe<ResolversTypes['FollowsEdge']>, ParentType, ContextType, RequireFields<CreateFollowPayloadFollowEdgeArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4549,6 +4828,29 @@ export type DeleteUserPayloadResolvers<ContextType = any, ParentType extends Res
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type FollowResolvers<ContextType = any, ParentType extends ResolversParentTypes['Follow'] = ResolversParentTypes['Follow']> = {
+  followed?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  follower?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  timestamp?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
+  userByFollowed?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  userByFollower?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FollowsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['FollowsConnection'] = ResolversParentTypes['FollowsConnection']> = {
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Follow']>>, ParentType, ContextType>,
+  edges?: Resolver<ReadonlyArray<ResolversTypes['FollowsEdge']>, ParentType, ContextType>,
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FollowsEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['FollowsEdge'] = ResolversParentTypes['FollowsEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['Follow']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type GuideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Guide'] = ResolversParentTypes['Guide']> = {
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -4592,6 +4894,7 @@ export interface JwtTokenScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createComputation?: Resolver<Maybe<ResolversTypes['CreateComputationPayload']>, ParentType, ContextType, RequireFields<MutationCreateComputationArgs, 'input'>>,
+  createFollow?: Resolver<Maybe<ResolversTypes['CreateFollowPayload']>, ParentType, ContextType, RequireFields<MutationCreateFollowArgs, 'input'>>,
   createGuide?: Resolver<Maybe<ResolversTypes['CreateGuidePayload']>, ParentType, ContextType, RequireFields<MutationCreateGuideArgs, 'input'>>,
   createRide?: Resolver<Maybe<ResolversTypes['CreateRidePayload']>, ParentType, ContextType, RequireFields<MutationCreateRideArgs, 'input'>>,
   createSpot?: Resolver<Maybe<ResolversTypes['CreateSpotPayload']>, ParentType, ContextType, RequireFields<MutationCreateSpotArgs, 'input'>>,
@@ -4628,6 +4931,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteUser?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'input'>>,
   authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
   register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
+  follow?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowArgs, 'username'>>,
+  unfollow?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowArgs, 'username'>>,
   addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long' | 'nights'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
@@ -4653,6 +4958,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'nodeId'>>,
   computations?: Resolver<Maybe<ResolversTypes['ComputationsConnection']>, ParentType, ContextType, RequireFields<QueryComputationsArgs, 'orderBy'>>,
+  follows?: Resolver<Maybe<ResolversTypes['FollowsConnection']>, ParentType, ContextType, RequireFields<QueryFollowsArgs, 'orderBy'>>,
   guides?: Resolver<Maybe<ResolversTypes['GuidesConnection']>, ParentType, ContextType, RequireFields<QueryGuidesArgs, 'orderBy'>>,
   rides?: Resolver<Maybe<ResolversTypes['RidesConnection']>, ParentType, ContextType, RequireFields<QueryRidesArgs, 'orderBy'>>,
   spots?: Resolver<Maybe<ResolversTypes['SpotsConnection']>, ParentType, ContextType, RequireFields<QuerySpotsArgs, 'orderBy'>>,
@@ -4815,6 +5121,7 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
   nodeId?: SubscriptionResolver<ResolversTypes['ID'], "nodeId", ParentType, ContextType>,
   node?: SubscriptionResolver<Maybe<ResolversTypes['Node']>, "node", ParentType, ContextType, RequireFields<SubscriptionNodeArgs, 'nodeId'>>,
   computations?: SubscriptionResolver<Maybe<ResolversTypes['ComputationsConnection']>, "computations", ParentType, ContextType, RequireFields<SubscriptionComputationsArgs, 'orderBy'>>,
+  follows?: SubscriptionResolver<Maybe<ResolversTypes['FollowsConnection']>, "follows", ParentType, ContextType, RequireFields<SubscriptionFollowsArgs, 'orderBy'>>,
   guides?: SubscriptionResolver<Maybe<ResolversTypes['GuidesConnection']>, "guides", ParentType, ContextType, RequireFields<SubscriptionGuidesArgs, 'orderBy'>>,
   rides?: SubscriptionResolver<Maybe<ResolversTypes['RidesConnection']>, "rides", ParentType, ContextType, RequireFields<SubscriptionRidesArgs, 'orderBy'>>,
   spots?: SubscriptionResolver<Maybe<ResolversTypes['SpotsConnection']>, "spots", ParentType, ContextType, RequireFields<SubscriptionSpotsArgs, 'orderBy'>>,
@@ -4945,9 +5252,12 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   guidesByOwner?: Resolver<ResolversTypes['GuidesConnection'], ParentType, ContextType, RequireFields<UserGuidesByOwnerArgs, 'orderBy'>>,
   spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>,
   ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>,
+  followsByFollowed?: Resolver<ResolversTypes['FollowsConnection'], ParentType, ContextType, RequireFields<UserFollowsByFollowedArgs, 'orderBy'>>,
+  followsByFollower?: Resolver<ResolversTypes['FollowsConnection'], ParentType, ContextType, RequireFields<UserFollowsByFollowerArgs, 'orderBy'>>,
   countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
   distanceMeters?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
   durationSeconds?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
+  followingStatus?: Resolver<Maybe<ResolversTypes['FollowingStatus']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4973,6 +5283,7 @@ export type Resolvers<ContextType = any> = {
   ComputationsConnection?: ComputationsConnectionResolvers<ContextType>,
   ComputationsEdge?: ComputationsEdgeResolvers<ContextType>,
   CreateComputationPayload?: CreateComputationPayloadResolvers<ContextType>,
+  CreateFollowPayload?: CreateFollowPayloadResolvers<ContextType>,
   CreateGuidePayload?: CreateGuidePayloadResolvers<ContextType>,
   CreateRidePayload?: CreateRidePayloadResolvers<ContextType>,
   CreateSpotPayload?: CreateSpotPayloadResolvers<ContextType>,
@@ -4988,6 +5299,9 @@ export type Resolvers<ContextType = any> = {
   DeleteStagePayload?: DeleteStagePayloadResolvers<ContextType>,
   DeleteTemperaturePayload?: DeleteTemperaturePayloadResolvers<ContextType>,
   DeleteUserPayload?: DeleteUserPayloadResolvers<ContextType>,
+  Follow?: FollowResolvers<ContextType>,
+  FollowsConnection?: FollowsConnectionResolvers<ContextType>,
+  FollowsEdge?: FollowsEdgeResolvers<ContextType>,
   Guide?: GuideResolvers<ContextType>,
   GuidesConnection?: GuidesConnectionResolvers<ContextType>,
   GuidesEdge?: GuidesEdgeResolvers<ContextType>,
@@ -5086,6 +5400,20 @@ export type EditNightsMutationVariables = {
 
 export type EditNightsMutation = { readonly editNights: Pick<Result, 'success' | 'message'> };
 
+export type FollowUserMutationVariables = {
+  username: Scalars['String'];
+};
+
+
+export type FollowUserMutation = { readonly follow: Pick<Result, 'success' | 'message'> };
+
+export type UnfollowUserMutationVariables = {
+  username: Scalars['String'];
+};
+
+
+export type UnfollowUserMutation = { readonly unfollow: Pick<Result, 'success' | 'message'> };
+
 export type GetGuideIdForSlugQueryVariables = {
   slug: Scalars['String'];
 };
@@ -5097,12 +5425,19 @@ export type GetGuideIdForSlugQuery = { readonly guides?: Maybe<{ readonly nodes:
     )>> }> };
 
 export type GuideInfoFragment = (
-  Pick<Guide, 'id' | 'title' | 'slug' | 'startDate' | 'owner' | 'durationSeconds' | 'distanceMeters' | 'countries'>
+  Pick<Guide, 'id' | 'title' | 'slug' | 'startDate' | 'owner' | 'created' | 'durationSeconds' | 'distanceMeters' | 'countries'>
   & { readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>>, readonly rides: (
     Pick<RidesConnection, 'totalCount'>
     & { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'id' | 'pathUrl' | 'date'>>> }
   ), readonly spots: Pick<SpotsConnection, 'totalCount'> }
 );
+
+export type GuideStagesPublicQueryVariables = {
+  id: Scalars['String'];
+};
+
+
+export type GuideStagesPublicQuery = { readonly guide?: Maybe<GuideFragment> };
 
 export type GuideInfosQueryVariables = {
   ids: ReadonlyArray<Scalars['String']>;
@@ -5112,8 +5447,8 @@ export type GuideInfosQueryVariables = {
 export type GuideInfosQuery = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }> };
 
 export type ProfileFragment = (
-  Pick<User, 'colour' | 'username' | 'created' | 'countries' | 'distanceMeters' | 'durationSeconds'>
-  & { readonly guides: (
+  Pick<User, 'colour' | 'username' | 'created' | 'countries' | 'distanceMeters' | 'durationSeconds' | 'followingStatus'>
+  & { readonly followers: Pick<FollowsConnection, 'totalCount'>, readonly following: Pick<FollowsConnection, 'totalCount'>, readonly guides: (
     Pick<GuidesConnection, 'totalCount'>
     & { readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'distanceMeters' | 'durationSeconds'>>> }
   ), readonly rides: (
@@ -5146,10 +5481,15 @@ export type GuideFeedItemFragment = (
   ) }
 );
 
+export type FollowFeedItemFragment = (
+  { created: Follow['timestamp'] }
+  & { readonly followed?: Maybe<Pick<User, 'username' | 'colour'>>, readonly follower?: Maybe<Pick<User, 'username' | 'colour'>> }
+);
+
 export type FeedSubscriptionVariables = {};
 
 
-export type FeedSubscription = { readonly items: { readonly newGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }>, readonly updatedGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }> } };
+export type FeedSubscription = { readonly items: { readonly newGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }>, readonly updatedGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }>, readonly follows?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<FollowFeedItemFragment>> }> } };
 
 export type SpotFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'name' | 'long' | 'locked' | 'location' | 'position' | 'date' | 'temperature' | 'country' | 'nights'>;
 
@@ -5175,12 +5515,24 @@ export type GuideStagesSubscriptionVariables = {
 
 export type GuideStagesSubscription = { readonly guide?: Maybe<GuideFragment> };
 
-export type GuideStagesPublicQueryVariables = {
-  id: Scalars['String'];
+export type UserInfoFragment = (
+  Pick<User, 'username' | 'colour'>
+  & { readonly following: Pick<FollowsConnection, 'totalCount'>, readonly followers: Pick<FollowsConnection, 'totalCount'>, readonly rides: Pick<RidesConnection, 'totalCount'>, readonly guides: Pick<GuidesConnection, 'totalCount'> }
+);
+
+export type FollowersSubscriptionVariables = {
+  username: Scalars['String'];
 };
 
 
-export type GuideStagesPublicQuery = { readonly guide?: Maybe<GuideFragment> };
+export type FollowersSubscription = { readonly follows?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<{ readonly user?: Maybe<UserInfoFragment> }>> }> };
+
+export type FollowingSubscriptionVariables = {
+  username: Scalars['String'];
+};
+
+
+export type FollowingSubscription = { readonly follows?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<{ readonly user?: Maybe<UserInfoFragment> }>> }> };
 
 export type LoginMutationVariables = {
   email: Scalars['String'];
@@ -5213,6 +5565,7 @@ export const GuideInfoFragmentDoc = gql`
   slug
   startDate
   owner
+  created
   durationSeconds
   distanceMeters
   countries
@@ -5243,6 +5596,13 @@ export const ProfileFragmentDoc = gql`
   countries
   distanceMeters
   durationSeconds
+  followingStatus
+  followers: followsByFollowed {
+    totalCount
+  }
+  following: followsByFollower {
+    totalCount
+  }
   guides: guidesByOwner {
     totalCount
     nodes {
@@ -5291,6 +5651,19 @@ export const GuideFeedItemFragmentDoc = gql`
       nights
     }
   }
+}
+    `;
+export const FollowFeedItemFragmentDoc = gql`
+    fragment FollowFeedItem on Follow {
+  followed: userByFollowed {
+    username
+    colour
+  }
+  follower: userByFollower {
+    username
+    colour
+  }
+  created: timestamp
 }
     `;
 export const SpotFragmentDoc = gql`
@@ -5369,6 +5742,24 @@ export const GuideFragmentDoc = gql`
 }
     ${SpotFragmentDoc}
 ${StageFragmentDoc}`;
+export const UserInfoFragmentDoc = gql`
+    fragment UserInfo on User {
+  username
+  colour
+  following: followsByFollower {
+    totalCount
+  }
+  followers: followsByFollowed {
+    totalCount
+  }
+  rides: ridesByOwner {
+    totalCount
+  }
+  guides: guidesByOwner {
+    totalCount
+  }
+}
+    `;
 export const CreateGuideDocument = gql`
     mutation CreateGuide($guide: GuideInput!) {
   createGuide(input: {guide: $guide}) {
@@ -5648,6 +6039,84 @@ export function useEditNightsMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type EditNightsMutationHookResult = ReturnType<typeof useEditNightsMutation>;
 export type EditNightsMutationResult = ApolloReactCommon.MutationResult<EditNightsMutation>;
 export type EditNightsMutationOptions = ApolloReactCommon.BaseMutationOptions<EditNightsMutation, EditNightsMutationVariables>;
+export const FollowUserDocument = gql`
+    mutation FollowUser($username: String!) {
+  follow(username: $username) {
+    success
+    message
+  }
+}
+    `;
+export type FollowUserMutationFn = ApolloReactCommon.MutationFunction<FollowUserMutation, FollowUserMutationVariables>;
+export type FollowUserComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<FollowUserMutation, FollowUserMutationVariables>, 'mutation'>;
+
+    export const FollowUserComponent = (props: FollowUserComponentProps) => (
+      <ApolloReactComponents.Mutation<FollowUserMutation, FollowUserMutationVariables> mutation={FollowUserDocument} {...props} />
+    );
+    
+
+/**
+ * __useFollowUserMutation__
+ *
+ * To run a mutation, you first call `useFollowUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFollowUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [followUserMutation, { data, loading, error }] = useFollowUserMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useFollowUserMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<FollowUserMutation, FollowUserMutationVariables>) {
+        return ApolloReactHooks.useMutation<FollowUserMutation, FollowUserMutationVariables>(FollowUserDocument, baseOptions);
+      }
+export type FollowUserMutationHookResult = ReturnType<typeof useFollowUserMutation>;
+export type FollowUserMutationResult = ApolloReactCommon.MutationResult<FollowUserMutation>;
+export type FollowUserMutationOptions = ApolloReactCommon.BaseMutationOptions<FollowUserMutation, FollowUserMutationVariables>;
+export const UnfollowUserDocument = gql`
+    mutation UnfollowUser($username: String!) {
+  unfollow(username: $username) {
+    success
+    message
+  }
+}
+    `;
+export type UnfollowUserMutationFn = ApolloReactCommon.MutationFunction<UnfollowUserMutation, UnfollowUserMutationVariables>;
+export type UnfollowUserComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UnfollowUserMutation, UnfollowUserMutationVariables>, 'mutation'>;
+
+    export const UnfollowUserComponent = (props: UnfollowUserComponentProps) => (
+      <ApolloReactComponents.Mutation<UnfollowUserMutation, UnfollowUserMutationVariables> mutation={UnfollowUserDocument} {...props} />
+    );
+    
+
+/**
+ * __useUnfollowUserMutation__
+ *
+ * To run a mutation, you first call `useUnfollowUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnfollowUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unfollowUserMutation, { data, loading, error }] = useUnfollowUserMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useUnfollowUserMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UnfollowUserMutation, UnfollowUserMutationVariables>) {
+        return ApolloReactHooks.useMutation<UnfollowUserMutation, UnfollowUserMutationVariables>(UnfollowUserDocument, baseOptions);
+      }
+export type UnfollowUserMutationHookResult = ReturnType<typeof useUnfollowUserMutation>;
+export type UnfollowUserMutationResult = ApolloReactCommon.MutationResult<UnfollowUserMutation>;
+export type UnfollowUserMutationOptions = ApolloReactCommon.BaseMutationOptions<UnfollowUserMutation, UnfollowUserMutationVariables>;
 export const GetGuideIdForSlugDocument = gql`
     query GetGuideIdForSlug($slug: String!) {
   guides(condition: {slug: $slug}) {
@@ -5698,9 +6167,48 @@ export function useGetGuideIdForSlugLazyQuery(baseOptions?: ApolloReactHooks.Laz
 export type GetGuideIdForSlugQueryHookResult = ReturnType<typeof useGetGuideIdForSlugQuery>;
 export type GetGuideIdForSlugLazyQueryHookResult = ReturnType<typeof useGetGuideIdForSlugLazyQuery>;
 export type GetGuideIdForSlugQueryResult = ApolloReactCommon.QueryResult<GetGuideIdForSlugQuery, GetGuideIdForSlugQueryVariables>;
+export const GuideStagesPublicDocument = gql`
+    query GuideStagesPublic($id: String!) {
+  guide(id: $id) {
+    ...Guide
+  }
+}
+    ${GuideFragmentDoc}`;
+export type GuideStagesPublicComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>, 'query'> & ({ variables: GuideStagesPublicQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const GuideStagesPublicComponent = (props: GuideStagesPublicComponentProps) => (
+      <ApolloReactComponents.Query<GuideStagesPublicQuery, GuideStagesPublicQueryVariables> query={GuideStagesPublicDocument} {...props} />
+    );
+    
+
+/**
+ * __useGuideStagesPublicQuery__
+ *
+ * To run a query within a React component, call `useGuideStagesPublicQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGuideStagesPublicQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGuideStagesPublicQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGuideStagesPublicQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>) {
+        return ApolloReactHooks.useQuery<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>(GuideStagesPublicDocument, baseOptions);
+      }
+export function useGuideStagesPublicLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>(GuideStagesPublicDocument, baseOptions);
+        }
+export type GuideStagesPublicQueryHookResult = ReturnType<typeof useGuideStagesPublicQuery>;
+export type GuideStagesPublicLazyQueryHookResult = ReturnType<typeof useGuideStagesPublicLazyQuery>;
+export type GuideStagesPublicQueryResult = ApolloReactCommon.QueryResult<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>;
 export const GuideInfosDocument = gql`
     query GuideInfos($ids: [String!]!) {
-  guides(filter: {id: {in: $ids}}) {
+  guides(filter: {id: {in: $ids}}, orderBy: [CREATED_DESC]) {
     nodes {
       ...GuideInfo
     }
@@ -5828,9 +6336,15 @@ export const FeedDocument = gql`
         ...GuideFeedItem
       }
     }
+    follows(orderBy: [TIMESTAMP_DESC]) {
+      nodes {
+        ...FollowFeedItem
+      }
+    }
   }
 }
-    ${GuideFeedItemFragmentDoc}`;
+    ${GuideFeedItemFragmentDoc}
+${FollowFeedItemFragmentDoc}`;
 export type FeedComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<FeedSubscription, FeedSubscriptionVariables>, 'subscription'>;
 
     export const FeedComponent = (props: FeedComponentProps) => (
@@ -5893,45 +6407,84 @@ export function useGuideStagesSubscription(baseOptions?: ApolloReactHooks.Subscr
       }
 export type GuideStagesSubscriptionHookResult = ReturnType<typeof useGuideStagesSubscription>;
 export type GuideStagesSubscriptionResult = ApolloReactCommon.SubscriptionResult<GuideStagesSubscription>;
-export const GuideStagesPublicDocument = gql`
-    query GuideStagesPublic($id: String!) {
-  guide(id: $id) {
-    ...Guide
+export const FollowersDocument = gql`
+    subscription Followers($username: String!) {
+  follows(condition: {followed: $username}) {
+    nodes {
+      user: userByFollower {
+        ...UserInfo
+      }
+    }
   }
 }
-    ${GuideFragmentDoc}`;
-export type GuideStagesPublicComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>, 'query'> & ({ variables: GuideStagesPublicQueryVariables; skip?: boolean; } | { skip: boolean; });
+    ${UserInfoFragmentDoc}`;
+export type FollowersComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<FollowersSubscription, FollowersSubscriptionVariables>, 'subscription'>;
 
-    export const GuideStagesPublicComponent = (props: GuideStagesPublicComponentProps) => (
-      <ApolloReactComponents.Query<GuideStagesPublicQuery, GuideStagesPublicQueryVariables> query={GuideStagesPublicDocument} {...props} />
+    export const FollowersComponent = (props: FollowersComponentProps) => (
+      <ApolloReactComponents.Subscription<FollowersSubscription, FollowersSubscriptionVariables> subscription={FollowersDocument} {...props} />
     );
     
 
 /**
- * __useGuideStagesPublicQuery__
+ * __useFollowersSubscription__
  *
- * To run a query within a React component, call `useGuideStagesPublicQuery` and pass it any options that fit your needs.
- * When your component renders, `useGuideStagesPublicQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFollowersSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useFollowersSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGuideStagesPublicQuery({
+ * const { data, loading, error } = useFollowersSubscription({
  *   variables: {
- *      id: // value for 'id'
+ *      username: // value for 'username'
  *   },
  * });
  */
-export function useGuideStagesPublicQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>) {
-        return ApolloReactHooks.useQuery<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>(GuideStagesPublicDocument, baseOptions);
+export function useFollowersSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<FollowersSubscription, FollowersSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<FollowersSubscription, FollowersSubscriptionVariables>(FollowersDocument, baseOptions);
       }
-export function useGuideStagesPublicLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>(GuideStagesPublicDocument, baseOptions);
-        }
-export type GuideStagesPublicQueryHookResult = ReturnType<typeof useGuideStagesPublicQuery>;
-export type GuideStagesPublicLazyQueryHookResult = ReturnType<typeof useGuideStagesPublicLazyQuery>;
-export type GuideStagesPublicQueryResult = ApolloReactCommon.QueryResult<GuideStagesPublicQuery, GuideStagesPublicQueryVariables>;
+export type FollowersSubscriptionHookResult = ReturnType<typeof useFollowersSubscription>;
+export type FollowersSubscriptionResult = ApolloReactCommon.SubscriptionResult<FollowersSubscription>;
+export const FollowingDocument = gql`
+    subscription Following($username: String!) {
+  follows(condition: {follower: $username}) {
+    nodes {
+      user: userByFollowed {
+        ...UserInfo
+      }
+    }
+  }
+}
+    ${UserInfoFragmentDoc}`;
+export type FollowingComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<FollowingSubscription, FollowingSubscriptionVariables>, 'subscription'>;
+
+    export const FollowingComponent = (props: FollowingComponentProps) => (
+      <ApolloReactComponents.Subscription<FollowingSubscription, FollowingSubscriptionVariables> subscription={FollowingDocument} {...props} />
+    );
+    
+
+/**
+ * __useFollowingSubscription__
+ *
+ * To run a query within a React component, call `useFollowingSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useFollowingSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFollowingSubscription({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useFollowingSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<FollowingSubscription, FollowingSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<FollowingSubscription, FollowingSubscriptionVariables>(FollowingDocument, baseOptions);
+      }
+export type FollowingSubscriptionHookResult = ReturnType<typeof useFollowingSubscription>;
+export type FollowingSubscriptionResult = ApolloReactCommon.SubscriptionResult<FollowingSubscription>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   authenticate(input: {email: $email, password: $password}) {

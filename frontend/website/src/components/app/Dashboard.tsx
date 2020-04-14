@@ -7,12 +7,12 @@ import Feed from "./Feed"
 import GuideComponent from "./Guide"
 import { GuideInfoFragment } from "../../api/generated"
 
- import { RouteComponentProps } from "@reach/router"
+import { RouteComponentProps } from "@reach/router"
 import { CSSProperties } from "react"
 import OverlayStore from "../../model/OverlayStore"
-import { MessageToast } from "../../model/OverlayStore/toast"
 import { CreateGuideModal } from "../../model/OverlayStore/modals"
-import MyGuidesList from "./Guides/GuidesList"
+import FollowingList from "../FollowerList/FollowingList"
+import GuidesList from "./Guides/GuidesList"
 
 interface Props extends RouteComponentProps {
   authStore?: AuthStore
@@ -44,10 +44,9 @@ export default class DashboardComponent extends React.Component<Props, State> {
 
     //TODO learn css
     return <Grid columns={2}>
-
       <Grid.Row>
-        <Grid.Column >
-          <Grid columns={2} >
+        <Grid.Column>
+          <Grid columns={2}>
             <Grid.Column verticalAlign={"bottom"}>
               <Header as={"h1"}>My guides</Header>
             </Grid.Column>
@@ -66,10 +65,14 @@ export default class DashboardComponent extends React.Component<Props, State> {
       </Grid.Row>
       <Grid.Row>
         <Grid.Column>
-          <MyGuidesList owner={this.props.authStore.owner}/>
+          <GuidesList owner={this.props.authStore.owner}/>
         </Grid.Column>
         <Grid.Column style={listStyle}>
           <Feed/>
+          <Header as={"h1"}>Following</Header>
+          <FollowingList username={this.props.authStore.owner} type={"following"}/>
+          <Header as={"h1"}>Followers</Header>
+          <FollowingList username={this.props.authStore.owner} type={"followers"}/>
         </Grid.Column>
       </Grid.Row>
     </Grid>

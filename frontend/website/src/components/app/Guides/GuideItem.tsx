@@ -23,6 +23,7 @@ import { log } from "../../../utils/logger"
 import { CSSProperties, ReactElement } from "react"
 import GuideHeader from "../Guide/Header"
 import { client } from "../../../api"
+import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
 
 type Props = {
   isOwner: boolean
@@ -146,7 +147,8 @@ export default class GuideItem extends React.Component<Props, State> {
     return <Card.Content onClick={this.onClick.bind(this)}>
       <Grid columns={2} verticalAlign={"middle"}>
         <Grid.Column>
-          <Header as={"h3"}>{guide.title}</Header>
+          <Header
+            as={"h3"}>{guide.title}<HeaderSubHeader>Created {humanDate(guide.created, true)}</HeaderSubHeader></Header>
         </Grid.Column>
         <Grid.Column floated={"right"}>
           {flags()}
@@ -161,11 +163,11 @@ export default class GuideItem extends React.Component<Props, State> {
       padding: 0,
     }
     return <Card.Content style={style} extra>
-      <ButtonGroup basic attached={"bottom"} compact>
-        <Button>
+      <ButtonGroup attached={"bottom"} compact>
+        <Button color={"green"}>
           Share
         </Button>
-        <Button icon loading={this.state.deleting} onClick={async () => {
+        <Button color={"orange"} icon loading={this.state.deleting} onClick={async () => {
           this.setState({
             deleting: true,
           })

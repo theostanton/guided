@@ -18,6 +18,7 @@ describe("updateMany queries", () => {
         username: faker.internet.userName(firstName, lastName),
         password_hash: PASSWORD_HASH,
         created: new Date(),
+        colour: null,
         updated: null, // TODO add to tests
       })
     }
@@ -83,6 +84,7 @@ describe("updateMany queries", () => {
         username: faker.internet.userName(firstName, lastName),
         password_hash: PASSWORD_HASH,
         created: new Date(),
+        colour: null,
         updated: null,
       })
     }

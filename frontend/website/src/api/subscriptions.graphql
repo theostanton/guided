@@ -42,6 +42,18 @@ fragment GuideFeedItem on Guide {
     }
 }
 
+fragment FollowFeedItem on Follow{
+    followed:userByFollowed{
+        username
+        colour
+    }
+    follower:userByFollower{
+        username
+        colour
+    }
+    created:timestamp
+}
+
 subscription Feed{
     items:query{
         newGuides:guides(
@@ -56,6 +68,11 @@ subscription Feed{
         ){
             nodes{
                 ...GuideFeedItem
+            }
+        }
+        follows(orderBy: [TIMESTAMP_DESC]){
+            nodes{
+                ...FollowFeedItem
             }
         }
     }
@@ -139,11 +156,39 @@ subscription GuideStages($id: String!){
     }
 }
 
+fragment UserInfo on User{
+    username
+    colour
+    following:followsByFollower{
+        totalCount
+    }
+    followers:followsByFollowed{
+        totalCount
+    }
+    rides:ridesByOwner{
+        totalCount
+    }
+    guides:guidesByOwner{
+        totalCount
+    }
+}
 
-query GuideStagesPublic($id: String!){
-    guide(
-        id: $id
-    ){
-        ...Guide
+
+subscription Followers($username:String!){
+    follows(condition: {followed:$username }){
+        nodes{
+            user:userByFollower{
+                ...UserInfo
+            }
+        }
+    }
+}
+subscription Following($username:String!){
+    follows(condition: {follower:$username }){
+        nodes{
+            user:userByFollowed{
+                ...UserInfo
+            }
+        }
     }
 }

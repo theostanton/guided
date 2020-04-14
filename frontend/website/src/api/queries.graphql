@@ -25,6 +25,7 @@ fragment GuideInfo on Guide{
     slug
     startDate
     owner
+    created
     durationSeconds
     distanceMeters
     countries
@@ -47,11 +48,18 @@ fragment GuideInfo on Guide{
     }
 }
 
+query GuideStagesPublic($id: String!){
+    guide(
+        id: $id
+    ){
+        ...Guide
+    }
+}
 
 query GuideInfos($ids:[String!]!){
     guides(filter: {id: {
         in: $ids
-    }}){
+    }},orderBy: [CREATED_DESC]){
         nodes{
             ...GuideInfo
         }
@@ -66,6 +74,13 @@ fragment Profile on User {
     countries
     distanceMeters
     durationSeconds
+    followingStatus
+    followers:followsByFollowed{
+        totalCount
+    }
+    following:followsByFollower{
+        totalCount
+    }
     guides:guidesByOwner{
         totalCount
         nodes{

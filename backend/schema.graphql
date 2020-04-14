@@ -434,6 +434,47 @@ type CreateComputationPayload {
   ): ComputationsEdge
 }
 
+"""All input for the create `Follow` mutation."""
+input CreateFollowInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Follow` to be created by this mutation."""
+  follow: FollowInput!
+}
+
+"""The output of our create `Follow` mutation."""
+type CreateFollowPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Follow` that was created by this mutation."""
+  follow: Follow
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `User` that is related to this `Follow`."""
+  userByFollowed: User
+
+  """Reads a single `User` that is related to this `Follow`."""
+  userByFollower: User
+
+  """An edge for our `Follow`. May be used by Relay 1."""
+  followEdge(
+    """The method to use when ordering `Follow`."""
+    orderBy: [FollowsOrderBy!] = [NATURAL]
+  ): FollowsEdge
+}
+
 """All input for the create `Guide` mutation."""
 input CreateGuideInput {
   """
@@ -1151,6 +1192,148 @@ input FloatFilter {
   greaterThanOrEqualTo: Float
 }
 
+type Follow {
+  followed: String!
+  follower: String!
+  timestamp: Datetime!
+
+  """Reads a single `User` that is related to this `Follow`."""
+  userByFollowed: User
+
+  """Reads a single `User` that is related to this `Follow`."""
+  userByFollower: User
+}
+
+"""
+A condition to be used against `Follow` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input FollowCondition {
+  """Checks for equality with the object’s `followed` field."""
+  followed: String
+
+  """Checks for equality with the object’s `follower` field."""
+  follower: String
+
+  """Checks for equality with the object’s `timestamp` field."""
+  timestamp: Datetime
+}
+
+"""
+A filter to be used against `Follow` object types. All fields are combined with a logical ‘and.’
+"""
+input FollowFilter {
+  """Filter by the object’s `followed` field."""
+  followed: StringFilter
+
+  """Filter by the object’s `follower` field."""
+  follower: StringFilter
+
+  """Filter by the object’s `timestamp` field."""
+  timestamp: DatetimeFilter
+
+  """Checks for all expressions in this list."""
+  and: [FollowFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [FollowFilter!]
+
+  """Negates the expression."""
+  not: FollowFilter
+}
+
+enum FollowingStatus {
+  FOLLOWING
+  IS_SELF
+  NOT_FOLLOWING
+  ANONYMOUS
+}
+
+"""
+A filter to be used against FollowingStatus fields. All fields are combined with a logical ‘and.’
+"""
+input FollowingStatusFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: FollowingStatus
+
+  """Not equal to the specified value."""
+  notEqualTo: FollowingStatus
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: FollowingStatus
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: FollowingStatus
+
+  """Included in the specified list."""
+  in: [FollowingStatus!]
+
+  """Not included in the specified list."""
+  notIn: [FollowingStatus!]
+
+  """Less than the specified value."""
+  lessThan: FollowingStatus
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: FollowingStatus
+
+  """Greater than the specified value."""
+  greaterThan: FollowingStatus
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: FollowingStatus
+}
+
+"""An input for mutations affecting `Follow`"""
+input FollowInput {
+  followed: String!
+  follower: String!
+  timestamp: Datetime!
+}
+
+"""A connection to a list of `Follow` values."""
+type FollowsConnection {
+  """A list of `Follow` objects."""
+  nodes: [Follow]!
+
+  """
+  A list of edges which contains the `Follow` and cursor to aid in pagination.
+  """
+  edges: [FollowsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Follow` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Follow` edge in the connection."""
+type FollowsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Follow` at the end of the edge."""
+  node: Follow
+}
+
+"""Methods to use when ordering `Follow`."""
+enum FollowsOrderBy {
+  NATURAL
+  FOLLOWED_ASC
+  FOLLOWED_DESC
+  FOLLOWER_ASC
+  FOLLOWER_DESC
+  TIMESTAMP_ASC
+  TIMESTAMP_DESC
+}
+
 type Guide implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -1524,6 +1707,14 @@ type Mutation {
     input: CreateComputationInput!
   ): CreateComputationPayload
 
+  """Creates a single `Follow`."""
+  createFollow(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateFollowInput!
+  ): CreateFollowPayload
+
   """Creates a single `Guide`."""
   createGuide(
     """
@@ -1817,6 +2008,8 @@ type Mutation {
     """
     input: RegisterInput!
   ): RegisterPayload
+  follow(username: String!): Result!
+  unfollow(username: String!): Result!
   addSpotFromLatLng(guideId: String!, lat: Float!, long: Float!, label: String, nights: Int!): Spot!
   moveSpot(spotId: String!, lat: Float!, long: Float!): Spot!
   removeSpot(spotId: String!): Spot!
@@ -1899,6 +2092,40 @@ type Query implements Node {
     """
     filter: ComputationFilter
   ): ComputationsConnection
+
+  """Reads and enables pagination through a set of `Follow`."""
+  follows(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Follow`."""
+    orderBy: [FollowsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FollowCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: FollowFilter
+  ): FollowsConnection
 
   """Reads and enables pagination through a set of `Guide`."""
   guides(
@@ -3455,6 +3682,40 @@ type Subscription {
     filter: ComputationFilter
   ): ComputationsConnection
 
+  """Reads and enables pagination through a set of `Follow`. (live)"""
+  follows(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Follow`."""
+    orderBy: [FollowsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FollowCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: FollowFilter
+  ): FollowsConnection
+
   """Reads and enables pagination through a set of `Guide`. (live)"""
   guides(
     """Only read the first `n` values of the set."""
@@ -4423,9 +4684,78 @@ type User implements Node {
     """
     filter: RideFilter
   ): RidesConnection!
+
+  """Reads and enables pagination through a set of `Follow`."""
+  followsByFollowed(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Follow`."""
+    orderBy: [FollowsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FollowCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: FollowFilter
+  ): FollowsConnection!
+
+  """Reads and enables pagination through a set of `Follow`."""
+  followsByFollower(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Follow`."""
+    orderBy: [FollowsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FollowCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: FollowFilter
+  ): FollowsConnection!
   countries: [String]
   distanceMeters: BigInt
   durationSeconds: BigInt
+  followingStatus: FollowingStatus
 }
 
 """
@@ -4481,6 +4811,9 @@ input UserFilter {
 
   """Filter by the object’s `durationSeconds` field."""
   durationSeconds: BigIntFilter
+
+  """Filter by the object’s `followingStatus` field."""
+  followingStatus: FollowingStatusFilter
 
   """Checks for all expressions in this list."""
   and: [UserFilter!]

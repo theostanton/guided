@@ -27,6 +27,10 @@ grant insert, update, delete on table temperatures to guided_user;
 grant select on table computations to guided_anonymous, guided_user;
 grant insert, update, delete on table computations to guided_user;
 
+-- follows
+grant select on table follows to guided_anonymous, guided_user;
+grant insert, update, delete on table follows to guided_user;
+
 -- functions
 grant execute on function register(text,text,text) to guided_anonymous, guided_user,guided_postgraphile;
 grant execute on function authenticate(text,text) to guided_anonymous, guided_user,guided_postgraphile;

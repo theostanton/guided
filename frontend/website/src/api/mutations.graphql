@@ -48,3 +48,17 @@ mutation EditNights($spotId:String!,$nights:Int!){
         message
     }
 }
+
+mutation FollowUser($username:String!){
+    follow(username: $username){
+        success
+        message
+    }
+}
+
+mutation UnfollowUser($username:String!){
+    unfollow(username: $username){
+        success
+        message
+    }
+}

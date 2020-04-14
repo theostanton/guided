@@ -1,15 +1,29 @@
 import * as React from "react"
-import GuideStore from "model/GuideStore"
 
 import { RouteComponentProps } from "@reach/router"
 import AuthStore from "model/AuthStore"
-import { Segment, Grid, GridColumn, Icon, Header, GridRow, Divider, StatisticGroup, Statistic } from "semantic-ui-react"
-import { ZenObservable } from "zen-observable-ts/lib/types"
-import client, { subscriptionClient } from "api/client"
-import { ProfileFragment, UserProfileDocument, UserProfileQuery, UserProfileSubscription } from "api/generated"
-import MyGuidesList from "../Guides/GuidesList"
+import {
+  Segment,
+  Grid,
+  GridColumn,
+  Icon,
+  Header,
+  StatisticGroup,
+  Statistic,
+} from "semantic-ui-react"
+import client from "api/client"
+import {
+  ProfileFragment,
+  UserProfileDocument,
+  UserProfileQuery,
+} from "api/generated"
 import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
-import { humanDate, humanDistance } from "../../../utils/human"
+import { humanDate, humanDistance } from "utils/human"
+import { inject, observer } from "mobx-react"
+import { logObject } from "utils/logger"
+import { CSSProperties } from "react"
+import FollowButton from "../../FollowButton"
+import GuidesList from "../Guides/GuidesList"
 
 interface Props extends RouteComponentProps {
   owner?: string
@@ -18,18 +32,24 @@ interface Props extends RouteComponentProps {
 
 type State = {
   profile: ProfileFragment | undefined
+  executingFollow: boolean
+  error: string | undefined
 }
 
+@inject("authStore")
+@observer
 export default class ProfileComponent extends React.Component<Props, State> {
 
   constructor(props) {
     super(props)
     this.state = {
       profile: undefined,
+      executingFollow: false,
+      error: undefined,
     }
   }
 
-  async componentDidMount() {
+  async fetch() {
     const result = await client.query<UserProfileQuery>({
       query: UserProfileDocument,
       fetchPolicy: "network-only",
@@ -40,6 +60,7 @@ export default class ProfileComponent extends React.Component<Props, State> {
 
     if (result.data) {
       this.setState({
+        executingFollow: false,
         profile: result.data.profile,
       })
     } else {
@@ -49,38 +70,67 @@ export default class ProfileComponent extends React.Component<Props, State> {
     }
   }
 
+  async componentDidMount() {
+    await this.fetch()
+  }
+
+
+  stats(profile: ProfileFragment): React.ReactElement {
+
+    const items: { label: string, value: string | number }[] = [
+      {
+        label: "Following",
+        value: profile.following.totalCount,
+      },
+      {
+        label: "Followers",
+        value: profile.followers.totalCount,
+      },
+      {
+        label: "Rides",
+        value: profile.rides.totalCount,
+      },
+      {
+        label: "Countries",
+        value: profile.countries.length,
+      },
+      {
+        label: "Miles",
+        value: humanDistance(profile.distanceMeters, false),
+      },
+      {
+        label: "Hours",
+        value: Math.ceil(profile.durationSeconds / 60 / 60),
+      },
+    ]
+
+    return <StatisticGroup widths={4} size={"tiny"}>
+      {items.map(({ label, value }) => {
+        return <Statistic label={label} value={value}/>
+      })}
+    </StatisticGroup>
+
+  }
+
+  follow(): React.ReactElement | undefined {
+    const { profile, executingFollow } = this.state
+
+    const style: CSSProperties = {
+      marginBottom: "1em",
+    }
+
+    logObject(profile.followingStatus, "status")
+
+    return <GridColumn style={style}>
+      <FollowButton username={profile.username} followingStatus={profile.followingStatus} onChange={async () => {
+        await this.fetch()
+      }}/>
+    </GridColumn>
+  }
+
   render() {
 
     const profile = this.state.profile
-
-    function stats(): React.ReactElement {
-
-      const items: { label: string, value: string | number }[] = [
-        {
-          label: "Rides",
-          value: profile.rides.totalCount,
-        },
-        {
-          label: "Countries",
-          value: profile.countries.length,
-        },
-        {
-          label: "Miles",
-          value: humanDistance(profile.distanceMeters, false),
-        },
-        {
-          label: "Hours",
-          value: Math.ceil(profile.durationSeconds / 60 / 60),
-        },
-      ]
-
-      return <StatisticGroup widths={4} size={"tiny"}>
-        {items.map(({ label, value }) => {
-          return <Statistic label={label} value={value}/>
-        })}
-      </StatisticGroup>
-
-    }
 
     if (profile) {
       return <Grid style={{ marginTop: 20 }}>
@@ -90,10 +140,11 @@ export default class ProfileComponent extends React.Component<Props, State> {
             {profile.username}
             <HeaderSubHeader>Member since {humanDate(profile.created)}</HeaderSubHeader>
           </Header>
-          {stats()}
+          {this.follow()}
+          {this.stats(profile)}
         </GridColumn>
         <GridColumn width={10}>
-          <MyGuidesList owner={profile.username}/>
+          <GuidesList owner={profile.username}/>
         </GridColumn>
 
       </Grid>

@@ -4,5 +4,7 @@ import moveSpot from "./moveSpot"
 import editStartDate from "./editStartDate"
 import editNights from "./editNights"
 import removeSpot from "./removeSpot"
+import follow from "./follow"
+import unfollow from "./unfollow"
 
-export default [addSpotFromLatLng, moveSpot, removeSpot, info, editStartDate, editNights]
+export default [follow, unfollow, addSpotFromLatLng, moveSpot, removeSpot, info, editStartDate, editNights]

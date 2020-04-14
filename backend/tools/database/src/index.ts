@@ -49,7 +49,7 @@ const options: pgPromise.IInitOptions<Extensions> = {
   extend,
 }
 
-export { Spot, User, Guide, Ride, Stage, Computation, SpotStatus, StageStatus, RideStatus, ComputationStatus }
+export { Spot, User, Guide, Ride, Stage, Computation, SpotStatus, StageStatus, RideStatus, ComputationStatus, Follow }
 const pgp = PgPromise(options)
 
 

@@ -10,8 +10,7 @@ import {
 } from "api/generated"
 import { USER_KEY } from "api/client"
 import { client } from "api"
-import { logError, logJson } from "utils/logger"
-import { act } from "react-dom/test-utils"
+import { logError } from "utils/logger"
 
 export type User = {
   bearerToken: string

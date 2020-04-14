@@ -2,23 +2,35 @@ import React, { CSSProperties } from "react"
 import { subscriptionClient } from "api/client"
 import {
   FeedDocument,
-  FeedSubscription,
+  FeedSubscription, FollowFeedItemFragment,
   GuideFeedItemFragment,
 } from "api/generated"
 import { ZenObservable } from "zen-observable-ts/lib/types"
-import { Segment } from "semantic-ui-react"
+import { Message, Segment } from "semantic-ui-react"
 import { Feed } from "semantic-ui-react"
 import AuthStore from "model/AuthStore"
 import NewGuideFeedItem from "./NewGuideFeedItem"
 import { inject } from "mobx-react"
+import NewFollowFeedItem from "./NewFollowFeedItem"
+import { log } from "../../../utils/logger"
 
 type Props = {
   authStore?: AuthStore
 }
 type State = {
-  feedItems: {
-    newGuides: GuideFeedItemFragment[]
-  } | undefined
+  feedItems: (GuideFeedItemFragment | FollowFeedItemFragment)[] | undefined
+}
+
+function isFollowFeedItemFragments(item: any): item is FollowFeedItemFragment {
+  if (item["followed"]) {
+    return item
+  }
+}
+
+function isGuideFeedItemFragments(item: any): item is GuideFeedItemFragment {
+  if (item["title"]) {
+    return item
+  }
 }
 
 @inject("authStore")
@@ -35,15 +47,37 @@ export default class FeedComponent extends React.Component<Props, State> {
 
   componentDidMount(): void {
     this.subscription = subscriptionClient.subscribe<FeedSubscription>({
-      query: FeedDocument
+      query: FeedDocument,
     }).subscribe(value => {
       if (value.data) {
+
+        const newGuides = value!.data!.items!.newGuides!.nodes!.map(node => {
+          return node!
+        })
+        const newFollows = value!.data!.items!.follows!.nodes!.map(node => {
+          return node!
+        })
+
+        const feedItems: (GuideFeedItemFragment | FollowFeedItemFragment)[] = [
+          ...newFollows, ...newGuides,
+        ]
+
+        function timeStamp(feedItem: any): number {
+          if (isFollowFeedItemFragments(feedItem)) {
+            return new Date(feedItem.created).getTime()
+          } else if (isGuideFeedItemFragments(feedItem)) {
+            return new Date(feedItem.created).getTime()
+          } else {
+            throw new Error("Couldnt parse")
+          }
+        }
+
+        feedItems.sort(((a, b) => {
+          return timeStamp(b) - timeStamp(a)
+        }))
+
         this.setState({
-          feedItems: {
-            newGuides: value!.data!.items!.newGuides!.nodes!.map(node => {
-              return node!
-            }),
-          },
+          feedItems,
         })
       } else {
         value.errors.forEach(error => {
@@ -66,10 +100,19 @@ export default class FeedComponent extends React.Component<Props, State> {
     }
 
     if (feedItems) {
+      const self = this.props.authStore!.owner
+
       return <Segment style={style}>
         <Feed key={"feed"}>
-          {feedItems.newGuides.map(guide => {
-            return <NewGuideFeedItem item={guide} isOwner={this.props.authStore!.owner === guide.owner.username}/>
+          {feedItems.map(feedItem => {
+
+            if (isFollowFeedItemFragments(feedItem)) {
+              return <NewFollowFeedItem self={self} item={feedItem}/>
+            } else if (isGuideFeedItemFragments(feedItem)) {
+              return <NewGuideFeedItem item={feedItem} isOwner={self === feedItem.owner.username}/>
+            } else {
+              return <Message error>Didn't handle feed item</Message>
+            }
           })}
         </Feed></Segment>
     } else {

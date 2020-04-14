@@ -33,7 +33,7 @@ function extract(any: any): string {
   }).join(",")
 }
 
-export function insertOne(tableName: string, item: any): string {
+export function insertOne<T>(tableName: string, item: T): string {
   if (item) {
     return insertMany(tableName, [item])
   } else {
