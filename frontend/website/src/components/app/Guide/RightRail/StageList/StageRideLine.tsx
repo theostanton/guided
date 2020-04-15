@@ -11,8 +11,6 @@ type Props = {
 
 type State = {}
 
-const WIDTH = 100
-
 @inject("guideStore")
 @observer
 export default class StageRideLine extends React.Component<Props, State> {
@@ -27,34 +25,17 @@ export default class StageRideLine extends React.Component<Props, State> {
 
   render(): React.ReactElement {
 
-    const styles: { [key in string]: CSSProperties } = {
-      root: {
-        width: WIDTH,
-        height: "5em",
-      },
-      topLine: {
-        backgroundColor: "red",
-        top: 0,
-        bottom: 0,
-        width: 5,
-        left: "50%",
-      },
-    }
-
     const status = this.status
 
-    function strokeColour(): string {
-      if (status) {
-        return RIDE_COLOURS[status]
-      } else {
-        return RIDE_COLOURS["dim"]
-      }
-    }
-
-    return <div style={styles.root}>
-      <svg style={{ height: "100%" }}>
-        <line x1={WIDTH / 2}
-              x2={WIDTH / 2}
+    return <div style={{
+      height: "100%",
+    }}>
+      <svg style={{
+        width: "100%",
+        height: "100%",
+      }}>
+        <line x1={"50%"}
+              x2={"50%"}
               y1={"0%"}
               y2={"100%"}
               strokeDasharray={status ? null : 5}

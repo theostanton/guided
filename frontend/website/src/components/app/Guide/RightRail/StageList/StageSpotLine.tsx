@@ -3,15 +3,18 @@ import { SpotFragment } from "api/generated"
 import GuideStore from "model/GuideStore"
 import { inject, observer } from "mobx-react"
 import { SPOT_COLOURS, RIDE_COLOURS, RideColourStatus, SpotColourStatus } from "utils/colours"
+import { log } from "../../../../../utils/logger"
+
+
+export type ListPosition = "first" | "middle" | "last" | "only"
 
 type Props = {
   spot: SpotFragment
   guideStore?: GuideStore
+  position: ListPosition
 }
 
 type State = {}
-
-const WIDTH = 100
 
 @inject("guideStore")
 @observer
@@ -65,47 +68,33 @@ export default class StageSpotLine extends React.Component<Props, State> {
       return null
     }
 
-    const styles: { [key in string]: CSSProperties } = {
-      root: {
-        width: WIDTH,
-        height: "5em",
-      },
-    }
-
     const arrivalStatus = this.arrivalStatus
     const departureStatus = this.departureStatus
     const spotStatus = this.spotStatus
 
-    return <div style={styles.root}>
-      <svg style={{ height: "100%" }}>
-        <line x1={WIDTH / 2}
-              x2={WIDTH / 2}
-              y1={"0%"}
-              y2={"50"}
-              strokeDasharray={arrivalStatus ? null : 5}
-              stroke={RIDE_COLOURS[arrivalStatus || "dim"]}
-              strokeWidth="5"/>
-        <line x1={WIDTH / 2}
-              x2={WIDTH / 2}
-              y1={"50"}
-              y2={"100%"}
-              strokeDasharray={departureStatus ? null : 5}
-              strokeDashoffset={"100%"}
-              stroke={RIDE_COLOURS[departureStatus || "dim"]}
-              strokeWidth="5"/>
-        <circle cx={WIDTH / 2}
-                cy={"50"}
-                r={10}
-                fill={this.spotFill(spotStatus)}
-                stroke={this.spotStroke(spotStatus)}
-                strokeWidth={5}/>
-
-        <pattern id="pattern-checkers" x="0" y="0" width={WIDTH} height={WIDTH} patternUnits="userSpaceOnUse">
-          <rect className="checker" x="0" width="10" height="10" y="0"/>
-          <rect className="checker" x="10" width="10" height="10" y="10"/>
-        </pattern>
-      </svg>
-    </div>
+    return <svg style={{ width: "100%", height: "100%" }}>
+      {["middle", "last"].includes(this.props.position) && <line x1={"50%"}
+                                                                 x2={"50%"}
+                                                                 y1={"0%"}
+                                                                 y2={"50%"}
+                                                                 strokeDasharray={arrivalStatus ? null : 5}
+                                                                 stroke={RIDE_COLOURS[arrivalStatus || "dim"]}
+                                                                 strokeWidth="5"/>}
+      {["middle", "first"].includes(this.props.position) && <line x1={"50%"}
+                                                                  x2={"50%"}
+                                                                  y1={"50%"}
+                                                                  y2={"100%"}
+                                                                  strokeDasharray={departureStatus ? null : 5}
+                                                                  strokeDashoffset={"100%"}
+                                                                  stroke={RIDE_COLOURS[departureStatus || "dim"]}
+                                                                  strokeWidth="5"/>}
+      <circle cx={"50%"}
+              cy={"50%"}
+              r={10}
+              fill={this.spotFill(spotStatus)}
+              stroke={this.spotStroke(spotStatus)}
+              strokeWidth={5}/>
+    </svg>
   }
 
 }

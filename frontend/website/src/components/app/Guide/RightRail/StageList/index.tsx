@@ -33,24 +33,36 @@ export default class StageList extends React.Component<Props> {
 
     const items: ReactElement[] = []
 
-    stages.forEach(stage => {
+    stages.forEach((stage, stageIndex) => {
 
       if (stage.status === "READY") {
-        stage.ridesByStage.nodes.forEach(ride => {
+        stage.ridesByStage.nodes.forEach((ride, index) => {
           const { fromSpot } = ride
-          items.push(<SpotItem key={`${fromSpot.id}`} spot={fromSpot} guideStore={this.guideStore}/>)
-          items.push(<RideItem key={`${ride.id}`} ride={ride} guideStore={this.guideStore}/>)
+          items.push(<SpotItem key={`${fromSpot.id}`}
+                               spot={fromSpot}
+                               guideStore={this.guideStore}
+                               position={index === 0 && stageIndex === 0 ? "first" : "middle"}/>)
+          items.push(<RideItem key={`${ride.id}`}
+                               ride={ride}
+                               guideStore={this.guideStore}/>)
         })
       } else {
         const { fromSpot } = stage
-        items.push(<SpotItem key={`${fromSpot.id}`} spot={fromSpot} guideStore={this.guideStore}/>)
-        items.push(<RideItem ride={null} guideStore={this.guideStore}/>)
+        items.push(<SpotItem key={`${fromSpot.id}`}
+                             spot={fromSpot}
+                             position={stageIndex === 0 ? "first" : "middle"}
+                             guideStore={this.guideStore}/>)
+        items.push(<RideItem ride={null}
+                             guideStore={this.guideStore}/>)
       }
     })
 
     if (stages.length > 0) {
       const firstSpot = stages[0].fromSpot
-      items.push(<SpotItem key={`${firstSpot.id}-last`} spot={firstSpot} guideStore={this.guideStore}/>)
+      items.push(<SpotItem key={`${firstSpot.id}-last`}
+                           spot={firstSpot}
+                           guideStore={this.guideStore}
+                           position={stages.length === 1 ? "only" : "last"}/>)
     }
 
     return items
@@ -66,10 +78,10 @@ export default class StageList extends React.Component<Props> {
       overflowY: "scroll",
       maxHeight: "35em",
     }
-    return <List
-      items={items}
-      style={listStyle}
-    />
+    return <div
+      style={listStyle}>
+      {items}
+    </div>
   }
 
 }

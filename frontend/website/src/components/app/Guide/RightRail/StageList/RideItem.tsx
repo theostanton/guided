@@ -5,6 +5,7 @@ import GuideStore from "model/GuideStore"
 import { humanDistance, humanDuration } from "utils/human"
 import StageRideLine from "./StageRideLine"
 import randomKey from "utils/randomKey"
+import StageSpotLine from "./StageSpotLine"
 
 type Props = {
   ride: RideFragment | null
@@ -24,53 +25,64 @@ export default class RideItem extends React.Component<Props> {
       marginBottom: 0,
     }
 
-    const styleNoPadding: CSSProperties = {
-      padding: 0,
+
+    const styles: { [key in string]: CSSProperties } = {
+      parent: {
+        display: "flex",
+        flexDirection: "column",
+      },
+      row: {
+        flex:1,
+        // backgroundColor: "#00ffff",
+        display: "flex",
+        padding: 0,
+        margin: 0,
+      },
+      lines: {
+        padding: 0,
+        margin: 0,
+        flexBasis: "20%",
+      },
+      content: {
+        // backgroundColor: "#ff00ff",
+        flexGrow: 1,
+      },
     }
+
 
     const { ride, guideStore } = this.props
     const key = ride ? ride.id : randomKey()
     const isSelected = guideStore.selectedId === key
-    return <Grid columns={2}
-                 key={key}
-                 value={key}
-                 style={style}
-                 padded={false}
-                 onMouseEnter={() => {
-                   if (ride) {
-                     guideStore.highlightRide(ride.id)
-                   }
-                 }}
-                 onClick={() => {
-                   if (ride) {
-                     guideStore.selectRide(ride.id!)
-                   }
-                 }}
-                 onMouseLeave={() => {
-                   if (ride) {
-                     guideStore.unhighlight()
-                   }
-                 }}
-                 active={isSelected}
+    return <div
+      key={key}
+      style={styles.parent}
+      onMouseEnter={() => {
+        if (ride) {
+          guideStore.highlightRide(ride.id)
+        }
+      }}
+      onClick={() => {
+        if (ride) {
+          guideStore.selectRide(ride.id!)
+        }
+      }}
+      onMouseLeave={() => {
+        if (ride) {
+          guideStore.unhighlight()
+        }
+      }}
     >
+      <div style={{ ...styles.row }}>
+        <div style={{ ...styles.lines }}><StageRideLine ride={ride}/></div>
+        <div style={{
+          ...styles.content,
+          alignSelf: "center",
+        }}>
+          <Header>{humanDistance(ride.distanceMeters, true)}</Header>
+          <Header>{humanDuration(ride.durationSeconds, true)}</Header>
+        </div>
+      </div>
 
-      <GridColumn width={4} stretched style={styleNoPadding}>
-        <StageRideLine ride={ride}/>
-      </GridColumn>
-      {ride &&
-      <GridColumn width={12} style={{ paddingLeft: 0 }}>
-        <CardMeta>
-          {humanDuration(ride.durationSeconds, true)}
-        </CardMeta>
-        <CardMeta>
-          {humanDistance(ride.distanceMeters!, true, true)}
-        </CardMeta>
-
-        {ride.hasBorder && <Label>
-          Border
-        </Label>}
-      </GridColumn>
-      }
-    </Grid>
+    </div>
   }
 }

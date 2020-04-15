@@ -1,20 +1,11 @@
 import * as React from "react"
-import {
-  Button, ButtonGroup,
-  Divider,
-  Flag,
-  FlagNameValues,
-  Grid,
-  GridColumn,
-  Header,
-  Icon,
-  Item, Statistic,
-  StatisticGroup,
-} from "semantic-ui-react"
-import { RideFragment, SpotFragment, StageFragment } from "api/generated"
-import { humanDate, humanDistance, humanDuration } from "utils/human"
-import GuideStore from "../../../../../model/GuideStore"
+import { RideFragment } from "api/generated"
+import GuideStore from "model/GuideStore"
+import StageRideLine from "../StageList/StageRideLine"
+import StageSpotLine from "../StageList/StageSpotLine"
+import { Button, Flag, FlagNameValues, Grid, GridColumn, GridRow, Header, Icon } from "semantic-ui-react"
 import { CSSProperties } from "react"
+import { humanDistance, humanDuration } from "../../../../../utils/human"
 
 type Props = {
   ride: RideFragment
@@ -24,99 +15,100 @@ type Props = {
 
 export default class RideDetail extends React.Component<Props> {
 
-  spot(position: "from" | "to", spot: SpotFragment): React.ReactElement {
 
-    const markerColour = position === "from" ? "green" : "red"
-
-    return <Grid.Row columns='2' stretched>
-      <Grid.Column width={"12"}>
-        <Header as='h2'>
-          <Icon name={spot.locked ? "flag" : "flag outline"} color={markerColour}/>
-          <Header.Content>
-            {spot.name}
-            <Header.Subheader><Flag name={spot.country?.toLowerCase() as FlagNameValues}/>
-              {`${spot.name === spot.location ? "" : spot.location + ", "}${spot.country}`}</Header.Subheader>
-          </Header.Content>
-        </Header>
-      </Grid.Column>
-      <Grid.Column verticalAlign={"middle"} floated={"right"} width={"4"} onClick={() => {
-        this.props.guideStore.selectSpot(spot.id)
-      }}>
-        <Icon name="arrow alternate circle right outline" fitted={true} size={"large"}/>
-      </Grid.Column>
-    </Grid.Row>
-  }
-
-  stats(): React.ReactElement {
-
-    const ride = this.props.ride
-
-    const stats: { label: string, value: string | number }[] = [{
-      label: "Miles",
-      value: humanDistance(ride.distanceMeters, false),
-    }, {
-      label: "Hours",
-      value: Math.ceil(ride.durationSeconds / 60 / 60),
-    }]
-
-    if (ride.date) {
-      stats.push({
-        label: "Date",
-        value: humanDate(ride.date),
-      })
-    }
-
-    return <StatisticGroup widths='2' size={"tiny"}>
-      {stats.map(stat => {
-        return <Statistic label={stat.label} value={stat.value}/>
-      })}
-    </StatisticGroup>
+  constructor(props: Props) {
+    super(props)
+    // logObject(props, "props")
+    // window.location.replace(`/${props.guideStore.guide.owner}/${props.guideStore.guide.slug}/ride/${props.ride.id.split("_")[1]}`)
   }
 
   render(): React.ReactElement {
-
-
-    const style: CSSProperties = {
-      padding: "1em",
-    }
-    const isOwner = this.props.guideStore.isOwner
-
-    function Wrap({ children }): React.ReactElement {
-      return <Grid.Row>
-        <Grid.Column>
-          {children}
-        </Grid.Column>
-      </Grid.Row>
-    }
-
     const ride = this.props.ride
-    return <Grid style={style}>
-      <Grid.Row>
-        <Grid.Column width={6} floated={"right"}>
-          <ButtonGroup floated={"right"}>
-            <Button icon='close' onClick={this.props.close}/>
-          </ButtonGroup>
-        </Grid.Column>
-      </Grid.Row>
+    const fromSpot = this.props.ride.fromSpot
+    const toSpot = this.props.ride.toSpot
 
-      {this.spot("from", ride.fromSpot!)}
-      <Wrap>
-        <Divider horizontal>to</Divider>
-      </Wrap>
-      {this.spot("to", ride.toSpot!)}
 
-      <Wrap>
-        <Divider/>
-      </Wrap>
+    const styles: { [key in string]: CSSProperties } = {
+      parent: {
+        display: "flex",
+        flexDirection: "column",
+      },
+      row: {
+        flex:1,
+        display: "flex",
+        padding: 0,
+        margin: 0,
+      },
+      lines: {
+        // backgroundColor: "#ffff00",
+        padding: 0,
+        margin: 0,
+        flexBasis: "20%",
+      },
+      content: {
+        // backgroundColor: "#ff00ff",
+        flexGrow: 1,
+      },
+    }
 
-      <Wrap>
-        {this.stats()}
-      </Wrap>
+    return <div style={styles.parent}>
+      <div style={{ ...styles.row, padding: "1em" }}>
+        <Button basic icon onClick={() => {
+          this.props.guideStore.unselect()
+        }}><Icon name={"chevron left"}/> Back</Button>
+      </div>
+      <div style={{ ...styles.row }}>
+        <div style={{ ...styles.lines }}>
+          <StageSpotLine spot={fromSpot} position={"first"}/>
+        </div>
+        <div style={{
+          ...styles.content,
+          alignSelf: "center",
+        }}>
+          <Header>
+            <Header.Content>
+              {fromSpot.name}
+              <Header.Subheader><Flag name={fromSpot.country?.toLowerCase() as FlagNameValues}/>
+                {`${fromSpot.name === fromSpot.location ? "" : fromSpot.location + ", "}${fromSpot.country}`}
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+        </div>
+      </div>
 
-      {isOwner && <Wrap>
-        <Button icon='flag checkered' labelPosition='right' fluid content='Mark as completed'/>
-      </Wrap>}
-    </Grid>
+      <div style={{ ...styles.row }}>
+        <div style={{ ...styles.lines }}>
+          <StageRideLine ride={ride}/>
+        </div>
+
+        <div style={{
+          ...styles.content,
+          alignSelf: "center",
+        }}>
+          <Header>{humanDistance(ride.distanceMeters, true)}</Header>
+          <Header>{humanDuration(ride.durationSeconds, true)}</Header>
+        </div>
+      </div>
+
+      <div style={styles.row}>
+        <div style={styles.lines}>
+          <StageSpotLine spot={toSpot} position={"last"}/>
+        </div>
+        <div style={{
+          ...styles.content,
+          alignSelf: "center",
+        }}>
+          <Header>
+            <Header.Content>
+              {toSpot.name}
+              <Header.Subheader><Flag name={toSpot.country?.toLowerCase() as FlagNameValues}/>
+                {`${toSpot.name === toSpot.location ? "" : toSpot.location + ", "}${toSpot.country}`}
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+        </div>
+      </div>
+    </div>
   }
 }
 
