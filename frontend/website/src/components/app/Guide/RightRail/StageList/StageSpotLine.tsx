@@ -99,6 +99,11 @@ export default class StageSpotLine extends React.Component<Props, State> {
                 fill={this.spotFill(spotStatus)}
                 stroke={this.spotStroke(spotStatus)}
                 strokeWidth={5}/>
+
+        <pattern id="pattern-checkers" x="0" y="0" width={WIDTH} height={WIDTH} patternUnits="userSpaceOnUse">
+          <rect className="checker" x="0" width="10" height="10" y="0"/>
+          <rect className="checker" x="10" width="10" height="10" y="10"/>
+        </pattern>
       </svg>
     </div>
   }

@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://staging-database.ridersbible.com:5432/main</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Guided - Production" uuid="70120c43-c5c6-4f4f-8e00-864e24d2a626">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://database.ridersbible.com:5432/main</jdbc-url>
+    </data-source>
   </component>
 </project>
