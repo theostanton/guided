@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Router, Redirect } from "@reach/router"
 import Layout from "components/root/Layout"
-import AuthStore from "../model/AuthStore"
+import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
 import Account from "components/app/Account"
 import Guide from "components/app/Guide"
@@ -13,8 +13,9 @@ import { Container } from "semantic-ui-react"
 import AppMenu from "components/app/Menu"
 import About from "../components/pages/about"
 
-import OverlayComponent from "../components/app/Overlay"
+import OverlayComponent from "components/app/Overlay"
 import { logJson } from "../utils/logger"
+import Search from "components/app/Search"
 
 interface Props {
   authStore: AuthStore
@@ -40,6 +41,7 @@ export default class RootComponent extends React.Component<Props> {
             <Redirect from={"/signup"} to={"/"} noThrow={true}/>
             <Account path="/account"/>
             <Profile path="/:owner"/>
+            <Search path="/search"/>
             <Guide path="/:owner/:slug"/>
             <Guide path="/:owner/:slug/ride/:rideId"/>
             <Guide path="/:owner/:slug/spot/:spotId"/>

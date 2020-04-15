@@ -39,7 +39,7 @@ export function humanElapsed(date: Date): string {
   return timeago.format(date)
 }
 
-const COUNTRIES = {
+export const COUNTRIES = {
   "AF": "Afghanistan",
   "AX": "Aland Islands",
   "AL": "Albania",

@@ -34,6 +34,13 @@ export default class AppMenu extends React.Component<Props, State> {
           onClick={async () => {
             await navigate(`/${this.props.authStore!.owner}`)
           }}/>
+        <Menu.Item
+          name={"Search"}
+          link={true}
+          icon={"search"}
+          onClick={async () => {
+            await navigate(`/search`)
+          }}/>
         <Menu.Menu
           position='right'
         >

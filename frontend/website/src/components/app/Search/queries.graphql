@@ -1,0 +1,13 @@
+query SearchGuides($query:String!,$pageSize:Int!,$offset:Int!,$countries:[String!]!){
+    guides(filter: {
+        countries: {contains: $countries}
+        title:{
+            likeInsensitive: $query
+        }
+    },first: $pageSize, offset: $offset){
+        totalCount
+        nodes{
+            ...GuideInfo
+        }
+    }
+}
