@@ -10,7 +10,7 @@ import {
   Input,
   Message,
   Segment,
-  Card, Pagination,
+  Card, Pagination, Header,
 } from "semantic-ui-react"
 import { RouteComponentProps } from "@reach/router"
 import { COUNTRIES } from "utils/human"
@@ -29,7 +29,9 @@ interface Props extends RouteComponentProps {
 }
 
 type State = {
-  loading: boolean
+  loadingQuery: boolean
+  loadingCountries: boolean
+  loadingPage: boolean
   countryQuery: string
   type: Type
   results: readonly GuideInfoFragment[] | undefined
@@ -88,7 +90,9 @@ export default class SearchComponent extends React.Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
-      loading: true,
+      loadingQuery: true,
+      loadingCountries: true,
+      loadingPage: true,
       countryQuery: "",
       type: "guide",
       results: undefined,
@@ -104,16 +108,24 @@ export default class SearchComponent extends React.Component<Props, State> {
     this.debouncedQuery = AwesomeDebouncePromise(
       this.query.bind(this),
       500,
-      {},
+      {
+        accumulate: false,
+        onlyResolvesLast: true,
+      },
     )
   }
 
 
   async handleDropdownChange(_: any, { value }: { value: string[] }) {
-    await this.debouncedQuery({
+    const parameters = {
       ...this.state.parameters,
       countryCodes: value,
+    }
+    this.setState({
+      parameters,
+      loadingCountries: true,
     })
+    await this.debouncedQuery(parameters)
 
   }
 
@@ -124,10 +136,15 @@ export default class SearchComponent extends React.Component<Props, State> {
   }
 
   async onQueryChange(_: any, { value }: { value: string }) {
-    await this.debouncedQuery({
+    const parameters = {
       ...this.state.parameters,
       query: value,
+    }
+    this.setState({
+      parameters,
+      loadingQuery: true,
     })
+    await this.debouncedQuery(parameters)
   }
 
   async componentDidMount() {
@@ -142,7 +159,6 @@ export default class SearchComponent extends React.Component<Props, State> {
     logJson(parameters, "query()")
     this.setState({
       parameters,
-      loading: true,
     })
     const variables: SearchGuidesQueryVariables = {
       query: `%${parameters.query}%`,
@@ -159,7 +175,9 @@ export default class SearchComponent extends React.Component<Props, State> {
       this.setState({
         results: undefined,
         parameters,
-        loading: false,
+        loadingQuery: false,
+        loadingPage: false,
+        loadingCountries: false,
         error: result.errors.map(error => {
           return error.message
         }).join("\n"),
@@ -168,7 +186,9 @@ export default class SearchComponent extends React.Component<Props, State> {
       this.setState({
         error: undefined,
         parameters,
-        loading: false,
+        loadingQuery: false,
+        loadingPage: false,
+        loadingCountries: false,
         results: result.data.guides.nodes,
         totalCount: result.data.guides.totalCount,
       })
@@ -177,16 +197,20 @@ export default class SearchComponent extends React.Component<Props, State> {
 
   listItems(): React.ReactElement[] | undefined {
     if (this.state.results) {
-      return this.state.results.map(guide => {
-        return <GuideItem isOwner={this.props.authStore.owner === guide.owner} guide={guide}/>
-      })
+      if (this.state.results.length > 0) {
+        return this.state.results.map(guide => {
+          return <GuideItem isOwner={this.props.authStore.owner === guide.owner} guide={guide}/>
+        })
+      } else {
+        return [<Segment textAlign={"center"}><Header>No results</Header></Segment>]
+      }
     }
   }
 
 
   render(): React.ReactElement {
     logJson(this.state.totalCount, "totalCount")
-    return <Segment>
+    return <div>
       <Grid columns={"equal"}>
         <GridColumn>
           <Input
@@ -194,6 +218,7 @@ export default class SearchComponent extends React.Component<Props, State> {
             icon='search'
             iconPosition='left'
             placeholder='Search'
+            loading={this.state.loadingQuery}
             onChange={this.onQueryChange.bind(this)}
           />
         </GridColumn>
@@ -204,6 +229,7 @@ export default class SearchComponent extends React.Component<Props, State> {
             multiple
             options={COUNTRY_OPTIONS}
             placeholder='Countries'
+            loading={this.state.loadingCountries}
             onChange={this.handleDropdownChange.bind(this)}
             search
             onSearchChange={this.handleSearchChange.bind(this)}
@@ -223,12 +249,12 @@ export default class SearchComponent extends React.Component<Props, State> {
         </GridColumn>
       </Grid>
 
-      <Segment loading={this.state.loading} style={{ minHeight: 200 }}>
+      <Segment style={{ minHeight: 200 }} basic compact>
 
         {this.state.error && <Message error>{this.state.error}</Message>}
 
         <div style={{
-          display: "block"
+          display: "block",
         }}>
           <Pagination totalPages={Math.ceil(this.state.totalCount / PER_PAGE)}
                       style={{
@@ -242,6 +268,10 @@ export default class SearchComponent extends React.Component<Props, State> {
                           ...this.state.parameters,
                           page,
                         }
+                        this.setState({
+                          parameters,
+                          loadingPage: true,
+                        })
                         await this.debouncedQuery(parameters)
                       }}
                       siblingRange={2}
@@ -249,7 +279,7 @@ export default class SearchComponent extends React.Component<Props, State> {
                       firstItem={null}
                       lastItem={null}
                       defaultActivePage={this.state.parameters.page}
-                      disabled={this.state.loading}
+                      disabled={this.state.loadingPage}
                       boundaryRange={3}
           />
         </div>
@@ -258,7 +288,7 @@ export default class SearchComponent extends React.Component<Props, State> {
                     children={this.listItems()}
         />
       </Segment>
-    </Segment>
+    </div>
   }
 
 }
