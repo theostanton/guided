@@ -4,8 +4,6 @@ import {
   FlagNameValues,
   Grid,
   Header,
-  Icon,
-  Label,
   List,
   Popup,
   ListItem,
@@ -17,13 +15,11 @@ import * as React from "react"
 import randomKey from "utils/randomKey"
 import ReactMapGL from "react-map-gl"
 import WebMercatorViewport from "viewport-mercator-project"
-import { RideLine } from "../../Map/RideLine"
 import { navigate } from "@reach/router"
-import { log } from "../../../utils/logger"
 import { CSSProperties, ReactElement } from "react"
-import GuideHeader from "../Guide/Header"
 import { client } from "../../../api"
 import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
+import { GuideItemRideLine } from "./GuideItemRideLine"
 
 type Props = {
   isOwner: boolean
@@ -184,21 +180,6 @@ export default class GuideItem extends React.Component<Props, State> {
         </Button>
       </ButtonGroup>
     </Card.Content>
-
-    // return <ButtonGroup floated={"right"}>
-    //   <Button icon='trash' loading={isDeleting} onClick={async () => {
-    //     this.setState({
-    //       deleting: true,
-    //     })
-    //     const variables: DeleteGuideMutationVariables = {
-    //       guideId: this.props.guide.id,
-    //     }
-    //     await client.mutate({
-    //       mutation: DeleteGuideDocument,
-    //       variables,
-    //     })
-    //   }}/>
-    // </ButtonGroup>
   }
 
   map(): React.ReactElement {
@@ -209,7 +190,7 @@ export default class GuideItem extends React.Component<Props, State> {
 
     function rideLines(): React.ReactElement[] {
       return guide.rides.nodes.map(ride => {
-        return <RideLine ride={ride} state={"none"}/>
+        return <GuideItemRideLine ride={ride} state={"none"}/>
       })
     }
 
@@ -260,8 +241,8 @@ export default class GuideItem extends React.Component<Props, State> {
         })
       }}>
       {this.header()}
-      {this.stats()}
       {this.map()}
+      {this.stats()}
       {this.footer()}
     </Card>
   }

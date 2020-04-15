@@ -25,6 +25,7 @@ type State = {
   viewport?: ViewPort
   selectedRideId?: string
   selectedSpotId?: string
+  dragging: boolean
 };
 
 type Props = {
@@ -36,7 +37,9 @@ type Props = {
 @observer
 export default class Map extends Component<Props, State> {
 
-  state: State = {}
+  state: State = {
+    dragging: false,
+  }
 
   get guideStore(): GuideStore {
     return this.props.guideStore!
@@ -179,7 +182,6 @@ export default class Map extends Component<Props, State> {
     let onClick
     if (guide && this.props.guideStore.isOwner) {
       onClick = (async (event) => {
-        logObject(event, "event")
         const variables: AddStayFromLatLongMutationVariables = {
           guideId: guide.id,
           long: event.lngLat[0],

@@ -1,30 +1,20 @@
-import React, { CSSProperties } from "react"
+import React from "react"
 import { Layer, Source } from "react-map-gl"
-import { inject, observer } from "mobx-react"
-import GuideStore from "../../model/GuideStore"
 import { RIDE_COLOURS, RideColourStatus } from "utils/colours"
 import { RideFragment } from "api/generated"
 import { LinePaint } from "mapbox-gl"
 
 type Props = {
   ride: RideFragment
-  guideStore?: GuideStore
 }
 
-@inject("guideStore")
-@observer
-export class RideLine extends React.Component<Props> {
-
-  get status(): RideColourStatus {
-    return this.props.guideStore.rideStatus(this.props.ride.id)
-  }
+export class GuideItemRideLine extends React.Component<Props> {
 
   get paint(): LinePaint {
-    const status = this.status
     return {
-      "line-color": RIDE_COLOURS[status],
-      "line-width": 5,
-      "line-opacity": status === "dim" ? 0.5 : 1.0,
+      "line-color": RIDE_COLOURS["none"],
+      "line-width": 3,
+      "line-opacity": 1.0,
     }
   }
 

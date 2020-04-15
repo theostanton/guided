@@ -16,10 +16,21 @@ type Props = {
   guideStore?: GuideStore
 }
 
+type State = {
+  dragging: boolean
+}
+
 
 @inject("guideStore")
 @observer
-export class Markers extends React.Component<Props, {}> {
+export class Markers extends React.Component<Props, State> {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      dragging: false,
+    }
+  }
 
   get guideStore(): GuideStore {
     return this.props.guideStore!
@@ -68,6 +79,10 @@ export class Markers extends React.Component<Props, {}> {
 
     const onDragEnd = (async (args) => {
       await this.moveSpot(spot.id, args.lngLat[1], args.lngLat[0])
+
+      this.setState({
+        dragging: false,
+      })
     })
 
     const SIZE = 40
@@ -81,6 +96,11 @@ export class Markers extends React.Component<Props, {}> {
                    draggable={isOwner}
                    offsetLeft={-SIZE / 2}
                    offsetTop={-SIZE / 2}
+                   onDragStart={() => {
+                     this.setState({
+                       dragging: true,
+                     })
+                   }}
                    onDragEnd={onDragEnd}
     >
       <svg style={{ width: SIZE, height: SIZE }}
@@ -91,7 +111,9 @@ export class Markers extends React.Component<Props, {}> {
              this.guideStore.unhighlight()
            }}
            onClick={() => {
-             this.guideStore.selectSpot(spot.id)
+             if (!this.state.dragging) {
+               this.guideStore.selectSpot(spot.id)
+             }
            }}>
         <circle cx={SIZE / 2}
                 cy={SIZE / 2}
@@ -100,7 +122,10 @@ export class Markers extends React.Component<Props, {}> {
                 stroke={this.stroke(status)}
                 strokeWidth={5}/>
         {position &&
-        <text x={SIZE / 2} y={SIZE / 2} fill={this.stroke(status)} dy=".33em"
+        <text x={SIZE / 2}
+              y={SIZE / 2}
+              fill={this.stroke(status)}
+              dy=".33em"
               textAnchor="middle">{position}</text>
         }
       </svg>

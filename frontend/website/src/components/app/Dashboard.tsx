@@ -42,8 +42,8 @@ export default class DashboardComponent extends React.Component<Props, State> {
     }
 
     //TODO learn css
-    return <Grid columns={2}>
-      <Grid.Column>
+    return <Grid style={{ marginTop: "1em" }}>
+      <Grid.Column width={9}>
         <Grid columns={2}>
           <Grid.Column verticalAlign={"bottom"}>
             <Header as={"h1"}>My guides</Header>
@@ -56,8 +56,7 @@ export default class DashboardComponent extends React.Component<Props, State> {
         </Grid>
         <GuidesList owner={this.props.authStore.owner}/>
       </Grid.Column>
-      <Grid.Column style={listStyle}>
-
+      <Grid.Column style={listStyle} width={7}>
         <Header as={"h1"}>Feed</Header>
         <Feed/>
         <Header as={"h1"}>Following</Header>
