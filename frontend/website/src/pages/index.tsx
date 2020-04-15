@@ -41,6 +41,8 @@ export default class RootComponent extends React.Component<Props> {
             <Account path="/account"/>
             <Profile path="/:owner"/>
             <Guide path="/:owner/:slug"/>
+            <Guide path="/:owner/:slug/ride/:rideId"/>
+            <Guide path="/:owner/:slug/spot/:spotId"/>
             <Dashboard default path="*"/>
           </Router>
         </Container>

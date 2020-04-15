@@ -8,7 +8,7 @@ import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import { Rides } from "./Rides"
 import WebMercatorViewport from "viewport-mercator-project"
-import { log, logJson } from "utils/logger"
+import { log, logJson, logObject } from "utils/logger"
 import { Segment } from "semantic-ui-react"
 
 type ViewPort = {
@@ -179,6 +179,7 @@ export default class Map extends Component<Props, State> {
     let onClick
     if (guide && this.props.guideStore.isOwner) {
       onClick = (async (event) => {
+        logObject(event, "event")
         const variables: AddStayFromLatLongMutationVariables = {
           guideId: guide.id,
           long: event.lngLat[0],
@@ -211,7 +212,7 @@ export default class Map extends Component<Props, State> {
             this.setState({ viewport })
           }
         }}
-
+        clickRadius={20}
         onClick={onClick}
       >
         {guide && <Rides/>}

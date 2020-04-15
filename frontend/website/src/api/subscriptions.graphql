@@ -173,7 +173,6 @@ fragment UserInfo on User{
     }
 }
 
-
 subscription Followers($username:String!){
     follows(condition: {followed:$username }){
         nodes{
@@ -183,6 +182,7 @@ subscription Followers($username:String!){
         }
     }
 }
+
 subscription Following($username:String!){
     follows(condition: {follower:$username }){
         nodes{

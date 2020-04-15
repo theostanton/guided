@@ -7,11 +7,12 @@ import {
   SpotFragment,
   StageFragment,
 } from "api/generated"
-import { log, logError, logObject } from "utils/logger"
+import { log, logError } from "utils/logger"
 import { ZenObservable } from "zen-observable-ts/lib/types"
 import { subscriptionClient } from "api/client"
 import client from "api/client"
 import { FetchResult } from "apollo-boost"
+import { RideColourStatus, SpotColourStatus } from "utils/colours"
 
 export default class GuideStore {
 
@@ -62,6 +63,16 @@ export default class GuideStore {
       return "ride"
     }
     if (this.selectedId?.startsWith("spot")) {
+      return "spot"
+    }
+  }
+
+  @computed
+  get highlightedType(): "ride" | "spot" | undefined {
+    if (this.highlightedId?.startsWith("ride")) {
+      return "ride"
+    }
+    if (this.highlightedId?.startsWith("spot")) {
       return "spot"
     }
   }
@@ -150,6 +161,47 @@ export default class GuideStore {
     if (highlightedSpot) {
       return highlightedSpot
     }
+  }
+
+  rideStatus(rideId: string): RideColourStatus {
+    switch (rideId) {
+      case this.highlightedId:
+        return "highlighted"
+      case this.selectedId:
+        return "selected"
+    }
+    if (this.highlightedId || this.selectedId) {
+      return "dim"
+    } else {
+      return "none"
+    }
+  }
+
+  spotStatus(spotId: string): SpotColourStatus | undefined {
+    if (this.highlightedType === "spot" || this.selectedType === "spot") {
+      switch (spotId) {
+        case this.highlightedId:
+          return "highlighted"
+        case this.selectedId:
+          return "selected"
+        default:
+          return "dim"
+      }
+    }
+
+    const ride = this.highlightedRide || this.selectedRide
+    if (ride) {
+      switch (spotId) {
+        case ride.fromSpot.id:
+          return "start"
+        case ride.toSpot.id:
+          return "end"
+        default:
+          return "dim"
+      }
+    }
+
+    return "none"
   }
 
   @computed

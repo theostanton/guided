@@ -3,11 +3,14 @@ import GuideStore from "model/GuideStore"
 import { inject, observer, Provider } from "mobx-react"
 import Content from "./content"
 
- import { RouteComponentProps } from "@reach/router"
+import { RouteComponentProps } from "@reach/router"
 import AuthStore from "model/AuthStore"
+import { log } from "../../../utils/logger"
 
 interface Props extends RouteComponentProps {
   slug?: string
+  spotId?: string
+  rideId?: string
   owner?: string
   guideId?: string
   authStore?: AuthStore
@@ -22,6 +25,7 @@ export default class GuideComponent extends React.Component<Props> {
 
   constructor(props) {
     super(props)
+    log("constructor()")
     const self = this.props.authStore.owner
     if (props.guideId) {
       this.guideStore = GuideStore.fromId(props.guideId!, self)
@@ -29,6 +33,12 @@ export default class GuideComponent extends React.Component<Props> {
       this.guideStore = GuideStore.fromSlug(props.owner!, props.slug!, self)
     } else {
       console.error("GuideComponent Need a slug+owner or id !")
+    }
+    if (this.props.spotId) {
+      this.guideStore.selectSpot(`spot_${this.props.spotId}`)
+    }
+    if (this.props.rideId) {
+      this.guideStore.selectSpot(`ride_${this.props.rideId}`)
     }
   }
 

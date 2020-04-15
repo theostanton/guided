@@ -22,6 +22,7 @@ export default class StageList extends React.Component<Props> {
 
   generateListItems(): ReactElement[] {
 
+
     const stages = this.guideStore.stages
 
     if (stages.length === 0) {
@@ -43,7 +44,7 @@ export default class StageList extends React.Component<Props> {
       } else {
         const { fromSpot } = stage
         items.push(<SpotItem key={`${fromSpot.id}`} spot={fromSpot} guideStore={this.guideStore}/>)
-        items.push(<LoadingStageItem key={stage.id} stage={stage}/>)
+        items.push(<RideItem ride={null} guideStore={this.guideStore}/>)
       }
     })
 
@@ -65,15 +66,10 @@ export default class StageList extends React.Component<Props> {
       overflowY: "scroll",
       maxHeight: "35em",
     }
-    return <Segment
-      style={style}>
-      <List items={items}
-            style={listStyle}
-            celled={true}
-            padded={true}
-            selection={true}
-            relaxed={true}
-      /></Segment>
+    return <List
+      items={items}
+      style={listStyle}
+    />
   }
 
 }

@@ -1,12 +1,14 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import { Layer, Source } from "react-map-gl"
+import { inject, observer } from "mobx-react"
+import GuideStore from "../../model/GuideStore"
+import { RIDE_COLOURS, RideColourStatus } from "utils/colours"
+import { RideFragment } from "api/generated"
+import { LinePaint } from "mapbox-gl"
 
 type Props = {
-  ride: {
-    id: string,
-    pathUrl: string
-  }
-  state: LineState
+  ride: RideFragment
+  guideStore?: GuideStore
 }
 
 type Style = {
@@ -16,56 +18,34 @@ type Style = {
   }
 }
 
-export type LineState = "selected" | "highlighted" | "unfocused" | "none";
-
+@inject("guideStore")
+@observer
 export class RideLine extends React.Component<Props> {
 
-  get style(): Style {
-    switch (this.props.state) {
-      case "selected":
-        return {
-          paint: {
-            "line-color": "#000000",
-            "line-width": 5,
-          },
-        }
-      case "highlighted":
-        return {
-          paint: {
-            "line-color": "#555555",
-            "line-width": 5,
-          },
-        }
-      case "unfocused":
-        return {
-          paint: {
-            "line-color": "#555555",
-            "line-width": 1,
-          },
-        }
-      case "none":
-        return {
-          paint: {
-            "line-color": "#b25757",
-            "line-width": 5,
-          },
-        }
-    }
-
+  get status(): RideColourStatus {
+    return this.props.guideStore.rideStatus(this.props.ride.id)
   }
 
-  render(): React.ReactNode {
+  get paint(): LinePaint {
+    const status = this.status
+    return {
+      "line-color": RIDE_COLOURS[status],
+      "line-width": 5,
+      "line-opacity": status === "dim" ? 0.5 : 1.0,
+    }
+  }
+
+  render(): React.ReactElement {
     const ride = this.props.ride
     if (!ride.pathUrl) {
-      return []
+      return null
     }
     const layerId = `ride-layer-${ride.id}`
     const sourceId = `ride-source-${ride.id}`
     return (
-      [
-        <Source key={sourceId} id={sourceId} type='geojson' data={ride.pathUrl}/>,
-        <Layer key={layerId} type={"line"} source={sourceId} {...this.style}/>,
-      ]
+      <Source key={sourceId} id={sourceId} type='geojson' data={ride.pathUrl}>
+        <Layer key={layerId} paint={this.paint} type={"line"}/>
+      </Source>
     )
   }
 }

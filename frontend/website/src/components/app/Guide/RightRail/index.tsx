@@ -24,24 +24,24 @@ export default class RightRailComponent extends React.Component<Props> {
 
   contents(): React.ReactElement {
 
-    const isOwner = this.guideStore.isOwner
-    const selectedSpot = this.guideStore.selectedSpot
-    const selectedRide = this.guideStore.selectedRide
-
-
-    if (selectedSpot) {
-      return <SpotDetail spot={selectedSpot} isOwner={isOwner} close={() => {
-        this.guideStore.unselect()
-      }}/>
-    }
-
-    if (selectedRide) {
-      return <RideDetail ride={selectedRide}  guideStore={this.guideStore} close={() => {
-        this.guideStore.unselect()
-      }}/>
-    }
-
     if (this.props.guideStore.guide) {
+      const isOwner = this.guideStore.isOwner
+      const selectedSpot = this.guideStore.selectedSpot
+      const selectedRide = this.guideStore.selectedRide
+
+
+      if (selectedSpot) {
+        return <SpotDetail spot={selectedSpot} isOwner={isOwner} close={() => {
+          this.guideStore.unselect()
+        }}/>
+      }
+
+      if (selectedRide) {
+        return <RideDetail ride={selectedRide} guideStore={this.guideStore} close={() => {
+          this.guideStore.unselect()
+        }}/>
+      }
+
       return <StageList/>
     }
 
@@ -49,13 +49,13 @@ export default class RightRailComponent extends React.Component<Props> {
 
   render(): React.ReactElement {
 
-    const style:CSSProperties={
+    const style: CSSProperties = {
       // overflowY: "scroll",
       // height: "100%",
       // maxHeight: "2em",
-      padding:0,
-      margin:0,
-      backgroundColor: "#ffffff"
+      padding: 0,
+      margin: 0,
+      backgroundColor: "#ffffff",
     }
     return <Segment style={style} padded={false}>
       {this.guideStore && this.contents.bind(this)()}
