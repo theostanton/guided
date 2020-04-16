@@ -139,7 +139,6 @@ export default class SearchResult extends React.Component<Props> {
 
   render(): ReactElement {
     const result = this.props.result
-    logJson(result.status, "result.status")
 
     return <div style={{ marginTop: "2em", paddingBottom: "5em" }}>
 

@@ -96,7 +96,6 @@ export default class GuideItem extends React.Component<Props, State> {
 
     const guide = this.props.guide
 
-
     function flags(): ReactElement {
       const items = guide.countries.map(country => {
         const countryName = humanCountry(country)

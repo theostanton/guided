@@ -77,8 +77,8 @@ export default class RideItem extends React.Component<Props> {
           ...styles.content,
           alignSelf: "center",
         }}>
-          <Header>{humanDistance(ride.distanceMeters, true)}</Header>
-          <Header>{humanDuration(ride.durationSeconds, true)}</Header>
+          {ride && <Header>{humanDistance(ride.distanceMeters, true)}</Header>}
+          {ride && <Header>{humanDuration(ride.durationSeconds, true)}</Header>}
         </div>
       </div>
 

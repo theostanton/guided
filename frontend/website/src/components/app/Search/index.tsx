@@ -93,7 +93,7 @@ export default class SearchComponent extends React.Component<Props> {
 
   renderHeader(): ReactElement {
     return <Grid columns={"equal"}>
-      <GridColumn>
+      <GridColumn width={6}>
         <Input
           fluid
           icon='search'
@@ -103,7 +103,7 @@ export default class SearchComponent extends React.Component<Props> {
           onChange={this.onQueryChange.bind(this)}
         />
       </GridColumn>
-      <GridColumn>
+      <GridColumn >
         <Dropdown
           fluid
           selection

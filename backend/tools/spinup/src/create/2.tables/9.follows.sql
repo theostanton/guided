@@ -6,7 +6,8 @@ create table follows
             on delete cascade,
     follower  varchar(64) not null
         constraint follows_fk
-            references users,
+            references users
+            on delete cascade,
     timestamp timestamp   not null
 );
 
