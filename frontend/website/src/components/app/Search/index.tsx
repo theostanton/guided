@@ -1,5 +1,5 @@
 import AuthStore from "model/AuthStore"
-import { inject } from "mobx-react"
+import { inject, observer } from "mobx-react"
 import * as React from "react"
 import {
   Dropdown,
@@ -8,286 +8,146 @@ import {
   Grid,
   GridColumn,
   Input,
-  Message,
-  Segment,
-  Card, Pagination, Header,
 } from "semantic-ui-react"
 import { RouteComponentProps } from "@reach/router"
 import { COUNTRIES } from "utils/human"
-import { log, logJson, logObject } from "utils/logger"
-import { client } from "api"
-import { GuideInfoFragment, SearchGuidesDocument, SearchGuidesQuery, SearchGuidesQueryVariables } from "api/generated"
-import GuideItem from "../Guides/GuideItem"
-import AwesomeDebouncePromise from "awesome-debounce-promise"
-
-type Type = "user" | "guide" | "ride"
-
-const PER_PAGE = 8
+import SearchStore, { SearchType } from "model/SearchStore"
+import SearchResult from "./SearchResult"
+import { ReactElement, ReactNode } from "react"
 
 interface Props extends RouteComponentProps {
   authStore?: AuthStore
-}
-
-type State = {
-  loadingQuery: boolean
-  loadingCountries: boolean
-  loadingPage: boolean
-  countryQuery: string
-  type: Type
-  results: readonly GuideInfoFragment[] | undefined
-  error: string
-  parameters: Parameters
-  totalCount: number
+  searchStore?: SearchStore
 }
 
 type DropdownOption = {
   key: string,
   text: React.ReactElement | string,
   value: string,
+  order?: string
   image?: React.ReactElement
 }
 
-const COUNTRY_OPTIONS: DropdownOption[] = Object.keys(COUNTRIES).map(key => {
-  const name = COUNTRIES[key]
-  return {
-    key,
-    text: name,
-    image: <Flag name={key.toLowerCase() as FlagNameValues}/>,
-    value: key,
-  }
-})
+function countryOptions(countryCodes: string[]): DropdownOption[] {
+  return countryCodes.map(code => {
+    const name = COUNTRIES[code]
+    return {
+      key: code,
+      text: name,
+      order: name,
+      image: <Flag name={code.toLowerCase() as FlagNameValues}/>,
+      value: code,
+    }
+  }).sort((a, b) => {
+    return a.order?.localeCompare(b.order)
+  })
+}
 
 const TYPE_OPTIONS: DropdownOption[] = [
   {
-    key: "user",
+    key: "all",
+    text: "All",
+    value: "all",
+  },
+  {
+    key: "users",
     text: "Users",
-    value: "user",
+    value: "users",
   },
   {
-    key: "guide",
+    key: "guides",
     text: "Guides",
-    value: "guide",
+    value: "guides",
   },
   {
-    key: "ride",
+    key: "rides",
     text: "Rides",
-    value: "ride",
+    value: "rides",
   },
 
 ]
 
-type Parameters = {
-  query: string
-  page: number
-  countryCodes: string[]
-}
+@inject("authStore", "searchStore")
+@observer
+export default class SearchComponent extends React.Component<Props> {
 
-@inject("authStore")
-export default class SearchComponent extends React.Component<Props, State> {
-
-  private debouncedQuery: (parameters: Parameters) => Promise<void>
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      loadingQuery: true,
-      loadingCountries: true,
-      loadingPage: true,
-      countryQuery: "",
-      type: "guide",
-      results: undefined,
-      error: undefined,
-      totalCount: 0,
-      parameters: {
-        page: 0,
-        countryCodes: [],
-        query: "",
-      },
-    }
-
-    this.debouncedQuery = AwesomeDebouncePromise(
-      this.query.bind(this),
-      500,
-      {
-        accumulate: false,
-        onlyResolvesLast: true,
-      },
-    )
+  get searchStore(): SearchStore {
+    return this.props.searchStore!
   }
 
-
-  async handleDropdownChange(_: any, { value }: { value: string[] }) {
-    const parameters = {
-      ...this.state.parameters,
-      countryCodes: value,
-    }
-    this.setState({
-      parameters,
-      loadingCountries: true,
-    })
-    await this.debouncedQuery(parameters)
-
+  async handleCountryChange(_: any, { value }: { value: string[] }) {
+    await this.searchStore.updateCountries(value)
   }
 
-  handleSearchChange(_: any, { searchQuery }: { searchQuery: string }) {
-    this.setState({
-      countryQuery: searchQuery,
-    })
+  async handleTypeChange(_: any, { value }: { value: SearchType }) {
+    await this.searchStore.updateType(value)
   }
 
   async onQueryChange(_: any, { value }: { value: string }) {
-    const parameters = {
-      ...this.state.parameters,
-      query: value,
-    }
-    this.setState({
-      parameters,
-      loadingQuery: true,
-    })
-    await this.debouncedQuery(parameters)
+    await this.searchStore.updateContentQuery(value)
   }
 
   async componentDidMount() {
-    await this.query({
-      query: "",
-      countryCodes: [],
-      page: 0,
-    })
+    await this.searchStore.refetch()
   }
 
-  async query(parameters: Parameters) {
-    logJson(parameters, "query()")
-    this.setState({
-      parameters,
-    })
-    const variables: SearchGuidesQueryVariables = {
-      query: `%${parameters.query}%`,
-      offset: parameters.page * PER_PAGE,
-      pageSize: PER_PAGE,
-      countries: parameters.countryCodes,
-    }
-    const result = await client.query<SearchGuidesQuery>({
-      query: SearchGuidesDocument,
-      variables,
-    })
+  renderHeader(): ReactElement {
+    return <Grid columns={"equal"}>
+      <GridColumn>
+        <Input
+          fluid
+          icon='search'
+          iconPosition='left'
+          placeholder='Search'
+          loading={this.searchStore.loading.query}
+          onChange={this.onQueryChange.bind(this)}
+        />
+      </GridColumn>
+      <GridColumn>
+        <Dropdown
+          fluid
+          selection
+          multiple
+          options={countryOptions(this.searchStore.availableCountryCodes)}
+          placeholder='Countries'
+          closeOnChange
+          loading={this.searchStore.loading.countries}
+          onChange={this.handleCountryChange.bind(this)}
+          search
+        />
+      </GridColumn>
+      <GridColumn width={3}>
+        <Dropdown
+          fluid
+          selection
+          options={TYPE_OPTIONS}
+          placeholder='Type'
+          value={this.searchStore.type || "all"}
+          loading={this.searchStore.loading.type}
+          onChange={this.handleTypeChange.bind(this)}
+        />
+      </GridColumn>
+    </Grid>
+  }
 
-    if (result.errors) {
-      this.setState({
-        results: undefined,
-        parameters,
-        loadingQuery: false,
-        loadingPage: false,
-        loadingCountries: false,
-        error: result.errors.map(error => {
-          return error.message
-        }).join("\n"),
-      })
+  renderResults(): ReactNode | undefined {
+    if (this.searchStore.type) {
+      return <SearchResult type={this.searchStore.type}
+                           result={this.searchStore.results[this.searchStore.type]}
+                           itemsPerRow={2}/>
     } else {
-      this.setState({
-        error: undefined,
-        parameters,
-        loadingQuery: false,
-        loadingPage: false,
-        loadingCountries: false,
-        results: result.data.guides.nodes,
-        totalCount: result.data.guides.totalCount,
+      return ["guides", "rides", "users"].map((type) => {
+        return <SearchResult type={type as SearchType}
+                             result={this.searchStore.results[type]}
+                             itemsPerRow={2}/>
       })
     }
   }
-
-  listItems(): React.ReactElement[] | undefined {
-    if (this.state.results) {
-      if (this.state.results.length > 0) {
-        return this.state.results.map(guide => {
-          return <GuideItem isOwner={this.props.authStore.owner === guide.owner} guide={guide}/>
-        })
-      } else {
-        return [<Segment textAlign={"center"}><Header>No results</Header></Segment>]
-      }
-    }
-  }
-
 
   render(): React.ReactElement {
-    logJson(this.state.totalCount, "totalCount")
     return <div>
-      <Grid columns={"equal"}>
-        <GridColumn>
-          <Input
-            fluid
-            icon='search'
-            iconPosition='left'
-            placeholder='Search'
-            loading={this.state.loadingQuery}
-            onChange={this.onQueryChange.bind(this)}
-          />
-        </GridColumn>
-        <GridColumn>
-          <Dropdown
-            fluid
-            selection
-            multiple
-            options={COUNTRY_OPTIONS}
-            placeholder='Countries'
-            loading={this.state.loadingCountries}
-            onChange={this.handleDropdownChange.bind(this)}
-            search
-            onSearchChange={this.handleSearchChange.bind(this)}
-          />
-        </GridColumn>
-        <GridColumn width={3}>
-          <Dropdown
-            fluid
-            selection
-            options={TYPE_OPTIONS}
-            placeholder='Type'
-            value={this.state.type}
-            onChange={this.handleDropdownChange.bind(this)}
-            search
-            onSearchChange={this.handleSearchChange.bind(this)}
-          />
-        </GridColumn>
-      </Grid>
-
-      <Segment style={{ minHeight: 200 }} basic compact>
-
-        {this.state.error && <Message error>{this.state.error}</Message>}
-
-        <div style={{
-          display: "block",
-        }}>
-          <Pagination totalPages={Math.ceil(this.state.totalCount / PER_PAGE)}
-                      style={{
-                        marginBottom: "1em",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                      }}
-                      onPageChange={async (_, props) => {
-                        const page = parseInt(props.activePage.toString())
-                        const parameters = {
-                          ...this.state.parameters,
-                          page,
-                        }
-                        this.setState({
-                          parameters,
-                          loadingPage: true,
-                        })
-                        await this.debouncedQuery(parameters)
-                      }}
-                      siblingRange={2}
-                      ellipsisItem
-                      firstItem={null}
-                      lastItem={null}
-                      defaultActivePage={this.state.parameters.page}
-                      disabled={this.state.loadingPage}
-                      boundaryRange={3}
-          />
-        </div>
-
-        <Card.Group itemsPerRow={2}
-                    children={this.listItems()}
-        />
-      </Segment>
+      {this.renderHeader()}
+      {this.renderResults()}
     </div>
   }
 

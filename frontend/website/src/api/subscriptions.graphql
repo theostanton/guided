@@ -1,6 +1,3 @@
-fragment GuideIDs on Guide{
-    id
-}
 
 subscription GuideIDs($owner:String!){
     guides(
@@ -14,44 +11,8 @@ subscription GuideIDs($owner:String!){
     }
 }
 
-fragment GuideFeedItem on Guide {
+fragment GuideIDs on Guide{
     id
-    title
-    slug
-    startDate
-    updated
-    created
-    owner:userByOwner{
-        username
-        colour
-    }
-    rides:ridesByGuide{
-        nodes{
-            distanceMeters
-            durationSeconds
-        }
-    }
-    stages:stagesByGuide{
-        totalCount
-    }
-    spots:spotsByGuide{
-        totalCount
-        nodes{
-            nights
-        }
-    }
-}
-
-fragment FollowFeedItem on Follow{
-    followed:userByFollowed{
-        username
-        colour
-    }
-    follower:userByFollower{
-        username
-        colour
-    }
-    created:timestamp
 }
 
 subscription Feed{
@@ -78,98 +39,11 @@ subscription Feed{
     }
 }
 
-fragment Spot on Spot{
-    id
-    label
-    lat
-    name
-    long
-    locked
-    location
-    position
-    date
-    temperature
-    country
-    nights
-}
-
-fragment Ride on Ride{
-    id
-    position
-    status
-    toSpot:spotByToSpot{
-        ...Spot
-    }
-    fromSpot:spotByFromSpot{
-        ...Spot
-    }
-    pathUrl
-    hasBorder
-    name
-    date
-    distanceMeters
-    durationSeconds
-}
-
-fragment Stage on Stage {
-    id
-    position
-    status
-    name
-    toSpot:spotByToSpot{
-        ...Spot
-    }
-    fromSpot:spotByFromSpot{
-        ...Spot
-    }
-    ridesByStage(orderBy: [POSITION_ASC]){
-        nodes{
-            ...Ride
-        }
-    }
-}
-
-fragment Guide on Guide {
-    id
-    slug
-    owner
-    startDate
-    title
-    maxHoursPerRide
-    firstSpot:spotsByGuide(filter: {position: {equalTo: "0.0"}}){
-        nodes{
-            ...Spot
-        }
-    }
-    stages:stagesByGuide(orderBy: POSITION_ASC){
-        nodes{
-            ...Stage
-        }
-    }
-}
-
 subscription GuideStages($id: String!){
     guide(
         id: $id
     ){
         ...Guide
-    }
-}
-
-fragment UserInfo on User{
-    username
-    colour
-    following:followsByFollower{
-        totalCount
-    }
-    followers:followsByFollowed{
-        totalCount
-    }
-    rides:ridesByOwner{
-        totalCount
-    }
-    guides:guidesByOwner{
-        totalCount
     }
 }
 

@@ -1738,6 +1738,7 @@ export type Query = Node & {
   readonly stage?: Maybe<Stage>;
   readonly temperature?: Maybe<Temperature>;
   readonly user?: Maybe<User>;
+  readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly getCurrentUser?: Maybe<Scalars['JwtToken']>;
   /** Reads a single `Computation` using its globally unique `ID`. */
   readonly computationByNodeId?: Maybe<Computation>;
@@ -2014,6 +2015,7 @@ export type Ride = Node & {
   readonly spotByToSpot?: Maybe<Spot>;
   /** Reads a single `Stage` that is related to this `Ride`. */
   readonly stageByStage?: Maybe<Stage>;
+  readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly hasBorder?: Maybe<Scalars['Boolean']>;
   readonly isMine?: Maybe<Scalars['Boolean']>;
   readonly name?: Maybe<Scalars['String']>;
@@ -2081,6 +2083,8 @@ export type RideFilter = {
   readonly created?: Maybe<DatetimeFilter>;
   /** Filter by the object’s `updated` field. */
   readonly updated?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `countries` field. */
+  readonly countries?: Maybe<StringListFilter>;
   /** Filter by the object’s `hasBorder` field. */
   readonly hasBorder?: Maybe<BooleanFilter>;
   /** Filter by the object’s `isMine` field. */
@@ -2866,6 +2870,8 @@ export type Subscription = {
   readonly temperature?: Maybe<Temperature>;
   /**  (live) */
   readonly user?: Maybe<User>;
+  /**  (live) */
+  readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   /**  (live) */
   readonly getCurrentUser?: Maybe<Scalars['JwtToken']>;
   /** Reads a single `Computation` using its globally unique `ID`. (live) */
@@ -4966,6 +4972,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageArgs, 'id'>>,
   temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureArgs, 'id'>>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'username'>>,
+  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
   getCurrentUser?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
   computationByNodeId?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType, RequireFields<QueryComputationByNodeIdArgs, 'nodeId'>>,
   guideByNodeId?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideByNodeIdArgs, 'nodeId'>>,
@@ -5012,6 +5019,7 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
   hasBorder?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -5129,6 +5137,7 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
   stage?: SubscriptionResolver<Maybe<ResolversTypes['Stage']>, "stage", ParentType, ContextType, RequireFields<SubscriptionStageArgs, 'id'>>,
   temperature?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperature", ParentType, ContextType, RequireFields<SubscriptionTemperatureArgs, 'id'>>,
   user?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "user", ParentType, ContextType, RequireFields<SubscriptionUserArgs, 'username'>>,
+  countries?: SubscriptionResolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, "countries", ParentType, ContextType>,
   getCurrentUser?: SubscriptionResolver<Maybe<ResolversTypes['JwtToken']>, "getCurrentUser", ParentType, ContextType>,
   computationByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Computation']>, "computationByNodeId", ParentType, ContextType, RequireFields<SubscriptionComputationByNodeIdArgs, 'nodeId'>>,
   guideByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Guide']>, "guideByNodeId", ParentType, ContextType, RequireFields<SubscriptionGuideByNodeIdArgs, 'nodeId'>>,

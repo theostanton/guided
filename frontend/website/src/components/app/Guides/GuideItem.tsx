@@ -20,6 +20,7 @@ import { CSSProperties, ReactElement } from "react"
 import { client } from "../../../api"
 import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
 import { GuideItemRideLine } from "./GuideItemRideLine"
+import { generateViewport } from "../../Map/viewport"
 
 type Props = {
   isOwner: boolean
@@ -31,40 +32,8 @@ type State = {
   deleting: boolean
 }
 
-
-type ViewPort = {
-  latitude: number,
-  longitude: number,
-  zoom: number
-}
-
 const HEIGHT = 300
 
-function generateViewport(bounds: Bound): ViewPort {
-
-  const viewport = new WebMercatorViewport({
-    height: HEIGHT,
-    width: HEIGHT,
-  }).fitBounds(
-    [
-      [bounds.west!, bounds.south!], [
-      bounds.east!, bounds.north!]],
-    {
-      padding: {
-        right: 20,
-        top: 20,
-        bottom: 20,
-        left: 20,
-      },
-    },
-  )
-
-  return {
-    latitude: viewport.latitude,
-    longitude: viewport.longitude,
-    zoom: viewport.zoom,
-  }
-}
 
 export default class GuideItem extends React.Component<Props, State> {
 
@@ -155,38 +124,45 @@ export default class GuideItem extends React.Component<Props, State> {
 
   footer(): ReactElement {
 
-    const style: CSSProperties = {
-      padding: 0,
-    }
-    return <Card.Content style={style} extra>
-      <ButtonGroup attached={"bottom"} compact>
-        <Button color={"green"}>
-          Share
-        </Button>
-        <Button color={"orange"} icon loading={this.state.deleting} onClick={async () => {
-          this.setState({
-            deleting: true,
-          })
-          const variables: DeleteGuideMutationVariables = {
-            guideId: this.props.guide.id,
+    if (this.props.isOwner) {
+      const style: CSSProperties = {
+        padding: 0,
+      }
+      return <Card.Content style={style} extra>
+        <ButtonGroup attached={"bottom"} compact>
+          <Button color={"green"}>
+            Share
+          </Button>
+          <Button color={"orange"} icon loading={this.state.deleting} onClick={async () => {
+            this.setState({
+              deleting: true,
+            })
+            const variables: DeleteGuideMutationVariables = {
+              guideId: this.props.guide.id,
+            }
+            await client.mutate({
+              mutation: DeleteGuideDocument,
+              variables,
+            })
           }
-          await client.mutate({
-            mutation: DeleteGuideDocument,
-            variables,
-          })
-        }
-        }>
-          Delete
-        </Button>
-      </ButtonGroup>
-    </Card.Content>
+          }>
+            Delete
+          </Button>
+        </ButtonGroup>
+      </Card.Content>
+    }
   }
 
   map(): React.ReactElement {
 
     const guide = this.props.guide
 
-    const viewport = guide.bounds ? generateViewport(guide.bounds) : {}
+    const viewport = guide.bounds ? generateViewport(guide.bounds, HEIGHT, HEIGHT, {
+      top: 20,
+      left: 20,
+      bottom: 20,
+      right: 20,
+    }) : {}
 
     function rideLines(): React.ReactElement[] {
       return guide.rides.nodes.map(ride => {

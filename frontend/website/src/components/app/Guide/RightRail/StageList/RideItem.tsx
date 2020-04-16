@@ -52,7 +52,6 @@ export default class RideItem extends React.Component<Props> {
 
     const { ride, guideStore } = this.props
     const key = ride ? ride.id : randomKey()
-    const isSelected = guideStore.selectedId === key
     return <div
       key={key}
       style={styles.parent}

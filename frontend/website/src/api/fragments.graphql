@@ -1,0 +1,171 @@
+fragment UserInfo on User{
+    __typename
+    username
+    colour
+    created
+    countries
+    distanceMeters
+    durationSeconds
+    followingStatus
+    following:followsByFollower{
+        totalCount
+    }
+    followers:followsByFollowed{
+        totalCount
+    }
+    rides:ridesByOwner{
+        totalCount
+    }
+    guides:guidesByOwner{
+        totalCount
+    }
+}
+
+fragment GuideInfo on Guide{
+    __typename
+    id
+    title
+    slug
+    startDate
+    owner
+    created
+    durationSeconds
+    distanceMeters
+    countries
+    bounds{
+        east
+        north
+        south
+        west
+    }
+    rides:ridesByGuide{
+        totalCount
+        nodes{
+            id
+            pathUrl
+            date
+        }
+    }
+    spots:spotsByGuide{
+        totalCount
+    }
+}
+
+
+
+fragment Ride on Ride{
+    __typename
+    id
+    position
+    status
+    toSpot:spotByToSpot{
+        ...Spot
+    }
+    fromSpot:spotByFromSpot{
+        ...Spot
+    }
+    countries
+    guide
+    owner
+    pathUrl
+    hasBorder
+    name
+    date
+    distanceMeters
+    durationSeconds
+    created
+}
+
+fragment Stage on Stage {
+    id
+    position
+    status
+    name
+    toSpot:spotByToSpot{
+        ...Spot
+    }
+    fromSpot:spotByFromSpot{
+        ...Spot
+    }
+    ridesByStage(orderBy: [POSITION_ASC]){
+        nodes{
+            ...Ride
+        }
+    }
+}
+
+fragment GuideFeedItem on Guide {
+    id
+    title
+    slug
+    startDate
+    updated
+    created
+    owner:userByOwner{
+        username
+        colour
+    }
+    rides:ridesByGuide{
+        nodes{
+            distanceMeters
+            durationSeconds
+        }
+    }
+    stages:stagesByGuide{
+        totalCount
+    }
+    spots:spotsByGuide{
+        totalCount
+        nodes{
+            nights
+        }
+    }
+}
+
+fragment FollowFeedItem on Follow{
+    followed:userByFollowed{
+        username
+        colour
+    }
+    follower:userByFollower{
+        username
+        colour
+    }
+    created:timestamp
+}
+
+
+fragment Spot on Spot{
+    id
+    label
+    lat
+    name
+    long
+    locked
+    location
+    position
+    date
+    temperature
+    country
+    nights
+}
+
+
+fragment Guide on Guide {
+    id
+    slug
+    owner
+    startDate
+    title
+    maxHoursPerRide
+    firstSpot:spotsByGuide(filter: {position: {equalTo: "0.0"}}){
+        nodes{
+            ...Spot
+        }
+    }
+    stages:stagesByGuide(orderBy: POSITION_ASC){
+        nodes{
+            ...Stage
+        }
+    }
+}

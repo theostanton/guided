@@ -1744,6 +1744,7 @@ export type Query = Node & {
   readonly stage?: Maybe<Stage>;
   readonly temperature?: Maybe<Temperature>;
   readonly user?: Maybe<User>;
+  readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly getCurrentUser?: Maybe<Scalars['JwtToken']>;
   /** Reads a single `Computation` using its globally unique `ID`. */
   readonly computationByNodeId?: Maybe<Computation>;
@@ -2020,6 +2021,7 @@ export type Ride = Node & {
   readonly spotByToSpot?: Maybe<Spot>;
   /** Reads a single `Stage` that is related to this `Ride`. */
   readonly stageByStage?: Maybe<Stage>;
+  readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly hasBorder?: Maybe<Scalars['Boolean']>;
   readonly isMine?: Maybe<Scalars['Boolean']>;
   readonly name?: Maybe<Scalars['String']>;
@@ -2087,6 +2089,8 @@ export type RideFilter = {
   readonly created?: Maybe<DatetimeFilter>;
   /** Filter by the object’s `updated` field. */
   readonly updated?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `countries` field. */
+  readonly countries?: Maybe<StringListFilter>;
   /** Filter by the object’s `hasBorder` field. */
   readonly hasBorder?: Maybe<BooleanFilter>;
   /** Filter by the object’s `isMine` field. */
@@ -2872,6 +2876,8 @@ export type Subscription = {
   readonly temperature?: Maybe<Temperature>;
   /**  (live) */
   readonly user?: Maybe<User>;
+  /**  (live) */
+  readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   /**  (live) */
   readonly getCurrentUser?: Maybe<Scalars['JwtToken']>;
   /** Reads a single `Computation` using its globally unique `ID`. (live) */
@@ -4972,6 +4978,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageArgs, 'id'>>,
   temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureArgs, 'id'>>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'username'>>,
+  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
   getCurrentUser?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
   computationByNodeId?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType, RequireFields<QueryComputationByNodeIdArgs, 'nodeId'>>,
   guideByNodeId?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideByNodeIdArgs, 'nodeId'>>,
@@ -5018,6 +5025,7 @@ export type RideResolvers<ContextType = any, ParentType extends ResolversParentT
   spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
   stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
   hasBorder?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -5135,6 +5143,7 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
   stage?: SubscriptionResolver<Maybe<ResolversTypes['Stage']>, "stage", ParentType, ContextType, RequireFields<SubscriptionStageArgs, 'id'>>,
   temperature?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperature", ParentType, ContextType, RequireFields<SubscriptionTemperatureArgs, 'id'>>,
   user?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "user", ParentType, ContextType, RequireFields<SubscriptionUserArgs, 'username'>>,
+  countries?: SubscriptionResolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, "countries", ParentType, ContextType>,
   getCurrentUser?: SubscriptionResolver<Maybe<ResolversTypes['JwtToken']>, "getCurrentUser", ParentType, ContextType>,
   computationByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Computation']>, "computationByNodeId", ParentType, ContextType, RequireFields<SubscriptionComputationByNodeIdArgs, 'nodeId'>>,
   guideByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Guide']>, "guideByNodeId", ParentType, ContextType, RequireFields<SubscriptionGuideByNodeIdArgs, 'nodeId'>>,
@@ -5344,6 +5353,52 @@ export type Resolvers<ContextType = any> = {
 */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
+export type UserInfoFragment = (
+  { readonly __typename: 'User' }
+  & Pick<User, 'username' | 'colour' | 'created' | 'countries' | 'distanceMeters' | 'durationSeconds' | 'followingStatus'>
+  & { readonly following: Pick<FollowsConnection, 'totalCount'>, readonly followers: Pick<FollowsConnection, 'totalCount'>, readonly rides: Pick<RidesConnection, 'totalCount'>, readonly guides: Pick<GuidesConnection, 'totalCount'> }
+);
+
+export type GuideInfoFragment = (
+  { readonly __typename: 'Guide' }
+  & Pick<Guide, 'id' | 'title' | 'slug' | 'startDate' | 'owner' | 'created' | 'durationSeconds' | 'distanceMeters' | 'countries'>
+  & { readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>>, readonly rides: (
+    Pick<RidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'id' | 'pathUrl' | 'date'>>> }
+  ), readonly spots: Pick<SpotsConnection, 'totalCount'> }
+);
+
+export type RideFragment = (
+  { readonly __typename: 'Ride' }
+  & Pick<Ride, 'id' | 'position' | 'status' | 'countries' | 'guide' | 'owner' | 'pathUrl' | 'hasBorder' | 'name' | 'date' | 'distanceMeters' | 'durationSeconds' | 'created'>
+  & { readonly toSpot?: Maybe<SpotFragment>, readonly fromSpot?: Maybe<SpotFragment> }
+);
+
+export type StageFragment = (
+  Pick<Stage, 'id' | 'position' | 'status' | 'name'>
+  & { readonly toSpot?: Maybe<SpotFragment>, readonly fromSpot?: Maybe<SpotFragment>, readonly ridesByStage: { readonly nodes: ReadonlyArray<Maybe<RideFragment>> } }
+);
+
+export type GuideFeedItemFragment = (
+  Pick<Guide, 'id' | 'title' | 'slug' | 'startDate' | 'updated' | 'created'>
+  & { readonly owner?: Maybe<Pick<User, 'username' | 'colour'>>, readonly rides: { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'distanceMeters' | 'durationSeconds'>>> }, readonly stages: Pick<StagesConnection, 'totalCount'>, readonly spots: (
+    Pick<SpotsConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<Pick<Spot, 'nights'>>> }
+  ) }
+);
+
+export type FollowFeedItemFragment = (
+  { created: Follow['timestamp'] }
+  & { readonly followed?: Maybe<Pick<User, 'username' | 'colour'>>, readonly follower?: Maybe<Pick<User, 'username' | 'colour'>> }
+);
+
+export type SpotFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'name' | 'long' | 'locked' | 'location' | 'position' | 'date' | 'temperature' | 'country' | 'nights'>;
+
+export type GuideFragment = (
+  Pick<Guide, 'id' | 'slug' | 'owner' | 'startDate' | 'title' | 'maxHoursPerRide'>
+  & { readonly firstSpot: { readonly nodes: ReadonlyArray<Maybe<SpotFragment>> }, readonly stages: { readonly nodes: ReadonlyArray<Maybe<StageFragment>> } }
+);
+
 export type CreateGuideMutationVariables = {
   guide: GuideInput;
 };
@@ -5424,14 +5479,6 @@ export type GetGuideIdForSlugQuery = { readonly guides?: Maybe<{ readonly nodes:
       & { readonly ridesByGuide: Pick<RidesConnection, 'totalCount'>, readonly spotsByGuide: Pick<SpotsConnection, 'totalCount'>, readonly computationsByGuide: Pick<ComputationsConnection, 'totalCount'> }
     )>> }> };
 
-export type GuideInfoFragment = (
-  Pick<Guide, 'id' | 'title' | 'slug' | 'startDate' | 'owner' | 'created' | 'durationSeconds' | 'distanceMeters' | 'countries'>
-  & { readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>>, readonly rides: (
-    Pick<RidesConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'id' | 'pathUrl' | 'date'>>> }
-  ), readonly spots: Pick<SpotsConnection, 'totalCount'> }
-);
-
 export type GuideStagesPublicQueryVariables = {
   id: Scalars['String'];
 };
@@ -5446,25 +5493,12 @@ export type GuideInfosQueryVariables = {
 
 export type GuideInfosQuery = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }> };
 
-export type ProfileFragment = (
-  Pick<User, 'colour' | 'username' | 'created' | 'countries' | 'distanceMeters' | 'durationSeconds' | 'followingStatus'>
-  & { readonly followers: Pick<FollowsConnection, 'totalCount'>, readonly following: Pick<FollowsConnection, 'totalCount'>, readonly guides: (
-    Pick<GuidesConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'distanceMeters' | 'durationSeconds'>>> }
-  ), readonly rides: (
-    Pick<RidesConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'distanceMeters' | 'durationSeconds'>>> }
-  ) }
-);
-
 export type UserProfileQueryVariables = {
   username: Scalars['String'];
 };
 
 
-export type UserProfileQuery = { readonly profile?: Maybe<ProfileFragment> };
-
-export type GuideIDsFragment = Pick<Guide, 'id'>;
+export type UserProfileQuery = { readonly profile?: Maybe<UserInfoFragment> };
 
 export type GuideIDsSubscriptionVariables = {
   owner: Scalars['String'];
@@ -5473,40 +5507,12 @@ export type GuideIDsSubscriptionVariables = {
 
 export type GuideIDsSubscription = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideIDsFragment>> }> };
 
-export type GuideFeedItemFragment = (
-  Pick<Guide, 'id' | 'title' | 'slug' | 'startDate' | 'updated' | 'created'>
-  & { readonly owner?: Maybe<Pick<User, 'username' | 'colour'>>, readonly rides: { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'distanceMeters' | 'durationSeconds'>>> }, readonly stages: Pick<StagesConnection, 'totalCount'>, readonly spots: (
-    Pick<SpotsConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<Pick<Spot, 'nights'>>> }
-  ) }
-);
-
-export type FollowFeedItemFragment = (
-  { created: Follow['timestamp'] }
-  & { readonly followed?: Maybe<Pick<User, 'username' | 'colour'>>, readonly follower?: Maybe<Pick<User, 'username' | 'colour'>> }
-);
+export type GuideIDsFragment = Pick<Guide, 'id'>;
 
 export type FeedSubscriptionVariables = {};
 
 
 export type FeedSubscription = { readonly items: { readonly newGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }>, readonly updatedGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }>, readonly follows?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<FollowFeedItemFragment>> }> } };
-
-export type SpotFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'name' | 'long' | 'locked' | 'location' | 'position' | 'date' | 'temperature' | 'country' | 'nights'>;
-
-export type RideFragment = (
-  Pick<Ride, 'id' | 'position' | 'status' | 'pathUrl' | 'hasBorder' | 'name' | 'date' | 'distanceMeters' | 'durationSeconds'>
-  & { readonly toSpot?: Maybe<SpotFragment>, readonly fromSpot?: Maybe<SpotFragment> }
-);
-
-export type StageFragment = (
-  Pick<Stage, 'id' | 'position' | 'status' | 'name'>
-  & { readonly toSpot?: Maybe<SpotFragment>, readonly fromSpot?: Maybe<SpotFragment>, readonly ridesByStage: { readonly nodes: ReadonlyArray<Maybe<RideFragment>> } }
-);
-
-export type GuideFragment = (
-  Pick<Guide, 'id' | 'slug' | 'owner' | 'startDate' | 'title' | 'maxHoursPerRide'>
-  & { readonly firstSpot: { readonly nodes: ReadonlyArray<Maybe<SpotFragment>> }, readonly stages: { readonly nodes: ReadonlyArray<Maybe<StageFragment>> } }
-);
 
 export type GuideStagesSubscriptionVariables = {
   id: Scalars['String'];
@@ -5514,11 +5520,6 @@ export type GuideStagesSubscriptionVariables = {
 
 
 export type GuideStagesSubscription = { readonly guide?: Maybe<GuideFragment> };
-
-export type UserInfoFragment = (
-  Pick<User, 'username' | 'colour'>
-  & { readonly following: Pick<FollowsConnection, 'totalCount'>, readonly followers: Pick<FollowsConnection, 'totalCount'>, readonly rides: Pick<RidesConnection, 'totalCount'>, readonly guides: Pick<GuidesConnection, 'totalCount'> }
-);
 
 export type FollowersSubscriptionVariables = {
   username: Scalars['String'];
@@ -5533,19 +5534,6 @@ export type FollowingSubscriptionVariables = {
 
 
 export type FollowingSubscription = { readonly follows?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<{ readonly user?: Maybe<UserInfoFragment> }>> }> };
-
-export type SearchGuidesQueryVariables = {
-  query: Scalars['String'];
-  pageSize: Scalars['Int'];
-  offset: Scalars['Int'];
-  countries: ReadonlyArray<Scalars['String']>;
-};
-
-
-export type SearchGuidesQuery = { readonly guides?: Maybe<(
-    Pick<GuidesConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }
-  )> };
 
 export type LoginMutationVariables = {
   email: Scalars['String'];
@@ -5571,8 +5559,77 @@ export type GetUsernameQueryVariables = {
 
 export type GetUsernameQuery = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username' | 'colour'>>> }> };
 
+export type AvailableCountriesQueryVariables = {};
+
+
+export type AvailableCountriesQuery = Pick<Query, 'countries'>;
+
+export type SearchGuidesQueryVariables = {
+  query: Scalars['String'];
+  pageSize: Scalars['Int'];
+  offset: Scalars['Int'];
+  countries: ReadonlyArray<Scalars['String']>;
+};
+
+
+export type SearchGuidesQuery = { readonly guides?: Maybe<(
+    Pick<GuidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }
+  )> };
+
+export type SearchRidesQueryVariables = {
+  query: Scalars['String'];
+  pageSize: Scalars['Int'];
+  offset: Scalars['Int'];
+  countries: ReadonlyArray<Scalars['String']>;
+};
+
+
+export type SearchRidesQuery = { readonly rides?: Maybe<(
+    Pick<RidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<RideFragment>> }
+  )> };
+
+export type SearchUsersQueryVariables = {
+  query: Scalars['String'];
+  pageSize: Scalars['Int'];
+  offset: Scalars['Int'];
+  countries: ReadonlyArray<Scalars['String']>;
+};
+
+
+export type SearchUsersQuery = { readonly users?: Maybe<(
+    Pick<UsersConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<UserInfoFragment>> }
+  )> };
+
+export const UserInfoFragmentDoc = gql`
+    fragment UserInfo on User {
+  __typename
+  username
+  colour
+  created
+  countries
+  distanceMeters
+  durationSeconds
+  followingStatus
+  following: followsByFollower {
+    totalCount
+  }
+  followers: followsByFollowed {
+    totalCount
+  }
+  rides: ridesByOwner {
+    totalCount
+  }
+  guides: guidesByOwner {
+    totalCount
+  }
+}
+    `;
 export const GuideInfoFragmentDoc = gql`
     fragment GuideInfo on Guide {
+  __typename
   id
   title
   slug
@@ -5599,42 +5656,6 @@ export const GuideInfoFragmentDoc = gql`
   spots: spotsByGuide {
     totalCount
   }
-}
-    `;
-export const ProfileFragmentDoc = gql`
-    fragment Profile on User {
-  colour
-  username
-  created
-  countries
-  distanceMeters
-  durationSeconds
-  followingStatus
-  followers: followsByFollowed {
-    totalCount
-  }
-  following: followsByFollower {
-    totalCount
-  }
-  guides: guidesByOwner {
-    totalCount
-    nodes {
-      distanceMeters
-      durationSeconds
-    }
-  }
-  rides: ridesByOwner {
-    totalCount
-    nodes {
-      distanceMeters
-      durationSeconds
-    }
-  }
-}
-    `;
-export const GuideIDsFragmentDoc = gql`
-    fragment GuideIDs on Guide {
-  id
 }
     `;
 export const GuideFeedItemFragmentDoc = gql`
@@ -5697,6 +5718,7 @@ export const SpotFragmentDoc = gql`
     `;
 export const RideFragmentDoc = gql`
     fragment Ride on Ride {
+  __typename
   id
   position
   status
@@ -5706,12 +5728,16 @@ export const RideFragmentDoc = gql`
   fromSpot: spotByFromSpot {
     ...Spot
   }
+  countries
+  guide
+  owner
   pathUrl
   hasBorder
   name
   date
   distanceMeters
   durationSeconds
+  created
 }
     ${SpotFragmentDoc}`;
 export const StageFragmentDoc = gql`
@@ -5755,22 +5781,9 @@ export const GuideFragmentDoc = gql`
 }
     ${SpotFragmentDoc}
 ${StageFragmentDoc}`;
-export const UserInfoFragmentDoc = gql`
-    fragment UserInfo on User {
-  username
-  colour
-  following: followsByFollower {
-    totalCount
-  }
-  followers: followsByFollowed {
-    totalCount
-  }
-  rides: ridesByOwner {
-    totalCount
-  }
-  guides: guidesByOwner {
-    totalCount
-  }
+export const GuideIDsFragmentDoc = gql`
+    fragment GuideIDs on Guide {
+  id
 }
     `;
 export const CreateGuideDocument = gql`
@@ -6263,10 +6276,10 @@ export type GuideInfosQueryResult = ApolloReactCommon.QueryResult<GuideInfosQuer
 export const UserProfileDocument = gql`
     query UserProfile($username: String!) {
   profile: user(username: $username) {
-    ...Profile
+    ...UserInfo
   }
 }
-    ${ProfileFragmentDoc}`;
+    ${UserInfoFragmentDoc}`;
 export type UserProfileComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<UserProfileQuery, UserProfileQueryVariables>, 'query'> & ({ variables: UserProfileQueryVariables; skip?: boolean; } | { skip: boolean; });
 
     export const UserProfileComponent = (props: UserProfileComponentProps) => (
@@ -6498,51 +6511,6 @@ export function useFollowingSubscription(baseOptions?: ApolloReactHooks.Subscrip
       }
 export type FollowingSubscriptionHookResult = ReturnType<typeof useFollowingSubscription>;
 export type FollowingSubscriptionResult = ApolloReactCommon.SubscriptionResult<FollowingSubscription>;
-export const SearchGuidesDocument = gql`
-    query SearchGuides($query: String!, $pageSize: Int!, $offset: Int!, $countries: [String!]!) {
-  guides(filter: {countries: {contains: $countries}, title: {likeInsensitive: $query}}, first: $pageSize, offset: $offset) {
-    totalCount
-    nodes {
-      ...GuideInfo
-    }
-  }
-}
-    ${GuideInfoFragmentDoc}`;
-export type SearchGuidesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<SearchGuidesQuery, SearchGuidesQueryVariables>, 'query'> & ({ variables: SearchGuidesQueryVariables; skip?: boolean; } | { skip: boolean; });
-
-    export const SearchGuidesComponent = (props: SearchGuidesComponentProps) => (
-      <ApolloReactComponents.Query<SearchGuidesQuery, SearchGuidesQueryVariables> query={SearchGuidesDocument} {...props} />
-    );
-    
-
-/**
- * __useSearchGuidesQuery__
- *
- * To run a query within a React component, call `useSearchGuidesQuery` and pass it any options that fit your needs.
- * When your component renders, `useSearchGuidesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useSearchGuidesQuery({
- *   variables: {
- *      query: // value for 'query'
- *      pageSize: // value for 'pageSize'
- *      offset: // value for 'offset'
- *      countries: // value for 'countries'
- *   },
- * });
- */
-export function useSearchGuidesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SearchGuidesQuery, SearchGuidesQueryVariables>) {
-        return ApolloReactHooks.useQuery<SearchGuidesQuery, SearchGuidesQueryVariables>(SearchGuidesDocument, baseOptions);
-      }
-export function useSearchGuidesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SearchGuidesQuery, SearchGuidesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<SearchGuidesQuery, SearchGuidesQueryVariables>(SearchGuidesDocument, baseOptions);
-        }
-export type SearchGuidesQueryHookResult = ReturnType<typeof useSearchGuidesQuery>;
-export type SearchGuidesLazyQueryHookResult = ReturnType<typeof useSearchGuidesLazyQuery>;
-export type SearchGuidesQueryResult = ApolloReactCommon.QueryResult<SearchGuidesQuery, SearchGuidesQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   authenticate(input: {email: $email, password: $password}) {
@@ -6666,3 +6634,174 @@ export function useGetUsernameLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetUsernameQueryHookResult = ReturnType<typeof useGetUsernameQuery>;
 export type GetUsernameLazyQueryHookResult = ReturnType<typeof useGetUsernameLazyQuery>;
 export type GetUsernameQueryResult = ApolloReactCommon.QueryResult<GetUsernameQuery, GetUsernameQueryVariables>;
+export const AvailableCountriesDocument = gql`
+    query AvailableCountries {
+  countries
+}
+    `;
+export type AvailableCountriesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<AvailableCountriesQuery, AvailableCountriesQueryVariables>, 'query'>;
+
+    export const AvailableCountriesComponent = (props: AvailableCountriesComponentProps) => (
+      <ApolloReactComponents.Query<AvailableCountriesQuery, AvailableCountriesQueryVariables> query={AvailableCountriesDocument} {...props} />
+    );
+    
+
+/**
+ * __useAvailableCountriesQuery__
+ *
+ * To run a query within a React component, call `useAvailableCountriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAvailableCountriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAvailableCountriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAvailableCountriesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AvailableCountriesQuery, AvailableCountriesQueryVariables>) {
+        return ApolloReactHooks.useQuery<AvailableCountriesQuery, AvailableCountriesQueryVariables>(AvailableCountriesDocument, baseOptions);
+      }
+export function useAvailableCountriesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AvailableCountriesQuery, AvailableCountriesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<AvailableCountriesQuery, AvailableCountriesQueryVariables>(AvailableCountriesDocument, baseOptions);
+        }
+export type AvailableCountriesQueryHookResult = ReturnType<typeof useAvailableCountriesQuery>;
+export type AvailableCountriesLazyQueryHookResult = ReturnType<typeof useAvailableCountriesLazyQuery>;
+export type AvailableCountriesQueryResult = ApolloReactCommon.QueryResult<AvailableCountriesQuery, AvailableCountriesQueryVariables>;
+export const SearchGuidesDocument = gql`
+    query SearchGuides($query: String!, $pageSize: Int!, $offset: Int!, $countries: [String!]!) {
+  guides(filter: {countries: {contains: $countries}, title: {likeInsensitive: $query}}, first: $pageSize, offset: $offset) {
+    totalCount
+    nodes {
+      ...GuideInfo
+    }
+  }
+}
+    ${GuideInfoFragmentDoc}`;
+export type SearchGuidesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<SearchGuidesQuery, SearchGuidesQueryVariables>, 'query'> & ({ variables: SearchGuidesQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const SearchGuidesComponent = (props: SearchGuidesComponentProps) => (
+      <ApolloReactComponents.Query<SearchGuidesQuery, SearchGuidesQueryVariables> query={SearchGuidesDocument} {...props} />
+    );
+    
+
+/**
+ * __useSearchGuidesQuery__
+ *
+ * To run a query within a React component, call `useSearchGuidesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchGuidesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchGuidesQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *      pageSize: // value for 'pageSize'
+ *      offset: // value for 'offset'
+ *      countries: // value for 'countries'
+ *   },
+ * });
+ */
+export function useSearchGuidesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SearchGuidesQuery, SearchGuidesQueryVariables>) {
+        return ApolloReactHooks.useQuery<SearchGuidesQuery, SearchGuidesQueryVariables>(SearchGuidesDocument, baseOptions);
+      }
+export function useSearchGuidesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SearchGuidesQuery, SearchGuidesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<SearchGuidesQuery, SearchGuidesQueryVariables>(SearchGuidesDocument, baseOptions);
+        }
+export type SearchGuidesQueryHookResult = ReturnType<typeof useSearchGuidesQuery>;
+export type SearchGuidesLazyQueryHookResult = ReturnType<typeof useSearchGuidesLazyQuery>;
+export type SearchGuidesQueryResult = ApolloReactCommon.QueryResult<SearchGuidesQuery, SearchGuidesQueryVariables>;
+export const SearchRidesDocument = gql`
+    query SearchRides($query: String!, $pageSize: Int!, $offset: Int!, $countries: [String!]!) {
+  rides(filter: {countries: {contains: $countries}, name: {likeInsensitive: $query}}, first: $pageSize, offset: $offset) {
+    totalCount
+    nodes {
+      ...Ride
+    }
+  }
+}
+    ${RideFragmentDoc}`;
+export type SearchRidesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<SearchRidesQuery, SearchRidesQueryVariables>, 'query'> & ({ variables: SearchRidesQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const SearchRidesComponent = (props: SearchRidesComponentProps) => (
+      <ApolloReactComponents.Query<SearchRidesQuery, SearchRidesQueryVariables> query={SearchRidesDocument} {...props} />
+    );
+    
+
+/**
+ * __useSearchRidesQuery__
+ *
+ * To run a query within a React component, call `useSearchRidesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchRidesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchRidesQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *      pageSize: // value for 'pageSize'
+ *      offset: // value for 'offset'
+ *      countries: // value for 'countries'
+ *   },
+ * });
+ */
+export function useSearchRidesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SearchRidesQuery, SearchRidesQueryVariables>) {
+        return ApolloReactHooks.useQuery<SearchRidesQuery, SearchRidesQueryVariables>(SearchRidesDocument, baseOptions);
+      }
+export function useSearchRidesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SearchRidesQuery, SearchRidesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<SearchRidesQuery, SearchRidesQueryVariables>(SearchRidesDocument, baseOptions);
+        }
+export type SearchRidesQueryHookResult = ReturnType<typeof useSearchRidesQuery>;
+export type SearchRidesLazyQueryHookResult = ReturnType<typeof useSearchRidesLazyQuery>;
+export type SearchRidesQueryResult = ApolloReactCommon.QueryResult<SearchRidesQuery, SearchRidesQueryVariables>;
+export const SearchUsersDocument = gql`
+    query SearchUsers($query: String!, $pageSize: Int!, $offset: Int!, $countries: [String!]!) {
+  users(filter: {countries: {contains: $countries}, username: {likeInsensitive: $query}}, first: $pageSize, offset: $offset) {
+    totalCount
+    nodes {
+      ...UserInfo
+    }
+  }
+}
+    ${UserInfoFragmentDoc}`;
+export type SearchUsersComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<SearchUsersQuery, SearchUsersQueryVariables>, 'query'> & ({ variables: SearchUsersQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const SearchUsersComponent = (props: SearchUsersComponentProps) => (
+      <ApolloReactComponents.Query<SearchUsersQuery, SearchUsersQueryVariables> query={SearchUsersDocument} {...props} />
+    );
+    
+
+/**
+ * __useSearchUsersQuery__
+ *
+ * To run a query within a React component, call `useSearchUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchUsersQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *      pageSize: // value for 'pageSize'
+ *      offset: // value for 'offset'
+ *      countries: // value for 'countries'
+ *   },
+ * });
+ */
+export function useSearchUsersQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SearchUsersQuery, SearchUsersQueryVariables>) {
+        return ApolloReactHooks.useQuery<SearchUsersQuery, SearchUsersQueryVariables>(SearchUsersDocument, baseOptions);
+      }
+export function useSearchUsersLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SearchUsersQuery, SearchUsersQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<SearchUsersQuery, SearchUsersQueryVariables>(SearchUsersDocument, baseOptions);
+        }
+export type SearchUsersQueryHookResult = ReturnType<typeof useSearchUsersQuery>;
+export type SearchUsersLazyQueryHookResult = ReturnType<typeof useSearchUsersLazyQuery>;
+export type SearchUsersQueryResult = ApolloReactCommon.QueryResult<SearchUsersQuery, SearchUsersQueryVariables>;

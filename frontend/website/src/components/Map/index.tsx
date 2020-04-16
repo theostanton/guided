@@ -8,8 +8,8 @@ import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import { Rides } from "./Rides"
 import WebMercatorViewport from "viewport-mercator-project"
-import { log, logJson, logObject } from "utils/logger"
 import { Segment } from "semantic-ui-react"
+import { generateBounds, generateViewport } from "./viewport"
 
 type ViewPort = {
   width: number,
@@ -63,16 +63,10 @@ export default class Map extends Component<Props, State> {
       this.state.selectedSpotId = undefined
       const selectedRide = this.guideStore.selectedRide
 
-      const north = Math.max(selectedRide!.fromSpot!.lat!, selectedRide!.toSpot!.lat!)
-      const east = Math.max(selectedRide!.fromSpot!.long!, selectedRide!.toSpot!.long!)
-      const south = Math.min(selectedRide!.fromSpot!.lat!, selectedRide!.toSpot!.lat!)
-      const west = Math.min(selectedRide!.fromSpot!.long!, selectedRide!.toSpot!.long!)
+      const bounds = generateBounds(selectedRide)
 
       try {
-        const { longitude, latitude, zoom } = new WebMercatorViewport(this.state.viewport)
-          .fitBounds([[west, south], [east, north]], {
-            padding,
-          })
+        const { longitude, latitude, zoom } = generateViewport(bounds, this.state.viewport.width, this.state.viewport.height, padding)
 
         return {
           width: window.innerWidth,

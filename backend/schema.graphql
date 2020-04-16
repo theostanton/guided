@@ -2337,6 +2337,7 @@ type Query implements Node {
   stage(id: String!): Stage
   temperature(id: String!): Temperature
   user(username: String!): User
+  countries: [String]
   getCurrentUser: JwtToken
 
   """Reads a single `Computation` using its globally unique `ID`."""
@@ -2459,6 +2460,7 @@ type Ride implements Node {
 
   """Reads a single `Stage` that is related to this `Ride`."""
   stageByStage: Stage
+  countries: [String]
   hasBorder: Boolean
   isMine: Boolean
   name: String
@@ -2556,6 +2558,9 @@ input RideFilter {
 
   """Filter by the object’s `updated` field."""
   updated: DatetimeFilter
+
+  """Filter by the object’s `countries` field."""
+  countries: StringListFilter
 
   """Filter by the object’s `hasBorder` field."""
   hasBorder: BooleanFilter
@@ -3940,6 +3945,9 @@ type Subscription {
 
   """ (live)"""
   user(username: String!): User
+
+  """ (live)"""
+  countries: [String]
 
   """ (live)"""
   getCurrentUser: JwtToken

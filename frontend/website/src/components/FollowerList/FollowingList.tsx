@@ -6,6 +6,7 @@ import exp from "constants"
 import { logJson } from "../../utils/logger"
 import { navigate } from "@reach/router"
 import { humanDistance } from "../../utils/human"
+import UserItem from "../items/UserItem"
 
 export type Type = "followers" | "following"
 
@@ -89,46 +90,10 @@ export default class FollowingList extends React.Component<Props, State> {
       return <Segment loading/>
     } else if (followers.length > 0) {
 
-      function stats(user: UserInfoFragment): React.ReactElement {
-        const items: { label: string, value: string | number }[] = [
-          {
-            label: "Following",
-            value: user.following.totalCount,
-          },
-          {
-            label: "Followers",
-            value: user.followers.totalCount,
-          },
-          {
-            label: "Rides",
-            value: user.rides.totalCount,
-          },
-        ]
-        return <StatisticGroup size={"mini"} widths={3}>
-          {items.map(item => {
-            return <Statistic label={item.label} value={item.value}/>
-          })}
-        </StatisticGroup>
-      }
-
 
       const cards = followers.map(user => {
 
-        return <Card fluid onClick={async () => {
-          await navigate(`/${user.username}`)
-        }}>
-          <Card.Content>
-            <Card.Header>
-              <Icon
-                name={"user"}
-                color={user.colour?.toLowerCase()}
-                floated='right'
-              />{user.username}</Card.Header>
-          </Card.Content>
-          <Card.Content>
-            {stats(user)}
-          </Card.Content>
-        </Card>
+        return <UserItem user={user}/>
       })
       return <Card.Group children={cards}/>
     } else if (followers) {

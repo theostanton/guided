@@ -13,7 +13,7 @@ import {
 } from "semantic-ui-react"
 import client from "api/client"
 import {
-  ProfileFragment,
+  UserInfoFragment,
   UserProfileDocument,
   UserProfileQuery,
 } from "api/generated"
@@ -31,7 +31,7 @@ interface Props extends RouteComponentProps {
 }
 
 type State = {
-  profile: ProfileFragment | undefined
+  profile: UserInfoFragment | undefined
   executingFollow: boolean
   error: string | undefined
 }
@@ -75,7 +75,7 @@ export default class ProfileComponent extends React.Component<Props, State> {
   }
 
 
-  stats(profile: ProfileFragment): React.ReactElement {
+  stats(profile: UserInfoFragment): React.ReactElement {
 
     const items: { label: string, value: string | number }[] = [
       {
