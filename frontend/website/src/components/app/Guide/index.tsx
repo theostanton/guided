@@ -5,7 +5,7 @@ import Content from "./content"
 
 import { RouteComponentProps } from "@reach/router"
 import AuthStore from "model/AuthStore"
-import { log } from "../../../utils/logger"
+import { log } from "utils/logger"
 
 interface Props extends RouteComponentProps {
   slug?: string

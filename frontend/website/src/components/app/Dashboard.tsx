@@ -6,10 +6,9 @@ import Feed from "./Feed"
 import GuideComponent from "./Guide"
 import { GuideInfoFragment } from "../../api/generated"
 
-import { RouteComponentProps } from "@reach/router"
+import { navigate, RouteComponentProps } from "@reach/router"
 import { CSSProperties } from "react"
 import OverlayStore from "model/OverlayStore"
-import { CreateGuideModal } from "model/OverlayStore/modals"
 import FollowingList from "../FollowerList/FollowingList"
 import GuidesList from "./Guides/GuidesList"
 
@@ -49,8 +48,8 @@ export default class DashboardComponent extends React.Component<Props, State> {
             <Header as={"h1"}>My guides</Header>
           </Grid.Column>
           <Grid.Column width={4} floated={"right"}>
-            <Button floated={"right"} onClick={() => {
-              this.props.overlayStore!.showModal(new CreateGuideModal())
+            <Button floated={"right"} onClick={async () => {
+              await navigate("/create")
             }}>Create</Button>
           </Grid.Column>
         </Grid>

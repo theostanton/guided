@@ -4,7 +4,7 @@ import { Modal, Button, Form, Grid, Icon } from "semantic-ui-react"
 import slugify from "slugify"
 import {
   GuideInput,
-  CreateGuideMutationVariables, CreateGuideDocument, CreateGuideMutation,
+  CreateGuideMutationVariables, CreateGuideDocument, CreateGuideMutation, TransportType,
 } from "api/generated"
 import { client } from "api"
 import { inject } from "mobx-react"
@@ -41,10 +41,11 @@ export default class CreateGuideModal extends React.Component<Props, State> {
     stage: "invalid",
     guideInfo: {
       maxHoursPerRide: 6,
+      isCircular: true,
     },
   }
 
-  update(key: "title" | "maxHoursPerRide" | "startDate", value: string | number) {
+  update(key: "title" | "maxHoursPerRide" | "startDate" | "transportType" | "isCircular", value: string | number | boolean) {
     const guideInfo: Partial<GuideInput> = {
       ...this.state.guideInfo,
       [key]: value,
@@ -106,55 +107,7 @@ export default class CreateGuideModal extends React.Component<Props, State> {
                   }}>
       <Modal.Header>Create Guide</Modal.Header>
       <Modal.Content>
-        <Form>
-          <Form.Input
-            label='Title'
-            onChange={(e, { value }) => {
-              this.update("title", value)
-            }}
-          />
-          <Form.Group>
-            <Form.Field width={4}>
-              <label>Max ride duration</label>
-              <Form.Input>
-                <MaxHoursPerRideForm hours={this.state.guideInfo.maxHoursPerRide} onChange={(hours) => {
-                  this.update("maxHoursPerRide", hours)
-                }}/>
-              </Form.Input>
-            </Form.Field>
 
-            <Form.Field >
-              <label>Start date</label>
-              <DateInput
-                closeOnMouseLeave={true}
-                popupPosition='bottom right'
-                name='date'
-                closable
-                dateFormat={"YYYY-MM-DD"}
-                initialDate={dateString(new Date())}
-                inlineLabel={true}
-                clearIcon={(<Icon name='remove' color='red'/>)}
-                clearable={true}
-                animation='fade'
-                duration={200}
-                hideMobileKeyboard
-                value={this.state.guideInfo.startDate}
-                iconPosition='right'
-                preserveViewMode={false}
-                autoComplete='off'
-                onChange={(_, { value }) => {
-                  logJson(value, "value")
-                  this.update("startDate", value)
-                }}
-
-              />
-            </Form.Field>
-          </Form.Group>
-          <Form.Field>
-            <label>Circular</label>
-            <Form.Checkbox label={'Guide ends at same place it begins'} checked={true} disabled={true}/>
-          </Form.Field>
-        </Form>
       </Modal.Content>
       <Modal.Actions>
         <Button

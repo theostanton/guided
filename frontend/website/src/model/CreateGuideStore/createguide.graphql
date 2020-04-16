@@ -1,0 +1,11 @@
+query Geocode($query:String!){
+    geocode(query: $query){
+        success
+        geocodes{
+            countryCode
+            label
+            latitude
+            longitude
+        }
+    }
+}

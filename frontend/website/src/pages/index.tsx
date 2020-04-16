@@ -16,6 +16,7 @@ import About from "../components/pages/about"
 import OverlayComponent from "components/app/Overlay"
 import { logJson } from "../utils/logger"
 import Search from "components/app/Search"
+import CreateGuide from "components/app/CreateGuide"
 
 interface Props {
   authStore: AuthStore
@@ -42,6 +43,7 @@ export default class RootComponent extends React.Component<Props> {
             <Account path="/account"/>
             <Profile path="/:owner"/>
             <Search path="/search"/>
+            <CreateGuide path={"/create"}/>
             <Guide path="/:owner/:slug"/>
             <Guide path="/:owner/:slug/ride/:rideId"/>
             <Guide path="/:owner/:slug/spot/:spotId"/>

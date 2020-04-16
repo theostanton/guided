@@ -51,3 +51,7 @@ create type colour as enum (
 create type following_status as enum (
     'following','is_self','not_following','anonymous'
     )
+
+create type transport_type as enum (
+    'motorcycle', 'bicycle' ,'car'
+    )

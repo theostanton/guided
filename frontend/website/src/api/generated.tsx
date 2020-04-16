@@ -1103,6 +1103,18 @@ export enum FollowsOrderBy {
   TimestampDesc = 'TIMESTAMP_DESC'
 }
 
+export type Geocode = {
+  readonly countryCode: Scalars['String'];
+  readonly latitude: Scalars['Float'];
+  readonly longitude: Scalars['Float'];
+  readonly label: Scalars['String'];
+};
+
+export type GeocodeResponse = {
+  readonly success: Scalars['Boolean'];
+  readonly geocodes?: Maybe<ReadonlyArray<Maybe<Geocode>>>;
+};
+
 export type Guide = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'];
@@ -1114,6 +1126,8 @@ export type Guide = Node & {
   readonly maxHoursPerRide: Scalars['Int'];
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly transportType: TransportType;
+  readonly isCircular: Scalars['Boolean'];
   /** Reads a single `User` that is related to this `Guide`. */
   readonly userByOwner?: Maybe<User>;
   /** Reads and enables pagination through a set of `Spot`. */
@@ -1197,6 +1211,10 @@ export type GuideCondition = {
   readonly created?: Maybe<Scalars['Datetime']>;
   /** Checks for equality with the object’s `updated` field. */
   readonly updated?: Maybe<Scalars['Datetime']>;
+  /** Checks for equality with the object’s `transportType` field. */
+  readonly transportType?: Maybe<TransportType>;
+  /** Checks for equality with the object’s `isCircular` field. */
+  readonly isCircular?: Maybe<Scalars['Boolean']>;
 };
 
 /** A filter to be used against `Guide` object types. All fields are combined with a logical ‘and.’ */
@@ -1217,6 +1235,10 @@ export type GuideFilter = {
   readonly created?: Maybe<DatetimeFilter>;
   /** Filter by the object’s `updated` field. */
   readonly updated?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `transportType` field. */
+  readonly transportType?: Maybe<TransportTypeFilter>;
+  /** Filter by the object’s `isCircular` field. */
+  readonly isCircular?: Maybe<BooleanFilter>;
   /** Filter by the object’s `countries` field. */
   readonly countries?: Maybe<StringListFilter>;
   /** Filter by the object’s `distanceMeters` field. */
@@ -1243,6 +1265,8 @@ export type GuideInput = {
   readonly maxHoursPerRide?: Maybe<Scalars['Int']>;
   readonly created: Scalars['Datetime'];
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly transportType?: Maybe<TransportType>;
+  readonly isCircular?: Maybe<Scalars['Boolean']>;
 };
 
 /** Represents an update to a `Guide`. Fields that are set will be updated. */
@@ -1255,6 +1279,8 @@ export type GuidePatch = {
   readonly maxHoursPerRide?: Maybe<Scalars['Int']>;
   readonly created?: Maybe<Scalars['Datetime']>;
   readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly transportType?: Maybe<TransportType>;
+  readonly isCircular?: Maybe<Scalars['Boolean']>;
 };
 
 /** A connection to a list of `Guide` values. */
@@ -1296,6 +1322,10 @@ export enum GuidesOrderBy {
   CreatedDesc = 'CREATED_DESC',
   UpdatedAsc = 'UPDATED_ASC',
   UpdatedDesc = 'UPDATED_DESC',
+  TransportTypeAsc = 'TRANSPORT_TYPE_ASC',
+  TransportTypeDesc = 'TRANSPORT_TYPE_DESC',
+  IsCircularAsc = 'IS_CIRCULAR_ASC',
+  IsCircularDesc = 'IS_CIRCULAR_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
@@ -1760,6 +1790,7 @@ export type Query = Node & {
   readonly temperatureByNodeId?: Maybe<Temperature>;
   /** Reads a single `User` using its globally unique `ID`. */
   readonly userByNodeId?: Maybe<User>;
+  readonly geocode: GeocodeResponse;
   readonly appVersion: Scalars['String'];
 };
 
@@ -1955,6 +1986,12 @@ export type QueryTemperatureByNodeIdArgs = {
 /** The root query type which gives access points into the data universe. */
 export type QueryUserByNodeIdArgs = {
   nodeId: Scalars['ID'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryGeocodeArgs = {
+  query: Scalars['String'];
 };
 
 /** All input for the `register` mutation. */
@@ -2895,6 +2932,8 @@ export type Subscription = {
   /** Reads a single `User` using its globally unique `ID`. (live) */
   readonly userByNodeId?: Maybe<User>;
   /**  (live) */
+  readonly geocode: GeocodeResponse;
+  /**  (live) */
   readonly appVersion: Scalars['String'];
 };
 
@@ -3575,6 +3614,33 @@ export type SubscriptionUserByNodeIdArgs = {
   nodeId: Scalars['ID'];
 };
 
+
+/**
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionGeocodeArgs = {
+  query: Scalars['String'];
+};
+
 export type Temperature = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'];
@@ -3685,6 +3751,38 @@ export enum TemperaturesOrderBy {
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
+
+export enum TransportType {
+  Motorcycle = 'MOTORCYCLE',
+  Bicycle = 'BICYCLE',
+  Car = 'CAR'
+}
+
+/** A filter to be used against TransportType fields. All fields are combined with a logical ‘and.’ */
+export type TransportTypeFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<TransportType>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<TransportType>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<TransportType>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<TransportType>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<TransportType>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<TransportType>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<TransportType>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<TransportType>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<TransportType>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<TransportType>;
+};
 
 /** All input for the `updateComputationByNodeId` mutation. */
 export type UpdateComputationByNodeIdInput = {
@@ -4320,15 +4418,17 @@ export type ResolversTypes = {
   Stage: ResolverTypeWrapper<Stage>,
   StageStatus: StageStatus,
   Guide: ResolverTypeWrapper<Guide>,
+  TransportType: TransportType,
   User: ResolverTypeWrapper<User>,
   Colour: Colour,
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
   GuideFilter: GuideFilter,
+  TransportTypeFilter: TransportTypeFilter,
+  BooleanFilter: BooleanFilter,
   StringListFilter: StringListFilter,
   BigIntFilter: BigIntFilter,
   BigInt: ResolverTypeWrapper<Scalars['BigInt']>,
-  BooleanFilter: BooleanFilter,
   GuidesConnection: ResolverTypeWrapper<GuidesConnection>,
   GuidesEdge: ResolverTypeWrapper<GuidesEdge>,
   PageInfo: ResolverTypeWrapper<PageInfo>,
@@ -4377,6 +4477,8 @@ export type ResolversTypes = {
   UsersConnection: ResolverTypeWrapper<UsersConnection>,
   UsersEdge: ResolverTypeWrapper<UsersEdge>,
   JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
+  GeocodeResponse: ResolverTypeWrapper<GeocodeResponse>,
+  Geocode: ResolverTypeWrapper<Geocode>,
   Mutation: ResolverTypeWrapper<{}>,
   CreateComputationInput: CreateComputationInput,
   ComputationInput: ComputationInput,
@@ -4482,15 +4584,17 @@ export type ResolversParentTypes = {
   Stage: Stage,
   StageStatus: StageStatus,
   Guide: Guide,
+  TransportType: TransportType,
   User: User,
   Colour: Colour,
   GuidesOrderBy: GuidesOrderBy,
   GuideCondition: GuideCondition,
   GuideFilter: GuideFilter,
+  TransportTypeFilter: TransportTypeFilter,
+  BooleanFilter: BooleanFilter,
   StringListFilter: StringListFilter,
   BigIntFilter: BigIntFilter,
   BigInt: Scalars['BigInt'],
-  BooleanFilter: BooleanFilter,
   GuidesConnection: GuidesConnection,
   GuidesEdge: GuidesEdge,
   PageInfo: PageInfo,
@@ -4539,6 +4643,8 @@ export type ResolversParentTypes = {
   UsersConnection: UsersConnection,
   UsersEdge: UsersEdge,
   JwtToken: Scalars['JwtToken'],
+  GeocodeResponse: GeocodeResponse,
+  Geocode: Geocode,
   Mutation: {},
   CreateComputationInput: CreateComputationInput,
   ComputationInput: ComputationInput,
@@ -4857,6 +4963,20 @@ export type FollowsEdgeResolvers<ContextType = any, ParentType extends Resolvers
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type GeocodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Geocode'] = ResolversParentTypes['Geocode']> = {
+  countryCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  latitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  longitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type GeocodeResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['GeocodeResponse'] = ResolversParentTypes['GeocodeResponse']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  geocodes?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['Geocode']>>>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type GuideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Guide'] = ResolversParentTypes['Guide']> = {
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -4867,6 +4987,8 @@ export type GuideResolvers<ContextType = any, ParentType extends ResolversParent
   maxHoursPerRide?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
+  transportType?: Resolver<ResolversTypes['TransportType'], ParentType, ContextType>,
+  isCircular?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   spotsByGuide?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<GuideSpotsByGuideArgs, 'orderBy'>>,
   stagesByGuide?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<GuideStagesByGuideArgs, 'orderBy'>>,
@@ -4987,6 +5109,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   stageByNodeId?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageByNodeIdArgs, 'nodeId'>>,
   temperatureByNodeId?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureByNodeIdArgs, 'nodeId'>>,
   userByNodeId?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByNodeIdArgs, 'nodeId'>>,
+  geocode?: Resolver<ResolversTypes['GeocodeResponse'], ParentType, ContextType, RequireFields<QueryGeocodeArgs, 'query'>>,
   appVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
 };
 
@@ -5152,6 +5275,7 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
   stageByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Stage']>, "stageByNodeId", ParentType, ContextType, RequireFields<SubscriptionStageByNodeIdArgs, 'nodeId'>>,
   temperatureByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperatureByNodeId", ParentType, ContextType, RequireFields<SubscriptionTemperatureByNodeIdArgs, 'nodeId'>>,
   userByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "userByNodeId", ParentType, ContextType, RequireFields<SubscriptionUserByNodeIdArgs, 'nodeId'>>,
+  geocode?: SubscriptionResolver<ResolversTypes['GeocodeResponse'], "geocode", ParentType, ContextType, RequireFields<SubscriptionGeocodeArgs, 'query'>>,
   appVersion?: SubscriptionResolver<ResolversTypes['String'], "appVersion", ParentType, ContextType>,
 };
 
@@ -5311,6 +5435,8 @@ export type Resolvers<ContextType = any> = {
   Follow?: FollowResolvers<ContextType>,
   FollowsConnection?: FollowsConnectionResolvers<ContextType>,
   FollowsEdge?: FollowsEdgeResolvers<ContextType>,
+  Geocode?: GeocodeResolvers<ContextType>,
+  GeocodeResponse?: GeocodeResponseResolvers<ContextType>,
   Guide?: GuideResolvers<ContextType>,
   GuidesConnection?: GuidesConnectionResolvers<ContextType>,
   GuidesEdge?: GuidesEdgeResolvers<ContextType>,
@@ -5558,6 +5684,16 @@ export type GetUsernameQueryVariables = {
 
 
 export type GetUsernameQuery = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username' | 'colour'>>> }> };
+
+export type GeocodeQueryVariables = {
+  query: Scalars['String'];
+};
+
+
+export type GeocodeQuery = { readonly geocode: (
+    Pick<GeocodeResponse, 'success'>
+    & { readonly geocodes?: Maybe<ReadonlyArray<Maybe<Pick<Geocode, 'countryCode' | 'label' | 'latitude' | 'longitude'>>>> }
+  ) };
 
 export type AvailableCountriesQueryVariables = {};
 
@@ -6634,6 +6770,51 @@ export function useGetUsernameLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetUsernameQueryHookResult = ReturnType<typeof useGetUsernameQuery>;
 export type GetUsernameLazyQueryHookResult = ReturnType<typeof useGetUsernameLazyQuery>;
 export type GetUsernameQueryResult = ApolloReactCommon.QueryResult<GetUsernameQuery, GetUsernameQueryVariables>;
+export const GeocodeDocument = gql`
+    query Geocode($query: String!) {
+  geocode(query: $query) {
+    success
+    geocodes {
+      countryCode
+      label
+      latitude
+      longitude
+    }
+  }
+}
+    `;
+export type GeocodeComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GeocodeQuery, GeocodeQueryVariables>, 'query'> & ({ variables: GeocodeQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const GeocodeComponent = (props: GeocodeComponentProps) => (
+      <ApolloReactComponents.Query<GeocodeQuery, GeocodeQueryVariables> query={GeocodeDocument} {...props} />
+    );
+    
+
+/**
+ * __useGeocodeQuery__
+ *
+ * To run a query within a React component, call `useGeocodeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGeocodeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGeocodeQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *   },
+ * });
+ */
+export function useGeocodeQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GeocodeQuery, GeocodeQueryVariables>) {
+        return ApolloReactHooks.useQuery<GeocodeQuery, GeocodeQueryVariables>(GeocodeDocument, baseOptions);
+      }
+export function useGeocodeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GeocodeQuery, GeocodeQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GeocodeQuery, GeocodeQueryVariables>(GeocodeDocument, baseOptions);
+        }
+export type GeocodeQueryHookResult = ReturnType<typeof useGeocodeQuery>;
+export type GeocodeLazyQueryHookResult = ReturnType<typeof useGeocodeLazyQuery>;
+export type GeocodeQueryResult = ApolloReactCommon.QueryResult<GeocodeQuery, GeocodeQueryVariables>;
 export const AvailableCountriesDocument = gql`
     query AvailableCountries {
   countries

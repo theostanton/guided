@@ -6,5 +6,6 @@ import editNights from "./editNights"
 import removeSpot from "./removeSpot"
 import follow from "./follow"
 import unfollow from "./unfollow"
+import geocode from "./geocode"
 
-export default [follow, unfollow, addSpotFromLatLng, moveSpot, removeSpot, info, editStartDate, editNights]
+export default [follow, unfollow, geocode,addSpotFromLatLng, moveSpot, removeSpot, info, editStartDate, editNights]

@@ -1334,6 +1334,18 @@ enum FollowsOrderBy {
   TIMESTAMP_DESC
 }
 
+type Geocode {
+  countryCode: String!
+  latitude: Float!
+  longitude: Float!
+  label: String!
+}
+
+type GeocodeResponse {
+  success: Boolean!
+  geocodes: [Geocode]
+}
+
 type Guide implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -1347,6 +1359,8 @@ type Guide implements Node {
   maxHoursPerRide: Int!
   created: Datetime!
   updated: Datetime
+  transportType: TransportType!
+  isCircular: Boolean!
 
   """Reads a single `User` that is related to this `Guide`."""
   userByOwner: User
@@ -1520,6 +1534,12 @@ input GuideCondition {
 
   """Checks for equality with the object’s `updated` field."""
   updated: Datetime
+
+  """Checks for equality with the object’s `transportType` field."""
+  transportType: TransportType
+
+  """Checks for equality with the object’s `isCircular` field."""
+  isCircular: Boolean
 }
 
 """
@@ -1549,6 +1569,12 @@ input GuideFilter {
 
   """Filter by the object’s `updated` field."""
   updated: DatetimeFilter
+
+  """Filter by the object’s `transportType` field."""
+  transportType: TransportTypeFilter
+
+  """Filter by the object’s `isCircular` field."""
+  isCircular: BooleanFilter
 
   """Filter by the object’s `countries` field."""
   countries: StringListFilter
@@ -1582,6 +1608,8 @@ input GuideInput {
   maxHoursPerRide: Int
   created: Datetime!
   updated: Datetime
+  transportType: TransportType
+  isCircular: Boolean
 }
 
 """
@@ -1596,6 +1624,8 @@ input GuidePatch {
   maxHoursPerRide: Int
   created: Datetime
   updated: Datetime
+  transportType: TransportType
+  isCircular: Boolean
 }
 
 """A connection to a list of `Guide` values."""
@@ -1643,6 +1673,10 @@ enum GuidesOrderBy {
   CREATED_DESC
   UPDATED_ASC
   UPDATED_DESC
+  TRANSPORT_TYPE_ASC
+  TRANSPORT_TYPE_DESC
+  IS_CIRCULAR_ASC
+  IS_CIRCULAR_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -2385,6 +2419,7 @@ type Query implements Node {
     """The globally unique `ID` to be used in selecting a single `User`."""
     nodeId: ID!
   ): User
+  geocode(query: String!): GeocodeResponse!
   appVersion: String!
 }
 
@@ -3999,6 +4034,9 @@ type Subscription {
   ): User
 
   """ (live)"""
+  geocode(query: String!): GeocodeResponse!
+
+  """ (live)"""
   appVersion: String!
 }
 
@@ -4136,6 +4174,54 @@ enum TemperaturesOrderBy {
   UPDATED_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+enum TransportType {
+  MOTORCYCLE
+  BICYCLE
+  CAR
+}
+
+"""
+A filter to be used against TransportType fields. All fields are combined with a logical ‘and.’
+"""
+input TransportTypeFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: TransportType
+
+  """Not equal to the specified value."""
+  notEqualTo: TransportType
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: TransportType
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: TransportType
+
+  """Included in the specified list."""
+  in: [TransportType!]
+
+  """Not included in the specified list."""
+  notIn: [TransportType!]
+
+  """Less than the specified value."""
+  lessThan: TransportType
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: TransportType
+
+  """Greater than the specified value."""
+  greaterThan: TransportType
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: TransportType
 }
 
 """All input for the `updateComputationByNodeId` mutation."""
