@@ -3,8 +3,8 @@
   "template": "./src/template.handlebars",
   "connection": {
     "host": "staging-database.ridersbible.com",
-    "user": "superuser",
-    "password": "password",
+    "user": "",
+    "password": "",
     "database": "main"
   },
   "filename": "src/types",

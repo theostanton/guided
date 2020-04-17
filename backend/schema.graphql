@@ -513,6 +513,30 @@ type CreateGuidePayload {
   ): GuidesEdge
 }
 
+input CreateGuideWithSpotInput {
+  label: String!
+  nights: Int!
+  lat: Float!
+  long: Float!
+  location: String!
+  country: String!
+}
+
+input CreateGuideWithSpotsInput {
+  title: String!
+  isCircular: Boolean!
+  maxHoursPerRide: Int!
+  type: TransportType!
+  spots: [CreateGuideWithSpotInput!]!
+  startDate: String
+}
+
+type CreateGuideWithSpotsResult {
+  success: Boolean!
+  error: String
+  guideId: ID
+}
+
 """All input for the create `Ride` mutation."""
 input CreateRideInput {
   """
@@ -2044,6 +2068,12 @@ type Mutation {
   ): RegisterPayload
   follow(username: String!): Result!
   unfollow(username: String!): Result!
+  createGuideWithSpots(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateGuideWithSpotsInput
+  ): CreateGuideWithSpotsResult!
   addSpotFromLatLng(guideId: String!, lat: Float!, long: Float!, label: String, nights: Int!): Spot!
   moveSpot(spotId: String!, lat: Float!, long: Float!): Spot!
   removeSpot(spotId: String!): Spot!

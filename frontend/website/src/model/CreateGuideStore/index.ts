@@ -1,19 +1,24 @@
-import { Geocode, GeocodeDocument, GeocodeQuery, GuideFragment, GuideInput, TransportType } from "../../api/generated"
+import {
+  CreateGuideWithSpotInput,
+  Geocode,
+  GeocodeDocument,
+  GeocodeQuery,
+  TransportType,
+} from "../../api/generated"
 import { action, computed, observable } from "mobx"
 import AwesomeDebouncePromise from "awesome-debounce-promise"
 import { client } from "../../api"
-import { log, logJson } from "../../utils/logger"
 
-type Stage = "details" | "locations" | "members"
+type Stage = "details" | "locations" | "members" | "save"
 
-export type CreateGuideSpot = {
-  title: string
-  location: string
-  latitutde: number
-  longitude: number
-  country: string
-  nights: number
-}
+// export type CreateGuideSpot = {
+//   title: string
+//   location: string
+//   latitutde: number
+//   longitude: number
+//   country: string
+//   nights: number
+// }
 
 export default class CreateGuideStore {
 
@@ -39,10 +44,15 @@ export default class CreateGuideStore {
   startDate: string | undefined
 
   @observable
-  spots: CreateGuideSpot[]
+  spots: CreateGuideWithSpotInput[]
 
   constructor() {
     this.spots = []
+    this.geocodeResult = {
+      status: "clear",
+      error: undefined,
+      geocodes: undefined,
+    }
   }
 
   goToStage(stage: Stage) {
@@ -120,7 +130,7 @@ export default class CreateGuideStore {
 
   private fetchGeocodes = AwesomeDebouncePromise(
     this.executeGeocode.bind(this),
-    500,
+    200,
     {
       accumulate: false,
       onlyResolvesLast: true,
@@ -128,16 +138,26 @@ export default class CreateGuideStore {
   )
 
   @observable
-  geocodes: Geocode[] | undefined = undefined
+  geocodeResult: {
+    error?: string | undefined
+    status: "loading" | "error" | "success" | "clear"
+    geocodes?: Geocode[] | undefined
+  }
 
-  @observable
-  loadingGeocodes: boolean = false
+  private clearGeocodes() {
+    this.geocodeResult = {
+      status: "clear",
+    }
+  }
 
   @action
   async executeGeocode(query: string) {
+
     if (query === "") {
+      this.clearGeocodes()
       return
     }
+
     const result = await client.query<GeocodeQuery>({
       query: GeocodeDocument,
       variables: {
@@ -145,37 +165,50 @@ export default class CreateGuideStore {
       },
     })
 
-    this.geocodes = result.data.geocode.geocodes
-    log(`Got ${this.geocodes.length} geocodes`)
-    this.loadingGeocodes = false
+    if (result.errors) {
+      this.geocodeResult = {
+        status: "error",
+        error: result.errors.map(error => {
+          return error.message
+        }).join("\n"),
+      }
+    } else {
+      this.geocodeResult = {
+        status: "success",
+        geocodes: result.data.geocode.geocodes.map(geocode => geocode),
+      }
+    }
   }
 
   @action
-  saveSpot(label:string,geocode:Geocode,nights:number) {
+  saveSpot(label: string, geocode: Geocode, nights: number) {
     this.spots.push({
-      title: label,
-      latitutde: geocode.latitude,
-      longitude: geocode.longitude,
+      label,
+      lat: geocode.latitude,
+      long: geocode.longitude,
       location: geocode.label,
       country: geocode.countryCode,
       nights,
     })
-    this.loadingGeocodes = false
-    this.geocodes = undefined
+    this.clearGeocodes()
   }
 
   @action
-  async updateGeocode(query: string | undefined,clear:boolean) {
+  async updateGeocode(query: string | undefined, clear: boolean) {
     if (clear) {
-      this.geocodes = undefined
+      this.geocodeResult = undefined
     }
     if (!query || query.length === 0) {
-      this.geocodes = []
-      this.loadingGeocodes = false
+      this.clearGeocodes()
     } else {
-      this.loadingGeocodes = true
+      this.geocodeResult = {
+        status: "loading",
+      }
     }
     await this.fetchGeocodes(query)
+  }
+
+  async create() {
   }
 }
 

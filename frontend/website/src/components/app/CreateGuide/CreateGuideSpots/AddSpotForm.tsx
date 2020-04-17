@@ -25,9 +25,6 @@ function geocodeOptions(geocodes: Geocode[] | undefined): DropdownOption[] | und
         value: geocode.label,
       }
     })
-    // .sort((a, b) => {
-    // return a.order?.localeCompare(b.order)
-    // })
   }
 }
 
@@ -81,6 +78,7 @@ export default class AddSpotForm extends React.Component<Props, State> {
     const label = this.state.nights === 0 ? "Ride by" : `${this.state.nights} nights`
 
 
+    const result = this.createGuideStore.geocodeResult
     return <div>
       <Header>
         Add locations
@@ -92,17 +90,18 @@ export default class AddSpotForm extends React.Component<Props, State> {
             fluid
             selection
             width={6}
-            options={geocodeOptions(this.props.createGuideStore.geocodes)}
+            error={result.error}
+            options={geocodeOptions(result.geocodes)}
             placeholder='Search location'
             closeOnChange
             clearable
             icon={"search"}
             value={this.state.geocode?.label}
-            open={!!this.createGuideStore.geocodes && !this.state.geocode}
-            loading={this.createGuideStore.loadingGeocodes}
+            open={!!result.geocodes && !this.state.geocode}
+            loading={result.status === "loading"}
             onChange={(event, { value }) => {
-              if (this.createGuideStore.geocodes) {
-                const geocode = this.createGuideStore.geocodes.find(geocode => {
+              if (result.geocodes) {
+                const geocode = result.geocodes.find(geocode => {
                   return geocode.label === value
                 })
                 this.setState({
@@ -110,14 +109,14 @@ export default class AddSpotForm extends React.Component<Props, State> {
                 })
               }
             }}
-            onSearchChange={async (one, two) => {
+            onSearchChange={async (_, { searchQuery }) => {
               if (this.state.geocode) {
                 this.setState({
                   geocode: undefined,
                 })
-                await this.createGuideStore.updateGeocode(two.searchQuery, true)
+                await this.createGuideStore.updateGeocode(searchQuery, true)
               } else {
-                await this.createGuideStore.updateGeocode(two.searchQuery, false)
+                await this.createGuideStore.updateGeocode(searchQuery, false)
               }
             }}
             search={(props, two) => {

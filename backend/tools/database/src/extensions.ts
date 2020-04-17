@@ -1,6 +1,6 @@
 import { IDatabase } from "pg-promise"
 import { Guide, Ride, Spot, Stage } from "./types"
-import { insertOne } from "./utils"
+import { insertMany, insertOne } from "./utils"
 
 export default interface Extensions {
   insertSpot(spot: Spot): Promise<string>
@@ -14,6 +14,10 @@ export default interface Extensions {
   selectStagesForGuide(guideId: string): Promise<Stage[]>
 
   getGuideIdForSpot(spotId: string): Promise<string>
+
+  insertOne<T>(tableName: string, items: T): Promise<{ id: string }>
+
+  insertMany<T>(tableName: string, items: T[]): Promise<{ id: string }[]>
 }
 
 
@@ -52,6 +56,24 @@ export function extend(db: IDatabase<Extensions> & Extensions) {
                                                          from spots
                                                          where id = $1`, [spotId])
       return guide
+    },
+
+    async insertOne<T>(tableName: string, item: T): Promise<{ id: string }> {
+      const results = await this.insertMany(tableName, [item])
+      return results[0]
+    },
+
+    async insertMany<T>(tableName: string, items: T[]): Promise<{ id: string }[]> {
+      if (items.length === 0) {
+        return []
+      }
+      const query = insertMany(tableName, items, "id")
+      const results = await db.many<{ id: string }>(query)
+      return results.map(({ id }) => {
+        return {
+          id,
+        }
+      })
     },
   }
   Object.keys(instance).forEach(key => {

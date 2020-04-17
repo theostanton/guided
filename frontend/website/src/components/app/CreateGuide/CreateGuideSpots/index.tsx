@@ -83,7 +83,7 @@ export default class CreateGuideSpots extends React.Component<Props> {
               <HeaderSubHeader><Flag name={spot.country?.toLowerCase()}/>{spot.location}</HeaderSubHeader>
             </Header>
           </GridColumn>
-          <GridColumn>
+          <GridColumn verticalAlign={'center'}>
             {this.renderNights(spot.nights, index)}
           </GridColumn>
           <GridColumn floated={"right"} style={{ marginRight: "1em" }}>

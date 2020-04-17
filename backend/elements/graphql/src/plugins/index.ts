@@ -7,5 +7,6 @@ import removeSpot from "./removeSpot"
 import follow from "./follow"
 import unfollow from "./unfollow"
 import geocode from "./geocode"
+import createGuideWithSpots from "./createGuideWithSpots"
 
-export default [follow, unfollow, geocode,addSpotFromLatLng, moveSpot, removeSpot, info, editStartDate, editNights]
+export default [follow, unfollow, createGuideWithSpots,geocode,addSpotFromLatLng, moveSpot, removeSpot, info, editStartDate, editNights]

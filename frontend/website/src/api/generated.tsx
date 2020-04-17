@@ -431,6 +431,30 @@ export type CreateGuidePayloadGuideEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>;
 };
 
+export type CreateGuideWithSpotInput = {
+  readonly label: Scalars['String'];
+  readonly nights: Scalars['Int'];
+  readonly lat: Scalars['Float'];
+  readonly long: Scalars['Float'];
+  readonly location: Scalars['String'];
+  readonly country: Scalars['String'];
+};
+
+export type CreateGuideWithSpotsInput = {
+  readonly title: Scalars['String'];
+  readonly isCircular: Scalars['Boolean'];
+  readonly maxHoursPerRide: Scalars['Int'];
+  readonly type: TransportType;
+  readonly spots: ReadonlyArray<CreateGuideWithSpotInput>;
+  readonly startDate?: Maybe<Scalars['String']>;
+};
+
+export type CreateGuideWithSpotsResult = {
+  readonly success: Scalars['Boolean'];
+  readonly error?: Maybe<Scalars['String']>;
+  readonly guideId?: Maybe<Scalars['ID']>;
+};
+
 /** All input for the create `Ride` mutation. */
 export type CreateRideInput = {
   /**
@@ -1437,6 +1461,7 @@ export type Mutation = {
   readonly register?: Maybe<RegisterPayload>;
   readonly follow: Result;
   readonly unfollow: Result;
+  readonly createGuideWithSpots: CreateGuideWithSpotsResult;
   readonly addSpotFromLatLng: Spot;
   readonly moveSpot: Spot;
   readonly removeSpot: Spot;
@@ -1682,6 +1707,12 @@ export type MutationFollowArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUnfollowArgs = {
   username: Scalars['String'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateGuideWithSpotsArgs = {
+  input?: Maybe<CreateGuideWithSpotsInput>;
 };
 
 
@@ -4558,6 +4589,9 @@ export type ResolversTypes = {
   RegisterInput: RegisterInput,
   RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
   Result: ResolverTypeWrapper<Result>,
+  CreateGuideWithSpotsInput: CreateGuideWithSpotsInput,
+  CreateGuideWithSpotInput: CreateGuideWithSpotInput,
+  CreateGuideWithSpotsResult: ResolverTypeWrapper<CreateGuideWithSpotsResult>,
   Subscription: ResolverTypeWrapper<{}>,
 };
 
@@ -4724,6 +4758,9 @@ export type ResolversParentTypes = {
   RegisterInput: RegisterInput,
   RegisterPayload: RegisterPayload,
   Result: Result,
+  CreateGuideWithSpotsInput: CreateGuideWithSpotsInput,
+  CreateGuideWithSpotInput: CreateGuideWithSpotInput,
+  CreateGuideWithSpotsResult: CreateGuideWithSpotsResult,
   Subscription: {},
 };
 
@@ -4801,6 +4838,13 @@ export type CreateGuidePayloadResolvers<ContextType = any, ParentType extends Re
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
   userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   guideEdge?: Resolver<Maybe<ResolversTypes['GuidesEdge']>, ParentType, ContextType, RequireFields<CreateGuidePayloadGuideEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateGuideWithSpotsResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateGuideWithSpotsResult'] = ResolversParentTypes['CreateGuideWithSpotsResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guideId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -5061,6 +5105,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
   follow?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowArgs, 'username'>>,
   unfollow?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowArgs, 'username'>>,
+  createGuideWithSpots?: Resolver<ResolversTypes['CreateGuideWithSpotsResult'], ParentType, ContextType, RequireFields<MutationCreateGuideWithSpotsArgs, never>>,
   addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long' | 'nights'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
@@ -5418,6 +5463,7 @@ export type Resolvers<ContextType = any> = {
   CreateComputationPayload?: CreateComputationPayloadResolvers<ContextType>,
   CreateFollowPayload?: CreateFollowPayloadResolvers<ContextType>,
   CreateGuidePayload?: CreateGuidePayloadResolvers<ContextType>,
+  CreateGuideWithSpotsResult?: CreateGuideWithSpotsResultResolvers<ContextType>,
   CreateRidePayload?: CreateRidePayloadResolvers<ContextType>,
   CreateSpotPayload?: CreateSpotPayloadResolvers<ContextType>,
   CreateStagePayload?: CreateStagePayloadResolvers<ContextType>,
@@ -5594,6 +5640,13 @@ export type UnfollowUserMutationVariables = {
 
 
 export type UnfollowUserMutation = { readonly unfollow: Pick<Result, 'success' | 'message'> };
+
+export type CreateGuideWithSpotsMutationVariables = {
+  input?: Maybe<CreateGuideWithSpotsInput>;
+};
+
+
+export type CreateGuideWithSpotsMutation = { readonly createGuideWithSpots: Pick<CreateGuideWithSpotsResult, 'success' | 'error' | 'guideId'> };
 
 export type GetGuideIdForSlugQueryVariables = {
   slug: Scalars['String'];
@@ -6279,6 +6332,46 @@ export function useUnfollowUserMutation(baseOptions?: ApolloReactHooks.MutationH
 export type UnfollowUserMutationHookResult = ReturnType<typeof useUnfollowUserMutation>;
 export type UnfollowUserMutationResult = ApolloReactCommon.MutationResult<UnfollowUserMutation>;
 export type UnfollowUserMutationOptions = ApolloReactCommon.BaseMutationOptions<UnfollowUserMutation, UnfollowUserMutationVariables>;
+export const CreateGuideWithSpotsDocument = gql`
+    mutation CreateGuideWithSpots($input: CreateGuideWithSpotsInput) {
+  createGuideWithSpots(input: $input) {
+    success
+    error
+    guideId
+  }
+}
+    `;
+export type CreateGuideWithSpotsMutationFn = ApolloReactCommon.MutationFunction<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables>;
+export type CreateGuideWithSpotsComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables>, 'mutation'>;
+
+    export const CreateGuideWithSpotsComponent = (props: CreateGuideWithSpotsComponentProps) => (
+      <ApolloReactComponents.Mutation<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables> mutation={CreateGuideWithSpotsDocument} {...props} />
+    );
+    
+
+/**
+ * __useCreateGuideWithSpotsMutation__
+ *
+ * To run a mutation, you first call `useCreateGuideWithSpotsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateGuideWithSpotsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createGuideWithSpotsMutation, { data, loading, error }] = useCreateGuideWithSpotsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateGuideWithSpotsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables>(CreateGuideWithSpotsDocument, baseOptions);
+      }
+export type CreateGuideWithSpotsMutationHookResult = ReturnType<typeof useCreateGuideWithSpotsMutation>;
+export type CreateGuideWithSpotsMutationResult = ApolloReactCommon.MutationResult<CreateGuideWithSpotsMutation>;
+export type CreateGuideWithSpotsMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables>;
 export const GetGuideIdForSlugDocument = gql`
     query GetGuideIdForSlug($slug: String!) {
   guides(condition: {slug: $slug}) {

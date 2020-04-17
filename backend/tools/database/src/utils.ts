@@ -33,9 +33,9 @@ function extract(any: any): string {
   }).join(",")
 }
 
-export function insertOne<T>(tableName: string, item: T): string {
+export function insertOne<T>(tableName: string, item: T, returning: string | undefined = undefined): string {
   if (item) {
-    return insertMany(tableName, [item])
+    return insertMany(tableName, [item], returning)
   } else {
     return ""
   }
@@ -96,7 +96,7 @@ returning t."${onColumn}"
   `
 }
 
-export function insertMany(tableName: string, items: any[]): string {
+export function insertMany(tableName: string, items: any[], returning: string | undefined = undefined): string {
 
   items = items.filter(value => value)
 
@@ -113,6 +113,7 @@ export function insertMany(tableName: string, items: any[]): string {
 
   return `
 insert into ${tableName} ${columns}
-values ${values};
+values ${values}
+${returning ? `returning ${returning} as id;` : ";"}
   `
 }

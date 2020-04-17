@@ -63,3 +63,11 @@ mutation UnfollowUser($username:String!){
         message
     }
 }
+
+mutation CreateGuideWithSpots($input:CreateGuideWithSpotsInput){
+    createGuideWithSpots(input:$input){
+        success
+        error
+        guideId
+    }
+}

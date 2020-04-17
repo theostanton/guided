@@ -18,33 +18,44 @@ export default class CreateGuideSteps extends React.Component<Props> {
   render(): React.ReactElement {
     const stage = this.createGuideStore.stage
     return <Step.Group ordered attached={'top'}>
+
       <Step completed={stage !== "details"} active={stage === "details"} onClick={() => {
         this.createGuideStore.goToStage("details")
       }
       }>
         <Step.Content>
           <Step.Title>Details</Step.Title>
-          <Step.Description>Choose your shipping options</Step.Description>
+          {/*<Step.Description>Choose your shipping options</Step.Description>*/}
         </Step.Content>
       </Step>
 
-      <Step completed={stage === "members"} active={stage === "locations"} onClick={() => {
+      <Step completed={["members","save"].includes(stage)} active={stage === "locations"} onClick={() => {
         this.createGuideStore.goToStage("locations")
       }
       }>
         <Step.Content>
           <Step.Title>Locations</Step.Title>
-          <Step.Description>Choose key locations for your guide</Step.Description>
+          {/*<Step.Description>Choose key locations for your guide</Step.Description>*/}
         </Step.Content>
       </Step>
 
-      <Step active={stage === "members"} onClick={() => {
+      <Step active={stage === "members"} completed={stage==="save"} onClick={() => {
         this.createGuideStore.goToStage("members")
       }
       }>
         <Step.Content>
           <Step.Title>Members</Step.Title>
-          <Step.Description>Choose others users to join you</Step.Description>
+          {/*<Step.Description>Choose others users to join you</Step.Description>*/}
+        </Step.Content>
+      </Step>
+
+      <Step active={stage === "save"} onClick={() => {
+        this.createGuideStore.goToStage("save")
+      }
+      }>
+        <Step.Content>
+          <Step.Title>Save</Step.Title>
+          {/*<Step.Description>Get directions for your guide</Step.Description>*/}
         </Step.Content>
       </Step>
     </Step.Group>

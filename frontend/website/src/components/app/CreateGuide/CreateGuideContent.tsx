@@ -4,6 +4,7 @@ import CreateGuideStore from "model/CreateGuideStore"
 import CreateGuideDetails from "./CreateGuideDetails"
 import CreateGuideSpots from "./CreateGuideSpots"
 import CreateGuideMembers from "./CreateGuideMembers"
+import CreateGuideSave from "./CreateGuideSave"
 
 type Props = {
   createGuideStore?: CreateGuideStore
@@ -26,6 +27,8 @@ export default class CreateGuideContent extends React.Component<Props> {
         return <CreateGuideSpots/>
       case "members":
         return <CreateGuideMembers/>
+      case "save":
+        return <CreateGuideSave/>
     }
   }
 }
