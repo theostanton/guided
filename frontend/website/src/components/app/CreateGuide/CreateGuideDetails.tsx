@@ -73,6 +73,28 @@ export default class CreateGuideDetails extends React.Component<Props> {
               store.updateTitle(value)
             }}
           />
+        </Form.Group>
+        <Form.Group>
+          <Form.TextArea
+            label='Summary'
+            width={16}
+            disabled
+            onChange={(e, { value }) => {
+
+            }}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Field style={{ width: "200px" }}>
+            <label>Max ride duration</label>
+            <Form.Input>
+              <MaxHoursPerRideForm
+                hours={store.maxHoursPerRide}
+                onChange={(hours) => {
+                  store.updateMaxHours(hours)
+                }}/>
+            </Form.Input>
+          </Form.Field>
           <Form.Select
             label={"Vehicle"}
             width={"4"}
@@ -85,56 +107,6 @@ export default class CreateGuideDetails extends React.Component<Props> {
             options={TRANSPORT_OPTIONS}
           />
         </Form.Group>
-        <Form.Group widths={"equal"}>
-          <Form.Field style={{ width: "200px" }}>
-            <label>Max ride duration</label>
-            <Form.Input>
-              <MaxHoursPerRideForm
-                hours={store.maxHoursPerRide}
-                onChange={(hours) => {
-                  store.updateMaxHours(hours)
-                }}/>
-            </Form.Input>
-          </Form.Field>
-
-          <Form.Field>
-            <label>Start date</label>
-            <DateInput
-              icon={"calendar"}
-              closeOnMouseLeave={true}
-              popupPosition='bottom right'
-              name='Start date'
-              closable
-              dateFormat={"YYYY-MM-DD"}
-              initialDate={dateString(new Date())}
-              inlineLabel={true}
-              clearIcon={(<Icon name='remove' color='red'/>)}
-              clearable={true}
-              animation='fade'
-              duration={200}
-              hideMobileKeyboard
-              iconPosition='right'
-              value={store.startDate}
-              preserveViewMode={false}
-              autoComplete='off'
-              onChange={(_, { value }) => {
-                logJson(value, "value")
-                store.updateStartDate(value)
-              }}
-
-            />
-          </Form.Field>
-        </Form.Group>
-        <Form.Field>
-          <label>Circular</label>
-          <Form.Checkbox label={"Guide ends at same place it begins"}
-                         onChange={(_, { checked }) => {
-                           store.updateIsCircular(checked)
-                         }}
-                         checked={store.isCircular}
-                         toggle/>
-        </Form.Field>
-
       </Form>
       <div style={{
         bottom: "2em",

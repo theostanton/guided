@@ -42,6 +42,10 @@ export default class CreateGuideSpots extends React.Component<Props> {
       marginLeft: "auto",
       marginRight: "auto",
     }}>
+      <Header>
+        Add locations
+        <HeaderSubHeader>Add some locations to get you started. You can add, edit or move these on a map later</HeaderSubHeader>
+      </Header>
       {<CreateGuideSpotsList/>}
       <div style={{
         bottom: "2em",

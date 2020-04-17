@@ -17,7 +17,8 @@ export default class CreateGuideSteps extends React.Component<Props> {
 
   render(): React.ReactElement {
     const stage = this.createGuideStore.stage
-    return <Step.Group ordered attached={'top'}>
+
+    return <Step.Group ordered attached={"top"}>
 
       <Step completed={stage !== "details"} active={stage === "details"} onClick={() => {
         this.createGuideStore.goToStage("details")
@@ -29,8 +30,12 @@ export default class CreateGuideSteps extends React.Component<Props> {
         </Step.Content>
       </Step>
 
-      <Step completed={["members","save"].includes(stage)} active={stage === "locations"} onClick={() => {
-        this.createGuideStore.goToStage("locations")
+      <Step completed={["members", "save"].includes(stage)} active={stage === "locations"} onClick={() => {
+        if (stage === "details" && !this.createGuideStore.validateDetails()) {
+          this.createGuideStore.showErrors = true
+        } else {
+          this.createGuideStore.goToStage("locations")
+        }
       }
       }>
         <Step.Content>
@@ -39,10 +44,7 @@ export default class CreateGuideSteps extends React.Component<Props> {
         </Step.Content>
       </Step>
 
-      <Step active={stage === "members"} completed={stage==="save"} onClick={() => {
-        this.createGuideStore.goToStage("members")
-      }
-      }>
+      <Step active={stage === "members"} completed={stage === "save"}>
         <Step.Content>
           <Step.Title>Members</Step.Title>
           {/*<Step.Description>Choose others users to join you</Step.Description>*/}
@@ -50,7 +52,13 @@ export default class CreateGuideSteps extends React.Component<Props> {
       </Step>
 
       <Step active={stage === "save"} onClick={() => {
-        this.createGuideStore.goToStage("save")
+        if (stage === "details" && !this.createGuideStore.validateDetails()) {
+          this.createGuideStore.showErrors = true
+        } else if (stage === "locations" && !this.createGuideStore.validateSpots()) {
+          this.createGuideStore.showSpotsErrors = true
+        } else {
+          this.createGuideStore.goToStage("save")
+        }
       }
       }>
         <Step.Content>

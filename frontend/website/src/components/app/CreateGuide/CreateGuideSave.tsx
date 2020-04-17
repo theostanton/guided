@@ -1,17 +1,15 @@
 import { inject, observer } from "mobx-react"
 import * as React from "react"
 import CreateGuideStore from "model/CreateGuideStore"
-import { Form, Header, Icon, Message } from "semantic-ui-react"
+import { Form, Header, Message } from "semantic-ui-react"
 import { navigate } from "@reach/router"
 import { client } from "api"
 import {
   CreateGuideWithSpotInput,
   CreateGuideWithSpotsDocument,
   CreateGuideWithSpotsMutation,
-  CreateGuideWithSpotsMutationResult,
   CreateGuideWithSpotsMutationVariables,
 } from "api/generated"
-import { ReactElement } from "react"
 import { FetchResult } from "apollo-boost"
 
 
@@ -48,12 +46,12 @@ export default class CreateGuideSave extends React.Component<Props, State> {
     const { title, startDate, isCircular, maxHoursPerRide, transportType: type } = this.createGuideStore
     const spots: CreateGuideWithSpotInput[] = this.createGuideStore.spots.map(spot => {
       return {
-        nights:spot.nights,
-        label:spot.label,
-        location:spot.location,
-        country:spot.country,
-        long:spot.long,
-        lat:spot.lat
+        nights: spot.nights,
+        label: spot.label,
+        location: spot.location,
+        country: spot.country,
+        long: spot.long,
+        lat: spot.lat,
       }
     })
 

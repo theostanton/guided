@@ -14,7 +14,7 @@ export type CreateGuideStoreSpot = Partial<CreateGuideWithSpotInput> & { key: st
 export default class CreateGuideStore {
 
   @observable
-  stage: Stage = "locations"
+  stage: Stage = "details"
 
   @observable
   title: string | undefined
@@ -23,7 +23,7 @@ export default class CreateGuideStore {
   maxHoursPerRide: number = 6
 
   @observable
-  isCircular: boolean = true
+  isCircular: boolean = false
 
   @observable
   transportType: TransportType | undefined
