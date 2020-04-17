@@ -1,29 +1,20 @@
 import {
   CreateGuideWithSpotInput,
   Geocode,
-  GeocodeDocument,
-  GeocodeQuery,
   TransportType,
 } from "../../api/generated"
-import { action, computed, observable } from "mobx"
-import AwesomeDebouncePromise from "awesome-debounce-promise"
-import { client } from "../../api"
+import { action, observable } from "mobx"
+import randomKey from "../../utils/randomKey"
 
 type Stage = "details" | "locations" | "members" | "save"
 
-// export type CreateGuideSpot = {
-//   title: string
-//   location: string
-//   latitutde: number
-//   longitude: number
-//   country: string
-//   nights: number
-// }
+
+export type CreateGuideStoreSpot = Partial<CreateGuideWithSpotInput> & { key: string }
 
 export default class CreateGuideStore {
 
   @observable
-  stage: Stage = "details"
+  stage: Stage = "locations"
 
   @observable
   title: string | undefined
@@ -41,18 +32,19 @@ export default class CreateGuideStore {
   showErrors: boolean = false
 
   @observable
+  showSpotsErrors: boolean = false
+
+  @observable
   startDate: string | undefined
 
   @observable
-  spots: CreateGuideWithSpotInput[]
+  spots: CreateGuideStoreSpot[]
 
   constructor() {
-    this.spots = []
-    this.geocodeResult = {
-      status: "clear",
-      error: undefined,
-      geocodes: undefined,
-    }
+    this.spots = [{
+      key: randomKey(),
+      nights: 0,
+    }]
   }
 
   goToStage(stage: Stage) {
@@ -91,26 +83,18 @@ export default class CreateGuideStore {
     this.startDate = startDate
   }
 
-  updateNights(index: number, nights: number) {
-    //TOOD better way to trigger update
-    this.spots = this.spots.map((spot, _index) => {
-      if (_index === index) {
-        return {
-          ...spot,
-          nights,
-        }
-      } else {
-        return spot
-      }
-    })
-  }
-
   validateDetails(): boolean {
     if (this.titleValidation() || this.transportTypeValidation()) {
       return false
     } else {
       return true
     }
+  }
+
+  validateSpots(): boolean {
+    return !this.spots.some(spot => {
+      return spot.label === "" || !spot.location || spot.location === ""
+    })
   }
 
   updateShowErrors(showErrors: boolean) {
@@ -128,87 +112,23 @@ export default class CreateGuideStore {
     this.spots = result
   }
 
-  private fetchGeocodes = AwesomeDebouncePromise(
-    this.executeGeocode.bind(this),
-    200,
-    {
-      accumulate: false,
-      onlyResolvesLast: true,
-    },
-  )
-
-  @observable
-  geocodeResult: {
-    error?: string | undefined
-    status: "loading" | "error" | "success" | "clear"
-    geocodes?: Geocode[] | undefined
-  }
-
-  private clearGeocodes() {
-    this.geocodeResult = {
-      status: "clear",
-    }
-  }
-
   @action
-  async executeGeocode(query: string) {
-
-    if (query === "") {
-      this.clearGeocodes()
-      return
-    }
-
-    const result = await client.query<GeocodeQuery>({
-      query: GeocodeDocument,
-      variables: {
-        query,
-      },
+  addSpot(index: number) {
+    this.showSpotsErrors = false
+    this.spots.splice(index, 0, {
+      key: randomKey(),
+      label: "",
+      nights: 1,
     })
-
-    if (result.errors) {
-      this.geocodeResult = {
-        status: "error",
-        error: result.errors.map(error => {
-          return error.message
-        }).join("\n"),
-      }
-    } else {
-      this.geocodeResult = {
-        status: "success",
-        geocodes: result.data.geocode.geocodes.map(geocode => geocode),
-      }
-    }
   }
 
   @action
-  saveSpot(label: string, geocode: Geocode, nights: number) {
-    this.spots.push({
-      label,
-      lat: geocode.latitude,
-      long: geocode.longitude,
-      location: geocode.label,
-      country: geocode.countryCode,
-      nights,
-    })
-    this.clearGeocodes()
+  updateSpot(index: number, fields: Partial<CreateGuideWithSpotInput>) {
+    this.spots[index] = {
+      ...this.spots[index],
+      ...fields,
+    }
   }
 
-  @action
-  async updateGeocode(query: string | undefined, clear: boolean) {
-    if (clear) {
-      this.geocodeResult = undefined
-    }
-    if (!query || query.length === 0) {
-      this.clearGeocodes()
-    } else {
-      this.geocodeResult = {
-        status: "loading",
-      }
-    }
-    await this.fetchGeocodes(query)
-  }
-
-  async create() {
-  }
 }
 

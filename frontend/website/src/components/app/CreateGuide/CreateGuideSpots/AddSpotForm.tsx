@@ -5,29 +5,6 @@ import { Button, Dropdown, Flag, FlagNameValues, Form, FormGroup, Header, Input,
 import { CSSProperties } from "react"
 import { Geocode } from "api/generated"
 
-
-type DropdownOption = {
-  key: string,
-  text: React.ReactElement | string,
-  value: string,
-  order?: string
-  image?: React.ReactElement
-}
-
-
-function geocodeOptions(geocodes: Geocode[] | undefined): DropdownOption[] | undefined {
-  if (geocodes) {
-    return geocodes.map(geocode => {
-      return {
-        key: geocode.label,
-        text: geocode.label,
-        image: <Flag name={geocode.countryCode.toLowerCase() as FlagNameValues}/>,
-        value: geocode.label,
-      }
-    })
-  }
-}
-
 type Props = {
   createGuideStore?: CreateGuideStore
 }
@@ -96,6 +73,13 @@ export default class AddSpotForm extends React.Component<Props, State> {
             closeOnChange
             clearable
             icon={"search"}
+            onFocus={()=>{
+              this.setState({
+                label: "",
+                geocode: undefined,
+                nights: 1,
+              })
+            }}
             value={this.state.geocode?.label}
             open={!!result.geocodes && !this.state.geocode}
             loading={result.status === "loading"}

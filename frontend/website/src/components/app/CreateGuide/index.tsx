@@ -7,6 +7,7 @@ import CreateGuideStore from "../../../model/CreateGuideStore"
 import { RouteComponentProps } from "@reach/router"
 import CreateGuideSteps from "./CreateGuideSteps"
 import CreateGuideContent from "./CreateGuideContent"
+import { GeocodesStore } from "./CreateGuideSpots/GeocodesStore"
 
 
 type TransportOption = {
@@ -52,14 +53,16 @@ type State = {
 export default class CreateGuide extends React.Component<Props, State> {
 
   createGuideStore: CreateGuideStore
+  geocodeStore: GeocodesStore
 
   constructor(props) {
     super(props)
     this.createGuideStore = new CreateGuideStore()
+    this.geocodeStore = new GeocodesStore()
   }
 
   render(): React.ReactElement {
-    return <Provider createGuideStore={this.createGuideStore}>
+    return <Provider createGuideStore={this.createGuideStore} geocodeStore={this.geocodeStore}>
       <Segment padded={false} style={{ padding: 0, minHeight: "800px" }}>
         <CreateGuideSteps/>
         <CreateGuideContent/>

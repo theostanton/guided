@@ -143,7 +143,7 @@ export default class SignUpComponent extends React.Component<Props, State> {
           }
           }/>
         <Form.Input
-          label="Email"
+          label="Email - Dont use a real one - API is public"
           icon='mail'
           iconPosition='left'
           error={errors["email"]}

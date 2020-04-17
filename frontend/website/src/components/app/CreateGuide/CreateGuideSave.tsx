@@ -5,9 +5,14 @@ import { Form, Header, Icon, Message } from "semantic-ui-react"
 import { navigate } from "@reach/router"
 import { client } from "api"
 import {
-  CreateGuideWithSpotsDocument, CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables,
+  CreateGuideWithSpotInput,
+  CreateGuideWithSpotsDocument,
+  CreateGuideWithSpotsMutation,
+  CreateGuideWithSpotsMutationResult,
+  CreateGuideWithSpotsMutationVariables,
 } from "api/generated"
 import { ReactElement } from "react"
+import { FetchResult } from "apollo-boost"
 
 
 type Props = {
@@ -40,7 +45,17 @@ export default class CreateGuideSave extends React.Component<Props, State> {
 
   async create() {
 
-    const { title, startDate, isCircular, maxHoursPerRide, spots, transportType: type } = this.createGuideStore
+    const { title, startDate, isCircular, maxHoursPerRide, transportType: type } = this.createGuideStore
+    const spots: CreateGuideWithSpotInput[] = this.createGuideStore.spots.map(spot => {
+      return {
+        nights:spot.nights,
+        label:spot.label,
+        location:spot.location,
+        country:spot.country,
+        long:spot.long,
+        lat:spot.lat
+      }
+    })
 
     const errors: { message: string }[] = []
 
@@ -81,11 +96,21 @@ export default class CreateGuideSave extends React.Component<Props, State> {
         type,
       },
     }
-    const result = await client.mutate<CreateGuideWithSpotsMutation>({
-      mutation: CreateGuideWithSpotsDocument,
-      variables,
-    })
 
+    let result: FetchResult<CreateGuideWithSpotsMutation>
+    try {
+      result = await client.mutate<CreateGuideWithSpotsMutation>({
+        mutation: CreateGuideWithSpotsDocument,
+        variables,
+      })
+    } catch (e) {
+      this.setState({
+        status: "errors",
+        errors: [{
+          message: e.message,
+        }],
+      })
+    }
 
     if (result.errors) {
       this.setState({
