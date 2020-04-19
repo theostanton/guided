@@ -1,5 +1,6 @@
 import { isBoolean } from "util"
 import { logJson } from "@guided/logger"
+import { TransportType } from "./types"
 
 function extract(any: any): string {
   return Object.values(any).map((value: any | undefined | null) => {
@@ -8,9 +9,12 @@ function extract(any: any): string {
       // console.log(`${value} is a ${type}`)
     }
 
-    if (value instanceof Date) {
+    if (["MOTORCYCLE", "BICYCLE", "CAR"].includes(value)) {
+      log("TransportType")
+      return `'${value}'::transport_type`
+    } else if (value instanceof Date) {
       log("Date")
-      return `'${value.toISOString()}'`
+      return `'${value.toISOString()}'::timestamptz`
     } else if (value instanceof Boolean) {
       log("Boolean")
       return value ? "true" : "false"
@@ -41,18 +45,13 @@ export function insertOne<T>(tableName: string, item: T, returning: string | und
   }
 }
 
-export function updateOne<T>(tableName: string, item: Partial<T>, onColumn: string = "id"): string {
-  const columns = Object.keys(item).filter(key => {
-    return key !== onColumn
-  })
-  return updateMany(tableName, [item], columns, onColumn)
+export function updateOne<T>(tableName: string, item: Partial<T>, onColumn: string = "id", oldOnColumnValue: string | undefined = undefined): string {
+  const columns = Object.keys(item)
+  return updateMany(tableName, [item], columns, onColumn, oldOnColumnValue)
 }
 
-export function updateMany(tableName: string, items: any[], columns: string[], onColumn: string = "id"): string {
+export function updateMany(tableName: string, items: any[], columns: string[], onColumn: string = "id", oldOnColumnValue: string | undefined = undefined): string {
 
-  // if (columns.includes(onColumn)) {
-  //   throw new Error(`Not smart enough to update on matched column, yet`)
-  // }
 
   items = items.map(item => {
     const insertItem: any = {}
@@ -89,12 +88,14 @@ export function updateMany(tableName: string, items: any[], columns: string[], o
       return `"${column}"`
     }).join(",")
 
+  const condition = oldOnColumnValue ? `t."${onColumn}" = '${oldOnColumnValue}'` : `t."${onColumn}" = c."${onColumn}"`
+
   return `
-  update ${tableName} as t
-  set ${sets}
-from (values${values}) as c("${onColumn}"${columnNames.length ? ", " + columnNames : ""})
-where t."${onColumn}" = c."${onColumn}"
-returning t."${onColumn}"
+    update ${tableName} as t
+    set ${sets}
+    from (values${values}) as c("${onColumn}"${columnNames.length ? ", " + columnNames : ""})
+    where ${condition}
+    returning t."${onColumn}"
   `
 }
 
@@ -110,11 +111,7 @@ export function insertMany(tableName: string, items: any[], returning: string | 
     return `(${extract(item)})`
   }).join(",")
 
-  const columns = `("${Object.keys(items[0]).join("\", \"",
-  )
-  }
-
-")`
+  const columns = `("${Object.keys(items[0]).join("\", \"")}")`
 
 
   return `
@@ -122,4 +119,8 @@ insert into ${tableName} ${columns}
 values ${values}
 ${returning ? `returning ${returning} as id;` : ";"}
   `
+}
+
+export function castTimestamp(date: Date): string {
+  return ""
 }

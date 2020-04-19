@@ -25,6 +25,7 @@ import {
   SpotStatus,
   Stage,
   StageStatus,
+  TransportType,
   User,
 } from "./types"
 
@@ -48,7 +49,20 @@ const options: pgPromise.IInitOptions<Extensions> = {
   extend,
 }
 
-export { Spot, User, Guide, Ride, Stage, Computation, SpotStatus, StageStatus, RideStatus, ComputationStatus, Follow }
+export {
+  Spot,
+  User,
+  Guide,
+  Ride,
+  Stage,
+  Computation,
+  SpotStatus,
+  StageStatus,
+  RideStatus,
+  ComputationStatus,
+  Follow,
+  TransportType,
+}
 const pgp = PgPromise(options)
 
 

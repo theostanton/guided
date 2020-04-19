@@ -1,8 +1,8 @@
 import { PluginProvider } from "./Resolver"
-import GuideResolvers from "./guides"
 import { makeExtendSchemaPlugin } from "postgraphile"
 import RootResolver from "./root"
 import FollowsResolvers from "./follows"
+import GuideResolvers from "./guides"
 
 const providers: PluginProvider[] = [
   new RootResolver(),

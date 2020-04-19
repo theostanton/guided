@@ -342,7 +342,7 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
         break
     }
 
-    return <Header color={"grey"}>{title}</Header>
+    return <Header as={'h5'} color={"grey"}>{title}</Header>
   }
 
   renderCenter(): React.ReactElement {

@@ -1,10 +1,10 @@
 import { logJson } from "@guided/logger"
 import Dao from "../dao"
-import { ComputeStageMessageBody, ComputeStageResult } from "model/context"
 import { database, Guide, Spot } from "@guided/database"
 import calculateStage from "./calculateStage"
 import getRoute from "./getRoute"
 import ammendDates from "../trigger/ammendDates"
+import { ComputeStageMessageBody, ComputeStageResult } from "../types"
 
 async function runFinalisationIfRequired(guide: Guide): Promise<boolean> {
   const activeComputations = await database.manyOrNone("select id from computations where guide=$1 and status in ('computing','scheduled')", [guide.id])

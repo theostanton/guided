@@ -1,14 +1,14 @@
-import { MutationResult, SimpleResolver } from "resolvers/Resolver"
+import { Mutation, MutationResult } from "../Resolver"
 import { Context } from "model/context"
 import { gql } from "postgraphile"
 import { logJson } from "@guided/logger"
 import { database, Follow, insertOne } from "@guided/database"
 import { MutationFollowUserArgs } from "generated"
 
-const RESOLVER: SimpleResolver<MutationFollowUserArgs, MutationResult> = {
-  name: "followUser",
-  type: "Mutation",
-  async resolver(_: any, args: MutationFollowUserArgs, context: Context): Promise<MutationResult> {
+export default class FollowUserMutation extends Mutation<MutationFollowUserArgs, MutationResult> {
+  name = "followUser"
+
+  async resolver(args: MutationFollowUserArgs, context: Context): Promise<MutationResult> {
     logJson(args, "followUser args")
 
     if (!context.jwtClaims) {
@@ -18,7 +18,7 @@ const RESOLVER: SimpleResolver<MutationFollowUserArgs, MutationResult> = {
       }
     }
 
-    const follower = context.jwtClaims.username!
+    const follower = context.jwtClaims!.username!
     const followed = args.username
 
     const followsBefore = await database.manyOrNone<Follow>(
@@ -44,13 +44,11 @@ const RESOLVER: SimpleResolver<MutationFollowUserArgs, MutationResult> = {
       success: true,
       message: `Following ${followed}`,
     }
-  },
+  }
 
-  typeDefs: gql`
+  typeDefs = gql`
       extend type Mutation {
           followUser(username:String!):Result!
       }
-  `,
+  `
 }
-
-export default RESOLVER

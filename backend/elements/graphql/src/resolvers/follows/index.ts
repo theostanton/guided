@@ -5,8 +5,8 @@ import UnfollowUser from "./unfollowUser"
 export default class FollowsResolvers extends ResolverGroup {
   resolvers(): AnySimplerResolver[] {
     return [
-      FollowUser,
-      UnfollowUser,
+      new FollowUser(),
+      new UnfollowUser(),
     ]
   }
 }

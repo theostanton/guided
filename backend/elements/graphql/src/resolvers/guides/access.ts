@@ -7,7 +7,7 @@ export default async function(context: Context, guideId: string): Promise<Access
                                           from guides
                                           where id = $1`, [guideId])
 
-  const username = context.jwtClaims && context.jwtClaims.username
+  const username = context.jwtClaims && context.jwtClaims!.username
   if (!username) {
     return "notLoggedIn"
   }

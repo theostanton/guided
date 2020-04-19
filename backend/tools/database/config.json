@@ -19,6 +19,7 @@
     "public.stages.status": "StageStatus",
     "public.computations.status": "ComputationStatus",
     "public.spots.status": "SpotStatus",
+    "public.guids.transport_type": "TransportType",
     "public.rides.status": "RideStatus"
   }
 }

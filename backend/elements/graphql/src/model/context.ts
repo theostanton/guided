@@ -1,7 +1,5 @@
-import { database } from "@guided/database"
-
 export type Context = {
-  jwtClaims: {
+  jwtClaims?: {
     username: string
   }
 }

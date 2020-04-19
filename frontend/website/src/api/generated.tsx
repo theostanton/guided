@@ -34,6 +34,20 @@ export type Scalars = {
   JwtToken: any;
 };
 
+export type AddSpotInput = {
+  readonly guideId: Scalars['String'];
+  readonly lat: Scalars['Float'];
+  readonly long: Scalars['Float'];
+  readonly label?: Maybe<Scalars['String']>;
+  readonly nights: Scalars['Int'];
+};
+
+export type AddSpotResult = {
+  readonly success: Scalars['Boolean'];
+  readonly messaage?: Maybe<Scalars['String']>;
+  readonly id?: Maybe<Scalars['String']>;
+};
+
 /** All input for the `authenticate` mutation. */
 export type AuthenticateInput = {
   /**
@@ -361,178 +375,18 @@ export type CreateComputationPayloadComputationEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
 };
 
-/** All input for the create `Follow` mutation. */
-export type CreateFollowInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Follow` to be created by this mutation. */
-  readonly follow: FollowInput;
-};
-
-/** The output of our create `Follow` mutation. */
-export type CreateFollowPayload = {
-  /**
-   * The exact same `clientMutationId` that was provided in the mutation input,
-   * unchanged and unused. May be used by a client to track mutations.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Follow` that was created by this mutation. */
-  readonly follow?: Maybe<Follow>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  readonly query?: Maybe<Query>;
-  /** Reads a single `User` that is related to this `Follow`. */
-  readonly userByFollowed?: Maybe<User>;
-  /** Reads a single `User` that is related to this `Follow`. */
-  readonly userByFollower?: Maybe<User>;
-  /** An edge for our `Follow`. May be used by Relay 1. */
-  readonly followEdge?: Maybe<FollowsEdge>;
-};
-
-
-/** The output of our create `Follow` mutation. */
-export type CreateFollowPayloadFollowEdgeArgs = {
-  orderBy?: Maybe<ReadonlyArray<FollowsOrderBy>>;
-};
-
-/** All input for the create `Guide` mutation. */
 export type CreateGuideInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Guide` to be created by this mutation. */
-  readonly guide: GuideInput;
-};
-
-/** The output of our create `Guide` mutation. */
-export type CreateGuidePayload = {
-  /**
-   * The exact same `clientMutationId` that was provided in the mutation input,
-   * unchanged and unused. May be used by a client to track mutations.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Guide` that was created by this mutation. */
-  readonly guide?: Maybe<Guide>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  readonly query?: Maybe<Query>;
-  /** Reads a single `User` that is related to this `Guide`. */
-  readonly userByOwner?: Maybe<User>;
-  /** An edge for our `Guide`. May be used by Relay 1. */
-  readonly guideEdge?: Maybe<GuidesEdge>;
-};
-
-
-/** The output of our create `Guide` mutation. */
-export type CreateGuidePayloadGuideEdgeArgs = {
-  orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>;
-};
-
-export type CreateGuideWithSpotInput = {
-  readonly label: Scalars['String'];
-  readonly nights: Scalars['Int'];
-  readonly lat: Scalars['Float'];
-  readonly long: Scalars['Float'];
-  readonly location: Scalars['String'];
-  readonly country: Scalars['String'];
-};
-
-export type CreateGuideWithSpotsInput = {
   readonly title: Scalars['String'];
-  readonly isCircular: Scalars['Boolean'];
+  readonly isCircular?: Maybe<Scalars['Boolean']>;
   readonly maxHoursPerRide: Scalars['Int'];
   readonly type: TransportType;
-  readonly spots: ReadonlyArray<CreateGuideWithSpotInput>;
   readonly startDate?: Maybe<Scalars['String']>;
 };
 
-export type CreateGuideWithSpotsResult = {
+export type CreateGuideResult = {
   readonly success: Scalars['Boolean'];
-  readonly error?: Maybe<Scalars['String']>;
-  readonly guideId?: Maybe<Scalars['ID']>;
-};
-
-/** All input for the create `Ride` mutation. */
-export type CreateRideInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Ride` to be created by this mutation. */
-  readonly ride: RideInput;
-};
-
-/** The output of our create `Ride` mutation. */
-export type CreateRidePayload = {
-  /**
-   * The exact same `clientMutationId` that was provided in the mutation input,
-   * unchanged and unused. May be used by a client to track mutations.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Ride` that was created by this mutation. */
-  readonly ride?: Maybe<Ride>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  readonly query?: Maybe<Query>;
-  /** Reads a single `Guide` that is related to this `Ride`. */
-  readonly guideByGuide?: Maybe<Guide>;
-  /** Reads a single `User` that is related to this `Ride`. */
-  readonly userByOwner?: Maybe<User>;
-  /** Reads a single `Spot` that is related to this `Ride`. */
-  readonly spotByFromSpot?: Maybe<Spot>;
-  /** Reads a single `Spot` that is related to this `Ride`. */
-  readonly spotByToSpot?: Maybe<Spot>;
-  /** Reads a single `Stage` that is related to this `Ride`. */
-  readonly stageByStage?: Maybe<Stage>;
-  /** An edge for our `Ride`. May be used by Relay 1. */
-  readonly rideEdge?: Maybe<RidesEdge>;
-};
-
-
-/** The output of our create `Ride` mutation. */
-export type CreateRidePayloadRideEdgeArgs = {
-  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>;
-};
-
-/** All input for the create `Spot` mutation. */
-export type CreateSpotInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Spot` to be created by this mutation. */
-  readonly spot: SpotInput;
-};
-
-/** The output of our create `Spot` mutation. */
-export type CreateSpotPayload = {
-  /**
-   * The exact same `clientMutationId` that was provided in the mutation input,
-   * unchanged and unused. May be used by a client to track mutations.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Spot` that was created by this mutation. */
-  readonly spot?: Maybe<Spot>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  readonly query?: Maybe<Query>;
-  /** Reads a single `Guide` that is related to this `Spot`. */
-  readonly guideByGuide?: Maybe<Guide>;
-  /** Reads a single `User` that is related to this `Spot`. */
-  readonly userByOwner?: Maybe<User>;
-  /** Reads a single `Stage` that is related to this `Spot`. */
-  readonly stageByStage?: Maybe<Stage>;
-  /** An edge for our `Spot`. May be used by Relay 1. */
-  readonly spotEdge?: Maybe<SpotsEdge>;
-};
-
-
-/** The output of our create `Spot` mutation. */
-export type CreateSpotPayloadSpotEdgeArgs = {
-  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>;
+  readonly message?: Maybe<Scalars['String']>;
+  readonly guideId?: Maybe<Scalars['String']>;
 };
 
 /** All input for the create `Stage` mutation. */
@@ -712,151 +566,13 @@ export type DeleteComputationPayloadComputationEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
 };
 
-/** All input for the `deleteGuideByNodeId` mutation. */
-export type DeleteGuideByNodeIdInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The globally unique `ID` which will identify a single `Guide` to be deleted. */
-  readonly nodeId: Scalars['ID'];
-};
-
-/** All input for the `deleteGuide` mutation. */
 export type DeleteGuideInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
   readonly id: Scalars['String'];
 };
 
-/** The output of our delete `Guide` mutation. */
-export type DeleteGuidePayload = {
-  /**
-   * The exact same `clientMutationId` that was provided in the mutation input,
-   * unchanged and unused. May be used by a client to track mutations.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Guide` that was deleted by this mutation. */
-  readonly guide?: Maybe<Guide>;
-  readonly deletedGuideNodeId?: Maybe<Scalars['ID']>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  readonly query?: Maybe<Query>;
-  /** Reads a single `User` that is related to this `Guide`. */
-  readonly userByOwner?: Maybe<User>;
-  /** An edge for our `Guide`. May be used by Relay 1. */
-  readonly guideEdge?: Maybe<GuidesEdge>;
-};
-
-
-/** The output of our delete `Guide` mutation. */
-export type DeleteGuidePayloadGuideEdgeArgs = {
-  orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>;
-};
-
-/** All input for the `deleteRideByNodeId` mutation. */
-export type DeleteRideByNodeIdInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The globally unique `ID` which will identify a single `Ride` to be deleted. */
-  readonly nodeId: Scalars['ID'];
-};
-
-/** All input for the `deleteRide` mutation. */
-export type DeleteRideInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  readonly id: Scalars['String'];
-};
-
-/** The output of our delete `Ride` mutation. */
-export type DeleteRidePayload = {
-  /**
-   * The exact same `clientMutationId` that was provided in the mutation input,
-   * unchanged and unused. May be used by a client to track mutations.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Ride` that was deleted by this mutation. */
-  readonly ride?: Maybe<Ride>;
-  readonly deletedRideNodeId?: Maybe<Scalars['ID']>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  readonly query?: Maybe<Query>;
-  /** Reads a single `Guide` that is related to this `Ride`. */
-  readonly guideByGuide?: Maybe<Guide>;
-  /** Reads a single `User` that is related to this `Ride`. */
-  readonly userByOwner?: Maybe<User>;
-  /** Reads a single `Spot` that is related to this `Ride`. */
-  readonly spotByFromSpot?: Maybe<Spot>;
-  /** Reads a single `Spot` that is related to this `Ride`. */
-  readonly spotByToSpot?: Maybe<Spot>;
-  /** Reads a single `Stage` that is related to this `Ride`. */
-  readonly stageByStage?: Maybe<Stage>;
-  /** An edge for our `Ride`. May be used by Relay 1. */
-  readonly rideEdge?: Maybe<RidesEdge>;
-};
-
-
-/** The output of our delete `Ride` mutation. */
-export type DeleteRidePayloadRideEdgeArgs = {
-  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>;
-};
-
-/** All input for the `deleteSpotByNodeId` mutation. */
-export type DeleteSpotByNodeIdInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The globally unique `ID` which will identify a single `Spot` to be deleted. */
-  readonly nodeId: Scalars['ID'];
-};
-
-/** All input for the `deleteSpot` mutation. */
-export type DeleteSpotInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  readonly id: Scalars['String'];
-};
-
-/** The output of our delete `Spot` mutation. */
-export type DeleteSpotPayload = {
-  /**
-   * The exact same `clientMutationId` that was provided in the mutation input,
-   * unchanged and unused. May be used by a client to track mutations.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Spot` that was deleted by this mutation. */
-  readonly spot?: Maybe<Spot>;
-  readonly deletedSpotNodeId?: Maybe<Scalars['ID']>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  readonly query?: Maybe<Query>;
-  /** Reads a single `Guide` that is related to this `Spot`. */
-  readonly guideByGuide?: Maybe<Guide>;
-  /** Reads a single `User` that is related to this `Spot`. */
-  readonly userByOwner?: Maybe<User>;
-  /** Reads a single `Stage` that is related to this `Spot`. */
-  readonly stageByStage?: Maybe<Stage>;
-  /** An edge for our `Spot`. May be used by Relay 1. */
-  readonly spotEdge?: Maybe<SpotsEdge>;
-};
-
-
-/** The output of our delete `Spot` mutation. */
-export type DeleteSpotPayloadSpotEdgeArgs = {
-  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>;
+export type DeleteGuideResult = {
+  readonly success: Scalars['Boolean'];
+  readonly message?: Maybe<Scalars['String']>;
 };
 
 /** All input for the `deleteStageByNodeId` mutation. */
@@ -1089,11 +805,38 @@ export type FollowingStatusFilter = {
   readonly greaterThanOrEqualTo?: Maybe<FollowingStatus>;
 };
 
-/** An input for mutations affecting `Follow` */
+/** All input for the `follow` mutation. */
 export type FollowInput = {
-  readonly followed: Scalars['String'];
-  readonly follower: Scalars['String'];
-  readonly timestamp: Scalars['Datetime'];
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly username: Scalars['String'];
+};
+
+/** The output of our `follow` mutation. */
+export type FollowPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly follow?: Maybe<Follow>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** Reads a single `User` that is related to this `Follow`. */
+  readonly userByFollowed?: Maybe<User>;
+  /** Reads a single `User` that is related to this `Follow`. */
+  readonly userByFollower?: Maybe<User>;
+  /** An edge for our `Follow`. May be used by Relay 1. */
+  readonly followEdge?: Maybe<FollowsEdge>;
+};
+
+
+/** The output of our `follow` mutation. */
+export type FollowPayloadFollowEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<FollowsOrderBy>>;
 };
 
 /** A connection to a list of `Follow` values. */
@@ -1279,34 +1022,6 @@ export type GuideFilter = {
   readonly not?: Maybe<GuideFilter>;
 };
 
-/** An input for mutations affecting `Guide` */
-export type GuideInput = {
-  readonly id: Scalars['String'];
-  readonly title: Scalars['String'];
-  readonly slug: Scalars['String'];
-  readonly owner: Scalars['String'];
-  readonly startDate?: Maybe<Scalars['String']>;
-  readonly maxHoursPerRide?: Maybe<Scalars['Int']>;
-  readonly created: Scalars['Datetime'];
-  readonly updated?: Maybe<Scalars['Datetime']>;
-  readonly transportType?: Maybe<TransportType>;
-  readonly isCircular?: Maybe<Scalars['Boolean']>;
-};
-
-/** Represents an update to a `Guide`. Fields that are set will be updated. */
-export type GuidePatch = {
-  readonly id?: Maybe<Scalars['String']>;
-  readonly title?: Maybe<Scalars['String']>;
-  readonly slug?: Maybe<Scalars['String']>;
-  readonly owner?: Maybe<Scalars['String']>;
-  readonly startDate?: Maybe<Scalars['String']>;
-  readonly maxHoursPerRide?: Maybe<Scalars['Int']>;
-  readonly created?: Maybe<Scalars['Datetime']>;
-  readonly updated?: Maybe<Scalars['Datetime']>;
-  readonly transportType?: Maybe<TransportType>;
-  readonly isCircular?: Maybe<Scalars['Boolean']>;
-};
-
 /** A connection to a list of `Guide` values. */
 export type GuidesConnection = {
   /** A list of `Guide` objects. */
@@ -1385,14 +1100,6 @@ export type IntFilter = {
 export type Mutation = {
   /** Creates a single `Computation`. */
   readonly createComputation?: Maybe<CreateComputationPayload>;
-  /** Creates a single `Follow`. */
-  readonly createFollow?: Maybe<CreateFollowPayload>;
-  /** Creates a single `Guide`. */
-  readonly createGuide?: Maybe<CreateGuidePayload>;
-  /** Creates a single `Ride`. */
-  readonly createRide?: Maybe<CreateRidePayload>;
-  /** Creates a single `Spot`. */
-  readonly createSpot?: Maybe<CreateSpotPayload>;
   /** Creates a single `Stage`. */
   readonly createStage?: Maybe<CreateStagePayload>;
   /** Creates a single `Temperature`. */
@@ -1403,18 +1110,6 @@ export type Mutation = {
   readonly updateComputationByNodeId?: Maybe<UpdateComputationPayload>;
   /** Updates a single `Computation` using a unique key and a patch. */
   readonly updateComputation?: Maybe<UpdateComputationPayload>;
-  /** Updates a single `Guide` using its globally unique id and a patch. */
-  readonly updateGuideByNodeId?: Maybe<UpdateGuidePayload>;
-  /** Updates a single `Guide` using a unique key and a patch. */
-  readonly updateGuide?: Maybe<UpdateGuidePayload>;
-  /** Updates a single `Ride` using its globally unique id and a patch. */
-  readonly updateRideByNodeId?: Maybe<UpdateRidePayload>;
-  /** Updates a single `Ride` using a unique key and a patch. */
-  readonly updateRide?: Maybe<UpdateRidePayload>;
-  /** Updates a single `Spot` using its globally unique id and a patch. */
-  readonly updateSpotByNodeId?: Maybe<UpdateSpotPayload>;
-  /** Updates a single `Spot` using a unique key and a patch. */
-  readonly updateSpot?: Maybe<UpdateSpotPayload>;
   /** Updates a single `Stage` using its globally unique id and a patch. */
   readonly updateStageByNodeId?: Maybe<UpdateStagePayload>;
   /** Updates a single `Stage` using a unique key and a patch. */
@@ -1431,18 +1126,6 @@ export type Mutation = {
   readonly deleteComputationByNodeId?: Maybe<DeleteComputationPayload>;
   /** Deletes a single `Computation` using a unique key. */
   readonly deleteComputation?: Maybe<DeleteComputationPayload>;
-  /** Deletes a single `Guide` using its globally unique id. */
-  readonly deleteGuideByNodeId?: Maybe<DeleteGuidePayload>;
-  /** Deletes a single `Guide` using a unique key. */
-  readonly deleteGuide?: Maybe<DeleteGuidePayload>;
-  /** Deletes a single `Ride` using its globally unique id. */
-  readonly deleteRideByNodeId?: Maybe<DeleteRidePayload>;
-  /** Deletes a single `Ride` using a unique key. */
-  readonly deleteRide?: Maybe<DeleteRidePayload>;
-  /** Deletes a single `Spot` using its globally unique id. */
-  readonly deleteSpotByNodeId?: Maybe<DeleteSpotPayload>;
-  /** Deletes a single `Spot` using a unique key. */
-  readonly deleteSpot?: Maybe<DeleteSpotPayload>;
   /** Deletes a single `Stage` using its globally unique id. */
   readonly deleteStageByNodeId?: Maybe<DeleteStagePayload>;
   /** Deletes a single `Stage` using a unique key. */
@@ -1457,47 +1140,25 @@ export type Mutation = {
   readonly deleteUser?: Maybe<DeleteUserPayload>;
   /** Creates a JWT token that will securely identify a person and give them certain permissions. This token expires in 2 days. */
   readonly authenticate?: Maybe<AuthenticatePayload>;
+  readonly follow?: Maybe<FollowPayload>;
   /** Registers a single user */
   readonly register?: Maybe<RegisterPayload>;
-  readonly follow: Result;
-  readonly unfollow: Result;
-  readonly createGuideWithSpots: CreateGuideWithSpotsResult;
-  readonly upsertGuide: UpsertGuideResult;
-  readonly addSpotFromLatLng: Spot;
   readonly moveSpot: Spot;
   readonly removeSpot: Spot;
   readonly editStartDate: Result;
   readonly editNights: Result;
+  readonly createGuide: CreateGuideResult;
+  readonly updateGuide: UpdateGuideResult;
+  readonly deleteGuide: DeleteGuideResult;
+  readonly followUser: Result;
+  readonly unfollowUser: Result;
+  readonly addSpot: AddSpotResult;
 };
 
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateComputationArgs = {
   input: CreateComputationInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationCreateFollowArgs = {
-  input: CreateFollowInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationCreateGuideArgs = {
-  input: CreateGuideInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationCreateRideArgs = {
-  input: CreateRideInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationCreateSpotArgs = {
-  input: CreateSpotInput;
 };
 
 
@@ -1528,42 +1189,6 @@ export type MutationUpdateComputationByNodeIdArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateComputationArgs = {
   input: UpdateComputationInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationUpdateGuideByNodeIdArgs = {
-  input: UpdateGuideByNodeIdInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationUpdateGuideArgs = {
-  input: UpdateGuideInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationUpdateRideByNodeIdArgs = {
-  input: UpdateRideByNodeIdInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationUpdateRideArgs = {
-  input: UpdateRideInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationUpdateSpotByNodeIdArgs = {
-  input: UpdateSpotByNodeIdInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationUpdateSpotArgs = {
-  input: UpdateSpotInput;
 };
 
 
@@ -1616,42 +1241,6 @@ export type MutationDeleteComputationArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationDeleteGuideByNodeIdArgs = {
-  input: DeleteGuideByNodeIdInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationDeleteGuideArgs = {
-  input: DeleteGuideInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationDeleteRideByNodeIdArgs = {
-  input: DeleteRideByNodeIdInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationDeleteRideArgs = {
-  input: DeleteRideInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationDeleteSpotByNodeIdArgs = {
-  input: DeleteSpotByNodeIdInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationDeleteSpotArgs = {
-  input: DeleteSpotInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
 export type MutationDeleteStageByNodeIdArgs = {
   input: DeleteStageByNodeIdInput;
 };
@@ -1694,42 +1283,14 @@ export type MutationAuthenticateArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationFollowArgs = {
+  input: FollowInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationRegisterArgs = {
   input: RegisterInput;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationFollowArgs = {
-  username: Scalars['String'];
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationUnfollowArgs = {
-  username: Scalars['String'];
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationCreateGuideWithSpotsArgs = {
-  input?: Maybe<CreateGuideWithSpotsInput>;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationUpsertGuideArgs = {
-  input?: Maybe<UpsertGuideInput>;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationAddSpotFromLatLngArgs = {
-  guideId: Scalars['String'];
-  lat: Scalars['Float'];
-  long: Scalars['Float'];
-  label?: Maybe<Scalars['String']>;
-  nights: Scalars['Int'];
 };
 
 
@@ -1758,6 +1319,42 @@ export type MutationEditStartDateArgs = {
 export type MutationEditNightsArgs = {
   spotId: Scalars['String'];
   nights: Scalars['Int'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateGuideArgs = {
+  input?: Maybe<CreateGuideInput>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateGuideArgs = {
+  input?: Maybe<UpdateGuidePatch>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteGuideArgs = {
+  input?: Maybe<DeleteGuideInput>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationFollowUserArgs = {
+  username: Scalars['String'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUnfollowUserArgs = {
+  username: Scalars['String'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationAddSpotArgs = {
+  input: AddSpotInput;
 };
 
 /** An object with a globally unique `ID`. */
@@ -2066,7 +1663,7 @@ export type RegisterPayloadUserEdgeArgs = {
 
 export type Result = {
   readonly success: Scalars['Boolean'];
-  readonly message: Scalars['String'];
+  readonly message?: Maybe<Scalars['String']>;
 };
 
 export type Ride = Node & {
@@ -2178,42 +1775,6 @@ export type RideFilter = {
   readonly or?: Maybe<ReadonlyArray<RideFilter>>;
   /** Negates the expression. */
   readonly not?: Maybe<RideFilter>;
-};
-
-/** An input for mutations affecting `Ride` */
-export type RideInput = {
-  readonly id: Scalars['String'];
-  readonly guide: Scalars['String'];
-  readonly owner: Scalars['String'];
-  readonly fromSpot: Scalars['String'];
-  readonly toSpot: Scalars['String'];
-  readonly pathUrl?: Maybe<Scalars['String']>;
-  readonly durationSeconds?: Maybe<Scalars['Int']>;
-  readonly distanceMeters?: Maybe<Scalars['Int']>;
-  readonly date?: Maybe<Scalars['String']>;
-  readonly stage: Scalars['String'];
-  readonly position?: Maybe<Scalars['String']>;
-  readonly status: RideStatus;
-  readonly created: Scalars['Datetime'];
-  readonly updated?: Maybe<Scalars['Datetime']>;
-};
-
-/** Represents an update to a `Ride`. Fields that are set will be updated. */
-export type RidePatch = {
-  readonly id?: Maybe<Scalars['String']>;
-  readonly guide?: Maybe<Scalars['String']>;
-  readonly owner?: Maybe<Scalars['String']>;
-  readonly fromSpot?: Maybe<Scalars['String']>;
-  readonly toSpot?: Maybe<Scalars['String']>;
-  readonly pathUrl?: Maybe<Scalars['String']>;
-  readonly durationSeconds?: Maybe<Scalars['Int']>;
-  readonly distanceMeters?: Maybe<Scalars['Int']>;
-  readonly date?: Maybe<Scalars['String']>;
-  readonly stage?: Maybe<Scalars['String']>;
-  readonly position?: Maybe<Scalars['String']>;
-  readonly status?: Maybe<RideStatus>;
-  readonly created?: Maybe<Scalars['Datetime']>;
-  readonly updated?: Maybe<Scalars['Datetime']>;
 };
 
 /** A connection to a list of `Ride` values. */
@@ -2466,44 +2027,6 @@ export type SpotFilter = {
   readonly or?: Maybe<ReadonlyArray<SpotFilter>>;
   /** Negates the expression. */
   readonly not?: Maybe<SpotFilter>;
-};
-
-/** An input for mutations affecting `Spot` */
-export type SpotInput = {
-  readonly id: Scalars['String'];
-  readonly label?: Maybe<Scalars['String']>;
-  readonly guide: Scalars['String'];
-  readonly owner: Scalars['String'];
-  readonly nights?: Maybe<Scalars['Int']>;
-  readonly locked: Scalars['Boolean'];
-  readonly lat: Scalars['Float'];
-  readonly long: Scalars['Float'];
-  readonly position?: Maybe<Scalars['String']>;
-  readonly location?: Maybe<Scalars['String']>;
-  readonly country?: Maybe<Scalars['String']>;
-  readonly date?: Maybe<Scalars['String']>;
-  readonly created: Scalars['Datetime'];
-  readonly updated?: Maybe<Scalars['Datetime']>;
-  readonly stage?: Maybe<Scalars['String']>;
-};
-
-/** Represents an update to a `Spot`. Fields that are set will be updated. */
-export type SpotPatch = {
-  readonly id?: Maybe<Scalars['String']>;
-  readonly label?: Maybe<Scalars['String']>;
-  readonly guide?: Maybe<Scalars['String']>;
-  readonly owner?: Maybe<Scalars['String']>;
-  readonly nights?: Maybe<Scalars['Int']>;
-  readonly locked?: Maybe<Scalars['Boolean']>;
-  readonly lat?: Maybe<Scalars['Float']>;
-  readonly long?: Maybe<Scalars['Float']>;
-  readonly position?: Maybe<Scalars['String']>;
-  readonly location?: Maybe<Scalars['String']>;
-  readonly country?: Maybe<Scalars['String']>;
-  readonly date?: Maybe<Scalars['String']>;
-  readonly created?: Maybe<Scalars['Datetime']>;
-  readonly updated?: Maybe<Scalars['Datetime']>;
-  readonly stage?: Maybe<Scalars['String']>;
 };
 
 /** A connection to a list of `Spot` values. */
@@ -3872,160 +3395,18 @@ export type UpdateComputationPayloadComputationEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
 };
 
-/** All input for the `updateGuideByNodeId` mutation. */
-export type UpdateGuideByNodeIdInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The globally unique `ID` which will identify a single `Guide` to be updated. */
-  readonly nodeId: Scalars['ID'];
-  /** An object where the defined keys will be set on the `Guide` being updated. */
-  readonly patch: GuidePatch;
-};
-
-/** All input for the `updateGuide` mutation. */
-export type UpdateGuideInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** An object where the defined keys will be set on the `Guide` being updated. */
-  readonly patch: GuidePatch;
+export type UpdateGuidePatch = {
   readonly id: Scalars['String'];
+  readonly title?: Maybe<Scalars['String']>;
+  readonly isCircular?: Maybe<Scalars['Boolean']>;
+  readonly maxHoursPerRide?: Maybe<Scalars['Int']>;
+  readonly type?: Maybe<TransportType>;
 };
 
-/** The output of our update `Guide` mutation. */
-export type UpdateGuidePayload = {
-  /**
-   * The exact same `clientMutationId` that was provided in the mutation input,
-   * unchanged and unused. May be used by a client to track mutations.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Guide` that was updated by this mutation. */
-  readonly guide?: Maybe<Guide>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  readonly query?: Maybe<Query>;
-  /** Reads a single `User` that is related to this `Guide`. */
-  readonly userByOwner?: Maybe<User>;
-  /** An edge for our `Guide`. May be used by Relay 1. */
-  readonly guideEdge?: Maybe<GuidesEdge>;
-};
-
-
-/** The output of our update `Guide` mutation. */
-export type UpdateGuidePayloadGuideEdgeArgs = {
-  orderBy?: Maybe<ReadonlyArray<GuidesOrderBy>>;
-};
-
-/** All input for the `updateRideByNodeId` mutation. */
-export type UpdateRideByNodeIdInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The globally unique `ID` which will identify a single `Ride` to be updated. */
-  readonly nodeId: Scalars['ID'];
-  /** An object where the defined keys will be set on the `Ride` being updated. */
-  readonly patch: RidePatch;
-};
-
-/** All input for the `updateRide` mutation. */
-export type UpdateRideInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** An object where the defined keys will be set on the `Ride` being updated. */
-  readonly patch: RidePatch;
-  readonly id: Scalars['String'];
-};
-
-/** The output of our update `Ride` mutation. */
-export type UpdateRidePayload = {
-  /**
-   * The exact same `clientMutationId` that was provided in the mutation input,
-   * unchanged and unused. May be used by a client to track mutations.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Ride` that was updated by this mutation. */
-  readonly ride?: Maybe<Ride>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  readonly query?: Maybe<Query>;
-  /** Reads a single `Guide` that is related to this `Ride`. */
-  readonly guideByGuide?: Maybe<Guide>;
-  /** Reads a single `User` that is related to this `Ride`. */
-  readonly userByOwner?: Maybe<User>;
-  /** Reads a single `Spot` that is related to this `Ride`. */
-  readonly spotByFromSpot?: Maybe<Spot>;
-  /** Reads a single `Spot` that is related to this `Ride`. */
-  readonly spotByToSpot?: Maybe<Spot>;
-  /** Reads a single `Stage` that is related to this `Ride`. */
-  readonly stageByStage?: Maybe<Stage>;
-  /** An edge for our `Ride`. May be used by Relay 1. */
-  readonly rideEdge?: Maybe<RidesEdge>;
-};
-
-
-/** The output of our update `Ride` mutation. */
-export type UpdateRidePayloadRideEdgeArgs = {
-  orderBy?: Maybe<ReadonlyArray<RidesOrderBy>>;
-};
-
-/** All input for the `updateSpotByNodeId` mutation. */
-export type UpdateSpotByNodeIdInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The globally unique `ID` which will identify a single `Spot` to be updated. */
-  readonly nodeId: Scalars['ID'];
-  /** An object where the defined keys will be set on the `Spot` being updated. */
-  readonly patch: SpotPatch;
-};
-
-/** All input for the `updateSpot` mutation. */
-export type UpdateSpotInput = {
-  /**
-   * An arbitrary string value with no semantic meaning. Will be included in the
-   * payload verbatim. May be used to track mutations by the client.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** An object where the defined keys will be set on the `Spot` being updated. */
-  readonly patch: SpotPatch;
-  readonly id: Scalars['String'];
-};
-
-/** The output of our update `Spot` mutation. */
-export type UpdateSpotPayload = {
-  /**
-   * The exact same `clientMutationId` that was provided in the mutation input,
-   * unchanged and unused. May be used by a client to track mutations.
-   */
-  readonly clientMutationId?: Maybe<Scalars['String']>;
-  /** The `Spot` that was updated by this mutation. */
-  readonly spot?: Maybe<Spot>;
-  /** Our root query field type. Allows us to run any query from our mutation payload. */
-  readonly query?: Maybe<Query>;
-  /** Reads a single `Guide` that is related to this `Spot`. */
-  readonly guideByGuide?: Maybe<Guide>;
-  /** Reads a single `User` that is related to this `Spot`. */
-  readonly userByOwner?: Maybe<User>;
-  /** Reads a single `Stage` that is related to this `Spot`. */
-  readonly stageByStage?: Maybe<Stage>;
-  /** An edge for our `Spot`. May be used by Relay 1. */
-  readonly spotEdge?: Maybe<SpotsEdge>;
-};
-
-
-/** The output of our update `Spot` mutation. */
-export type UpdateSpotPayloadSpotEdgeArgs = {
-  orderBy?: Maybe<ReadonlyArray<SpotsOrderBy>>;
+export type UpdateGuideResult = {
+  readonly success: Scalars['Boolean'];
+  readonly message?: Maybe<Scalars['String']>;
+  readonly id?: Maybe<Scalars['String']>;
 };
 
 /** All input for the `updateStageByNodeId` mutation. */
@@ -4170,20 +3551,6 @@ export type UpdateUserPayload = {
 /** The output of our update `User` mutation. */
 export type UpdateUserPayloadUserEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
-};
-
-export type UpsertGuideInput = {
-  readonly id?: Maybe<Scalars['ID']>;
-  readonly title: Scalars['String'];
-  readonly isCircular: Scalars['Boolean'];
-  readonly maxHoursPerRide: Scalars['Int'];
-  readonly type: TransportType;
-};
-
-export type UpsertGuideResult = {
-  readonly success: Scalars['Boolean'];
-  readonly error?: Maybe<Scalars['String']>;
-  readonly guideId?: Maybe<Scalars['ID']>;
 };
 
 export type User = Node & {
@@ -4535,18 +3902,6 @@ export type ResolversTypes = {
   CreateComputationInput: CreateComputationInput,
   ComputationInput: ComputationInput,
   CreateComputationPayload: ResolverTypeWrapper<CreateComputationPayload>,
-  CreateFollowInput: CreateFollowInput,
-  FollowInput: FollowInput,
-  CreateFollowPayload: ResolverTypeWrapper<CreateFollowPayload>,
-  CreateGuideInput: CreateGuideInput,
-  GuideInput: GuideInput,
-  CreateGuidePayload: ResolverTypeWrapper<CreateGuidePayload>,
-  CreateRideInput: CreateRideInput,
-  RideInput: RideInput,
-  CreateRidePayload: ResolverTypeWrapper<CreateRidePayload>,
-  CreateSpotInput: CreateSpotInput,
-  SpotInput: SpotInput,
-  CreateSpotPayload: ResolverTypeWrapper<CreateSpotPayload>,
   CreateStageInput: CreateStageInput,
   StageInput: StageInput,
   CreateStagePayload: ResolverTypeWrapper<CreateStagePayload>,
@@ -4560,18 +3915,6 @@ export type ResolversTypes = {
   ComputationPatch: ComputationPatch,
   UpdateComputationPayload: ResolverTypeWrapper<UpdateComputationPayload>,
   UpdateComputationInput: UpdateComputationInput,
-  UpdateGuideByNodeIdInput: UpdateGuideByNodeIdInput,
-  GuidePatch: GuidePatch,
-  UpdateGuidePayload: ResolverTypeWrapper<UpdateGuidePayload>,
-  UpdateGuideInput: UpdateGuideInput,
-  UpdateRideByNodeIdInput: UpdateRideByNodeIdInput,
-  RidePatch: RidePatch,
-  UpdateRidePayload: ResolverTypeWrapper<UpdateRidePayload>,
-  UpdateRideInput: UpdateRideInput,
-  UpdateSpotByNodeIdInput: UpdateSpotByNodeIdInput,
-  SpotPatch: SpotPatch,
-  UpdateSpotPayload: ResolverTypeWrapper<UpdateSpotPayload>,
-  UpdateSpotInput: UpdateSpotInput,
   UpdateStageByNodeIdInput: UpdateStageByNodeIdInput,
   StagePatch: StagePatch,
   UpdateStagePayload: ResolverTypeWrapper<UpdateStagePayload>,
@@ -4587,15 +3930,6 @@ export type ResolversTypes = {
   DeleteComputationByNodeIdInput: DeleteComputationByNodeIdInput,
   DeleteComputationPayload: ResolverTypeWrapper<DeleteComputationPayload>,
   DeleteComputationInput: DeleteComputationInput,
-  DeleteGuideByNodeIdInput: DeleteGuideByNodeIdInput,
-  DeleteGuidePayload: ResolverTypeWrapper<DeleteGuidePayload>,
-  DeleteGuideInput: DeleteGuideInput,
-  DeleteRideByNodeIdInput: DeleteRideByNodeIdInput,
-  DeleteRidePayload: ResolverTypeWrapper<DeleteRidePayload>,
-  DeleteRideInput: DeleteRideInput,
-  DeleteSpotByNodeIdInput: DeleteSpotByNodeIdInput,
-  DeleteSpotPayload: ResolverTypeWrapper<DeleteSpotPayload>,
-  DeleteSpotInput: DeleteSpotInput,
   DeleteStageByNodeIdInput: DeleteStageByNodeIdInput,
   DeleteStagePayload: ResolverTypeWrapper<DeleteStagePayload>,
   DeleteStageInput: DeleteStageInput,
@@ -4607,14 +3941,19 @@ export type ResolversTypes = {
   DeleteUserInput: DeleteUserInput,
   AuthenticateInput: AuthenticateInput,
   AuthenticatePayload: ResolverTypeWrapper<AuthenticatePayload>,
+  FollowInput: FollowInput,
+  FollowPayload: ResolverTypeWrapper<FollowPayload>,
   RegisterInput: RegisterInput,
   RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
   Result: ResolverTypeWrapper<Result>,
-  CreateGuideWithSpotsInput: CreateGuideWithSpotsInput,
-  CreateGuideWithSpotInput: CreateGuideWithSpotInput,
-  CreateGuideWithSpotsResult: ResolverTypeWrapper<CreateGuideWithSpotsResult>,
-  UpsertGuideInput: UpsertGuideInput,
-  UpsertGuideResult: ResolverTypeWrapper<UpsertGuideResult>,
+  CreateGuideInput: CreateGuideInput,
+  CreateGuideResult: ResolverTypeWrapper<CreateGuideResult>,
+  UpdateGuidePatch: UpdateGuidePatch,
+  UpdateGuideResult: ResolverTypeWrapper<UpdateGuideResult>,
+  DeleteGuideInput: DeleteGuideInput,
+  DeleteGuideResult: ResolverTypeWrapper<DeleteGuideResult>,
+  AddSpotInput: AddSpotInput,
+  AddSpotResult: ResolverTypeWrapper<AddSpotResult>,
   Subscription: ResolverTypeWrapper<{}>,
 };
 
@@ -4706,18 +4045,6 @@ export type ResolversParentTypes = {
   CreateComputationInput: CreateComputationInput,
   ComputationInput: ComputationInput,
   CreateComputationPayload: CreateComputationPayload,
-  CreateFollowInput: CreateFollowInput,
-  FollowInput: FollowInput,
-  CreateFollowPayload: CreateFollowPayload,
-  CreateGuideInput: CreateGuideInput,
-  GuideInput: GuideInput,
-  CreateGuidePayload: CreateGuidePayload,
-  CreateRideInput: CreateRideInput,
-  RideInput: RideInput,
-  CreateRidePayload: CreateRidePayload,
-  CreateSpotInput: CreateSpotInput,
-  SpotInput: SpotInput,
-  CreateSpotPayload: CreateSpotPayload,
   CreateStageInput: CreateStageInput,
   StageInput: StageInput,
   CreateStagePayload: CreateStagePayload,
@@ -4731,18 +4058,6 @@ export type ResolversParentTypes = {
   ComputationPatch: ComputationPatch,
   UpdateComputationPayload: UpdateComputationPayload,
   UpdateComputationInput: UpdateComputationInput,
-  UpdateGuideByNodeIdInput: UpdateGuideByNodeIdInput,
-  GuidePatch: GuidePatch,
-  UpdateGuidePayload: UpdateGuidePayload,
-  UpdateGuideInput: UpdateGuideInput,
-  UpdateRideByNodeIdInput: UpdateRideByNodeIdInput,
-  RidePatch: RidePatch,
-  UpdateRidePayload: UpdateRidePayload,
-  UpdateRideInput: UpdateRideInput,
-  UpdateSpotByNodeIdInput: UpdateSpotByNodeIdInput,
-  SpotPatch: SpotPatch,
-  UpdateSpotPayload: UpdateSpotPayload,
-  UpdateSpotInput: UpdateSpotInput,
   UpdateStageByNodeIdInput: UpdateStageByNodeIdInput,
   StagePatch: StagePatch,
   UpdateStagePayload: UpdateStagePayload,
@@ -4758,15 +4073,6 @@ export type ResolversParentTypes = {
   DeleteComputationByNodeIdInput: DeleteComputationByNodeIdInput,
   DeleteComputationPayload: DeleteComputationPayload,
   DeleteComputationInput: DeleteComputationInput,
-  DeleteGuideByNodeIdInput: DeleteGuideByNodeIdInput,
-  DeleteGuidePayload: DeleteGuidePayload,
-  DeleteGuideInput: DeleteGuideInput,
-  DeleteRideByNodeIdInput: DeleteRideByNodeIdInput,
-  DeleteRidePayload: DeleteRidePayload,
-  DeleteRideInput: DeleteRideInput,
-  DeleteSpotByNodeIdInput: DeleteSpotByNodeIdInput,
-  DeleteSpotPayload: DeleteSpotPayload,
-  DeleteSpotInput: DeleteSpotInput,
   DeleteStageByNodeIdInput: DeleteStageByNodeIdInput,
   DeleteStagePayload: DeleteStagePayload,
   DeleteStageInput: DeleteStageInput,
@@ -4778,15 +4084,27 @@ export type ResolversParentTypes = {
   DeleteUserInput: DeleteUserInput,
   AuthenticateInput: AuthenticateInput,
   AuthenticatePayload: AuthenticatePayload,
+  FollowInput: FollowInput,
+  FollowPayload: FollowPayload,
   RegisterInput: RegisterInput,
   RegisterPayload: RegisterPayload,
   Result: Result,
-  CreateGuideWithSpotsInput: CreateGuideWithSpotsInput,
-  CreateGuideWithSpotInput: CreateGuideWithSpotInput,
-  CreateGuideWithSpotsResult: CreateGuideWithSpotsResult,
-  UpsertGuideInput: UpsertGuideInput,
-  UpsertGuideResult: UpsertGuideResult,
+  CreateGuideInput: CreateGuideInput,
+  CreateGuideResult: CreateGuideResult,
+  UpdateGuidePatch: UpdateGuidePatch,
+  UpdateGuideResult: UpdateGuideResult,
+  DeleteGuideInput: DeleteGuideInput,
+  DeleteGuideResult: DeleteGuideResult,
+  AddSpotInput: AddSpotInput,
+  AddSpotResult: AddSpotResult,
   Subscription: {},
+};
+
+export type AddSpotResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AddSpotResult'] = ResolversParentTypes['AddSpotResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  messaage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type AuthenticatePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthenticatePayload'] = ResolversParentTypes['AuthenticatePayload']> = {
@@ -4847,53 +4165,10 @@ export type CreateComputationPayloadResolvers<ContextType = any, ParentType exte
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type CreateFollowPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateFollowPayload'] = ResolversParentTypes['CreateFollowPayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  follow?: Resolver<Maybe<ResolversTypes['Follow']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  userByFollowed?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  userByFollower?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  followEdge?: Resolver<Maybe<ResolversTypes['FollowsEdge']>, ParentType, ContextType, RequireFields<CreateFollowPayloadFollowEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type CreateGuidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateGuidePayload'] = ResolversParentTypes['CreateGuidePayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  guideEdge?: Resolver<Maybe<ResolversTypes['GuidesEdge']>, ParentType, ContextType, RequireFields<CreateGuidePayloadGuideEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type CreateGuideWithSpotsResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateGuideWithSpotsResult'] = ResolversParentTypes['CreateGuideWithSpotsResult']> = {
+export type CreateGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateGuideResult'] = ResolversParentTypes['CreateGuideResult']> = {
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  guideId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type CreateRidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateRidePayload'] = ResolversParentTypes['CreateRidePayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
-  rideEdge?: Resolver<Maybe<ResolversTypes['RidesEdge']>, ParentType, ContextType, RequireFields<CreateRidePayloadRideEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type CreateSpotPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateSpotPayload'] = ResolversParentTypes['CreateSpotPayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
-  spotEdge?: Resolver<Maybe<ResolversTypes['SpotsEdge']>, ParentType, ContextType, RequireFields<CreateSpotPayloadSpotEdgeArgs, 'orderBy'>>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guideId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4943,39 +4218,9 @@ export type DeleteComputationPayloadResolvers<ContextType = any, ParentType exte
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type DeleteGuidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteGuidePayload'] = ResolversParentTypes['DeleteGuidePayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  deletedGuideNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  guideEdge?: Resolver<Maybe<ResolversTypes['GuidesEdge']>, ParentType, ContextType, RequireFields<DeleteGuidePayloadGuideEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type DeleteRidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteRidePayload'] = ResolversParentTypes['DeleteRidePayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
-  deletedRideNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
-  rideEdge?: Resolver<Maybe<ResolversTypes['RidesEdge']>, ParentType, ContextType, RequireFields<DeleteRidePayloadRideEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type DeleteSpotPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteSpotPayload'] = ResolversParentTypes['DeleteSpotPayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  deletedSpotNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
-  spotEdge?: Resolver<Maybe<ResolversTypes['SpotsEdge']>, ParentType, ContextType, RequireFields<DeleteSpotPayloadSpotEdgeArgs, 'orderBy'>>,
+export type DeleteGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteGuideResult'] = ResolversParentTypes['DeleteGuideResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -5015,6 +4260,16 @@ export type FollowResolvers<ContextType = any, ParentType extends ResolversParen
   timestamp?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   userByFollowed?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   userByFollower?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FollowPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['FollowPayload'] = ResolversParentTypes['FollowPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  follow?: Resolver<Maybe<ResolversTypes['Follow']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  userByFollowed?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  userByFollower?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  followEdge?: Resolver<Maybe<ResolversTypes['FollowsEdge']>, ParentType, ContextType, RequireFields<FollowPayloadFollowEdgeArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -5091,21 +4346,11 @@ export interface JwtTokenScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createComputation?: Resolver<Maybe<ResolversTypes['CreateComputationPayload']>, ParentType, ContextType, RequireFields<MutationCreateComputationArgs, 'input'>>,
-  createFollow?: Resolver<Maybe<ResolversTypes['CreateFollowPayload']>, ParentType, ContextType, RequireFields<MutationCreateFollowArgs, 'input'>>,
-  createGuide?: Resolver<Maybe<ResolversTypes['CreateGuidePayload']>, ParentType, ContextType, RequireFields<MutationCreateGuideArgs, 'input'>>,
-  createRide?: Resolver<Maybe<ResolversTypes['CreateRidePayload']>, ParentType, ContextType, RequireFields<MutationCreateRideArgs, 'input'>>,
-  createSpot?: Resolver<Maybe<ResolversTypes['CreateSpotPayload']>, ParentType, ContextType, RequireFields<MutationCreateSpotArgs, 'input'>>,
   createStage?: Resolver<Maybe<ResolversTypes['CreateStagePayload']>, ParentType, ContextType, RequireFields<MutationCreateStageArgs, 'input'>>,
   createTemperature?: Resolver<Maybe<ResolversTypes['CreateTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationCreateTemperatureArgs, 'input'>>,
   createUser?: Resolver<Maybe<ResolversTypes['CreateUserPayload']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>,
   updateComputationByNodeId?: Resolver<Maybe<ResolversTypes['UpdateComputationPayload']>, ParentType, ContextType, RequireFields<MutationUpdateComputationByNodeIdArgs, 'input'>>,
   updateComputation?: Resolver<Maybe<ResolversTypes['UpdateComputationPayload']>, ParentType, ContextType, RequireFields<MutationUpdateComputationArgs, 'input'>>,
-  updateGuideByNodeId?: Resolver<Maybe<ResolversTypes['UpdateGuidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateGuideByNodeIdArgs, 'input'>>,
-  updateGuide?: Resolver<Maybe<ResolversTypes['UpdateGuidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, 'input'>>,
-  updateRideByNodeId?: Resolver<Maybe<ResolversTypes['UpdateRidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateRideByNodeIdArgs, 'input'>>,
-  updateRide?: Resolver<Maybe<ResolversTypes['UpdateRidePayload']>, ParentType, ContextType, RequireFields<MutationUpdateRideArgs, 'input'>>,
-  updateSpotByNodeId?: Resolver<Maybe<ResolversTypes['UpdateSpotPayload']>, ParentType, ContextType, RequireFields<MutationUpdateSpotByNodeIdArgs, 'input'>>,
-  updateSpot?: Resolver<Maybe<ResolversTypes['UpdateSpotPayload']>, ParentType, ContextType, RequireFields<MutationUpdateSpotArgs, 'input'>>,
   updateStageByNodeId?: Resolver<Maybe<ResolversTypes['UpdateStagePayload']>, ParentType, ContextType, RequireFields<MutationUpdateStageByNodeIdArgs, 'input'>>,
   updateStage?: Resolver<Maybe<ResolversTypes['UpdateStagePayload']>, ParentType, ContextType, RequireFields<MutationUpdateStageArgs, 'input'>>,
   updateTemperatureByNodeId?: Resolver<Maybe<ResolversTypes['UpdateTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationUpdateTemperatureByNodeIdArgs, 'input'>>,
@@ -5114,12 +4359,6 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateUser?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'input'>>,
   deleteComputationByNodeId?: Resolver<Maybe<ResolversTypes['DeleteComputationPayload']>, ParentType, ContextType, RequireFields<MutationDeleteComputationByNodeIdArgs, 'input'>>,
   deleteComputation?: Resolver<Maybe<ResolversTypes['DeleteComputationPayload']>, ParentType, ContextType, RequireFields<MutationDeleteComputationArgs, 'input'>>,
-  deleteGuideByNodeId?: Resolver<Maybe<ResolversTypes['DeleteGuidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteGuideByNodeIdArgs, 'input'>>,
-  deleteGuide?: Resolver<Maybe<ResolversTypes['DeleteGuidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, 'input'>>,
-  deleteRideByNodeId?: Resolver<Maybe<ResolversTypes['DeleteRidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteRideByNodeIdArgs, 'input'>>,
-  deleteRide?: Resolver<Maybe<ResolversTypes['DeleteRidePayload']>, ParentType, ContextType, RequireFields<MutationDeleteRideArgs, 'input'>>,
-  deleteSpotByNodeId?: Resolver<Maybe<ResolversTypes['DeleteSpotPayload']>, ParentType, ContextType, RequireFields<MutationDeleteSpotByNodeIdArgs, 'input'>>,
-  deleteSpot?: Resolver<Maybe<ResolversTypes['DeleteSpotPayload']>, ParentType, ContextType, RequireFields<MutationDeleteSpotArgs, 'input'>>,
   deleteStageByNodeId?: Resolver<Maybe<ResolversTypes['DeleteStagePayload']>, ParentType, ContextType, RequireFields<MutationDeleteStageByNodeIdArgs, 'input'>>,
   deleteStage?: Resolver<Maybe<ResolversTypes['DeleteStagePayload']>, ParentType, ContextType, RequireFields<MutationDeleteStageArgs, 'input'>>,
   deleteTemperatureByNodeId?: Resolver<Maybe<ResolversTypes['DeleteTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationDeleteTemperatureByNodeIdArgs, 'input'>>,
@@ -5127,16 +4366,18 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteUserByNodeId?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserByNodeIdArgs, 'input'>>,
   deleteUser?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'input'>>,
   authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
+  follow?: Resolver<Maybe<ResolversTypes['FollowPayload']>, ParentType, ContextType, RequireFields<MutationFollowArgs, 'input'>>,
   register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
-  follow?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowArgs, 'username'>>,
-  unfollow?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowArgs, 'username'>>,
-  createGuideWithSpots?: Resolver<ResolversTypes['CreateGuideWithSpotsResult'], ParentType, ContextType, RequireFields<MutationCreateGuideWithSpotsArgs, never>>,
-  upsertGuide?: Resolver<ResolversTypes['UpsertGuideResult'], ParentType, ContextType, RequireFields<MutationUpsertGuideArgs, never>>,
-  addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long' | 'nights'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
   editStartDate?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditStartDateArgs, 'guideId'>>,
   editNights?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditNightsArgs, 'spotId' | 'nights'>>,
+  createGuide?: Resolver<ResolversTypes['CreateGuideResult'], ParentType, ContextType, RequireFields<MutationCreateGuideArgs, never>>,
+  updateGuide?: Resolver<ResolversTypes['UpdateGuideResult'], ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, never>>,
+  deleteGuide?: Resolver<ResolversTypes['DeleteGuideResult'], ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, never>>,
+  followUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowUserArgs, 'username'>>,
+  unfollowUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'username'>>,
+  addSpot?: Resolver<ResolversTypes['AddSpotResult'], ParentType, ContextType, RequireFields<MutationAddSpotArgs, 'input'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -5194,7 +4435,7 @@ export type RegisterPayloadResolvers<ContextType = any, ParentType extends Resol
 
 export type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = {
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -5385,36 +4626,10 @@ export type UpdateComputationPayloadResolvers<ContextType = any, ParentType exte
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
-export type UpdateGuidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateGuidePayload'] = ResolversParentTypes['UpdateGuidePayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  guideEdge?: Resolver<Maybe<ResolversTypes['GuidesEdge']>, ParentType, ContextType, RequireFields<UpdateGuidePayloadGuideEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type UpdateRidePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateRidePayload'] = ResolversParentTypes['UpdateRidePayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
-  rideEdge?: Resolver<Maybe<ResolversTypes['RidesEdge']>, ParentType, ContextType, RequireFields<UpdateRidePayloadRideEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type UpdateSpotPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateSpotPayload'] = ResolversParentTypes['UpdateSpotPayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
-  spotEdge?: Resolver<Maybe<ResolversTypes['SpotsEdge']>, ParentType, ContextType, RequireFields<UpdateSpotPayloadSpotEdgeArgs, 'orderBy'>>,
+export type UpdateGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateGuideResult'] = ResolversParentTypes['UpdateGuideResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -5442,13 +4657,6 @@ export type UpdateUserPayloadResolvers<ContextType = any, ParentType extends Res
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
   userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<UpdateUserPayloadUserEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
-};
-
-export type UpsertGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpsertGuideResult'] = ResolversParentTypes['UpsertGuideResult']> = {
-  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  guideId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -5487,6 +4695,7 @@ export type UsersEdgeResolvers<ContextType = any, ParentType extends ResolversPa
 };
 
 export type Resolvers<ContextType = any> = {
+  AddSpotResult?: AddSpotResultResolvers<ContextType>,
   AuthenticatePayload?: AuthenticatePayloadResolvers<ContextType>,
   BigInt?: GraphQLScalarType,
   Bound?: BoundResolvers<ContextType>,
@@ -5494,24 +4703,19 @@ export type Resolvers<ContextType = any> = {
   ComputationsConnection?: ComputationsConnectionResolvers<ContextType>,
   ComputationsEdge?: ComputationsEdgeResolvers<ContextType>,
   CreateComputationPayload?: CreateComputationPayloadResolvers<ContextType>,
-  CreateFollowPayload?: CreateFollowPayloadResolvers<ContextType>,
-  CreateGuidePayload?: CreateGuidePayloadResolvers<ContextType>,
-  CreateGuideWithSpotsResult?: CreateGuideWithSpotsResultResolvers<ContextType>,
-  CreateRidePayload?: CreateRidePayloadResolvers<ContextType>,
-  CreateSpotPayload?: CreateSpotPayloadResolvers<ContextType>,
+  CreateGuideResult?: CreateGuideResultResolvers<ContextType>,
   CreateStagePayload?: CreateStagePayloadResolvers<ContextType>,
   CreateTemperaturePayload?: CreateTemperaturePayloadResolvers<ContextType>,
   CreateUserPayload?: CreateUserPayloadResolvers<ContextType>,
   Cursor?: GraphQLScalarType,
   Datetime?: GraphQLScalarType,
   DeleteComputationPayload?: DeleteComputationPayloadResolvers<ContextType>,
-  DeleteGuidePayload?: DeleteGuidePayloadResolvers<ContextType>,
-  DeleteRidePayload?: DeleteRidePayloadResolvers<ContextType>,
-  DeleteSpotPayload?: DeleteSpotPayloadResolvers<ContextType>,
+  DeleteGuideResult?: DeleteGuideResultResolvers<ContextType>,
   DeleteStagePayload?: DeleteStagePayloadResolvers<ContextType>,
   DeleteTemperaturePayload?: DeleteTemperaturePayloadResolvers<ContextType>,
   DeleteUserPayload?: DeleteUserPayloadResolvers<ContextType>,
   Follow?: FollowResolvers<ContextType>,
+  FollowPayload?: FollowPayloadResolvers<ContextType>,
   FollowsConnection?: FollowsConnectionResolvers<ContextType>,
   FollowsEdge?: FollowsEdgeResolvers<ContextType>,
   Geocode?: GeocodeResolvers<ContextType>,
@@ -5540,13 +4744,10 @@ export type Resolvers<ContextType = any> = {
   TemperaturesConnection?: TemperaturesConnectionResolvers<ContextType>,
   TemperaturesEdge?: TemperaturesEdgeResolvers<ContextType>,
   UpdateComputationPayload?: UpdateComputationPayloadResolvers<ContextType>,
-  UpdateGuidePayload?: UpdateGuidePayloadResolvers<ContextType>,
-  UpdateRidePayload?: UpdateRidePayloadResolvers<ContextType>,
-  UpdateSpotPayload?: UpdateSpotPayloadResolvers<ContextType>,
+  UpdateGuideResult?: UpdateGuideResultResolvers<ContextType>,
   UpdateStagePayload?: UpdateStagePayloadResolvers<ContextType>,
   UpdateTemperaturePayload?: UpdateTemperaturePayloadResolvers<ContextType>,
   UpdateUserPayload?: UpdateUserPayloadResolvers<ContextType>,
-  UpsertGuideResult?: UpsertGuideResultResolvers<ContextType>,
   User?: UserResolvers<ContextType>,
   UsersConnection?: UsersConnectionResolvers<ContextType>,
   UsersEdge?: UsersEdgeResolvers<ContextType>,
@@ -5606,28 +4807,25 @@ export type GuideFragment = (
 );
 
 export type CreateGuideMutationVariables = {
-  guide: GuideInput;
+  input: CreateGuideInput;
 };
 
 
-export type CreateGuideMutation = { readonly createGuide?: Maybe<{ readonly guide?: Maybe<Pick<Guide, 'slug'>> }> };
+export type CreateGuideMutation = { readonly createGuide: Pick<CreateGuideResult, 'success' | 'message' | 'guideId'> };
 
 export type AddStayFromLatLongMutationVariables = {
-  guideId: Scalars['String'];
-  lat: Scalars['Float'];
-  long: Scalars['Float'];
-  nights: Scalars['Int'];
+  input: AddSpotInput;
 };
 
 
-export type AddStayFromLatLongMutation = { readonly addSpotFromLatLng: Pick<Spot, 'id'> };
+export type AddStayFromLatLongMutation = { readonly addSpot: Pick<AddSpotResult, 'id' | 'messaage' | 'success'> };
 
 export type DeleteGuideMutationVariables = {
   guideId: Scalars['String'];
 };
 
 
-export type DeleteGuideMutation = { readonly deleteGuide?: Maybe<{ readonly guide?: Maybe<Pick<Guide, 'id'>> }> };
+export type DeleteGuideMutation = { readonly deleteGuide: Pick<DeleteGuideResult, 'success' | 'message'> };
 
 export type RemoveSpotMutationVariables = {
   spotId: Scalars['String'];
@@ -5666,21 +4864,21 @@ export type FollowUserMutationVariables = {
 };
 
 
-export type FollowUserMutation = { readonly follow: Pick<Result, 'success' | 'message'> };
+export type FollowUserMutation = { readonly unfollowUser: Pick<Result, 'success' | 'message'> };
 
 export type UnfollowUserMutationVariables = {
   username: Scalars['String'];
 };
 
 
-export type UnfollowUserMutation = { readonly unfollow: Pick<Result, 'success' | 'message'> };
+export type UnfollowUserMutation = { readonly followUser: Pick<Result, 'success' | 'message'> };
 
-export type CreateGuideWithSpotsMutationVariables = {
-  input?: Maybe<CreateGuideWithSpotsInput>;
+export type UpdateGuideMutationVariables = {
+  patch: UpdateGuidePatch;
 };
 
 
-export type CreateGuideWithSpotsMutation = { readonly createGuideWithSpots: Pick<CreateGuideWithSpotsResult, 'success' | 'error' | 'guideId'> };
+export type UpdateGuideMutation = { readonly updateGuide: Pick<UpdateGuideResult, 'message' | 'success' | 'id'> };
 
 export type GetGuideIdForSlugQueryVariables = {
   slug: Scalars['String'];
@@ -6010,11 +5208,11 @@ export const GuideIDsFragmentDoc = gql`
 }
     `;
 export const CreateGuideDocument = gql`
-    mutation CreateGuide($guide: GuideInput!) {
-  createGuide(input: {guide: $guide}) {
-    guide {
-      slug
-    }
+    mutation CreateGuide($input: CreateGuideInput!) {
+  createGuide(input: $input) {
+    success
+    message
+    guideId
   }
 }
     `;
@@ -6039,7 +5237,7 @@ export type CreateGuideComponentProps = Omit<ApolloReactComponents.MutationCompo
  * @example
  * const [createGuideMutation, { data, loading, error }] = useCreateGuideMutation({
  *   variables: {
- *      guide: // value for 'guide'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -6050,9 +5248,11 @@ export type CreateGuideMutationHookResult = ReturnType<typeof useCreateGuideMuta
 export type CreateGuideMutationResult = ApolloReactCommon.MutationResult<CreateGuideMutation>;
 export type CreateGuideMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateGuideMutation, CreateGuideMutationVariables>;
 export const AddStayFromLatLongDocument = gql`
-    mutation AddStayFromLatLong($guideId: String!, $lat: Float!, $long: Float!, $nights: Int!) {
-  addSpotFromLatLng(guideId: $guideId, lat: $lat, long: $long, nights: $nights) {
+    mutation AddStayFromLatLong($input: AddSpotInput!) {
+  addSpot(input: $input) {
     id
+    messaage
+    success
   }
 }
     `;
@@ -6077,10 +5277,7 @@ export type AddStayFromLatLongComponentProps = Omit<ApolloReactComponents.Mutati
  * @example
  * const [addStayFromLatLongMutation, { data, loading, error }] = useAddStayFromLatLongMutation({
  *   variables: {
- *      guideId: // value for 'guideId'
- *      lat: // value for 'lat'
- *      long: // value for 'long'
- *      nights: // value for 'nights'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -6093,9 +5290,8 @@ export type AddStayFromLatLongMutationOptions = ApolloReactCommon.BaseMutationOp
 export const DeleteGuideDocument = gql`
     mutation DeleteGuide($guideId: String!) {
   deleteGuide(input: {id: $guideId}) {
-    guide {
-      id
-    }
+    success
+    message
   }
 }
     `;
@@ -6290,7 +5486,7 @@ export type EditNightsMutationResult = ApolloReactCommon.MutationResult<EditNigh
 export type EditNightsMutationOptions = ApolloReactCommon.BaseMutationOptions<EditNightsMutation, EditNightsMutationVariables>;
 export const FollowUserDocument = gql`
     mutation FollowUser($username: String!) {
-  follow(username: $username) {
+  unfollowUser(username: $username) {
     success
     message
   }
@@ -6329,7 +5525,7 @@ export type FollowUserMutationResult = ApolloReactCommon.MutationResult<FollowUs
 export type FollowUserMutationOptions = ApolloReactCommon.BaseMutationOptions<FollowUserMutation, FollowUserMutationVariables>;
 export const UnfollowUserDocument = gql`
     mutation UnfollowUser($username: String!) {
-  unfollow(username: $username) {
+  followUser(username: $username) {
     success
     message
   }
@@ -6366,46 +5562,46 @@ export function useUnfollowUserMutation(baseOptions?: ApolloReactHooks.MutationH
 export type UnfollowUserMutationHookResult = ReturnType<typeof useUnfollowUserMutation>;
 export type UnfollowUserMutationResult = ApolloReactCommon.MutationResult<UnfollowUserMutation>;
 export type UnfollowUserMutationOptions = ApolloReactCommon.BaseMutationOptions<UnfollowUserMutation, UnfollowUserMutationVariables>;
-export const CreateGuideWithSpotsDocument = gql`
-    mutation CreateGuideWithSpots($input: CreateGuideWithSpotsInput) {
-  createGuideWithSpots(input: $input) {
+export const UpdateGuideDocument = gql`
+    mutation UpdateGuide($patch: UpdateGuidePatch!) {
+  updateGuide(input: $patch) {
+    message
     success
-    error
-    guideId
+    id
   }
 }
     `;
-export type CreateGuideWithSpotsMutationFn = ApolloReactCommon.MutationFunction<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables>;
-export type CreateGuideWithSpotsComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables>, 'mutation'>;
+export type UpdateGuideMutationFn = ApolloReactCommon.MutationFunction<UpdateGuideMutation, UpdateGuideMutationVariables>;
+export type UpdateGuideComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UpdateGuideMutation, UpdateGuideMutationVariables>, 'mutation'>;
 
-    export const CreateGuideWithSpotsComponent = (props: CreateGuideWithSpotsComponentProps) => (
-      <ApolloReactComponents.Mutation<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables> mutation={CreateGuideWithSpotsDocument} {...props} />
+    export const UpdateGuideComponent = (props: UpdateGuideComponentProps) => (
+      <ApolloReactComponents.Mutation<UpdateGuideMutation, UpdateGuideMutationVariables> mutation={UpdateGuideDocument} {...props} />
     );
     
 
 /**
- * __useCreateGuideWithSpotsMutation__
+ * __useUpdateGuideMutation__
  *
- * To run a mutation, you first call `useCreateGuideWithSpotsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateGuideWithSpotsMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdateGuideMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateGuideMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createGuideWithSpotsMutation, { data, loading, error }] = useCreateGuideWithSpotsMutation({
+ * const [updateGuideMutation, { data, loading, error }] = useUpdateGuideMutation({
  *   variables: {
- *      input: // value for 'input'
+ *      patch: // value for 'patch'
  *   },
  * });
  */
-export function useCreateGuideWithSpotsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables>) {
-        return ApolloReactHooks.useMutation<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables>(CreateGuideWithSpotsDocument, baseOptions);
+export function useUpdateGuideMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateGuideMutation, UpdateGuideMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateGuideMutation, UpdateGuideMutationVariables>(UpdateGuideDocument, baseOptions);
       }
-export type CreateGuideWithSpotsMutationHookResult = ReturnType<typeof useCreateGuideWithSpotsMutation>;
-export type CreateGuideWithSpotsMutationResult = ApolloReactCommon.MutationResult<CreateGuideWithSpotsMutation>;
-export type CreateGuideWithSpotsMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateGuideWithSpotsMutation, CreateGuideWithSpotsMutationVariables>;
+export type UpdateGuideMutationHookResult = ReturnType<typeof useUpdateGuideMutation>;
+export type UpdateGuideMutationResult = ApolloReactCommon.MutationResult<UpdateGuideMutation>;
+export type UpdateGuideMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateGuideMutation, UpdateGuideMutationVariables>;
 export const GetGuideIdForSlugDocument = gql`
     query GetGuideIdForSlug($slug: String!) {
   guides(condition: {slug: $slug}) {

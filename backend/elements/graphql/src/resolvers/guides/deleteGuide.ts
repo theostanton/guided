@@ -1,18 +1,26 @@
-import { Mutation, MutationResult } from "../Resolver"
+import { Mutation } from "../Resolver"
 import { Context } from "model/context"
 import { gql } from "postgraphile"
-import { database } from "@guided/database"
 import access from "./access"
+import { DeleteGuideResult, MutationDeleteGuideArgs } from "generated"
+import { NOT_LOGGED_IN } from "../utils/messages"
+import deleteGuide from "actions/guides/delete"
 
 
-export default class DeleteGuideMutation extends Mutation<any, MutationResult> {
+export default class DeleteGuideMutation extends Mutation<MutationDeleteGuideArgs, DeleteGuideResult> {
   name = "deleteGuide"
 
-  async resolver(_: any, args: any, context: Context): Promise<MutationResult> {
+  async resolver(args: MutationDeleteGuideArgs, context: Context): Promise<DeleteGuideResult> {
 
     const id = args.input && args.input.id
 
-    switch (await access(context, id!)) {
+    if (!id) {
+      return {
+        success: false,
+      }
+    }
+
+    switch (await access(context, id)) {
       case "read":
       case "denied":
         return {
@@ -22,26 +30,16 @@ export default class DeleteGuideMutation extends Mutation<any, MutationResult> {
       case "notLoggedIn":
         return {
           success: false,
-          message: "Not logged in",
+          message: NOT_LOGGED_IN,
         }
     }
 
-    try {
-      await database.none("delete from guides where id=$1", [id])
-      return {
-        success: true,
-      }
-    } catch (e) {
-      return {
-        success: false,
-        message: "Failed to delete",
-      }
-    }
+    return deleteGuide(id)
   }
 
   typeDefs = gql`
       input DeleteGuideInput{
-          id:ID!
+          id:String!
       }
       type DeleteGuideResult {
           success:Boolean!

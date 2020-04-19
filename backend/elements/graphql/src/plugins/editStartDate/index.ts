@@ -4,7 +4,7 @@ import { Context } from "model/context"
 import { database, Guide, updateMany } from "@guided/database"
 import { log, logJson } from "@guided/logger"
 import { isValid } from "@guided/utils/srv/dates"
-import ammendDates from "@guided/compute/srv/trigger/ammendDates"
+import { ammendDates } from "@guided/compute"
 
 const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 

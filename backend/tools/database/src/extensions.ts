@@ -1,6 +1,7 @@
 import { IDatabase } from "pg-promise"
 import { Guide, Ride, Spot, Stage } from "./types"
 import { insertMany, insertOne } from "./utils"
+import { log, logJson } from "@guided/logger"
 
 export default interface Extensions {
   insertSpot(spot: Spot): Promise<string>
@@ -68,6 +69,7 @@ export function extend(db: IDatabase<Extensions> & Extensions) {
         return []
       }
       const query = insertMany(tableName, items, "id")
+      log(query, "query")
       const results = await db.many<{ id: string }>(query)
       return results.map(({ id }) => {
         return {

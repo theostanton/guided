@@ -1,4 +1,3 @@
-import addSpotFromLatLng from "./addSpotFromLatLng"
 import moveSpot from "./moveSpot"
 import editStartDate from "./editStartDate"
 import editNights from "./editNights"
@@ -7,7 +6,6 @@ import geocode from "./geocode"
 
 export default [
   geocode,
-  addSpotFromLatLng,
   moveSpot,
   removeSpot,
   editStartDate,

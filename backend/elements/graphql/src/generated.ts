@@ -28,6 +28,20 @@ export type Scalars = {
   JwtToken: any;
 };
 
+export type AddSpotInput = {
+  readonly guideId: Scalars['String'];
+  readonly lat: Scalars['Float'];
+  readonly long: Scalars['Float'];
+  readonly label?: Maybe<Scalars['String']>;
+  readonly nights: Scalars['Int'];
+};
+
+export type AddSpotResult = {
+  readonly success: Scalars['Boolean'];
+  readonly messaage?: Maybe<Scalars['String']>;
+  readonly id?: Maybe<Scalars['String']>;
+};
+
 /** All input for the `authenticate` mutation. */
 export type AuthenticateInput = {
   /**
@@ -357,10 +371,16 @@ export type CreateComputationPayloadComputationEdgeArgs = {
 
 export type CreateGuideInput = {
   readonly title: Scalars['String'];
-  readonly isCircular: Scalars['Boolean'];
+  readonly isCircular?: Maybe<Scalars['Boolean']>;
   readonly maxHoursPerRide: Scalars['Int'];
   readonly type: TransportType;
   readonly startDate?: Maybe<Scalars['String']>;
+};
+
+export type CreateGuideResult = {
+  readonly success: Scalars['Boolean'];
+  readonly message?: Maybe<Scalars['String']>;
+  readonly guideId?: Maybe<Scalars['String']>;
 };
 
 /** All input for the create `Stage` mutation. */
@@ -541,7 +561,7 @@ export type DeleteComputationPayloadComputationEdgeArgs = {
 };
 
 export type DeleteGuideInput = {
-  readonly id: Scalars['ID'];
+  readonly id: Scalars['String'];
 };
 
 export type DeleteGuideResult = {
@@ -1117,16 +1137,16 @@ export type Mutation = {
   readonly follow?: Maybe<FollowPayload>;
   /** Registers a single user */
   readonly register?: Maybe<RegisterPayload>;
-  readonly addSpotFromLatLng: Spot;
   readonly moveSpot: Spot;
   readonly removeSpot: Spot;
   readonly editStartDate: Result;
   readonly editNights: Result;
-  readonly createGuide: Result;
+  readonly createGuide: CreateGuideResult;
   readonly updateGuide: UpdateGuideResult;
   readonly deleteGuide: DeleteGuideResult;
   readonly followUser: Result;
   readonly unfollowUser: Result;
+  readonly addSpot: AddSpotResult;
 };
 
 
@@ -1269,16 +1289,6 @@ export type MutationRegisterArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationAddSpotFromLatLngArgs = {
-  guideId: Scalars['String'];
-  lat: Scalars['Float'];
-  long: Scalars['Float'];
-  label?: Maybe<Scalars['String']>;
-  nights: Scalars['Int'];
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
 export type MutationMoveSpotArgs = {
   spotId: Scalars['String'];
   lat: Scalars['Float'];
@@ -1333,6 +1343,12 @@ export type MutationFollowUserArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUnfollowUserArgs = {
   username: Scalars['String'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationAddSpotArgs = {
+  input: AddSpotInput;
 };
 
 /** An object with a globally unique `ID`. */
@@ -3374,7 +3390,7 @@ export type UpdateComputationPayloadComputationEdgeArgs = {
 };
 
 export type UpdateGuidePatch = {
-  readonly id: Scalars['ID'];
+  readonly id: Scalars['String'];
   readonly title?: Maybe<Scalars['String']>;
   readonly isCircular?: Maybe<Scalars['Boolean']>;
   readonly maxHoursPerRide?: Maybe<Scalars['Int']>;
@@ -3384,7 +3400,7 @@ export type UpdateGuidePatch = {
 export type UpdateGuideResult = {
   readonly success: Scalars['Boolean'];
   readonly message?: Maybe<Scalars['String']>;
-  readonly id?: Maybe<Scalars['ID']>;
+  readonly id?: Maybe<Scalars['String']>;
 };
 
 /** All input for the `updateStageByNodeId` mutation. */
@@ -3925,10 +3941,13 @@ export type ResolversTypes = {
   RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
   Result: ResolverTypeWrapper<Result>,
   CreateGuideInput: CreateGuideInput,
+  CreateGuideResult: ResolverTypeWrapper<CreateGuideResult>,
   UpdateGuidePatch: UpdateGuidePatch,
   UpdateGuideResult: ResolverTypeWrapper<UpdateGuideResult>,
   DeleteGuideInput: DeleteGuideInput,
   DeleteGuideResult: ResolverTypeWrapper<DeleteGuideResult>,
+  AddSpotInput: AddSpotInput,
+  AddSpotResult: ResolverTypeWrapper<AddSpotResult>,
   Subscription: ResolverTypeWrapper<{}>,
 };
 
@@ -4065,11 +4084,21 @@ export type ResolversParentTypes = {
   RegisterPayload: RegisterPayload,
   Result: Result,
   CreateGuideInput: CreateGuideInput,
+  CreateGuideResult: CreateGuideResult,
   UpdateGuidePatch: UpdateGuidePatch,
   UpdateGuideResult: UpdateGuideResult,
   DeleteGuideInput: DeleteGuideInput,
   DeleteGuideResult: DeleteGuideResult,
+  AddSpotInput: AddSpotInput,
+  AddSpotResult: AddSpotResult,
   Subscription: {},
+};
+
+export type AddSpotResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AddSpotResult'] = ResolversParentTypes['AddSpotResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  messaage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type AuthenticatePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthenticatePayload'] = ResolversParentTypes['AuthenticatePayload']> = {
@@ -4127,6 +4156,13 @@ export type CreateComputationPayloadResolvers<ContextType = any, ParentType exte
   stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
   guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
   computationEdge?: Resolver<Maybe<ResolversTypes['ComputationsEdge']>, ParentType, ContextType, RequireFields<CreateComputationPayloadComputationEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateGuideResult'] = ResolversParentTypes['CreateGuideResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guideId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4326,16 +4362,16 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
   follow?: Resolver<Maybe<ResolversTypes['FollowPayload']>, ParentType, ContextType, RequireFields<MutationFollowArgs, 'input'>>,
   register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
-  addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long' | 'nights'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
   editStartDate?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditStartDateArgs, 'guideId'>>,
   editNights?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditNightsArgs, 'spotId' | 'nights'>>,
-  createGuide?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationCreateGuideArgs, never>>,
+  createGuide?: Resolver<ResolversTypes['CreateGuideResult'], ParentType, ContextType, RequireFields<MutationCreateGuideArgs, never>>,
   updateGuide?: Resolver<ResolversTypes['UpdateGuideResult'], ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, never>>,
   deleteGuide?: Resolver<ResolversTypes['DeleteGuideResult'], ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, never>>,
   followUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowUserArgs, 'username'>>,
   unfollowUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'username'>>,
+  addSpot?: Resolver<ResolversTypes['AddSpotResult'], ParentType, ContextType, RequireFields<MutationAddSpotArgs, 'input'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -4587,7 +4623,7 @@ export type UpdateComputationPayloadResolvers<ContextType = any, ParentType exte
 export type UpdateGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateGuideResult'] = ResolversParentTypes['UpdateGuideResult']> = {
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4653,6 +4689,7 @@ export type UsersEdgeResolvers<ContextType = any, ParentType extends ResolversPa
 };
 
 export type Resolvers<ContextType = any> = {
+  AddSpotResult?: AddSpotResultResolvers<ContextType>,
   AuthenticatePayload?: AuthenticatePayloadResolvers<ContextType>,
   BigInt?: GraphQLScalarType,
   Bound?: BoundResolvers<ContextType>,
@@ -4660,6 +4697,7 @@ export type Resolvers<ContextType = any> = {
   ComputationsConnection?: ComputationsConnectionResolvers<ContextType>,
   ComputationsEdge?: ComputationsEdgeResolvers<ContextType>,
   CreateComputationPayload?: CreateComputationPayloadResolvers<ContextType>,
+  CreateGuideResult?: CreateGuideResultResolvers<ContextType>,
   CreateStagePayload?: CreateStagePayloadResolvers<ContextType>,
   CreateTemperaturePayload?: CreateTemperaturePayloadResolvers<ContextType>,
   CreateUserPayload?: CreateUserPayloadResolvers<ContextType>,

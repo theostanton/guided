@@ -2,6 +2,7 @@ import { Context } from "model/context"
 
 import { DocumentNode } from "graphql"
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
+import { log } from "@guided/logger"
 
 type ResolverType = "Mutation" | "Query"
 
@@ -27,14 +28,23 @@ export abstract class Resolver<Args, R extends Result> implements PluginProvider
   abstract name: string
   abstract typeDefs: DocumentNode
 
-  abstract async resolver(_: any, args: Args, context: Context): Promise<R>
+  async executeResolver(_: any, args: Args, context: Context): Promise<R> {
+    log(`Started ${this.name}`)
+    const beforeMs = new Date().getTime()
+    const result = await this.resolver(args, context)
+    const gapMs = new Date().getTime() - beforeMs
+    log(`${this.name} ${result.success ? "Succeeded" : "Failed"}. Took ${gapMs}ms`)
+    return result
+  }
+
+  abstract async resolver(args: Args, context: Context): Promise<R>
 
   plugin(): ExtensionDefinition {
     return {
       typeDefs: this.typeDefs,
       resolvers: {
         [this.type]: {
-          [this.name]: this.resolver,
+          [this.name]: this.executeResolver.bind(this),
         },
       },
     }
@@ -55,7 +65,7 @@ export type SimpleResolver<Args, R extends Result> = {
   name: string
   type: ResolverType
   typeDefs: DocumentNode
-  resolver: (_: any, args: Args, context: Context) => Promise<R>
+  executeResolver: (_: any, args: Args, context: Context) => Promise<R>
 }
 
 export abstract class ResolverGroup implements PluginProvider {
@@ -72,7 +82,7 @@ export abstract class ResolverGroup implements PluginProvider {
     }
 
     subresolvers.forEach(resolver => {
-      resolvers[resolver.type][resolver.name] = resolver.resolver
+      resolvers[resolver.type][resolver.name] = resolver.executeResolver.bind(resolver)
     })
 
     const typeDefs = subresolvers.map(resolver => resolver.typeDefs)

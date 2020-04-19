@@ -1,10 +1,10 @@
-import { AnyResolver, AnySimplerResolver, ResolverGroup } from "../Resolver"
+import { AnyResolver, ResolverGroup } from "../Resolver"
+import CreateGuideMutation from "./createGuide"
 import UpdateGuideMutation from "./updateGuide"
 import DeleteGuideMutation from "./deleteGuide"
-import CreateGuideMutation from "./createGuide"
 
 export default class GuideResolvers extends ResolverGroup {
-  resolvers(): (AnyResolver | AnySimplerResolver)[] {
+  resolvers(): AnyResolver[] {
     return [
       new CreateGuideMutation(),
       new UpdateGuideMutation(),

@@ -1,5 +1,5 @@
 import slugify from "slugify"
-import { generateId, Guide, Spot } from "@guided/database"
+import { generateId, Guide, Spot, TransportType } from "@guided/database"
 import { dateString } from "@guided/utils"
 
 export type MockLocation = "Worthing" | "London" | "Brighton" | "Horsham"
@@ -37,6 +37,8 @@ export default class GuideBuilder {
   private readonly title: string
   private readonly slug: string
   private start_date: string | null
+  private transport_type: TransportType
+  private is_circular: boolean
   private spots: Spot[] = []
   private position: number = 0
 
@@ -50,6 +52,8 @@ export default class GuideBuilder {
     this.id = `${this.username}_${this.slug}`
     this.max_hours_per_ride = 6
     this.start_date = null
+    this.transport_type = "MOTORCYCLE"
+    this.is_circular = false
   }
 
   get guideId() {
@@ -124,6 +128,8 @@ export default class GuideBuilder {
         owner: this.username,
         slug: this.slug,
         start_date: this.start_date,
+        transport_type: this.transport_type,
+        is_circular: this.is_circular,
         title: this.title,
         created: new Date(),
         updated: null,

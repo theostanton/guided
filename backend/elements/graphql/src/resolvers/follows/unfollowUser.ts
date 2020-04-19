@@ -1,4 +1,4 @@
-import { MutationResult, SimpleResolver } from "../Resolver"
+import { Mutation, MutationResult } from "../Resolver"
 import { Context } from "model/context"
 import { gql } from "postgraphile"
 import { logJson } from "@guided/logger"
@@ -6,10 +6,10 @@ import { database, Follow } from "@guided/database"
 import { MutationUnfollowUserArgs } from "generated"
 
 
-const RESOLVER: SimpleResolver<MutationUnfollowUserArgs, MutationResult> = {
-  name: "unfollowUser",
-  type: "Mutation",
-  async resolver(_: any, args: MutationUnfollowUserArgs, context: Context): Promise<MutationResult> {
+export default class UnfollowUserMutation extends Mutation<MutationUnfollowUserArgs, MutationResult> {
+  name = "unfollowUser"
+
+  async resolver(args: MutationUnfollowUserArgs, context: Context): Promise<MutationResult> {
     logJson(args, "unfollowUser args")
 
     if (!context.jwtClaims) {
@@ -19,7 +19,7 @@ const RESOLVER: SimpleResolver<MutationUnfollowUserArgs, MutationResult> = {
       }
     }
 
-    const follower = context.jwtClaims.username!
+    const follower = context.jwtClaims!.username!
     const followed = args.username
 
     const followsBefore = await database.manyOrNone<Follow>(
@@ -39,13 +39,11 @@ const RESOLVER: SimpleResolver<MutationUnfollowUserArgs, MutationResult> = {
       success: true,
       message: `Unfollowed ${followed}`,
     }
-  },
+  }
 
-  typeDefs: gql`
+  typeDefs = gql`
       extend type Mutation {
           unfollowUser(username:String!):Result!
       }
-  `,
+  `
 }
-
-export default RESOLVER

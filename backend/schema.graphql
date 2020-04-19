@@ -1,3 +1,17 @@
+input AddSpotInput {
+  guideId: String!
+  lat: Float!
+  long: Float!
+  label: String
+  nights: Int!
+}
+
+type AddSpotResult {
+  success: Boolean!
+  messaage: String
+  id: String
+}
+
 """All input for the `authenticate` mutation."""
 input AuthenticateInput {
   """
@@ -436,7 +450,7 @@ type CreateComputationPayload {
 
 input CreateGuideInput {
   title: String!
-  isCircular: Boolean!
+  isCircular: Boolean
   maxHoursPerRide: Int!
   type: TransportType!
   startDate: String
@@ -445,7 +459,7 @@ input CreateGuideInput {
 type CreateGuideResult {
   success: Boolean!
   message: String
-  guideId: ID
+  guideId: String
 }
 
 """All input for the create `Stage` mutation."""
@@ -668,7 +682,7 @@ type DeleteComputationPayload {
 }
 
 input DeleteGuideInput {
-  id: ID!
+  id: String!
 }
 
 type DeleteGuideResult {
@@ -1599,7 +1613,6 @@ type Mutation {
     """
     input: RegisterInput!
   ): RegisterPayload
-  addSpotFromLatLng(guideId: String!, lat: Float!, long: Float!, label: String, nights: Int!): Spot!
   moveSpot(spotId: String!, lat: Float!, long: Float!): Spot!
   removeSpot(spotId: String!): Spot!
   editStartDate(guideId: String!, date: String): Result!
@@ -1624,6 +1637,12 @@ type Mutation {
   ): DeleteGuideResult!
   followUser(username: String!): Result!
   unfollowUser(username: String!): Result!
+  addSpot(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: AddSpotInput!
+  ): AddSpotResult!
 }
 
 """An object with a globally unique `ID`."""
@@ -3789,7 +3808,7 @@ type UpdateComputationPayload {
 }
 
 input UpdateGuidePatch {
-  id: ID!
+  id: String!
   title: String
   isCircular: Boolean
   maxHoursPerRide: Int
@@ -3799,7 +3818,7 @@ input UpdateGuidePatch {
 type UpdateGuideResult {
   success: Boolean!
   message: String
-  id: ID
+  id: String
 }
 
 """All input for the `updateStageByNodeId` mutation."""
