@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "yarn wsrun -m -r --fast-exit --stages -c build",
-    "watch": "yarn wsrun -m -c watch",
+    "watch": "yarn wsrun -m -e -l -c watch",
     "test:all": "JEST_JUNIT_OUTPUT_DIR=reports/junit/ jest --passWithNoTests --ci --reporters=default --reporters=jest-junit",
     "develop:backend": "nodemon",
     "install:retry": "until yarn; do; echo \"Failed. Prolly bad connection Lets try again\"; done",

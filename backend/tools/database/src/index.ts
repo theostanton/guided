@@ -15,22 +15,20 @@ import PgPromise from "pg-promise"
 import cuid from "cuid"
 import Extensions, { extend } from "./extensions"
 import {
-  Spot,
-  User,
+  Computation,
+  ComputationStatus,
+  Follow,
   Guide,
   Ride,
-  Stage,
-  Follow,
-  Computation,
-  StageStatus,
-  SpotStatus,
   RideStatus,
-  ComputationStatus,
+  Spot,
+  SpotStatus,
+  Stage,
+  StageStatus,
+  User,
 } from "./types"
 
-import {
-  insertOne, insertMany, updateMany, updateOne,
-} from "./utils"
+import { insertMany, insertOne, updateMany, updateOne } from "./utils"
 
 
 export {

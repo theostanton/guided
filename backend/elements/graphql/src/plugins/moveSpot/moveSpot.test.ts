@@ -1,10 +1,10 @@
 import faker from "faker"
-import { Computation, database, generateId, Ride, Spot, Stage } from "@guided/database"
-import { Packet, trigger } from "@guided/compute"
+import { Computation, database, generateId, Spot, Stage } from "@guided/database"
 import * as compute from "@guided/compute"
+import { Packet, trigger } from "@guided/compute"
 import { spinup, UserBuilder } from "@guided/spinup"
 import { LOCATIONS } from "@guided/spinup/srv/builder/GuideBuilder"
-import { MutationMoveSpotArgs } from "../../generated"
+import { MutationMoveSpotArgs } from "generated"
 import { prepare } from "./index"
 import { log, logJson } from "@guided/logger"
 

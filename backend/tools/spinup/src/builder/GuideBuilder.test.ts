@@ -1,5 +1,5 @@
 import faker from "faker"
-import { database, generateId } from "@guided/database"
+import { database } from "@guided/database"
 import { UserBuilder } from "./index"
 import { spinup } from "../index"
 import { logJson } from "@guided/logger"

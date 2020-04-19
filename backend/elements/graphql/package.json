@@ -9,9 +9,8 @@
     "build:cache": "node srv/buildCache.js",
     "invoke": "STAGE=staging ts-node src/lambda.ts",
     "logs": "awslogs get /aws/lambda/guided-graphql-staging -w",
-    "start": "node srv/server.js",
-    "serve": "node dist/main.js",
-    "watch": "tsc -w"
+    "start": "tsc && node srv/server.js",
+    "serve": "node dist/main.js"
   },
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",

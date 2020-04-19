@@ -1,6 +1,5 @@
 import { database } from "@guided/database"
 import { executeFile } from "../sequence"
-import { dropTables } from "../tests"
 
 // beforeAll(dropTables)
 

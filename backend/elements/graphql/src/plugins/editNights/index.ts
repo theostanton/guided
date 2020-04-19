@@ -1,6 +1,6 @@
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
-import { MutationEditNightsArgs } from "../../generated"
-import { Context } from "../types"
+import { MutationEditNightsArgs } from "generated"
+import { Context } from "model/context"
 import { database, Spot, updateOne } from "@guided/database"
 import ammendDates from "@guided/compute/srv/trigger/ammendDates"
 import { logJson } from "@guided/logger"

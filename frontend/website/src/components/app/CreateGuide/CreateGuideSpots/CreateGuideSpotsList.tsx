@@ -43,45 +43,59 @@ export default class CreateGuideSpotsList extends React.Component<Props> {
 
     const createGuideStore = this.createGuideStore
 
-    function addSpotButton(spotIndex: number, position: Position): React.ReactElement {
+    function addSpotButton(spotIndex: number, position: Position | undefined): React.ReactElement {
       if (position !== "firstLast") {
         return <div style={{
           width: "min-content",
           marginLeft: "auto",
           marginRight: "auto",
-          marginBottom: "1em",
+          paddingTop: "1em",
+          paddingBottom: "1em",
           marginTop: "1em",
+          marginBottom: "1em",
+          display: "flex",
+          flexDirection: "row",
         }}>
-          <ButtonGroup basic>
-            <Button circular icon={"plus"} onClick={() => {
-              createGuideStore.addSpot(spotIndex + 1)
-            }}/>
-            {!isCircular && position === "last" && <Button icon={'retweet'} onClick={() => {
-              createGuideStore.updateIsCircular(true)
-            }
-            }/>}
-          </ButtonGroup>
+          <Button style={{ display: "flex", flexDirection: "column" }} circular basic icon={"plus"} onClick={() => {
+            createGuideStore.addSpot(spotIndex + 1)
+          }}/>
+          {!isCircular && position === "last" &&
+          <Button style={{ display: "flex", flexDirection: "column" }} circular basic icon={"retweet"} onClick={() => {
+            createGuideStore.updateIsCircular(true)
+          }
+          }/>}
         </div>
       }
     }
 
     function addSpot(spot: CreateGuideStoreSpot, spotIndex: number, position: Position) {
-      items.push(<Draggable
-        key={position === "firstLast" ? position : spot.key}
-        draggableId={position === "middle" && spot.key}
-        index={spotIndex}>
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            <CreateGuideSpotsListItem spotIndex={spotIndex} position={position}/>
-            {addSpotButton(spotIndex, position)}
-          </div>
-        )}
-      </Draggable>)
+
+      if (position !== "firstLast") {
+
+        items.push(<Draggable
+          key={spot.key}
+          draggableId={spot.key}
+          index={spotIndex}>
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+            >
+              <CreateGuideSpotsListItem spotIndex={spotIndex} position={position}/>
+            </div>
+          )}
+        </Draggable>)
+      } else {
+        items.push(<CreateGuideSpotsListItem spotIndex={spotIndex} position={position}/>)
+      }
+      if (["last", "firstLast"].includes(position)) {
+        items.push(addSpotButton(spotIndex, position))
+      }
     }
+
+
+    items.push(addSpotButton(0, undefined))
 
     this.createGuideStore.spots.forEach((spot, spotIndex) => {
 
@@ -99,6 +113,8 @@ export default class CreateGuideSpotsList extends React.Component<Props> {
 
     if (isCircular) {
       addSpot(this.createGuideStore.spots[0], 0, "firstLast")
+    } else if (spotsLength === 1) {
+      items.push(addSpotButton(1, undefined))
     }
 
     return <div style={{ paddingTop: "2em" }}>

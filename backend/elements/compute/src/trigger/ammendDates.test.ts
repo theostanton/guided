@@ -149,7 +149,7 @@ describe("When editing a start date to guide with 3 spots", () => {
 describe("When removing a start date to guide with 3 spots", () => {
 
   const owner: string = faker.internet.userName()
-  let guideId:string
+  let guideId: string
   const GUIDE_TITLE: string = faker.random.words(3)
   const SPOT_ID_1: string = generateId("spot_1")
   const SPOT_ID_2: string = generateId("spot_2")
@@ -159,7 +159,7 @@ describe("When removing a start date to guide with 3 spots", () => {
   beforeAll(async () => {
     const contents = UserBuilder.create(faker.internet.email(), owner)
       .addGuide(GUIDE_TITLE, (builder) => {
-        guideId=builder.guideId
+        guideId = builder.guideId
         builder.withStartDate(2019, 6, 6)
         builder.nextSpotLocation("Worthing", 1, SPOT_ID_1)
         builder.nextSpotLocation("Brighton", 3, SPOT_ID_2)

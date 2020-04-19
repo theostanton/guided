@@ -1,7 +1,7 @@
 import { logJson } from "@guided/logger"
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
-import { QueryGeocodeArgs, Geocode, GeocodeResponse } from "../../generated"
-import { Context } from "../types"
+import { Geocode, GeocodeResponse, QueryGeocodeArgs } from "generated"
+import { Context } from "model/context"
 import { client } from "@guided/google"
 
 const { makeExtendSchemaPlugin, gql } = require("graphile-utils")

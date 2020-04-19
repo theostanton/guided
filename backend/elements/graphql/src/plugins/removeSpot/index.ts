@@ -1,14 +1,14 @@
 import { log, logJson } from "@guided/logger"
-
-const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
-import { MutationMoveSpotArgs } from "../../generated"
+import { MutationMoveSpotArgs } from "generated"
 import { database, Spot } from "@guided/database"
 import { executeSequentially } from "@guided/utils"
 
+const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
+
 export async function execute(spotId: string): Promise<Partial<Spot>> {
   const { locked } = await database.one<{ locked: boolean }>(
-      `SELECT locked
+    `SELECT locked
        from spots
        where id = $1`, [spotId])
 

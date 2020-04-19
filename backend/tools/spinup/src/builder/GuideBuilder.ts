@@ -31,10 +31,6 @@ export const LOCATIONS: { [location in MockLocation]: LatLng } = {
 
 export default class GuideBuilder {
 
-  static create(username: string, title: string): GuideBuilder {
-    return new GuideBuilder(username, title)
-  }
-
   private readonly username: string
   private readonly id: string
   private max_hours_per_ride: number
@@ -58,6 +54,10 @@ export default class GuideBuilder {
 
   get guideId() {
     return this.id
+  }
+
+  static create(username: string, title: string): GuideBuilder {
+    return new GuideBuilder(username, title)
   }
 
   withStartDate(year: number, month: number, date: number): GuideBuilder {

@@ -1,6 +1,4 @@
 import { logJson } from "@guided/logger"
-
-logJson(__dirname, "__dirname")
 import create from "./create"
 import roles from "./roles"
 import truncate from "./truncate"
@@ -10,7 +8,9 @@ import drop from "./drop"
 import load_temperatures from "./load_temperatures"
 import spinup from "./spinup"
 import createAll from "./createAll"
-import { UserBuilder, Contents } from "./builder"
+import { Contents, UserBuilder } from "./builder"
+
+logJson(__dirname, "__dirname")
 
 export {
   spinup, Contents, UserBuilder,
@@ -27,7 +27,7 @@ export type Action =
   | "createAll"
 
 export const actions: { [action in Action]: () => Promise<void> } = {
-  create, truncate, privelages, populate, drop, load_temperatures, roles,createAll
+  create, truncate, privelages, populate, drop, load_temperatures, roles, createAll,
 }
 
 export default async function(action: Action): Promise<void> {

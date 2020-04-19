@@ -18,9 +18,8 @@ mutation DeleteGuide($guideId:String!){
     deleteGuide(input: {
         id: $guideId
     }){
-        guide{
-            id
-        }
+        success
+        error
     }
 }
 
@@ -51,7 +50,7 @@ mutation EditNights($spotId:String!,$nights:Int!){
 }
 
 mutation FollowUser($username:String!){
-    follow(username: $username){
+    doUnfollow(username: $username){
         success
         message
     }

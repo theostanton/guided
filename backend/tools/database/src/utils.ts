@@ -50,9 +50,9 @@ export function updateOne<T>(tableName: string, item: Partial<T>, onColumn: stri
 
 export function updateMany(tableName: string, items: any[], columns: string[], onColumn: string = "id"): string {
 
-  if (columns.includes(onColumn)) {
-    throw new Error(`Not smart enough to update on matched column, yet`)
-  }
+  // if (columns.includes(onColumn)) {
+  //   throw new Error(`Not smart enough to update on matched column, yet`)
+  // }
 
   items = items.map(item => {
     const insertItem: any = {}
@@ -66,6 +66,8 @@ export function updateMany(tableName: string, items: any[], columns: string[], o
       })
     return insertItem
   })
+
+  logJson(items, "items")
 
   if (items.length === 0) {
     return ""
@@ -108,7 +110,11 @@ export function insertMany(tableName: string, items: any[], returning: string | 
     return `(${extract(item)})`
   }).join(",")
 
-  const columns = `("${Object.keys(items[0]).join("\", \"")}")`
+  const columns = `("${Object.keys(items[0]).join("\", \"",
+  )
+  }
+
+")`
 
 
   return `

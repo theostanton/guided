@@ -1,5 +1,4 @@
 import { database, Spot, updateMany } from "@guided/database"
-import { log, logJson } from "@guided/logger"
 
 export default async function(spots: Spot[]): Promise<Spot[]> {
 

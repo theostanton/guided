@@ -7,6 +7,14 @@ const PASSWORD_HASH = "$2a$06$go2Lk1MKz.2iq6vH2IvsAep1Aera4IhKECd5KlNgyLjPIl2Gq.
 
 export default class UserBuilder {
 
+  private user: User
+  private guides: Guide[] = []
+  private spots: Spot[] = []
+
+  constructor(user: User) {
+    this.user = user
+  }
+
   static create(email?: string, username?: string): UserBuilder {
     const firstName = faker.name.firstName()
     const lastName = faker.name.firstName()
@@ -25,14 +33,6 @@ export default class UserBuilder {
       created: new Date(),
       updated: null,
     })
-  }
-
-  private user: User
-  private guides: Guide[] = []
-  private spots: Spot[] = []
-
-  constructor(user: User) {
-    this.user = user
   }
 
   addGuide(title: string, action?: (builder: GuideBuilder) => void): UserBuilder {

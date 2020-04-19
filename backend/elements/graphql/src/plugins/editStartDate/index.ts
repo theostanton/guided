@@ -1,7 +1,7 @@
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
-import { MutationEditStartDateArgs } from "../../generated"
-import { Context } from "../types"
-import { database, Guide, updateMany, updateOne } from "@guided/database"
+import { MutationEditStartDateArgs } from "generated"
+import { Context } from "model/context"
+import { database, Guide, updateMany } from "@guided/database"
 import { log, logJson } from "@guided/logger"
 import { isValid } from "@guided/utils/srv/dates"
 import ammendDates from "@guided/compute/srv/trigger/ammendDates"
@@ -70,10 +70,6 @@ async function editStartDate(_: any, args: MutationEditStartDateArgs, context: C
 
 const generator: ExtensionDefinition = {
   typeDefs: gql`
-      type Result {
-          success:Boolean!
-          message:String!
-      }
       extend type Mutation {
           editStartDate(guideId:String!,date:String):Result!
       }

@@ -1,11 +1,8 @@
-import { log } from "@guided/logger"
-
 import ownerConnection from "./ownerConnection"
-
-const connectionString = ownerConnection()
-
 import { createPostGraphileSchema } from "postgraphile"
 import { options } from "./options"
+
+const connectionString = ownerConnection()
 
 const { Pool } = require("pg")
 

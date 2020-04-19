@@ -5,7 +5,7 @@ async function execute() {
   console.log(`execute computationId=${computationId}`)
   if (computationId && computationId.length > 0) {
     await action({
-      computationId
+      computationId,
     })
   } else {
     throw new Error(`No guideId provided`)

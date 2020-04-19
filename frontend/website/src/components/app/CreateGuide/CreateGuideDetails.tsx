@@ -4,9 +4,7 @@ import CreateGuideStore from "model/CreateGuideStore"
 import { TransportType } from "../../../api/generated"
 import { Button, Container, Form, Header, Icon, Modal } from "semantic-ui-react"
 import MaxHoursPerRideForm from "../Overlay/modals/CreateGuideModal/MaxHoursPerRideForm"
-import { DateInput } from "semantic-ui-calendar-react"
-import { dateString } from "../../../utils/dates"
-import { logJson } from "../../../utils/logger"
+import * as validation from "./validation"
 
 
 type TransportOption = {
@@ -42,9 +40,27 @@ type Props = {
   createGuideStore?: CreateGuideStore
 }
 
+type State = {
+  title?: string
+  summary?: string
+  maxHoursPerRide: number
+  isCircular: boolean
+  transportType?: TransportType
+  showErrors: boolean
+}
+
 @inject("createGuideStore")
 @observer
-export default class CreateGuideDetails extends React.Component<Props> {
+export default class CreateGuideDetails extends React.Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      isCircular: false,
+      maxHoursPerRide: 6,
+      showErrors: false,
+    }
+  }
 
   get createGuideStore(): CreateGuideStore {
     return this.props.createGuideStore!
@@ -53,7 +69,7 @@ export default class CreateGuideDetails extends React.Component<Props> {
   render(): React.ReactElement {
 
     const store = this.createGuideStore
-    const { showErrors } = store
+    const { showErrors } = this.state
     return <div style={{
       marginTop: "2em",
       marginBottom: "2em",
@@ -67,10 +83,11 @@ export default class CreateGuideDetails extends React.Component<Props> {
           <Form.Input
             label='Title'
             width={12}
-            error={showErrors && store.titleValidation()}
-            value={store.title}
+            error={showErrors && validation.title(this.state.title)}
             onChange={(e, { value }) => {
-              store.updateTitle(value)
+              this.setState({
+                title: value,
+              })
             }}
           />
         </Form.Group>
@@ -80,7 +97,9 @@ export default class CreateGuideDetails extends React.Component<Props> {
             width={16}
             disabled
             onChange={(e, { value }) => {
-
+              this.setState({
+                summary: value.toString(),
+              })
             }}
           />
         </Form.Group>
@@ -89,9 +108,11 @@ export default class CreateGuideDetails extends React.Component<Props> {
             <label>Max ride duration</label>
             <Form.Input>
               <MaxHoursPerRideForm
-                hours={store.maxHoursPerRide}
+                hours={this.state.maxHoursPerRide}
                 onChange={(hours) => {
-                  store.updateMaxHours(hours)
+                  this.setState({
+                    maxHoursPerRide: hours,
+                  })
                 }}/>
             </Form.Input>
           </Form.Field>
@@ -100,9 +121,11 @@ export default class CreateGuideDetails extends React.Component<Props> {
             width={"4"}
             fluid
             error={showErrors && store.transportTypeValidation()}
-            value={store.transportType}
+            value={this.state.transportType}
             onChange={(e, { value }) => {
-              store.updateTransportType(value as TransportType)
+              this.setState({
+                transportType: (value as TransportType),
+              })
             }}
             options={TRANSPORT_OPTIONS}
           />
@@ -134,7 +157,6 @@ export default class CreateGuideDetails extends React.Component<Props> {
           }>
           Continue
         </Form.Button>
-
       </div>
     </div>
   }

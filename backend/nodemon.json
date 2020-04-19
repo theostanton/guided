@@ -9,7 +9,7 @@
     "NODE_ENV": "development"
   },
   "watch": [
-    "elements/graphql/srv",
+    "elements/graphql/src",
     "elements/compute/srv",
     "apis/google/srv",
     "apis/mapbox/srv",
@@ -20,5 +20,5 @@
     "tools/logger/srv",
     "tools/utils/srv"
   ],
-  "ext": "js,json,jsx,d.ts"
+  "ext": "js,json,jsx,d.ts,ts"
 }

@@ -1,4 +1,4 @@
-import SQS from 'aws-sdk/clients/sqs';
+import SQS from "aws-sdk/clients/sqs"
 
 export default function(): SQS {
   return new SQS({

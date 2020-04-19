@@ -1,5 +1,4 @@
 import { Feature } from "geojson"
-import { uploadFeature } from "../src"
 
 const RIDE_ID = "ride_fake_id"
 

@@ -1,4 +1,4 @@
-import { UserBuilder, Contents, spinup } from "@guided/spinup"
+import { Contents, spinup, UserBuilder } from "@guided/spinup"
 import { database, generateId, Spot } from "@guided/database"
 import faker from "faker"
 import action from "./index"
@@ -129,7 +129,7 @@ describe("Repositions all spots [1,2,3] to [0,1,2]", () => {
   beforeAll(async () => {
     const contents: Contents = UserBuilder.create()
       .addGuide(GUIDE_TITLE, (builder) => {
-        guideId=builder.guideId
+        guideId = builder.guideId
         builder.nextSpot(LATLNG.Brighton.lat, LATLNG.London.long, 2, "London", SPOT_ID_1)
         builder.nextSpot(LATLNG.Brighton.lat, LATLNG.Brighton.long, 5, "Brighton", SPOT_ID_2)
         builder.nextSpot(LATLNG.Worthing.lat, LATLNG.Worthing.long, 5, "Worthing", SPOT_ID_3)

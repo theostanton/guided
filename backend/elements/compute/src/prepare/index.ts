@@ -18,7 +18,6 @@ import {
   Stage,
   StageStatus,
 } from "@guided/database"
-import { logJson } from "@guided/logger"
 
 export type Packet = {
   guideId: string

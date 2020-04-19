@@ -1,5 +1,5 @@
-import { database, generateId, Guide, Spot, User } from "@guided/database"
-import { actions, Contents, spinup } from "../index"
+import { database, Guide, Spot, User } from "@guided/database"
+import { Contents, spinup } from "../index"
 import UserBuilder from "../builder/UserBuilder"
 import faker from "faker"
 

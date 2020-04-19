@@ -2,7 +2,19 @@ import CreateGuideStore from "model/CreateGuideStore"
 import { inject, observer } from "mobx-react"
 import * as React from "react"
 import { GeocodesStore } from "./GeocodesStore"
-import { Button, Card, Flag, FlagNameValues, Form, FormGroup, Grid, GridColumn, Header, Icon } from "semantic-ui-react"
+import {
+  Button,
+  Card,
+  Flag,
+  FlagNameValues,
+  Form,
+  FormGroup,
+  Grid,
+  GridColumn,
+  Header,
+  Icon,
+  Segment,
+} from "semantic-ui-react"
 import { CreateGuideWithSpotInput, Geocode, GeocodeDocument, GeocodeQuery } from "api/generated"
 import { ApolloQueryResult } from "apollo-boost"
 import { client } from "api"
@@ -159,16 +171,24 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
     this.createGuideStore.updateSpot(this.props.spotIndex, fields)
   }
 
+  locationErrorMessage(): string | undefined {
+    if (this.createGuideStore.showSpotsErrors && !this.spot.location) {
+      return "Set a location"
+    }
+    if (this.state.result.status === "error") {
+      return this.state.result.error || "Something went wrong"
+    }
+  }
+
   locationForm(): React.ReactElement {
     const { result } = this.state
-    const error = this.createGuideStore.showSpotsErrors && !this.spot.location && "Set a location"
 
     return <Form.Dropdown
       label={"Location"}
       fluid
       selection
       width={6}
-      error={error}
+      error={this.locationErrorMessage()}
       options={this.geocodeOptions()}
       placeholder='Search location'
       closeOnChange
@@ -213,7 +233,7 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
 
     return <Form.Input
       label='Name'
-      width={6}
+      width={4}
       error={error}
       value={this.spot.label}
       onChange={(e, { value }) => {
@@ -266,9 +286,10 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
   }
 
   startDateForm(): React.ReactElement {
-    return <Form.Field>
+    return <Form.Field width={6} style={{ backgroundColour: "#ff0000" }}>
       <label>Start date</label>
       <DateInput
+        style={{ backgroundColour: "#00ff00" }}
         icon={"calendar"}
         closeOnMouseLeave={true}
         popupPosition='bottom right'
@@ -293,52 +314,6 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
     </Form.Field>
   }
 
-  renderHeader(): React.ReactElement {
-    switch (this.props.position) {
-      case "first":
-        return <Header color={"grey"}>Start</Header>
-      case "last":
-        return <Grid>
-          <GridColumn width={10}>
-            <Header color={"grey"}>End</Header>
-          </GridColumn>
-          <GridColumn floated={"right"}>
-            <Button basic compact icon={"trash"} circular floated={"right"} style={{ padding: "0.5em" }}
-                    onClick={() => {
-                      this.createGuideStore.removeSpot(this.props.spotIndex)
-                    }
-                    }/>
-          </GridColumn>
-        </Grid>
-      case "firstLast":
-        return <Grid>
-          <GridColumn width={10}>
-            <Header color={"grey"}>Back to start</Header>
-          </GridColumn>
-          <GridColumn floated={"right"}>
-            <Button basic compact icon={"close"} circular floated={"right"} style={{ padding: "0.5em" }}
-                    onClick={() => {
-                      this.createGuideStore.updateIsCircular(false)
-                    }
-                    }/>
-          </GridColumn>
-        </Grid>
-      case "middle":
-        return <Grid>
-          <GridColumn width={10}>
-            <Header color={"grey"}>{this.props.spotIndex}.</Header>
-          </GridColumn>
-          <GridColumn floated={"right"}>
-            <Button basic compact icon={"trash"} circular floated={"right"} style={{ padding: "0.5em" }}
-                    onClick={() => {
-                      this.createGuideStore.removeSpot(this.props.spotIndex)
-                    }
-                    }/>
-          </GridColumn>
-        </Grid>
-    }
-  }
-
   renderContextualForm(): React.ReactElement {
     switch (this.props.position) {
       case "first":
@@ -349,16 +324,87 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
     }
   }
 
-  render(): React.ReactElement {
-    return <Card fluid style={{ paddingLeft: "1em", paddingRight: "1em", paddingTop: "1em" }}>
-      {this.renderHeader()}
+  renderLeft(): React.ReactElement {
+
+    let title: string
+    switch (this.props.position) {
+      case "first":
+        title = `Start`
+        break
+      case "middle":
+        title = `${this.props.spotIndex}.`
+        break
+      case "last":
+        title = `End`
+        break
+      case "firstLast":
+        title = `Back to start`
+        break
+    }
+
+    return <Header color={"grey"}>{title}</Header>
+  }
+
+  renderCenter(): React.ReactElement {
+
+    function attached(): boolean | "top" | "bottom" {
+      switch (this.props.position) {
+        case "first":
+          return "top"
+        case "middle":
+          return true
+        case "firstLast":
+        case "last":
+          return "bottom"
+      }
+    }
+
+    return <Segment fluid attached={attached.bind(this)()}
+                    style={{ paddingLeft: "1em", paddingRight: "1em", paddingTop: "1em" }}>
       <Form>
-        <FormGroup>
-          {this.locationForm()}
+        <FormGroup widths={16}>
           {this.labelForm()}
+          {this.locationForm()}
           {this.renderContextualForm()}
         </FormGroup>
       </Form>
-    </Card>
+    </Segment>
+  }
+
+  renderRight(): React.ReactElement | undefined {
+    switch (this.props.position) {
+      case "first":
+        return
+      case "last":
+      case "middle":
+        return <Button basic compact icon={"trash"} circular style={{ padding: "0.5em" }}
+                       onClick={() => {
+                         this.createGuideStore.removeSpot(this.props.spotIndex)
+                       }
+                       }/>
+      case "firstLast":
+        return <Button basic compact icon={"close"} circular style={{ padding: "0.5em" }}
+                       onClick={() => {
+                         this.createGuideStore.updateIsCircular(false)
+                       }
+                       }/>
+    }
+  }
+
+  render(): React.ReactElement {
+
+    return <Grid>
+      <GridColumn width={2} verticalAlign={"middle"} textAlign={"right"}>
+        {this.renderLeft()}
+      </GridColumn>
+      <GridColumn width={12} style={{ padding: 0 }}>
+        {this.renderCenter()}
+      </GridColumn>
+      <GridColumn width={2} verticalAlign={"middle"}>
+        {this.renderRight()}
+      </GridColumn>
+    </Grid>
+
+
   }
 }

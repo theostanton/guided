@@ -1462,6 +1462,7 @@ export type Mutation = {
   readonly follow: Result;
   readonly unfollow: Result;
   readonly createGuideWithSpots: CreateGuideWithSpotsResult;
+  readonly upsertGuide: UpsertGuideResult;
   readonly addSpotFromLatLng: Spot;
   readonly moveSpot: Spot;
   readonly removeSpot: Spot;
@@ -1713,6 +1714,12 @@ export type MutationUnfollowArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateGuideWithSpotsArgs = {
   input?: Maybe<CreateGuideWithSpotsInput>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpsertGuideArgs = {
+  input?: Maybe<UpsertGuideInput>;
 };
 
 
@@ -4165,6 +4172,20 @@ export type UpdateUserPayloadUserEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
 };
 
+export type UpsertGuideInput = {
+  readonly id?: Maybe<Scalars['ID']>;
+  readonly title: Scalars['String'];
+  readonly isCircular: Scalars['Boolean'];
+  readonly maxHoursPerRide: Scalars['Int'];
+  readonly type: TransportType;
+};
+
+export type UpsertGuideResult = {
+  readonly success: Scalars['Boolean'];
+  readonly error?: Maybe<Scalars['String']>;
+  readonly guideId?: Maybe<Scalars['ID']>;
+};
+
 export type User = Node & {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   readonly nodeId: Scalars['ID'];
@@ -4592,6 +4613,8 @@ export type ResolversTypes = {
   CreateGuideWithSpotsInput: CreateGuideWithSpotsInput,
   CreateGuideWithSpotInput: CreateGuideWithSpotInput,
   CreateGuideWithSpotsResult: ResolverTypeWrapper<CreateGuideWithSpotsResult>,
+  UpsertGuideInput: UpsertGuideInput,
+  UpsertGuideResult: ResolverTypeWrapper<UpsertGuideResult>,
   Subscription: ResolverTypeWrapper<{}>,
 };
 
@@ -4761,6 +4784,8 @@ export type ResolversParentTypes = {
   CreateGuideWithSpotsInput: CreateGuideWithSpotsInput,
   CreateGuideWithSpotInput: CreateGuideWithSpotInput,
   CreateGuideWithSpotsResult: CreateGuideWithSpotsResult,
+  UpsertGuideInput: UpsertGuideInput,
+  UpsertGuideResult: UpsertGuideResult,
   Subscription: {},
 };
 
@@ -5106,6 +5131,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   follow?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowArgs, 'username'>>,
   unfollow?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowArgs, 'username'>>,
   createGuideWithSpots?: Resolver<ResolversTypes['CreateGuideWithSpotsResult'], ParentType, ContextType, RequireFields<MutationCreateGuideWithSpotsArgs, never>>,
+  upsertGuide?: Resolver<ResolversTypes['UpsertGuideResult'], ParentType, ContextType, RequireFields<MutationUpsertGuideArgs, never>>,
   addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long' | 'nights'>>,
   moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
@@ -5419,6 +5445,13 @@ export type UpdateUserPayloadResolvers<ContextType = any, ParentType extends Res
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type UpsertGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpsertGuideResult'] = ResolversParentTypes['UpsertGuideResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guideId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -5513,6 +5546,7 @@ export type Resolvers<ContextType = any> = {
   UpdateStagePayload?: UpdateStagePayloadResolvers<ContextType>,
   UpdateTemperaturePayload?: UpdateTemperaturePayloadResolvers<ContextType>,
   UpdateUserPayload?: UpdateUserPayloadResolvers<ContextType>,
+  UpsertGuideResult?: UpsertGuideResultResolvers<ContextType>,
   User?: UserResolvers<ContextType>,
   UsersConnection?: UsersConnectionResolvers<ContextType>,
   UsersEdge?: UsersEdgeResolvers<ContextType>,

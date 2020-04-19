@@ -1,7 +1,7 @@
 import prep, { Packet } from "./index"
 import faker from "faker"
-import { actions, UserBuilder, Contents, spinup } from "@guided/spinup"
-import { database, generateId, Spot } from "@guided/database"
+import { Contents, spinup, UserBuilder } from "@guided/spinup"
+import { database, generateId } from "@guided/database"
 
 const TIMEOUT = 60000
 

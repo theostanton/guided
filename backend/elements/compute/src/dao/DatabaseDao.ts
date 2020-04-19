@@ -1,7 +1,5 @@
 import { Dao, StageData } from "."
-import { Computation, database, Guide, insertOne, Spot } from "@guided/database"
-import { insertMany } from "@guided/database"
-import { executeConcurrently } from "@guided/utils"
+import { Computation, database, insertMany } from "@guided/database"
 import { Stage } from "@guided/database/srv/types"
 
 const DELETE_UNLOCKED = `
@@ -19,14 +17,14 @@ export class DatabaseDao implements Dao {
   computationId: string
   computation: Computation
 
-  static async create(computationId: string): Promise<DatabaseDao> {
-    const computation = await database.one("select * from computations where id=$1", [computationId])
-    return new DatabaseDao(computation)
-  }
-
   constructor(computation: Computation) {
     this.computationId = computation.id
     this.computation = computation
+  }
+
+  static async create(computationId: string): Promise<DatabaseDao> {
+    const computation = await database.one("select * from computations where id=$1", [computationId])
+    return new DatabaseDao(computation)
   }
 
   async stage(): Promise<Stage> {

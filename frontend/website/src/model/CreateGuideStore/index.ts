@@ -1,6 +1,6 @@
 import {
   CreateGuideWithSpotInput,
-  Geocode,
+  Geocode, GuideFragment,
   TransportType,
 } from "../../api/generated"
 import { action, observable } from "mobx"
@@ -14,22 +14,13 @@ export type CreateGuideStoreSpot = Partial<CreateGuideWithSpotInput> & { key: st
 export default class CreateGuideStore {
 
   @observable
-  stage: Stage = "details"
+  stage: Stage = "locations"
 
   @observable
-  title: string | undefined
+  guide: GuideFragment | undefined = undefined
 
   @observable
-  maxHoursPerRide: number = 6
-
-  @observable
-  isCircular: boolean = false
-
-  @observable
-  transportType: TransportType | undefined
-
-  @observable
-  showErrors: boolean = false
+  isCircular: boolean
 
   @observable
   showSpotsErrors: boolean = false
@@ -51,54 +42,19 @@ export default class CreateGuideStore {
     this.stage = stage
   }
 
-  updateTitle(title: string) {
-    this.title = title
-  }
-
-  titleValidation(): string | undefined {
-    if (!this.title || this.title.length === 0) {
-      return "Needs a title"
-    }
-  }
-
-  updateMaxHours(maxHoursPerRide: number) {
-    this.maxHoursPerRide = maxHoursPerRide
-  }
-
   updateIsCircular(isCircular: boolean) {
     this.isCircular = isCircular
   }
 
-  updateTransportType(transportType: TransportType) {
-    this.transportType = transportType
-  }
-
-  transportTypeValidation(): string | undefined {
-    if (!this.transportType) {
-      return "Pick a vehicle type"
-    }
-  }
 
   updateStartDate(startDate: string | undefined) {
     this.startDate = startDate
-  }
-
-  validateDetails(): boolean {
-    if (this.titleValidation() || this.transportTypeValidation()) {
-      return false
-    } else {
-      return true
-    }
   }
 
   validateSpots(): boolean {
     return !this.spots.some(spot => {
       return spot.label === "" || !spot.location || spot.location === ""
     })
-  }
-
-  updateShowErrors(showErrors: boolean) {
-    this.showErrors = showErrors
   }
 
   removeSpot(index: number) {
@@ -128,6 +84,11 @@ export default class CreateGuideStore {
       ...this.spots[index],
       ...fields,
     }
+  }
+
+  @action
+  async upsertGuide(title:string, maxHoursPerRide:number,type:TransportType):Promise<boolean>{
+
   }
 
 }

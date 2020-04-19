@@ -1,10 +1,10 @@
 import combineMiddlewares from "./combineMiddlewares"
-import { options, connection, Mode } from "./options"
+import { connection, Mode, options } from "./options"
 import express, { Application } from "express"
 import { postgraphile } from "postgraphile"
+import cors from "cors"
 
 const { Pool } = require("pg")
-import cors from "cors"
 
 if (!process.env.POSTGRES_SCHEMA) {
   throw new Error("No POSTGRES_SCHEMA provided")

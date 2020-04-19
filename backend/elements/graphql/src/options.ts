@@ -1,16 +1,17 @@
-import { GraphQLErrorExtended, PostGraphileOptions } from "postgraphile"
+import { PostGraphileOptions } from "postgraphile"
 import { Plugin } from "graphile-build"
 import customPlugins from "./plugins"
+import customResolvers from "./resolvers"
 import path from "path"
 import ownerConnection from "./ownerConnection"
-import { log, logError } from "@guided/logger"
-import { GraphQLError } from "graphql"
+import { log } from "@guided/logger"
 
 export type Mode = "watch" | "buildCache" | "invoke" | "serve"
 
 function plugins(): Plugin[] {
   return [
     ...customPlugins,
+    ...customResolvers,
     require("@graphile-contrib/pg-simplify-inflector").default,
     require("@graphile/subscriptions-lds").default,
     require("postgraphile-plugin-connection-filter"),

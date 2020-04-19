@@ -1,14 +1,14 @@
 import { logJson } from "@guided/logger"
 
 import { getInfo } from "@guided/google"
-
-const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 import { ExtensionDefinition } from "graphile-utils/node8plus/makeExtendSchemaPlugin"
-import { MutationAddSpotFromLatLngArgs } from "../../generated"
+import { MutationAddSpotFromLatLngArgs } from "generated"
 import { database, generateId, Spot } from "@guided/database"
-import { Context } from "../types"
+import { Context } from "model/context"
 import * as computeStage from "@guided/compute"
 import { Packet } from "@guided/compute"
+
+const { makeExtendSchemaPlugin, gql } = require("graphile-utils")
 
 export async function prepare(args: MutationAddSpotFromLatLngArgs, owner: string): Promise<{
   spotId: string,
