@@ -22,7 +22,7 @@ export default class CreateGuideMutation extends Mutation<MutationCreateGuideArg
           guideId:ID
       }
       extend type Mutation {
-          createGuide(input:CreateGuideInput):Result!
+          createGuide(input:CreateGuideInput):CreateGuideResult!
       }
   `
 

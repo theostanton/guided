@@ -4,12 +4,6 @@ import CreateGuideStore from "model/CreateGuideStore"
 import { Form, Header, Message } from "semantic-ui-react"
 import { navigate } from "@reach/router"
 import { client } from "api"
-import {
-  CreateGuideWithSpotInput,
-  CreateGuideWithSpotsDocument,
-  CreateGuideWithSpotsMutation,
-  CreateGuideWithSpotsMutationVariables,
-} from "api/generated"
 import { FetchResult } from "apollo-boost"
 
 
@@ -43,96 +37,96 @@ export default class CreateGuideSave extends React.Component<Props, State> {
 
   async create() {
 
-    const { title, startDate, isCircular, maxHoursPerRide, transportType: type } = this.createGuideStore
-    const spots: CreateGuideWithSpotInput[] = this.createGuideStore.spots.map(spot => {
-      return {
-        nights: spot.nights,
-        label: spot.label,
-        location: spot.location,
-        country: spot.country,
-        long: spot.long,
-        lat: spot.lat,
-      }
-    })
-
-    const errors: { message: string }[] = []
-
-    function validate(condition: boolean, message: string) {
-      if (!condition) {
-        errors.push({
-          message,
-        })
-      }
-    }
-
-    validate(title && title.length > 0, "No title")
-    validate(!!spots, "No spots")
-    validate(isCircular !== undefined, "No isCircular")
-    validate(!!type, "No type")
-    validate(!!maxHoursPerRide && maxHoursPerRide > 0, "No maxHoursPerRide")
-
-    if (errors.length > 0) {
-      this.setState({
-        status: "errors",
-        errors,
-      })
-      return
-    } else {
-      this.setState({
-        status: "creating",
-        errors: undefined,
-      })
-    }
-
-    const variables: CreateGuideWithSpotsMutationVariables = {
-      input: {
-        spots,
-        startDate,
-        isCircular,
-        maxHoursPerRide,
-        title,
-        type,
-      },
-    }
-
-    let result: FetchResult<CreateGuideWithSpotsMutation>
-    try {
-      result = await client.mutate<CreateGuideWithSpotsMutation>({
-        mutation: CreateGuideWithSpotsDocument,
-        variables,
-      })
-    } catch (e) {
-      this.setState({
-        status: "errors",
-        errors: [{
-          message: e.message,
-        }],
-      })
-    }
-
-    if (result.errors) {
-      this.setState({
-        status: "errors",
-        errors: result.errors.map(error => {
-          return {
-            message: error.message,
-          }
-        }),
-      })
-    } else if (result.data.createGuideWithSpots.success) {
-      this.setState({
-        status: "computing",
-        guideId: result.data.createGuideWithSpots.guideId,
-        errors: undefined,
-      })
-    } else {
-      this.setState({
-        status: "errors",
-        errors: [{
-          message: result.data.createGuideWithSpots.error || "Something went wrong",
-        }],
-      })
-    }
+    // const { title, startDate, isCircular, maxHoursPerRide, transportType: type } = this.createGuideStore
+    // const spots: CreateGuideWithSpotInput[] = this.createGuideStore.spots.map(spot => {
+    //   return {
+    //     nights: spot.nights,
+    //     label: spot.label,
+    //     location: spot.location,
+    //     country: spot.country,
+    //     long: spot.long,
+    //     lat: spot.lat,
+    //   }
+    // })
+    //
+    // const errors: { message: string }[] = []
+    //
+    // function validate(condition: boolean, message: string) {
+    //   if (!condition) {
+    //     errors.push({
+    //       message,
+    //     })
+    //   }
+    // }
+    //
+    // validate(title && title.length > 0, "No title")
+    // validate(!!spots, "No spots")
+    // validate(isCircular !== undefined, "No isCircular")
+    // validate(!!type, "No type")
+    // validate(!!maxHoursPerRide && maxHoursPerRide > 0, "No maxHoursPerRide")
+    //
+    // if (errors.length > 0) {
+    //   this.setState({
+    //     status: "errors",
+    //     errors,
+    //   })
+    //   return
+    // } else {
+    //   this.setState({
+    //     status: "creating",
+    //     errors: undefined,
+    //   })
+    // }
+    //
+    // const variables: CreateGuideWithSpotsMutationVariables = {
+    //   input: {
+    //     spots,
+    //     startDate,
+    //     isCircular,
+    //     maxHoursPerRide,
+    //     title,
+    //     type,
+    //   },
+    // }
+    //
+    // let result: FetchResult<CreateGuideWithSpotsMutation>
+    // try {
+    //   result = await client.mutate<CreateGuideWithSpotsMutation>({
+    //     mutation: CreateGuideWithSpotsDocument,
+    //     variables,
+    //   })
+    // } catch (e) {
+    //   this.setState({
+    //     status: "errors",
+    //     errors: [{
+    //       message: e.message,
+    //     }],
+    //   })
+    // }
+    //
+    // if (result.errors) {
+    //   this.setState({
+    //     status: "errors",
+    //     errors: result.errors.map(error => {
+    //       return {
+    //         message: error.message,
+    //       }
+    //     }),
+    //   })
+    // } else if (result.data.createGuideWithSpots.success) {
+    //   this.setState({
+    //     status: "computing",
+    //     guideId: result.data.createGuideWithSpots.guideId,
+    //     errors: undefined,
+    //   })
+    // } else {
+    //   this.setState({
+    //     status: "errors",
+    //     errors: [{
+    //       message: result.data.createGuideWithSpots.error || "Something went wrong",
+    //     }],
+    //   })
+    // }
   }
 
   errorMessages(): React.ReactElement | undefined {

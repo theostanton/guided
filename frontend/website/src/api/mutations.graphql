@@ -1,10 +1,8 @@
-mutation CreateGuide($guide:GuideInput!){
-    createGuide(input: {
-        guide: $guide
-    }){
-        guide{
-            slug
-        }
+mutation CreateGuide($input:CreateGuideInput!){
+    createGuide(input: $input){
+        success
+        message
+        guideId
     }
 }
 
@@ -19,7 +17,7 @@ mutation DeleteGuide($guideId:String!){
         id: $guideId
     }){
         success
-        error
+        message
     }
 }
 
@@ -50,23 +48,15 @@ mutation EditNights($spotId:String!,$nights:Int!){
 }
 
 mutation FollowUser($username:String!){
-    doUnfollow(username: $username){
+    unfollowUser(username: $username){
         success
         message
     }
 }
 
 mutation UnfollowUser($username:String!){
-    unfollow(username: $username){
+    followUser(username: $username){
         success
         message
-    }
-}
-
-mutation CreateGuideWithSpots($input:CreateGuideWithSpotsInput){
-    createGuideWithSpots(input:$input){
-        success
-        error
-        guideId
     }
 }

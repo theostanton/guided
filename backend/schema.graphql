@@ -442,6 +442,12 @@ input CreateGuideInput {
   startDate: String
 }
 
+type CreateGuideResult {
+  success: Boolean!
+  message: String
+  guideId: ID
+}
+
 """All input for the create `Stage` mutation."""
 input CreateStageInput {
   """
@@ -1603,7 +1609,7 @@ type Mutation {
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
     input: CreateGuideInput
-  ): Result!
+  ): CreateGuideResult!
   updateGuide(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
