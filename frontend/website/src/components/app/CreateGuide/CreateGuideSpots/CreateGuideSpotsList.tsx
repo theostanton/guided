@@ -2,23 +2,26 @@ import CreateGuideStore, { CreateGuideStoreSpot } from "model/CreateGuideStore"
 import { inject, observer } from "mobx-react"
 import * as React from "react"
 import { ReactElement } from "react"
-import { Button, ButtonGroup, List } from "semantic-ui-react"
+import { Button, Header } from "semantic-ui-react"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 import CreateGuideSpotsListItem, { Position } from "./CreateGuideSpotsListItem"
-import { CreateGuideWithSpotInput } from "../../../../api/generated"
 
 type Props = {
   createGuideStore?: CreateGuideStore
 }
 
+type State = {
+  status: "initiating" | "none"
+}
+
 @inject("createGuideStore")
 @observer
-export default class CreateGuideSpotsList extends React.Component<Props> {
+export default class CreateGuideSpotsList extends React.Component<Props, State> {
 
   constructor(props) {
     super(props)
     this.state = {
-      spots: [],
+      status: "initiating",
     }
   }
 
@@ -36,6 +39,12 @@ export default class CreateGuideSpotsList extends React.Component<Props> {
   }
 
   renderDraggable(): React.ReactElement {
+
+    console.log("renderDraggable")
+
+    if (!this.createGuideStore.spots) {
+      return
+    }
 
     let items: ReactElement[] = []
     const spotsLength = this.createGuideStore.spots.length
@@ -135,6 +144,7 @@ export default class CreateGuideSpotsList extends React.Component<Props> {
   }
 
   render(): ReactElement {
+    console.log("render")
 
     return <div>
       {this.renderDraggable()}

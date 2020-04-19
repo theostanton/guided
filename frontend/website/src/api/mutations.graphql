@@ -6,7 +6,7 @@ mutation CreateGuide($input:CreateGuideInput!){
     }
 }
 
-mutation AddStayFromLatLong($input:AddSpotInput!){
+mutation AddSpot($input:AddSpotInput!){
     addSpot(input: $input){
         id
         messaage
@@ -68,5 +68,15 @@ mutation UpdateGuide($patch:UpdateGuidePatch!){
         message
         success
         id
+    }
+}
+
+mutation UpdateSpot($patch:UpdateSpotPatch!){
+    updateSpot(input: $patch){
+        ammendedDates
+        id
+        message
+        success
+        triggeredComputations
     }
 }

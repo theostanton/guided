@@ -1,7 +1,9 @@
 import { IDatabase } from "pg-promise"
 import { Guide, Ride, Spot, Stage } from "./types"
-import { insertMany, insertOne } from "./utils"
-import { log, logJson } from "@guided/logger"
+import { insertMany, insertOne, updateMany } from "./utils"
+import { log } from "@guided/logger"
+
+type ItemId = { id: string }
 
 export default interface Extensions {
   insertSpot(spot: Spot): Promise<string>
@@ -16,9 +18,13 @@ export default interface Extensions {
 
   getGuideIdForSpot(spotId: string): Promise<string>
 
-  insertOne<T>(tableName: string, items: T): Promise<{ id: string }>
+  insertOne<T>(tableName: string, items: T): Promise<ItemId>
 
-  insertMany<T>(tableName: string, items: T[]): Promise<{ id: string }[]>
+  insertMany<T>(tableName: string, items: T[]): Promise<ItemId[]>
+
+  updateOne<T>(tableName: string, item: Partial<T>, onColumn: string, oldOnColumnValue: string | undefined): Promise<ItemId>
+
+  updateMany<T>(tableName: string, items: Partial<T>[], onColumn: string, oldOnColumnValue: string | undefined): Promise<ItemId[]>
 }
 
 
@@ -59,23 +65,30 @@ export function extend(db: IDatabase<Extensions> & Extensions) {
       return guide
     },
 
-    async insertOne<T>(tableName: string, item: T): Promise<{ id: string }> {
+    async insertOne<T>(tableName: string, item: T): Promise<ItemId> {
       const results = await this.insertMany(tableName, [item])
       return results[0]
     },
 
-    async insertMany<T>(tableName: string, items: T[]): Promise<{ id: string }[]> {
+    async insertMany<T>(tableName: string, items: T[]): Promise<ItemId[]> {
       if (items.length === 0) {
         return []
       }
       const query = insertMany(tableName, items, "id")
-      log(query, "query")
-      const results = await db.many<{ id: string }>(query)
-      return results.map(({ id }) => {
-        return {
-          id,
-        }
-      })
+      return db.many<{ id: string }>(query)
+    },
+
+    async updateOne<T>(tableName: string, item: Partial<T>, onColumn: string = "id", oldOnColumnValue: string | undefined = undefined): Promise<ItemId> {
+      const results = await this.updateMany(tableName, [item], onColumn, oldOnColumnValue)
+      return results[0]
+    },
+
+    async updateMany<T>(tableName: string, items: Partial<T>[], onColumn: string, oldOnColumnValue: string | undefined): Promise<ItemId[]> {
+      if (items.length === 0) {
+        return []
+      }
+      const query = updateMany(tableName, items, Object.keys(items[0]), onColumn, oldOnColumnValue)
+      return db.many<ItemId>(query)
     },
   }
   Object.keys(instance).forEach(key => {

@@ -1,18 +1,29 @@
 import {
+  AddSpotDocument,
   AddSpotInput,
+  AddSpotMutation,
+  AddSpotMutationVariables,
   CreateGuideDocument,
   CreateGuideMutation,
   CreateGuideMutationVariables,
-  GuideFragment,
-  GuideStagesDocument,
-  GuideStagesSubscription,
+  CreatingGuideDocument,
+  CreatingGuideFragment,
+  CreatingGuideStageFragment,
+  CreatingGuideSubscription,
+  Geocode,
+  RemoveSpotDocument,
+  RemoveSpotMutation,
+  RemoveSpotMutationVariables,
   TransportType,
   UpdateGuideDocument,
   UpdateGuideMutation,
   UpdateGuideMutationVariables,
   UpdateGuideResult,
+  UpdateSpotMutation,
+  UpdateSpotMutationVariables,
+  UpdateSpotResult,
 } from "api/generated"
-import { action, observable } from "mobx"
+import { action, observable, runInAction } from "mobx"
 import randomKey from "utils/randomKey"
 import { client } from "api"
 import { subscriptionClient } from "api/client"
@@ -22,7 +33,13 @@ import { logError, logJson } from "utils/logger"
 type Stage = "details" | "locations" | "members" | "save"
 
 
-export type CreateGuideStoreSpot = Partial<AddSpotInput> & { key: string, location?: string, nights: number }
+export type CreateGuideStoreSpot =
+  Partial<AddSpotInput>
+  & {
+  key: string,
+  spotId: string | undefined,
+  beginsStage: CreatingGuideStageFragment | undefined
+}
 
 export default class CreateGuideStore {
 
@@ -32,7 +49,7 @@ export default class CreateGuideStore {
   stage: Stage = "details"
 
   @observable
-  guide: GuideFragment | undefined = undefined
+  guide: CreatingGuideFragment | undefined = undefined
 
   @observable
   isCircular: boolean
@@ -44,13 +61,16 @@ export default class CreateGuideStore {
   startDate: string | undefined
 
   @observable
-  spots: CreateGuideStoreSpot[]
+  spots: CreateGuideStoreSpot[] | undefined
   #subscription: ZenObservable.Subscription | undefined
 
-  constructor() {
+  constructor(guideId: string | undefined) {
+    this.#guideId = guideId
     this.spots = [{
       key: randomKey(),
+      spotId: undefined,
       nights: 0,
+      beginsStage: undefined,
     }]
   }
 
@@ -73,8 +93,27 @@ export default class CreateGuideStore {
     })
   }
 
-  removeSpot(index: number) {
+  async removeSpot(index: number): Promise<{ success: boolean }> {
+    const spot = this.spots[index]
+    if (spot.spotId) {
+      const variables: RemoveSpotMutationVariables = {
+        spotId: spot.spotId,
+      }
+      try {
+        await client.mutate<RemoveSpotMutation>({
+          mutation: RemoveSpotDocument,
+          variables,
+        })
+      } catch (e) {
+        return {
+          success: false,
+        }
+      }
+    }
     this.spots.splice(index, 1)
+    return {
+      success: true,
+    }
   }
 
   reorderSpots(startIndex: number, endIndex: number) {
@@ -91,14 +130,63 @@ export default class CreateGuideStore {
       key: randomKey(),
       label: "",
       nights: 1,
+      spotId: undefined,
+      beginsStage: undefined,
     })
   }
 
   @action
   updateSpot(index: number, fields: Partial<AddSpotInput>) {
+    // logJson(fields, "updateSpot")
     this.spots[index] = {
       ...this.spots[index],
       ...fields,
+    }
+  }
+
+  @action
+  async updateSpotLocation(index: number, geocode: Geocode): Promise<UpdateSpotResult> {
+    const spot = this.spots[index]
+
+    if (spot.spotId) {
+      const variables: UpdateSpotMutationVariables = {
+        patch: {
+          id: spot.spotId,
+          label: spot.label,
+          nights: spot.nights,
+          location: {
+            location: geocode.label,
+            country: geocode.countryCode,
+            lat: geocode.latitude,
+            long: geocode.longitude,
+          },
+        },
+      }
+      const result = await client.mutate<UpdateSpotMutation>({
+        mutation: AddSpotDocument,
+        variables,
+      })
+
+      return result.data.updateSpot
+    } else {
+      const variables: AddSpotMutationVariables = {
+        input: {
+          country: geocode.countryCode,
+          guideId: this.#guideId,
+          label: spot.label,
+          lat: geocode.latitude,
+          location: geocode.label,
+          long: geocode.longitude,
+          nights: spot.nights,
+        },
+      }
+      const result = await client.mutate<AddSpotMutation>({
+        mutation: AddSpotDocument,
+        variables,
+      })
+
+      this.spots[index].spotId = result.data.addSpot.id
+      return result.data.addSpot
     }
   }
 
@@ -112,15 +200,42 @@ export default class CreateGuideStore {
       this.#subscription.unsubscribe()
     }
 
-    this.#subscription = subscriptionClient.subscribe<GuideStagesSubscription>({
-      query: GuideStagesDocument,
+    this.#subscription = subscriptionClient.subscribe<CreatingGuideSubscription>({
+      query: CreatingGuideDocument,
       variables: {
         id: this.#guideId,
       },
     }).subscribe(value => {
       if (value.data) {
-        logJson(value.data, "value.data")
-        this.guide = value.data.guide
+        logJson("got value.data")
+        runInAction(() => {
+          this.guide = value.data.guide
+          if (this.spots) {
+            this.guide.spots.nodes.forEach(spot => {
+              const localSpotIndex = this.spots.findIndex(localSpot => {
+                return localSpot.spotId === spot.id
+              })
+              if (localSpotIndex >= 0) {
+                this.spots[localSpotIndex].beginsStage = spot.beginsStage.nodes[0]
+              }
+            })
+          } else {
+            this.spots = this.guide.spots.nodes.map(spot => {
+              return {
+                beginsStage: spot.beginsStage.nodes[0],
+                nights: spot.nights,
+                long: spot.long,
+                location: spot.location,
+                lat: spot.lat,
+                label: spot.label,
+                country: spot.country,
+                spotId: spot.id,
+                key: randomKey(),
+              }
+            })
+          }
+          logJson(this.spots, "this.spots")
+        })
       } else if (value.errors) {
         logError("errors")
         value.errors.forEach(error => {
@@ -136,6 +251,10 @@ export default class CreateGuideStore {
     if (this.#subscription) {
       this.#subscription.unsubscribe()
     }
+  }
+
+  hasGuideId(): boolean {
+    return !!this.#guideId
   }
 
   @action

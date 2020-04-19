@@ -33,6 +33,8 @@ export type AddSpotInput = {
   readonly lat: Scalars['Float'];
   readonly long: Scalars['Float'];
   readonly label?: Maybe<Scalars['String']>;
+  readonly location?: Maybe<Scalars['String']>;
+  readonly country?: Maybe<Scalars['String']>;
   readonly nights: Scalars['Int'];
 };
 
@@ -1147,6 +1149,7 @@ export type Mutation = {
   readonly followUser: Result;
   readonly unfollowUser: Result;
   readonly addSpot: AddSpotResult;
+  readonly updateSpot: UpdateSpotResult;
 };
 
 
@@ -1349,6 +1352,12 @@ export type MutationUnfollowUserArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationAddSpotArgs = {
   input: AddSpotInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateSpotArgs = {
+  input: UpdateSpotPatch;
 };
 
 /** An object with a globally unique `ID`. */
@@ -3404,6 +3413,28 @@ export type UpdateGuideResult = {
   readonly triggeredComputations?: Maybe<Scalars['Boolean']>;
 };
 
+export type UpdateSpotLocationPatch = {
+  readonly lat: Scalars['Float'];
+  readonly long: Scalars['Float'];
+  readonly location: Scalars['String'];
+  readonly country: Scalars['String'];
+};
+
+export type UpdateSpotPatch = {
+  readonly id: Scalars['String'];
+  readonly label?: Maybe<Scalars['String']>;
+  readonly nights?: Maybe<Scalars['Int']>;
+  readonly location?: Maybe<UpdateSpotLocationPatch>;
+};
+
+export type UpdateSpotResult = {
+  readonly success: Scalars['Boolean'];
+  readonly message?: Maybe<Scalars['String']>;
+  readonly id?: Maybe<Scalars['String']>;
+  readonly triggeredComputations?: Maybe<Scalars['Boolean']>;
+  readonly ammendedDates?: Maybe<Scalars['Boolean']>;
+};
+
 /** All input for the `updateStageByNodeId` mutation. */
 export type UpdateStageByNodeIdInput = {
   /**
@@ -3949,6 +3980,9 @@ export type ResolversTypes = {
   DeleteGuideResult: ResolverTypeWrapper<DeleteGuideResult>,
   AddSpotInput: AddSpotInput,
   AddSpotResult: ResolverTypeWrapper<AddSpotResult>,
+  UpdateSpotPatch: UpdateSpotPatch,
+  UpdateSpotLocationPatch: UpdateSpotLocationPatch,
+  UpdateSpotResult: ResolverTypeWrapper<UpdateSpotResult>,
   Subscription: ResolverTypeWrapper<{}>,
 };
 
@@ -4092,6 +4126,9 @@ export type ResolversParentTypes = {
   DeleteGuideResult: DeleteGuideResult,
   AddSpotInput: AddSpotInput,
   AddSpotResult: AddSpotResult,
+  UpdateSpotPatch: UpdateSpotPatch,
+  UpdateSpotLocationPatch: UpdateSpotLocationPatch,
+  UpdateSpotResult: UpdateSpotResult,
   Subscription: {},
 };
 
@@ -4373,6 +4410,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   followUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowUserArgs, 'username'>>,
   unfollowUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'username'>>,
   addSpot?: Resolver<ResolversTypes['AddSpotResult'], ParentType, ContextType, RequireFields<MutationAddSpotArgs, 'input'>>,
+  updateSpot?: Resolver<ResolversTypes['UpdateSpotResult'], ParentType, ContextType, RequireFields<MutationUpdateSpotArgs, 'input'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -4629,6 +4667,15 @@ export type UpdateGuideResultResolvers<ContextType = any, ParentType extends Res
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type UpdateSpotResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateSpotResult'] = ResolversParentTypes['UpdateSpotResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  triggeredComputations?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  ammendedDates?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type UpdateStagePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateStagePayload'] = ResolversParentTypes['UpdateStagePayload']> = {
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
@@ -4741,6 +4788,7 @@ export type Resolvers<ContextType = any> = {
   TemperaturesEdge?: TemperaturesEdgeResolvers<ContextType>,
   UpdateComputationPayload?: UpdateComputationPayloadResolvers<ContextType>,
   UpdateGuideResult?: UpdateGuideResultResolvers<ContextType>,
+  UpdateSpotResult?: UpdateSpotResultResolvers<ContextType>,
   UpdateStagePayload?: UpdateStagePayloadResolvers<ContextType>,
   UpdateTemperaturePayload?: UpdateTemperaturePayloadResolvers<ContextType>,
   UpdateUserPayload?: UpdateUserPayloadResolvers<ContextType>,

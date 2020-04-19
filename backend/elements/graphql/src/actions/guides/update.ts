@@ -1,6 +1,7 @@
 import { UpdateGuidePatch, UpdateGuideResult } from "../../generated"
 import slugify from "slugify"
 import { database, Guide, updateOne } from "@guided/database"
+import * as computeStage from "@guided/compute"
 
 export default async function(patch: UpdateGuidePatch): Promise<UpdateGuideResult> {
 
@@ -45,10 +46,16 @@ export default async function(patch: UpdateGuidePatch): Promise<UpdateGuideResul
     const result = await database.oneOrNone<{ id: string }>(updateQuery)
 
     if (result && result.id) {
+
+      if (triggerComputations) {
+        const packet = await computeStage.prepare(result.id)
+        await computeStage.trigger(packet)
+      }
+
       return {
         success: true,
         id: result.id!,
-        // triggeredComputations: triggerComputations,
+        triggeredComputations: triggerComputations,
       }
     } else {
       return {
@@ -61,9 +68,5 @@ export default async function(patch: UpdateGuidePatch): Promise<UpdateGuideResul
       success: true,
       message: e.message,
     }
-  }
-
-  return {
-    success: true,
   }
 }

@@ -31,8 +31,8 @@ export default class CreateGuideSteps extends React.Component<Props> {
       </Step>
 
       <Step completed={["members", "save"].includes(stage)} active={stage === "locations"} onClick={() => {
-        if (stage === "details" && !this.createGuideStore.validateDetails()) {
-          this.createGuideStore.showErrors = true
+        if (stage === "details") {
+          this.createGuideStore.goToStage("locations")
         } else {
           this.createGuideStore.goToStage("locations")
         }
@@ -52,8 +52,7 @@ export default class CreateGuideSteps extends React.Component<Props> {
       </Step>
 
       <Step active={stage === "save"} onClick={() => {
-        if (stage === "details" && !this.createGuideStore.validateDetails()) {
-          this.createGuideStore.showErrors = true
+        if (stage === "details") {
         } else if (stage === "locations" && !this.createGuideStore.validateSpots()) {
           this.createGuideStore.showSpotsErrors = true
         } else {

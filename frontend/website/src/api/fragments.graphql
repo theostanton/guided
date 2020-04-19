@@ -51,8 +51,6 @@ fragment GuideInfo on Guide{
     }
 }
 
-
-
 fragment Ride on Ride{
     __typename
     id
@@ -134,7 +132,6 @@ fragment FollowFeedItem on Follow{
     created:timestamp
 }
 
-
 fragment Spot on Spot{
     id
     label
@@ -150,7 +147,6 @@ fragment Spot on Spot{
     nights
 }
 
-
 fragment Guide on Guide {
     id
     slug
@@ -158,6 +154,7 @@ fragment Guide on Guide {
     startDate
     title
     maxHoursPerRide
+    transportType
     firstSpot:spotsByGuide(filter: {position: {equalTo: "0.0"}}){
         nodes{
             ...Spot
@@ -166,6 +163,50 @@ fragment Guide on Guide {
     stages:stagesByGuide(orderBy: POSITION_ASC){
         nodes{
             ...Stage
+        }
+    }
+}
+
+fragment CreatingGuideStage on Stage {
+    status
+    ridesByStage{
+        totalCount
+        nodes{
+            distanceMeters
+            durationSeconds
+        }
+    }
+}
+
+fragment CreatingGuideSpot on Spot{
+    id
+    lat
+    long
+    location
+    label
+    nights
+    position
+    country
+    created
+    updated
+    beginsStage:stagesByFromSpot{
+        nodes{
+            ...CreatingGuideStage
+        }
+    }
+}
+
+fragment CreatingGuide on Guide {
+    id
+    slug
+    owner
+    startDate
+    title
+    maxHoursPerRide
+    transportType
+    spots:spotsByGuide(orderBy: [POSITION_ASC]){
+        nodes{
+            ...CreatingGuideSpot
         }
     }
 }

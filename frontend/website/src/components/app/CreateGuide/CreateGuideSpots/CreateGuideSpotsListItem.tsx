@@ -1,34 +1,33 @@
-import CreateGuideStore from "model/CreateGuideStore"
+import CreateGuideStore, { CreateGuideStoreSpot } from "model/CreateGuideStore"
 import { inject, observer } from "mobx-react"
 import * as React from "react"
+import { CSSProperties, ReactElement } from "react"
 import { GeocodesStore } from "./GeocodesStore"
 import {
   Button,
-  Card,
   Flag,
   FlagNameValues,
   Form,
   FormGroup,
   Grid,
   GridColumn,
+  GridRow,
   Header,
   Icon,
   Segment,
 } from "semantic-ui-react"
-import { CreateGuideWithSpotInput, Geocode, GeocodeDocument, GeocodeQuery } from "api/generated"
+import { Geocode, GeocodeDocument, GeocodeQuery } from "api/generated"
 import { ApolloQueryResult } from "apollo-boost"
 import { client } from "api"
 import AwesomeDebouncePromise from "awesome-debounce-promise"
-import { logJson } from "../../../../utils/logger"
-import { CSSProperties, ReactElement } from "react"
 import { DateInput } from "semantic-ui-calendar-react"
-import { dateString } from "../../../../utils/dates"
-import { plural } from "../../../../utils/human"
+import { dateString } from "utils/dates"
+import { humanDistance, plural } from "utils/human"
 
 type Result = {
   query?: string
   error?: string
-  status: "loading" | "error" | "success" | "clear"
+  status: "loading" | "error" | "success" | "clear" | "updating" | "deleting"
   geocodes?: Geocode[]
 }
 
@@ -150,7 +149,7 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
 
   }
 
-  get spot(): Partial<CreateGuideWithSpotInput> {
+  get spot(): Partial<CreateGuideStoreSpot> {
     return this.createGuideStore.spots[this.props.spotIndex]
   }
 
@@ -167,8 +166,38 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
     }
   }
 
-  updateSpot(fields: Partial<CreateGuideWithSpotInput>) {
-    this.createGuideStore.updateSpot(this.props.spotIndex, fields)
+  async updateLocation(geocode: Geocode) {
+
+    this.setState({
+      result: {
+        ...this.state.result,
+        status: "updating",
+      },
+    })
+
+    await this.updateSpot({
+      long: geocode.longitude,
+      lat: geocode.latitude,
+      country: geocode.countryCode,
+      location: geocode.label,
+    })
+    const success = await this.createGuideStore.updateSpotLocation(this.props.spotIndex, geocode)
+
+
+    if (success) {
+      this.clear()
+    } else {
+      this.setState({
+        result: {
+          status: "error",
+          error: success.message || "Something went wrong",
+        },
+      })
+    }
+  }
+
+  async updateSpot(fields: Partial<CreateGuideStoreSpot>) {
+    await this.createGuideStore.updateSpot(this.props.spotIndex, fields)
   }
 
   locationErrorMessage(): string | undefined {
@@ -194,8 +223,8 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
       closeOnChange
       clearable
       icon={"search"}
-      onFocus={() => {
-        this.updateSpot({
+      onFocus={async () => {
+        await this.updateSpot({
           long: undefined,
           lat: undefined,
           country: undefined,
@@ -205,17 +234,12 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
       text={this.spot.location}
       open={!!result.geocodes && !this.spot.location}
       loading={result.status === "loading"}
-      onChange={(event, { value }) => {
+      onChange={async (event, { value }) => {
         if (result.geocodes) {
           const geocode = result.geocodes.find(geocode => {
             return geocode.label === value
           })
-          this.updateSpot({
-            long: geocode.longitude,
-            lat: geocode.latitude,
-            country: geocode.countryCode,
-            location: geocode.label,
-          })
+          await this.updateLocation(geocode)
         }
       }}
       onSearchChange={async (_, { searchQuery }) => {
@@ -236,8 +260,8 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
       width={4}
       error={error}
       value={this.spot.label}
-      onChange={(e, { value }) => {
-        this.updateSpot({
+      onChange={async (e, { value }) => {
+        await this.updateSpot({
           label: value,
         })
       }}
@@ -264,21 +288,21 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
     }
 
     const nights = this.spot.nights
-    const label = nights === 0 ? (this.props.createGuideStore.transportType === "CAR" ? "Drive by" : "Ride by") : `${nights} ${plural("night", nights)}`
+    const label = nights === 0 ? (this.createGuideStore.guide.transportType === "CAR" ? "Drive by" : "Ride by") : `${nights} ${plural("night", nights)}`
 
     return <Form.Input
       label={"Nights"}
     >
       <Button icon='minus' size='tiny' style={styleLeft} disabled={nights === 0}
-              onClick={() => {
-                this.updateSpot({
+              onClick={async () => {
+                await this.updateSpot({
                   nights: nights - 1,
                 })
               }}/>
       <input style={styleInput} value={label} autoFocus={false}/>
       <Button icon='plus' size='tiny' style={styleRight}
-              onClick={() => {
-                this.updateSpot({
+              onClick={async () => {
+                await this.updateSpot({
                   nights: nights + 1,
                 })
               }}/>
@@ -286,7 +310,7 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
   }
 
   startDateForm(): React.ReactElement {
-    return <Form.Field width={6} style={{ backgroundColour: "#ff0000" }}>
+    return <Form.Field width={6} style={{ backgroundColour: "#ff0000", width: "min-content" }}>
       <label>Start date</label>
       <DateInput
         style={{ backgroundColour: "#00ff00" }}
@@ -342,7 +366,7 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
         break
     }
 
-    return <Header as={'h5'} color={"grey"}>{title}</Header>
+    return <Header as={"h5"} color={"grey"}>{title}</Header>
   }
 
   renderCenter(): React.ReactElement {
@@ -371,15 +395,32 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
     </Segment>
   }
 
+  async removeSelf() {
+    this.setState({
+      result: {
+        status: "deleting",
+      },
+    })
+    const result = await this.createGuideStore.removeSpot(this.props.spotIndex)
+    if (!result.success) {
+      this.setState({
+        result: {
+          status: "error",
+        },
+      })
+    }
+  }
+
   renderRight(): React.ReactElement | undefined {
     switch (this.props.position) {
       case "first":
         return
       case "last":
       case "middle":
-        return <Button basic compact icon={"trash"} circular style={{ padding: "0.5em" }}
-                       onClick={() => {
-                         this.createGuideStore.removeSpot(this.props.spotIndex)
+        return <Button basic compact icon={"trash"} loading={this.state.result.status === "deleting"} circular
+                       style={{ padding: "0.5em" }}
+                       onClick={async () => {
+                         await this.removeSelf()
                        }
                        }/>
       case "firstLast":
@@ -391,20 +432,63 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
     }
   }
 
+  renderStage(): React.ReactElement | undefined {
+    const stage = this.spot.beginsStage
+    const isComputing = stage.status === "COMPUTING"
+    const style: CSSProperties = {
+      height: "1.9em", //TODO this differently
+      textAlign: "center",
+    }
+
+    const distanceMeters = stage.ridesByStage.nodes.reduce((acc, ride) => {
+      return acc + ride.distanceMeters
+    }, 0)
+
+    const durationSeconds = stage.ridesByStage.nodes.reduce((acc, ride) => {
+      return acc + ride.durationSeconds
+    }, 0)
+
+    function loading(append: string): ReactElement {
+      return <p><Icon name='circle notched' fitted loading/> {append}</p>
+    }
+
+    return <Segment attached padded={false}>
+      <Grid columns={3} style={{ padding: 0 }}>
+
+        <GridColumn verticalAlign={"middle"} textAlign={"center"}>
+          {isComputing ? loading("miles") : `${Math.ceil(durationSeconds / 60 / 60)} hours`}
+        </GridColumn>
+
+        <GridColumn verticalAlign={"middle"} textAlign={"center"}>
+          {isComputing ? loading("hours") : humanDistance(distanceMeters, true, true)}
+        </GridColumn>
+
+        <GridColumn verticalAlign={"middle"} textAlign={"center"}>
+          {isComputing ? loading("rides") : `${stage.ridesByStage.totalCount} rides`}
+        </GridColumn>
+      </Grid>
+    </Segment>
+  }
+
   render(): React.ReactElement {
-
-    return <Grid>
-      <GridColumn width={2} verticalAlign={"middle"} textAlign={"right"}>
-        {this.renderLeft()}
-      </GridColumn>
-      <GridColumn width={12} style={{ padding: 0 }}>
-        {this.renderCenter()}
-      </GridColumn>
-      <GridColumn width={2} verticalAlign={"middle"}>
-        {this.renderRight()}
-      </GridColumn>
+    return <Grid columns={16}>
+      <GridRow style={{ padding: 0 }}>
+        <GridColumn width={2} verticalAlign={"middle"} textAlign={"right"}>
+          {this.renderLeft()}
+        </GridColumn>
+        <GridColumn width={12} style={{ padding: 0 }}>
+          {this.renderCenter()}
+        </GridColumn>
+        <GridColumn width={2} verticalAlign={"middle"}>
+          {this.renderRight()}
+        </GridColumn>
+      </GridRow>
+      {this.spot.beginsStage && ["first", "middle"].includes(this.props.position) &&
+      <GridRow style={{ paddingBottom: "1em", paddingTop: 0 }} centered>
+        <GridColumn style={{ padding: 0 }} width={12}>
+          {this.renderStage()}
+        </GridColumn>
+      </GridRow>}
     </Grid>
-
-
   }
 }

@@ -1,4 +1,3 @@
-
 subscription GuideIDs($owner:String!){
     guides(
         filter: {owner: {
@@ -44,6 +43,14 @@ subscription GuideStages($id: String!){
         id: $id
     ){
         ...Guide
+    }
+}
+
+subscription CreatingGuide($id:String!){
+    guide(
+        id:$id
+    ){
+        ...CreatingGuide
     }
 }
 

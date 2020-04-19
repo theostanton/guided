@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Router, Redirect } from "@reach/router"
+import { Redirect, Router } from "@reach/router"
 import Layout from "components/root/Layout"
 import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
@@ -44,6 +44,7 @@ export default class RootComponent extends React.Component<Props> {
             <Profile path="/:owner"/>
             <Search path="/search"/>
             <CreateGuide path={"/create"}/>
+            <CreateGuide path={"/create/:slug"}/>
             <Guide path="/:owner/:slug"/>
             <Guide path="/:owner/:slug/ride/:rideId"/>
             <Guide path="/:owner/:slug/spot/:spotId"/>
@@ -59,6 +60,7 @@ export default class RootComponent extends React.Component<Props> {
           <Signup path="/signup"/>
           <Guide path="/:owner/:slug"/>
           <Profile path="/:owner"/>
+          <About path="/create"/>
           <About default path="*"/>
         </Router>
       </Layout>

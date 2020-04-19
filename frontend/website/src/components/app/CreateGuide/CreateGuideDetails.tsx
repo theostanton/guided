@@ -5,9 +5,10 @@ import { TransportType } from "../../../api/generated"
 import { Form, Icon, Message } from "semantic-ui-react"
 import * as validation from "./validation"
 import MaxHoursPerRideForm from "./MaxHoursPerRideForm"
+import { logObject } from "utils/logger"
 
 
-type Status = "none" | "loading" | "errors" | "failed"
+type Status = "none" | "loading" | "errors" | "failed" | "initiating"
 
 type TransportOption = {
   key: TransportType,
@@ -60,7 +61,7 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
     this.state = {
       maxHoursPerRide: 6,
       error: undefined,
-      status: "none",
+      status: props.createGuideStore.hasGuideId() ? "initiating" : "none",
     }
   }
 
@@ -103,8 +104,21 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
     }
   }
 
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any): void {
+    if (this.state.status === "initiating" && this.createGuideStore.guide) {
+      const guide = this.createGuideStore.guide
+      this.setState({
+        status: "none",
+        transportType: guide.transportType,
+        maxHoursPerRide: guide.maxHoursPerRide,
+        title: guide.title,
+      })
+    }
+  }
+
   render(): React.ReactElement {
 
+    logObject(this.createGuideStore.guide, "render store.guide")
     return <div style={{
       marginTop: "2em",
       marginBottom: "2em",
@@ -118,6 +132,8 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
           <Form.Input
             label='Title'
             width={12}
+            defaultValue={this.state.title}
+            loading={this.state.status === "initiating"}
             error={this.state.status === "errors" && !validation.title(this.state.title)}
             onChange={(e, { value }) => {
               this.setState({
@@ -144,6 +160,7 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
             <Form.Input>
               <MaxHoursPerRideForm
                 hours={this.state.maxHoursPerRide}
+                loading={this.state.status === "initiating"}
                 onChange={(hours) => {
                   this.setState({
                     maxHoursPerRide: hours,
@@ -155,6 +172,7 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
             label={"Vehicle"}
             width={"4"}
             fluid
+            loading={this.state.status === "initiating"}
             error={this.state.status === "errors" && !this.state.transportType}
             value={this.state.transportType}
             onChange={(e, { value }) => {

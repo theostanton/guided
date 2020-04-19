@@ -39,6 +39,8 @@ export type AddSpotInput = {
   readonly lat: Scalars['Float'];
   readonly long: Scalars['Float'];
   readonly label?: Maybe<Scalars['String']>;
+  readonly location?: Maybe<Scalars['String']>;
+  readonly country?: Maybe<Scalars['String']>;
   readonly nights: Scalars['Int'];
 };
 
@@ -1153,6 +1155,7 @@ export type Mutation = {
   readonly followUser: Result;
   readonly unfollowUser: Result;
   readonly addSpot: AddSpotResult;
+  readonly updateSpot: UpdateSpotResult;
 };
 
 
@@ -1355,6 +1358,12 @@ export type MutationUnfollowUserArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationAddSpotArgs = {
   input: AddSpotInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateSpotArgs = {
+  input: UpdateSpotPatch;
 };
 
 /** An object with a globally unique `ID`. */
@@ -3410,6 +3419,28 @@ export type UpdateGuideResult = {
   readonly triggeredComputations?: Maybe<Scalars['Boolean']>;
 };
 
+export type UpdateSpotLocationPatch = {
+  readonly lat: Scalars['Float'];
+  readonly long: Scalars['Float'];
+  readonly location: Scalars['String'];
+  readonly country: Scalars['String'];
+};
+
+export type UpdateSpotPatch = {
+  readonly id: Scalars['String'];
+  readonly label?: Maybe<Scalars['String']>;
+  readonly nights?: Maybe<Scalars['Int']>;
+  readonly location?: Maybe<UpdateSpotLocationPatch>;
+};
+
+export type UpdateSpotResult = {
+  readonly success: Scalars['Boolean'];
+  readonly message?: Maybe<Scalars['String']>;
+  readonly id?: Maybe<Scalars['String']>;
+  readonly triggeredComputations?: Maybe<Scalars['Boolean']>;
+  readonly ammendedDates?: Maybe<Scalars['Boolean']>;
+};
+
 /** All input for the `updateStageByNodeId` mutation. */
 export type UpdateStageByNodeIdInput = {
   /**
@@ -3955,6 +3986,9 @@ export type ResolversTypes = {
   DeleteGuideResult: ResolverTypeWrapper<DeleteGuideResult>,
   AddSpotInput: AddSpotInput,
   AddSpotResult: ResolverTypeWrapper<AddSpotResult>,
+  UpdateSpotPatch: UpdateSpotPatch,
+  UpdateSpotLocationPatch: UpdateSpotLocationPatch,
+  UpdateSpotResult: ResolverTypeWrapper<UpdateSpotResult>,
   Subscription: ResolverTypeWrapper<{}>,
 };
 
@@ -4098,6 +4132,9 @@ export type ResolversParentTypes = {
   DeleteGuideResult: DeleteGuideResult,
   AddSpotInput: AddSpotInput,
   AddSpotResult: AddSpotResult,
+  UpdateSpotPatch: UpdateSpotPatch,
+  UpdateSpotLocationPatch: UpdateSpotLocationPatch,
+  UpdateSpotResult: UpdateSpotResult,
   Subscription: {},
 };
 
@@ -4379,6 +4416,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   followUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowUserArgs, 'username'>>,
   unfollowUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'username'>>,
   addSpot?: Resolver<ResolversTypes['AddSpotResult'], ParentType, ContextType, RequireFields<MutationAddSpotArgs, 'input'>>,
+  updateSpot?: Resolver<ResolversTypes['UpdateSpotResult'], ParentType, ContextType, RequireFields<MutationUpdateSpotArgs, 'input'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -4635,6 +4673,15 @@ export type UpdateGuideResultResolvers<ContextType = any, ParentType extends Res
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type UpdateSpotResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateSpotResult'] = ResolversParentTypes['UpdateSpotResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  triggeredComputations?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  ammendedDates?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type UpdateStagePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateStagePayload'] = ResolversParentTypes['UpdateStagePayload']> = {
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
@@ -4747,6 +4794,7 @@ export type Resolvers<ContextType = any> = {
   TemperaturesEdge?: TemperaturesEdgeResolvers<ContextType>,
   UpdateComputationPayload?: UpdateComputationPayloadResolvers<ContextType>,
   UpdateGuideResult?: UpdateGuideResultResolvers<ContextType>,
+  UpdateSpotResult?: UpdateSpotResultResolvers<ContextType>,
   UpdateStagePayload?: UpdateStagePayloadResolvers<ContextType>,
   UpdateTemperaturePayload?: UpdateTemperaturePayloadResolvers<ContextType>,
   UpdateUserPayload?: UpdateUserPayloadResolvers<ContextType>,
@@ -4804,8 +4852,26 @@ export type FollowFeedItemFragment = (
 export type SpotFragment = Pick<Spot, 'id' | 'label' | 'lat' | 'name' | 'long' | 'locked' | 'location' | 'position' | 'date' | 'temperature' | 'country' | 'nights'>;
 
 export type GuideFragment = (
-  Pick<Guide, 'id' | 'slug' | 'owner' | 'startDate' | 'title' | 'maxHoursPerRide'>
+  Pick<Guide, 'id' | 'slug' | 'owner' | 'startDate' | 'title' | 'maxHoursPerRide' | 'transportType'>
   & { readonly firstSpot: { readonly nodes: ReadonlyArray<Maybe<SpotFragment>> }, readonly stages: { readonly nodes: ReadonlyArray<Maybe<StageFragment>> } }
+);
+
+export type CreatingGuideStageFragment = (
+  Pick<Stage, 'status'>
+  & { readonly ridesByStage: (
+    Pick<RidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'distanceMeters' | 'durationSeconds'>>> }
+  ) }
+);
+
+export type CreatingGuideSpotFragment = (
+  Pick<Spot, 'id' | 'lat' | 'long' | 'location' | 'label' | 'nights' | 'position' | 'country' | 'created' | 'updated'>
+  & { readonly beginsStage: { readonly nodes: ReadonlyArray<Maybe<CreatingGuideStageFragment>> } }
+);
+
+export type CreatingGuideFragment = (
+  Pick<Guide, 'id' | 'slug' | 'owner' | 'startDate' | 'title' | 'maxHoursPerRide' | 'transportType'>
+  & { readonly spots: { readonly nodes: ReadonlyArray<Maybe<CreatingGuideSpotFragment>> } }
 );
 
 export type CreateGuideMutationVariables = {
@@ -4815,12 +4881,12 @@ export type CreateGuideMutationVariables = {
 
 export type CreateGuideMutation = { readonly createGuide: Pick<CreateGuideResult, 'success' | 'message' | 'guideId'> };
 
-export type AddStayFromLatLongMutationVariables = {
+export type AddSpotMutationVariables = {
   input: AddSpotInput;
 };
 
 
-export type AddStayFromLatLongMutation = { readonly addSpot: Pick<AddSpotResult, 'id' | 'messaage' | 'success'> };
+export type AddSpotMutation = { readonly addSpot: Pick<AddSpotResult, 'id' | 'messaage' | 'success'> };
 
 export type DeleteGuideMutationVariables = {
   guideId: Scalars['String'];
@@ -4882,6 +4948,13 @@ export type UpdateGuideMutationVariables = {
 
 export type UpdateGuideMutation = { readonly updateGuide: Pick<UpdateGuideResult, 'message' | 'success' | 'id'> };
 
+export type UpdateSpotMutationVariables = {
+  patch: UpdateSpotPatch;
+};
+
+
+export type UpdateSpotMutation = { readonly updateSpot: Pick<UpdateSpotResult, 'ammendedDates' | 'id' | 'message' | 'success' | 'triggeredComputations'> };
+
 export type GetGuideIdForSlugQueryVariables = {
   slug: Scalars['String'];
 };
@@ -4933,6 +5006,13 @@ export type GuideStagesSubscriptionVariables = {
 
 
 export type GuideStagesSubscription = { readonly guide?: Maybe<GuideFragment> };
+
+export type CreatingGuideSubscriptionVariables = {
+  id: Scalars['String'];
+};
+
+
+export type CreatingGuideSubscription = { readonly guide?: Maybe<CreatingGuideFragment> };
 
 export type FollowersSubscriptionVariables = {
   username: Scalars['String'];
@@ -5191,6 +5271,7 @@ export const GuideFragmentDoc = gql`
   startDate
   title
   maxHoursPerRide
+  transportType
   firstSpot: spotsByGuide(filter: {position: {equalTo: "0.0"}}) {
     nodes {
       ...Spot
@@ -5204,6 +5285,53 @@ export const GuideFragmentDoc = gql`
 }
     ${SpotFragmentDoc}
 ${StageFragmentDoc}`;
+export const CreatingGuideStageFragmentDoc = gql`
+    fragment CreatingGuideStage on Stage {
+  status
+  ridesByStage {
+    totalCount
+    nodes {
+      distanceMeters
+      durationSeconds
+    }
+  }
+}
+    `;
+export const CreatingGuideSpotFragmentDoc = gql`
+    fragment CreatingGuideSpot on Spot {
+  id
+  lat
+  long
+  location
+  label
+  nights
+  position
+  country
+  created
+  updated
+  beginsStage: stagesByFromSpot {
+    nodes {
+      ...CreatingGuideStage
+    }
+  }
+}
+    ${CreatingGuideStageFragmentDoc}`;
+export const CreatingGuideFragmentDoc = gql`
+    fragment CreatingGuide on Guide {
+  id
+  slug
+  owner
+  startDate
+  title
+  maxHoursPerRide
+  transportType
+  spots: spotsByGuide(orderBy: [POSITION_ASC]) {
+    nodes {
+      ...CreatingGuideSpot
+    }
+  }
+}
+    ${CreatingGuideSpotFragmentDoc}`;
 export const GuideIDsFragmentDoc = gql`
     fragment GuideIDs on Guide {
   id
@@ -5249,8 +5377,8 @@ export function useCreateGuideMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type CreateGuideMutationHookResult = ReturnType<typeof useCreateGuideMutation>;
 export type CreateGuideMutationResult = ApolloReactCommon.MutationResult<CreateGuideMutation>;
 export type CreateGuideMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateGuideMutation, CreateGuideMutationVariables>;
-export const AddStayFromLatLongDocument = gql`
-    mutation AddStayFromLatLong($input: AddSpotInput!) {
+export const AddSpotDocument = gql`
+    mutation AddSpot($input: AddSpotInput!) {
   addSpot(input: $input) {
     id
     messaage
@@ -5258,37 +5386,37 @@ export const AddStayFromLatLongDocument = gql`
   }
 }
     `;
-export type AddStayFromLatLongMutationFn = ApolloReactCommon.MutationFunction<AddStayFromLatLongMutation, AddStayFromLatLongMutationVariables>;
-export type AddStayFromLatLongComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<AddStayFromLatLongMutation, AddStayFromLatLongMutationVariables>, 'mutation'>;
+export type AddSpotMutationFn = ApolloReactCommon.MutationFunction<AddSpotMutation, AddSpotMutationVariables>;
+export type AddSpotComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<AddSpotMutation, AddSpotMutationVariables>, 'mutation'>;
 
-    export const AddStayFromLatLongComponent = (props: AddStayFromLatLongComponentProps) => (
-      <ApolloReactComponents.Mutation<AddStayFromLatLongMutation, AddStayFromLatLongMutationVariables> mutation={AddStayFromLatLongDocument} {...props} />
+    export const AddSpotComponent = (props: AddSpotComponentProps) => (
+      <ApolloReactComponents.Mutation<AddSpotMutation, AddSpotMutationVariables> mutation={AddSpotDocument} {...props} />
     );
     
 
 /**
- * __useAddStayFromLatLongMutation__
+ * __useAddSpotMutation__
  *
- * To run a mutation, you first call `useAddStayFromLatLongMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddStayFromLatLongMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAddSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddSpotMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [addStayFromLatLongMutation, { data, loading, error }] = useAddStayFromLatLongMutation({
+ * const [addSpotMutation, { data, loading, error }] = useAddSpotMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useAddStayFromLatLongMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddStayFromLatLongMutation, AddStayFromLatLongMutationVariables>) {
-        return ApolloReactHooks.useMutation<AddStayFromLatLongMutation, AddStayFromLatLongMutationVariables>(AddStayFromLatLongDocument, baseOptions);
+export function useAddSpotMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddSpotMutation, AddSpotMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddSpotMutation, AddSpotMutationVariables>(AddSpotDocument, baseOptions);
       }
-export type AddStayFromLatLongMutationHookResult = ReturnType<typeof useAddStayFromLatLongMutation>;
-export type AddStayFromLatLongMutationResult = ApolloReactCommon.MutationResult<AddStayFromLatLongMutation>;
-export type AddStayFromLatLongMutationOptions = ApolloReactCommon.BaseMutationOptions<AddStayFromLatLongMutation, AddStayFromLatLongMutationVariables>;
+export type AddSpotMutationHookResult = ReturnType<typeof useAddSpotMutation>;
+export type AddSpotMutationResult = ApolloReactCommon.MutationResult<AddSpotMutation>;
+export type AddSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<AddSpotMutation, AddSpotMutationVariables>;
 export const DeleteGuideDocument = gql`
     mutation DeleteGuide($guideId: String!) {
   deleteGuide(input: {id: $guideId}) {
@@ -5604,6 +5732,48 @@ export function useUpdateGuideMutation(baseOptions?: ApolloReactHooks.MutationHo
 export type UpdateGuideMutationHookResult = ReturnType<typeof useUpdateGuideMutation>;
 export type UpdateGuideMutationResult = ApolloReactCommon.MutationResult<UpdateGuideMutation>;
 export type UpdateGuideMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateGuideMutation, UpdateGuideMutationVariables>;
+export const UpdateSpotDocument = gql`
+    mutation UpdateSpot($patch: UpdateSpotPatch!) {
+  updateSpot(input: $patch) {
+    ammendedDates
+    id
+    message
+    success
+    triggeredComputations
+  }
+}
+    `;
+export type UpdateSpotMutationFn = ApolloReactCommon.MutationFunction<UpdateSpotMutation, UpdateSpotMutationVariables>;
+export type UpdateSpotComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UpdateSpotMutation, UpdateSpotMutationVariables>, 'mutation'>;
+
+    export const UpdateSpotComponent = (props: UpdateSpotComponentProps) => (
+      <ApolloReactComponents.Mutation<UpdateSpotMutation, UpdateSpotMutationVariables> mutation={UpdateSpotDocument} {...props} />
+    );
+    
+
+/**
+ * __useUpdateSpotMutation__
+ *
+ * To run a mutation, you first call `useUpdateSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSpotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSpotMutation, { data, loading, error }] = useUpdateSpotMutation({
+ *   variables: {
+ *      patch: // value for 'patch'
+ *   },
+ * });
+ */
+export function useUpdateSpotMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSpotMutation, UpdateSpotMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateSpotMutation, UpdateSpotMutationVariables>(UpdateSpotDocument, baseOptions);
+      }
+export type UpdateSpotMutationHookResult = ReturnType<typeof useUpdateSpotMutation>;
+export type UpdateSpotMutationResult = ApolloReactCommon.MutationResult<UpdateSpotMutation>;
+export type UpdateSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateSpotMutation, UpdateSpotMutationVariables>;
 export const GetGuideIdForSlugDocument = gql`
     query GetGuideIdForSlug($slug: String!) {
   guides(condition: {slug: $slug}) {
@@ -5894,6 +6064,41 @@ export function useGuideStagesSubscription(baseOptions?: ApolloReactHooks.Subscr
       }
 export type GuideStagesSubscriptionHookResult = ReturnType<typeof useGuideStagesSubscription>;
 export type GuideStagesSubscriptionResult = ApolloReactCommon.SubscriptionResult<GuideStagesSubscription>;
+export const CreatingGuideDocument = gql`
+    subscription CreatingGuide($id: String!) {
+  guide(id: $id) {
+    ...CreatingGuide
+  }
+}
+    ${CreatingGuideFragmentDoc}`;
+export type CreatingGuideComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<CreatingGuideSubscription, CreatingGuideSubscriptionVariables>, 'subscription'>;
+
+    export const CreatingGuideComponent = (props: CreatingGuideComponentProps) => (
+      <ApolloReactComponents.Subscription<CreatingGuideSubscription, CreatingGuideSubscriptionVariables> subscription={CreatingGuideDocument} {...props} />
+    );
+    
+
+/**
+ * __useCreatingGuideSubscription__
+ *
+ * To run a query within a React component, call `useCreatingGuideSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useCreatingGuideSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCreatingGuideSubscription({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCreatingGuideSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<CreatingGuideSubscription, CreatingGuideSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<CreatingGuideSubscription, CreatingGuideSubscriptionVariables>(CreatingGuideDocument, baseOptions);
+      }
+export type CreatingGuideSubscriptionHookResult = ReturnType<typeof useCreatingGuideSubscription>;
+export type CreatingGuideSubscriptionResult = ApolloReactCommon.SubscriptionResult<CreatingGuideSubscription>;
 export const FollowersDocument = gql`
     subscription Followers($username: String!) {
   follows(condition: {followed: $username}) {

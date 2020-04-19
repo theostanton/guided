@@ -2,7 +2,7 @@ import ReactMapGL, { FlyToInterpolator, TransitionInterpolator } from "react-map
 
 import React, { Component } from "react"
 import { Markers } from "./Markers"
-import { AddStayFromLatLongDocument, AddStayFromLatLongMutationVariables } from "api/generated"
+import { AddSpotMutationVariables, AddSpotDocument } from "api/generated"
 import { client } from "api"
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
@@ -176,7 +176,7 @@ export default class Map extends Component<Props, State> {
     let onClick
     if (guide && this.props.guideStore.isOwner) {
       onClick = (async (event) => {
-        const variables: AddStayFromLatLongMutationVariables = {
+        const variables: AddSpotMutationVariables = {
           input: {
             guideId: guide.id,
             long: event.lngLat[0],
@@ -186,7 +186,7 @@ export default class Map extends Component<Props, State> {
         }
 
         await client.mutate({
-          mutation: AddStayFromLatLongDocument,
+          mutation: AddSpotDocument,
           variables,
         })
       })

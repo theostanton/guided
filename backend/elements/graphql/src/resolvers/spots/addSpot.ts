@@ -18,7 +18,13 @@ export async function prepare(input: AddSpotInput, owner: string): Promise<{
                                                      and locked = true`, [input.guideId])
   logJson(lockedSpotsCount, "lockedSpotsCount")
 
-  const { label: location, countryCode: country } = await getInfo(input.lat, input.long)
+  let { country, location } = input
+
+  if (!country || !location) {
+    const info = await getInfo(input.lat, input.long)
+    country = info.countryCode
+    location = info.label
+  }
 
   const spotId = generateId("spot")
 
@@ -58,6 +64,8 @@ export default class AddSpotMutation extends Mutation<MutationAddSpotArgs, AddSp
           lat:Float!
           long:Float!
           label:String
+          location:String
+          country:String
           nights:Int!
       }
 
@@ -80,7 +88,7 @@ export default class AddSpotMutation extends Mutation<MutationAddSpotArgs, AddSp
 
     return {
       id: spotId,
-      success: false,
+      success: true,
     }
   }
 }

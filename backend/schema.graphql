@@ -3,6 +3,8 @@ input AddSpotInput {
   lat: Float!
   long: Float!
   label: String
+  location: String
+  country: String
   nights: Int!
 }
 
@@ -1643,6 +1645,12 @@ type Mutation {
     """
     input: AddSpotInput!
   ): AddSpotResult!
+  updateSpot(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSpotPatch!
+  ): UpdateSpotResult!
 }
 
 """An object with a globally unique `ID`."""
@@ -3820,6 +3828,28 @@ type UpdateGuideResult {
   message: String
   id: String
   triggeredComputations: Boolean
+}
+
+input UpdateSpotLocationPatch {
+  lat: Float!
+  long: Float!
+  location: String!
+  country: String!
+}
+
+input UpdateSpotPatch {
+  id: String!
+  label: String
+  nights: Int
+  location: UpdateSpotLocationPatch
+}
+
+type UpdateSpotResult {
+  success: Boolean!
+  message: String
+  id: String
+  triggeredComputations: Boolean
+  ammendedDates: Boolean
 }
 
 """All input for the `updateStageByNodeId` mutation."""
