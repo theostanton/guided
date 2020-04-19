@@ -28,6 +28,29 @@ export type Scalars = {
   JwtToken: any;
 };
 
+/** All input for the `authenticate` mutation. */
+export type AuthenticateInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly email: Scalars['String'];
+  readonly password: Scalars['String'];
+};
+
+/** The output of our `authenticate` mutation. */
+export type AuthenticatePayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly jwtToken?: Maybe<Scalars['JwtToken']>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+};
+
 
 /** A filter to be used against BigInt fields. All fields are combined with a logical ‘and.’ */
 export type BigIntFilter = {
@@ -196,6 +219,30 @@ export type ComputationFilter = {
   readonly not?: Maybe<ComputationFilter>;
 };
 
+/** An input for mutations affecting `Computation` */
+export type ComputationInput = {
+  readonly id: Scalars['String'];
+  readonly ended?: Maybe<Scalars['Datetime']>;
+  readonly duration?: Maybe<Scalars['Int']>;
+  readonly status: ComputationStatus;
+  readonly stage?: Maybe<Scalars['String']>;
+  readonly guide: Scalars['String'];
+  readonly created: Scalars['Datetime'];
+  readonly started?: Maybe<Scalars['Datetime']>;
+};
+
+/** Represents an update to a `Computation`. Fields that are set will be updated. */
+export type ComputationPatch = {
+  readonly id?: Maybe<Scalars['String']>;
+  readonly ended?: Maybe<Scalars['Datetime']>;
+  readonly duration?: Maybe<Scalars['Int']>;
+  readonly status?: Maybe<ComputationStatus>;
+  readonly stage?: Maybe<Scalars['String']>;
+  readonly guide?: Maybe<Scalars['String']>;
+  readonly created?: Maybe<Scalars['Datetime']>;
+  readonly started?: Maybe<Scalars['Datetime']>;
+};
+
 /** A connection to a list of `Computation` values. */
 export type ComputationsConnection = {
   /** A list of `Computation` objects. */
@@ -272,6 +319,152 @@ export type ComputationStatusFilter = {
   readonly greaterThanOrEqualTo?: Maybe<ComputationStatus>;
 };
 
+/** All input for the create `Computation` mutation. */
+export type CreateComputationInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Computation` to be created by this mutation. */
+  readonly computation: ComputationInput;
+};
+
+/** The output of our create `Computation` mutation. */
+export type CreateComputationPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Computation` that was created by this mutation. */
+  readonly computation?: Maybe<Computation>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** Reads a single `Stage` that is related to this `Computation`. */
+  readonly stageByStage?: Maybe<Stage>;
+  /** Reads a single `Guide` that is related to this `Computation`. */
+  readonly guideByGuide?: Maybe<Guide>;
+  /** An edge for our `Computation`. May be used by Relay 1. */
+  readonly computationEdge?: Maybe<ComputationsEdge>;
+};
+
+
+/** The output of our create `Computation` mutation. */
+export type CreateComputationPayloadComputationEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
+};
+
+export type CreateGuideInput = {
+  readonly title: Scalars['String'];
+  readonly isCircular: Scalars['Boolean'];
+  readonly maxHoursPerRide: Scalars['Int'];
+  readonly type: TransportType;
+  readonly startDate?: Maybe<Scalars['String']>;
+};
+
+/** All input for the create `Stage` mutation. */
+export type CreateStageInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Stage` to be created by this mutation. */
+  readonly stage: StageInput;
+};
+
+/** The output of our create `Stage` mutation. */
+export type CreateStagePayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Stage` that was created by this mutation. */
+  readonly stage?: Maybe<Stage>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** Reads a single `Guide` that is related to this `Stage`. */
+  readonly guideByGuide?: Maybe<Guide>;
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByFromSpot?: Maybe<Spot>;
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByToSpot?: Maybe<Spot>;
+  /** An edge for our `Stage`. May be used by Relay 1. */
+  readonly stageEdge?: Maybe<StagesEdge>;
+};
+
+
+/** The output of our create `Stage` mutation. */
+export type CreateStagePayloadStageEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>;
+};
+
+/** All input for the create `Temperature` mutation. */
+export type CreateTemperatureInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Temperature` to be created by this mutation. */
+  readonly temperature: TemperatureInput;
+};
+
+/** The output of our create `Temperature` mutation. */
+export type CreateTemperaturePayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Temperature` that was created by this mutation. */
+  readonly temperature?: Maybe<Temperature>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** An edge for our `Temperature`. May be used by Relay 1. */
+  readonly temperatureEdge?: Maybe<TemperaturesEdge>;
+};
+
+
+/** The output of our create `Temperature` mutation. */
+export type CreateTemperaturePayloadTemperatureEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<TemperaturesOrderBy>>;
+};
+
+/** All input for the create `User` mutation. */
+export type CreateUserInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `User` to be created by this mutation. */
+  readonly user: UserInput;
+};
+
+/** The output of our create `User` mutation. */
+export type CreateUserPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `User` that was created by this mutation. */
+  readonly user?: Maybe<User>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** An edge for our `User`. May be used by Relay 1. */
+  readonly userEdge?: Maybe<UsersEdge>;
+};
+
+
+/** The output of our create `User` mutation. */
+export type CreateUserPayloadUserEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
+};
+
 
 
 /** A filter to be used against Datetime fields. All fields are combined with a logical ‘and.’ */
@@ -298,6 +491,197 @@ export type DatetimeFilter = {
   readonly greaterThan?: Maybe<Scalars['Datetime']>;
   /** Greater than or equal to the specified value. */
   readonly greaterThanOrEqualTo?: Maybe<Scalars['Datetime']>;
+};
+
+/** All input for the `deleteComputationByNodeId` mutation. */
+export type DeleteComputationByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The globally unique `ID` which will identify a single `Computation` to be deleted. */
+  readonly nodeId: Scalars['ID'];
+};
+
+/** All input for the `deleteComputation` mutation. */
+export type DeleteComputationInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly id: Scalars['String'];
+};
+
+/** The output of our delete `Computation` mutation. */
+export type DeleteComputationPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Computation` that was deleted by this mutation. */
+  readonly computation?: Maybe<Computation>;
+  readonly deletedComputationNodeId?: Maybe<Scalars['ID']>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** Reads a single `Stage` that is related to this `Computation`. */
+  readonly stageByStage?: Maybe<Stage>;
+  /** Reads a single `Guide` that is related to this `Computation`. */
+  readonly guideByGuide?: Maybe<Guide>;
+  /** An edge for our `Computation`. May be used by Relay 1. */
+  readonly computationEdge?: Maybe<ComputationsEdge>;
+};
+
+
+/** The output of our delete `Computation` mutation. */
+export type DeleteComputationPayloadComputationEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
+};
+
+export type DeleteGuideInput = {
+  readonly id: Scalars['ID'];
+};
+
+export type DeleteGuideResult = {
+  readonly success: Scalars['Boolean'];
+  readonly message?: Maybe<Scalars['String']>;
+};
+
+/** All input for the `deleteStageByNodeId` mutation. */
+export type DeleteStageByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The globally unique `ID` which will identify a single `Stage` to be deleted. */
+  readonly nodeId: Scalars['ID'];
+};
+
+/** All input for the `deleteStage` mutation. */
+export type DeleteStageInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly id: Scalars['String'];
+};
+
+/** The output of our delete `Stage` mutation. */
+export type DeleteStagePayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Stage` that was deleted by this mutation. */
+  readonly stage?: Maybe<Stage>;
+  readonly deletedStageNodeId?: Maybe<Scalars['ID']>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** Reads a single `Guide` that is related to this `Stage`. */
+  readonly guideByGuide?: Maybe<Guide>;
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByFromSpot?: Maybe<Spot>;
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByToSpot?: Maybe<Spot>;
+  /** An edge for our `Stage`. May be used by Relay 1. */
+  readonly stageEdge?: Maybe<StagesEdge>;
+};
+
+
+/** The output of our delete `Stage` mutation. */
+export type DeleteStagePayloadStageEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>;
+};
+
+/** All input for the `deleteTemperatureByNodeId` mutation. */
+export type DeleteTemperatureByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The globally unique `ID` which will identify a single `Temperature` to be deleted. */
+  readonly nodeId: Scalars['ID'];
+};
+
+/** All input for the `deleteTemperature` mutation. */
+export type DeleteTemperatureInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly id: Scalars['String'];
+};
+
+/** The output of our delete `Temperature` mutation. */
+export type DeleteTemperaturePayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Temperature` that was deleted by this mutation. */
+  readonly temperature?: Maybe<Temperature>;
+  readonly deletedTemperatureNodeId?: Maybe<Scalars['ID']>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** An edge for our `Temperature`. May be used by Relay 1. */
+  readonly temperatureEdge?: Maybe<TemperaturesEdge>;
+};
+
+
+/** The output of our delete `Temperature` mutation. */
+export type DeleteTemperaturePayloadTemperatureEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<TemperaturesOrderBy>>;
+};
+
+/** All input for the `deleteUserByNodeId` mutation. */
+export type DeleteUserByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The globally unique `ID` which will identify a single `User` to be deleted. */
+  readonly nodeId: Scalars['ID'];
+};
+
+/** All input for the `deleteUser` mutation. */
+export type DeleteUserInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly username: Scalars['String'];
+};
+
+/** The output of our delete `User` mutation. */
+export type DeleteUserPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `User` that was deleted by this mutation. */
+  readonly user?: Maybe<User>;
+  readonly deletedUserNodeId?: Maybe<Scalars['ID']>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** An edge for our `User`. May be used by Relay 1. */
+  readonly userEdge?: Maybe<UsersEdge>;
+};
+
+
+/** The output of our delete `User` mutation. */
+export type DeleteUserPayloadUserEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
 };
 
 /** A filter to be used against Float fields. All fields are combined with a logical ‘and.’ */
@@ -393,6 +777,40 @@ export type FollowingStatusFilter = {
   readonly greaterThan?: Maybe<FollowingStatus>;
   /** Greater than or equal to the specified value. */
   readonly greaterThanOrEqualTo?: Maybe<FollowingStatus>;
+};
+
+/** All input for the `follow` mutation. */
+export type FollowInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly username: Scalars['String'];
+};
+
+/** The output of our `follow` mutation. */
+export type FollowPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly follow?: Maybe<Follow>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** Reads a single `User` that is related to this `Follow`. */
+  readonly userByFollowed?: Maybe<User>;
+  /** Reads a single `User` that is related to this `Follow`. */
+  readonly userByFollower?: Maybe<User>;
+  /** An edge for our `Follow`. May be used by Relay 1. */
+  readonly followEdge?: Maybe<FollowsEdge>;
+};
+
+
+/** The output of our `follow` mutation. */
+export type FollowPayloadFollowEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<FollowsOrderBy>>;
 };
 
 /** A connection to a list of `Follow` values. */
@@ -652,6 +1070,271 @@ export type IntFilter = {
 };
 
 
+/** The root mutation type which contains root level fields which mutate data. */
+export type Mutation = {
+  /** Creates a single `Computation`. */
+  readonly createComputation?: Maybe<CreateComputationPayload>;
+  /** Creates a single `Stage`. */
+  readonly createStage?: Maybe<CreateStagePayload>;
+  /** Creates a single `Temperature`. */
+  readonly createTemperature?: Maybe<CreateTemperaturePayload>;
+  /** Creates a single `User`. */
+  readonly createUser?: Maybe<CreateUserPayload>;
+  /** Updates a single `Computation` using its globally unique id and a patch. */
+  readonly updateComputationByNodeId?: Maybe<UpdateComputationPayload>;
+  /** Updates a single `Computation` using a unique key and a patch. */
+  readonly updateComputation?: Maybe<UpdateComputationPayload>;
+  /** Updates a single `Stage` using its globally unique id and a patch. */
+  readonly updateStageByNodeId?: Maybe<UpdateStagePayload>;
+  /** Updates a single `Stage` using a unique key and a patch. */
+  readonly updateStage?: Maybe<UpdateStagePayload>;
+  /** Updates a single `Temperature` using its globally unique id and a patch. */
+  readonly updateTemperatureByNodeId?: Maybe<UpdateTemperaturePayload>;
+  /** Updates a single `Temperature` using a unique key and a patch. */
+  readonly updateTemperature?: Maybe<UpdateTemperaturePayload>;
+  /** Updates a single `User` using its globally unique id and a patch. */
+  readonly updateUserByNodeId?: Maybe<UpdateUserPayload>;
+  /** Updates a single `User` using a unique key and a patch. */
+  readonly updateUser?: Maybe<UpdateUserPayload>;
+  /** Deletes a single `Computation` using its globally unique id. */
+  readonly deleteComputationByNodeId?: Maybe<DeleteComputationPayload>;
+  /** Deletes a single `Computation` using a unique key. */
+  readonly deleteComputation?: Maybe<DeleteComputationPayload>;
+  /** Deletes a single `Stage` using its globally unique id. */
+  readonly deleteStageByNodeId?: Maybe<DeleteStagePayload>;
+  /** Deletes a single `Stage` using a unique key. */
+  readonly deleteStage?: Maybe<DeleteStagePayload>;
+  /** Deletes a single `Temperature` using its globally unique id. */
+  readonly deleteTemperatureByNodeId?: Maybe<DeleteTemperaturePayload>;
+  /** Deletes a single `Temperature` using a unique key. */
+  readonly deleteTemperature?: Maybe<DeleteTemperaturePayload>;
+  /** Deletes a single `User` using its globally unique id. */
+  readonly deleteUserByNodeId?: Maybe<DeleteUserPayload>;
+  /** Deletes a single `User` using a unique key. */
+  readonly deleteUser?: Maybe<DeleteUserPayload>;
+  /** Creates a JWT token that will securely identify a person and give them certain permissions. This token expires in 2 days. */
+  readonly authenticate?: Maybe<AuthenticatePayload>;
+  readonly follow?: Maybe<FollowPayload>;
+  /** Registers a single user */
+  readonly register?: Maybe<RegisterPayload>;
+  readonly addSpotFromLatLng: Spot;
+  readonly moveSpot: Spot;
+  readonly removeSpot: Spot;
+  readonly editStartDate: Result;
+  readonly editNights: Result;
+  readonly createGuide: Result;
+  readonly updateGuide: UpdateGuideResult;
+  readonly deleteGuide: DeleteGuideResult;
+  readonly followUser: Result;
+  readonly unfollowUser: Result;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateComputationArgs = {
+  input: CreateComputationInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateStageArgs = {
+  input: CreateStageInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateTemperatureArgs = {
+  input: CreateTemperatureInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateUserArgs = {
+  input: CreateUserInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateComputationByNodeIdArgs = {
+  input: UpdateComputationByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateComputationArgs = {
+  input: UpdateComputationInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateStageByNodeIdArgs = {
+  input: UpdateStageByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateStageArgs = {
+  input: UpdateStageInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateTemperatureByNodeIdArgs = {
+  input: UpdateTemperatureByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateTemperatureArgs = {
+  input: UpdateTemperatureInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateUserByNodeIdArgs = {
+  input: UpdateUserByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateUserArgs = {
+  input: UpdateUserInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteComputationByNodeIdArgs = {
+  input: DeleteComputationByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteComputationArgs = {
+  input: DeleteComputationInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteStageByNodeIdArgs = {
+  input: DeleteStageByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteStageArgs = {
+  input: DeleteStageInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteTemperatureByNodeIdArgs = {
+  input: DeleteTemperatureByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteTemperatureArgs = {
+  input: DeleteTemperatureInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteUserByNodeIdArgs = {
+  input: DeleteUserByNodeIdInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteUserArgs = {
+  input: DeleteUserInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationAuthenticateArgs = {
+  input: AuthenticateInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationFollowArgs = {
+  input: FollowInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationRegisterArgs = {
+  input: RegisterInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationAddSpotFromLatLngArgs = {
+  guideId: Scalars['String'];
+  lat: Scalars['Float'];
+  long: Scalars['Float'];
+  label?: Maybe<Scalars['String']>;
+  nights: Scalars['Int'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationMoveSpotArgs = {
+  spotId: Scalars['String'];
+  lat: Scalars['Float'];
+  long: Scalars['Float'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationRemoveSpotArgs = {
+  spotId: Scalars['String'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationEditStartDateArgs = {
+  guideId: Scalars['String'];
+  date?: Maybe<Scalars['String']>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationEditNightsArgs = {
+  spotId: Scalars['String'];
+  nights: Scalars['Int'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationCreateGuideArgs = {
+  input?: Maybe<CreateGuideInput>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUpdateGuideArgs = {
+  input?: Maybe<UpdateGuidePatch>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationDeleteGuideArgs = {
+  input?: Maybe<DeleteGuideInput>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationFollowUserArgs = {
+  username: Scalars['String'];
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationUnfollowUserArgs = {
+  username: Scalars['String'];
+};
+
 /** An object with a globally unique `ID`. */
 export type Node = {
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
@@ -720,8 +1403,8 @@ export type Query = Node & {
   readonly temperatureByNodeId?: Maybe<Temperature>;
   /** Reads a single `User` using its globally unique `ID`. */
   readonly userByNodeId?: Maybe<User>;
-  readonly appVersion: Scalars['String'];
   readonly geocode: GeocodeResponse;
+  readonly appVersion: Scalars['String'];
 };
 
 
@@ -922,6 +1605,43 @@ export type QueryUserByNodeIdArgs = {
 /** The root query type which gives access points into the data universe. */
 export type QueryGeocodeArgs = {
   query: Scalars['String'];
+};
+
+/** All input for the `register` mutation. */
+export type RegisterInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly _username: Scalars['String'];
+  readonly _email: Scalars['String'];
+  readonly _password: Scalars['String'];
+};
+
+/** The output of our `register` mutation. */
+export type RegisterPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  readonly user?: Maybe<User>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** An edge for our `User`. May be used by Relay 1. */
+  readonly userEdge?: Maybe<UsersEdge>;
+};
+
+
+/** The output of our `register` mutation. */
+export type RegisterPayloadUserEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
+};
+
+export type Result = {
+  readonly success: Scalars['Boolean'];
+  readonly message?: Maybe<Scalars['String']>;
 };
 
 export type Ride = Node & {
@@ -1454,6 +2174,30 @@ export type StageFilter = {
   readonly not?: Maybe<StageFilter>;
 };
 
+/** An input for mutations affecting `Stage` */
+export type StageInput = {
+  readonly id: Scalars['String'];
+  readonly guide: Scalars['String'];
+  readonly fromSpot: Scalars['String'];
+  readonly toSpot: Scalars['String'];
+  readonly created: Scalars['Datetime'];
+  readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly status: StageStatus;
+  readonly position?: Maybe<Scalars['Int']>;
+};
+
+/** Represents an update to a `Stage`. Fields that are set will be updated. */
+export type StagePatch = {
+  readonly id?: Maybe<Scalars['String']>;
+  readonly guide?: Maybe<Scalars['String']>;
+  readonly fromSpot?: Maybe<Scalars['String']>;
+  readonly toSpot?: Maybe<Scalars['String']>;
+  readonly created?: Maybe<Scalars['Datetime']>;
+  readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly status?: Maybe<StageStatus>;
+  readonly position?: Maybe<Scalars['Int']>;
+};
+
 /** A connection to a list of `Stage` values. */
 export type StagesConnection = {
   /** A list of `Stage` objects. */
@@ -1727,9 +2471,9 @@ export type Subscription = {
   /** Reads a single `User` using its globally unique `ID`. (live) */
   readonly userByNodeId?: Maybe<User>;
   /**  (live) */
-  readonly appVersion: Scalars['String'];
-  /**  (live) */
   readonly geocode: GeocodeResponse;
+  /**  (live) */
+  readonly appVersion: Scalars['String'];
 };
 
 
@@ -2488,6 +3232,26 @@ export type TemperatureFilter = {
   readonly not?: Maybe<TemperatureFilter>;
 };
 
+/** An input for mutations affecting `Temperature` */
+export type TemperatureInput = {
+  readonly id: Scalars['String'];
+  readonly country: Scalars['String'];
+  readonly month: Scalars['Int'];
+  readonly temperature: Scalars['Float'];
+  readonly created: Scalars['Datetime'];
+  readonly updated?: Maybe<Scalars['Datetime']>;
+};
+
+/** Represents an update to a `Temperature`. Fields that are set will be updated. */
+export type TemperaturePatch = {
+  readonly id?: Maybe<Scalars['String']>;
+  readonly country?: Maybe<Scalars['String']>;
+  readonly month?: Maybe<Scalars['Int']>;
+  readonly temperature?: Maybe<Scalars['Float']>;
+  readonly created?: Maybe<Scalars['Datetime']>;
+  readonly updated?: Maybe<Scalars['Datetime']>;
+};
+
 /** A connection to a list of `Temperature` values. */
 export type TemperaturesConnection = {
   /** A list of `Temperature` objects. */
@@ -2557,6 +3321,214 @@ export type TransportTypeFilter = {
   readonly greaterThan?: Maybe<TransportType>;
   /** Greater than or equal to the specified value. */
   readonly greaterThanOrEqualTo?: Maybe<TransportType>;
+};
+
+/** All input for the `updateComputationByNodeId` mutation. */
+export type UpdateComputationByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The globally unique `ID` which will identify a single `Computation` to be updated. */
+  readonly nodeId: Scalars['ID'];
+  /** An object where the defined keys will be set on the `Computation` being updated. */
+  readonly patch: ComputationPatch;
+};
+
+/** All input for the `updateComputation` mutation. */
+export type UpdateComputationInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Computation` being updated. */
+  readonly patch: ComputationPatch;
+  readonly id: Scalars['String'];
+};
+
+/** The output of our update `Computation` mutation. */
+export type UpdateComputationPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Computation` that was updated by this mutation. */
+  readonly computation?: Maybe<Computation>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** Reads a single `Stage` that is related to this `Computation`. */
+  readonly stageByStage?: Maybe<Stage>;
+  /** Reads a single `Guide` that is related to this `Computation`. */
+  readonly guideByGuide?: Maybe<Guide>;
+  /** An edge for our `Computation`. May be used by Relay 1. */
+  readonly computationEdge?: Maybe<ComputationsEdge>;
+};
+
+
+/** The output of our update `Computation` mutation. */
+export type UpdateComputationPayloadComputationEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
+};
+
+export type UpdateGuidePatch = {
+  readonly id: Scalars['ID'];
+  readonly title?: Maybe<Scalars['String']>;
+  readonly isCircular?: Maybe<Scalars['Boolean']>;
+  readonly maxHoursPerRide?: Maybe<Scalars['Int']>;
+  readonly type?: Maybe<TransportType>;
+};
+
+export type UpdateGuideResult = {
+  readonly success: Scalars['Boolean'];
+  readonly message?: Maybe<Scalars['String']>;
+  readonly id?: Maybe<Scalars['ID']>;
+};
+
+/** All input for the `updateStageByNodeId` mutation. */
+export type UpdateStageByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The globally unique `ID` which will identify a single `Stage` to be updated. */
+  readonly nodeId: Scalars['ID'];
+  /** An object where the defined keys will be set on the `Stage` being updated. */
+  readonly patch: StagePatch;
+};
+
+/** All input for the `updateStage` mutation. */
+export type UpdateStageInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Stage` being updated. */
+  readonly patch: StagePatch;
+  readonly id: Scalars['String'];
+};
+
+/** The output of our update `Stage` mutation. */
+export type UpdateStagePayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Stage` that was updated by this mutation. */
+  readonly stage?: Maybe<Stage>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** Reads a single `Guide` that is related to this `Stage`. */
+  readonly guideByGuide?: Maybe<Guide>;
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByFromSpot?: Maybe<Spot>;
+  /** Reads a single `Spot` that is related to this `Stage`. */
+  readonly spotByToSpot?: Maybe<Spot>;
+  /** An edge for our `Stage`. May be used by Relay 1. */
+  readonly stageEdge?: Maybe<StagesEdge>;
+};
+
+
+/** The output of our update `Stage` mutation. */
+export type UpdateStagePayloadStageEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<StagesOrderBy>>;
+};
+
+/** All input for the `updateTemperatureByNodeId` mutation. */
+export type UpdateTemperatureByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The globally unique `ID` which will identify a single `Temperature` to be updated. */
+  readonly nodeId: Scalars['ID'];
+  /** An object where the defined keys will be set on the `Temperature` being updated. */
+  readonly patch: TemperaturePatch;
+};
+
+/** All input for the `updateTemperature` mutation. */
+export type UpdateTemperatureInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Temperature` being updated. */
+  readonly patch: TemperaturePatch;
+  readonly id: Scalars['String'];
+};
+
+/** The output of our update `Temperature` mutation. */
+export type UpdateTemperaturePayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Temperature` that was updated by this mutation. */
+  readonly temperature?: Maybe<Temperature>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** An edge for our `Temperature`. May be used by Relay 1. */
+  readonly temperatureEdge?: Maybe<TemperaturesEdge>;
+};
+
+
+/** The output of our update `Temperature` mutation. */
+export type UpdateTemperaturePayloadTemperatureEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<TemperaturesOrderBy>>;
+};
+
+/** All input for the `updateUserByNodeId` mutation. */
+export type UpdateUserByNodeIdInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The globally unique `ID` which will identify a single `User` to be updated. */
+  readonly nodeId: Scalars['ID'];
+  /** An object where the defined keys will be set on the `User` being updated. */
+  readonly patch: UserPatch;
+};
+
+/** All input for the `updateUser` mutation. */
+export type UpdateUserInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `User` being updated. */
+  readonly patch: UserPatch;
+  readonly username: Scalars['String'];
+};
+
+/** The output of our update `User` mutation. */
+export type UpdateUserPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  readonly clientMutationId?: Maybe<Scalars['String']>;
+  /** The `User` that was updated by this mutation. */
+  readonly user?: Maybe<User>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  readonly query?: Maybe<Query>;
+  /** An edge for our `User`. May be used by Relay 1. */
+  readonly userEdge?: Maybe<UsersEdge>;
+};
+
+
+/** The output of our update `User` mutation. */
+export type UpdateUserPayloadUserEdgeArgs = {
+  orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
 };
 
 export type User = Node & {
@@ -2688,6 +3660,26 @@ export type UserFilter = {
   readonly or?: Maybe<ReadonlyArray<UserFilter>>;
   /** Negates the expression. */
   readonly not?: Maybe<UserFilter>;
+};
+
+/** An input for mutations affecting `User` */
+export type UserInput = {
+  readonly username: Scalars['String'];
+  readonly email: Scalars['String'];
+  readonly passwordHash: Scalars['String'];
+  readonly created: Scalars['Datetime'];
+  readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly colour?: Maybe<Colour>;
+};
+
+/** Represents an update to a `User`. Fields that are set will be updated. */
+export type UserPatch = {
+  readonly username?: Maybe<Scalars['String']>;
+  readonly email?: Maybe<Scalars['String']>;
+  readonly passwordHash?: Maybe<Scalars['String']>;
+  readonly created?: Maybe<Scalars['Datetime']>;
+  readonly updated?: Maybe<Scalars['Datetime']>;
+  readonly colour?: Maybe<Colour>;
 };
 
 /** A connection to a list of `User` values. */
@@ -2884,6 +3876,59 @@ export type ResolversTypes = {
   JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
   GeocodeResponse: ResolverTypeWrapper<GeocodeResponse>,
   Geocode: ResolverTypeWrapper<Geocode>,
+  Mutation: ResolverTypeWrapper<{}>,
+  CreateComputationInput: CreateComputationInput,
+  ComputationInput: ComputationInput,
+  CreateComputationPayload: ResolverTypeWrapper<CreateComputationPayload>,
+  CreateStageInput: CreateStageInput,
+  StageInput: StageInput,
+  CreateStagePayload: ResolverTypeWrapper<CreateStagePayload>,
+  CreateTemperatureInput: CreateTemperatureInput,
+  TemperatureInput: TemperatureInput,
+  CreateTemperaturePayload: ResolverTypeWrapper<CreateTemperaturePayload>,
+  CreateUserInput: CreateUserInput,
+  UserInput: UserInput,
+  CreateUserPayload: ResolverTypeWrapper<CreateUserPayload>,
+  UpdateComputationByNodeIdInput: UpdateComputationByNodeIdInput,
+  ComputationPatch: ComputationPatch,
+  UpdateComputationPayload: ResolverTypeWrapper<UpdateComputationPayload>,
+  UpdateComputationInput: UpdateComputationInput,
+  UpdateStageByNodeIdInput: UpdateStageByNodeIdInput,
+  StagePatch: StagePatch,
+  UpdateStagePayload: ResolverTypeWrapper<UpdateStagePayload>,
+  UpdateStageInput: UpdateStageInput,
+  UpdateTemperatureByNodeIdInput: UpdateTemperatureByNodeIdInput,
+  TemperaturePatch: TemperaturePatch,
+  UpdateTemperaturePayload: ResolverTypeWrapper<UpdateTemperaturePayload>,
+  UpdateTemperatureInput: UpdateTemperatureInput,
+  UpdateUserByNodeIdInput: UpdateUserByNodeIdInput,
+  UserPatch: UserPatch,
+  UpdateUserPayload: ResolverTypeWrapper<UpdateUserPayload>,
+  UpdateUserInput: UpdateUserInput,
+  DeleteComputationByNodeIdInput: DeleteComputationByNodeIdInput,
+  DeleteComputationPayload: ResolverTypeWrapper<DeleteComputationPayload>,
+  DeleteComputationInput: DeleteComputationInput,
+  DeleteStageByNodeIdInput: DeleteStageByNodeIdInput,
+  DeleteStagePayload: ResolverTypeWrapper<DeleteStagePayload>,
+  DeleteStageInput: DeleteStageInput,
+  DeleteTemperatureByNodeIdInput: DeleteTemperatureByNodeIdInput,
+  DeleteTemperaturePayload: ResolverTypeWrapper<DeleteTemperaturePayload>,
+  DeleteTemperatureInput: DeleteTemperatureInput,
+  DeleteUserByNodeIdInput: DeleteUserByNodeIdInput,
+  DeleteUserPayload: ResolverTypeWrapper<DeleteUserPayload>,
+  DeleteUserInput: DeleteUserInput,
+  AuthenticateInput: AuthenticateInput,
+  AuthenticatePayload: ResolverTypeWrapper<AuthenticatePayload>,
+  FollowInput: FollowInput,
+  FollowPayload: ResolverTypeWrapper<FollowPayload>,
+  RegisterInput: RegisterInput,
+  RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
+  Result: ResolverTypeWrapper<Result>,
+  CreateGuideInput: CreateGuideInput,
+  UpdateGuidePatch: UpdateGuidePatch,
+  UpdateGuideResult: ResolverTypeWrapper<UpdateGuideResult>,
+  DeleteGuideInput: DeleteGuideInput,
+  DeleteGuideResult: ResolverTypeWrapper<DeleteGuideResult>,
   Subscription: ResolverTypeWrapper<{}>,
 };
 
@@ -2971,7 +4016,67 @@ export type ResolversParentTypes = {
   JwtToken: Scalars['JwtToken'],
   GeocodeResponse: GeocodeResponse,
   Geocode: Geocode,
+  Mutation: {},
+  CreateComputationInput: CreateComputationInput,
+  ComputationInput: ComputationInput,
+  CreateComputationPayload: CreateComputationPayload,
+  CreateStageInput: CreateStageInput,
+  StageInput: StageInput,
+  CreateStagePayload: CreateStagePayload,
+  CreateTemperatureInput: CreateTemperatureInput,
+  TemperatureInput: TemperatureInput,
+  CreateTemperaturePayload: CreateTemperaturePayload,
+  CreateUserInput: CreateUserInput,
+  UserInput: UserInput,
+  CreateUserPayload: CreateUserPayload,
+  UpdateComputationByNodeIdInput: UpdateComputationByNodeIdInput,
+  ComputationPatch: ComputationPatch,
+  UpdateComputationPayload: UpdateComputationPayload,
+  UpdateComputationInput: UpdateComputationInput,
+  UpdateStageByNodeIdInput: UpdateStageByNodeIdInput,
+  StagePatch: StagePatch,
+  UpdateStagePayload: UpdateStagePayload,
+  UpdateStageInput: UpdateStageInput,
+  UpdateTemperatureByNodeIdInput: UpdateTemperatureByNodeIdInput,
+  TemperaturePatch: TemperaturePatch,
+  UpdateTemperaturePayload: UpdateTemperaturePayload,
+  UpdateTemperatureInput: UpdateTemperatureInput,
+  UpdateUserByNodeIdInput: UpdateUserByNodeIdInput,
+  UserPatch: UserPatch,
+  UpdateUserPayload: UpdateUserPayload,
+  UpdateUserInput: UpdateUserInput,
+  DeleteComputationByNodeIdInput: DeleteComputationByNodeIdInput,
+  DeleteComputationPayload: DeleteComputationPayload,
+  DeleteComputationInput: DeleteComputationInput,
+  DeleteStageByNodeIdInput: DeleteStageByNodeIdInput,
+  DeleteStagePayload: DeleteStagePayload,
+  DeleteStageInput: DeleteStageInput,
+  DeleteTemperatureByNodeIdInput: DeleteTemperatureByNodeIdInput,
+  DeleteTemperaturePayload: DeleteTemperaturePayload,
+  DeleteTemperatureInput: DeleteTemperatureInput,
+  DeleteUserByNodeIdInput: DeleteUserByNodeIdInput,
+  DeleteUserPayload: DeleteUserPayload,
+  DeleteUserInput: DeleteUserInput,
+  AuthenticateInput: AuthenticateInput,
+  AuthenticatePayload: AuthenticatePayload,
+  FollowInput: FollowInput,
+  FollowPayload: FollowPayload,
+  RegisterInput: RegisterInput,
+  RegisterPayload: RegisterPayload,
+  Result: Result,
+  CreateGuideInput: CreateGuideInput,
+  UpdateGuidePatch: UpdateGuidePatch,
+  UpdateGuideResult: UpdateGuideResult,
+  DeleteGuideInput: DeleteGuideInput,
+  DeleteGuideResult: DeleteGuideResult,
   Subscription: {},
+};
+
+export type AuthenticatePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthenticatePayload'] = ResolversParentTypes['AuthenticatePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  jwtToken?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export interface BigIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['BigInt'], any> {
@@ -3015,6 +4120,43 @@ export type ComputationsEdgeResolvers<ContextType = any, ParentType extends Reso
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type CreateComputationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateComputationPayload'] = ResolversParentTypes['CreateComputationPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  computation?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  computationEdge?: Resolver<Maybe<ResolversTypes['ComputationsEdge']>, ParentType, ContextType, RequireFields<CreateComputationPayloadComputationEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateStagePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateStagePayload'] = ResolversParentTypes['CreateStagePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  stageEdge?: Resolver<Maybe<ResolversTypes['StagesEdge']>, ParentType, ContextType, RequireFields<CreateStagePayloadStageEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateTemperaturePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateTemperaturePayload'] = ResolversParentTypes['CreateTemperaturePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  temperatureEdge?: Resolver<Maybe<ResolversTypes['TemperaturesEdge']>, ParentType, ContextType, RequireFields<CreateTemperaturePayloadTemperatureEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type CreateUserPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateUserPayload'] = ResolversParentTypes['CreateUserPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<CreateUserPayloadUserEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export interface CursorScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Cursor'], any> {
   name: 'Cursor'
 }
@@ -3023,12 +4165,69 @@ export interface DatetimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
   name: 'Datetime'
 }
 
+export type DeleteComputationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteComputationPayload'] = ResolversParentTypes['DeleteComputationPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  computation?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType>,
+  deletedComputationNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  computationEdge?: Resolver<Maybe<ResolversTypes['ComputationsEdge']>, ParentType, ContextType, RequireFields<DeleteComputationPayloadComputationEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type DeleteGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteGuideResult'] = ResolversParentTypes['DeleteGuideResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type DeleteStagePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteStagePayload'] = ResolversParentTypes['DeleteStagePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  deletedStageNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  stageEdge?: Resolver<Maybe<ResolversTypes['StagesEdge']>, ParentType, ContextType, RequireFields<DeleteStagePayloadStageEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type DeleteTemperaturePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteTemperaturePayload'] = ResolversParentTypes['DeleteTemperaturePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>,
+  deletedTemperatureNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  temperatureEdge?: Resolver<Maybe<ResolversTypes['TemperaturesEdge']>, ParentType, ContextType, RequireFields<DeleteTemperaturePayloadTemperatureEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type DeleteUserPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteUserPayload'] = ResolversParentTypes['DeleteUserPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  deletedUserNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<DeleteUserPayloadUserEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type FollowResolvers<ContextType = any, ParentType extends ResolversParentTypes['Follow'] = ResolversParentTypes['Follow']> = {
   followed?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   follower?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   timestamp?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
   userByFollowed?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   userByFollower?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FollowPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['FollowPayload'] = ResolversParentTypes['FollowPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  follow?: Resolver<Maybe<ResolversTypes['Follow']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  userByFollowed?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  userByFollower?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  followEdge?: Resolver<Maybe<ResolversTypes['FollowsEdge']>, ParentType, ContextType, RequireFields<FollowPayloadFollowEdgeArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -3103,6 +4302,42 @@ export interface JwtTokenScalarConfig extends GraphQLScalarTypeConfig<ResolversT
   name: 'JwtToken'
 }
 
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createComputation?: Resolver<Maybe<ResolversTypes['CreateComputationPayload']>, ParentType, ContextType, RequireFields<MutationCreateComputationArgs, 'input'>>,
+  createStage?: Resolver<Maybe<ResolversTypes['CreateStagePayload']>, ParentType, ContextType, RequireFields<MutationCreateStageArgs, 'input'>>,
+  createTemperature?: Resolver<Maybe<ResolversTypes['CreateTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationCreateTemperatureArgs, 'input'>>,
+  createUser?: Resolver<Maybe<ResolversTypes['CreateUserPayload']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>,
+  updateComputationByNodeId?: Resolver<Maybe<ResolversTypes['UpdateComputationPayload']>, ParentType, ContextType, RequireFields<MutationUpdateComputationByNodeIdArgs, 'input'>>,
+  updateComputation?: Resolver<Maybe<ResolversTypes['UpdateComputationPayload']>, ParentType, ContextType, RequireFields<MutationUpdateComputationArgs, 'input'>>,
+  updateStageByNodeId?: Resolver<Maybe<ResolversTypes['UpdateStagePayload']>, ParentType, ContextType, RequireFields<MutationUpdateStageByNodeIdArgs, 'input'>>,
+  updateStage?: Resolver<Maybe<ResolversTypes['UpdateStagePayload']>, ParentType, ContextType, RequireFields<MutationUpdateStageArgs, 'input'>>,
+  updateTemperatureByNodeId?: Resolver<Maybe<ResolversTypes['UpdateTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationUpdateTemperatureByNodeIdArgs, 'input'>>,
+  updateTemperature?: Resolver<Maybe<ResolversTypes['UpdateTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationUpdateTemperatureArgs, 'input'>>,
+  updateUserByNodeId?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserByNodeIdArgs, 'input'>>,
+  updateUser?: Resolver<Maybe<ResolversTypes['UpdateUserPayload']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'input'>>,
+  deleteComputationByNodeId?: Resolver<Maybe<ResolversTypes['DeleteComputationPayload']>, ParentType, ContextType, RequireFields<MutationDeleteComputationByNodeIdArgs, 'input'>>,
+  deleteComputation?: Resolver<Maybe<ResolversTypes['DeleteComputationPayload']>, ParentType, ContextType, RequireFields<MutationDeleteComputationArgs, 'input'>>,
+  deleteStageByNodeId?: Resolver<Maybe<ResolversTypes['DeleteStagePayload']>, ParentType, ContextType, RequireFields<MutationDeleteStageByNodeIdArgs, 'input'>>,
+  deleteStage?: Resolver<Maybe<ResolversTypes['DeleteStagePayload']>, ParentType, ContextType, RequireFields<MutationDeleteStageArgs, 'input'>>,
+  deleteTemperatureByNodeId?: Resolver<Maybe<ResolversTypes['DeleteTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationDeleteTemperatureByNodeIdArgs, 'input'>>,
+  deleteTemperature?: Resolver<Maybe<ResolversTypes['DeleteTemperaturePayload']>, ParentType, ContextType, RequireFields<MutationDeleteTemperatureArgs, 'input'>>,
+  deleteUserByNodeId?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserByNodeIdArgs, 'input'>>,
+  deleteUser?: Resolver<Maybe<ResolversTypes['DeleteUserPayload']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'input'>>,
+  authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
+  follow?: Resolver<Maybe<ResolversTypes['FollowPayload']>, ParentType, ContextType, RequireFields<MutationFollowArgs, 'input'>>,
+  register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
+  addSpotFromLatLng?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationAddSpotFromLatLngArgs, 'guideId' | 'lat' | 'long' | 'nights'>>,
+  moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
+  removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
+  editStartDate?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditStartDateArgs, 'guideId'>>,
+  editNights?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditNightsArgs, 'spotId' | 'nights'>>,
+  createGuide?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationCreateGuideArgs, never>>,
+  updateGuide?: Resolver<ResolversTypes['UpdateGuideResult'], ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, never>>,
+  deleteGuide?: Resolver<ResolversTypes['DeleteGuideResult'], ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, never>>,
+  followUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowUserArgs, 'username'>>,
+  unfollowUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'username'>>,
+};
+
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
   __resolveType: TypeResolveFn<'Query' | 'Computation' | 'Stage' | 'Guide' | 'User' | 'Spot' | 'Ride' | 'Temperature', ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
@@ -3144,8 +4379,22 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   stageByNodeId?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageByNodeIdArgs, 'nodeId'>>,
   temperatureByNodeId?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureByNodeIdArgs, 'nodeId'>>,
   userByNodeId?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByNodeIdArgs, 'nodeId'>>,
-  appVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   geocode?: Resolver<ResolversTypes['GeocodeResponse'], ParentType, ContextType, RequireFields<QueryGeocodeArgs, 'query'>>,
+  appVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+};
+
+export type RegisterPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['RegisterPayload'] = ResolversParentTypes['RegisterPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<RegisterPayloadUserEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
 export type RideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ride'] = ResolversParentTypes['Ride']> = {
@@ -3296,8 +4545,8 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
   stageByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Stage']>, "stageByNodeId", ParentType, ContextType, RequireFields<SubscriptionStageByNodeIdArgs, 'nodeId'>>,
   temperatureByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperatureByNodeId", ParentType, ContextType, RequireFields<SubscriptionTemperatureByNodeIdArgs, 'nodeId'>>,
   userByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "userByNodeId", ParentType, ContextType, RequireFields<SubscriptionUserByNodeIdArgs, 'nodeId'>>,
-  appVersion?: SubscriptionResolver<ResolversTypes['String'], "appVersion", ParentType, ContextType>,
   geocode?: SubscriptionResolver<ResolversTypes['GeocodeResponse'], "geocode", ParentType, ContextType, RequireFields<SubscriptionGeocodeArgs, 'query'>>,
+  appVersion?: SubscriptionResolver<ResolversTypes['String'], "appVersion", ParentType, ContextType>,
 };
 
 export type TemperatureResolvers<ContextType = any, ParentType extends ResolversParentTypes['Temperature'] = ResolversParentTypes['Temperature']> = {
@@ -3322,6 +4571,50 @@ export type TemperaturesConnectionResolvers<ContextType = any, ParentType extend
 export type TemperaturesEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemperaturesEdge'] = ResolversParentTypes['TemperaturesEdge']> = {
   cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
   node?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateComputationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateComputationPayload'] = ResolversParentTypes['UpdateComputationPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  computation?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  computationEdge?: Resolver<Maybe<ResolversTypes['ComputationsEdge']>, ParentType, ContextType, RequireFields<UpdateComputationPayloadComputationEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateGuideResult'] = ResolversParentTypes['UpdateGuideResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateStagePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateStagePayload'] = ResolversParentTypes['UpdateStagePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
+  stageEdge?: Resolver<Maybe<ResolversTypes['StagesEdge']>, ParentType, ContextType, RequireFields<UpdateStagePayloadStageEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateTemperaturePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateTemperaturePayload'] = ResolversParentTypes['UpdateTemperaturePayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  temperatureEdge?: Resolver<Maybe<ResolversTypes['TemperaturesEdge']>, ParentType, ContextType, RequireFields<UpdateTemperaturePayloadTemperatureEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type UpdateUserPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateUserPayload'] = ResolversParentTypes['UpdateUserPayload']> = {
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
+  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<UpdateUserPayloadUserEdgeArgs, 'orderBy'>>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -3360,14 +4653,25 @@ export type UsersEdgeResolvers<ContextType = any, ParentType extends ResolversPa
 };
 
 export type Resolvers<ContextType = any> = {
+  AuthenticatePayload?: AuthenticatePayloadResolvers<ContextType>,
   BigInt?: GraphQLScalarType,
   Bound?: BoundResolvers<ContextType>,
   Computation?: ComputationResolvers<ContextType>,
   ComputationsConnection?: ComputationsConnectionResolvers<ContextType>,
   ComputationsEdge?: ComputationsEdgeResolvers<ContextType>,
+  CreateComputationPayload?: CreateComputationPayloadResolvers<ContextType>,
+  CreateStagePayload?: CreateStagePayloadResolvers<ContextType>,
+  CreateTemperaturePayload?: CreateTemperaturePayloadResolvers<ContextType>,
+  CreateUserPayload?: CreateUserPayloadResolvers<ContextType>,
   Cursor?: GraphQLScalarType,
   Datetime?: GraphQLScalarType,
+  DeleteComputationPayload?: DeleteComputationPayloadResolvers<ContextType>,
+  DeleteGuideResult?: DeleteGuideResultResolvers<ContextType>,
+  DeleteStagePayload?: DeleteStagePayloadResolvers<ContextType>,
+  DeleteTemperaturePayload?: DeleteTemperaturePayloadResolvers<ContextType>,
+  DeleteUserPayload?: DeleteUserPayloadResolvers<ContextType>,
   Follow?: FollowResolvers<ContextType>,
+  FollowPayload?: FollowPayloadResolvers<ContextType>,
   FollowsConnection?: FollowsConnectionResolvers<ContextType>,
   FollowsEdge?: FollowsEdgeResolvers<ContextType>,
   Geocode?: GeocodeResolvers<ContextType>,
@@ -3376,9 +4680,12 @@ export type Resolvers<ContextType = any> = {
   GuidesConnection?: GuidesConnectionResolvers<ContextType>,
   GuidesEdge?: GuidesEdgeResolvers<ContextType>,
   JwtToken?: GraphQLScalarType,
+  Mutation?: MutationResolvers<ContextType>,
   Node?: NodeResolvers,
   PageInfo?: PageInfoResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
+  RegisterPayload?: RegisterPayloadResolvers<ContextType>,
+  Result?: ResultResolvers<ContextType>,
   Ride?: RideResolvers<ContextType>,
   RidesConnection?: RidesConnectionResolvers<ContextType>,
   RidesEdge?: RidesEdgeResolvers<ContextType>,
@@ -3392,6 +4699,11 @@ export type Resolvers<ContextType = any> = {
   Temperature?: TemperatureResolvers<ContextType>,
   TemperaturesConnection?: TemperaturesConnectionResolvers<ContextType>,
   TemperaturesEdge?: TemperaturesEdgeResolvers<ContextType>,
+  UpdateComputationPayload?: UpdateComputationPayloadResolvers<ContextType>,
+  UpdateGuideResult?: UpdateGuideResultResolvers<ContextType>,
+  UpdateStagePayload?: UpdateStagePayloadResolvers<ContextType>,
+  UpdateTemperaturePayload?: UpdateTemperaturePayloadResolvers<ContextType>,
+  UpdateUserPayload?: UpdateUserPayloadResolvers<ContextType>,
   User?: UserResolvers<ContextType>,
   UsersConnection?: UsersConnectionResolvers<ContextType>,
   UsersEdge?: UsersEdgeResolvers<ContextType>,
