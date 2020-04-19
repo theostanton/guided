@@ -2,6 +2,7 @@ import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
 import * as React from "react"
 import {
+  Container,
   Dropdown,
   Flag,
   FlagNameValues,
@@ -14,6 +15,7 @@ import { COUNTRIES } from "utils/human"
 import SearchStore, { SearchType } from "model/SearchStore"
 import SearchResult from "./SearchResult"
 import { ReactElement, ReactNode } from "react"
+import { Helmet } from "react-helmet"
 
 interface Props extends RouteComponentProps {
   authStore?: AuthStore
@@ -146,6 +148,7 @@ export default class SearchComponent extends React.Component<Props> {
 
   render(): React.ReactElement {
     return <div>
+      <Helmet title={`Search - Riders Bible`} defer={true}/>
       {this.renderHeader()}
       {this.renderResults()}
     </div>

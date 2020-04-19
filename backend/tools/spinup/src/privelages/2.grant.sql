@@ -31,7 +31,9 @@ grant select on table computations to guided_anonymous, guided_user;
 grant select on table follows to guided_anonymous, guided_user;
 -- grant insert, update, delete on table follows to guided_user;
 
-revoke insert, update, delete on table stages from guided_anonymous;
+-- feed_events
+grant select on table feed_events to guided_anonymous, guided_user;
+grant insert, update, delete on table feed_events to guided_user;
 
 
 -- functions

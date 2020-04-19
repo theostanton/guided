@@ -3,7 +3,7 @@ import { client } from "@guided/google"
 import { Spot } from "@guided/database"
 import { toLatLng } from "../../utils"
 
-export default async function(fromSpot: Spot, toSpot: Spot): Promise<DirectionsRoute | null> {
+export default async function(mode: "driving" | "bicycling" | "walking", fromSpot: Spot, toSpot: Spot): Promise<DirectionsRoute | null> {
 
   const origin: LatLng = toLatLng(fromSpot)
   const destination: LatLng = toLatLng(toSpot)
@@ -13,7 +13,7 @@ export default async function(fromSpot: Spot, toSpot: Spot): Promise<DirectionsR
       key: process.env.GOOGLE_KEY!,
       origin,
       destination,
-      mode: "driving",
+      mode,
     },
   })
 

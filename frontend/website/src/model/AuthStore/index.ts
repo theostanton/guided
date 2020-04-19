@@ -1,11 +1,15 @@
-import { observable, action, computed, runInAction } from "mobx"
+import { action, computed, observable, runInAction } from "mobx"
 import store from "store"
 import {
   Colour,
-  GetUsernameDocument, GetUsernameQuery, GetUsernameQueryVariables,
+  GetUsernameDocument,
+  GetUsernameQuery,
+  GetUsernameQueryVariables,
   LoginDocument,
   LoginMutation,
-  LoginMutationVariables, SignUpDocument, SignUpMutation,
+  LoginMutationVariables,
+  SignUpDocument,
+  SignUpMutation,
   SignUpMutationVariables,
 } from "api/generated"
 import { USER_KEY } from "api/client"
@@ -19,7 +23,7 @@ export type User = {
   email: string
 }
 
-export default class Index {
+export default class AuthStore {
 
   @observable
   user: User | undefined
@@ -170,8 +174,8 @@ export default class Index {
 }
 
 const
-  authStore = new Index()
+  authStore = new AuthStore()
+
 export {
-  authStore
-  ,
+  authStore,
 }

@@ -1,11 +1,12 @@
 import * as React from "react"
 import AuthStore from "model/AuthStore"
-import { inject } from "mobx-react"
+import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import Map from "components/Map"
 import LeftRail from "./LeftRail"
 import RightRail from "./RightRail"
 import GuideHeader from "./Header"
+import { Helmet } from "react-helmet"
 
 type Props = {
   guideStore?: GuideStore
@@ -13,11 +14,14 @@ type Props = {
 }
 
 @inject("authStore", "guideStore")
+@observer
 export default class GuideComponent extends React.Component<Props> {
 
   render(): React.ReactElement | undefined {
+    const title = this.props.guideStore.guide ? `${this.props.guideStore.guide.title} by ${this.props.guideStore.guide.owner} - ` : ""
     return (
       <div>
+        <Helmet title={`${title}Riders Bible`} defer={true}/>
         <div style={{
           position: "fixed",
           width: "100%",

@@ -1,10 +1,11 @@
 import * as React from "react"
-import { Form, Button, Message, Container, Header } from "semantic-ui-react"
+import { Form, Button, Message, Container, Header, Grid } from "semantic-ui-react"
 import { Link } from "@reach/router"
 import { inject } from "mobx-react"
 import AuthStore from "model/AuthStore"
  import { RouteComponentProps } from "@reach/router"
 import { navigate } from "@reach/router"
+import { Helmet } from "react-helmet"
 
 interface Props extends RouteComponentProps {
   authStore?: AuthStore
@@ -50,6 +51,7 @@ export default class LoginComponent extends React.Component<Props, State> {
 
     const { password, email, error, loading } = this.state
     return <Container text style={{ marginTop: "2em" }}>
+      <Helmet title={`Login - Riders Bible`} defer={true}/>
       <Form error={error !== undefined}>
         <Form.Input
           label={"Email"}

@@ -845,6 +845,130 @@ type DeleteUserPayload {
   ): UsersEdge
 }
 
+type FeedEvent implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  timestamp: Datetime!
+  type: FeedEventType!
+  ride: String
+  guide: String
+  user: String
+
+  """Reads a single `Ride` that is related to this `FeedEvent`."""
+  rideByRide: Ride
+
+  """Reads a single `Guide` that is related to this `FeedEvent`."""
+  guideByGuide: Guide
+
+  """Reads a single `User` that is related to this `FeedEvent`."""
+  userByUser: User
+}
+
+"""
+A filter to be used against `FeedEvent` object types. All fields are combined with a logical ‘and.’
+"""
+input FeedEventFilter {
+  """Filter by the object’s `timestamp` field."""
+  timestamp: DatetimeFilter
+
+  """Filter by the object’s `type` field."""
+  type: FeedEventTypeFilter
+
+  """Filter by the object’s `ride` field."""
+  ride: StringFilter
+
+  """Filter by the object’s `guide` field."""
+  guide: StringFilter
+
+  """Filter by the object’s `user` field."""
+  user: StringFilter
+
+  """Checks for all expressions in this list."""
+  and: [FeedEventFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [FeedEventFilter!]
+
+  """Negates the expression."""
+  not: FeedEventFilter
+}
+
+"""A connection to a list of `FeedEvent` values."""
+type FeedEventsConnection {
+  """A list of `FeedEvent` objects."""
+  nodes: [FeedEvent]!
+
+  """
+  A list of edges which contains the `FeedEvent` and cursor to aid in pagination.
+  """
+  edges: [FeedEventsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `FeedEvent` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `FeedEvent` edge in the connection."""
+type FeedEventsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `FeedEvent` at the end of the edge."""
+  node: FeedEvent
+}
+
+enum FeedEventType {
+  NEW_GUIDE
+  NEW_FOLLOWS
+  SELF_CREATED
+}
+
+"""
+A filter to be used against FeedEventType fields. All fields are combined with a logical ‘and.’
+"""
+input FeedEventTypeFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: FeedEventType
+
+  """Not equal to the specified value."""
+  notEqualTo: FeedEventType
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: FeedEventType
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: FeedEventType
+
+  """Included in the specified list."""
+  in: [FeedEventType!]
+
+  """Not included in the specified list."""
+  notIn: [FeedEventType!]
+
+  """Less than the specified value."""
+  lessThan: FeedEventType
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: FeedEventType
+
+  """Greater than the specified value."""
+  greaterThan: FeedEventType
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: FeedEventType
+}
+
 """
 A filter to be used against Float fields. All fields are combined with a logical ‘and.’
 """
@@ -1974,6 +2098,36 @@ type Query implements Node {
   temperature(id: String!): Temperature
   user(username: String!): User
   countries: [String]
+
+  """Reads and enables pagination through a set of `FeedEvent`."""
+  feed(
+    _username: String
+    perPage: Int
+    pageOffset: Int
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: FeedEventFilter
+  ): FeedEventsConnection!
   getCurrentUser: JwtToken
 
   """Reads a single `Computation` using its globally unique `ID`."""
@@ -3511,6 +3665,36 @@ type Subscription {
 
   """ (live)"""
   countries: [String]
+
+  """Reads and enables pagination through a set of `FeedEvent`. (live)"""
+  feed(
+    _username: String
+    perPage: Int
+    pageOffset: Int
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: FeedEventFilter
+  ): FeedEventsConnection!
 
   """ (live)"""
   getCurrentUser: JwtToken

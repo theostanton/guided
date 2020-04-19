@@ -1,51 +1,43 @@
 import React from "react"
-
 import { Feed, Icon } from "semantic-ui-react"
-import { GuideFeedItemFragment } from "api/generated"
-import { humanDate, humanDistance, humanDuration, humanElapsed, plural } from "utils/human"
+import { FeedEventFragment } from "api/generated"
 import { Link } from "@reach/router"
+import { humanDate, humanDistance, humanDuration, humanElapsed, plural } from "../../../utils/human"
+
+type NewGuideFeedEvent = Pick<FeedEventFragment, "timestamp" | "guide" | "user">
 
 type Props = {
-  isOwner: boolean
-  item: GuideFeedItemFragment
+  event: NewGuideFeedEvent
 }
 
 export default class NewGuideFeedItem extends React.Component<Props> {
 
   render(): React.ReactElement {
-    const item = this.props.item
-
-    const distanceMeters = item.rides.nodes.reduce((acc, ride) => {
-      return acc + ride.distanceMeters || 0
+    const guide = this.props.event.guide
+    const nights = guide.spots.nodes.reduce((acc, spot) => {
+      return acc + spot.nights
     }, 0)
-
-    const durationSeconds = item.rides.nodes.reduce((acc, ride) => {
-      return acc + ride.durationSeconds || 0
-    }, 0)
-
-    const nights = item.spots.nodes.reduce((acc, ride) => {
-      return acc + ride.nights
-    }, 0)
-
-
-    return <Feed.Event key={item.id}>
-      <Feed.Label icon={<Icon name={"user"} color={item.owner.colour?.toLowerCase()}/>}/>
+    return <Feed.Event key={this.props.event.timestamp}>
+      <Feed.Label style={{ paddingTop: "0.5em" }}
+                  icon={<Icon name={"book"}
+                              size={"huge"}
+                              color={guide.owner.colour?.toLowerCase()}/>}/>
       <Feed.Content>
         <Feed.Summary>
-          <Link to={`/${item.owner.username}`}>{this.props.isOwner ? "You" : item.owner.username}</Link> created <Link
-          to={`/${item.owner.username}/${item.slug}`}>{item.title}</Link>
+          <Link to={`/${guide.owner.username}`}>{guide.owner.username}</Link> created <Link
+          to={`/${guide.owner.username}/${guide.slug}`}>{guide.title}</Link>
         </Feed.Summary>
         <Feed.Meta>
-          <Icon name='road'/>{humanDistance(distanceMeters, true, true)}
-          <Icon name='clock'/>{humanDuration(durationSeconds, true)}
+          {guide.startDate && <><Icon name='calendar'/>{humanDate(guide.startDate)}</>}
           <Icon name='moon'/>{nights} {plural("night", nights)}
-          {item.startDate && <><Icon name='calendar'/>{humanDate(item.startDate)}</>}
+          <Icon name='road'/>{humanDistance(guide.distanceMeters, true, true)}
+          <Icon name='clock'/>{humanDuration(guide.durationSeconds, true)}
+          <Icon name='map outline'/>{guide.countries.length} {guide.countries.length === 1 ? "country" : "countries"}
         </Feed.Meta>
         <Feed.Extra>
-          <Feed.Date>{humanElapsed(new Date(item.created))}</Feed.Date>
+          <Feed.Date>{humanElapsed(new Date(guide.created))}</Feed.Date>
         </Feed.Extra>
       </Feed.Content>
     </Feed.Event>
   }
-
 }

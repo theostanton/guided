@@ -1,10 +1,9 @@
 import * as React from "react"
 import { Button, Container, Form, Header, Message } from "semantic-ui-react"
-import { Link } from "@reach/router"
-import { navigate } from "@reach/router"
+import { Link, navigate, RouteComponentProps } from "@reach/router"
 import { inject } from "mobx-react"
 import AuthStore from "model/AuthStore"
- import { RouteComponentProps } from "@reach/router"
+import { Helmet } from "react-helmet"
 
 type Stage = "enter" | "error" | "submitting" | "validate"
 
@@ -131,6 +130,7 @@ export default class SignUpComponent extends React.Component<Props, State> {
 
     const { fields: { password, email, username }, accept, errors, stage, validationCode } = this.state
     return <Container text style={{ marginTop: "2em" }}>
+      <Helmet title={`Sign up - Riders Bible`} defer={true}/>
       <Form error={stage === "error"}>
         <Form.Input
           label="Username"

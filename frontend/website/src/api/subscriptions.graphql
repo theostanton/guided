@@ -14,7 +14,7 @@ fragment GuideIDs on Guide{
     id
 }
 
-subscription Feed{
+subscription OldFeed{
     items:query{
         newGuides:guides(
             orderBy: [CREATED_DESC]

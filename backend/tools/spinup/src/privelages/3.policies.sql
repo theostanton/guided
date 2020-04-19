@@ -48,3 +48,10 @@ create policy update_spot on spots for update
 
 create policy delete_spot on spots for delete
     using (owner = nullif(current_setting('jwt.claims.username', true), '')::text);
+
+
+-- spots
+alter table feed_events
+    enable row level security;
+
+create policy select_feed_events on feed_events for select using (true);

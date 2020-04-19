@@ -1,28 +1,17 @@
 import * as React from "react"
+import { CSSProperties } from "react"
 
 import { RouteComponentProps } from "@reach/router"
 import AuthStore from "model/AuthStore"
-import {
-  Segment,
-  Grid,
-  GridColumn,
-  Icon,
-  Header,
-  StatisticGroup,
-  Statistic,
-} from "semantic-ui-react"
+import { Grid, GridColumn, Header, Icon, Segment, Statistic, StatisticGroup } from "semantic-ui-react"
 import client from "api/client"
-import {
-  UserInfoFragment,
-  UserProfileDocument,
-  UserProfileQuery,
-} from "api/generated"
-import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
+import { UserInfoFragment, UserProfileDocument, UserProfileQuery } from "api/generated"
 import { humanDate, humanDistance } from "utils/human"
 import { inject, observer } from "mobx-react"
 import { logObject } from "utils/logger"
-import { CSSProperties } from "react"
 import FollowButton from "../../FollowButton"
+import { Helmet } from "react-helmet"
+import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
 import GuidesList from "../Guides/GuidesList"
 
 interface Props extends RouteComponentProps {
@@ -134,6 +123,7 @@ export default class ProfileComponent extends React.Component<Props, State> {
 
     if (profile) {
       return <Grid style={{ marginTop: 20 }}>
+        <Helmet title={`${profile.username} on Riders Bible`} defer={true}/>
         <GridColumn width={6}>
           <Icon name={"user"} size={"massive"} fitted bordered color={profile.colour?.toLowerCase()}/>
           <Header>

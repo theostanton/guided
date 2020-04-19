@@ -712,6 +712,94 @@ export type DeleteUserPayloadUserEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
 };
 
+export type FeedEvent = Node & {
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  readonly nodeId: Scalars['ID'];
+  readonly timestamp: Scalars['Datetime'];
+  readonly type: FeedEventType;
+  readonly ride?: Maybe<Scalars['String']>;
+  readonly guide?: Maybe<Scalars['String']>;
+  readonly user?: Maybe<Scalars['String']>;
+  /** Reads a single `Ride` that is related to this `FeedEvent`. */
+  readonly rideByRide?: Maybe<Ride>;
+  /** Reads a single `Guide` that is related to this `FeedEvent`. */
+  readonly guideByGuide?: Maybe<Guide>;
+  /** Reads a single `User` that is related to this `FeedEvent`. */
+  readonly userByUser?: Maybe<User>;
+};
+
+/** A filter to be used against `FeedEvent` object types. All fields are combined with a logical ‘and.’ */
+export type FeedEventFilter = {
+  /** Filter by the object’s `timestamp` field. */
+  readonly timestamp?: Maybe<DatetimeFilter>;
+  /** Filter by the object’s `type` field. */
+  readonly type?: Maybe<FeedEventTypeFilter>;
+  /** Filter by the object’s `ride` field. */
+  readonly ride?: Maybe<StringFilter>;
+  /** Filter by the object’s `guide` field. */
+  readonly guide?: Maybe<StringFilter>;
+  /** Filter by the object’s `user` field. */
+  readonly user?: Maybe<StringFilter>;
+  /** Checks for all expressions in this list. */
+  readonly and?: Maybe<ReadonlyArray<FeedEventFilter>>;
+  /** Checks for any expressions in this list. */
+  readonly or?: Maybe<ReadonlyArray<FeedEventFilter>>;
+  /** Negates the expression. */
+  readonly not?: Maybe<FeedEventFilter>;
+};
+
+/** A connection to a list of `FeedEvent` values. */
+export type FeedEventsConnection = {
+  /** A list of `FeedEvent` objects. */
+  readonly nodes: ReadonlyArray<Maybe<FeedEvent>>;
+  /** A list of edges which contains the `FeedEvent` and cursor to aid in pagination. */
+  readonly edges: ReadonlyArray<FeedEventsEdge>;
+  /** Information to aid in pagination. */
+  readonly pageInfo: PageInfo;
+  /** The count of *all* `FeedEvent` you could get from the connection. */
+  readonly totalCount: Scalars['Int'];
+};
+
+/** A `FeedEvent` edge in the connection. */
+export type FeedEventsEdge = {
+  /** A cursor for use in pagination. */
+  readonly cursor?: Maybe<Scalars['Cursor']>;
+  /** The `FeedEvent` at the end of the edge. */
+  readonly node?: Maybe<FeedEvent>;
+};
+
+export enum FeedEventType {
+  NewGuide = 'NEW_GUIDE',
+  NewFollows = 'NEW_FOLLOWS',
+  SelfCreated = 'SELF_CREATED'
+}
+
+/** A filter to be used against FeedEventType fields. All fields are combined with a logical ‘and.’ */
+export type FeedEventTypeFilter = {
+  /** Is null (if `true` is specified) or is not null (if `false` is specified). */
+  readonly isNull?: Maybe<Scalars['Boolean']>;
+  /** Equal to the specified value. */
+  readonly equalTo?: Maybe<FeedEventType>;
+  /** Not equal to the specified value. */
+  readonly notEqualTo?: Maybe<FeedEventType>;
+  /** Not equal to the specified value, treating null like an ordinary value. */
+  readonly distinctFrom?: Maybe<FeedEventType>;
+  /** Equal to the specified value, treating null like an ordinary value. */
+  readonly notDistinctFrom?: Maybe<FeedEventType>;
+  /** Included in the specified list. */
+  readonly in?: Maybe<ReadonlyArray<FeedEventType>>;
+  /** Not included in the specified list. */
+  readonly notIn?: Maybe<ReadonlyArray<FeedEventType>>;
+  /** Less than the specified value. */
+  readonly lessThan?: Maybe<FeedEventType>;
+  /** Less than or equal to the specified value. */
+  readonly lessThanOrEqualTo?: Maybe<FeedEventType>;
+  /** Greater than the specified value. */
+  readonly greaterThan?: Maybe<FeedEventType>;
+  /** Greater than or equal to the specified value. */
+  readonly greaterThanOrEqualTo?: Maybe<FeedEventType>;
+};
+
 /** A filter to be used against Float fields. All fields are combined with a logical ‘and.’ */
 export type FloatFilter = {
   /** Is null (if `true` is specified) or is not null (if `false` is specified). */
@@ -1419,6 +1507,8 @@ export type Query = Node & {
   readonly temperature?: Maybe<Temperature>;
   readonly user?: Maybe<User>;
   readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Reads and enables pagination through a set of `FeedEvent`. */
+  readonly feed: FeedEventsConnection;
   readonly getCurrentUser?: Maybe<Scalars['JwtToken']>;
   /** Reads a single `Computation` using its globally unique `ID`. */
   readonly computationByNodeId?: Maybe<Computation>;
@@ -1588,6 +1678,20 @@ export type QueryTemperatureArgs = {
 /** The root query type which gives access points into the data universe. */
 export type QueryUserArgs = {
   username: Scalars['String'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QueryFeedArgs = {
+  _username?: Maybe<Scalars['String']>;
+  perPage?: Maybe<Scalars['Int']>;
+  pageOffset?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  filter?: Maybe<FeedEventFilter>;
 };
 
 
@@ -2485,6 +2589,8 @@ export type Subscription = {
   readonly user?: Maybe<User>;
   /**  (live) */
   readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  /** Reads and enables pagination through a set of `FeedEvent`. (live) */
+  readonly feed: FeedEventsConnection;
   /**  (live) */
   readonly getCurrentUser?: Maybe<Scalars['JwtToken']>;
   /** Reads a single `Computation` using its globally unique `ID`. (live) */
@@ -2993,6 +3099,41 @@ export type SubscriptionTemperatureArgs = {
  */
 export type SubscriptionUserArgs = {
   username: Scalars['String'];
+};
+
+
+/**
+ * The root subscription type: contains events and live queries you can subscribe to with the `subscription` operation.
+ * 
+ * #### Live Queries
+ * 
+ * Live query fields are differentiated by containing `(live)` at the end of their
+ * description, they are added for each field in the `Query` type. When you
+ * subscribe to a live query field, the selection set will be evaluated and sent to
+ * the client, and then most things\* that would cause the output of the selection
+ * set to change will trigger the selection set to be re-evaluated and the results
+ * to be re-sent to the client.
+ * 
+ * _(\* Not everything: typically only changes to persisted data referenced by the query are detected, not computed fields.)_
+ * 
+ * Live queries can be very expensive, so try and keep them small and focussed.
+ * 
+ * #### Events
+ * 
+ * Event fields will run their selection set when, and only when, the specified
+ * server-side event occurs. This makes them a lot more efficient than Live
+ * Queries, but it is still recommended that you keep payloads fairly small.
+ */
+export type SubscriptionFeedArgs = {
+  _username?: Maybe<Scalars['String']>;
+  perPage?: Maybe<Scalars['Int']>;
+  pageOffset?: Maybe<Scalars['Int']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['Cursor']>;
+  after?: Maybe<Scalars['Cursor']>;
+  filter?: Maybe<FeedEventFilter>;
 };
 
 
@@ -3849,7 +3990,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
-  Node: ResolversTypes['Query'] | ResolversTypes['Computation'] | ResolversTypes['Stage'] | ResolversTypes['Guide'] | ResolversTypes['User'] | ResolversTypes['Spot'] | ResolversTypes['Ride'] | ResolversTypes['Temperature'],
+  Node: ResolversTypes['Query'] | ResolversTypes['Computation'] | ResolversTypes['Stage'] | ResolversTypes['Guide'] | ResolversTypes['User'] | ResolversTypes['Spot'] | ResolversTypes['Ride'] | ResolversTypes['Temperature'] | ResolversTypes['FeedEvent'],
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   Cursor: ResolverTypeWrapper<Scalars['Cursor']>,
@@ -3927,6 +4068,12 @@ export type ResolversTypes = {
   FollowingStatusFilter: FollowingStatusFilter,
   UsersConnection: ResolverTypeWrapper<UsersConnection>,
   UsersEdge: ResolverTypeWrapper<UsersEdge>,
+  FeedEventFilter: FeedEventFilter,
+  FeedEventTypeFilter: FeedEventTypeFilter,
+  FeedEventType: FeedEventType,
+  FeedEventsConnection: ResolverTypeWrapper<FeedEventsConnection>,
+  FeedEvent: ResolverTypeWrapper<FeedEvent>,
+  FeedEventsEdge: ResolverTypeWrapper<FeedEventsEdge>,
   JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
   GeocodeResponse: ResolverTypeWrapper<GeocodeResponse>,
   Geocode: ResolverTypeWrapper<Geocode>,
@@ -3995,7 +4142,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {},
-  Node: ResolversParentTypes['Query'] | ResolversParentTypes['Computation'] | ResolversParentTypes['Stage'] | ResolversParentTypes['Guide'] | ResolversParentTypes['User'] | ResolversParentTypes['Spot'] | ResolversParentTypes['Ride'] | ResolversParentTypes['Temperature'],
+  Node: ResolversParentTypes['Query'] | ResolversParentTypes['Computation'] | ResolversParentTypes['Stage'] | ResolversParentTypes['Guide'] | ResolversParentTypes['User'] | ResolversParentTypes['Spot'] | ResolversParentTypes['Ride'] | ResolversParentTypes['Temperature'] | ResolversParentTypes['FeedEvent'],
   ID: Scalars['ID'],
   Int: Scalars['Int'],
   Cursor: Scalars['Cursor'],
@@ -4073,6 +4220,12 @@ export type ResolversParentTypes = {
   FollowingStatusFilter: FollowingStatusFilter,
   UsersConnection: UsersConnection,
   UsersEdge: UsersEdge,
+  FeedEventFilter: FeedEventFilter,
+  FeedEventTypeFilter: FeedEventTypeFilter,
+  FeedEventType: FeedEventType,
+  FeedEventsConnection: FeedEventsConnection,
+  FeedEvent: FeedEvent,
+  FeedEventsEdge: FeedEventsEdge,
   JwtToken: Scalars['JwtToken'],
   GeocodeResponse: GeocodeResponse,
   Geocode: Geocode,
@@ -4292,6 +4445,33 @@ export type DeleteUserPayloadResolvers<ContextType = any, ParentType extends Res
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
+export type FeedEventResolvers<ContextType = any, ParentType extends ResolversParentTypes['FeedEvent'] = ResolversParentTypes['FeedEvent']> = {
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  timestamp?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
+  type?: Resolver<ResolversTypes['FeedEventType'], ParentType, ContextType>,
+  ride?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  guide?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  user?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  rideByRide?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
+  userByUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FeedEventsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['FeedEventsConnection'] = ResolversParentTypes['FeedEventsConnection']> = {
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['FeedEvent']>>, ParentType, ContextType>,
+  edges?: Resolver<ReadonlyArray<ResolversTypes['FeedEventsEdge']>, ParentType, ContextType>,
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type FeedEventsEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['FeedEventsEdge'] = ResolversParentTypes['FeedEventsEdge']> = {
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
+  node?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
 export type FollowResolvers<ContextType = any, ParentType extends ResolversParentTypes['Follow'] = ResolversParentTypes['Follow']> = {
   followed?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   follower?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -4420,7 +4600,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Query' | 'Computation' | 'Stage' | 'Guide' | 'User' | 'Spot' | 'Ride' | 'Temperature', ParentType, ContextType>,
+  __resolveType: TypeResolveFn<'Query' | 'Computation' | 'Stage' | 'Guide' | 'User' | 'Spot' | 'Ride' | 'Temperature' | 'FeedEvent', ParentType, ContextType>,
   nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
 };
 
@@ -4452,6 +4632,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureArgs, 'id'>>,
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'username'>>,
   countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
+  feed?: Resolver<ResolversTypes['FeedEventsConnection'], ParentType, ContextType, RequireFields<QueryFeedArgs, never>>,
   getCurrentUser?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
   computationByNodeId?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType, RequireFields<QueryComputationByNodeIdArgs, 'nodeId'>>,
   guideByNodeId?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideByNodeIdArgs, 'nodeId'>>,
@@ -4618,6 +4799,7 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
   temperature?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperature", ParentType, ContextType, RequireFields<SubscriptionTemperatureArgs, 'id'>>,
   user?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "user", ParentType, ContextType, RequireFields<SubscriptionUserArgs, 'username'>>,
   countries?: SubscriptionResolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, "countries", ParentType, ContextType>,
+  feed?: SubscriptionResolver<ResolversTypes['FeedEventsConnection'], "feed", ParentType, ContextType, RequireFields<SubscriptionFeedArgs, never>>,
   getCurrentUser?: SubscriptionResolver<Maybe<ResolversTypes['JwtToken']>, "getCurrentUser", ParentType, ContextType>,
   computationByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Computation']>, "computationByNodeId", ParentType, ContextType, RequireFields<SubscriptionComputationByNodeIdArgs, 'nodeId'>>,
   guideByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Guide']>, "guideByNodeId", ParentType, ContextType, RequireFields<SubscriptionGuideByNodeIdArgs, 'nodeId'>>,
@@ -4763,6 +4945,9 @@ export type Resolvers<ContextType = any> = {
   DeleteStagePayload?: DeleteStagePayloadResolvers<ContextType>,
   DeleteTemperaturePayload?: DeleteTemperaturePayloadResolvers<ContextType>,
   DeleteUserPayload?: DeleteUserPayloadResolvers<ContextType>,
+  FeedEvent?: FeedEventResolvers<ContextType>,
+  FeedEventsConnection?: FeedEventsConnectionResolvers<ContextType>,
+  FeedEventsEdge?: FeedEventsEdgeResolvers<ContextType>,
   Follow?: FollowResolvers<ContextType>,
   FollowPayload?: FollowPayloadResolvers<ContextType>,
   FollowsConnection?: FollowsConnectionResolvers<ContextType>,
@@ -4995,10 +5180,10 @@ export type GuideIDsSubscription = { readonly guides?: Maybe<{ readonly nodes: R
 
 export type GuideIDsFragment = Pick<Guide, 'id'>;
 
-export type FeedSubscriptionVariables = {};
+export type OldFeedSubscriptionVariables = {};
 
 
-export type FeedSubscription = { readonly items: { readonly newGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }>, readonly updatedGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }>, readonly follows?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<FollowFeedItemFragment>> }> } };
+export type OldFeedSubscription = { readonly items: { readonly newGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }>, readonly updatedGuides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFeedItemFragment>> }>, readonly follows?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<FollowFeedItemFragment>> }> } };
 
 export type GuideStagesSubscriptionVariables = {
   id: Scalars['String'];
@@ -5061,6 +5246,21 @@ export type GeocodeQuery = { readonly geocode: (
     Pick<GeocodeResponse, 'success'>
     & { readonly geocodes?: Maybe<ReadonlyArray<Maybe<Pick<Geocode, 'countryCode' | 'label' | 'latitude' | 'longitude'>>>> }
   ) };
+
+export type FeedEventFragment = (
+  Pick<FeedEvent, 'timestamp' | 'type'>
+  & { readonly ride?: Maybe<Pick<Ride, 'id'>>, readonly guide?: Maybe<(
+    Pick<Guide, 'id' | 'title' | 'slug' | 'distanceMeters' | 'startDate' | 'created' | 'durationSeconds' | 'transportType' | 'countries'>
+    & { readonly spots: { readonly nodes: ReadonlyArray<Maybe<Pick<Spot, 'nights'>>> }, readonly owner?: Maybe<Pick<User, 'username' | 'colour'>> }
+  )>, readonly user?: Maybe<Pick<User, 'username' | 'colour'>> }
+);
+
+export type FeedSubscriptionVariables = {
+  username: Scalars['String'];
+};
+
+
+export type FeedSubscription = { readonly feed: { readonly nodes: ReadonlyArray<Maybe<FeedEventFragment>> } };
 
 export type AvailableCountriesQueryVariables = {};
 
@@ -5335,6 +5535,39 @@ export const CreatingGuideFragmentDoc = gql`
 export const GuideIDsFragmentDoc = gql`
     fragment GuideIDs on Guide {
   id
+}
+    `;
+export const FeedEventFragmentDoc = gql`
+    fragment FeedEvent on FeedEvent {
+  timestamp
+  type
+  ride: rideByRide {
+    id
+  }
+  guide: guideByGuide {
+    id
+    title
+    slug
+    distanceMeters
+    startDate
+    created
+    durationSeconds
+    transportType
+    countries
+    spots: spotsByGuide {
+      nodes {
+        nights
+      }
+    }
+    owner: userByOwner {
+      username
+      colour
+    }
+  }
+  user: userByUser {
+    username
+    colour
+  }
 }
     `;
 export const CreateGuideDocument = gql`
@@ -5980,8 +6213,8 @@ export function useGuideIDsSubscription(baseOptions?: ApolloReactHooks.Subscript
       }
 export type GuideIDsSubscriptionHookResult = ReturnType<typeof useGuideIDsSubscription>;
 export type GuideIDsSubscriptionResult = ApolloReactCommon.SubscriptionResult<GuideIDsSubscription>;
-export const FeedDocument = gql`
-    subscription Feed {
+export const OldFeedDocument = gql`
+    subscription OldFeed {
   items: query {
     newGuides: guides(orderBy: [CREATED_DESC]) {
       nodes {
@@ -6002,33 +6235,33 @@ export const FeedDocument = gql`
 }
     ${GuideFeedItemFragmentDoc}
 ${FollowFeedItemFragmentDoc}`;
-export type FeedComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<FeedSubscription, FeedSubscriptionVariables>, 'subscription'>;
+export type OldFeedComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<OldFeedSubscription, OldFeedSubscriptionVariables>, 'subscription'>;
 
-    export const FeedComponent = (props: FeedComponentProps) => (
-      <ApolloReactComponents.Subscription<FeedSubscription, FeedSubscriptionVariables> subscription={FeedDocument} {...props} />
+    export const OldFeedComponent = (props: OldFeedComponentProps) => (
+      <ApolloReactComponents.Subscription<OldFeedSubscription, OldFeedSubscriptionVariables> subscription={OldFeedDocument} {...props} />
     );
     
 
 /**
- * __useFeedSubscription__
+ * __useOldFeedSubscription__
  *
- * To run a query within a React component, call `useFeedSubscription` and pass it any options that fit your needs.
- * When your component renders, `useFeedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useOldFeedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useOldFeedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFeedSubscription({
+ * const { data, loading, error } = useOldFeedSubscription({
  *   variables: {
  *   },
  * });
  */
-export function useFeedSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<FeedSubscription, FeedSubscriptionVariables>) {
-        return ApolloReactHooks.useSubscription<FeedSubscription, FeedSubscriptionVariables>(FeedDocument, baseOptions);
+export function useOldFeedSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<OldFeedSubscription, OldFeedSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<OldFeedSubscription, OldFeedSubscriptionVariables>(OldFeedDocument, baseOptions);
       }
-export type FeedSubscriptionHookResult = ReturnType<typeof useFeedSubscription>;
-export type FeedSubscriptionResult = ApolloReactCommon.SubscriptionResult<FeedSubscription>;
+export type OldFeedSubscriptionHookResult = ReturnType<typeof useOldFeedSubscription>;
+export type OldFeedSubscriptionResult = ApolloReactCommon.SubscriptionResult<OldFeedSubscription>;
 export const GuideStagesDocument = gql`
     subscription GuideStages($id: String!) {
   guide(id: $id) {
@@ -6345,6 +6578,43 @@ export function useGeocodeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type GeocodeQueryHookResult = ReturnType<typeof useGeocodeQuery>;
 export type GeocodeLazyQueryHookResult = ReturnType<typeof useGeocodeLazyQuery>;
 export type GeocodeQueryResult = ApolloReactCommon.QueryResult<GeocodeQuery, GeocodeQueryVariables>;
+export const FeedDocument = gql`
+    subscription Feed($username: String!) {
+  feed(_username: $username) {
+    nodes {
+      ...FeedEvent
+    }
+  }
+}
+    ${FeedEventFragmentDoc}`;
+export type FeedComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<FeedSubscription, FeedSubscriptionVariables>, 'subscription'>;
+
+    export const FeedComponent = (props: FeedComponentProps) => (
+      <ApolloReactComponents.Subscription<FeedSubscription, FeedSubscriptionVariables> subscription={FeedDocument} {...props} />
+    );
+    
+
+/**
+ * __useFeedSubscription__
+ *
+ * To run a query within a React component, call `useFeedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useFeedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFeedSubscription({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useFeedSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<FeedSubscription, FeedSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<FeedSubscription, FeedSubscriptionVariables>(FeedDocument, baseOptions);
+      }
+export type FeedSubscriptionHookResult = ReturnType<typeof useFeedSubscription>;
+export type FeedSubscriptionResult = ApolloReactCommon.SubscriptionResult<FeedSubscription>;
 export const AvailableCountriesDocument = gql`
     query AvailableCountries {
   countries

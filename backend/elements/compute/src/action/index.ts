@@ -33,12 +33,13 @@ export default async function execute(body: ComputeStageMessageBody): Promise<Co
     const fromSpot = await database.one<Spot>("select * from spots where id=$1", [stage.from_spot])
     const toSpot = await database.one<Spot>("select * from spots where id=$1", [stage.to_spot])
 
-    const route = await getRoute(fromSpot, toSpot)
+    const guide = await database.one<Guide>("select * from guides where id=$1", [stage.guide])
+    let mode: "driving" | "bicycling" | "walking" = guide.transport_type === "BICYCLE" ? "bicycling" : "driving"
+    const route = await getRoute(mode, fromSpot, toSpot)
 
     //TODO get startDate, if previous stages have been calculated
     const startDate: Date | null = null
 
-    const guide = await database.one<Guide>("select * from guides where id=$1", [stage.guide])
     const stageData = await calculateStage(startDate, stage.id, guide, fromSpot, toSpot, route)
 
     await dao.insertData(stageData)

@@ -1,16 +1,18 @@
 import * as React from "react"
+import { CSSProperties } from "react"
 import { Button, Grid, Header } from "semantic-ui-react"
 import AuthStore from "model/AuthStore"
 import { inject, observer } from "mobx-react"
-import Feed from "./Feed"
 import GuideComponent from "./Guide"
-import { GuideInfoFragment } from "../../api/generated"
+import { GuideInfoFragment } from "api/generated"
 
 import { navigate, RouteComponentProps } from "@reach/router"
-import { CSSProperties } from "react"
 import OverlayStore from "model/OverlayStore"
 import FollowingList from "../FollowerList/FollowingList"
 import GuidesList from "./Guides/GuidesList"
+import FeedComponent from "./Feed"
+import FeedStore from "../../model/FeedStore"
+import { Helmet } from "react-helmet"
 
 interface Props extends RouteComponentProps {
   authStore?: AuthStore
@@ -24,6 +26,8 @@ type State = {
 @inject("authStore", "overlayStore")
 @observer
 export default class DashboardComponent extends React.Component<Props, State> {
+
+  feedStore: FeedStore = new FeedStore()
 
   state: State = {
     selectedGuide: undefined,
@@ -42,6 +46,7 @@ export default class DashboardComponent extends React.Component<Props, State> {
 
     //TODO learn css
     return <Grid style={{ marginTop: "1em" }}>
+      <Helmet title={"Riders Bible"}/>
       <Grid.Column width={9}>
         <Grid columns={2}>
           <Grid.Column verticalAlign={"bottom"}>
@@ -57,7 +62,7 @@ export default class DashboardComponent extends React.Component<Props, State> {
       </Grid.Column>
       <Grid.Column style={listStyle} width={7}>
         <Header as={"h1"}>Feed</Header>
-        <Feed/>
+        <FeedComponent feedStore={this.feedStore} authstore={this.props.authStore}/>
         <Header as={"h1"}>Following</Header>
         <FollowingList username={this.props.authStore.owner} type={"following"}/>
         <Header as={"h1"}>Followers</Header>
