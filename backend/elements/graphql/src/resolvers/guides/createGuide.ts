@@ -1,7 +1,7 @@
 import { Mutation } from "../Resolver"
 import { CreateGuideResult, MutationCreateGuideArgs } from "generated"
 import { Context } from "model/context"
-import create from "actions/guides/create"
+import create from "../../actions/guides/create"
 import { gql } from "graphile-utils"
 
 export default class CreateGuideMutation extends Mutation<MutationCreateGuideArgs, CreateGuideResult> {

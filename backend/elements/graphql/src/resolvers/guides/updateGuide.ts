@@ -1,9 +1,9 @@
 import { gql } from "graphile-utils"
 import { Mutation, MutationResult } from "../Resolver"
-import { Context } from "../../model/context"
+import { Context } from "model/context"
 import access from "./access"
-import performUpdateGuide from "actions/guides/update"
-import { MutationUpdateGuideArgs, UpdateGuideResult } from "../../generated"
+import performUpdateGuide from "../../actions/guides/update"
+import { MutationUpdateGuideArgs, UpdateGuideResult } from "generated"
 import { DENIED, NOT_LOGGED_IN } from "../utils/messages"
 
 export default class UpdateGuideMutation extends Mutation<MutationUpdateGuideArgs, MutationResult> {
@@ -21,6 +21,7 @@ export default class UpdateGuideMutation extends Mutation<MutationUpdateGuideArg
           success:Boolean!
           message:String
           id:String
+          triggeredComputations:Boolean
       }
       extend type Mutation {
           updateGuide(input:UpdateGuidePatch):UpdateGuideResult!

@@ -8,21 +8,7 @@
     "declaration": false,
     "composite": false,
     "declarationMap": false,
-    "baseUrl": "src",
-//    "paths": {
-//      //      "model/*": [
-//      //        "model/*"
-//      //      ],
-//      //      "plugins/*": [
-//      //        "src/plugins/*"
-//      //      ],
-//      //      "resolvers/*": [
-//      //        "src/resolvers/*"
-//      //      ],
-//      "**/*": [
-//        "src/*"
-//      ]
-//    }
+    "baseUrl": "src"
   },
   "exclude": [
     "srv",

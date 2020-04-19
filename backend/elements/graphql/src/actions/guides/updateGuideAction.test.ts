@@ -93,6 +93,7 @@ describe("When updating a guides type and isCircular", () => {
 
     updateGuideResult = await update({
       id: createGuideResult.guideId!,
+      title: TITLE,
       isCircular: IS_CIRCULAR_AFTER,
       type: TRANSPORT_TYPE_AFTER,
     })

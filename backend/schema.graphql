@@ -3809,7 +3809,7 @@ type UpdateComputationPayload {
 
 input UpdateGuidePatch {
   id: String!
-  title: String
+  title: String!
   isCircular: Boolean
   maxHoursPerRide: Int
   type: TransportType
@@ -3819,6 +3819,7 @@ type UpdateGuideResult {
   success: Boolean!
   message: String
   id: String
+  triggeredComputations: Boolean
 }
 
 """All input for the `updateStageByNodeId` mutation."""

@@ -1,15 +1,14 @@
 import { UpdateGuidePatch, UpdateGuideResult } from "../../generated"
 import slugify from "slugify"
 import { database, Guide, updateOne } from "@guided/database"
-import { logJson } from "@guided/logger"
 
 export default async function(patch: UpdateGuidePatch): Promise<UpdateGuideResult> {
 
   const { id: previousId, title, isCircular, type, maxHoursPerRide } = patch
 
-  logJson(patch, "patch")
-
   const updatedGuide = await database.selectGuide(previousId)
+
+  let triggerComputations = false
 
   if (title !== undefined) {
     const slug = slugify(title!, {
@@ -25,19 +24,20 @@ export default async function(patch: UpdateGuidePatch): Promise<UpdateGuideResul
 
   if (isCircular !== undefined) {
     updatedGuide.is_circular = isCircular!
+    triggerComputations = true
   }
 
   if (type !== undefined) {
     updatedGuide.transport_type = type!
+    triggerComputations = true
   }
 
   if (maxHoursPerRide !== undefined) {
     updatedGuide.max_hours_per_ride = maxHoursPerRide!
+    triggerComputations = true
   }
 
   updatedGuide.updated = new Date()
-
-  logJson(updatedGuide, "updatedGuide")
 
   const updateQuery = updateOne<Guide>("guides", updatedGuide, "id", previousId!)
 
@@ -48,6 +48,7 @@ export default async function(patch: UpdateGuidePatch): Promise<UpdateGuideResul
       return {
         success: true,
         id: result.id!,
+        // triggeredComputations: triggerComputations,
       }
     } else {
       return {

@@ -1,5 +1,5 @@
 import { database } from "@guided/database"
-import { MutationResult } from "../../resolvers/Resolver"
+import { MutationResult } from "resolvers/Resolver"
 
 export default async function(guideId:string):Promise<MutationResult>{
   try {

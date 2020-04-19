@@ -3397,7 +3397,7 @@ export type UpdateComputationPayloadComputationEdgeArgs = {
 
 export type UpdateGuidePatch = {
   readonly id: Scalars['String'];
-  readonly title?: Maybe<Scalars['String']>;
+  readonly title: Scalars['String'];
   readonly isCircular?: Maybe<Scalars['Boolean']>;
   readonly maxHoursPerRide?: Maybe<Scalars['Int']>;
   readonly type?: Maybe<TransportType>;
@@ -3407,6 +3407,7 @@ export type UpdateGuideResult = {
   readonly success: Scalars['Boolean'];
   readonly message?: Maybe<Scalars['String']>;
   readonly id?: Maybe<Scalars['String']>;
+  readonly triggeredComputations?: Maybe<Scalars['Boolean']>;
 };
 
 /** All input for the `updateStageByNodeId` mutation. */
@@ -4630,6 +4631,7 @@ export type UpdateGuideResultResolvers<ContextType = any, ParentType extends Res
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  triggeredComputations?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 

@@ -1,4 +1,4 @@
-import ReactMapGL, { FlyToInterpolator, Marker, TransitionInterpolator } from "react-map-gl"
+import ReactMapGL, { FlyToInterpolator, TransitionInterpolator } from "react-map-gl"
 
 import React, { Component } from "react"
 import { Markers } from "./Markers"
@@ -177,10 +177,12 @@ export default class Map extends Component<Props, State> {
     if (guide && this.props.guideStore.isOwner) {
       onClick = (async (event) => {
         const variables: AddStayFromLatLongMutationVariables = {
-          guideId: guide.id,
-          long: event.lngLat[0],
-          lat: event.lngLat[1],
-          nights: 1,
+          input: {
+            guideId: guide.id,
+            long: event.lngLat[0],
+            lat: event.lngLat[1],
+            nights: 1,
+          },
         }
 
         await client.mutate({
