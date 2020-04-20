@@ -31,6 +31,7 @@ fragment GuideInfo on Guide{
     created
     durationSeconds
     distanceMeters
+    transportType
     countries
     bounds{
         east

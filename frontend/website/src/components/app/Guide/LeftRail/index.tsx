@@ -1,23 +1,26 @@
 import * as React from "react"
+import { CSSProperties, ReactElement } from "react"
 import {
   Button,
+  ButtonGroup,
   Grid,
-  Statistic,
   GridRow,
-  StatisticGroup, Segment, ButtonGroup, Icon, Form,
+  Icon,
+  Segment,
+  SemanticICONS,
+  Statistic,
+  StatisticGroup,
 } from "semantic-ui-react"
 import { client } from "api"
-import { DeleteGuideDocument, DeleteGuideMutationVariables, GuideFragment } from "api/generated"
+import { DeleteGuideDocument, DeleteGuideMutationVariables, GuideFragment, TransportType } from "api/generated"
 import { inject, observer } from "mobx-react"
 import GuideStore from "model/GuideStore"
 import AuthStore from "model/AuthStore"
 import StartDateForm from "./StartDateForm"
 import EditGuideTitleForm from "./EditGuideTitleForm"
-import { CSSProperties, ReactElement } from "react"
 import { navigate } from "@reach/router"
 import { humanDate, humanDistance } from "utils/human"
-import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
-import { Link } from "@reach/router"
+import { Icons } from "../../../../utils/icons"
 
 type Props = {
   guideStore?: GuideStore
@@ -141,6 +144,17 @@ export default class LeftRailComponent extends React.Component<Props, State> {
     }
   }
 
+  icon(): SemanticICONS {
+    switch (this.guideStore.guide.transportType) {
+      case TransportType.Bicycle:
+        return Icons.Bicycle
+      case TransportType.Car:
+        return Icons.Car
+      case TransportType.Motorcycle:
+        return Icons.Motorcycle
+    }
+  }
+
   render(): React.ReactElement {
     const guide = this.guideStore?.guide
 
@@ -152,11 +166,14 @@ export default class LeftRailComponent extends React.Component<Props, State> {
 
     return <Segment style={{ backgroundColor: "#ffffff" }}>
       <Grid divided={"vertically"} padded={false}>
-        <Grid.Row verticalAlign='middle'>
-          <Grid.Column width={"10"}>
+        <Grid.Row verticalAlign='middle' style={{ paddingBottom: 0 }}>
+          <Grid.Column width={1}>
+            <Icon name={this.icon()} size={"large"}/>
+          </Grid.Column>
+          <Grid.Column width={11}>
             <EditGuideTitleForm guide={guide} isOwner={isOwner}/>
           </Grid.Column>
-          <Grid.Column width={"6"}>
+          <Grid.Column width={4}>
             <ButtonGroup floated={"right"}>
               {isOwner && <Button icon='trash' onClick={async () => {
                 await this.deleteGuide(guide.id)

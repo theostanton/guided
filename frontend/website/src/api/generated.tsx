@@ -377,7 +377,7 @@ export type CreateComputationPayloadComputationEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
 };
 
-export type CreateGuideMutationInput = {
+export type CreateGuideInput = {
   readonly title: Scalars['String'];
   readonly isCircular?: Maybe<Scalars['Boolean']>;
   readonly maxHoursPerRide: Scalars['Int'];
@@ -1415,7 +1415,7 @@ export type MutationEditNightsArgs = {
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateGuideArgs = {
-  input?: Maybe<CreateGuideMutationInput>;
+  input?: Maybe<CreateGuideInput>;
 };
 
 
@@ -4125,7 +4125,7 @@ export type ResolversTypes = {
   RegisterInput: RegisterInput,
   RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
   Result: ResolverTypeWrapper<Result>,
-  CreateGuideMutationInput: CreateGuideMutationInput,
+  CreateGuideInput: CreateGuideInput,
   CreateGuideResult: ResolverTypeWrapper<CreateGuideResult>,
   UpdateGuidePatch: UpdateGuidePatch,
   UpdateGuideResult: ResolverTypeWrapper<UpdateGuideResult>,
@@ -4277,7 +4277,7 @@ export type ResolversParentTypes = {
   RegisterInput: RegisterInput,
   RegisterPayload: RegisterPayload,
   Result: Result,
-  CreateGuideMutationInput: CreateGuideMutationInput,
+  CreateGuideInput: CreateGuideInput,
   CreateGuideResult: CreateGuideResult,
   UpdateGuidePatch: UpdateGuidePatch,
   UpdateGuideResult: UpdateGuideResult,
@@ -5003,7 +5003,7 @@ export type UserInfoFragment = (
 
 export type GuideInfoFragment = (
   { readonly __typename: 'Guide' }
-  & Pick<Guide, 'id' | 'title' | 'slug' | 'startDate' | 'owner' | 'created' | 'durationSeconds' | 'distanceMeters' | 'countries'>
+  & Pick<Guide, 'id' | 'title' | 'slug' | 'startDate' | 'owner' | 'created' | 'durationSeconds' | 'distanceMeters' | 'transportType' | 'countries'>
   & { readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>>, readonly rides: (
     Pick<RidesConnection, 'totalCount'>
     & { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'id' | 'pathUrl' | 'date'>>> }
@@ -5060,7 +5060,7 @@ export type CreatingGuideFragment = (
 );
 
 export type CreateGuideMutationVariables = {
-  input: CreateGuideMutationInput;
+  input: CreateGuideInput;
 };
 
 
@@ -5341,6 +5341,7 @@ export const GuideInfoFragmentDoc = gql`
   created
   durationSeconds
   distanceMeters
+  transportType
   countries
   bounds {
     east
@@ -5571,7 +5572,7 @@ export const FeedEventFragmentDoc = gql`
 }
     `;
 export const CreateGuideDocument = gql`
-    mutation CreateGuide($input: CreateGuideMutationInput!) {
+    mutation CreateGuide($input: CreateGuideInput!) {
   createGuide(input: $input) {
     success
     message

@@ -3,6 +3,7 @@ import { Feed, Icon } from "semantic-ui-react"
 import { FeedEventFragment } from "api/generated"
 import { Link } from "@reach/router"
 import { humanDate, humanDistance, humanDuration, humanElapsed, plural } from "../../../utils/human"
+import { Icons } from "../../../utils/icons"
 
 type NewGuideFeedEvent = Pick<FeedEventFragment, "timestamp" | "guide" | "user">
 
@@ -19,7 +20,7 @@ export default class NewGuideFeedItem extends React.Component<Props> {
     }, 0)
     return <Feed.Event key={this.props.event.timestamp}>
       <Feed.Label style={{ paddingTop: "0.5em" }}
-                  icon={<Icon name={"book"}
+                  icon={<Icon name={Icons.Guide}
                               size={"huge"}
                               color={guide.owner.colour?.toLowerCase()}/>}/>
       <Feed.Content>

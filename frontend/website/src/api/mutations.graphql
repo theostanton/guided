@@ -1,4 +1,4 @@
-mutation CreateGuide($input:CreateGuideMutationInput!){
+mutation CreateGuide($input:CreateGuideInput!){
     createGuide(input: $input){
         success
         message

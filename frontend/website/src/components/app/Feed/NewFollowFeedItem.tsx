@@ -3,6 +3,7 @@ import { Feed, Icon } from "semantic-ui-react"
 import { FeedEventFragment } from "api/generated"
 import { Link } from "@reach/router"
 import { humanElapsed } from "../../../utils/human"
+import { Icons } from "../../../utils/icons"
 
 type NewFollowFeedEvent = Pick<FeedEventFragment, "timestamp" | "user">
 
@@ -16,7 +17,7 @@ export default class NewFollowFeedItem extends React.Component<Props> {
     const follower = this.props.event.user
     return <Feed.Event key={this.props.event.timestamp}>
       <Feed.Label style={{ paddingTop: "0.5em" }}
-                  icon={<Icon name={"user"} color={follower.colour?.toLowerCase()}/>}/>
+                  icon={<Icon name={Icons.Follow} color={follower.colour?.toLowerCase()}/>}/>
       <Feed.Content>
 
         <Feed.Summary>

@@ -1,26 +1,31 @@
-import { Bound, DeleteGuideDocument, DeleteGuideMutationVariables, GuideInfoFragment } from "api/generated"
+import { DeleteGuideDocument, DeleteGuideMutationVariables, GuideInfoFragment, TransportType } from "api/generated"
 import {
-  Card, Flag,
+  Button,
+  ButtonGroup,
+  Card,
+  Flag,
   FlagNameValues,
   Grid,
   Header,
+  Icon,
   List,
-  Popup,
   ListItem,
+  Popup,
+  SemanticICONS,
   Statistic,
-  StatisticGroup, ButtonGroup, Button,
+  StatisticGroup,
 } from "semantic-ui-react"
 import { humanCountry, humanDate, humanDistance } from "utils/human"
 import * as React from "react"
+import { CSSProperties, ReactElement } from "react"
 import randomKey from "utils/randomKey"
 import ReactMapGL from "react-map-gl"
-import WebMercatorViewport from "viewport-mercator-project"
 import { navigate } from "@reach/router"
-import { CSSProperties, ReactElement } from "react"
 import { client } from "../../../api"
 import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
 import { GuideItemRideLine } from "./GuideItemRideLine"
 import { generateViewport } from "../../Map/viewport"
+import { Icons } from "../../../utils/icons"
 
 type Props = {
   isOwner: boolean
@@ -92,6 +97,17 @@ export default class GuideItem extends React.Component<Props, State> {
     </Card.Content>
   }
 
+  icon(): SemanticICONS {
+    switch (this.props.guide.transportType) {
+      case TransportType.Bicycle:
+        return Icons.Bicycle
+      case TransportType.Car:
+        return Icons.Car
+      case TransportType.Motorcycle:
+        return Icons.Motorcycle
+    }
+  }
+
   header(): React.ReactElement {
 
     const guide = this.props.guide
@@ -107,9 +123,11 @@ export default class GuideItem extends React.Component<Props, State> {
       return <List horizontal={true} floated={"right"} items={items}/>
     }
 
-
     return <Card.Content onClick={this.onClick.bind(this)}>
-      <Grid columns={2} verticalAlign={"middle"}>
+      <Grid columns={3} verticalAlign={"middle"}>
+        <Grid.Column width={1}>
+          <Icon name={this.icon()} size={"large"}/>
+        </Grid.Column>
         <Grid.Column>
           <Header
             as={"h3"}>{guide.title}<HeaderSubHeader>Created {humanDate(guide.created, true)}</HeaderSubHeader></Header>

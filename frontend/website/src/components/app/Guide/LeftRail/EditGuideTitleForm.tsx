@@ -16,10 +16,12 @@ export default class EditGuideTitleForm extends React.Component<Props, State> {
   render(): React.ReactElement {
     const guide = this.props.guide
     if (this.props.isOwner) {
-      return <Header as='h2'>{guide.title}</Header>
+      return <Header style={{ paddingLeft: "0.5em" }}
+                     as='h2'>{guide.title}</Header>
     } else {
-      return <Header
-        as='h2'>{guide.title}<HeaderSubHeader>by <Link to={`/${guide.owner}`}>{guide.owner}</Link></HeaderSubHeader></Header>
+      return <Header style={{ paddingLeft: "0.5em" }}
+                     as='h2'>{guide.title}<HeaderSubHeader>by <Link
+        to={`/${guide.owner}`}>{guide.owner}</Link></HeaderSubHeader></Header>
     }
   }
 
