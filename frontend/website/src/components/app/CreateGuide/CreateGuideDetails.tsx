@@ -83,11 +83,17 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
       return
     }
 
+    const { title, maxHoursPerRide, transportType } = this.state
+
+    if (!this.createGuideStore.needToUpsert(title, maxHoursPerRide, transportType)) {
+      return true
+    }
+
     this.setState({
       status: "loading",
       error: undefined,
     })
-    const { title, maxHoursPerRide, transportType } = this.state
+
     const result = await this.createGuideStore.upsertGuide(title, maxHoursPerRide, transportType)
 
     if (result.success) {

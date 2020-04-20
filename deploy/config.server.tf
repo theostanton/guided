@@ -129,6 +129,7 @@ resource "null_resource" "install_node" {
 
 resource "null_resource" "upload_server" {
   triggers = {
+    force=timestamp()
     public_ip = aws_instance.server.public_ip
     sha1 = sha1(file("dist/server.js"))
   }
@@ -179,6 +180,7 @@ resource "null_resource" "upload_envs" {
 
 resource "null_resource" "upload_cache" {
   triggers = {
+    force=timestamp()
     public_ip = aws_instance.server.public_ip
     sha1 = sha1(file("dist/cache"))
   }

@@ -84,6 +84,7 @@ prepareServer() {
   yarn build
 
   log 'Build graphql cache'
+  rm -f dist/cache
   node srv/buildCache.js
   if [ ! -f "dist/cache" ]; then
     echo "graphql/dist/cache does not exist"
@@ -95,9 +96,11 @@ prepareServer() {
   cp dist/cache "${deploy_dir}/dist"
 
   log 'Packing graphql'
+  rm -f dist/server.js
   yarn webpack:server
   if [ ! -f "dist/server.js" ]; then
     echo "dist/server.js does not exist"
+    exit 1
   fi
 
   cp dist/server.js "${deploy_dir}/dist/server.js"

@@ -5,6 +5,7 @@ grant select, insert on table users to guided_anonymous,guided_user;
 
 -- guides
 grant select on table guides to guided_anonymous, guided_user;
+revoke insert, update, delete on table guides from guided_anonymous,guided_user;
 -- grant insert, update, delete on table guides to guided_user;
 
 -- spots

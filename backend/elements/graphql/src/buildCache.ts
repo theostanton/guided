@@ -1,8 +1,7 @@
-import ownerConnection from "./ownerConnection"
 import { createPostGraphileSchema } from "postgraphile"
-import { options } from "./options"
+import { connection, options } from "./options"
 
-const connectionString = ownerConnection()
+const connectionString = connection()
 
 const { Pool } = require("pg")
 

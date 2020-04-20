@@ -257,6 +257,22 @@ export default class CreateGuideStore {
     return !!this.#guideId
   }
 
+  needToUpsert(title: string, maxHoursPerRide: number, type: TransportType): boolean {
+    if (!this.guide) {
+      return true
+    }
+    if (this.guide.title !== title) {
+      return true
+    }
+    if (this.guide.maxHoursPerRide !== maxHoursPerRide) {
+      return true
+    }
+    if (this.guide.transportType !== type) {
+      return true
+    }
+    return false
+  }
+
   @action
   async upsertGuide(title: string, maxHoursPerRide: number, type: TransportType): Promise<UpdateGuideResult> {
     if (this.guide) {
