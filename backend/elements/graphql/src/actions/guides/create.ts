@@ -1,9 +1,9 @@
-import { CreateGuideInput, CreateGuideResult } from "../../generated"
+import { CreateGuideMutationInput, CreateGuideResult } from "../../generated"
 import slugify from "slugify"
 import { database, Guide } from "@guided/database"
 import { logJson } from "@guided/logger"
 
-export default async function(input: CreateGuideInput, owner: string): Promise<CreateGuideResult> {
+export default async function(input: CreateGuideMutationInput, owner: string): Promise<CreateGuideResult> {
   const { title, isCircular, startDate, maxHoursPerRide, type } = input
   const slug = slugify(title, {
     lower: true,
