@@ -1,3 +1,5 @@
+import { SemanticCOLORS } from "semantic-ui-react"
+
 export type RideColourStatus = "selected" | "highlighted" | "none" | "dim"
 export type SpotColourStatus = "selected" | "highlighted" | "none" | "start" | "end" | "dim"
 
@@ -17,3 +19,8 @@ export const SPOT_COLOURS: { [status in SpotColourStatus]: string } = {
   dim: "grey",
 }
 
+export type UiElement = "lightGrey"
+
+export const UI_COLOURS: { [element in UiElement]: SemanticCOLORS | string } = {
+  lightGrey: "#eeeeee",
+}

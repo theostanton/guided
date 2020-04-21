@@ -187,6 +187,7 @@ fragment CreatingGuideSpot on Spot{
     label
     nights
     position
+    date
     country
     created
     updated

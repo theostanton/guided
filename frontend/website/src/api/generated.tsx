@@ -5050,7 +5050,7 @@ export type CreatingGuideStageFragment = (
 );
 
 export type CreatingGuideSpotFragment = (
-  Pick<Spot, 'id' | 'lat' | 'long' | 'location' | 'label' | 'nights' | 'position' | 'country' | 'created' | 'updated'>
+  Pick<Spot, 'id' | 'lat' | 'long' | 'location' | 'label' | 'nights' | 'position' | 'date' | 'country' | 'created' | 'updated'>
   & { readonly beginsStage: { readonly nodes: ReadonlyArray<Maybe<CreatingGuideStageFragment>> } }
 );
 
@@ -5507,6 +5507,7 @@ export const CreatingGuideSpotFragmentDoc = gql`
   label
   nights
   position
+  date
   country
   created
   updated

@@ -2,7 +2,7 @@ import CreateGuideStore, { CreateGuideStoreSpot } from "model/CreateGuideStore"
 import { inject, observer } from "mobx-react"
 import * as React from "react"
 import { ReactElement } from "react"
-import { Button, Header } from "semantic-ui-react"
+import { Button } from "semantic-ui-react"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 import CreateGuideSpotsListItem, { Position } from "./CreateGuideSpotsListItem"
 
@@ -40,8 +40,6 @@ export default class CreateGuideSpotsList extends React.Component<Props, State> 
 
   renderDraggable(): React.ReactElement {
 
-    console.log("renderDraggable")
-
     if (!this.createGuideStore.spots) {
       return
     }
@@ -78,9 +76,7 @@ export default class CreateGuideSpotsList extends React.Component<Props, State> 
     }
 
     function addSpot(spot: CreateGuideStoreSpot, spotIndex: number, position: Position) {
-
       if (position !== "firstLast") {
-
         items.push(<Draggable
           key={spot.key}
           draggableId={spot.key}
@@ -144,8 +140,6 @@ export default class CreateGuideSpotsList extends React.Component<Props, State> 
   }
 
   render(): ReactElement {
-    console.log("render")
-
     return <div>
       {this.renderDraggable()}
     </div>

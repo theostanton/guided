@@ -10,7 +10,10 @@ import {
   CreatingGuideFragment,
   CreatingGuideStageFragment,
   CreatingGuideSubscription,
+  EditStartDateDocument,
+  EditStartDateMutation,
   Geocode,
+  MutationEditStartDateArgs,
   RemoveSpotDocument,
   RemoveSpotMutation,
   RemoveSpotMutationVariables,
@@ -28,7 +31,7 @@ import randomKey from "utils/randomKey"
 import { client } from "api"
 import { subscriptionClient } from "api/client"
 import { ZenObservable } from "zen-observable-ts/lib/types"
-import { logError, logJson } from "utils/logger"
+import { log, logError, logJson, logObject } from "utils/logger"
 
 type Stage = "details" | "locations" | "members" | "save"
 
@@ -37,6 +40,7 @@ export type CreateGuideStoreSpot =
   Partial<AddSpotInput>
   & {
   key: string,
+  date: string | undefined,
   spotId: string | undefined,
   beginsStage: CreatingGuideStageFragment | undefined
 }
@@ -61,7 +65,11 @@ export default class CreateGuideStore {
   startDate: string | undefined
 
   @observable
+  updatedSpots: number
+
+  @observable
   spots: CreateGuideStoreSpot[] | undefined
+
   #subscription: ZenObservable.Subscription | undefined
 
   constructor(guideId: string | undefined) {
@@ -71,6 +79,7 @@ export default class CreateGuideStore {
       spotId: undefined,
       nights: 0,
       beginsStage: undefined,
+      date: undefined,
     }]
   }
 
@@ -82,9 +91,20 @@ export default class CreateGuideStore {
     this.isCircular = isCircular
   }
 
-
-  updateStartDate(startDate: string | undefined) {
+  async updateStartDate(startDate: string | undefined): Promise<boolean> {
     this.startDate = startDate
+    const variables: MutationEditStartDateArgs = {
+      date: startDate,
+      guideId: this.#guideId,
+    }
+    const result = await client.mutate<EditStartDateMutation>({
+      mutation: EditStartDateDocument,
+      variables,
+    })
+
+    logObject(result, "result")
+
+    return result.data && result.data.editStartDate.success
   }
 
   validateSpots(): boolean {
@@ -132,6 +152,7 @@ export default class CreateGuideStore {
       nights: 1,
       spotId: undefined,
       beginsStage: undefined,
+      date: undefined,
     })
   }
 
@@ -147,6 +168,8 @@ export default class CreateGuideStore {
   @action
   async updateSpotLocation(index: number, geocode: Geocode): Promise<UpdateSpotResult> {
     const spot = this.spots[index]
+
+    log(spot.spotId, "updateSpotLocation()")
 
     if (spot.spotId) {
       const variables: UpdateSpotMutationVariables = {
@@ -190,6 +213,7 @@ export default class CreateGuideStore {
     }
   }
 
+  @action
   subscribe() {
 
     if (!this.#guideId) {
@@ -206,45 +230,49 @@ export default class CreateGuideStore {
         id: this.#guideId,
       },
     }).subscribe(value => {
-      if (value.data) {
-        logJson("got value.data")
-        runInAction(() => {
-          this.guide = value.data.guide
-          if (this.spots) {
-            this.guide.spots.nodes.forEach(spot => {
-              const localSpotIndex = this.spots.findIndex(localSpot => {
-                return localSpot.spotId === spot.id
+        if (value.data) {
+          log("got value.data")
+          runInAction(() => {
+            this.guide = value.data.guide
+            if (this.spots) {
+              this.guide.spots.nodes.forEach(spot => {
+                const localSpotIndex = this.spots.findIndex(localSpot => {
+                  return localSpot.spotId === spot.id
+                })
+                if (localSpotIndex >= 0) {
+                  this.spots[localSpotIndex].beginsStage = spot.beginsStage.nodes[0]
+                  this.spots[localSpotIndex].date = spot.date
+                }
               })
-              if (localSpotIndex >= 0) {
-                this.spots[localSpotIndex].beginsStage = spot.beginsStage.nodes[0]
-              }
-            })
-          } else {
-            this.spots = this.guide.spots.nodes.map(spot => {
-              return {
-                beginsStage: spot.beginsStage.nodes[0],
-                nights: spot.nights,
-                long: spot.long,
-                location: spot.location,
-                lat: spot.lat,
-                label: spot.label,
-                country: spot.country,
-                spotId: spot.id,
-                key: randomKey(),
-              }
-            })
-          }
-          logJson(this.spots, "this.spots")
-        })
-      } else if (value.errors) {
-        logError("errors")
-        value.errors.forEach(error => {
-          logError(error.message)
-        })
-      } else {
-        logError("No data or errors")
-      }
-    })
+            } else {
+              this.spots = this.guide.spots.nodes.map(spot => {
+                return {
+                  beginsStage: spot.beginsStage.nodes[0],
+                  nights: spot.nights,
+                  long: spot.long,
+                  location: spot.location,
+                  lat: spot.lat,
+                  label: spot.label,
+                  date: spot.date,
+                  country: spot.country,
+                  spotId: spot.id,
+                  key: randomKey(),
+                }
+              })
+            }
+            this.updatedSpots = new Date().getTime()
+            logJson(this.spots, "this.spots")
+          })
+        } else if (value.errors) {
+          logError("errors")
+          value.errors.forEach(error => {
+            logError(error.message)
+          })
+        } else {
+          logError("No data or errors")
+        }
+      },
+    )
   }
 
   unsubscribe() {

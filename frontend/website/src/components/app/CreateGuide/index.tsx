@@ -1,12 +1,13 @@
 import { inject, Provider } from "mobx-react"
 import * as React from "react"
 import AuthStore from "model/AuthStore"
-import { Segment } from "semantic-ui-react"
+import { Grid, Segment } from "semantic-ui-react"
 import CreateGuideStore from "model/CreateGuideStore"
 import { RouteComponentProps } from "@reach/router"
 import CreateGuideSteps from "./CreateGuideSteps"
 import CreateGuideContent from "./CreateGuideContent"
 import { GeocodesStore } from "./CreateGuideSpots/GeocodesStore"
+import { Helmet } from "react-helmet"
 
 interface Props extends RouteComponentProps {
   authStore?: AuthStore
@@ -38,6 +39,7 @@ export default class CreateGuide extends React.Component<Props> {
 
   render(): React.ReactElement {
     return <Provider createGuideStore={this.createGuideStore} geocodeStore={this.geocodeStore}>
+      <Helmet title={`Create - Riders Bible`} defer={true}/>
       <Segment padded={false} style={{ padding: 0, minHeight: "800px" }}>
         <CreateGuideSteps/>
         <CreateGuideContent/>

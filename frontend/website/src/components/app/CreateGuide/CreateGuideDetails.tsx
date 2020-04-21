@@ -5,7 +5,7 @@ import { TransportType } from "../../../api/generated"
 import { Form, Icon, Message } from "semantic-ui-react"
 import * as validation from "./validation"
 import MaxHoursPerRideForm from "./MaxHoursPerRideForm"
-import { logObject } from "utils/logger"
+import { log } from "utils/logger"
 
 
 type Status = "none" | "loading" | "errors" | "failed" | "initiating"
@@ -110,7 +110,7 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
     }
   }
 
-  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any): void {
+  loadStateFromStore() {
     if (this.state.status === "initiating" && this.createGuideStore.guide) {
       const guide = this.createGuideStore.guide
       this.setState({
@@ -122,9 +122,16 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
     }
   }
 
-  render(): React.ReactElement {
+  componentDidMount(): void {
+    this.loadStateFromStore()
+  }
 
-    logObject(this.createGuideStore.guide, "render store.guide")
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any): void {
+    this.loadStateFromStore()
+  }
+
+  render(): React.ReactElement {
+    this.createGuideStore.updatedSpots
     return <div style={{
       marginTop: "2em",
       marginBottom: "2em",
@@ -206,7 +213,7 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
             right: 0,
             position: "absolute",
           }}
-          loading={this.state.status === "loading"}
+          loading={this.state.status === "loading" || this.state.status === "initiating"}
           color='blue'
           onClick={async () => {
             if (await this.upsertGuide()) {

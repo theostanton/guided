@@ -21,7 +21,7 @@ export function humanDuration(durationSeconds: number, long: boolean = false): s
 
 export function humanDate(date: string, long: boolean = false): string {
   if (long) {
-    return format("MMMM Mo", new Date(date))
+    return format("MMMM do", new Date(date))
   } else {
     return `${date.slice(8, 10)}/${date.slice(5, 7)}`
   }

@@ -1,5 +1,6 @@
 import { database, Guide, Ride, Spot } from "@guided/database"
 import { plusDays } from "@guided/utils/srv/dates"
+import { logError } from "@guided/logger"
 
 type Update = {
   id: string
@@ -38,14 +39,15 @@ export async function prepare(guide: Guide): Promise<Packet> {
       const ride = rides.find((ride: Ride) => {
         return ride.from_spot === spot.id
       })
-      if (!ride) {
-        throw new Error(`No ride for spot.id=${spot.id}`)
+      if (ride) {
+        date = plusDays(date, (spot.nights || 0))
+        packet.rides.push({
+          id: ride.id,
+          date,
+        })
+      } else {
+        logError(`No ride for spot.id=${spot.id}`)
       }
-      date = plusDays(date, (spot.nights || 0))
-      packet.rides.push({
-        id: ride.id,
-        date,
-      })
     })
     return packet
   } else {
