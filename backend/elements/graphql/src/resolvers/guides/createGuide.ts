@@ -8,7 +8,7 @@ export default class CreateGuideMutation extends Mutation<MutationCreateGuideArg
 
   name = "createGuide"
   typeDefs = gql`
-      input CreateGuideMutationInput{
+      input CreateGuideInput{
           title:String!
           isCircular:Boolean
           maxHoursPerRide:Int!
@@ -21,7 +21,7 @@ export default class CreateGuideMutation extends Mutation<MutationCreateGuideArg
           guideId:String
       }
       extend type Mutation {
-          createGuide(input:CreateGuideMutationInput):CreateGuideResult!
+          createGuide(input:CreateGuideInput):CreateGuideResult!
       }
   `
 

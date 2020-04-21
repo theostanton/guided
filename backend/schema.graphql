@@ -450,7 +450,7 @@ type CreateComputationPayload {
   ): ComputationsEdge
 }
 
-input CreateGuideMutationInput {
+input CreateGuideInput {
   title: String!
   isCircular: Boolean
   maxHoursPerRide: Int!
@@ -1747,7 +1747,7 @@ type Mutation {
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: CreateGuideMutationInput
+    input: CreateGuideInput
   ): CreateGuideResult!
   updateGuide(
     """

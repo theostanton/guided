@@ -371,7 +371,7 @@ export type CreateComputationPayloadComputationEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<ComputationsOrderBy>>;
 };
 
-export type CreateGuideMutationInput = {
+export type CreateGuideInput = {
   readonly title: Scalars['String'];
   readonly isCircular?: Maybe<Scalars['Boolean']>;
   readonly maxHoursPerRide: Scalars['Int'];
@@ -1409,7 +1409,7 @@ export type MutationEditNightsArgs = {
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateGuideArgs = {
-  input?: Maybe<CreateGuideMutationInput>;
+  input?: Maybe<CreateGuideInput>;
 };
 
 
@@ -4119,7 +4119,7 @@ export type ResolversTypes = {
   RegisterInput: RegisterInput,
   RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
   Result: ResolverTypeWrapper<Result>,
-  CreateGuideMutationInput: CreateGuideMutationInput,
+  CreateGuideInput: CreateGuideInput,
   CreateGuideResult: ResolverTypeWrapper<CreateGuideResult>,
   UpdateGuidePatch: UpdateGuidePatch,
   UpdateGuideResult: ResolverTypeWrapper<UpdateGuideResult>,
@@ -4271,7 +4271,7 @@ export type ResolversParentTypes = {
   RegisterInput: RegisterInput,
   RegisterPayload: RegisterPayload,
   Result: Result,
-  CreateGuideMutationInput: CreateGuideMutationInput,
+  CreateGuideInput: CreateGuideInput,
   CreateGuideResult: CreateGuideResult,
   UpdateGuidePatch: UpdateGuidePatch,
   UpdateGuideResult: UpdateGuideResult,
