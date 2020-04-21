@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Redirect, Router } from "@reach/router"
 import Layout from "components/root/Layout"
-import AuthStore from "model/AuthStore"
-import { inject, observer } from "mobx-react"
+import { authStore } from "model/AuthStore"
+import { observer, Provider } from "mobx-react"
 import Account from "components/app/Account"
 import Guide from "components/app/Guide"
 import Dashboard from "components/app/Dashboard"
@@ -19,53 +19,59 @@ import { logJson } from "../utils/logger"
 import Search from "components/app/Search"
 import CreateGuide from "components/app/CreateGuide"
 
-interface Props {
-  authStore: AuthStore
-}
-
-@inject("authStore")
 @observer
-export default class RootComponent extends React.Component<Props> {
+export default class RootComponent extends React.Component {
+
+  private(): React.ReactElement {
+    return <div style={{ marginTop: "1em" }}>
+      <Container>
+        <AppMenu/>
+      </Container>
+      <Container>
+        <Router style={{ marginTop: "1em" }}>
+          <Redirect from={"/login"} to={"/"} noThrow={true}/>
+          <Redirect from={"/signup"} to={"/"} noThrow={true}/>
+          <Account path="/account"/>
+          <Profile path="/:owner"/>
+          <Search path="/search"/>
+          <CreateGuide path={"/create"}/>
+          <CreateGuide path={"/create/:slug"}/>
+          <Guide path="/:owner/:slug"/>
+          <Guide path="/:owner/:slug/ride/:rideId"/>
+          <Guide path="/:owner/:slug/spot/:spotId"/>
+          <Dashboard default path="*"/>
+        </Router>
+      </Container>
+      <OverlayComponent/>
+    </div>
+  }
+
+  public(): React.ReactElement {
+    return <Layout>
+      <Helmet title="Riders Bible" defer={false}/>
+      <Router>
+        <Login path="/login"/>
+        <Signup path="/signup"/>
+        <Guide path="/:owner/:slug"/>
+        <Profile path="/:owner"/>
+        <About path="/create"/>
+        <About default path="*"/>
+      </Router>
+    </Layout>
+  }
 
   render(): React.ReactElement {
 
-    const { isLoggedIn } = this.props.authStore
+    const ssr = typeof window !== 'undefined' && window
 
-    logJson(isLoggedIn, "isLoggedIn")
-    if (isLoggedIn === true) {
-      return <div style={{ marginTop: "1em" }}>
-        <Container>
-          <AppMenu/>
-        </Container>
-        <Container>
-          <Router style={{ marginTop: "1em" }}>
-            <Redirect from={"/login"} to={"/"} noThrow={true}/>
-            <Redirect from={"/signup"} to={"/"} noThrow={true}/>
-            <Account path="/account"/>
-            <Profile path="/:owner"/>
-            <Search path="/search"/>
-            <CreateGuide path={"/create"}/>
-            <CreateGuide path={"/create/:slug"}/>
-            <Guide path="/:owner/:slug"/>
-            <Guide path="/:owner/:slug/ride/:rideId"/>
-            <Guide path="/:owner/:slug/spot/:spotId"/>
-            <Dashboard default path="*"/>
-          </Router>
-        </Container>
-        <OverlayComponent/>
-      </div>
-    } else {
-      return <Layout>
-        <Helmet title="Riders Bible" defer={false} />
-        <Router>
-          <Login path="/login"/>
-          <Signup path="/signup"/>
-          <Guide path="/:owner/:slug"/>
-          <Profile path="/:owner"/>
-          <About path="/create"/>
-          <About default path="*"/>
-        </Router>
-      </Layout>
+    if (!ssr) {
+      return null
     }
+
+    const isLoggedIn = authStore.isLoggedIn
+    logJson(isLoggedIn, "isLoggedIn")
+    return <Provider authStore={authStore}>
+      {isLoggedIn ? this.private() : this.public()}
+    </Provider>
   }
 }
