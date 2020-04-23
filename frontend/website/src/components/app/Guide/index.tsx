@@ -2,7 +2,7 @@ import * as React from "react"
 import GuideStore from "model/GuideStore"
 import { inject, observer, Provider } from "mobx-react"
 import Content from "./content"
-import Helmet from "gatsby-plugin-react-helmet"
+import {Helmet} from "react-helmet"
 
 import { RouteComponentProps } from "@reach/router"
 import AuthStore from "model/AuthStore"

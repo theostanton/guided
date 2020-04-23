@@ -60,6 +60,10 @@ export default class GuideBuilder {
     return this.id
   }
 
+  set isCircular(isCircular: boolean) {
+    this.is_circular = isCircular
+  }
+
   static create(username: string, title: string): GuideBuilder {
     return new GuideBuilder(username, title)
   }
@@ -67,6 +71,10 @@ export default class GuideBuilder {
   withStartDate(year: number, month: number, date: number): GuideBuilder {
     this.start_date = dateString(new Date(year, month - 1, date))
     return this
+  }
+
+  set startDate(startDate: string|null) {
+    this.start_date = startDate
   }
 
   withMaxHours(maxHoursPerRide: number): GuideBuilder {

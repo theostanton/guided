@@ -2,38 +2,42 @@ import { isBoolean } from "util"
 import { logJson } from "@guided/logger"
 import { TransportType } from "./types"
 
+function extractValue(value: any): string {
+
+  function log(type: string) {
+    // console.log(`${value} is a ${type}`)
+  }
+
+  if (["MOTORCYCLE", "BICYCLE", "CAR"].includes(value)) {
+    log("TransportType")
+    return `'${value}'::transport_type`
+  } else if (value instanceof Date) {
+    log("Date")
+    return `'${value.toISOString()}'::timestamptz`
+  } else if (value instanceof Boolean) {
+    log("Boolean")
+    return value ? "true" : "false"
+  } else if (typeof value === "number") {
+    log("number")
+    return value.toString()
+  } else if (isBoolean(value)) {
+    log("isBoolean")
+    return value ? "true" : "false"
+  } else if (value instanceof Object) {
+    log("Object")
+    return `'${JSON.stringify(value)}'`
+  } else if (value != undefined) {
+    log("value != undefined")
+    return `'${value.toString()}'`
+  } else {
+    log("fallthrough")
+    return "null"
+  }
+}
+
 function extract(any: any): string {
   return Object.values(any).map((value: any | undefined | null) => {
-
-    function log(type: string) {
-      // console.log(`${value} is a ${type}`)
-    }
-
-    if (["MOTORCYCLE", "BICYCLE", "CAR"].includes(value)) {
-      log("TransportType")
-      return `'${value}'::transport_type`
-    } else if (value instanceof Date) {
-      log("Date")
-      return `'${value.toISOString()}'::timestamptz`
-    } else if (value instanceof Boolean) {
-      log("Boolean")
-      return value ? "true" : "false"
-    } else if (typeof value === "number") {
-      log("unmber")
-      return value
-    } else if (isBoolean(value)) {
-      log("isBoolean")
-      return value ? "true" : "false"
-    } else if (value instanceof Object) {
-      log("Object")
-      return `'${JSON.stringify(value)}'`
-    } else if (value != undefined) {
-      log("value != undefined")
-      return `'${value.toString()}'`
-    } else {
-      log("fallthrough")
-      return "null"
-    }
+    return extractValue(value)
   }).join(",")
 }
 
@@ -47,23 +51,39 @@ export function insertOne<T>(tableName: string, item: T, returning: string | und
 
 export function updateOne<T>(tableName: string, item: Partial<T>, onColumn: string = "id", oldOnColumnValue: string | undefined = undefined): string {
   const columns = Object.keys(item)
-  return updateMany(tableName, [item], columns, onColumn, oldOnColumnValue)
+
+  const condition = `${onColumn} = '${oldOnColumnValue || (item as any)[onColumn]}'`
+
+  const sets = columns
+    .filter((column) => {
+      return !!oldOnColumnValue || column !== onColumn
+    })
+    .map((column) => {
+      const value = extractValue((item as any)[column])
+      return `"${column}" = ${value}`
+    })
+    .join(",\n")
+
+  return `update ${tableName}
+  set ${sets} 
+  where ${condition} 
+  returning "${onColumn}"`
 }
 
 export function updateMany(tableName: string, items: any[], columns: string[], onColumn: string = "id", oldOnColumnValue: string | undefined = undefined): string {
 
 
   items = items.map(item => {
-    const insertItem: any = {}
-    insertItem[onColumn] = item[onColumn]
+    const updateItem: any = {}
+    updateItem[onColumn] = item[onColumn]
     Object.keys(item)
       .filter(key => {
         return columns.includes(key)
       })
       .forEach(key => {
-        insertItem[key] = item[key]
+        updateItem[key] = item[key]
       })
-    return insertItem
+    return updateItem
   })
 
   logJson(items, "items")

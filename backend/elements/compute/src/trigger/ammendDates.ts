@@ -1,21 +1,39 @@
-import { database, Guide, Ride, Spot } from "@guided/database"
+import { database, Guide, Patch, Ride, Spot } from "@guided/database"
 import { plusDays } from "@guided/utils/srv/dates"
-import { logError } from "@guided/logger"
-
-type Update = {
-  id: string
-  date: string | null
-}
+import { log } from "@guided/logger"
 
 type Packet = {
-  spots: Update[]
-  rides: Update[]
+  spots: Patch<Spot>[]
+  rides: Patch<Ride>[]
 }
+
+
+// This is a convoluted way to only get spots for stages that are not stale, as locked spots dont have stage values
+const SPOTS_QUERY = `
+    select distinct sp.*
+    from spots as sp
+             inner join stages st on sp.id = st.to_spot or st.from_spot = sp.id or st.id = sp.id
+    where sp.guide = $1
+      and st.status in ('ready', 'complete')
+    order by sp.position
+`
+
+const RIDES_QUERY = `
+    select r.*
+    from rides as r
+             inner join stages st on r.stage = st.id
+    where r.guide = $1
+      and st.status in ('ready', 'complete')
+`
+
 
 export async function prepare(guide: Guide): Promise<Packet> {
 
-  const spots = await database.manyOrNone<Spot>("select * from spots where guide=$1 order by position", [guide.id])
-  const rides = await database.manyOrNone<Ride>("select * from rides where guide=$1", [guide.id])
+
+  const spots = await database.manyOrNone<Spot>(SPOTS_QUERY, [guide.id])
+
+  const rides = await database.manyOrNone<Ride>(RIDES_QUERY, [guide.id])
+
 
   if (guide.start_date) {
 
@@ -26,29 +44,56 @@ export async function prepare(guide: Guide): Promise<Packet> {
 
     let date: string = guide.start_date!
 
-    //TODO this is a bit peculiar but makes sense if the start_date is date of the first ride it should have special behaviour really
-    if (spots.length) {
-      date = plusDays(date, -(spots[0].nights || 0))
-    }
+    spots.forEach((spot: Spot, index: number) => {
 
-    spots.forEach((spot: Spot) => {
-      packet.spots.push({
-        id: spot.id,
-        date,
-      })
+
+      if (guide.is_circular && index === 0) {
+         //We're gonna set the first spots date to the last, after these iterations
+      } else if (index === 0) {
+        // Set first spots date to null
+        packet.spots.push({
+          id: spot.id,
+          date: null,
+        })
+      } else {
+        packet.spots.push({
+          id: spot.id,
+          date,
+        })
+      }
+
+
       const ride = rides.find((ride: Ride) => {
         return ride.from_spot === spot.id
       })
-      if (ride) {
-        date = plusDays(date, (spot.nights || 0))
-        packet.rides.push({
-          id: ride.id,
-          date,
-        })
-      } else {
-        logError(`No ride for spot.id=${spot.id}`)
+      if (!ride) {
+        if (!guide.is_circular && index === spots.length - 1) {
+          // Only the last spot of a non-circular guide can not have a ride
+          return
+        }
+        throw new Error(`No ride for spot.id=${spot.id}`)
       }
+
+      if (index == 0 && spot.nights && spot.nights > 0) {
+        throw new Error(`First spot shouldnt have any nights`)
+      }
+
+      date = plusDays(date, (spot.nights || 0))
+      packet.rides.push({
+        id: ride.id,
+        date,
+      })
     })
+
+    log(`guide.is_circular && spots.length > 0=${guide.is_circular && spots.length > 0}`)
+    if (guide.is_circular && spots.length > 0) {
+      // Let's set the date of first spot as the arrival date of end
+      packet.spots.push({
+        id: spots[0].id,
+        nights: 0,
+        date,
+      })
+    }
     return packet
   } else {
     return {
@@ -72,17 +117,6 @@ export default async function(guide: Guide): Promise<void> {
 
   const packet: Packet = await prepare(guide)
 
-  const updated = new Date()
-  await database.tx(async (transaction: any) => {
-    const queries: any[] = []
-
-    packet.spots.forEach(spot => {
-      queries.push(transaction.none("update spots set date=$1, updated=$2  where id=$3", [spot.date, updated, spot.id]))
-    })
-    packet.rides.forEach(ride => {
-      queries.push(transaction.none("update rides set date=$1, updated=$2 where id=$3", [ride.date, updated, ride.id]))
-    })
-
-    return transaction.batch(queries)
-  })
+  await database.updateMany("spots", packet.spots)
+  await database.updateMany("rides", packet.rides)
 }

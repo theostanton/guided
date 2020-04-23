@@ -28,6 +28,5 @@ export default class CreateGuideMutation extends Mutation<MutationCreateGuideArg
   async resolver(args: MutationCreateGuideArgs, context: Context): Promise<CreateGuideResult> {
     const owner = context.jwtClaims!.username
     return create(args.input!, owner)
-
   }
 }

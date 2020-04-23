@@ -3,23 +3,25 @@ import { database, Spot, updateOne } from "@guided/database"
 import * as computeStage from "@guided/compute"
 import { ammendDates } from "@guided/compute"
 
+export const MESSAGE_NO_SPOT = "\"No spot for that ID\""
+
 export default async function(patch: UpdateSpotPatch): Promise<UpdateSpotResult> {
 
   const { label, location, nights } = patch
 
-  const updatedSpot = await database.oneOrNone<Spot>("select * from spots where id=$1", ["id"])
+  const updatedSpot = await database.oneOrNone<Spot>("select * from spots where id=$1", [patch.id])
 
   if (!updatedSpot) {
     return {
       success: false,
-      message: "No spot for that ID",
+      message: MESSAGE_NO_SPOT,
     }
   }
 
   let updateDates: boolean = false
   let triggerComputations: boolean = false
 
-  if (label !== label) {
+  if (updatedSpot.label !== undefined) {
     updatedSpot.label = label!
   }
 
@@ -29,6 +31,11 @@ export default async function(patch: UpdateSpotPatch): Promise<UpdateSpotResult>
     updatedSpot.long = location!.long!
     updatedSpot.location = location!.location!
     triggerComputations = true
+    // Stagnate stages tied to this spot
+    await database.none(`update stages
+                         set status='stale'
+                         where from_spot = $1
+                            or to_spot = $1`, [patch.id])
   }
 
   if (nights !== undefined) {
@@ -47,8 +54,7 @@ export default async function(patch: UpdateSpotPatch): Promise<UpdateSpotResult>
         //TODO ensure moved lat/long is handled
         const packet = await computeStage.prepare(updatedSpot.guide)
         await computeStage.trigger(packet)
-      }
-      if (updateDates) {
+      } else if (updateDates) {
         const guide = await database.selectGuide(updatedSpot.guide)
         await ammendDates(guide)
       }
@@ -67,7 +73,7 @@ export default async function(patch: UpdateSpotPatch): Promise<UpdateSpotResult>
     }
   } catch (e) {
     return {
-      success: true,
+      success: false,
       message: e.message,
     }
   }

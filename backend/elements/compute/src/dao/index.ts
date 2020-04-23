@@ -10,14 +10,3 @@ export type StageData = {
   endSpot: Spot
   newSpots: Spot[]
 }
-
-export interface Dao {
-
-  computationId: string
-
-  stage(): Promise<Stage>
-
-  insertData(data: StageData): Promise<void>
-}
-
-export default DatabaseDao

@@ -1,7 +1,48 @@
-import { database, insertMany, updateMany, User } from "./index"
+import { Computation, database, generateId, insertMany, Patch, updateMany, User } from "./index"
 import faker from "faker"
 
 const PASSWORD_HASH = "$2a$06$go2Lk1MKz.2iq6vH2IvsAep1Aera4IhKECd5KlNgyLjPIl2Gq.Xkq"
+
+describe("insertOne / updateOne queries", () => {
+
+  describe("Casting statuses", () => {
+
+    it("Should handle computation_statuses", async () => {
+
+      const guide = await database.one("select * from guides limit 1")
+
+      const computation: Computation = {
+        id: generateId("computation"),
+        status: "scheduled",
+        created: new Date(),
+        started: null,
+        ended: null,
+        guide: guide.id,
+        stage: null,
+        duration: null,
+      }
+
+      await database.insertOne("computations", computation)
+
+      const insertedComputation = await database.one<Computation>("select * from computations where id=$1", [computation.id])
+
+      expect(insertedComputation.status).toBe("scheduled")
+
+      const patch: Patch<Computation> = {
+        id: computation.id,
+        status: "failed",
+      }
+
+      const result = await database.updateOne("computations", patch)
+      expect(result.id).toBe(computation.id)
+
+      const updatedComputation = await database.one<Computation>("select * from computations where id=$1", [computation.id])
+
+      expect(updatedComputation.status).toBe("failed")
+    })
+
+  })
+})
 
 describe("updateMany queries", () => {
 
@@ -73,7 +114,7 @@ describe("updateMany queries", () => {
     })
   })
 
-  test.skip("Updates username, matching on username", () => {
+  describe("Updates username, matching on username", () => {
 
     const users: User[] = []
     for (let i = 0; i < 10; i++) {
@@ -101,34 +142,24 @@ describe("updateMany queries", () => {
     })
 
     it("For 1 item", async () => {
-      const userBefore = users[0]
-      userBefore.username = faker.internet.userName()
-      const updateQuery = updateMany(TABLE_NAME, [userBefore], ["username"], "username")
-      await database.none(updateQuery)
-      const userAfter = await database.one<User>("select * from users where username=$1", [userBefore.username])
-      expect(userAfter.username).toBe(userBefore.username)
+      const oldUser = users[0]
+      const newUsername = faker.internet.userName()
+      const newUser = {
+        ...oldUser,
+        username: newUsername,
+      }
+      const updateQuery = updateMany(TABLE_NAME, [newUser], ["username"], "username", oldUser.username)
+      console.log(updateQuery)
+      const result = await database.oneOrNone<{ username: string }>(updateQuery)
+      expect(result).toBeDefined()
+      expect(result!.username).toBe(newUsername)
+
+      const user = await database.oneOrNone<User>("select * from users where username=$1", [newUsername])
+      console.log(user)
+      expect(user).toBeDefined()
+      expect(user!.username).toBe(newUsername)
     })
 
-    it("For 3 item", async () => {
-      const usersBefore = [
-        users[1],
-        users[2],
-        users[3],
-      ]
-      usersBefore[0].username = faker.internet.userName()
-      usersBefore[1].username = faker.internet.userName()
-      const updateQuery = updateMany(TABLE_NAME, usersBefore, ["username"], "username")
-      await database.none(updateQuery)
-
-      const user1After = await database.one<User>("select * from users where username =$1", [usersBefore[0].username])
-      expect(user1After.username).toBe(usersBefore[0].username)
-
-      const user2After = await database.one<User>("select * from users where username =$1", [usersBefore[1].username])
-      expect(user2After.username).toBe(usersBefore[1].username)
-
-      const user3After = await database.one<User>("select * from users where username =$1", [usersBefore[2].username])
-      expect(user3After.username).toBe(usersBefore[2].username)
-
-    })
   })
+
 })

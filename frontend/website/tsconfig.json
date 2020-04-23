@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "incremental": false,
     "target": "ESNext",
     "module": "CommonJS",
     "experimentalDecorators": true,

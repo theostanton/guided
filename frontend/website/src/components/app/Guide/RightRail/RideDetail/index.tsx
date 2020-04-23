@@ -15,13 +15,6 @@ type Props = {
 
 export default class RideDetail extends React.Component<Props> {
 
-
-  constructor(props: Props) {
-    super(props)
-    // logObject(props, "props")
-    // window.location.replace(`/${props.guideStore.guide.owner}/${props.guideStore.guide.slug}/ride/${props.ride.id.split("_")[1]}`)
-  }
-
   render(): React.ReactElement {
     const ride = this.props.ride
     const fromSpot = this.props.ride.fromSpot

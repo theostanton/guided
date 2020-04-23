@@ -10,7 +10,7 @@ export default function SpotsListItemLabelForm({ state, ...props }: SubProps): R
     label='Name'
     width={5}
     error={error}
-    value={props.spot.label}
+    value={props.spot.label || undefined}
     onChange={async (e, { value }) => {
       await props.updateSpot({
         label: value,

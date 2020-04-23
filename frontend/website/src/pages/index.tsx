@@ -12,7 +12,7 @@ import Signup from "components/pages/signup"
 import { Container } from "semantic-ui-react"
 import AppMenu from "components/app/Menu"
 import About from "../components/pages/about"
-import Helmet from "gatsby-plugin-react-helmet"
+import { Helmet } from "react-helmet"
 
 import OverlayComponent from "components/app/Overlay"
 import { logJson } from "../utils/logger"
@@ -62,7 +62,7 @@ export default class RootComponent extends React.Component {
 
   render(): React.ReactElement {
 
-    const ssr = typeof window !== 'undefined' && window
+    const ssr = typeof window !== "undefined" && window
 
     if (!ssr) {
       return null

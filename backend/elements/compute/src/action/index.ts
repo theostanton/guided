@@ -1,10 +1,11 @@
 import { logJson } from "@guided/logger"
-import Dao from "../dao"
-import { database, Guide, Spot } from "@guided/database"
+import { Computation, database, Guide, Patch, Spot } from "@guided/database"
 import calculateStage from "./calculateStage"
 import getRoute from "./getRoute"
 import ammendDates from "../trigger/ammendDates"
 import { ComputeStageMessageBody, ComputeStageResult } from "../types"
+import { Stage } from "@guided/database/srv/types"
+import { StageData } from "../dao"
 
 async function runFinalisationIfRequired(guide: Guide): Promise<boolean> {
   const activeComputations = await database.manyOrNone("select id from computations where guide=$1 and status in ('computing','scheduled')", [guide.id])
@@ -15,20 +16,36 @@ async function runFinalisationIfRequired(guide: Guide): Promise<boolean> {
   return false
 }
 
-export default async function execute(body: ComputeStageMessageBody): Promise<ComputeStageResult> {
+async function insert(data: StageData) {
+
+  const stage: Partial<Stage> = {
+    id: data.stageId,
+    status: "ready",
+  }
+
+  await database.updateOne("stages", stage)
+
+  await database.insertMany("spots", data.newSpots)
+  await database.updateMany("spots", data.newSpots)
+  await database.insertMany("rides", data.newRides)
+}
+
+export default async function(body: ComputeStageMessageBody): Promise<ComputeStageResult> {
   const start = new Date()
   logJson(body, "handle compute-stage")
   const { computationId } = body
+
   try {
-    await database.none(`update computations
-                         set status='computing',
-                             started=$2
-                         where id = $1`, [computationId, start])
 
+    await database.updateOne<Computation>("computations", { id: computationId, status: "computing" })
 
-    const dao = await Dao.create(computationId)
-
-    const stage = await dao.stage()
+    const stageQuery = `
+        select s.*
+        from stages as s
+                 inner join computations as c on c.stage = s.id
+        where c.id = $1
+    `
+    const stage = await database.one<Stage>(stageQuery, [computationId])
 
     const fromSpot = await database.one<Spot>("select * from spots where id=$1", [stage.from_spot])
     const toSpot = await database.one<Spot>("select * from spots where id=$1", [stage.to_spot])
@@ -37,27 +54,29 @@ export default async function execute(body: ComputeStageMessageBody): Promise<Co
     let mode: "driving" | "bicycling" | "walking" = guide.transport_type === "BICYCLE" ? "bicycling" : "driving"
     const route = await getRoute(mode, fromSpot, toSpot)
 
-    //TODO get startDate, if previous stages have been calculated
-    const startDate: Date | null = null
+    // Gets startDate, if previous stages have been calculated
+    // Low success rate here but ammendDates will be called after computations anyway
+    const startDate: string | null = fromSpot.date
 
     const stageData = await calculateStage(startDate, stage.id, guide, fromSpot, toSpot, route)
 
-    await dao.insertData(stageData)
+    await insert(stageData)
 
-    const end = new Date()
-    const durationMs = end.getTime() - start.getTime()
-    await database.none(`update computations
-                         set status=$1,
-                             ended=$2,
-                             duration=$3
-                         where id = $4`, [stageData.status, end, durationMs, computationId])
+    const ended = new Date()
+    const duration = ended.getTime() - start.getTime()
+    const updateComputation: Patch<Computation> = {
+      id: computationId,
+      status: "success",
+      duration: duration,
+      ended,
+    }
 
+    await database.updateOne("computations", updateComputation)
 
     let ranFinalisation = await runFinalisationIfRequired(guide)
 
-    await database.none(`update stages
-                         set status='ready'
-                         where id = $1`, [stage.id])
+    await database.updateOne("stages", { id: stage.id, status: "ready" })
+
     return {
       success: true,
       ranFinalisation,
@@ -66,13 +85,17 @@ export default async function execute(body: ComputeStageMessageBody): Promise<Co
     console.error("Some error")
     console.error(e)
 
-    const end = new Date()
-    const durationMs = end.getTime() - start.getTime()
-    await database.none(`update computations
-                         set status='failed',
-                             ended=$1,
-                             duration=$2
-                         where id = $3`, [end, durationMs, computationId])
+    const ended = new Date()
+    const duration = ended.getTime() - start.getTime()
+
+    const computation: Patch<Computation> = {
+      id: computationId,
+      status: "failed",
+      ended,
+      duration,
+    }
+
+    await database.updateOne("computations", computation)
     return {
       success: false,
       ranFinalisation: false,

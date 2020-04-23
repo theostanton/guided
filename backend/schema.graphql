@@ -4001,7 +4001,8 @@ type UpdateComputationPayload {
 
 input UpdateGuidePatch {
   id: String!
-  title: String!
+  title: String
+  startDate: String
   isCircular: Boolean
   maxHoursPerRide: Int
   type: TransportType
@@ -4011,6 +4012,7 @@ type UpdateGuideResult {
   success: Boolean!
   message: String
   id: String
+  triggeredDates: Boolean
   triggeredComputations: Boolean
 }
 

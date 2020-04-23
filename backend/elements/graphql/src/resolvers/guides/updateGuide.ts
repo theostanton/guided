@@ -12,7 +12,8 @@ export default class UpdateGuideMutation extends Mutation<MutationUpdateGuideArg
   typeDefs = gql`
       input UpdateGuidePatch{
           id:String!
-          title:String!
+          title:String
+          startDate:String
           isCircular:Boolean
           maxHoursPerRide:Int
           type:TransportType
@@ -21,6 +22,7 @@ export default class UpdateGuideMutation extends Mutation<MutationUpdateGuideArg
           success:Boolean!
           message:String
           id:String
+          triggeredDates:Boolean
           triggeredComputations:Boolean
       }
       extend type Mutation {

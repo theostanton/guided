@@ -13,7 +13,7 @@ const ownerConnectionString = ownerConnection()
 import * as pgPromise from "pg-promise"
 import PgPromise from "pg-promise"
 import cuid from "cuid"
-import Extensions, { extend } from "./extensions"
+import Extensions, { extend, Patch } from "./extensions"
 import {
   Computation,
   ComputationStatus,
@@ -37,11 +37,16 @@ export {
   insertMany,
   updateOne,
   updateMany,
+  Patch,
 }
 
 
 export function generateId(prefix: string): string {
-  return `${prefix}_${cuid.slug()}`
+  if (process.env.STAGE === "testig") {
+    return `t_${prefix}_${cuid.slug()}`
+  } else {
+    return `${prefix}_${cuid.slug()}`
+  }
 }
 
 const options: pgPromise.IInitOptions<Extensions> = {

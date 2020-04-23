@@ -1,16 +1,9 @@
 import React from "react"
-import {
-  DateInput,
-} from "semantic-ui-calendar-react"
+import { DateInput } from "semantic-ui-calendar-react"
 import { Form, Icon, Label } from "semantic-ui-react"
 import { logObject } from "utils/logger"
 import client from "api/client"
-import {
-  EditStartDateDocument,
-  EditStartDateMutation,
-  EditStartDateMutationResult,
-  MutationEditStartDateArgs,
-} from "api/generated"
+import { EditStartDateDocument, EditStartDateMutation, MutationEditStartDateArgs } from "api/generated"
 import { dateString } from "utils/dates"
 
 type Props = {
@@ -70,7 +63,7 @@ export default class StartDateForm extends React.Component<Props, State> {
           animation='fade'
           duration={200}
           hideMobileKeyboard
-          value={this.props.startDate}
+          value={this.props.startDate || undefined}
           iconPosition='left'
           preserveViewMode={false}
           autoComplete='off'

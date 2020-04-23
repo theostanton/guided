@@ -37,6 +37,7 @@ export default async function(input: CreateGuideInput, owner: string): Promise<C
 
   try {
     const result = await database.insertOne<Guide>("guides", guide)
+    logJson(result, "result")
     if (result && result.id) {
       return {
         success: true,

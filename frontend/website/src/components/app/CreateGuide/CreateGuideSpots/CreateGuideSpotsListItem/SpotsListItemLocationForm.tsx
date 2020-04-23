@@ -5,7 +5,7 @@ import AwesomeDebouncePromise from "awesome-debounce-promise"
 import { ApolloQueryResult } from "apollo-boost"
 import { Geocode, GeocodeDocument, GeocodeQuery } from "api/generated"
 import { client } from "api"
-import { log, logObject } from "../../../../../utils/logger"
+import { logObject } from "../../../../../utils/logger"
 
 type DropdownOption = {
   key: string,
@@ -19,7 +19,7 @@ const REQUEST = AwesomeDebouncePromise(
   executeRequest,
   200,
   {
-    accumulate:false,
+    accumulate: false,
     onlyResolvesLast: true,
     key: (key) => key,
   },
@@ -76,11 +76,9 @@ async function executeRequest(key: string, query: string | undefined, setState: 
 }
 
 
-export default function SpotsListItemLabelForm({ state, setState, updateSpot,...props }: SubProps): React.ReactElement {
+export default function SpotsListItemLabelForm({ state, setState, updateSpot, ...props }: SubProps): React.ReactElement {
 
-  logObject(props,'props')
-
-  function geocodeOptions(): DropdownOption[] | undefined {
+  function geocodeOptions(): DropdownOption[] {
     if (state.result.geocodes) {
       return state.result.geocodes.map(geocode => {
         return {
@@ -90,6 +88,8 @@ export default function SpotsListItemLabelForm({ state, setState, updateSpot,...
           value: geocode.label,
         }
       })
+    } else {
+      return []
     }
   }
 
@@ -120,22 +120,21 @@ export default function SpotsListItemLabelForm({ state, setState, updateSpot,...
       },
     })
 
-    await updateSpot({
+    const result = await updateSpot({
       long: geocode.longitude,
       lat: geocode.latitude,
       country: geocode.countryCode,
       location: geocode.label,
     })
-    const success = await props.createGuideStore.updateSpotLocation(props.spotIndex, geocode)
 
 
-    if (success) {
+    if (result.success) {
       clear()
     } else {
       setState({
         result: {
           status: "error",
-          error: success.message || "Something went wrong",
+          error: result.message || "Something went wrong",
         },
       })
     }

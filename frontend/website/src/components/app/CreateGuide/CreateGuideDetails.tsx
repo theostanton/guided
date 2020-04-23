@@ -5,7 +5,7 @@ import { TransportType } from "../../../api/generated"
 import { Form, Icon, Message } from "semantic-ui-react"
 import * as validation from "./validation"
 import MaxHoursPerRideForm from "./MaxHoursPerRideForm"
-import { log } from "utils/logger"
+import { logObject } from "utils/logger"
 
 
 type Status = "none" | "loading" | "errors" | "failed" | "initiating"
@@ -94,7 +94,9 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
       error: undefined,
     })
 
-    const result = await this.createGuideStore.upsertGuide(title, maxHoursPerRide, transportType)
+    const result = await this.createGuideStore.upsertGuide({ title, maxHoursPerRide, type: transportType })
+
+    logObject(result, "result")
 
     if (result.success) {
       this.setState({
@@ -104,7 +106,7 @@ export default class CreateGuideDetails extends React.Component<Props, State> {
     } else {
       this.setState({
         status: "failed",
-        error: result.message || "Something went wrong",
+        error: result.message || "Something went wrong!",
       })
       return false
     }

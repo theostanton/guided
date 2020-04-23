@@ -3,7 +3,7 @@ import { inject, observer } from "mobx-react"
 import * as React from "react"
 import { ReactElement } from "react"
 import { Button, Card, Form, FormGroup, Grid, GridColumn, GridRow, Header, Icon } from "semantic-ui-react"
-import { Geocode } from "api/generated"
+import { AddSpotInput, Geocode, UpdateSpotResult } from "api/generated"
 import { humanDate, humanDistance, plural } from "utils/human"
 import { iconForTransportType } from "utils/icons"
 import { UI_COLOURS } from "utils/colours"
@@ -32,14 +32,14 @@ export type Props = {
 export type State = {
   result: Result
   updatingStartDate: boolean
+  updatingIsCircular: boolean
 }
 
-export type SubProps =
-  {
+export type SubProps = {
     state: State,
     spot: Partial<CreateGuideStoreSpot>,
     setState: (state: Partial<State>) => void,
-    updateSpot: (fields: Partial<CreateGuideStoreSpot>) => Promise<void>
+    updateSpot: (fields: Partial<AddSpotInput>) => Promise<UpdateSpotResult>
   }
   & Props
 
@@ -53,6 +53,7 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
       result: {
         status: "clear",
       },
+      updatingIsCircular: false,
       updatingStartDate: false,
     }
   }
@@ -89,8 +90,8 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
   }
 
 
-  async updateSpot(fields: Partial<CreateGuideStoreSpot>) {
-    await this.createGuideStore.updateSpot(this.props.spotIndex, fields)
+  async updateSpot(fields: Partial<AddSpotInput>): Promise<UpdateSpotResult> {
+    return this.createGuideStore.updateSpot(this.props.spotIndex, fields)
   }
 
   renderLeft(): React.ReactElement {
@@ -139,8 +140,15 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
                         icon={"close"}
                         floated={"right"}
                         circular
-                        onClick={() => {
-                          this.createGuideStore.updateIsCircular(false)
+                        loading={this.state.updatingIsCircular}
+                        onClick={async () => {
+                          this.setState({
+                            updatingIsCircular: true,
+                          })
+                          await this.createGuideStore.updateIsCircular(false)
+                          this.setState({
+                            updatingIsCircular: true,
+                          })
                         }
                         }/>
 
@@ -164,7 +172,7 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
 
     return <Grid>
       <GridColumn width={14}>
-        <Header as={"h3"}>{title}{this.spot.date &&
+        <Header as={"h3"}>{title}{this.spot.date && this.props.position !== "first" &&
         <HeaderSubHeader>{humanDate(this.spot.date, true)}</HeaderSubHeader>}</Header>
       </GridColumn>
       <GridColumn width={2} floated={"right"}>
@@ -306,7 +314,7 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
   }
 
   render(): React.ReactElement {
-    return <Grid columns={16}>
+    return <Grid columns={16} key={this.spot.key}>
       <GridRow style={{ padding: 0, zIndex: 5 }} width={16}>
         {this.renderCenter()}
       </GridRow>

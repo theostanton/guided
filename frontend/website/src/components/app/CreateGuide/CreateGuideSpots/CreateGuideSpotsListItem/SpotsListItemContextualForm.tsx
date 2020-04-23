@@ -1,17 +1,16 @@
 import { Button, Form, Icon } from "semantic-ui-react"
 import * as React from "react"
-import { State, SubProps } from "./index"
-import AwesomeDebouncePromise from "awesome-debounce-promise"
-import { ApolloQueryResult } from "apollo-boost"
-import { Geocode, GeocodeDocument, GeocodeQuery } from "api/generated"
-import { client } from "api"
 import { CSSProperties } from "react"
-import { plural } from "../../../../../utils/human"
+import { SubProps } from "./index"
+import { plural } from "utils/human"
 import { DateInput } from "semantic-ui-calendar-react"
-import { dateString } from "../../../../../utils/dates"
+import { dateString } from "utils/dates"
+import { logObject } from "utils/logger"
 
 
-export default function SpotsListItemContextualForm({ state, setState, updateSpot,...props }: SubProps): React.ReactElement {
+export default function SpotsListItemContextualForm({ state, setState, updateSpot, ...props }: SubProps): React.ReactElement {
+
+  logObject(props.spot, "SpotsListItemContextualForm!")
 
   function nightsForm(): React.ReactElement {
 
@@ -72,7 +71,7 @@ export default function SpotsListItemContextualForm({ state, setState, updateSpo
         duration={200}
         hideMobileKeyboard
         iconPosition='right'
-        value={props.createGuideStore.startDate}
+        value={props.createGuideStore.guide.startDate}
         preserveViewMode={false}
         autoComplete='off'
         onChange={async (_, { value }) => {
@@ -92,7 +91,6 @@ export default function SpotsListItemContextualForm({ state, setState, updateSpo
     case "first":
       return startDateForm()
     case "middle":
-    case "last":
       return nightsForm()
     default:
       return null
