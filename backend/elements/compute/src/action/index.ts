@@ -18,7 +18,7 @@ async function runFinalisationIfRequired(guide: Guide): Promise<boolean> {
 
 async function insert(data: StageData) {
 
-  const stage: Partial<Stage> = {
+  const stage: Patch<Stage> = {
     id: data.stageId,
     status: "ready",
   }
