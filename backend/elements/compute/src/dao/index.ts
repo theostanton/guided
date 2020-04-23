@@ -1,5 +1,4 @@
 import { ComputationStatus, Ride, Spot, Stage } from "@guided/database"
-import { DatabaseDao } from "./DatabaseDao"
 
 export type StageData = {
   status: ComputationStatus
