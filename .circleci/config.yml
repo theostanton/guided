@@ -115,11 +115,11 @@ jobs:
             chmod +x ./scripts/deploy.backend.sh
             ./scripts/deploy.backend.sh
 
-     - run:
-         name: "Test"
-         command: |
-           cd backend
-           yarn test:all
+      - run:
+          name: "Test"
+          command: |
+            cd backend
+            yarn test:all
 
       - run:
           name: "Deploy"
