@@ -1,5 +1,5 @@
 {
-    "exclude": ["**/*.test.ts", "../../frontend/**", "**/node_modules"],
+    "exclude": [ "../../frontend/**", "**/node_modules"],
     "compilerOptions": {
         "incremental": true,
         /* Enable incremental compilation */

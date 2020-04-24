@@ -26,14 +26,14 @@ export default async function (
     let triggerComputations = false
 
     if (updatedSpot.label !== undefined) {
-        updatedSpot.label = label!
+        updatedSpot.label = label
     }
 
     if (location !== undefined) {
-        updatedSpot.country = location!.country!
-        updatedSpot.lat = location!.lat!
-        updatedSpot.long = location!.long!
-        updatedSpot.location = location!.location!
+        updatedSpot.country = location.country
+        updatedSpot.lat = location.lat
+        updatedSpot.long = location.long
+        updatedSpot.location = location.location
         triggerComputations = true
         // Stagnate stages tied to this spot
         await database.none(
@@ -46,7 +46,7 @@ export default async function (
     }
 
     if (nights !== undefined) {
-        updatedSpot.nights = nights!
+        updatedSpot.nights = nights
         updateDates = true
     }
 
@@ -67,7 +67,7 @@ export default async function (
 
             return {
                 success: true,
-                id: result.id!,
+                id: result.id,
                 ammendedDates: updateDates,
                 triggeredComputations: triggerComputations,
             }

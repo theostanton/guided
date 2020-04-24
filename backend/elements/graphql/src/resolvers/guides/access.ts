@@ -12,7 +12,7 @@ export default async function (
         [guideId]
     )
 
-    const username = context.jwtClaims && context.jwtClaims!.username
+    const username = context.jwtClaims && context.jwtClaims.username
 
     if (!username) {
         return 'notLoggedIn'

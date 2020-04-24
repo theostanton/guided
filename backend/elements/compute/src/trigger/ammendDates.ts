@@ -36,7 +36,7 @@ export async function prepare(guide: Guide): Promise<Packet> {
             spots: [],
         }
 
-        let date: string = guide.start_date!
+        let date: string = guide.start_date
 
         spots.forEach((spot: Spot, index: number) => {
             if (guide.is_circular && index === 0) {

@@ -59,7 +59,7 @@ export default async function (
         'guides',
         updatedGuide,
         'id',
-        previousId!
+        previousId
     )
 
     try {
@@ -75,7 +75,7 @@ export default async function (
 
             return {
                 success: true,
-                id: result.id!,
+                id: result.id,
                 triggeredComputations: triggerComputations,
                 triggeredDates: triggerDates,
             }

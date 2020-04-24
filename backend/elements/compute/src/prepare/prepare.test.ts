@@ -23,11 +23,11 @@ describe('When first computing a guide with no spots', () => {
         packet = await prep(guideId)
     }, TIMEOUT)
 
-    it('Returns no computations', async () => {
+    it('Returns no computations', () => {
         expect(packet.computationIds.length).toBe(0)
     })
 
-    it('Makes no alterations', async () => {
+    it('Makes no alterations', () => {
         expect(packet.alterations.alteredRides.length).toBe(0)
         expect(packet.alterations.alteredStages.length).toBe(0)
         expect(packet.alterations.alteredSpots.length).toBe(0)
@@ -56,19 +56,19 @@ describe('When adding a spot to a guide with 0 spots', () => {
         packet = await prep(guideId)
     }, TIMEOUT)
 
-    it('Returns no stages to compute', async () => {
+    it('Returns no stages to compute', () => {
         expect(packet.computationIds.length).toBe(0)
     })
 
-    it('Makes no ride alterations', async () => {
+    it('Makes no ride alterations', () => {
         expect(packet.alterations.alteredRides.length).toBe(0)
     })
 
-    it('Makes no stages alterations', async () => {
+    it('Makes no stages alterations', () => {
         expect(packet.alterations.alteredStages.length).toBe(0)
     })
 
-    it('Makes no spot alterations', async () => {
+    it('Makes no spot alterations', () => {
         expect(packet.alterations.alteredSpots.length).toBe(0)
     })
 })
@@ -92,11 +92,11 @@ describe('When adding a spot to a guide with 1 spot', () => {
         packet = await prep(guideId)
     }, TIMEOUT)
 
-    it('Returns no stages to compute', async () => {
+    it('Returns no stages to compute', () => {
         expect(packet.computationIds.length).toBe(0)
     })
 
-    it('Makes no alterations', async () => {
+    it('Makes no alterations', () => {
         expect(packet.alterations.alteredRides.length).toBe(0)
         expect(packet.alterations.alteredStages.length).toBe(0)
         expect(packet.alterations.alteredSpots.length).toBe(0)

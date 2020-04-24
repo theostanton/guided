@@ -82,7 +82,7 @@ async function spinupSpots(
     await spinup(content)
 
     const guideId: string = content.guides[0].id
-    const packet = await prepare(guideId!)
+    const packet = await prepare(guideId)
     await trigger(packet)
 
     return {
@@ -104,7 +104,7 @@ describe('Provided with an invalid spotId', () => {
         }
         result = await updateSpot(patch)
     })
-    it('Should fail', async () => {
+    it('Should fail', () => {
         expect(result.success).toBe(false)
         expect(result.message).toBe(MESSAGE_NO_SPOT)
     })

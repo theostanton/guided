@@ -32,7 +32,7 @@ async function editNights(
 
     await database.one(updateQuery)
 
-    const guide = await database.selectGuide(spot!.guide)
+    const guide = await database.selectGuide(spot.guide)
     await ammendDates(guide)
 
     return {

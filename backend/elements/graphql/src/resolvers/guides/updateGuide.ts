@@ -38,7 +38,7 @@ export default class UpdateGuideMutation extends Mutation<
     ): Promise<UpdateGuideResult> {
         const { id: previousId } = args.input!
 
-        switch (await access(context, previousId!)) {
+        switch (await access(context, previousId)) {
             case 'read':
             case 'denied':
                 return {

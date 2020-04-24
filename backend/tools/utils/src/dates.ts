@@ -23,7 +23,6 @@ export function extract(
 }
 
 export function isValid(dateString: string): boolean {
-    return !!dateString.match(
-        /^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
-    )
+    const pattern = /^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
+    return !!pattern.exec(dateString)
 }

@@ -52,7 +52,7 @@ export default async function trigger(packet: Packet): Promise<string[]> {
             log(sqs.config.region!, 'sqs.config.region')
             log(
                 sqs.config.credentials
-                    ? sqs.config.credentials.accessKeyId!
+                    ? sqs.config.credentials.accessKeyId
                     : 'no accessKeyId',
                 'sqs.config.credentials?.accessKeyId!'
             )

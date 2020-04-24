@@ -99,7 +99,7 @@ describe('When creating a guide for a title that already exists', () => {
         expect(guide.updated).toBeNull()
     })
 
-    it('Should not create a guide', async () => {
+    it('Should not create a guide', () => {
         expect(result.guideId).toBeUndefined()
     })
 

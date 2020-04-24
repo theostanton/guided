@@ -24,7 +24,7 @@ export default class FollowUserMutation extends Mutation<
             }
         }
 
-        const follower = context.jwtClaims!.username!
+        const follower = context.jwtClaims.username
         const followed = args.username
 
         const followsBefore = await database.manyOrNone<Follow>(

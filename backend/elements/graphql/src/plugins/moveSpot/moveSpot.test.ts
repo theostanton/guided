@@ -94,9 +94,9 @@ describe('When moving a spot on a guide with 1 spot', () => {
 
         expect(spot).toBeDefined()
         expect(spot.created).toBeDefined()
-        expect(spot.created!.getTime()).toBeLessThan(timestampBefore)
+        expect(spot.created.getTime()).toBeLessThan(timestampBefore)
         expect(spot.updated).toBeDefined()
-        expect(spot.updated!.getTime()).toBeGreaterThan(timestampBefore)
+        expect(spot.updated.getTime()).toBeGreaterThan(timestampBefore)
         expect(spot.position).toBe('0')
         expect(spot.date).toBeNull()
         expect(spot.locked).toBe(true)
@@ -199,9 +199,9 @@ describe('When moving a spot on a guide with 2 spots', () => {
 
         expect(spot).toBeDefined()
         expect(spot.created).toBeDefined()
-        expect(spot.created!.getTime()).toBeLessThan(timestampBefore)
+        expect(spot.created.getTime()).toBeLessThan(timestampBefore)
         expect(spot.updated).toBeDefined()
-        expect(spot.updated!.getTime()).toBeGreaterThan(timestampBefore)
+        expect(spot.updated.getTime()).toBeGreaterThan(timestampBefore)
         expect(spot.position).toBe('1')
         expect(spot.date).toBe('2019-08-01')
         expect(spot.locked).toBe(true)
@@ -281,13 +281,13 @@ describe('When moving a spot on a guide with 2 spots', () => {
 
             expect(stages[0].status).toBe('ready')
             expect(stages[0].updated).toBeDefined()
-            expect(stages[0].updated!.getTime()).toBeGreaterThan(
+            expect(stages[0].updated.getTime()).toBeGreaterThan(
                 timestampBefore
             )
 
             expect(stages[1].status).toBe('ready')
             expect(stages[1].updated).toBeDefined()
-            expect(stages[1].updated!.getTime()).toBeGreaterThan(
+            expect(stages[1].updated.getTime()).toBeGreaterThan(
                 timestampBefore
             )
         })
@@ -411,9 +411,9 @@ describe('When moving a spot on a guide with 3 spots', () => {
 
         expect(spot).toBeDefined()
         expect(spot.created).toBeDefined()
-        expect(spot.created!.getTime()).toBeLessThan(timestampBefore)
+        expect(spot.created.getTime()).toBeLessThan(timestampBefore)
         expect(spot.updated).toBeDefined()
-        expect(spot.updated!.getTime()).toBeGreaterThan(timestampBefore)
+        expect(spot.updated.getTime()).toBeGreaterThan(timestampBefore)
         expect(spot.position).toBe('2')
         expect(spot.date).toBe('2019-08-02')
         expect(spot.locked).toBe(true)
@@ -481,17 +481,17 @@ describe('When moving a spot on a guide with 3 spots', () => {
 
             expect(stages[0].status).toBe('ready')
             expect(stages[0].updated).toBeDefined()
-            expect(stages[0].updated!.getTime()).toBeLessThan(timestampBefore)
+            expect(stages[0].updated.getTime()).toBeLessThan(timestampBefore)
 
             expect(stages[1].status).toBe('ready')
             expect(stages[1].updated).toBeDefined()
-            expect(stages[1].updated!.getTime()).toBeGreaterThan(
+            expect(stages[1].updated.getTime()).toBeGreaterThan(
                 timestampBefore
             )
 
             expect(stages[2].status).toBe('ready')
             expect(stages[2].updated).toBeDefined()
-            expect(stages[2].updated!.getTime()).toBeGreaterThan(
+            expect(stages[2].updated.getTime()).toBeGreaterThan(
                 timestampBefore
             )
         })
