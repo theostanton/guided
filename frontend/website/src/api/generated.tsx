@@ -1233,7 +1233,6 @@ export type Mutation = {
   readonly follow?: Maybe<FollowPayload>;
   /** Registers a single user */
   readonly register?: Maybe<RegisterPayload>;
-  readonly removeSpot: Spot;
   readonly createGuide: CreateGuideResult;
   readonly updateGuide: UpdateGuideResult;
   readonly deleteGuide: DeleteGuideResult;
@@ -1241,6 +1240,7 @@ export type Mutation = {
   readonly unfollowUser: Result;
   readonly addSpot: AddSpotResult;
   readonly updateSpot: UpdateSpotResult;
+  readonly remvoeSpot: RemoveSpotResult;
 };
 
 
@@ -1383,12 +1383,6 @@ export type MutationRegisterArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationRemoveSpotArgs = {
-  spotId: Scalars['String'];
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
 export type MutationCreateGuideArgs = {
   input?: Maybe<CreateGuideInput>;
 };
@@ -1427,6 +1421,12 @@ export type MutationAddSpotArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationUpdateSpotArgs = {
   input: UpdateSpotPatch;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationRemvoeSpotArgs = {
+  input: RemoveSpotInput;
 };
 
 /** An object with a globally unique `ID`. */
@@ -1747,6 +1747,15 @@ export type RegisterPayload = {
 /** The output of our `register` mutation. */
 export type RegisterPayloadUserEdgeArgs = {
   orderBy?: Maybe<ReadonlyArray<UsersOrderBy>>;
+};
+
+export type RemoveSpotInput = {
+  readonly id: Scalars['String'];
+};
+
+export type RemoveSpotResult = {
+  readonly success: Scalars['Boolean'];
+  readonly message?: Maybe<Scalars['String']>;
 };
 
 export type Result = {
@@ -4113,6 +4122,8 @@ export type ResolversTypes = {
   UpdateSpotPatch: UpdateSpotPatch,
   UpdateSpotLocationPatch: UpdateSpotLocationPatch,
   UpdateSpotResult: ResolverTypeWrapper<UpdateSpotResult>,
+  RemoveSpotInput: RemoveSpotInput,
+  RemoveSpotResult: ResolverTypeWrapper<RemoveSpotResult>,
   Subscription: ResolverTypeWrapper<{}>,
 };
 
@@ -4265,6 +4276,8 @@ export type ResolversParentTypes = {
   UpdateSpotPatch: UpdateSpotPatch,
   UpdateSpotLocationPatch: UpdateSpotLocationPatch,
   UpdateSpotResult: UpdateSpotResult,
+  RemoveSpotInput: RemoveSpotInput,
+  RemoveSpotResult: RemoveSpotResult,
   Subscription: {},
 };
 
@@ -4563,7 +4576,6 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
   follow?: Resolver<Maybe<ResolversTypes['FollowPayload']>, ParentType, ContextType, RequireFields<MutationFollowArgs, 'input'>>,
   register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
-  removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
   createGuide?: Resolver<ResolversTypes['CreateGuideResult'], ParentType, ContextType, RequireFields<MutationCreateGuideArgs, never>>,
   updateGuide?: Resolver<ResolversTypes['UpdateGuideResult'], ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, never>>,
   deleteGuide?: Resolver<ResolversTypes['DeleteGuideResult'], ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, never>>,
@@ -4571,6 +4583,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   unfollowUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'username'>>,
   addSpot?: Resolver<ResolversTypes['AddSpotResult'], ParentType, ContextType, RequireFields<MutationAddSpotArgs, 'input'>>,
   updateSpot?: Resolver<ResolversTypes['UpdateSpotResult'], ParentType, ContextType, RequireFields<MutationUpdateSpotArgs, 'input'>>,
+  remvoeSpot?: Resolver<ResolversTypes['RemoveSpotResult'], ParentType, ContextType, RequireFields<MutationRemvoeSpotArgs, 'input'>>,
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -4624,6 +4637,12 @@ export type RegisterPayloadResolvers<ContextType = any, ParentType extends Resol
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
   userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<RegisterPayloadUserEdgeArgs, 'orderBy'>>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+};
+
+export type RemoveSpotResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['RemoveSpotResult'] = ResolversParentTypes['RemoveSpotResult']> = {
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
 
@@ -4938,6 +4957,7 @@ export type Resolvers<ContextType = any> = {
   PageInfo?: PageInfoResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   RegisterPayload?: RegisterPayloadResolvers<ContextType>,
+  RemoveSpotResult?: RemoveSpotResultResolvers<ContextType>,
   Result?: ResultResolvers<ContextType>,
   Ride?: RideResolvers<ContextType>,
   RidesConnection?: RidesConnectionResolvers<ContextType>,
@@ -5060,7 +5080,7 @@ export type RemoveSpotMutationVariables = {
 };
 
 
-export type RemoveSpotMutation = { readonly removeSpot: Pick<Spot, 'id'> };
+export type RemoveSpotMutation = { readonly remvoeSpot: Pick<RemoveSpotResult, 'success' | 'message'> };
 
 export type MoveSpotMutationVariables = {
   spotId: Scalars['String'];
@@ -5671,8 +5691,9 @@ export type DeleteGuideMutationResult = ApolloReactCommon.MutationResult<DeleteG
 export type DeleteGuideMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteGuideMutation, DeleteGuideMutationVariables>;
 export const RemoveSpotDocument = gql`
     mutation RemoveSpot($spotId: String!) {
-  removeSpot(spotId: $spotId) {
-    id
+  remvoeSpot(input: {id: $spotId}) {
+    success
+    message
   }
 }
     `;

@@ -51,9 +51,7 @@ buildAll() {
 
 generateMacroVersion() {
   DEPLOYED_MACRO_VERSION=$(terraform output deployed_macro_version)
-  if [ "$BUILD" = 'true' ]; then
-    ((DEPLOYED_MACRO_VERSION = DEPLOYED_MACRO_VERSION + 1))
-  fi
+  ((DEPLOYED_MACRO_VERSION = DEPLOYED_MACRO_VERSION + 1))
   echo "${DEPLOYED_MACRO_VERSION}"
 }
 

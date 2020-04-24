@@ -1739,7 +1739,6 @@ type Mutation {
     """
     input: RegisterInput!
   ): RegisterPayload
-  removeSpot(spotId: String!): Spot!
   createGuide(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -1772,6 +1771,12 @@ type Mutation {
     """
     input: UpdateSpotPatch!
   ): UpdateSpotResult!
+  remvoeSpot(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: RemoveSpotInput!
+  ): RemoveSpotResult!
 }
 
 """An object with a globally unique `ID`."""
@@ -2207,6 +2212,15 @@ type RegisterPayload {
     """The method to use when ordering `User`."""
     orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
   ): UsersEdge
+}
+
+input RemoveSpotInput {
+  id: String!
+}
+
+type RemoveSpotResult {
+  success: Boolean!
+  message: String
 }
 
 type Result {

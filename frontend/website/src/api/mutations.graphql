@@ -22,8 +22,9 @@ mutation DeleteGuide($guideId: String!) {
 }
 
 mutation RemoveSpot($spotId: String!) {
-  removeSpot(spotId: $spotId) {
-    id
+  remvoeSpot(input: { id: $spotId }) {
+    success
+    message
   }
 }
 
