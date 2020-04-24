@@ -170,6 +170,8 @@ fragment Guide on Guide {
 
 fragment CreatingGuideStage on Stage {
     status
+    fromSpot
+    toSpot
     ridesByStage{
         totalCount
         nodes{

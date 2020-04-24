@@ -10,8 +10,6 @@ import { logObject } from "utils/logger"
 
 export default function SpotsListItemContextualForm({ state, setState, updateSpot, ...props }: SubProps): React.ReactElement {
 
-  logObject(props.spot, "SpotsListItemContextualForm!")
-
   function nightsForm(): React.ReactElement {
 
     const styleLeft: CSSProperties = {

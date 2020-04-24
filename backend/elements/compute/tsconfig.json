@@ -1,14 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./srv",
-    "rootDir": "./src",
-    "esModuleInterop": true,
-    "allowJs": false
-  },
-  "exclude": [
-    "./srv",
-    "**/*.test.ts",
-    "**/node_modules"
-  ]
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./srv",
+        "rootDir": "./src",
+        "esModuleInterop": true,
+        "allowJs": false
+    },
+    "exclude": ["./srv", "**/*.test.ts", "**/node_modules"]
 }

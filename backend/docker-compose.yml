@@ -1,25 +1,24 @@
-version: "3.5"
+version: '3.5'
 
 services:
-
-  database:
-    image: debezium/postgres
-    environment:
-      - POSTGRES_USER=superuser
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=main
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./data:/var/lib/postgresql/data
-    command:
-      - "postgres"
-      - "-c"
-      - "wal_level=logical"
-      - "-c"
-      - "max_wal_senders=10"
-      - "-c"
-      - "max_replication_slots=10"
+    database:
+        image: debezium/postgres
+        environment:
+            - POSTGRES_USER=superuser
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=main
+        ports:
+            - '5432:5432'
+        volumes:
+            - ./data:/var/lib/postgresql/data
+        command:
+            - 'postgres'
+            - '-c'
+            - 'wal_level=logical'
+            - '-c'
+            - 'max_wal_senders=10'
+            - '-c'
+            - 'max_replication_slots=10'
 
 #  goaws:
 #    image: pafortin/goaws
@@ -42,4 +41,4 @@ services:
 #      - "5000:5000"
 
 volumes:
-  database:
+    database:

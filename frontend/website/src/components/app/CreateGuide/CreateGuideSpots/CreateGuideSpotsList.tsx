@@ -70,12 +70,12 @@ export default class CreateGuideSpotsList extends React.Component<Props, State> 
         items.push(<CreateGuideSpotsListItem spotIndex={spotIndex} position={position}/>)
       }
       if (["last", "firstLast"].includes(position)) {
-        items.push(<AddSpotButtons spotIndex={0} position={position}/>)
+        items.push(<AddSpotButtons addAtIndex={undefined} position={position}/>)
       }
     }
 
 
-    items.push(<AddSpotButtons spotIndex={0} position={undefined}/>)
+    items.push(<AddSpotButtons addAtIndex={0} position={undefined}/>)
 
     this.createGuideStore.spots.forEach((spot, spotIndex) => {
 
@@ -94,7 +94,7 @@ export default class CreateGuideSpotsList extends React.Component<Props, State> 
     if (isCircular) {
       addSpot(this.createGuideStore.spots[0], 0, "firstLast")
     } else if (spotsLength === 1) {
-      items.push(<AddSpotButtons spotIndex={1} position={undefined}/>)
+      items.push(<AddSpotButtons addAtIndex={undefined} position={undefined}/>)
     }
 
     return <div style={{ paddingTop: "2em" }}>

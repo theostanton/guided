@@ -155,16 +155,21 @@ export default class CreateGuideStore {
   }
 
   @action
-  addSpot(index: number) {
+  addSpot(index: number | undefined) {
     this.showSpotsErrors = false
-    this.spots.splice(index, 0, {
+    const newSpot = {
       key: randomKey(),
       label: "",
       nights: 1,
       spotId: undefined,
       beginsStage: undefined,
       date: undefined,
-    })
+    }
+    if (index) {
+      this.spots.splice(index, 0, newSpot)
+    } else {
+      this.spots.push(newSpot)
+    }
   }
 
   @action
@@ -361,7 +366,6 @@ export default class CreateGuideStore {
             })
           }
           this.updatedSpots = new Date().getTime()
-          logObject(this.spots, "this.spots")
         } else if (value.errors) {
           logError("errors")
           value.errors.forEach(error => {

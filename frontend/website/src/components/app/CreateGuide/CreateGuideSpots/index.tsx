@@ -1,22 +1,8 @@
 import { inject, observer } from "mobx-react"
 import * as React from "react"
-import CreateGuideStore, { CreateGuideSpot } from "model/CreateGuideStore"
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  Flag,
-  Grid,
-  GridColumn,
-  GridRow,
-  Header,
-  Icon,
-  Input,
-  Segment,
-} from "semantic-ui-react"
-import { CSSProperties, ReactElement } from "react"
+import CreateGuideStore from "model/CreateGuideStore"
+import { Button, ButtonGroup, Header } from "semantic-ui-react"
 import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
-import AddSpotForm from "./AddSpotForm"
 import CreateGuideSpotsList from "./CreateGuideSpotsList"
 
 
@@ -36,7 +22,7 @@ export default class CreateGuideSpots extends React.Component<Props> {
     return <div style={{
       marginTop: "2em",
       marginBottom: "2em",
-      paddingBottom: "4em",
+      paddingBottom: "6em",
       height: "min-content",
       maxWidth: "600px",
       marginLeft: "auto",
@@ -44,7 +30,8 @@ export default class CreateGuideSpots extends React.Component<Props> {
     }}>
       <Header>
         Add locations
-        <HeaderSubHeader>Add some locations to get you started. You can add, edit or move these on a map later</HeaderSubHeader>
+        <HeaderSubHeader>Add some locations to get you started. You can add, edit or move these on a map
+          later</HeaderSubHeader>
       </Header>
       {<CreateGuideSpotsList/>}
       <div style={{
@@ -52,6 +39,7 @@ export default class CreateGuideSpots extends React.Component<Props> {
         position: "absolute",
         maxWidth: "600px",
         width: "100%",
+        paddingTop: "1em",
         marginLeft: "auto",
         marginRight: "auto",
       }}>

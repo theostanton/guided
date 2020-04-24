@@ -1,7 +1,7 @@
-import sequence from "../sequence"
-import { log } from "@guided/logger"
+import sequence from '../sequence'
+import { log } from '@guided/logger'
 
-export default async function(): Promise<void> {
-  log("roles")
-  await sequence("roles")
+export default async function (): Promise<void> {
+    log('roles')
+    await sequence('roles')
 }

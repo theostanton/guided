@@ -100,11 +100,28 @@ jobs:
             terraform init
 
       - run:
-          name: "Build and deploy"
+          name: "Lint"
+          command: |
+            cd backend
+            yarn lint
+
+      - run:
+          name: "Build"
+          environmnet:
+            BUILD: 'true'
+            DEPLOY: 'false'
           command: |
             cd deploy
-            export BUILD=true
-            export DEPLOY=true
+            chmod +x ./scripts/deploy.backend.sh
+            ./scripts/deploy.backend.sh
+
+      - run:
+          name: "Deploy"
+          environmnet:
+            BUILD: 'false'
+            DEPLOY: 'true'
+          command: |
+            cd deploy
             chmod +x ./scripts/deploy.backend.sh
             ./scripts/deploy.backend.sh
 

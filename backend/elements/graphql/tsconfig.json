@@ -1,18 +1,14 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "srv",
-    "rootDir": "src",
-    "esModuleInterop": true,
-    "sourceMap": false,
-    "declaration": false,
-    "composite": false,
-    "declarationMap": false,
-    "baseUrl": "src"
-  },
-  "exclude": [
-    "srv",
-    "node_modules",
-    "jest.config.js"
-  ]
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "srv",
+        "rootDir": "src",
+        "esModuleInterop": true,
+        "sourceMap": false,
+        "declaration": false,
+        "composite": false,
+        "declarationMap": false,
+        "baseUrl": "src"
+    },
+    "exclude": ["srv", "node_modules", "jest.config.js"]
 }

@@ -1,18 +1,18 @@
 {
-  "name": "@guided/google",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./srv/index.js",
-  "types": "./srv/index.d.ts",
-  "scripts": {
-    "invoke": "yarn build && node srv/index.js",
-    "prepare": "yarn build",
-    "test": "jest",
-    "build": "tsc",
-    "watch": "tsc -w"
-  },
-  "dependencies": {
-    "@googlemaps/google-maps-services-js": "^2.0.2",
-    "@guided/logger": "*"
-  }
+    "name": "@guided/google",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./srv/index.js",
+    "types": "./srv/index.d.ts",
+    "scripts": {
+        "invoke": "yarn build && node srv/index.js",
+        "prepare": "yarn build",
+        "test": "jest",
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "@googlemaps/google-maps-services-js": "^2.0.2",
+        "@guided/logger": "*"
+    }
 }

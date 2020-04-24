@@ -2,14 +2,13 @@ import CreateGuideStore, { CreateGuideStoreSpot } from "model/CreateGuideStore"
 import { inject, observer } from "mobx-react"
 import * as React from "react"
 import { ReactElement } from "react"
-import { Button, Card, Form, FormGroup, Grid, GridColumn, GridRow, Header, Icon } from "semantic-ui-react"
+import { Button, Card, Form, FormGroup, Grid, GridColumn, GridRow, Header } from "semantic-ui-react"
 import { AddSpotInput, Geocode, UpdateSpotResult } from "api/generated"
-import { humanDate, humanDistance, plural } from "utils/human"
-import { iconForTransportType } from "utils/icons"
-import { UI_COLOURS } from "utils/colours"
+import { humanDate } from "utils/human"
 import HeaderSubHeader from "semantic-ui-react/dist/commonjs/elements/Header/HeaderSubheader"
 import SpotsListItemLabelForm from "./SpotsListItemLabelForm"
 import SpotsListItemLocationForm from "./SpotsListItemLocationForm"
+import SpotsListItemStage from "./SpotsListItemStage"
 import SpotsListItemContextualForm from "./SpotsListItemContextualForm"
 import { GeocodesStore } from "../GeocodesStore"
 
@@ -254,65 +253,6 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
     }
   }
 
-  renderStage(): React.ReactElement | undefined {
-
-    const stage = this.spot.beginsStage
-
-    if (!stage) {
-      return <div style={{
-        padding: "0.5em",
-        textAlign: "center",
-        marginBottom: 0,
-        marginTop: 0,
-        marginLeft: "0.3em",
-        marginRight: "0.3em",
-        backgroundColor: UI_COLOURS.lightGrey,
-      }}>
-        <p>Set next location for ride summary</p>
-      </div>
-    }
-
-    const isComputing = stage.status === "COMPUTING"
-
-    const distanceMeters = stage.ridesByStage.nodes.reduce((acc, ride) => {
-      return acc + ride.distanceMeters
-    }, 0)
-
-    const durationSeconds = stage.ridesByStage.nodes.reduce((acc, ride) => {
-      return acc + ride.durationSeconds
-    }, 0)
-
-    function loading(append: string): ReactElement {
-      return <p><Icon name='circle notched' fitted loading/> {append}</p>
-    }
-
-
-    return <div style={{
-      padding: "0.5em",
-      backgroundColor: UI_COLOURS.lightGrey,
-    }}>
-      <Grid stretched columns={3} style={{ padding: 0, margin: 0 }}>
-
-        <GridColumn verticalAlign={"middle"} textAlign={"center"} style={{ padding: 0 }}>
-          {isComputing ? loading("hours") :
-            <p><Icon name='clock'/>{`${Math.ceil(durationSeconds / 60 / 60)} hours`}</p>}
-        </GridColumn>
-
-        <GridColumn verticalAlign={"middle"} textAlign={"center"} style={{ padding: 0 }}>
-          {isComputing ? loading("miles") :
-            <p><Icon name='road'/>{humanDistance(distanceMeters, true, true)}</p>}
-        </GridColumn>
-
-        <GridColumn verticalAlign={"middle"} textAlign={"center"} style={{ padding: 0 }}>
-          {isComputing ? loading("rides") :
-            <p><Icon
-              name={iconForTransportType(this.createGuideStore.guide.transportType)}/>{`${stage.ridesByStage.totalCount} ${plural("ride", stage.ridesByStage.totalCount)}`}
-            </p>}
-        </GridColumn>
-      </Grid>
-    </div>
-  }
-
   render(): React.ReactElement {
     return <Grid columns={16} key={this.spot.key}>
       <GridRow style={{ padding: 0, zIndex: 5 }} width={16}>
@@ -327,7 +267,7 @@ export default class CreateGuideSpotsListItem extends React.Component<Props, Sta
           padding: 0,
           zIndex: 0,
         }}>
-          {this.renderStage()}
+          <SpotsListItemStage {...this.subProps}/>
         </GridColumn>
       </GridRow>}
     </Grid>

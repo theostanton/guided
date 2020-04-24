@@ -7,34 +7,34 @@
  * MIT Licensed
  */
 
-'use strict';
+'use strict'
 
 /**
  * Module dependencies.
  * @private
  */
 
-var debug = require('debug')('express:view');
-var path = require('path');
-var fs = require('fs');
+const debug = require('debug')('express:view')
+const path = require('path')
+const fs = require('fs')
 
 /**
  * Module variables.
  * @private
  */
 
-var dirname = path.dirname;
-var basename = path.basename;
-var extname = path.extname;
-var join = path.join;
-var resolve = path.resolve;
+const dirname = path.dirname
+const basename = path.basename
+const extname = path.extname
+const join = path.join
+const resolve = path.resolve
 
 /**
  * Module exports.
  * @public
  */
 
-module.exports = View;
+module.exports = View
 
 /**
  * Initialize a new `View` with the given `name`.
@@ -51,31 +51,34 @@ module.exports = View;
  */
 
 function View(name, options) {
-  var opts = options || {};
+    const opts = options || {}
 
-  this.defaultEngine = opts.defaultEngine;
-  this.ext = extname(name);
-  this.name = name;
-  this.root = opts.root;
+    this.defaultEngine = opts.defaultEngine
+    this.ext = extname(name)
+    this.name = name
+    this.root = opts.root
 
-  if (!this.ext && !this.defaultEngine) {
-    throw new Error('No default engine was specified and no extension was provided.');
-  }
+    if (!this.ext && !this.defaultEngine) {
+        throw new Error(
+            'No default engine was specified and no extension was provided.'
+        )
+    }
 
-  var fileName = name;
+    let fileName = name
 
-  if (!this.ext) {
-    // get extension from default engine name
-    this.ext = this.defaultEngine[0] !== '.'
-      ? '.' + this.defaultEngine
-      : this.defaultEngine;
+    if (!this.ext) {
+        // get extension from default engine name
+        this.ext =
+            this.defaultEngine[0] !== '.'
+                ? '.' + this.defaultEngine
+                : this.defaultEngine
 
-    fileName += this.ext;
-  }
+        fileName += this.ext
+    }
 
-  if (!opts.engines[this.ext]) {
-    throw new Error('You must require the engine yourself');
-    /*
+    if (!opts.engines[this.ext]) {
+        throw new Error('You must require the engine yourself')
+        /*
     // load engine
     var mod = this.ext.substr(1)
     debug('require "%s"', mod)
@@ -89,13 +92,13 @@ function View(name, options) {
 
     opts.engines[this.ext] = fn
     */
-  }
+    }
 
-  // store loaded engine
-  this.engine = opts.engines[this.ext];
+    // store loaded engine
+    this.engine = opts.engines[this.ext]
 
-  // lookup path
-  this.path = this.lookup(fileName);
+    // lookup path
+    this.path = this.lookup(fileName)
 }
 
 /**
@@ -106,25 +109,25 @@ function View(name, options) {
  */
 
 View.prototype.lookup = function lookup(name) {
-  var path;
-  var roots = [].concat(this.root);
+    let path
+    const roots = [].concat(this.root)
 
-  debug('lookup "%s"', name);
+    debug('lookup "%s"', name)
 
-  for (var i = 0; i < roots.length && !path; i++) {
-    var root = roots[i];
+    for (let i = 0; i < roots.length && !path; i++) {
+        const root = roots[i]
 
-    // resolve the path
-    var loc = resolve(root, name);
-    var dir = dirname(loc);
-    var file = basename(loc);
+        // resolve the path
+        const loc = resolve(root, name)
+        const dir = dirname(loc)
+        const file = basename(loc)
 
-    // resolve the file
-    path = this.resolve(dir, file);
-  }
+        // resolve the file
+        path = this.resolve(dir, file)
+    }
 
-  return path;
-};
+    return path
+}
 
 /**
  * Render with the given options.
@@ -135,9 +138,9 @@ View.prototype.lookup = function lookup(name) {
  */
 
 View.prototype.render = function render(options, callback) {
-  debug('render "%s"', this.path);
-  this.engine(this.path, options, callback);
-};
+    debug('render "%s"', this.path)
+    this.engine(this.path, options, callback)
+}
 
 /**
  * Resolve the file within the given directory.
@@ -148,24 +151,24 @@ View.prototype.render = function render(options, callback) {
  */
 
 View.prototype.resolve = function resolve(dir, file) {
-  var ext = this.ext;
+    const ext = this.ext
 
-  // <path>.<ext>
-  var path = join(dir, file);
-  var stat = tryStat(path);
+    // <path>.<ext>
+    let path = join(dir, file)
+    let stat = tryStat(path)
 
-  if (stat && stat.isFile()) {
-    return path;
-  }
+    if (stat && stat.isFile()) {
+        return path
+    }
 
-  // <path>/index.<ext>
-  path = join(dir, basename(file, ext), 'index' + ext);
-  stat = tryStat(path);
+    // <path>/index.<ext>
+    path = join(dir, basename(file, ext), 'index' + ext)
+    stat = tryStat(path)
 
-  if (stat && stat.isFile()) {
-    return path;
-  }
-};
+    if (stat && stat.isFile()) {
+        return path
+    }
+}
 
 /**
  * Return a stat, maybe.
@@ -176,12 +179,11 @@ View.prototype.resolve = function resolve(dir, file) {
  */
 
 function tryStat(path) {
-  debug('stat "%s"', path);
+    debug('stat "%s"', path)
 
-  try {
-    return fs.statSync(path);
-  } catch (e) {
-    return undefined;
-  }
+    try {
+        return fs.statSync(path)
+    } catch (e) {
+        return undefined
+    }
 }
-

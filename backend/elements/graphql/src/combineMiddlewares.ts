@@ -6,20 +6,22 @@
  * calls next().
  */
 
-import { RequestHandler } from "express"
+import { RequestHandler } from 'express'
 
-export default function combineMiddlewares(...middlewares: RequestHandler[]): RequestHandler {
-  return middlewares.reduce(
-    (parent: any, fn) => {
-      return (req, res, next) => {
-        parent(req, res, (error?: any) => {
-          if (error) {
-            return next(error)
-          }
-          fn(req, res, next)
-        })
-      }
-    },
-    (_req, _res, next) => next(),
-  )
+export default function combineMiddlewares(
+    ...middlewares: RequestHandler[]
+): RequestHandler {
+    return middlewares.reduce(
+        (parent: any, fn) => {
+            return (req, res, next) => {
+                parent(req, res, (error?: any) => {
+                    if (error) {
+                        return next(error)
+                    }
+                    fn(req, res, next)
+                })
+            }
+        },
+        (_req, _res, next) => next()
+    )
 }

@@ -1,8 +1,8 @@
 export type ComputeStageMessageBody = {
-  computationId: string
+    computationId: string;
 }
 
 export type ComputeStageResult = {
-  success: boolean,
-  ranFinalisation: boolean
+    success: boolean;
+    ranFinalisation: boolean;
 }

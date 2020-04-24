@@ -1,7 +1,7 @@
-import { actions } from "../."
+import { actions } from '../.'
 
-xdescribe("Create tables", () => {
-  it("Creates users", async () => {
-    await actions.create()
-  })
+xdescribe('Create tables', () => {
+    it('Creates users', async () => {
+        await actions.create()
+    })
 })

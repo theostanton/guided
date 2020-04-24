@@ -1,7 +1,7 @@
 export type Context = {
-  jwtClaims?: {
-    username: string
-  }
+    jwtClaims?: {
+        username: string;
+    };
 }
 
-export type Access = "notLoggedIn" | "owner" | "read" | "denied"
+export type Access = 'notLoggedIn' | 'owner' | 'read' | 'denied'

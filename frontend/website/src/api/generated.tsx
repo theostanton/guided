@@ -5045,7 +5045,7 @@ export type GuideFragment = (
 );
 
 export type CreatingGuideStageFragment = (
-  Pick<Stage, 'status'>
+  Pick<Stage, 'status' | 'fromSpot' | 'toSpot'>
   & { readonly ridesByStage: (
     Pick<RidesConnection, 'totalCount'>
     & { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'distanceMeters' | 'durationSeconds'>>> }
@@ -5492,6 +5492,8 @@ ${StageFragmentDoc}`;
 export const CreatingGuideStageFragmentDoc = gql`
     fragment CreatingGuideStage on Stage {
   status
+  fromSpot
+  toSpot
   ridesByStage {
     totalCount
     nodes {

@@ -1,6 +1,6 @@
-import sequence from "../sequence"
+import sequence from '../sequence'
 
-export default async function(): Promise<void> {
-  console.log("truncating")
-  await sequence("truncate")
+export default async function (): Promise<void> {
+    console.log('truncating')
+    await sequence('truncate')
 }

@@ -1,25 +1,23 @@
 {
-  "dialect": "postgres",
-  "template": "./src/template.handlebars",
-  "connection": {
-    "host": "staging-database.ridersbible.com",
-    "user": "",
-    "password": "",
-    "database": "main"
-  },
-  "filename": "src/types",
-  "interfaceNameFormat": "${table}",
-  "columnNameCasing": null,
-  "singularTableNames": true,
-  "tableNameCasing": "pascal",
-  "schemas": [
-    "public"
-  ],
-  "typeOverrides": {
-    "public.stages.status": "StageStatus",
-    "public.computations.status": "ComputationStatus",
-    "public.spots.status": "SpotStatus",
-    "public.guids.transport_type": "TransportType",
-    "public.rides.status": "RideStatus"
-  }
+    "dialect": "postgres",
+    "template": "./src/template.handlebars",
+    "connection": {
+        "host": "staging-database.ridersbible.com",
+        "user": "",
+        "password": "",
+        "database": "main"
+    },
+    "filename": "src/types",
+    "interfaceNameFormat": "${table}",
+    "columnNameCasing": null,
+    "singularTableNames": true,
+    "tableNameCasing": "pascal",
+    "schemas": ["public"],
+    "typeOverrides": {
+        "public.stages.status": "StageStatus",
+        "public.computations.status": "ComputationStatus",
+        "public.spots.status": "SpotStatus",
+        "public.guids.transport_type": "TransportType",
+        "public.rides.status": "RideStatus"
+    }
 }

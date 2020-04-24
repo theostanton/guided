@@ -1,0 +1,7 @@
+node_modules
+dist
+srv
+data
+reports
+tsconfig.json
+package.json

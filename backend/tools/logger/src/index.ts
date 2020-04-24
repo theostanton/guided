@@ -1,13 +1,13 @@
-import { LocalLogger } from "./LocalLogger"
+import { LocalLogger } from './LocalLogger'
 
 export interface Logger {
-  log(message: string, label?: string): void
+    log(message: string, label?: string): void;
 
-  json(object: any, label?: string): void
+    json(object: any, label?: string): void;
 
-  info(message: string): void
+    info(message: string): void;
 
-  error(message: string): void
+    error(message: string): void;
 }
 
 const logger = new LocalLogger()

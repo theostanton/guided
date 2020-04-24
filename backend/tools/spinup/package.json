@@ -1,32 +1,32 @@
 {
-  "name": "@guided/spinup",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./srv/index.js",
-  "types": "./srv/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "jest",
-    "action:drop": "ts-node src/invoke.ts drop",
-    "action:truncate": "ts-node src/invoke.ts truncate",
-    "action:1:roles": "ts-node src/invoke.ts roles",
-    "action:2:create": "ts-node src/invoke.ts create",
-    "action:3:privelages": "ts-node src/invoke.ts privelages"
-  },
-  "dependencies": {
-    "@guided/database": "*",
-    "@guided/logger": "*",
-    "@guided/utils": "*"
-  },
-  "devDependencies": {
-    "@types/command-line-args": "^5.0.0",
-    "@types/listr": "^0.14.2",
-    "command-line-args": "^5.1.1",
-    "csv-parse": "^4.8.5",
-    "dotenv": "^8.2.0",
-    "listr": "^0.14.3",
-    "slugify": "^1.3.6",
-    "ts-node": "^8.6.2"
-  }
+    "name": "@guided/spinup",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./srv/index.js",
+    "types": "./srv/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w",
+        "test": "jest",
+        "action:drop": "ts-node src/invoke.ts drop",
+        "action:truncate": "ts-node src/invoke.ts truncate",
+        "action:1:roles": "ts-node src/invoke.ts roles",
+        "action:2:create": "ts-node src/invoke.ts create",
+        "action:3:privelages": "ts-node src/invoke.ts privelages"
+    },
+    "dependencies": {
+        "@guided/database": "*",
+        "@guided/logger": "*",
+        "@guided/utils": "*"
+    },
+    "devDependencies": {
+        "@types/command-line-args": "^5.0.0",
+        "@types/listr": "^0.14.2",
+        "command-line-args": "^5.1.1",
+        "csv-parse": "^4.8.5",
+        "dotenv": "^8.2.0",
+        "listr": "^0.14.3",
+        "slugify": "^1.3.6",
+        "ts-node": "^8.6.2"
+    }
 }
