@@ -10,7 +10,8 @@ import pgSimplifyInflector from '@graphile-contrib/pg-simplify-inflector'
 
 import subscriptionsLds from '@graphile/subscriptions-lds'
 
-import postgraphilePluginConnectionFilter from 'postgraphile-plugin-connection-filter'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const postgraphilePluginConnectionFilter = require('postgraphile-plugin-connection-filter')
 
 export type Mode = 'watch' | 'buildCache' | 'invoke' | 'serve'
 

@@ -26,11 +26,11 @@ export default async function (
     let triggerComputations = false
 
     if (updatedSpot.label !== undefined) {
-        updatedSpot.label = label
+        updatedSpot.label = label || null
     }
 
-    if (location !== undefined) {
-        updatedSpot.country = location.country
+    if (location) {
+        updatedSpot.country = location.country!
         updatedSpot.lat = location.lat
         updatedSpot.long = location.long
         updatedSpot.location = location.location
