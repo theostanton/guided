@@ -107,7 +107,7 @@ jobs:
 
       - run:
           name: "Build"
-          environmnet:
+          environment:
             BUILD: 'true'
             DEPLOY: 'false'
           command: |
@@ -117,7 +117,7 @@ jobs:
 
       - run:
           name: "Deploy"
-          environmnet:
+          environment:
             BUILD: 'false'
             DEPLOY: 'true'
           command: |
