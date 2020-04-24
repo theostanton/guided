@@ -21,7 +21,8 @@ describe('When adding a start date to guide with 3 spots', () => {
         const contents = UserBuilder.create(faker.internet.email(), owner)
             .addGuide(GUIDE_TITLE, (builder) => {
                 guideId = builder.guideId
-                builder.nextSpotLocation('Worthing', 1, SPOT_ID_1)
+                builder.isCircular = true
+                builder.nextSpotLocation('Worthing', 0, SPOT_ID_1)
                 builder.nextSpotLocation('Brighton', 3, SPOT_ID_2)
                 builder.nextSpotLocation('Horsham', 2, SPOT_ID_3)
             })
@@ -57,7 +58,7 @@ describe('When adding a start date to guide with 3 spots', () => {
         const spots = await database.selectSpotsForGuide(guideId)
         expect(spots.length).toBe(3)
 
-        expect(spots[0].date).toBe('2019-12-31')
+        expect(spots[0].date).toBe('2019-01-06')
         expect(spots[0].updated.getTime()).toBeGreaterThan(timestampBefore)
 
         expect(spots[1].date).toBe('2020-01-01')
@@ -97,7 +98,7 @@ describe('When editing a start date to guide with 3 spots', () => {
             .addGuide(GUIDE_TITLE, (builder) => {
                 guideId = builder.guideId
                 builder.withStartDate(2019, 6, 6)
-                builder.nextSpotLocation('Worthing', 1, SPOT_ID_1)
+                builder.nextSpotLocation('Worthing', 0, SPOT_ID_1)
                 builder.nextSpotLocation('Brighton', 3, SPOT_ID_2)
                 builder.nextSpotLocation('Horsham', 2, SPOT_ID_3)
             })
@@ -172,7 +173,7 @@ describe('When removing a start date to guide with 3 spots', () => {
             .addGuide(GUIDE_TITLE, (builder) => {
                 guideId = builder.guideId
                 builder.withStartDate(2019, 6, 6)
-                builder.nextSpotLocation('Worthing', 1, SPOT_ID_1)
+                builder.nextSpotLocation('Worthing', 0, SPOT_ID_1)
                 builder.nextSpotLocation('Brighton', 3, SPOT_ID_2)
                 builder.nextSpotLocation('Horsham', 2, SPOT_ID_3)
             })

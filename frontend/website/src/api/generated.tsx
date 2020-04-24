@@ -1233,10 +1233,7 @@ export type Mutation = {
   readonly follow?: Maybe<FollowPayload>;
   /** Registers a single user */
   readonly register?: Maybe<RegisterPayload>;
-  readonly moveSpot: Spot;
   readonly removeSpot: Spot;
-  readonly editStartDate: Result;
-  readonly editNights: Result;
   readonly createGuide: CreateGuideResult;
   readonly updateGuide: UpdateGuideResult;
   readonly deleteGuide: DeleteGuideResult;
@@ -1386,30 +1383,8 @@ export type MutationRegisterArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationMoveSpotArgs = {
-  spotId: Scalars['String'];
-  lat: Scalars['Float'];
-  long: Scalars['Float'];
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
 export type MutationRemoveSpotArgs = {
   spotId: Scalars['String'];
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationEditStartDateArgs = {
-  guideId: Scalars['String'];
-  date?: Maybe<Scalars['String']>;
-};
-
-
-/** The root mutation type which contains root level fields which mutate data. */
-export type MutationEditNightsArgs = {
-  spotId: Scalars['String'];
-  nights: Scalars['Int'];
 };
 
 
@@ -3565,8 +3540,8 @@ export type UpdateGuideResult = {
 export type UpdateSpotLocationPatch = {
   readonly lat: Scalars['Float'];
   readonly long: Scalars['Float'];
-  readonly location: Scalars['String'];
-  readonly country: Scalars['String'];
+  readonly location?: Maybe<Scalars['String']>;
+  readonly country?: Maybe<Scalars['String']>;
 };
 
 export type UpdateSpotPatch = {
@@ -4126,13 +4101,13 @@ export type ResolversTypes = {
   FollowPayload: ResolverTypeWrapper<FollowPayload>,
   RegisterInput: RegisterInput,
   RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
-  Result: ResolverTypeWrapper<Result>,
   CreateGuideInput: CreateGuideInput,
   CreateGuideResult: ResolverTypeWrapper<CreateGuideResult>,
   UpdateGuidePatch: UpdateGuidePatch,
   UpdateGuideResult: ResolverTypeWrapper<UpdateGuideResult>,
   DeleteGuideInput: DeleteGuideInput,
   DeleteGuideResult: ResolverTypeWrapper<DeleteGuideResult>,
+  Result: ResolverTypeWrapper<Result>,
   AddSpotInput: AddSpotInput,
   AddSpotResult: ResolverTypeWrapper<AddSpotResult>,
   UpdateSpotPatch: UpdateSpotPatch,
@@ -4278,13 +4253,13 @@ export type ResolversParentTypes = {
   FollowPayload: FollowPayload,
   RegisterInput: RegisterInput,
   RegisterPayload: RegisterPayload,
-  Result: Result,
   CreateGuideInput: CreateGuideInput,
   CreateGuideResult: CreateGuideResult,
   UpdateGuidePatch: UpdateGuidePatch,
   UpdateGuideResult: UpdateGuideResult,
   DeleteGuideInput: DeleteGuideInput,
   DeleteGuideResult: DeleteGuideResult,
+  Result: Result,
   AddSpotInput: AddSpotInput,
   AddSpotResult: AddSpotResult,
   UpdateSpotPatch: UpdateSpotPatch,
@@ -4588,10 +4563,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
   follow?: Resolver<Maybe<ResolversTypes['FollowPayload']>, ParentType, ContextType, RequireFields<MutationFollowArgs, 'input'>>,
   register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
-  moveSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationMoveSpotArgs, 'spotId' | 'lat' | 'long'>>,
   removeSpot?: Resolver<ResolversTypes['Spot'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'spotId'>>,
-  editStartDate?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditStartDateArgs, 'guideId'>>,
-  editNights?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationEditNightsArgs, 'spotId' | 'nights'>>,
   createGuide?: Resolver<ResolversTypes['CreateGuideResult'], ParentType, ContextType, RequireFields<MutationCreateGuideArgs, never>>,
   updateGuide?: Resolver<ResolversTypes['UpdateGuideResult'], ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, never>>,
   deleteGuide?: Resolver<ResolversTypes['DeleteGuideResult'], ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, never>>,
@@ -5097,7 +5069,7 @@ export type MoveSpotMutationVariables = {
 };
 
 
-export type MoveSpotMutation = { readonly moveSpot: Pick<Spot, 'id'> };
+export type MoveSpotMutation = { readonly updateSpot: Pick<UpdateSpotResult, 'id'> };
 
 export type EditStartDateMutationVariables = {
   guideId: Scalars['String'];
@@ -5105,7 +5077,7 @@ export type EditStartDateMutationVariables = {
 };
 
 
-export type EditStartDateMutation = { readonly editStartDate: Pick<Result, 'success' | 'message'> };
+export type EditStartDateMutation = { readonly updateGuide: Pick<UpdateGuideResult, 'success' | 'message'> };
 
 export type EditNightsMutationVariables = {
   spotId: Scalars['String'];
@@ -5113,7 +5085,7 @@ export type EditNightsMutationVariables = {
 };
 
 
-export type EditNightsMutation = { readonly editNights: Pick<Result, 'success' | 'message'> };
+export type EditNightsMutation = { readonly updateSpot: Pick<UpdateSpotResult, 'success' | 'message'> };
 
 export type FollowUserMutationVariables = {
   username: Scalars['String'];
@@ -5737,7 +5709,7 @@ export type RemoveSpotMutationResult = ApolloReactCommon.MutationResult<RemoveSp
 export type RemoveSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveSpotMutation, RemoveSpotMutationVariables>;
 export const MoveSpotDocument = gql`
     mutation MoveSpot($spotId: String!, $lat: Float!, $long: Float!) {
-  moveSpot(spotId: $spotId, lat: $lat, long: $long) {
+  updateSpot(input: {id: $spotId, location: {long: $long, lat: $lat}}) {
     id
   }
 }
@@ -5777,7 +5749,7 @@ export type MoveSpotMutationResult = ApolloReactCommon.MutationResult<MoveSpotMu
 export type MoveSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<MoveSpotMutation, MoveSpotMutationVariables>;
 export const EditStartDateDocument = gql`
     mutation EditStartDate($guideId: String!, $date: String) {
-  editStartDate(guideId: $guideId, date: $date) {
+  updateGuide(input: {id: $guideId, startDate: $date}) {
     success
     message
   }
@@ -5817,7 +5789,7 @@ export type EditStartDateMutationResult = ApolloReactCommon.MutationResult<EditS
 export type EditStartDateMutationOptions = ApolloReactCommon.BaseMutationOptions<EditStartDateMutation, EditStartDateMutationVariables>;
 export const EditNightsDocument = gql`
     mutation EditNights($spotId: String!, $nights: Int!) {
-  editNights(spotId: $spotId, nights: $nights) {
+  updateSpot(input: {id: $spotId, nights: $nights}) {
     success
     message
   }

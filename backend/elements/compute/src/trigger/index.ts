@@ -6,8 +6,6 @@ import SQS from './sqs'
 import { log } from '@guided/logger'
 
 export default async function trigger(packet: Packet): Promise<string[]> {
-    log(process.env.STAGE!, 'trigger() process.env.STAGE')
-
     switch (process.env.STAGE) {
         case 'development':
             executeConcurrently(

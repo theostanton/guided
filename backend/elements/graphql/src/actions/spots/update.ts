@@ -1,7 +1,8 @@
-import { UpdateSpotPatch, UpdateSpotResult } from 'generated'
+import { UpdateSpotPatch, UpdateSpotResult } from '../../generated'
 import { database, Spot, updateOne } from '@guided/database'
 import * as computeStage from '@guided/compute'
 import { ammendDates } from '@guided/compute'
+import { getInfo, PlaceInfo } from '@guided/google'
 
 export const MESSAGE_NO_SPOT = '"No spot for that ID"'
 
@@ -30,10 +31,20 @@ export default async function (
     }
 
     if (location) {
-        updatedSpot.country = location.country!
+        let info: PlaceInfo
+        if (location.country && location.location) {
+            info = {
+                label: location.location,
+                countryCode: location.country,
+            }
+        } else {
+            info = await getInfo(location.lat, location.long)
+        }
+
+        updatedSpot.country = info.countryCode
+        updatedSpot.location = info.label
         updatedSpot.lat = location.lat
         updatedSpot.long = location.long
-        updatedSpot.location = location.location
         triggerComputations = true
         // Stagnate stages tied to this spot
         await database.none(

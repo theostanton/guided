@@ -62,8 +62,6 @@ export function updateMany(
         return updateItem
     })
 
-    logJson(items, 'items')
-
     if (items.length === 0) {
         return ''
     }

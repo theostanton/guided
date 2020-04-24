@@ -22,8 +22,8 @@ export default class UpdateSpotMutation extends Mutation<
         input UpdateSpotLocationPatch {
             lat: Float!
             long: Float!
-            location: String!
-            country: String!
+            location: String
+            country: String
         }
 
         type UpdateSpotResult {

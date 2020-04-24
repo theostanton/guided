@@ -12,6 +12,11 @@ config:
     immutableTypes: true
     overwrites: true
 generates:
+    ../../elements/graphql/src/generated.ts:
+        plugins:
+            - 'typescript'
+            - 'typescript-resolvers'
+            - 'typescript-operations'
     ../../../frontend/website/src/api/generated.tsx:
         documents: '../../../frontend/website/src/**/*.graphql'
         plugins:
@@ -19,8 +24,3 @@ generates:
             - 'typescript-resolvers'
             - 'typescript-operations'
             - 'typescript-react-apollo'
-    ../../elements/graphql/src/generated.ts:
-        plugins:
-            - 'typescript'
-            - 'typescript-resolvers'
-            - 'typescript-operations'

@@ -1,82 +1,80 @@
-mutation CreateGuide($input:CreateGuideInput!){
-    createGuide(input: $input){
-        success
-        message
-        guideId
-    }
+mutation CreateGuide($input: CreateGuideInput!) {
+  createGuide(input: $input) {
+    success
+    message
+    guideId
+  }
 }
 
-mutation AddSpot($input:AddSpotInput!){
-    addSpot(input: $input){
-        id
-        messaage
-        success
-    }
+mutation AddSpot($input: AddSpotInput!) {
+  addSpot(input: $input) {
+    id
+    messaage
+    success
+  }
 }
 
-mutation DeleteGuide($guideId:String!){
-    deleteGuide(input: {
-        id: $guideId
-    }){
-        success
-        message
-    }
+mutation DeleteGuide($guideId: String!) {
+  deleteGuide(input: { id: $guideId }) {
+    success
+    message
+  }
 }
 
-mutation RemoveSpot($spotId:String!){
-    removeSpot(spotId: $spotId){
-        id
-    }
+mutation RemoveSpot($spotId: String!) {
+  removeSpot(spotId: $spotId) {
+    id
+  }
 }
 
-mutation MoveSpot($spotId:String!,$lat:Float!,$long:Float!){
-    moveSpot(spotId: $spotId,lat:$lat,long:$long){
-        id
-    }
+mutation MoveSpot($spotId: String!, $lat: Float!, $long: Float!) {
+  updateSpot(input: { id: $spotId, location: { long: $long, lat: $lat } }) {
+    id
+  }
 }
 
-mutation EditStartDate($guideId:String!,$date:String){
-    editStartDate(guideId: $guideId,date: $date){
-        success
-        message
-    }
+mutation EditStartDate($guideId: String!, $date: String) {
+  updateGuide(input: { id: $guideId, startDate: $date }) {
+    success
+    message
+  }
 }
 
-mutation EditNights($spotId:String!,$nights:Int!){
-    editNights(spotId:$spotId,nights: $nights){
-        success
-        message
-    }
+mutation EditNights($spotId: String!, $nights: Int!) {
+  updateSpot(input: { id: $spotId, nights: $nights }) {
+    success
+    message
+  }
 }
 
-mutation FollowUser($username:String!){
-    unfollowUser(username: $username){
-        success
-        message
-    }
+mutation FollowUser($username: String!) {
+  unfollowUser(username: $username) {
+    success
+    message
+  }
 }
 
-mutation UnfollowUser($username:String!){
-    followUser(username: $username){
-        success
-        message
-    }
+mutation UnfollowUser($username: String!) {
+  followUser(username: $username) {
+    success
+    message
+  }
 }
 
-mutation UpdateGuide($patch:UpdateGuidePatch!){
-    updateGuide(input: $patch){
-        message
-        success
-        id
-    }
+mutation UpdateGuide($patch: UpdateGuidePatch!) {
+  updateGuide(input: $patch) {
+    message
+    success
+    id
+  }
 }
 
-mutation UpdateSpot($patch:UpdateSpotPatch!){
-    updateSpot(input: $patch){
-        ammendedDates
-        id
-        message
-        success
-        triggeredComputations
-    }
+mutation UpdateSpot($patch: UpdateSpotPatch!) {
+  updateSpot(input: $patch) {
+    ammendedDates
+    id
+    message
+    success
+    triggeredComputations
+  }
 }

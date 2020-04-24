@@ -1,5 +1,5 @@
 import prep, { Packet } from './index'
-import faker from 'faker'
+import * as faker from 'faker'
 import { Contents, spinup, UserBuilder } from '@guided/spinup'
 import { database, generateId } from '@guided/database'
 
@@ -28,9 +28,7 @@ describe('When first computing a guide with no spots', () => {
     })
 
     it('Makes no alterations', () => {
-        expect(packet.alterations.alteredRides.length).toBe(0)
-        expect(packet.alterations.alteredStages.length).toBe(0)
-        expect(packet.alterations.alteredSpots.length).toBe(0)
+        expect(packet.alteredStages.length).toBe(0)
     })
 })
 
@@ -60,16 +58,8 @@ describe('When adding a spot to a guide with 0 spots', () => {
         expect(packet.computationIds.length).toBe(0)
     })
 
-    it('Makes no ride alterations', () => {
-        expect(packet.alterations.alteredRides.length).toBe(0)
-    })
-
     it('Makes no stages alterations', () => {
-        expect(packet.alterations.alteredStages.length).toBe(0)
-    })
-
-    it('Makes no spot alterations', () => {
-        expect(packet.alterations.alteredSpots.length).toBe(0)
+        expect(packet.alteredStages.length).toBe(0)
     })
 })
 describe('When adding a spot to a guide with 1 spot', () => {
@@ -97,8 +87,6 @@ describe('When adding a spot to a guide with 1 spot', () => {
     })
 
     it('Makes no alterations', () => {
-        expect(packet.alterations.alteredRides.length).toBe(0)
-        expect(packet.alterations.alteredStages.length).toBe(0)
-        expect(packet.alterations.alteredSpots.length).toBe(0)
+        expect(packet.alteredStages.length).toBe(0)
     })
 })

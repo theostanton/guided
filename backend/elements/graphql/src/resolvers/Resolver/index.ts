@@ -1,4 +1,4 @@
-import { Context } from 'model/context'
+import { Context } from '../../model/context'
 
 import { DocumentNode } from 'graphql'
 import { ExtensionDefinition } from 'graphile-utils/node8plus/makeExtendSchemaPlugin'
@@ -9,12 +9,12 @@ type ResolverType = 'Mutation' | 'Query'
 export type AnyResolver = Resolver<any, Result>
 
 export interface PluginProvider {
-    plugin(): ExtensionDefinition;
+    plugin(): ExtensionDefinition
 }
 
 export interface Result {
-    success: boolean;
-    message?: string | null;
+    success: boolean
+    message?: string | null
 }
 
 export type MutationResult = Result
@@ -71,10 +71,10 @@ export abstract class Query<Args, Result extends QueryResult> extends Resolver<
 export type AnySimplerResolver = SimpleResolver<any, Result>
 
 export type SimpleResolver<Args, R extends Result> = {
-    name: string;
-    type: ResolverType;
-    typeDefs: DocumentNode;
-    executeResolver: (_: any, args: Args, context: Context) => Promise<R>;
+    name: string
+    type: ResolverType
+    typeDefs: DocumentNode
+    executeResolver: (_: any, args: Args, context: Context) => Promise<R>
 }
 
 export abstract class ResolverGroup implements PluginProvider {

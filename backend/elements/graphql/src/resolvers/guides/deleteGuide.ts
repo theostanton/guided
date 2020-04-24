@@ -1,8 +1,8 @@
 import { Mutation } from '../Resolver'
-import { Context } from 'model/context'
+import { Context } from '../../model/context'
 import { gql } from 'postgraphile'
 import access from './access'
-import { DeleteGuideResult, MutationDeleteGuideArgs } from 'generated'
+import { DeleteGuideResult, MutationDeleteGuideArgs } from '../../generated'
 import { NOT_LOGGED_IN } from '../utils/messages'
 import deleteGuide from '../../actions/guides/delete'
 
