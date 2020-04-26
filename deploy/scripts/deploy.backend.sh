@@ -112,6 +112,7 @@ prepareServer() {
 }
 
 prepareAmendDates(){
+  log 'Build amend dates'
   cd "${go_dir}/amend_dates" || exit
   mkdir -p dist
   go install
