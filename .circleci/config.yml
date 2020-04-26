@@ -83,17 +83,13 @@ jobs:
       - checkout
       - add_ssh_keys
       - run:
-          name: "Install go"
-          command: |
-            echo $GOPATH
-            echo $GOROOT
-            curl https://dl.google.com/go/go1.14.2.linux-arm64.tar.gz --output go1.14.2.linux-arm64.tar.gz
-            tar -C /usr/local -xzf go1.14.2.linux-arm64.tar.gz
-            export PATH=$PATH:/usr/local/go/bin
-            go version
-      - run:
           name: "Go version"
           command: |
+            echo GOROOT
+            echo $GOROOT
+            echo GOPATH
+            echo $GOPATH
+            which go
             go version
       - run:
           name: "Install terraform"
