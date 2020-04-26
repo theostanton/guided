@@ -75,8 +75,8 @@ jobs:
   deploy-backend:
     executor: aws-cli/default
     docker:
-      - image: circleci/node:12.9.1
       - image: circleci/golang:1.14
+      - image: circleci/node:12.9.1
     working_directory: ~/workspace
     steps:
       - aws-cli/setup
