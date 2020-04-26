@@ -13,6 +13,13 @@ echo "${backend_dir}"
 
 cd "${deploy_dir}"
 
+cd "../go"
+go_dir="$(pwd)"
+echo go_dir
+echo "${go_dir}"
+
+cd "${deploy_dir}"
+
 [ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
 [ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
 [ -z "$DEPLOY" ] && echo "No DEPLOY env provided" && exit 1
@@ -104,6 +111,15 @@ prepareServer() {
   cp dist/server.js "${deploy_dir}/dist/server.js"
 }
 
+prepareAmendDates(){
+  cd "${go_dir}/amend_dates" || exit
+  mkdir -p dist
+  go install
+  GOOS=linux GOARCH=amd64 go build -o dist/main
+  amend_dates_filename=dist/"${STAGE}"-"$app_version"-amend-dates.zip
+  zip -rj "${deploy_dir}/${amend_dates_filename}" dist/main
+}
+
 macro_version=$(generateMacroVersion)
 app_version="0.1.${macro_version}"
 echo 'app_version'
@@ -114,6 +130,7 @@ if [ "$BUILD" = 'true' ]; then
   buildAll
   prepareCompute
   prepareServer
+  prepareAmendDates
 fi
 
 if [ "$DEPLOY" = 'true' ]; then

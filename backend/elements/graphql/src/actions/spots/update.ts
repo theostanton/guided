@@ -68,7 +68,6 @@ export default async function (
 
         if (result && result.id) {
             if (triggerComputations) {
-                //TODO ensure moved lat/long is handled
                 const packet = await computeStage.prepare(updatedSpot.guide)
                 await computeStage.trigger(packet)
             } else if (updateDates) {

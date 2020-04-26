@@ -14,7 +14,6 @@ export default async function (guideId: string): Promise<Packet> {
     }
 
     const spots = await database.selectSpotsForGuide(guideId)
-    const rides = await database.selectRidesForGuide(guideId)
     const stages = await database.selectStagesForGuide(guideId)
 
     const lockedSpots = spots.filter((spot) => {
@@ -38,6 +37,7 @@ export default async function (guideId: string): Promise<Packet> {
         const totalLockedSpots = isCircular
             ? lockedSpots.length
             : lockedSpots.length - 1
+
         for (let i = 0; i < totalLockedSpots; i++) {
             const thisSpotId = lockedSpots[i].id
             const nextSpotId = lockedSpots[(i + 1) % lockedSpots.length].id

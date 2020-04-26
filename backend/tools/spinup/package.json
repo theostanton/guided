@@ -8,11 +8,12 @@
         "build": "tsc",
         "watch": "tsc -w",
         "test": "jest",
+        "fresh": "ts-node src/invoke.ts fresh",
         "action:drop": "ts-node src/invoke.ts drop",
         "action:truncate": "ts-node src/invoke.ts truncate",
         "action:1:roles": "ts-node src/invoke.ts roles",
         "action:2:create": "ts-node src/invoke.ts create",
-        "action:3:privelages": "ts-node src/invoke.ts privelages"
+        "action:3:privileges": "ts-node src/invoke.ts privileges"
     },
     "dependencies": {
         "@guided/database": "*",

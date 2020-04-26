@@ -38,6 +38,7 @@ locals {
     OWNER_PASSWORD = random_password.database_owner.result
     JWT_SECRET = random_password.jwt_secret.result
     COMPUTE_QUEUE_NAME = aws_sqs_queue.compute.name
+    AMEND_DATES_QUEUE_NAME = aws_sqs_queue.amend_dates.name
     GEOMETRIES_BUCKET_NAME = aws_s3_bucket.geometries.bucket
     DEFAULT_REGION = var.region
   }

@@ -35,15 +35,24 @@ export default class StartDateForm extends React.Component<Props, State> {
       loading: true,
       error: undefined,
     })
-    const { data } = await client.mutate<EditStartDateMutation>({
+    const { data, errors } = await client.mutate<EditStartDateMutation>({
       mutation: EditStartDateDocument,
       variables,
     })
     logObject(data, "data")
-    this.setState({
-      loading: false,
-      error: !data.editStartDate.success && data.editStartDate.message,
-    })
+    if (errors) {
+      this.setState({
+        loading: false,
+        error: errors.map(error => {
+          return error.message
+        }).join("\n"),
+      })
+    } else {
+      this.setState({
+        loading: false,
+        error: !data.updateGuide.success && data.updateGuide.message,
+      })
+    }
   }
 
   render(): React.ReactElement {
