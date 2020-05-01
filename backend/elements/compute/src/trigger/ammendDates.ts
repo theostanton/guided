@@ -1,7 +1,9 @@
 import { database, Guide, Patch, Ride, Spot } from "@guided/database"
 import { plusDays } from "@guided/utils/srv/dates"
-import { log } from "@guided/logger"
+import { log, logError } from "@guided/logger"
 import SQS from "./sqs"
+import { executeConcurrently } from "@guided/utils"
+import http from "http"
 
 type Packet = {
   spots: Patch<Spot>[];
@@ -109,7 +111,7 @@ export async function prepare(guide: Guide): Promise<Packet> {
   }
 }
 
-export default async function(guide: Guide): Promise<void> {
+async function postMessage(guide: Guide): Promise<void> {
   const sqs = SQS()
   const { QueueUrl } = await sqs
     .getQueueUrl({
@@ -121,4 +123,44 @@ export default async function(guide: Guide): Promise<void> {
     QueueUrl: QueueUrl!,
     MessageBody: guide.id,
   }).promise()
+}
+
+
+async function callEndpoint(guide: Guide): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    const url = `${process.env.AMEND_DATES_ENDPOINT}/${guide.id}`
+    log(`Calling url=${url}`)
+    try {
+      http.get(url, (res => {
+        if (res.statusCode === 200) {
+          log("Success")
+          resolve()
+        } else {
+          logError(`Error:${res.statusMessage}`)
+          reject(res.statusMessage)
+        }
+      }))
+    } catch (e) {
+      logError(e)
+      reject(e)
+    }
+  })
+}
+
+export default async function(guide: Guide): Promise<void> {
+
+
+  switch (true) {
+    case !!process.env.AMEND_DATES_QUEUE_NAME:
+      log("SQS", "amend dates")
+      await postMessage(guide)
+      return
+    case !!process.env.AMEND_DATES_ENDPOINT:
+      log("ENDPOINT", "amend dates")
+
+      return callEndpoint(guide)
+      return
+    default:
+      logError("Unhandled amendDates!")
+  }
 }

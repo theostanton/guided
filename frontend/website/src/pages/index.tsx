@@ -48,7 +48,7 @@ export default class RootComponent extends React.Component {
 
   public(): React.ReactElement {
     return <Layout>
-      <Helmet title="Riders Bible" defer={false}/>
+      <Helmet title="Riders Bible !" defer={false}/>
       <Router>
         <Login path="/login"/>
         <Signup path="/signup"/>

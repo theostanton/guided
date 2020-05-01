@@ -1,9 +1,3 @@
-import { config } from 'dotenv'
-
-config({
-    path: '../../.env',
-})
-
 import { end } from '@guided/database'
 import commandLineArgs, { OptionDefinition } from 'command-line-args'
 import { Action } from './index'

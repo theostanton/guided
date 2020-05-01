@@ -1,37 +1,39 @@
 {
-    "name": "@guided/compute",
-    "version": "0.0.0",
-    "private": true,
-    "main": "./srv/index.js",
-    "types": "./srv/index.d.ts",
-    "scripts": {
-        "webpack": "tsc && webpack  --config webpack.config.js",
-        "dist": "yarn build:build && yarn build:pack",
-        "logs": "awslogs get /aws/lambda/guided-compute-staging -w",
-        "build": "tsc",
-        "test": "jest",
-        "watch": "tsc -w",
-        "invoke": "STAGE=staging STAGE_ID=guide_ps03v4w ts-node src/invoke.ts"
-    },
-    "dependencies": {
-        "@googlemaps/google-maps-services-js": "^2.0.2",
-        "@guided/database": "*",
-        "@guided/geojson": "*",
-        "@guided/google": "*",
-        "@guided/spinup": "*",
-        "@guided/utils": "*",
-        "aws-sdk": "^2.656.0",
-        "date-fns": "^2.9.0"
-    },
-    "devDependencies": {
-        "@types/faker": "^4.1.0",
-        "@types/jest": "^25.1.2",
-        "webpack-bundle-analyzer": "^3.6.1",
-        "faker": "^4.1.0",
-        "jest": "^25.1.0",
-        "ts-jest": "^25.2.0",
-        "ts-node": "^8.6.2",
-        "webpack": "^4.42.0",
-        "webpack-cli": "^3.3.11"
-    }
+  "name": "@guided/compute",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./srv/index.js",
+  "types": "./srv/index.d.ts",
+  "scripts": {
+    "webpack": "tsc && webpack  --config webpack.config.js",
+    "dist": "yarn build:build && yarn build:pack",
+    "logs": "awslogs get /aws/lambda/guided-compute-staging -w",
+    "build": "tsc",
+    "test": "jest",
+    "serve": "ts-node-dev --respawn --transpileOnly src/serve.ts",
+    "watch": "tsc -w",
+    "invoke": "STAGE=staging STAGE_ID=guide_ps03v4w ts-node src/invoke.ts"
+  },
+  "dependencies": {
+    "@googlemaps/google-maps-services-js": "^2.0.2",
+    "@guided/database": "*",
+    "@guided/geojson": "*",
+    "@guided/google": "*",
+    "@guided/spinup": "*",
+    "@guided/utils": "*",
+    "aws-sdk": "^2.656.0",
+    "date-fns": "^2.9.0"
+  },
+  "devDependencies": {
+    "@types/faker": "^4.1.0",
+    "@types/jest": "^25.1.2",
+    "webpack-bundle-analyzer": "^3.6.1",
+    "faker": "^4.1.0",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.0",
+    "ts-node": "^8.6.2",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  }
 }

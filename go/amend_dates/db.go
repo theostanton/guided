@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
+	"guided/utils"
 	"log"
 	"os"
 )
@@ -13,7 +14,7 @@ var Database *sql.DB
 
 func init() {
 	if _, exists := os.LookupEnv("STAGE"); !exists {
-		if err := godotenv.Load("../../backend/.env"); err != nil {
+		if err := godotenv.Load("../../.env"); err != nil {
 			log.Fatal("No .env file found")
 		}
 	}
@@ -22,6 +23,7 @@ func init() {
 
 func connectionString() string {
 
+	stage := getEnv("STAGE")
 	host := getEnv("POSTGRES_HOST")
 	port := getEnv("POSTGRES_PORT")
 	database := getEnv("POSTGRES_DB")
@@ -40,6 +42,10 @@ func connectionString() string {
 		"/",
 		database,
 	)
+
+	if stage == "development" {
+		connInfo = connInfo + "?sslmode=disable"
+	}
 
 	return connInfo
 }
@@ -124,14 +130,14 @@ where r.guide = $1
 
 }
 
-func FetchGuide(guideId string) Guide {
+func FetchGuide(guideId string) (*Guide, error) {
 	var guide = Guide{}
 
 	query := `select id, start_date,is_circular from guides where id=$1`
 	err := Database.QueryRow(query, guideId).Scan(&guide.Id, &guide.StartDate, &guide.IsCircular)
 	if err != nil {
-		fmt.Println(err.Error())
+		return nil, utils.NewError("Couldnt get guide for id=" + guideId)
 	}
 
-	return guide
+	return &guide, nil
 }

@@ -1,0 +1,113 @@
+version: '3.5'
+
+services:
+
+  db_init:
+    container_name: db_init
+    volumes:
+      - ./backend:/usr/src/backend:delegated
+      - be_node_modules:/usr/src/backend/node_modules/
+    image: node:11
+    command: yarn fresh
+    env_file: .env
+    working_dir: /usr/src/backend/tools/spinup
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    build:
+      context: ./backend/database
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_USER=superuser
+      - POSTGRES_PASSWORD=local_owner_password
+      - POSTGRES_DB=main
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+    command:
+      - 'postgres'
+      - '-c'
+      - 'wal_level=logical'
+      - '-c'
+      - 'max_wal_senders=10'
+      - '-c'
+      - 'max_replication_slots=10'
+      - '-c'
+      - 'log_error_verbosity=TERSE'
+
+  be_graphql:
+    container_name: be_graphql
+    image: node:11
+    volumes:
+      - ./backend:/usr/src/backend:delegated
+      - be_node_modules:/usr/src/backend/node_modules/
+    working_dir: /usr/src/backend/
+    command: yarn develop:backend
+    env_file: .env
+    ports:
+      - 5000:5000
+    depends_on:
+      - db_init
+
+  be_common:
+    container_name: be_common
+    image: node:11
+    volumes:
+      - ./backend:/usr/src/backend:cached
+      - be_node_modules:/usr/src/backend/node_modules/
+      - ./frontend:/usr/src/frontend:delegated
+    working_dir: /usr/src/backend
+    command: yarn watch
+
+  be_compute:
+    container_name: be_compute
+    image: node:11
+    volumes:
+      - ./backend:/usr/src/backend:delegated
+      - be_node_modules:/usr/src/backend/node_modules/
+    working_dir: /usr/src/backend/elements/compute
+    command: yarn serve
+    env_file: .env
+    ports:
+      - 5002:5002
+    depends_on:
+      - db_init
+
+  be_amend_dates:
+    container_name: be_amend_dates
+    image: golang:1.14-alpine
+    volumes:
+      - ./go/:/usr/src/go:delegated
+    working_dir: /usr/src/go/amend_dates
+    command: go run . serve
+    env_file: .env
+    ports:
+      - 5001:5001
+    depends_on:
+      - db_init
+
+  fe_website:
+    container_name: fe_website
+    image: node:11
+    environment:
+      - STAGE=development
+      - GATSBY_GUIDED_GRAPHQL=http://localhost:5000
+      - GATSBY_GUIDED_WEBSOCKET=ws://127.0.0.1:5000
+      - GATSBY_MAPBOX_TOKEN=pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ
+    volumes:
+      - ./frontend/website:/usr/src/frontend/website:delegated
+      - fe_node_modules:/usr/src/frontend/website/node_modules/
+      - fe_cache:/usr/src/frontend/website/.cache/
+    working_dir: /usr/src/frontend/website
+    command: yarn develop:frontend
+    ports:
+      - 80:8000
+
+volumes:
+  fe_node_modules:
+  fe_cache:
+  be_node_modules:
+  db_data:

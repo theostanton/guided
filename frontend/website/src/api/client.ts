@@ -10,6 +10,11 @@ import { WebSocketLink } from "apollo-link-ws"
 
 function httpLink(): ApolloLink {
 
+
+  if(!process.env.GATSBY_GUIDED_GRAPHQL){
+    throw new Error('No process.env.GATSBY_GUIDED_GRAPHQL provided')
+  }
+
   return new HttpLink({
     uri: process.env.GATSBY_GUIDED_GRAPHQL,
 // @ts-ignore
@@ -43,6 +48,10 @@ function authLink(): ApolloLink {
 
 function subscriptionLink(): ApolloLink {
 
+  if(!process.env.GATSBY_GUIDED_WEBSOCKET){
+    throw new Error('No process.env.GATSBY_GUIDED_WEBSOCKET provided')
+  }
+
   const wsForNode = typeof window === "undefined" ? ws : null
   const wsClient = new SubscriptionClient(
     process.env.GATSBY_GUIDED_WEBSOCKET,
@@ -59,6 +68,9 @@ export const USER_KEY = "guidedUser"
 
 if (!process.env.GATSBY_GUIDED_GRAPHQL) {
   throw new Error(`Requires GATSBY_GUIDED_GRAPHQL`)
+}
+if (!process.env.GATSBY_GUIDED_WEBSOCKET) {
+  throw new Error(`Requires GATSBY_GUIDED_WEBSOCKET`)
 }
 
 

@@ -120,6 +120,7 @@ export default async function(
     return {
       success: false,
       ranFinalisation: false,
+      message: e.message,
     }
   }
 }

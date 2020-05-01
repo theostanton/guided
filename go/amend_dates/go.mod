@@ -6,4 +6,7 @@ require (
 	github.com/aws/aws-lambda-go v1.16.0
 	github.com/joho/godotenv v1.3.0
 	github.com/lib/pq v1.4.0
+	guided/utils v0.0.0
 )
+
+replace guided/utils => ./../utils

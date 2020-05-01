@@ -1,9 +1,9 @@
-if (process.env.NODE_ENV === "development") {
-  console.log("loading envs from .env cause NODE_ENV=" + process.env.NODE_ENV)
-  require("dotenv").config({
-    path: `.env`,
-  })
-}
+// if (process.env.NODE_ENV === "development") {
+//   console.log("loading envs from .env cause NODE_ENV=" + process.env.NODE_ENV)
+//   require("dotenv").config({
+//     path: `.env`,
+//   })
+// }
 
 const path = require("path")
 

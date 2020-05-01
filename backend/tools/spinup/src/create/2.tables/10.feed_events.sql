@@ -6,15 +6,15 @@ create table feed_events
     type      feed_event_type not null,
     ride      varchar(64)
         constraint feed_events_rides_id_fk
-            references rides
+            references public.rides
             on delete cascade,
     guide     varchar(64)
         constraint feed_events_guides_id_fk
-            references guides
+            references public.guides
             on delete cascade,
     "user"    varchar(64)
         constraint feed_events_users_username_fk
-            references users
+            references public.users
             on delete cascade
 );
 

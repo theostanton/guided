@@ -1,0 +1,28 @@
+version: '2'
+services:
+
+  be_base:
+    image: node:11
+    volumes:
+      - ./backend:/usr/src/backend
+      - be_node_modules:/usr/src/backend/node_modules/
+    working_dir: /usr/src/backend
+
+  be_install:
+    extends:
+      service: be_base
+    command: yarn install
+
+
+  fe_install:
+    image: node:11
+    volumes:
+      - ./frontend/website:/usr/src/frontend/website
+      - fe_node_modules:/usr/src/frontend/website/node_modules/
+
+    working_dir: /usr/src/frontend/website
+    command: yarn install
+
+volumes:
+  fe_node_modules:
+  be_node_modules:

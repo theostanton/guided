@@ -46,5 +46,5 @@ from self_created
 order by timestamp desc
 $$;
 
-alter function feed(integer, integer) owner to superuser;
+alter function feed(_username varchar(64), per_page integer, page_offset integer) owner to superuser;
 
