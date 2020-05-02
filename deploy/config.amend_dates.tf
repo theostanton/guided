@@ -10,6 +10,7 @@ resource "aws_iam_role" "amend_dates" {
 resource "aws_sqs_queue" "amend_dates" {
   name = "amend-dates-${var.stage}"
 }
+
 resource "aws_sqs_queue_policy" "amend_dates" {
   queue_url = aws_sqs_queue.amend_dates.id
 
@@ -55,7 +56,7 @@ resource "aws_lambda_function" "amend_dates" {
   function_name = "guided-amend-dates-${var.stage}"
   timeout = 30
   role = aws_iam_role.amend_dates.arn
-  handler = "main"
+  handler = "amend_dates"
   filename = local.amend_dates_zip_path
   source_code_hash = filebase64sha256(local.amend_dates_zip_path)
   runtime = "go1.x"

@@ -104,12 +104,11 @@ jobs:
           command: |
             cd backend
             yarn lint
-
-      - run:
-          name: "Test"
-          command: |
-            cd backend
-            yarn test:all
+#      - run:
+#          name: "Test"
+#          command: |
+#            cd backend
+#            yarn test:all
       - run:
           name: "Install terraform"
           command: |
@@ -157,18 +156,13 @@ jobs:
           name: "Build"
           command: |
             cd go/amend_dates
+            go build .
             mkdir -p ~/workspace/deploy/dist
-            go build -o ~/workspace/deploy/dist .
-            cd ~/workspace
-            ls
-            cd deploy
-            ls
-            cd dist
-            ls
+            zip ~/workspace/deploy/dist/amend_dates.zip amend_dates
       - persist_to_workspace:
           root: *working_directory
           paths:
-            - deploy/dist/amend_dates
+            - deploy/dist/amend_dates.zip
 
   deploy-backend:
     docker:
