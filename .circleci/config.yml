@@ -169,13 +169,18 @@ jobs:
       - image: hashicorp/terraform:light
     working_directory: *working_directory
     steps:
-      - attach_workspace:
-          at: *working_directory
       - checkout
       - add_ssh_keys
+      - attach_workspace:
+          at: *working_directory
       - run:
           name: "Log"
           command: |
+            ls
+            cd /
+            ls
+            cd ~/workspace
+            ls
             cd deploy
             ls
             cd dist
