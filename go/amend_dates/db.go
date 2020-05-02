@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-var Database *sql.DB
+var _database *sql.DB
 
 func init() {
 	if _, exists := os.LookupEnv("STAGE"); !exists {
@@ -18,7 +18,13 @@ func init() {
 			log.Fatal("No .env file found")
 		}
 	}
-	Database = connect()
+}
+
+func Database() *sql.DB {
+	if _database == nil {
+		_database = connect()
+	}
+	return _database
 }
 
 func connectionString() string {
@@ -80,7 +86,8 @@ where sp.guide = $1
 order by sp.position
     `
 
-	rows, err := Database.Query(query, guideId)
+
+	rows, err := Database().Query(query, guideId)
 	defer rows.Close()
 	if err != nil {
 		fmt.Println(err.Error())
@@ -112,7 +119,7 @@ where r.guide = $1
   and st.status in ('ready', 'complete')
 `
 
-	rows, err := Database.Query(query, guideId)
+	rows, err := Database().Query(query, guideId)
 	defer rows.Close()
 	if err != nil {
 		fmt.Println(err.Error())
@@ -134,7 +141,7 @@ func FetchGuide(guideId string) (*Guide, error) {
 	var guide = Guide{}
 
 	query := `select id, start_date,is_circular from guides where id=$1`
-	err := Database.QueryRow(query, guideId).Scan(&guide.Id, &guide.StartDate, &guide.IsCircular)
+	err := Database().QueryRow(query, guideId).Scan(&guide.Id, &guide.StartDate, &guide.IsCircular)
 	if err != nil {
 		return nil, utils.NewError("Couldnt get guide for id=" + guideId)
 	}

@@ -6,7 +6,7 @@ import http from "http"
 import SQS from "./sqs"
 import { log, logJson } from "@guided/logger"
 
-async function callEndpoint(packet: Packet): Promise<string[]> {
+function callEndpoint(packet: Packet): Promise<string[]> {
   log("callEndpoint")
   return executeConcurrently(packet.computationIds, async (computationId: string) => {
     return new Promise<string>((resolve, reject) => {

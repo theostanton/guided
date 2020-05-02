@@ -27,7 +27,7 @@ func (patch *Patch) query(table string) (string, error) {
 }
 
 func Update(table string, patches []Patch) error {
-	tx, err := Database.Begin()
+	tx, err := Database().Begin()
 	if err != nil {
 		return err
 	}
