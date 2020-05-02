@@ -171,22 +171,25 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys
-      - run:
-          name: "Log before"
-          command: |
-            cd deploy
-            ls
-            cd dist
-            ls
       - attach_workspace:
           at: ~workspace
       - run:
-          name: "Log after"
+          name: "Log"
           command: |
             cd deploy
             ls
             cd dist
             ls
+      - run:
+          name: "Deploy"
+          environment:
+            BUILD: 'false'
+            DEPLOY: 'true'
+          command: |
+            cd deploy
+            chmod +x ./scripts/deploy.backend.sh
+            ./scripts/deploy.backend.sh
+
 
 
 workflows:
