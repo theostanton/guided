@@ -13,11 +13,6 @@ echo "${backend_dir}"
 
 cd "${deploy_dir}"
 
-cd "../go"
-go_dir="$(pwd)"
-echo go_dir
-echo "${go_dir}"
-
 cd "${deploy_dir}"
 
 [ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
@@ -28,11 +23,14 @@ logEnv(){
   '%s\n' "${$1: -3}"
 }
 
+terraform workspace select "${STAGE}"
+
 ENVS=$(terraform output env_file)
 while read -r line; do
   # shellcheck disable=SC2163
   export "${line}"
 done <<< "${ENVS}"
+
 
 [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load POSTGRES_SCHEMA" && exit 1
 [ -z "$OWNER_PASSWORD" ] && echo "ENVS did not load OWNER_PASSWORD" && exit 1
@@ -119,7 +117,6 @@ fi
 if [ "$DEPLOY" = 'true' ]; then
   cd "${deploy_dir}"
   echo "Deploying $STAGE backend"
-  terraform workspace select "${STAGE}"
 
   macro_version=$(generateMacroVersion)
   app_version="0.1.${macro_version}"
