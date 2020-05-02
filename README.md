@@ -12,7 +12,7 @@ Guided is a WIP play project to try out some frameworks. Typescript front and ba
 
 ### Development
 
-Docker is used only for local development environment. [docker-compose.builder.yml](/docker-compose.builder.yml) for preparing docker environment, [docker-compose.yml](/docker-compose.yml) for running environment. The local db instance is onsidered throwaway, desired workflow is to always work on fresh database with seed data. So dataset is predictable and common.  
+###### Docker is used only for local development environment. [docker-compose.builder.yml](/docker-compose.builder.yml) for preparing docker environment, [docker-compose.yml](/docker-compose.yml) for running environment. The local db instance is onsidered throwaway, desired workflow is to always work on fresh database with seed data. So dataset is predictable and common.  
 
 ```
 make install
@@ -24,7 +24,7 @@ make develop
 - Installs npm dependencies for backend and website
 - Initial transpilation of backend
 
-##### make develop
+#### make develop
 ###### In development mode the [compute](/backend/element/compute) and [amend_dates](/go/amend_dates) services are triggered via a local GET request. In production mode they're lambdas triggered via SQS events. 
 - Initialises local postgres instance with default roles and schema
 - Watches backend common source code
