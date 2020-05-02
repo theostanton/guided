@@ -25,16 +25,6 @@ logEnv(){
 
 terraform workspace select "${STAGE}"
 
-ENVS=$(terraform output env_file)
-while read -r line; do
-  # shellcheck disable=SC2163
-  export "${line}"
-done <<< "${ENVS}"
-
-
-[ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load POSTGRES_SCHEMA" && exit 1
-[ -z "$OWNER_PASSWORD" ] && echo "ENVS did not load OWNER_PASSWORD" && exit 1
-
 log() {
   GREEN="\033[1;32m"
   NOCOLOR="\033[0m"
@@ -107,8 +97,16 @@ prepareServer() {
 }
 
 if [ "$BUILD" = 'true' ]; then
-
   echo "Building $STAGE backend"
+
+  ENVS=$(terraform output env_file)
+  while read -r line; do
+    # shellcheck disable=SC2163
+    export "${line}"
+  done <<< "${ENVS}"
+
+  [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load POSTGRES_SCHEMA" && exit 1
+  [ -z "$OWNER_PASSWORD" ] && echo "ENVS did not load OWNER_PASSWORD" && exit 1
   buildAll
   prepareCompute
   prepareServer
@@ -124,8 +122,6 @@ if [ "$DEPLOY" = 'true' ]; then
   echo "${app_version}"
 
   export TF_VAR_stage=${STAGE}
-  export TF_VAR_db_owner_user=${OWNER_USER}
-  export TF_VAR_db_postgraphile_user=${POSTGRES_USER}
   export TF_VAR_google_key=${GOOGLE_KEY}
   terraform apply -var macro_version="${macro_version}" -auto-approve
 fi

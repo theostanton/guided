@@ -174,18 +174,6 @@ jobs:
       - attach_workspace:
           at: *working_directory
       - run:
-          name: "Log"
-          command: |
-            ls
-            cd /
-            ls
-            cd ~/workspace
-            ls
-            cd deploy
-            ls
-            cd dist
-            ls
-      - run:
           name: "Init terraform"
           command: |
             cd deploy

@@ -36,6 +36,7 @@ variable "domain_name" {
 
 variable "db_owner_user" {
   type = string
+  default = "superuser"
 }
 
 variable "db_database" {
@@ -50,6 +51,7 @@ variable "db_port" {
 
 variable "db_postgraphile_user" {
   type = string
+  default = "guided_postgraphile"
 }
 
 variable "db_schema" {
