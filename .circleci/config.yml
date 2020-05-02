@@ -151,6 +151,9 @@ jobs:
             cd go/amend_dates
             mkdir -p dist
             go build -o ~/workspace/deploy/dist .
+            ls
+            cd dist
+            ls
       - persist_to_workspace:
           root: deploy
           paths:
