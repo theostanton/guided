@@ -28,6 +28,15 @@ logEnv(){
   '%s\n' "${$1: -3}"
 }
 
+ENVS=$(terraform output env_file)
+while read -r line; do
+  # shellcheck disable=SC2163
+  export "${line}"
+done <<< "${ENVS}"
+
+[ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load POSTGRES_SCHEMA" && exit 1
+[ -z "$OWNER_PASSWORD" ] && echo "ENVS did not load OWNER_PASSWORD" && exit 1
+
 log() {
   GREEN="\033[1;32m"
   NOCOLOR="\033[0m"
@@ -100,6 +109,7 @@ prepareServer() {
 }
 
 if [ "$BUILD" = 'true' ]; then
+
   echo "Building $STAGE backend"
   buildAll
   prepareCompute
@@ -107,16 +117,6 @@ if [ "$BUILD" = 'true' ]; then
 fi
 
 if [ "$DEPLOY" = 'true' ]; then
-
-  ENVS=$(terraform output env_file)
-  while read -r line; do
-    # shellcheck disable=SC2163
-    export "${line}"
-  done <<< "${ENVS}"
-
-  [ -z "$POSTGRES_SCHEMA" ] && echo "ENVS did not load POSTGRES_SCHEMA" && exit 1
-  [ -z "$OWNER_PASSWORD" ] && echo "ENVS did not load OWNER_PASSWORD" && exit 1
-
   cd "${deploy_dir}"
   echo "Deploying $STAGE backend"
   terraform workspace select "${STAGE}"

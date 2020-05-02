@@ -106,6 +106,21 @@ jobs:
             yarn lint
 
       - run:
+          name: "Test"
+          command: |
+            cd backend
+            yarn test:all
+      - run:
+          name: "Install terraform"
+          command: |
+            cd deploy
+            sudo  sh ./scripts/install_terraform.sh
+      - run:
+          name: "Init terraform"
+          command: |
+            cd deploy
+            terraform init
+      - run:
           name: "Build"
           environment:
             BUILD: 'true'
@@ -114,13 +129,6 @@ jobs:
             cd deploy
             chmod +x ./scripts/deploy.backend.sh
             ./scripts/deploy.backend.sh
-
-      - run:
-          name: "Test"
-          command: |
-            cd backend
-            yarn test:all
-
       - persist_to_workspace:
           root: *working_directory
           paths:
@@ -149,7 +157,7 @@ jobs:
           name: "Build"
           command: |
             cd go/amend_dates
-            mkdir -p dist
+            mkdir -p ~/workspace/deploy/dist
             go build -o ~/workspace/deploy/dist .
             cd ~/workspace
             ls
