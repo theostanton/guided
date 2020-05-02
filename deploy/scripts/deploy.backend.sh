@@ -28,9 +28,6 @@ logEnv(){
   '%s\n' "${$1: -3}"
 }
 
-echo "Deploying $STAGE backend"
-terraform workspace select "${STAGE}"
-
 ENVS=$(terraform output env_file)
 while read -r line; do
   # shellcheck disable=SC2163
@@ -112,7 +109,7 @@ prepareServer() {
 }
 
 if [ "$BUILD" = 'true' ]; then
-  log 'Building'
+  echo "Building $STAGE backend"
   buildAll
   prepareCompute
   prepareServer
@@ -120,7 +117,8 @@ fi
 
 if [ "$DEPLOY" = 'true' ]; then
   cd "${deploy_dir}"
-  log 'Deploying'
+  echo "Deploying $STAGE backend"
+  terraform workspace select "${STAGE}"
 
   macro_version=$(generateMacroVersion)
   app_version="0.1.${macro_version}"

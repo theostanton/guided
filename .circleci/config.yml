@@ -149,8 +149,7 @@ jobs:
           name: "Build"
           command: |
             cd go/amend_dates
-            mkdir dist
-
+            mkdir -p dist
             go build -o ~/workspace/deploy/dist .
       - persist_to_workspace:
           root: deploy
