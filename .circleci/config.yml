@@ -186,7 +186,7 @@ jobs:
           command: |
             cd deploy
             chmod +x ./scripts/deploy.sh
-            sh ./scripts/backend.sh
+            sh ./scripts/deploy.sh
 
 workflows:
   version: 2
