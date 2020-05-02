@@ -192,10 +192,9 @@ jobs:
             DEPLOY: 'true'
           command: |
             cd deploy
+            ls
             chmod +x ./scripts/deploy.backend.sh
             ./scripts/deploy.backend.sh
-
-
 
 workflows:
   version: 2
