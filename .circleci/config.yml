@@ -122,6 +122,7 @@ jobs:
             yarn test:all
 
       - persist_to_workspace:
+          root: /
           paths:
             - deploy/dist/cache
             - deploy/dist/server.js
@@ -151,6 +152,7 @@ jobs:
             mkdir -p dist
             go build -o ~/workspace/deploy/dist .
       - persist_to_workspace:
+          root: /
           paths:
             - deploy/dist/amend_dates
 
