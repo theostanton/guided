@@ -76,7 +76,7 @@ prepareCompute() {
     exit 1
   fi
   log 'Zip compute'
-  compute_filename=dist/"${STAGE}"-"$app_version"-compute.zip
+  compute_filename=dist/compute.zip
   zip -rj "${deploy_dir}/${compute_filename}" dist
   echo Zipped to "${compute_filename}"
 }
@@ -111,32 +111,22 @@ prepareServer() {
   cp dist/server.js "${deploy_dir}/dist/server.js"
 }
 
-prepareAmendDates(){
-  log 'Build amend dates'
-  cd "${go_dir}/amend_dates" || exit
-  mkdir -p dist
-  go install
-  GOOS=linux GOARCH=amd64 go build -o dist/main
-  amend_dates_filename=dist/"${STAGE}"-"$app_version"-amend-dates.zip
-  zip -rj "${deploy_dir}/${amend_dates_filename}" dist/main
-}
-
-macro_version=$(generateMacroVersion)
-app_version="0.1.${macro_version}"
-echo 'app_version'
-echo "${app_version}"
-
 if [ "$BUILD" = 'true' ]; then
   log 'Building'
   buildAll
   prepareCompute
   prepareServer
-  prepareAmendDates
 fi
 
 if [ "$DEPLOY" = 'true' ]; then
   cd "${deploy_dir}"
   log 'Deploying'
+
+  macro_version=$(generateMacroVersion)
+  app_version="0.1.${macro_version}"
+  echo 'app_version'
+  echo "${app_version}"
+
   export TF_VAR_stage=${STAGE}
   export TF_VAR_db_owner_user=${OWNER_USER}
   export TF_VAR_db_postgraphile_user=${POSTGRES_USER}

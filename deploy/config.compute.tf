@@ -1,5 +1,5 @@
 locals {
-  compute_zip_path = "${path.module}/dist/${var.stage}-${local.app_version}-compute.zip"
+  compute_zip_path = "${path.module}/dist/compute.zip"
 }
 
 resource "aws_iam_role" "compute" {

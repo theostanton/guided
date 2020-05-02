@@ -126,11 +126,11 @@ jobs:
           paths:
             - dist/cache
             - dist/server.js
-            - dist/*-compute.zip
+            - dist/compute.zip
 
   build-go:
     docker:
-      - image: circleci/golang:1.12
+      - image: circleci/golang:1.14
     working_directory: *working_directory
     steps:
       - checkout
