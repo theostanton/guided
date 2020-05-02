@@ -9,12 +9,8 @@
         "lint": "eslint . --ext .ts  --fix --quiet",
         "pretty": "prettier --write \"**/src/**/*.ts\"",
         "develop:backend": "nodemon",
-        "install:re try": "until yarn; do; echo \"Failed. Prolly bad connection Lets try again\"; done",
         "start": "yarn workspace @guided/graphql run start",
-        "clean": "find -E . -regex \".*(yarn-error.log|srv|node_modules|.cache|public|.serverless|tsconfig.tsbuildinfo|yarn.lock|reports|junit.xml)\" -exec rm -rf {} \\;",
-        "build:logger": "yarn workspace @guided/logger run build",
-        "del": "find -E . -regex \".*/src/.*(.d.ts|.d.ts.map|.js.map|.jsx.map|.jsx|.js)\" -exec rm -rf {} \\;",
-        "del:srv": "find -E . -regex \".*/(srv)\" -exec rm -rf {} \\;"
+        "build:logger": "yarn workspace @guided/logger run build"
     },
     "devDependencies": {
         "@types/faker": "^4.1.9",

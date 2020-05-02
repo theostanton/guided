@@ -10,6 +10,26 @@ Guided is a WIP play project to try out some frameworks. Typescript front and ba
 - **Community** - Sharable public links to a users profile and guides. Follow other users activity. 
 - **Track** - Track and share progress along a route. Upload images and other content. 
 
+### Development
+
+Docker is used only for local development environment. [docker-compose.builder.yml](/docker-compose.builder.yml) for preparing docker environment, [docker-compose.yml](/docker-compose.yml) for running environment. The local db instance is onsidered throwaway, desired workflow is to always work on fresh database with seed data. So dataset is predictable and common.  
+
+```
+make install
+make develop
+```
+
+#### make install
+###### node_modules aren't shared between containers and host, so you'll want to run yarn install on your device for linting within your IDE. 
+- Installs npm dependencies for backend and website
+- Initial transpilation of backend
+
+##### make develop
+###### In development mode the [compute](/backend/element/compute) and [amend_dates](/go/amend_dates) services are triggered via a local GET request. In production mode they're lambdas triggered via SQS events. 
+- Initialises local postgres instance with default roles and schema
+- Watches backend common source code
+- Launches backend services in develop mode, accessible at [localhost:5000/graphiql](localhost:5000/graphiql)
+- Launches frontend service in develop mode, accesible at [localhost](https://localhost:80)
 
 ### Backend
 
@@ -19,6 +39,7 @@ Guided is a WIP play project to try out some frameworks. Typescript front and ba
 - [@guided/spinup](backend/tools/spinup) is a database helper module. The [create](backend/tools/spinup/src/create) directory holds SQL that manages the schema. Postgraphile is enriched via PostgresQL functions, types + row level permissions, including JWT auth. [Database config](deploy/config.database.tf). @guided/spinup executes .sql files by iterating through these directories in [sequence](backend/tools/spinup/src/sequence.ts). 
 - [@guided/database](backend/tools/database) uses [@rmp135/sql-ts](https://www.npmjs.com/package/@rmp135/sql-ts) to generate Typescript interface from Postgres DB. 
 - [@guided/codegen](backend/tools/codegen) uses [graphql-codegen](https://www.npmjs.com/package/@rmp135/sql-ts) to generate Typescript from GraphQL schema seen in generated.ts(x) files. 
+- [/go](go) directory with some simple go modules, including the [amend_dates](/go/amend_dates) microservice 
 - Testing via Jest. Would like more test coverage including integration tests paired with a blue/red versioned deployment. 
 
 

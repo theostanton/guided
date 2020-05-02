@@ -76,21 +76,11 @@ jobs:
     executor: aws-cli/default
     docker:
       - image: circleci/node:12.9.1
-      - image: circleci/golang:1.14
     working_directory: ~/workspace
     steps:
       - aws-cli/setup
       - checkout
       - add_ssh_keys
-      - run:
-          name: "Go version"
-          command: |
-            echo GOROOT
-            echo $GOROOT
-            echo GOPATH
-            echo $GOPATH
-            which go
-            go version
       - run:
           name: "Install terraform"
           command: |
