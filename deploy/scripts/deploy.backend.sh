@@ -13,8 +13,6 @@ echo "${backend_dir}"
 
 cd "${deploy_dir}"
 
-cd "${deploy_dir}"
-
 [ -z "$STAGE" ] && echo "No STAGE env provided" && exit 1
 [ -z "$BUILD" ] && echo "No BUILD env provided" && exit 1
 [ -z "$DEPLOY" ] && echo "No DEPLOY env provided" && exit 1

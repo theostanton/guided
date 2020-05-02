@@ -185,8 +185,8 @@ jobs:
             DEPLOY: 'true'
           command: |
             cd deploy
-            chmod +x ./scripts/deploy.backend.sh
-            sh ./scripts/deploy.backend.sh
+            chmod +x ./scripts/deploy.sh
+            sh ./scripts/backend.sh
 
 workflows:
   version: 2
