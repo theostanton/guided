@@ -1,6 +1,6 @@
 ## Guided
 
-Guided is a WIP play project to try out some frameworks. Typescript front and back. 
+Guided is a WIP play project to try out some frameworks. Typescript front and back, with a little go.
 
 ### Product
 
