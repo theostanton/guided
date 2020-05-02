@@ -122,11 +122,11 @@ jobs:
             yarn test:all
 
       - persist_to_workspace:
-          root: /deploy/dist
+          root: *working_directory
           paths:
-            - cache
-            - server.js
-            - compute.zip
+            - deploy/dist/cache
+            - deploy/dist/server.js
+            - deploy/dist/compute.zip
 
   build-go:
     docker:
@@ -151,10 +151,16 @@ jobs:
             cd go/amend_dates
             mkdir -p dist
             go build -o ~/workspace/deploy/dist .
+            cd ~/workspace
+            ls
+            cd deploy
+            ls
+            cd dist
+            ls
       - persist_to_workspace:
-          root: deploy/dist
+          root: *working_directory
           paths:
-            - amend_dates
+            - deploy/dist/amend_dates
 
   deploy-backend:
     docker:
