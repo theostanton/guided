@@ -1,10 +1,22 @@
 version: 2.1
 
+be_node_modules_key: &be_node_modules_key v1-node_modules-{{ .Branch }}-{{ .Revision }}
+working_directory: &working_directory ~/workspace
+
+restore_be_node_modules: &restore_be_node_modules
+  restore_cache:
+    key: *be_node_modules_key
+
+save_be_node_modules: &save_be_node_modules
+  save_cache:
+    key: *be_node_modules_key
+    paths:
+      - ~workspace/backend/node_modules
+
 orbs:
   aws-cli: circleci/aws-cli@0.1.19
   terraform: ngs/terraform@0.0.1
   shellcheck: circleci/shellcheck@1.3.15
-
 
 commands:
   test:
@@ -72,33 +84,21 @@ jobs:
             chmod +x ./scripts/deploy.frontend.sh
             ./scripts/deploy.frontend.sh
 
-  deploy-backend:
-    executor: aws-cli/default
+
+  build-backend:
     docker:
       - image: circleci/node:12.9.1
-    working_directory: ~/workspace
+    working_directory: *working_directory
     steps:
-      - aws-cli/setup
       - checkout
       - add_ssh_keys
-      - run:
-          name: "Install terraform"
-          command: |
-            cd deploy
-            sudo sh ./scripts/install_terraform.sh
-
+      - *restore_be_node_modules
       - run:
           name: "Install dependencies"
           command: |
             cd backend
             yarn install
-
-      - run:
-          name: "Init terraform"
-          command: |
-            cd deploy
-            terraform init
-
+      - *save_be_node_modules
       - run:
           name: "Lint"
           command: |
@@ -121,26 +121,90 @@ jobs:
             cd backend
             yarn test:all
 
+      - persist_to_workspace:
+          root: deploy
+          paths:
+            - dist/cache
+            - dist/server.js
+            - dist/*-compute.zip
+
+  build-go:
+    docker:
+      - image: circleci/golang:1.12
+    working_directory: *working_directory
+    steps:
+      - checkout
+      - add_ssh_keys
       - run:
-          name: "Deploy"
-          environment:
-            BUILD: 'false'
-            DEPLOY: 'true'
+          name: "Install"
+          command: |
+            cd go/amend_dates
+            go install .
+      - run:
+          name: "Test"
+          command: |
+            cd go/amend_dates
+            go test .
+      - run:
+          name: "Build"
+          command: |
+            cd go/amend_dates
+            mkdir dist
+
+            go build -o ~/workspace/deploy/dist .
+      - persist_to_workspace:
+          root: deploy
+          paths:
+            - dist/amend_dates
+
+  deploy-backend:
+    docker:
+      - image: hashicorp/terraform:light
+    working_directory: *working_directory
+    steps:
+      - checkout
+      - add_ssh_keys
+      - run:
+          name: "Log before"
           command: |
             cd deploy
-            chmod +x ./scripts/deploy.backend.sh
-            ./scripts/deploy.backend.sh
+            ls
+            cd dist
+            ls
+      - attach_workspace:
+          at: ~workspace
+      - run:
+          name: "Log after"
+          command: |
+            cd deploy
+            ls
+            cd dist
+            ls
+
 
 workflows:
   version: 2
 
   Deploy Staging backend:
     jobs:
+      - build-backend:
+          context: guided-staging
+          filters:
+            branches:
+              only: staging
+      - build-go:
+          context: guided-staging
+          filters:
+            branches:
+              only: staging
       - deploy-backend:
           context: guided-staging
           filters:
             branches:
               only: staging
+          requires:
+            - build-backend
+            - build-go
 
   Deploy Staging frontend:
     jobs:
@@ -156,11 +220,3 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy-backend:
-          context: guided-production
-          requires:
-            - shellcheck/check
-      - deploy-frontend:
-          context: guided-production
-          requires:
-            - deploy-backend
