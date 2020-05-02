@@ -1,5 +1,5 @@
 locals {
-  amend_dates_zip_path = "${path.module}/dist/amend-dates.zip"
+  amend_dates_zip_path = "${path.module}/dist/amend_dates.zip"
 }
 
 resource "aws_iam_role" "amend_dates" {
