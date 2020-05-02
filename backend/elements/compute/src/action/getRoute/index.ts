@@ -1,7 +1,7 @@
 import {
     DirectionsRoute,
-    LatLng,
-} from '@googlemaps/google-maps-services-js/dist/common'
+    LatLng, TravelMode,
+} from "@googlemaps/google-maps-services-js/dist/common"
 import { client } from '@guided/google'
 import { Spot } from '@guided/database'
 import { toLatLng } from '../../utils'
@@ -19,7 +19,7 @@ export default async function (
             key: process.env.GOOGLE_KEY!,
             origin,
             destination,
-            mode,
+            mode:TravelMode[mode],
             avoid: [],
         },
     })
