@@ -24,12 +24,15 @@ export async function geocode(
         let label: string = result.formatted_address
         let countryCode = ''
         result.address_components.forEach((component) => {
-            if (component.types.includes('country')) {
-                countryCode = component.short_name
-            }
-            if (component.types.includes('locality')) {
-                label = component.short_name
-            }
+
+            component.types.forEach(type=>{
+                if(type==='country') {
+                    countryCode = component.short_name
+                }
+                if(type==='locality') {
+                  label = component.short_name
+                }
+            })
         })
 
         return {
