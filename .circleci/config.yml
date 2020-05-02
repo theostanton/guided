@@ -186,6 +186,11 @@ jobs:
             cd dist
             ls
       - run:
+          name: "Init terraform"
+          command: |
+            cd deploy
+            terraform init
+      - run:
           name: "Deploy"
           environment:
             BUILD: 'false'
