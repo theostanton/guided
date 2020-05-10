@@ -27,6 +27,13 @@ services:
     working_dir: /usr/src/frontend/website
     command: yarn install
 
+  seed_basic:
+    image: python:3.8-alpine
+    volumes:
+      - ./python/:/usr/src/python
+    working_dir: /usr/src/python
+    command: python3 guided seed basic
+
 volumes:
   fe_node_modules:
   be_node_modules:
