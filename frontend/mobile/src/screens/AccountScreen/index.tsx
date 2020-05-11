@@ -1,8 +1,10 @@
 import React from "react"
 import { Button, StyleSheet, Text, View } from "react-native"
 import { ScreenConfig, ScreenProps } from "../index"
+import AuthStore from "../../model/AuthStore"
+import { inject } from "mobx-react"
 
-type Props = ScreenProps<"Account">
+type Props = { authStore?: AuthStore } & ScreenProps<"Account">
 
 export type Params = {
   username: string
@@ -17,14 +19,15 @@ const styles = StyleSheet.create({
   },
 })
 
+@inject("authStore")
 class AccountScreenComponent extends React.Component<Props> {
 
   render() {
     return <View style={styles.container}>
       <Text>Account Screen</Text>
       <Button
-        title="Go Home"
-        onPress={() => this.props.navigation.popToTop()}
+        title="Logout"
+        onPress={() => this.props.authStore!.logOut()}
       />
     </View>
   }

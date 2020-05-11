@@ -1,12 +1,12 @@
 import React from "react"
-import { Navigation, ScreenName, ScreenParams, TabName, TABS } from "../index"
+import { Navigation, ScreenParams, SCREENS, TabScreen } from "../index"
 import { BottomTabNavigationOptions, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { RouteProp } from "@react-navigation/core/lib/typescript/src/types"
 import { Ionicons } from "@expo/vector-icons"
 
 const Tab = createBottomTabNavigator()
 
-function icon(name: TabName): string {
+function icon(name: TabScreen): string {
   switch (name) {
     case "Home":
       return "md-globe"
@@ -16,11 +16,13 @@ function icon(name: TabName): string {
       return "md-contact"
     case "MyBible":
       return "md-book"
+    default:
+      throw new Error(`No icon for ${name}`)
   }
 }
 
 type TabProps = {
-  route: RouteProp<ScreenParams, TabName>;
+  route: RouteProp<ScreenParams, TabScreen>;
   navigation: Navigation;
 }
 
@@ -42,12 +44,12 @@ export default class TabScreenComponent extends React.Component {
         return this.options(props as TabProps)
       }}
     >
-      {Object.entries(TABS).map(
+      {Object.entries(SCREENS.Tabs).map(
         ([screenName, config]) => <Tab.Screen
           name={screenName}
           key={screenName}
-          component={config.component}
-          options={config.options}/>,
+          component={config!.component}
+          options={config!.options}/>,
       )}
     </Tab.Navigator>
   }

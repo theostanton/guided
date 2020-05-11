@@ -2,6 +2,8 @@ import HomeScreen from "./HomeScreen"
 import SearchScreen from "./SearchScreen"
 import AccountScreen from "./AccountScreen"
 import MyBibleScreen from "./MyBibleScreen"
+import LoginScreen from "./LoginScreen"
+import SignupScreen from "./SignupScreen"
 import * as GuideScreen from "./GuideScreen"
 import * as ProfileScreen from "./ProfileScreen"
 import { StackNavigationOptions, StackScreenProps } from "@react-navigation/stack"
@@ -18,6 +20,8 @@ export type ScreenParams = {
   Search: undefined,
   Profile: ProfileScreen.Params,
   Account: undefined,
+  Login: undefined,
+  Signup: undefined,
   MyBible: undefined
 }
 
@@ -33,15 +37,25 @@ export type ScreenConfig<RouteName extends ScreenName> = {
 
 export type ScreenProps<RouteName extends ScreenName> = StackScreenProps<ScreenParams, RouteName>
 
-export type TabName = Extract<ScreenName, "Home" | "Search" | "Account" | "MyBible">
+export type ScreenType = "Tabs" | "Screens" | "PreAuth"
 
-export const TABS: Record<TabName, ScreenConfig<any>> = {
-  MyBible: MyBibleScreen,
-  Home: HomeScreen,
-  Search: SearchScreen,
-  Account: AccountScreen,
-}
-export const SCREENS: Record<Exclude<ScreenName, TabName>, ScreenConfig<any>> = {
-  Guide: GuideScreen.config,
-  Profile: ProfileScreen.config,
+export type TabScreen = Extract<ScreenName, "MyBible" | "Home" | "Search" | "Account">
+export type ScreenScreen = Extract<ScreenName, "Guide" | "Profile">
+export type PreauthScreen = Extract<ScreenName, "Login" | "Signup">
+
+export const SCREENS: { [type in ScreenType]: { [screen in ScreenName]?: ScreenConfig<any> } } = {
+  Tabs: {
+    MyBible: MyBibleScreen,
+    Home: HomeScreen,
+    Search: SearchScreen,
+    Account: AccountScreen,
+  },
+  Screens: {
+    Guide: GuideScreen.config,
+    Profile: ProfileScreen.config,
+  },
+  PreAuth: {
+    Login: LoginScreen,
+    Signup: SignupScreen,
+  },
 }
