@@ -1,0 +1,23 @@
+fragment GuideInfo on Guide {
+    id
+    title
+    startDate
+    owner
+    countries
+    created
+    distanceMeters
+    durationSeconds
+    isCircular
+    bounds{
+        east
+        north
+        south
+        west
+    }
+    maxHoursPerRide
+    updated
+    transportType
+    rides:ridesByGuide{
+        totalCount
+    }
+}

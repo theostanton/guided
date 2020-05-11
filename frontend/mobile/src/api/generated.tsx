@@ -4506,7 +4506,43 @@ export type GetUsernameQueryVariables = {
 
 export type GetUsernameQuery = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username' | 'colour'>>> }> };
 
+export type GuidesListQueryVariables = {
+  owner: Scalars['String'];
+};
 
+
+export type GuidesListQuery = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }> };
+
+export type GuideInfoFragment = (
+  Pick<Guide, 'id' | 'title' | 'startDate' | 'owner' | 'countries' | 'created' | 'distanceMeters' | 'durationSeconds' | 'isCircular' | 'maxHoursPerRide' | 'updated' | 'transportType'>
+  & { readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>>, readonly rides: Pick<RidesConnection, 'totalCount'> }
+);
+
+export const GuideInfoFragmentDoc = gql`
+    fragment GuideInfo on Guide {
+  id
+  title
+  startDate
+  owner
+  countries
+  created
+  distanceMeters
+  durationSeconds
+  isCircular
+  bounds {
+    east
+    north
+    south
+    west
+  }
+  maxHoursPerRide
+  updated
+  transportType
+  rides: ridesByGuide {
+    totalCount
+  }
+}
+    `;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   authenticate(input: {email: $email, password: $password}) {
@@ -4630,3 +4666,44 @@ export function useGetUsernameLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetUsernameQueryHookResult = ReturnType<typeof useGetUsernameQuery>;
 export type GetUsernameLazyQueryHookResult = ReturnType<typeof useGetUsernameLazyQuery>;
 export type GetUsernameQueryResult = ApolloReactCommon.QueryResult<GetUsernameQuery, GetUsernameQueryVariables>;
+export const GuidesListDocument = gql`
+    query GuidesList($owner: String!) {
+  guides(filter: {owner: {equalTo: $owner}}) {
+    nodes {
+      ...GuideInfo
+    }
+  }
+}
+    ${GuideInfoFragmentDoc}`;
+export type GuidesListComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GuidesListQuery, GuidesListQueryVariables>, 'query'> & ({ variables: GuidesListQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const GuidesListComponent = (props: GuidesListComponentProps) => (
+      <ApolloReactComponents.Query<GuidesListQuery, GuidesListQueryVariables> query={GuidesListDocument} {...props} />
+    );
+    
+
+/**
+ * __useGuidesListQuery__
+ *
+ * To run a query within a React component, call `useGuidesListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGuidesListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGuidesListQuery({
+ *   variables: {
+ *      owner: // value for 'owner'
+ *   },
+ * });
+ */
+export function useGuidesListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GuidesListQuery, GuidesListQueryVariables>) {
+        return ApolloReactHooks.useQuery<GuidesListQuery, GuidesListQueryVariables>(GuidesListDocument, baseOptions);
+      }
+export function useGuidesListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GuidesListQuery, GuidesListQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GuidesListQuery, GuidesListQueryVariables>(GuidesListDocument, baseOptions);
+        }
+export type GuidesListQueryHookResult = ReturnType<typeof useGuidesListQuery>;
+export type GuidesListLazyQueryHookResult = ReturnType<typeof useGuidesListLazyQuery>;
+export type GuidesListQueryResult = ApolloReactCommon.QueryResult<GuidesListQuery, GuidesListQueryVariables>;

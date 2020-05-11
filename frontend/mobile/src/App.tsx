@@ -27,7 +27,7 @@ class App extends React.Component<Props> {
         <Stack.Navigator
           initialRouteName="Tabs">
           <Stack.Screen name={"Tabs"} options={{ headerShown: false }} component={TabScreen}/>
-          {Object.entries(SCREENS.Tabs).map(
+          {Object.entries(SCREENS.Screens).map(
             ([screenName, config]) => <Stack.Screen
               name={screenName}
               key={screenName}

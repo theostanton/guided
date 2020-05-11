@@ -16,8 +16,6 @@ function httpLink(): ApolloLink {
 
   return new HttpLink({
     uri: GUIDED_GRAPHQL,
-// @ts-ignore
-    fetch: fetch,
   })
 }
 
@@ -51,14 +49,12 @@ function subscriptionLink(): ApolloLink {
     throw new Error("No GUIDED_WEBSOCKET provided")
   }
 
-  const wsForNode = typeof window === "undefined" ? ws : null
   const wsClient = new SubscriptionClient(
     GUIDED_WEBSOCKET,
     {
       reconnect: true,
 
-    },
-    wsForNode)
+    })
 
   return new WebSocketLink(wsClient)
 }

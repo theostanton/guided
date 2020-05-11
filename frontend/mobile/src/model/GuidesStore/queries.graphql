@@ -1,0 +1,13 @@
+query GuidesList($owner:String!){
+    guides(
+        filter:{
+            owner:{
+                equalTo:$owner
+            }
+        }
+    ){
+        nodes{
+            ...GuideInfo
+        }
+    }
+}
