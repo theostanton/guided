@@ -2,7 +2,7 @@ import React from "react"
 import { Button, StyleSheet, Text, View } from "react-native"
 import { ScreenConfig, ScreenProps } from "../index"
 
-type Props = ScreenProps<"Home">
+type Props = ScreenProps<"Search">
 
 const styles = StyleSheet.create({
   container: {
@@ -13,13 +13,13 @@ const styles = StyleSheet.create({
   },
 })
 
-class HomeScreenComponent extends React.Component<Props> {
+class SearchScreenComponent extends React.Component<Props> {
 
   render() {
     return <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text>Search Screen</Text>
       <Button
-        title="Go to Guide"
+        title="Go to Details"
         onPress={() => this.props.navigation.navigate("Guide", {
           guideId: "guide_1234",
         })}
@@ -30,7 +30,7 @@ class HomeScreenComponent extends React.Component<Props> {
 }
 
 const config: ScreenConfig<"Home"> = {
-  component: HomeScreenComponent,
+  component: SearchScreenComponent,
 }
 
 export default config

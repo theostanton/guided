@@ -13,8 +13,10 @@
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.3.0",
+    "@react-navigation/bottom-tabs": "^5.4.2",
     "@react-navigation/stack": "^5.3.2",
     "expo": "~37.0.3",
+    "@expo/vector-icons": "^10.2.0",
     "expo-updates": "~0.1.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -28,6 +30,8 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@types/expo": "^33.0.1",
+    "@types/expo__vector-icons": "^9.0.1",
     "@types/react": "~16.9.23",
     "@types/react-native": "~0.61.23",
     "babel-preset-expo": "~8.1.0",
