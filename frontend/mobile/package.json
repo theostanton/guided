@@ -11,16 +11,17 @@
     "test": "jest"
   },
   "dependencies": {
+    "@apollo/react-components": "^3.1.5",
+    "@apollo/react-hooks": "^3.1.5",
     "@expo/vector-icons": "^10.2.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.4.2",
     "@react-navigation/native": "^5.3.0",
     "@react-navigation/stack": "^5.3.2",
-    "@apollo/react-components": "^3.1.5",
-    "@apollo/react-hooks": "^3.1.5",
     "apollo-boost": "^0.4.8",
     "apollo-link-context": "^1.0.19",
     "apollo-link-ws": "^1.0.19",
+    "babel-plugin-module-resolver": "^4.0.0",
     "expo": "~37.0.3",
     "expo-updates": "~0.1.0",
     "graphql": "^15.0.0",
@@ -44,11 +45,12 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@expo/webpack-config": "^0.12.5",
     "@types/expo": "^33.0.1",
-    "@types/react-native-dotenv": "^0.2.0",
     "@types/expo__vector-icons": "^9.0.1",
     "@types/react": "~16.9.23",
     "@types/react-native": "~0.61.23",
+    "@types/react-native-dotenv": "^0.2.0",
     "babel-preset-expo": "~8.1.0",
     "jest-expo": "~37.0.0",
     "typescript": "~3.8.3"
