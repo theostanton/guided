@@ -1,7 +1,7 @@
 import React from "react"
 import { Button, StyleSheet, Text, View } from "react-native"
 import { ScreenConfig, ScreenProps } from "../index"
-import AuthStore from "../../model/AuthStore"
+import AuthStore from "model/AuthStore"
 import { inject } from "mobx-react"
 
 type Props = { authStore?: AuthStore } & ScreenProps<"Account">

@@ -1,4 +1,4 @@
-import { GuideInfoFragment } from "../../api/generated"
+import { GuideInfoFragment } from "api/generated"
 import React from "react"
 import { StyleSheet, Text, TouchableHighlight, View } from "react-native"
 import { useNavigation } from "@react-navigation/native"
@@ -27,6 +27,6 @@ export default function(props: Props) {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: "#ff0000",
-    padding: "0.5em",
+    padding: "8pt",
   },
 })

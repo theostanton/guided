@@ -1,4 +1,4 @@
-import GuidesStore from "../../model/GuidesStore"
+import GuidesStore from "model/GuidesStore"
 import { FlatList, StyleSheet } from "react-native"
 import React from "react"
 import GuideItem from "./GuideItem"

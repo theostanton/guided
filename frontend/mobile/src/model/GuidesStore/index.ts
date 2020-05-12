@@ -3,8 +3,8 @@ import {
   GuideInfoFragment,
   GuidesListDocument, GuidesListQuery,
   GuidesListQueryVariables,
-} from "../../api/generated"
-import client from "../../api/client"
+} from "api/generated"
+import client from "api/client"
 
 export default class GuidesStore {
 

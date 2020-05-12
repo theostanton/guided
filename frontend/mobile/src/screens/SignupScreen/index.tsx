@@ -1,9 +1,9 @@
 import React from "react"
 import { Button, StyleSheet, Text, View } from "react-native"
 import { ScreenConfig, ScreenProps } from "../index"
-import FormTextInput from "../../components/FormTextInput"
-import AuthStore from "../../model/AuthStore"
-import { signup } from "../../model/AuthStore/actions"
+import FormTextInput from "components/FormTextInput"
+import AuthStore from "model/AuthStore"
+import { signup } from "model/AuthStore/actions"
 import { inject } from "mobx-react"
 
 

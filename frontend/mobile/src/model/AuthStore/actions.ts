@@ -4,9 +4,9 @@ import {
   LoginDocument,
   LoginMutation,
   LoginMutationVariables, SignUpDocument, SignUpMutation, SignUpMutationVariables,
-} from "../../api/generated"
+} from "api/generated"
 import AuthStore from "."
-import client from "../../api/client"
+import client from "api/client"
 
 export async function signup(authStore: AuthStore, email: string, username: string, password: string): Promise<{
   error?: string

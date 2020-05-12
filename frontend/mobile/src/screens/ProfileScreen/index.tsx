@@ -1,7 +1,6 @@
 import React from "react"
 import { Button, StyleSheet, Text, View } from "react-native"
 import { ScreenConfig, ScreenProps } from "../index"
-import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs"
 import { StackNavigationOptions } from "@react-navigation/stack"
 
 type Props = ScreenProps<"Profile">

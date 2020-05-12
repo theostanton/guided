@@ -2,9 +2,9 @@ import React from "react"
 import { Button, StyleSheet, Text, View } from "react-native"
 import { ScreenConfig, ScreenProps } from "../index"
 import { inject } from "mobx-react"
-import AuthStore from "../../model/AuthStore"
-import FormTextInput from "../../components/FormTextInput"
-import { login } from "../../model/AuthStore/actions"
+import AuthStore from "model/AuthStore"
+import FormTextInput from "components/FormTextInput"
+import { login } from "model/AuthStore/actions"
 
 type Props = {
   authStore?: AuthStore

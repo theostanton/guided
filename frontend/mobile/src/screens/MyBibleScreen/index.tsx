@@ -2,9 +2,9 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { ScreenConfig, ScreenProps } from "../index"
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs"
-import Guides from "../../components/Guides"
+import Guides from "components/Guides"
 import { inject } from "mobx-react"
-import AuthStore from "../../model/AuthStore"
+import AuthStore from "model/AuthStore"
 
 type Props = {
   authStore?: AuthStore
@@ -27,7 +27,7 @@ class MyBibleScreenComponent extends React.Component<Props> {
 
   render() {
     return <View style={styles.container}>
-      <Text style={{ textAlign: "center" }}>My Bible Screen</Text>
+      <Text style={{ textAlign: "center" }}>My Bible Screen!</Text>
       <Guides owner={this.props.authStore?.owner!}/>
     </View>
   }
