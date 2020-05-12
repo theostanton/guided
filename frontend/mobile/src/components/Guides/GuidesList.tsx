@@ -6,6 +6,7 @@ import { inject, observer } from "mobx-react"
 
 type Props = {
   guidesStore?: GuidesStore
+  fetch: () => Promise<void>
 }
 
 @inject("guidesStore")
@@ -15,6 +16,8 @@ export default class GuidesList extends React.Component<Props> {
     return <FlatList
       style={styles.list}
       data={this.props.guidesStore?.guides || []}
+      numColumns={1}
+      keyExtractor={(item) => item.id}
       renderItem={(guide) => {
         return <GuideItem guide={guide.item}/>
       }
@@ -26,6 +29,5 @@ export default class GuidesList extends React.Component<Props> {
 const styles = StyleSheet.create({
   list: {
     flex: 1,
-    backgroundColor: "#00ffff",
   },
 })

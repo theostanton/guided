@@ -2,8 +2,10 @@ fragment GuideInfo on Guide {
     id
     title
     startDate
+    endDate
     owner
     countries
+    isMine
     created
     distanceMeters
     durationSeconds
@@ -19,5 +21,10 @@ fragment GuideInfo on Guide {
     transportType
     rides:ridesByGuide{
         totalCount
+        nodes{
+            id
+            pathUrl
+            date
+        }
     }
 }

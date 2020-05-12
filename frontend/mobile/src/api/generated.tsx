@@ -773,7 +773,7 @@ export type Guide = Node & {
   readonly slug: Scalars['String'];
   readonly owner: Scalars['String'];
   readonly startDate?: Maybe<Scalars['String']>;
-  readonly isCircular?: Maybe<Scalars['Boolean']>;
+  readonly isCircular: Scalars['Boolean'];
   readonly transportType: TransportType;
   readonly maxHoursPerRide: Scalars['Int'];
   readonly created: Scalars['Datetime'];
@@ -794,6 +794,7 @@ export type Guide = Node & {
   readonly countries?: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
   readonly distanceMeters?: Maybe<Scalars['BigInt']>;
   readonly durationSeconds?: Maybe<Scalars['BigInt']>;
+  readonly endDate?: Maybe<Scalars['String']>;
   readonly isMine?: Maybe<Scalars['Boolean']>;
 };
 
@@ -909,6 +910,8 @@ export type GuideFilter = {
   readonly distanceMeters?: Maybe<BigIntFilter>;
   /** Filter by the object’s `durationSeconds` field. */
   readonly durationSeconds?: Maybe<BigIntFilter>;
+  /** Filter by the object’s `endDate` field. */
+  readonly endDate?: Maybe<StringFilter>;
   /** Filter by the object’s `isMine` field. */
   readonly isMine?: Maybe<BooleanFilter>;
   /** Checks for all expressions in this list. */
@@ -4049,7 +4052,7 @@ export type GuideResolvers<ContextType = any, ParentType extends ResolversParent
   slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  isCircular?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  isCircular?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   transportType?: Resolver<ResolversTypes['TransportType'], ParentType, ContextType>,
   maxHoursPerRide?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
   created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
@@ -4064,6 +4067,7 @@ export type GuideResolvers<ContextType = any, ParentType extends ResolversParent
   countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
   distanceMeters?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
   durationSeconds?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
+  endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 };
@@ -4514,8 +4518,11 @@ export type GuidesListQueryVariables = {
 export type GuidesListQuery = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }> };
 
 export type GuideInfoFragment = (
-  Pick<Guide, 'id' | 'title' | 'startDate' | 'owner' | 'countries' | 'created' | 'distanceMeters' | 'durationSeconds' | 'isCircular' | 'maxHoursPerRide' | 'updated' | 'transportType'>
-  & { readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>>, readonly rides: Pick<RidesConnection, 'totalCount'> }
+  Pick<Guide, 'id' | 'title' | 'startDate' | 'endDate' | 'owner' | 'countries' | 'isMine' | 'created' | 'distanceMeters' | 'durationSeconds' | 'isCircular' | 'maxHoursPerRide' | 'updated' | 'transportType'>
+  & { readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>>, readonly rides: (
+    Pick<RidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'id' | 'pathUrl' | 'date'>>> }
+  ) }
 );
 
 export const GuideInfoFragmentDoc = gql`
@@ -4523,8 +4530,10 @@ export const GuideInfoFragmentDoc = gql`
   id
   title
   startDate
+  endDate
   owner
   countries
+  isMine
   created
   distanceMeters
   durationSeconds
@@ -4540,6 +4549,11 @@ export const GuideInfoFragmentDoc = gql`
   transportType
   rides: ridesByGuide {
     totalCount
+    nodes {
+      id
+      pathUrl
+      date
+    }
   }
 }
     `;

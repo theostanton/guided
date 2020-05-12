@@ -10,7 +10,7 @@ create table guides
             references users
             on delete cascade,
     start_date         varchar(16),
-    is_circular        boolean,
+    is_circular        boolean                  not null,
     transport_type     transport_type           not null,
     max_hours_per_ride integer                  not null,
     created            timestamp with time zone not null,

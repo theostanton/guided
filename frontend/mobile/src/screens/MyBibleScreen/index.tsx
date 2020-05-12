@@ -17,7 +17,6 @@ export type Params = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ff0",
     justifyContent: "center",
   },
 })
@@ -27,7 +26,6 @@ class MyBibleScreenComponent extends React.Component<Props> {
 
   render() {
     return <View style={styles.container}>
-      <Text style={{ textAlign: "center" }}>My Bible Screen!</Text>
       <Guides owner={this.props.authStore?.owner!}/>
     </View>
   }

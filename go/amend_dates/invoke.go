@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"guided/utils"
-	"log"
 	"time"
 )
 
@@ -32,16 +31,17 @@ func plusDays(dateString *sql.NullString, days int) {
 	dateString.String = date.Format(layout)
 }
 
-func prepare(guide Guide, rides []Ride, spots []Spot) (updateRides []Patch, updateSpots []Patch) {
+func prepare(guide Guide, rides []Ride, spots []Spot) (updateRides []Patch, updateSpots []Patch, err error) {
 
 	updateRides = []Patch{}
 	updateSpots = []Patch{}
+	err = nil
 
 	switch {
 
 	case len(spots) == 1:
 		if len(rides) > 0 {
-			log.Fatal("Shouldn't have any rides when only one spot")
+			return nil, nil, utils.NewError("Shouldn't have any rides when only one spot")
 		}
 		updateSpots = append(updateSpots, Patch{
 			id: spots[0].Id,
@@ -74,7 +74,7 @@ func prepare(guide Guide, rides []Ride, spots []Spot) (updateRides []Patch, upda
 					panic("No ride for spot.id=" + spot.Id)
 				}
 			case index == 0 && spot.Nights > 0:
-				panic("First spot shouldn't have any nights")
+				return nil, nil, utils.NewError("Shouldn't have any rides when only one spot")
 			default:
 				plusDays(&date, spot.Nights)
 				updateRides = append(updateRides, Patch{
@@ -114,16 +114,22 @@ func Invoke(guideId string) (string, error) {
 		return "", err
 	}
 
-	fmt.Println("Amending dates for guideId=" + guideId)
+	fmt.Println("Amending dates for guideId =" + guideId)
 
 	guide, err := FetchGuide(guideId)
+	fmt.Println("FetchedGuide")
 	if err != nil {
 		return "", err
 	}
+	fmt.Printf("Guide=%s\n", guide)
+
 	rides := FetchRides(guideId)
 	spots := FetchSpots(guideId)
 
-	updateRides, updateSpots := prepare(*guide, rides, spots)
+	updateRides, updateSpots, err := prepare(*guide, rides, spots)
+	if err != nil {
+		return "", err
+	}
 
 	fmt.Println("Updating", len(updateRides), "rides")
 	err = Update("rides", updateRides)

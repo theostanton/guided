@@ -6,7 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import { SCREENS } from "./screens"
 import { inject, observer, Provider } from "mobx-react"
 import AuthStore, { authStore } from "./model/AuthStore"
-import { StatusBar } from "react-native"
+import { StatusBar, View } from "react-native"
 
 const Stack = createStackNavigator()
 
@@ -18,40 +18,46 @@ type Props = {
 @observer
 class App extends React.Component<Props> {
 
+  Authed() {
+    return <NavigationContainer>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae"/>
+
+      <Stack.Navigator
+        initialRouteName="Tabs">
+        <Stack.Screen name={"Tabs"} options={{ headerShown: false }} component={TabScreen}/>
+        {Object.entries(SCREENS.Screens).map(
+          ([screenName, config]) => <Stack.Screen
+            name={screenName}
+            key={screenName}
+            component={config!.component}
+            options={config!.options}/>,
+        )}
+
+      </Stack.Navigator>
+    </NavigationContainer>
+  }
+
+  Unauthed() {
+    return <NavigationContainer>
+      <Stack.Navigator initialRouteName={"Login"}>
+        {Object.entries(SCREENS.PreAuth).map(
+          ([screenName, config]) => <Stack.Screen
+            name={screenName}
+            key={screenName}
+            component={config!.component}
+            options={config!.options}/>,
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  }
+
   render() {
 
     const isLoggedIn = this.props.authStore?.isLoggedIn
 
-    if (isLoggedIn) {
-      return <NavigationContainer>
-        <StatusBar barStyle="light-content" backgroundColor="#6a51ae"/>
+    const Content = isLoggedIn ? this.Authed : this.Unauthed
 
-        <Stack.Navigator
-          initialRouteName="Tabs">
-          <Stack.Screen name={"Tabs"} options={{ headerShown: false }} component={TabScreen}/>
-          {Object.entries(SCREENS.Screens).map(
-            ([screenName, config]) => <Stack.Screen
-              name={screenName}
-              key={screenName}
-              component={config!.component}
-              options={config!.options}/>,
-          )}
-
-        </Stack.Navigator>
-      </NavigationContainer>
-    } else {
-      return <NavigationContainer>
-        <Stack.Navigator initialRouteName={"Login"}>
-          {Object.entries(SCREENS.PreAuth).map(
-            ([screenName, config]) => <Stack.Screen
-              name={screenName}
-              key={screenName}
-              component={config!.component}
-              options={config!.options}/>,
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
-    }
+    return <Content/>
   }
 }
 

@@ -16,18 +16,14 @@ export default class Guides extends React.Component<Props> {
     this.guidesStore = new GuidesStore(props.owner)
   }
 
-  componentDidMount() {
-    this.guidesStore.subscribe()
-  }
-
-  componentWillUnmount() {
-    this.guidesStore.unsubscribe()
+  async componentDidMount() {
+    await this.guidesStore.fetch()
   }
 
 
   render() {
     return <Provider guidesStore={this.guidesStore}>
-      <GuidesList/>
+      <GuidesList fetch={this.guidesStore.fetch}/>
     </Provider>
   }
 }

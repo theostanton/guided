@@ -1,4 +1,4 @@
-import { action, observable, runInAction } from "mobx"
+import { action, observable } from "mobx"
 import {
   GuideInfoFragment,
   GuidesListDocument, GuidesListQuery,
@@ -18,7 +18,7 @@ export default class GuidesStore {
   }
 
   @action
-  async subscribe() {
+  async fetch() {
     const variables: GuidesListQueryVariables = {
       owner: this.owner,
     }
@@ -30,6 +30,4 @@ export default class GuidesStore {
     this.guides = result.data?.guides?.nodes.map(node => node!)
   }
 
-  unsubscribe() {
-  }
 }
