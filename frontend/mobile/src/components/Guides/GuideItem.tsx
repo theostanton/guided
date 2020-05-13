@@ -2,14 +2,18 @@ import { GuideInfoFragment } from "api/generated"
 import React from "react"
 import { StyleSheet, Text, TouchableHighlight, View } from "react-native"
 import { useNavigation } from "@react-navigation/native"
-import Icon from "components/Icon"
 import { h1, h2, h3 } from "styles/text"
+import Icon from "components/Icon"
 import Statistic, { StatisticProps } from "components/Statistic"
+import Map from "components/Map"
 import { humanDate, humanDistance } from "utils/human"
-import { lightestGrey, lightGrey, white } from "styles/colors"
+import { lightGrey, white } from "styles/colors"
+import { half, quarter, whole } from "utils/dimensions"
 
+export type ListPosition = "first" | "middle" | "last"
 type Props = {
   guide: GuideInfoFragment
+  position: ListPosition
 }
 
 function Header({ guide }: Props) {
@@ -18,15 +22,16 @@ function Header({ guide }: Props) {
       flex: 1,
       display: "flex",
       flexDirection: "row",
-      padding: "8pt",
+      padding: half,
       borderBottomColor: lightGrey,
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
     icon: {
       flexBasis: "auto",
-      margin: "0.25em",
+      margin: quarter,
     },
     text: {
+      flex: 1,
       display: "flex",
       flexDirection: "column",
       alignContent: "center",
@@ -38,6 +43,9 @@ function Header({ guide }: Props) {
     subtitle: {
       ...h3,
     },
+    flags: {
+      justifyContent: "center",
+    },
   })
 
   return <View style={styles.container}>
@@ -48,7 +56,16 @@ function Header({ guide }: Props) {
       <Text style={styles.title}>{guide.title}</Text>
       {guide.isMine === false && <Text style={styles.subtitle}>by {guide.owner}</Text>}
     </View>
+    <View style={styles.flags}>
+      {guide.countries!.map(country => {
+        return <Text key={country!}>{country!}</Text>
+      })}
+    </View>
   </View>
+}
+
+function Center({ guide }: Props) {
+  return <Map guide={guide}/>
 }
 
 function Statistics({ guide }: Props) {
@@ -56,7 +73,7 @@ function Statistics({ guide }: Props) {
     container: {
       display: "flex",
       flexDirection: "row",
-      padding: "8pt",
+      padding: half,
     },
     item: {
       flex: 1,
@@ -90,9 +107,51 @@ function Statistics({ guide }: Props) {
   </View>
 }
 
+function marginTop(position: ListPosition) {
+  switch (position) {
+    case "first":
+      return whole
+    case "middle":
+      return half
+    case "last":
+      return half
+  }
+}
+
+function marginBottom(position: ListPosition) {
+  switch (position) {
+    case "first":
+      return half
+    case "middle":
+      return half
+    case "last":
+      return whole
+  }
+}
+
 export default function(props: Props) {
 
-  console.log(props)
+
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: white,
+      marginTop: marginTop(props.position),
+      marginLeft: whole,
+      marginRight: whole,
+      marginBottom: marginBottom(props.position),
+      flex: 1,
+      shadowColor: "#000",
+      shadowOffset: { width: 1, height: 1 },
+      shadowOpacity: 0.2,
+      shadowRadius: 2,
+      borderRadius: 2,
+    },
+    content: {
+      display: "flex",
+      flexDirection: "column",
+    },
+  })
+
   const navigation = useNavigation()
   return <TouchableHighlight key={props.guide.id}
                              style={styles.container}
@@ -104,23 +163,10 @@ export default function(props: Props) {
                              }}>
     <View style={styles.content}>
       <Header {...props}/>
+      <Center {...props}/>
       <Statistics {...props}/>
     </View>
 
   </TouchableHighlight>
 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: white,
-    margin: "8pt",
-    flex: 1,
-    boxShadow: "0 1px 2px 0 rgba(0,0,0,0.2)",
-    borderRadius: 2,
-  },
-  content: {
-    display: "flex",
-    flexDirection: "column",
-  },
-})

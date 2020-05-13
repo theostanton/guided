@@ -2,7 +2,6 @@ import { ApolloClient, HttpLink, InMemoryCache, DefaultOptions, ApolloLink } fro
 import { setContext } from "apollo-link-context"
 import { User } from "../model/AuthStore"
 import { SubscriptionClient } from "subscriptions-transport-ws"
-import ws from "ws"
 import { WebSocketLink } from "apollo-link-ws"
 import { AsyncStorage } from "react-native"
 // @ts-ignore
@@ -24,7 +23,7 @@ function authLink(): ApolloLink {
   return setContext(async (_, { headers }) => {
 
     try {
-      const value = await AsyncStorage.getItem(USER_KEY)
+      const value =await AsyncStorage.getItem(USER_KEY)
       if (value) {
         const user = JSON.parse(value) as User
         return {

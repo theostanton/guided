@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: "#ff00ff",
     borderBottomWidth: StyleSheet.hairlineWidth,
-    marginBottom: 20,
+    // marginBottom: 20,
   },
 })

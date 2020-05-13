@@ -48,8 +48,8 @@ export default class AuthStore {
   }
 
   @action
-  logOut() {
-    this.setUser(undefined)
+  async logOut() {
+    await this.setUser(undefined)
   }
 }
 

@@ -22,9 +22,25 @@ fragment GuideInfo on Guide {
     rides:ridesByGuide{
         totalCount
         nodes{
-            id
-            pathUrl
-            date
+            ...GuideInfoRide
         }
     }
+    spots:spotsByGuide{
+        totalCount
+        nodes{
+            ...GuideInfoSpot
+        }
+    }
+}
+
+fragment GuideInfoRide on Ride {
+    id
+    pathUrl
+    date
+}
+
+fragment GuideInfoSpot on Spot {
+    id
+    lat
+    long
 }

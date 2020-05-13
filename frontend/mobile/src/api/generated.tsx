@@ -4521,10 +4521,31 @@ export type GuideInfoFragment = (
   Pick<Guide, 'id' | 'title' | 'startDate' | 'endDate' | 'owner' | 'countries' | 'isMine' | 'created' | 'distanceMeters' | 'durationSeconds' | 'isCircular' | 'maxHoursPerRide' | 'updated' | 'transportType'>
   & { readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>>, readonly rides: (
     Pick<RidesConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'id' | 'pathUrl' | 'date'>>> }
+    & { readonly nodes: ReadonlyArray<Maybe<GuideInfoRideFragment>> }
+  ), readonly spots: (
+    Pick<SpotsConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<GuideInfoSpotFragment>> }
   ) }
 );
 
+export type GuideInfoRideFragment = Pick<Ride, 'id' | 'pathUrl' | 'date'>;
+
+export type GuideInfoSpotFragment = Pick<Spot, 'id' | 'lat' | 'long'>;
+
+export const GuideInfoRideFragmentDoc = gql`
+    fragment GuideInfoRide on Ride {
+  id
+  pathUrl
+  date
+}
+    `;
+export const GuideInfoSpotFragmentDoc = gql`
+    fragment GuideInfoSpot on Spot {
+  id
+  lat
+  long
+}
+    `;
 export const GuideInfoFragmentDoc = gql`
     fragment GuideInfo on Guide {
   id
@@ -4550,13 +4571,18 @@ export const GuideInfoFragmentDoc = gql`
   rides: ridesByGuide {
     totalCount
     nodes {
-      id
-      pathUrl
-      date
+      ...GuideInfoRide
+    }
+  }
+  spots: spotsByGuide {
+    totalCount
+    nodes {
+      ...GuideInfoSpot
     }
   }
 }
-    `;
+    ${GuideInfoRideFragmentDoc}
+${GuideInfoSpotFragmentDoc}`;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   authenticate(input: {email: $email, password: $password}) {
