@@ -15,10 +15,6 @@ export function log(message: string, label?: string): void {
   console.log(message)
 }
 
-function unObservify(object: any): any {
-  return tojs
-}
-
 export function logObject(object: any, label?: string): void {
   if (label) {
     console.log(chalk.keyword("orange")(label))
