@@ -16,8 +16,10 @@ func serverHandler(w http.ResponseWriter, r *http.Request) {
 	res, err := Invoke(guideId)
 
 	if err == nil {
+		fmt.Printf("Result=%s\n", res)
 		fmt.Fprintf(w, "Result: %q", res)
 	} else {
+		fmt.Printf("err=%s\n", err.Error())
 		fmt.Fprintf(w, "Error: %s", err.Error())
 	}
 

@@ -974,7 +974,7 @@ type Guide implements Node {
   slug: String!
   owner: String!
   startDate: String
-  isCircular: Boolean
+  isCircular: Boolean!
   transportType: TransportType!
   maxHoursPerRide: Int!
   created: Datetime!
@@ -1156,6 +1156,7 @@ type Guide implements Node {
   countries: [String]
   distanceMeters: BigInt
   durationSeconds: BigInt
+  endDate: String
   isMine: Boolean
 }
 
@@ -1236,6 +1237,9 @@ input GuideFilter {
 
   """Filter by the object’s `durationSeconds` field."""
   durationSeconds: BigIntFilter
+
+  """Filter by the object’s `endDate` field."""
+  endDate: StringFilter
 
   """Filter by the object’s `isMine` field."""
   isMine: BooleanFilter

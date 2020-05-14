@@ -29,7 +29,7 @@ make develop
 - Initialises local postgres instance with default roles and schema
 - Watches backend common source code
 - Launches backend services in develop mode, accessible at [localhost:5000/graphiql](localhost:5000/graphiql)
-- Launches frontend service in develop mode, accesible at [localhost](https://localhost:80)
+- Launches frontend service in develop mode, accesible at [localhost:8000](https://localhost:80)
 
 ### Backend
 

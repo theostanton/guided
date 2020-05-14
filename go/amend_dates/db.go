@@ -53,6 +53,8 @@ func connectionString() string {
 		connInfo = connInfo + "?sslmode=disable"
 	}
 
+	fmt.Printf("connInfo=%s\n", connInfo)
+
 	return connInfo
 }
 
@@ -85,7 +87,6 @@ where sp.guide = $1
   and st.status in ('ready', 'complete')
 order by sp.position
     `
-
 
 	rows, err := Database().Query(query, guideId)
 	defer rows.Close()
@@ -143,7 +144,8 @@ func FetchGuide(guideId string) (*Guide, error) {
 	query := `select id, start_date,is_circular from guides where id=$1`
 	err := Database().QueryRow(query, guideId).Scan(&guide.Id, &guide.StartDate, &guide.IsCircular)
 	if err != nil {
-		return nil, utils.NewError("Couldnt get guide for id=" + guideId)
+		fmt.Printf("FetchGuide err=%s", err.Error())
+		return nil, utils.NewError("Couldn't get guide for id=" + guideId)
 	}
 
 	return &guide, nil

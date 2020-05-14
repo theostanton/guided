@@ -2,3 +2,4 @@ build/
 srv/
 dist/**
 **.env
+node_modules

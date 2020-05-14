@@ -24,3 +24,10 @@ generates:
             - 'typescript-resolvers'
             - 'typescript-operations'
             - 'typescript-react-apollo'
+    ../../../frontend/mobile/src/api/generated.tsx:
+        documents: '../../../frontend/mobile/src/**/*.graphql'
+        plugins:
+            - 'typescript'
+            - 'typescript-resolvers'
+            - 'typescript-operations'
+            - 'typescript-react-apollo'
