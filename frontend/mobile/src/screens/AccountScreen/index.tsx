@@ -27,8 +27,8 @@ class AccountScreenComponent extends React.Component<Props> {
       <Text>Account Screen</Text>
       <Button
         title="Logout"
-        onPress={async ()=>{
-          await this.props.authStore!.logOut
+        onPress={async () => {
+          await this.props.authStore!.logOut()
         }}
       />
     </View>

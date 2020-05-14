@@ -4510,6 +4510,21 @@ export type GetUsernameQueryVariables = {
 
 export type GetUsernameQuery = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username' | 'colour'>>> }> };
 
+export type FeedEventFragment = (
+  Pick<FeedEvent, 'timestamp' | 'type'>
+  & { readonly ride?: Maybe<Pick<Ride, 'id'>>, readonly guide?: Maybe<(
+    Pick<Guide, 'id' | 'title' | 'slug' | 'distanceMeters' | 'startDate' | 'created' | 'durationSeconds' | 'transportType' | 'countries'>
+    & { readonly spots: { readonly nodes: ReadonlyArray<Maybe<Pick<Spot, 'nights'>>> }, readonly owner?: Maybe<Pick<User, 'username' | 'colour'>> }
+  )>, readonly user?: Maybe<Pick<User, 'username' | 'colour'>> }
+);
+
+export type FeedSubscriptionVariables = {
+  username: Scalars['String'];
+};
+
+
+export type FeedSubscription = { readonly feed: { readonly nodes: ReadonlyArray<Maybe<FeedEventFragment>> } };
+
 export type GuidesListQueryVariables = {
   owner: Scalars['String'];
 };
@@ -4532,6 +4547,39 @@ export type GuideInfoRideFragment = Pick<Ride, 'id' | 'pathUrl' | 'date'>;
 
 export type GuideInfoSpotFragment = Pick<Spot, 'id' | 'lat' | 'long'>;
 
+export const FeedEventFragmentDoc = gql`
+    fragment FeedEvent on FeedEvent {
+  timestamp
+  type
+  ride: rideByRide {
+    id
+  }
+  guide: guideByGuide {
+    id
+    title
+    slug
+    distanceMeters
+    startDate
+    created
+    durationSeconds
+    transportType
+    countries
+    spots: spotsByGuide {
+      nodes {
+        nights
+      }
+    }
+    owner: userByOwner {
+      username
+      colour
+    }
+  }
+  user: userByUser {
+    username
+    colour
+  }
+}
+    `;
 export const GuideInfoRideFragmentDoc = gql`
     fragment GuideInfoRide on Ride {
   id
@@ -4706,6 +4754,43 @@ export function useGetUsernameLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetUsernameQueryHookResult = ReturnType<typeof useGetUsernameQuery>;
 export type GetUsernameLazyQueryHookResult = ReturnType<typeof useGetUsernameLazyQuery>;
 export type GetUsernameQueryResult = ApolloReactCommon.QueryResult<GetUsernameQuery, GetUsernameQueryVariables>;
+export const FeedDocument = gql`
+    subscription Feed($username: String!) {
+  feed(_username: $username) {
+    nodes {
+      ...FeedEvent
+    }
+  }
+}
+    ${FeedEventFragmentDoc}`;
+export type FeedComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<FeedSubscription, FeedSubscriptionVariables>, 'subscription'>;
+
+    export const FeedComponent = (props: FeedComponentProps) => (
+      <ApolloReactComponents.Subscription<FeedSubscription, FeedSubscriptionVariables> subscription={FeedDocument} {...props} />
+    );
+    
+
+/**
+ * __useFeedSubscription__
+ *
+ * To run a query within a React component, call `useFeedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useFeedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFeedSubscription({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useFeedSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<FeedSubscription, FeedSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<FeedSubscription, FeedSubscriptionVariables>(FeedDocument, baseOptions);
+      }
+export type FeedSubscriptionHookResult = ReturnType<typeof useFeedSubscription>;
+export type FeedSubscriptionResult = ApolloReactCommon.SubscriptionResult<FeedSubscription>;
 export const GuidesListDocument = gql`
     query GuidesList($owner: String!) {
   guides(filter: {owner: {equalTo: $owner}}) {

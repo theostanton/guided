@@ -163,7 +163,7 @@ export default function(props: Props) {
                              }}>
     <View style={styles.content}>
       <Header {...props}/>
-      <Center {...props}/>
+      {/*<Center {...props}/>*/}
       <Statistics {...props}/>
     </View>
 

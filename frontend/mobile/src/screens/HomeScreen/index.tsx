@@ -1,8 +1,13 @@
 import React from "react"
-import { Button, StyleSheet, Text, View } from "react-native"
-import { ScreenConfig, ScreenProps } from "../index"
+import { StyleSheet, Text, View } from "react-native"
+import { ScreenConfig, ScreenProps } from "../."
+import Feed from "components/Feed"
+import AuthStore from "model/AuthStore"
+import { inject } from "mobx-react"
 
-type Props = ScreenProps<"Home">
+type Props = {
+  authStore?: AuthStore
+} & ScreenProps<"Home">
 
 const styles = StyleSheet.create({
   container: {
@@ -13,17 +18,13 @@ const styles = StyleSheet.create({
   },
 })
 
+@inject("authStore")
 class HomeScreenComponent extends React.Component<Props> {
 
   render() {
     return <View style={styles.container}>
       <Text>Home Screen</Text>
-      <Button
-        title="Go to Guide"
-        onPress={() => this.props.navigation.navigate("Guide", {
-          guideId: "guide_1234",
-        })}
-      />
+      <Feed owner={this.props.authStore!.owner!}/>
     </View>
   }
 

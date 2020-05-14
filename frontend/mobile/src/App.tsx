@@ -6,7 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import { SCREENS } from "./screens"
 import { inject, observer, Provider } from "mobx-react"
 import AuthStore, { authStore } from "./model/AuthStore"
-import { StatusBar, View } from "react-native"
+import { StatusBar } from "react-native"
 
 const Stack = createStackNavigator()
 

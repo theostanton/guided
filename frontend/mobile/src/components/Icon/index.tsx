@@ -1,12 +1,13 @@
 import { Ionicons } from "@expo/vector-icons"
 import React from "react"
 
-type IconName = "bicycle" | "car" | "motorbike"
+type IconName = "bicycle" | "car" | "motorbike" | "user"
 
 const ICONS: { [name in IconName]: string } = {
   "bicycle": "ios-bicycle",
   "car": "car",
   "motorbike": "motorcycle",
+  "user": "md-contact",
 }
 
 type Props = {
