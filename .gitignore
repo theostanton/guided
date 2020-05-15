@@ -3,3 +3,4 @@ srv/
 dist/**
 **.env
 node_modules
+venv

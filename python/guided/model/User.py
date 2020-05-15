@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import random
 
-from guided.model.Row import Row
+from ..model.Row import Row
 
 DEFAULT_PASSWORD_HASH = '$2a$06$go2Lk1MKz.2iq6vH2IvsAep1Aera4IhKECd5KlNgyLjPIl2Gq.Xkq'
 

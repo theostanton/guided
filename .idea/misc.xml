@@ -3,6 +3,7 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="JSX" />
   </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" default="false" project-jdk-name="Python 3.7 (guided)" project-jdk-type="Python SDK" />
   <component name="WebPackConfiguration">
     <option name="path" value="$PROJECT_DIR$/backend/elements/graphql/webpack/server.config.js" />
   </component>

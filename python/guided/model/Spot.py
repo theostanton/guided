@@ -1,7 +1,7 @@
-from guided.model.Guide import Guide
-from guided.model.Location import Location
-from guided.model.Row import Row
-from guided.utils import generate_id
+from ..model.Guide import Guide
+from ..model.Location import Location
+from ..model.Row import Row
+from ..utils import generate_id
 
 
 class Spot(Row):
@@ -30,3 +30,6 @@ class Spot(Row):
             'position': self.position
 
         }
+
+    def __repr__(self) -> str:
+        return 'Spot(label=' + self.label + ' guide=' + self.guide.title + ')'

@@ -1,8 +1,8 @@
 from datetime import datetime
 import random
 
-from guided.model.Row import Row
-from guided.model.User import User
+from ..model.Row import Row
+from ..model.User import User
 
 
 def generate_created_at(follower: User, followed: User) -> datetime:
