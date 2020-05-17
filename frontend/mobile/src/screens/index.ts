@@ -45,8 +45,8 @@ export type PreauthScreen = Extract<ScreenName, "Login" | "Signup">
 
 export const SCREENS: { [type in ScreenType]: { [screen in ScreenName]?: ScreenConfig<any> } } = {
   Tabs: {
-    MyBible: MyBibleScreen,
     Home: HomeScreen,
+    MyBible: MyBibleScreen,
     Search: SearchScreen,
     Account: AccountScreen,
   },

@@ -19,7 +19,8 @@ export default class Feed extends React.Component<Props> {
   }
 
   render() {
-    return <FeedList feedStore={this.feedStore}/>
+    return <FeedList
+      feedStore={this.feedStore}/>
   }
 }
 

@@ -13,7 +13,7 @@ with following as (
                 'new_guide'::feed_event_type as type,
                 null                         as ride,
                 g.id                         as guide,
-                null                         as "user"
+                g.owner                      as "user"
          from guides as g
                   inner join following as f on f.followed = g.owner
      ),
