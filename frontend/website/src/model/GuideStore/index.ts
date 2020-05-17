@@ -207,7 +207,7 @@ export default class GuideStore {
   @computed
   get highlightedRide(): RideFragment | undefined {
     if (!this.highlightedId) {
-      returngi
+      return
     }
     const highlightedRide = this.rides.find(ride => {
       return ride.id === this.highlightedId

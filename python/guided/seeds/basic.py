@@ -1,63 +1,53 @@
 from typing import List
 
-from guided.seeds.builders.GuideBuilder import GuideBuilder
-from guided.seeds.builders.SeedBuilder import SeedBuilder
-from guided.seeds.builders.UserBuilder import UserBuilder
-from guided.model.Guide import Guide, TransportType
-from guided.model.Location import location, Label
-from guided.model.Row import Row
-from guided.model.Spot import Spot
-from guided.model.User import User
-
-
-def johns_guide(john: User) -> (str, List[Row]):
-    guide = Guide('Johns euro banger', TransportType.CAR, john)
-
-    horsham = location(Label.Horsham)
-    spot1 = Spot('Home', horsham, guide, 0)
-    worthing = location(Label.Worthing)
-    spot2 = Spot('Worthing', worthing, guide, 1)
-
-    return guide.id, [guide, spot1, spot2]
-
-
-def build_john(builder: UserBuilder):
-    def johns_super_guide(guide_builder: GuideBuilder):
-        # guide_builder.with_is_circular(True)
-        # guide_builder.add_spot('Home', Label.Horsham)
-        # guide_builder.add_spot('Worthing', Label.Worthing)
-        pass
-
-    # builder.add_guide('Johns super guide', johns_super_guide)
-
-
-def build_ringo(builder: UserBuilder):
-    def ringos_guide(guide_builder: GuideBuilder):
-        guide_builder.with_is_circular(True)
-        guide_builder.add_spot('Home', Label.Worthing)
-        guide_builder.add_spot('Horsham', Label.Horsham)
-
-    builder.add_guide('Ringos guide', ringos_guide)
+from guided.actions import compute
+from guided.db import insert
+from guided.model.Guide import TransportType
+from guided.model.Location import Label
+from guided.seeds.seeders.Seed import Seed
 
 
 def execute():
-    rows: List[Row] = []
-    builder = SeedBuilder()
+    seed = Seed()
 
-    john = builder.add_user('john', build_john)
-    # ringo = builder.add_user('ringo', build_ringo)
+    john = seed.user('john')
 
-    for row in builder.rows():
+    john.guide('Johns mega guide', TransportType.CAR, is_circular=True) \
+        .spot('Home', Label.Horsham) \
+        .spot('Worthing', Label.Worthing, 2)
+
+    john.guide('Johns incomplete guide',
+               TransportType.MOTORCYCLE,
+               is_circular=True)
+
+    ringo = seed.user('ringo')
+    ringo.guide('Ringos motorcycle trip', TransportType.MOTORCYCLE)
+
+    paul = seed.user('paul')
+    paul.guide('Pauls wonderful circle', TransportType.CAR, is_circular=True) \
+        .spot('Start', Label.Horsham) \
+        .spot('Cardiff', Label.Cardiff) \
+        .spot('Plymouth', Label.Plymouth)
+
+    george = seed.user('george')
+
+    john.follow(ringo.user())
+    john.follow(george.user())
+    ringo.follow(john.user())
+    ringo.follow(paul.user())
+    ringo.follow(george.user())
+    paul.follow(john.user())
+
+    rows = seed.rows()
+    for row in rows:
         print(row)
+    print('Generated', len(rows), 'rows')
 
-    # rows = rows + builder.rows()
+    insert(rows)
 
-    # follows: List[Follow] = []
-    # follows.append(Follow(ringo, john))
-
-    # rows = rows + follows
-
-    # insert(rows)
+    guide_ids: List[str] = seed.guide_ids()
+    for guide_id in guide_ids:
+        compute.execute(guide_id)
 
 
 if __name__ == '__main__':

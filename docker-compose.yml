@@ -42,7 +42,7 @@ services:
     container_name: be_graphql
     image: node:11
     volumes:
-      - ./backend:/usr/src/backend:delegated
+      - ./backend:/usr/src/backend:cached
       - be_node_modules:/usr/src/backend/node_modules/
     working_dir: /usr/src/backend/
     command: yarn develop:backend
@@ -57,7 +57,7 @@ services:
     container_name: be_common
     image: node:11
     volumes:
-      - ./backend:/usr/src/backend:cached
+      - ./backend:/usr/src/backend:delegated
       - be_node_modules:/usr/src/backend/node_modules/
       - ./frontend:/usr/src/frontend:delegated
     working_dir: /usr/src/backend
@@ -67,7 +67,7 @@ services:
     container_name: be_compute
     image: node:11
     volumes:
-      - ./backend:/usr/src/backend:delegated
+      - ./backend:/usr/src/backend:cached
       - be_node_modules:/usr/src/backend/node_modules/
     working_dir: /usr/src/backend/elements/compute
     command: yarn serve
@@ -99,7 +99,7 @@ services:
       - GATSBY_GUIDED_WEBSOCKET=ws://127.0.0.1:5000
       - GATSBY_MAPBOX_TOKEN=pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ
     volumes:
-      - ./frontend/website:/usr/src/frontend/website:delegated
+      - ./frontend/website:/usr/src/frontend/website:cached
       - fe_node_modules:/usr/src/frontend/website/node_modules/
       - fe_cache:/usr/src/frontend/website/.cache/
     working_dir: /usr/src/frontend/website

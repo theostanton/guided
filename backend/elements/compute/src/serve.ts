@@ -1,15 +1,17 @@
 import http from "http"
 import action from "./action"
+import { prepare } from "."
 
 
+// TODO this spiralled, do it properly
 export default function listen() {
   console.log("Listening")
   http.createServer(function(req, res) {
-    const computationId = req.url!.replace("/", "")
-
-    if (computationId && computationId.startsWith("computation_")) {
+    const id = req.url!.replace("/", "")
+    if (id && id.startsWith("computation_")) {
+      console.log("computationId=", id)
       action({
-        computationId,
+        computationId: id,
       }).then(result => {
         if (result.success) {
           res.write(`Success`)
@@ -23,8 +25,41 @@ export default function listen() {
         res.write(`Error: ${error.message}`)
         res.end()
       })
+    } else if (id && id.includes("_")) {
+      console.log("guideId=", id)
+      prepare(id)
+        .then(packet => {
+          if (packet.computationIds.length === 0) {
+            res.write(`Error: Failed to prepare computation`)
+            res.end()
+            return
+          }
+          console.log("packet=", packet)
+          Promise.all(packet.computationIds.map(computationId => {
+            return action({
+              computationId,
+            })
+          })).then(results => {
+            if (results.some(result => {
+              return !result.success
+            })) {
+              let messages = ""
+              results.forEach(result => {
+                messages += result.message
+                messages += "\n"
+              })
+              res.write(`Failed: ${messages}`)
+            } else {
+              res.write(`Success`)
+            }
+            res.end()
+          }).catch(error => {
+            res.write(`Error: ${error.message}`)
+            res.end()
+          })
+        })
     } else {
-      res.write(`'${computationId}' is not a valid computationId`)
+      res.write(`'${id}' is not a valid computationId`)
       res.end()
     }
 
