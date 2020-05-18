@@ -1,7 +1,9 @@
 import React from "react"
-import { Button, StyleSheet, Text, View } from "react-native"
+import { Button, StyleSheet, View } from "react-native"
 import { ScreenConfig, ScreenProps } from "../index"
 import { StackNavigationOptions } from "@react-navigation/stack"
+import Profile from "components/Profile"
+import ProfileStore from "../../model/ProfileStore"
 
 type Props = ScreenProps<"Profile">
 
@@ -20,13 +22,20 @@ const styles = StyleSheet.create({
 
 class ProfileScreenComponent extends React.Component<Props> {
 
+  profileStore: ProfileStore
+
+  constructor(props: Props) {
+    super(props)
+    this.profileStore = new ProfileStore(props.route.params.username)
+  }
+
+  async componentDidMount() {
+    await this.profileStore.fetch()
+  }
+
   render() {
     return <View style={styles.container}>
-      <Text>Profile Screen</Text>
-      <Button
-        title="Go Home"
-        onPress={() => this.props.navigation.popToTop()}
-      />
+      <Profile profileStore={this.profileStore}/>
     </View>
   }
 

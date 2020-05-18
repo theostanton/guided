@@ -3,6 +3,8 @@ import { Button, StyleSheet, Text, View } from "react-native"
 import { ScreenConfig, ScreenProps } from "../index"
 import AuthStore from "model/AuthStore"
 import { inject } from "mobx-react"
+import ProfileStore from "../../model/ProfileStore"
+import Profile from "../../components/Profile"
 
 type Props = { authStore?: AuthStore } & ScreenProps<"Account">
 
@@ -22,15 +24,20 @@ const styles = StyleSheet.create({
 @inject("authStore")
 class AccountScreenComponent extends React.Component<Props> {
 
+  profileStore: ProfileStore
+
+  constructor(props: Props) {
+    super(props)
+    this.profileStore = new ProfileStore(props.authStore!.owner!)
+  }
+
+  async componentDidMount() {
+    await this.profileStore.fetch()
+  }
+
   render() {
     return <View style={styles.container}>
-      <Text>Account Screen</Text>
-      <Button
-        title="Logout"
-        onPress={async () => {
-          await this.props.authStore!.logOut()
-        }}
-      />
+      <Profile profileStore={this.profileStore}/>
     </View>
   }
 

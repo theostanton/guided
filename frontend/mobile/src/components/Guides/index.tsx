@@ -1,5 +1,5 @@
 import React from "react"
-import { Provider } from "mobx-react"
+import { observer, Provider } from "mobx-react"
 import GuidesStore from "model/GuidesStore"
 import GuidesList from "./GuidesList"
 

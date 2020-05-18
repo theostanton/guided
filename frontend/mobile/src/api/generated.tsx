@@ -4532,6 +4532,21 @@ export type GuidesListQueryVariables = {
 
 export type GuidesListQuery = { readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }> };
 
+export type UserProfileFragment = (
+  Pick<User, 'countries' | 'colour' | 'created' | 'username' | 'distanceMeters' | 'durationSeconds' | 'followingStatus'>
+  & { readonly followers: Pick<FollowsConnection, 'totalCount'>, readonly following: Pick<FollowsConnection, 'totalCount'>, readonly guides: (
+    Pick<GuidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<GuideInfoFragment>> }
+  ) }
+);
+
+export type UserProfileQueryVariables = {
+  username: Scalars['String'];
+};
+
+
+export type UserProfileQuery = { readonly user?: Maybe<UserProfileFragment> };
+
 export type GuideInfoFragment = (
   Pick<Guide, 'id' | 'title' | 'startDate' | 'endDate' | 'owner' | 'countries' | 'isMine' | 'created' | 'distanceMeters' | 'durationSeconds' | 'isCircular' | 'maxHoursPerRide' | 'updated' | 'transportType'>
   & { readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>>, readonly rides: (
@@ -4631,6 +4646,29 @@ export const GuideInfoFragmentDoc = gql`
 }
     ${GuideInfoRideFragmentDoc}
 ${GuideInfoSpotFragmentDoc}`;
+export const UserProfileFragmentDoc = gql`
+    fragment UserProfile on User {
+  countries
+  colour
+  created
+  username
+  distanceMeters
+  durationSeconds
+  followers: followsByFollowed {
+    totalCount
+  }
+  following: followsByFollower {
+    totalCount
+  }
+  followingStatus
+  guides: guidesByOwner {
+    totalCount
+    nodes {
+      ...GuideInfo
+    }
+  }
+}
+    ${GuideInfoFragmentDoc}`;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   authenticate(input: {email: $email, password: $password}) {
@@ -4832,3 +4870,42 @@ export function useGuidesListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryH
 export type GuidesListQueryHookResult = ReturnType<typeof useGuidesListQuery>;
 export type GuidesListLazyQueryHookResult = ReturnType<typeof useGuidesListLazyQuery>;
 export type GuidesListQueryResult = ApolloReactCommon.QueryResult<GuidesListQuery, GuidesListQueryVariables>;
+export const UserProfileDocument = gql`
+    query UserProfile($username: String!) {
+  user(username: $username) {
+    ...UserProfile
+  }
+}
+    ${UserProfileFragmentDoc}`;
+export type UserProfileComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<UserProfileQuery, UserProfileQueryVariables>, 'query'> & ({ variables: UserProfileQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const UserProfileComponent = (props: UserProfileComponentProps) => (
+      <ApolloReactComponents.Query<UserProfileQuery, UserProfileQueryVariables> query={UserProfileDocument} {...props} />
+    );
+    
+
+/**
+ * __useUserProfileQuery__
+ *
+ * To run a query within a React component, call `useUserProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserProfileQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useUserProfileQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
+        return ApolloReactHooks.useQuery<UserProfileQuery, UserProfileQueryVariables>(UserProfileDocument, baseOptions);
+      }
+export function useUserProfileLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<UserProfileQuery, UserProfileQueryVariables>(UserProfileDocument, baseOptions);
+        }
+export type UserProfileQueryHookResult = ReturnType<typeof useUserProfileQuery>;
+export type UserProfileLazyQueryHookResult = ReturnType<typeof useUserProfileLazyQuery>;
+export type UserProfileQueryResult = ApolloReactCommon.QueryResult<UserProfileQuery, UserProfileQueryVariables>;

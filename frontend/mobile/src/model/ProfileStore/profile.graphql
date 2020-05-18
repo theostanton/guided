@@ -1,0 +1,27 @@
+fragment UserProfile on User {
+    countries
+    colour
+    created
+    username
+    distanceMeters
+    durationSeconds
+    followers:followsByFollowed{
+        totalCount
+    }
+    following:followsByFollower{
+        totalCount
+    }
+    followingStatus
+    guides:guidesByOwner{
+        totalCount
+        nodes{
+            ...GuideInfo
+        }
+    }
+}
+
+query UserProfile($username:String!){
+    user(username: $username){
+        ...UserProfile
+    }
+}
