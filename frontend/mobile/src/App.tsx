@@ -1,3 +1,9 @@
+// @ts-ignore
+import { MAPBOX_TOKEN } from "react-native-dotenv"
+import MapboxGL from "@react-native-mapbox-gl/maps"
+
+MapboxGL.setAccessToken(MAPBOX_TOKEN)
+
 import TabScreen from "./screens/TabScreen"
 import "react-native-gesture-handler"
 import React from "react"

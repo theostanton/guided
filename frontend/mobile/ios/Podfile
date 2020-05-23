@@ -43,4 +43,6 @@ target 'guided' do
 
   # react-native-cli autolinking
   use_native_modules!
+  pod 'react-native-mapbox-gl', :path => '../node_modules/@react-native-mapbox-gl/maps'
+
 end

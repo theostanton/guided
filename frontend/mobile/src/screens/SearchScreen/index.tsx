@@ -1,6 +1,7 @@
 import React from "react"
 import { Button, StyleSheet, Text, View } from "react-native"
 import { ScreenConfig, ScreenProps } from "../index"
+import MapboxGL from "@react-native-mapbox-gl/maps"
 
 type Props = ScreenProps<"Search">
 
@@ -24,6 +25,7 @@ class SearchScreenComponent extends React.Component<Props> {
           guideId: "guide_1234",
         })}
       />
+      <MapboxGL.MapView/>
     </View>
   }
 
