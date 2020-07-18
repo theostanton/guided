@@ -1,34 +1,34 @@
 {
   "compilerOptions": {
-    "incremental": false,
-    "target": "ESNext",
-    "module": "CommonJS",
-    "experimentalDecorators": true,
-    "outDir": "./srv",
-    "rootDir": "./src",
-    "baseUrl": "./src",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
     "esModuleInterop": true,
-    "allowJs": false,
-    "paths": {
-      "components/**/*": [
-        "src/components/**/*"
-      ],
-      "src/**/*": [
-        "src/**/*"
-      ],
-      "api/**/*": [
-        "src/api/**/*"
-      ],
-      "model/**/*": [
-        "src/model/**/*"
-      ],
-      "layouts/**/*": [
-        "src/layouts/**/*"
-      ]
-    },
-    "jsx": "react"
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
   },
   "exclude": [
-    "./srv"
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "references": [
+    {
+      "path": "../components"
+    }
   ]
 }

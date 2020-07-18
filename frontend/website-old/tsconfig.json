@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "incremental": false,
+    "target": "ESNext",
+    "module": "CommonJS",
+    "experimentalDecorators": true,
+    "outDir": "./srv",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "esModuleInterop": true,
+    "allowJs": false,
+    "paths": {
+      "components/**/*": [
+        "src/components/**/*"
+      ],
+      "src/**/*": [
+        "src/**/*"
+      ],
+      "api/**/*": [
+        "src/api/**/*"
+      ],
+      "model/**/*": [
+        "src/model/**/*"
+      ],
+      "layouts/**/*": [
+        "src/layouts/**/*"
+      ]
+    },
+    "jsx": "react"
+  },
+  "exclude": [
+    "./srv"
+  ]
+}
