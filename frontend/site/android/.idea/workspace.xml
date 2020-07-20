@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="afc8e5c6-2725-4144-a0b7-597b50c15a20" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../.buckconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.flowconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.prettierrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.watchmanconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../__tests__/App-test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/BUCK" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/build_defs.bzl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/debug.keystore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/debug/java/com/site/ReactNativeFlipper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/site/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/site/MainApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../babel.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/Podfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/Podfile.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site-tvOS/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site-tvOSTests/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site.xcodeproj/xcshareddata/xcschemes/site-tvOS.xcscheme" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site.xcodeproj/xcshareddata/xcschemes/site.xcscheme" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site.xcworkspace/contents.xcworkspacedata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site/AppDelegate.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site/AppDelegate.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site/Images.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site/Images.xcassets/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site/LaunchScreen.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/site/main.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/siteTests/Info.plist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/siteTests/siteTests.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../metro.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../yarn.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../website-old/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../website-old/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../website-old/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../website-old/yarn.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../website/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../website/next-env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../website/next.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../website/pages/api/hello.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../website/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/.babelrc" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/.babelrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../website/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/.prettierignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/.prettierignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/.prettierrc" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/.prettierrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/gatsby-browser.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/gatsby-browser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/gatsby-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/gatsby-config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/gatsby-node.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/gatsby-node.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/gatsby-ssr.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/gatsby-ssr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/jest.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../website/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/api/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/api/client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/api/fragments.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/api/fragments.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/api/generated.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/api/generated.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/api/mutations.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/api/mutations.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/api/queries.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/api/queries.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/api/subscriptions.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/api/subscriptions.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/FollowButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/FollowButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/FollowerList/FollowingList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/FollowerList/FollowingList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/Map/Markers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/Map/Markers.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/Map/RideLine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/Map/RideLine.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/Map/Rides.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/Map/Rides.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/Map/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/Map/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/Map/viewport.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/Map/viewport.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Account.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Account.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideContent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideMembers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideMembers.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSave.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSave.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSpots/AddSpotButtons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSpots/AddSpotButtons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSpots/AddSpotForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSpots/AddSpotForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsListItem/SpotsListItemContextualForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsListItem/SpotsListItemContextualForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsListItem/SpotsListItemLabelForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsListItem/SpotsListItemLabelForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsListItem/SpotsListItemLocationForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsListItem/SpotsListItemLocationForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsListItem/SpotsListItemStage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsListItem/SpotsListItemStage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsListItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSpots/CreateGuideSpotsListItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSpots/GeocodesStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSpots/GeocodesStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSpots/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSpots/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/CreateGuideSteps.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/CreateGuideSteps.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/MaxHoursPerRideForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/MaxHoursPerRideForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/CreateGuide/validation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/CreateGuide/validation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Dashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Feed/AccountCreatedFeedItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Feed/AccountCreatedFeedItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Feed/FeedEvent.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Feed/FeedEvent.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Feed/NewFollowFeedItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Feed/NewFollowFeedItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Feed/NewGuideFeedItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Feed/NewGuideFeedItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Feed/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Feed/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/Header/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/LeftRail/EditGuideTitleForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/LeftRail/EditGuideTitleForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/LeftRail/StartDateForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/LeftRail/StartDateForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/LeftRail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/LeftRail/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/RideDetail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/RideDetail/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/RideDetail/old.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/RideDetail/old.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/SpotDetail/NightsForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/SpotDetail/NightsForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/SpotDetail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/SpotDetail/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/StageList/LoadingStageItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/StageList/LoadingStageItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/StageList/RideItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/StageList/RideItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/StageList/RideList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/StageList/RideList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/StageList/SpotItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/StageList/SpotItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/StageList/SpotList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/StageList/SpotList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/StageList/StageRideLine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/StageList/StageRideLine.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/StageList/StageSpotLine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/StageList/StageSpotLine.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/StageList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/StageList/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/RightRail/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/RightRail/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/content.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/content.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guide/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guide/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guides/GuideItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guides/GuideItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guides/GuideItemRideLine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guides/GuideItemRideLine.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Guides/GuidesList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Guides/GuidesList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Menu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Overlay/Toast/MessageToast.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Overlay/Toast/MessageToast.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Overlay/Toast/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Overlay/Toast/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Overlay/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Overlay/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Profile/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Profile/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Search/SearchResult.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Search/SearchResult.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/app/Search/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/app/Search/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/items/RideItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/items/RideItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/items/UserItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/items/UserItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/pages/about.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/pages/about.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/pages/content.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/pages/content.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/pages/guide.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/pages/guide.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/pages/info.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/pages/info.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/pages/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/pages/signup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/pages/signup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/components/root/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/components/root/Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/css/semantic.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/css/semantic.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/css/themes/default/assets/fonts/icons.eot" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/css/themes/default/assets/fonts/icons.eot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/css/themes/default/assets/fonts/icons.otf" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/css/themes/default/assets/fonts/icons.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/css/themes/default/assets/fonts/icons.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/css/themes/default/assets/fonts/icons.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/css/themes/default/assets/fonts/icons.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/css/themes/default/assets/fonts/icons.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/css/themes/default/assets/fonts/icons.woff" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/css/themes/default/assets/fonts/icons.woff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/css/themes/default/assets/fonts/icons.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/css/themes/default/assets/fonts/icons.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/css/themes/default/assets/images/flags.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/css/themes/default/assets/images/flags.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/AuthStore/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/AuthStore/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/AuthStore/mutations.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/AuthStore/mutations.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/AuthStore/queries.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/AuthStore/queries.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/CreateGuideStore/createguide.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/CreateGuideStore/createguide.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/CreateGuideStore/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/CreateGuideStore/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/FeedStore/feed.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/FeedStore/feed.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/FeedStore/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/FeedStore/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/GuideStore/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/GuideStore/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/OverlayStore/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/OverlayStore/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/OverlayStore/modals.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/OverlayStore/modals.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/OverlayStore/toast.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/OverlayStore/toast.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/SearchStore/execute.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/SearchStore/execute.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/SearchStore/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/SearchStore/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/SearchStore/queries.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/SearchStore/queries.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/model/provider.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/model/provider.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/utils/colours.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/utils/colours.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/utils/dates.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/utils/dates.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/utils/human.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/utils/human.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/utils/icons.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/utils/icons.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/utils/logger.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/utils/logger.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/utils/randomKey.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/utils/randomKey.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/src/utils/sleep.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../website-old/src/utils/sleep.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../website/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../website/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../website/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../yarn.lock" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_29_x86" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="1eo4aFGZ1QXhpIaizXQnVjB9Xq3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="afc8e5c6-2725-4144-a0b7-597b50c15a20" name="Default Changelist" comment="" />
+      <created>1594974672678</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1594974672678</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="461" y="239" key="SettingsEditor" timestamp="1594974725993">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="461" y="239" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1594974725993" />
+    <state x="360" y="200" width="1200" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1595048080526">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="360" y="200" width="1200" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595048080526" />
+    <state x="630" y="432" key="com.intellij.ide.util.TipDialog" timestamp="1594974676508">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="630" y="432" key="com.intellij.ide.util.TipDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1594974676508" />
+  </component>
+</project>
