@@ -1,6 +1,0 @@
-module Pods_site_siteTests {
-  umbrella header "Pods-site-siteTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
