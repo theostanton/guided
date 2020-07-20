@@ -10,7 +10,7 @@ import {
 import React from 'react';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import SomeComponent from './components/SomeComponent';
+import SomeComponent from 'components/SomeComponent';
 
 const App = () => {
   return (

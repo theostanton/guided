@@ -1,44 +1,16 @@
 import {StyleSheet, Text, View} from 'react-native';
-import SomeComponent from '../components/SomeComponent';
+import Layout from 'components/Layout';
+import React from 'react';
+import {h1} from 'styles/text';
 
 export default function App(props) {
   return (
-    <View style={styles.container}>
-      <Text accessibilityRole="header" style={styles.text}>
-        React Native for Web & Next.js
-      </Text>
-
-      <Text style={styles.link} accessibilityRole="link" href={`/alternate`}>
-        A universal link
-      </Text>
-
-      <SomeComponent />
-
-      <View style={styles.textContainer}>
-        <Text accessibilityRole="header" aria-level="2" style={styles.text}>
-          Subheader
-        </Text>
+    <Layout>
+      <View>
+        <Text style={h1}>Some content</Text>
       </View>
-    </View>
+    </Layout>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flexGrow: 1,
-    justifyContent: 'center',
-  },
-  link: {
-    color: 'blue',
-  },
-  textContainer: {
-    alignItems: 'center',
-    marginTop: 16,
-  },
-  text: {
-    alignItems: 'center',
-    fontSize: 24,
-    marginBottom: 24,
-  },
-});
+const styles = StyleSheet.create({});
