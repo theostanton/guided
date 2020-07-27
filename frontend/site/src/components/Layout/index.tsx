@@ -1,43 +1,94 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {h4} from 'styles/text';
 import {hairline, half, whole} from 'styles/dimensions';
 import {border} from 'styles/colors';
 import Link from 'components/Link';
+import {inject, observer} from 'mobx-react';
+import AuthStore from 'stores/AuthStore';
 
-type Props = {};
+type Props = {
+  authStore?: AuthStore;
+};
 type State = {};
 
+@inject('authStore')
+@observer
 export default class Layout extends React.Component<Props, State> {
   renderHeader() {
+    const isLoggedin = this.props.authStore.isLoggedIn;
+    console.log('renderHeader isLoggedIn=', isLoggedin);
+
     type Item = {
       text: string;
-      link: string;
+      link?: string;
+      onClick?: () => Promise<void>;
     };
-    const items: Item[] = [
-      {
-        text: 'Home',
-        link: '/',
-      },
-      {
-        text: 'Account',
-        link: '/account',
-      },
-    ];
+    const leftItems: Item[] = isLoggedin
+      ? [
+          {
+            text: 'Home',
+            link: '/',
+          },
+          {
+            text: 'Profile',
+            link: '/profile',
+          },
+        ]
+      : [];
+    const rightItems: Item[] = isLoggedin
+      ? [
+          {
+            text: 'Sign out',
+            onClick: async () => {
+              await this.props.authStore.logOut();
+            },
+          },
+          {
+            text: 'Account',
+            link: '/account',
+          },
+        ]
+      : [
+          {
+            text: 'Login',
+            link: '/login',
+          },
+          {
+            text: 'Signup',
+            link: '/signup',
+          },
+        ];
 
     return (
       <View style={styles.headerRoot} accessibilityRole="header">
-        {items.map((item) => {
-          return (
-            <Link
-              key={item.text}
-              viewStyle={styles.headerItem}
-              textStyle={h4}
-              href={item.link}>
-              {item.text}
-            </Link>
-          );
-        })}
+        <View style={styles.headerLeft}>
+          {leftItems.map((item) => {
+            return (
+              <Link
+                key={item.text}
+                viewStyle={styles.headerItem}
+                textStyle={h4}
+                href={item.link}>
+                {item.text}
+              </Link>
+            );
+          })}
+        </View>
+        <View style={styles.headerRight}>
+          {rightItems.map((item) => {
+            return (
+              <Link
+                key={item.text}
+                viewStyle={styles.headerItem}
+                textStyle={h4}
+                onClick={item.onClick}
+                href={item.link}>
+                {item.text}
+              </Link>
+            );
+          })}
+        </View>
       </View>
     );
   }
@@ -54,16 +105,24 @@ export default class Layout extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   root: {
+    width: '100%',
     flexDirection: 'column',
-    width: 800,
+    maxWidth: 800,
     alignSelf: 'center',
-    height: '100%',
   },
   headerRoot: {
     flexDirection: 'row',
-    flexGrow: 0,
+    width: '100%',
     borderBottomColor: border,
     borderBottomWidth: hairline,
+  },
+  headerLeft: {
+    flexDirection: 'row',
+    flexGrow: 0,
+  },
+  headerRight: {
+    flexDirection: 'row-reverse',
+    flexGrow: 1,
   },
   headerItem: {
     paddingTop: whole,

@@ -52,6 +52,7 @@ services:
       - 5000:5000
     depends_on:
       - db_init
+      - db
 
   be_common:
     container_name: be_common
@@ -112,3 +113,6 @@ volumes:
   fe_cache:
   be_node_modules:
   db_data:
+
+networks:
+  db:

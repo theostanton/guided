@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
 
 type Props = {
-  href: string;
+  href?: string;
+  onClick?: () => Promise<void>;
   viewStyle?: ViewStyle;
   textStyle?: TextStyle;
   selected?: boolean;
@@ -37,7 +38,15 @@ export default class Link extends React.Component<Props, State> {
             hover: false,
           });
         }}>
-        <Text accessibilityRole="link" href={this.props.href}>
+        <Text
+          accessibilityRole="link"
+          href={this.props.href}
+          onPress={
+            this.props.onClick &&
+            (async () => {
+              this.props.onClick();
+            })
+          }>
           {this.props.children}
         </Text>
       </View>

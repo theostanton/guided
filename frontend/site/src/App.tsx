@@ -10,23 +10,24 @@ import {
 import React from 'react';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import SomeComponent from 'components/SomeComponent';
+import {Provider} from 'mobx-react';
+import SomeStore from './stores/SomeStore';
 
 const App = () => {
+  const someStore = new SomeStore();
   return (
-    <>
+    <Provider someStore={someStore}>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           <View style={styles.root}>
-            <Text>Jello World</Text>
+            <Text>Jello World value = {someStore.value}</Text>
           </View>
-          <SomeComponent />
         </ScrollView>
       </SafeAreaView>
-    </>
+    </Provider>
   );
 };
 

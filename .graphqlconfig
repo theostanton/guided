@@ -1,4 +1,15 @@
 {
   "name": "Guided GraphQL Schema",
-  "schemaPath": "backend/schema.graphql"
+  "schemaPath": "backend/schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://localhost:5000",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": true
+      }
+    }
+  }
 }

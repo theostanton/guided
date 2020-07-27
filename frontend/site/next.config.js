@@ -17,5 +17,5 @@ module.exports = withCustomBabelConfigFile({
       ...config.resolve.extensions,
     ]
     return config
-  },
+  }
 })

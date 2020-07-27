@@ -17,15 +17,8 @@ generates:
             - 'typescript'
             - 'typescript-resolvers'
             - 'typescript-operations'
-    ../../../frontend/website/src/api/generated.tsx:
-        documents: '../../../frontend/website/src/**/*.graphql'
-        plugins:
-            - 'typescript'
-            - 'typescript-resolvers'
-            - 'typescript-operations'
-            - 'typescript-react-apollo'
-    ../../../frontend/mobile/src/api/generated.tsx:
-        documents: '../../../frontend/mobile/src/**/*.graphql'
+    ../../../frontend/site/src/api/generated.tsx:
+        documents: '../../../frontend/site/src/**/*.graphql'
         plugins:
             - 'typescript'
             - 'typescript-resolvers'

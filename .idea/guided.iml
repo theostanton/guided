@@ -26,8 +26,10 @@
       <excludeFolder url="file://$MODULE_DIR$/events/compute-rides/srv" />
       <excludeFolder url="file://$MODULE_DIR$/events/compute-stage/srv" />
       <excludeFolder url="file://$MODULE_DIR$/events/index/srv" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/mobile-old" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/usersite/public" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/website-example" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/website-old" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/website/public" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/website/srv" />
       <excludeFolder url="file://$MODULE_DIR$/graphql/data" />
