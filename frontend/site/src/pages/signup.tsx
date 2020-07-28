@@ -1,14 +1,14 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Layout from 'components/Layout';
 import React from 'react';
-import {h1} from 'styles/text';
-import Signup from 'components/Signup';
+import {webRouter} from 'utils/router/WebRouter';
+import SignupScreen from 'screens/Signup';
 
 export default function SignupPage(props) {
   return (
     <Layout>
       <View>
-        <Signup />
+        <SignupScreen router={webRouter} params={{}} />
       </View>
     </Layout>
   );

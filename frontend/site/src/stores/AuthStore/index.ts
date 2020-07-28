@@ -37,6 +37,7 @@ export default class AuthStore extends Store<User> {
 
   @computed
   get isLoggedIn(): boolean {
+    console.log('isLoggedIn this.user=',this.user)
     return this.user !== undefined;
   }
 

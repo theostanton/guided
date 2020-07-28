@@ -1,13 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import Layout from 'components/Layout';
 import React from 'react';
-import {h1} from 'styles/text';
+import HomeScreen from '../screens/Home';
+import {webRouter} from '../utils/router/WebRouter';
 
 export default function App(props) {
   return (
     <Layout>
       <View>
-        <Text style={h1}>Some content</Text>
+        <HomeScreen params={{}} router={webRouter}/>
       </View>
     </Layout>
   );

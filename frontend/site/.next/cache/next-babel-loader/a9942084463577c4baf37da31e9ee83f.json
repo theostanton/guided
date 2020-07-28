@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Store {}","map":{"version":3,"sources":["/Users/theo/Code/guided/frontend/site/src/stores/Store.ts"],"names":["Store"],"mappings":"AAAA,OAAO,MAAeA,KAAf,CAAwB","sourcesContent":["export abstract class Store<T> {\n  abstract hydrate(initialData: T | undefined);\n}\n"]},"metadata":{},"sourceType":"module"}
