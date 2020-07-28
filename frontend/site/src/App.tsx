@@ -10,8 +10,8 @@ import {observer, Provider} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import LoginScreen from 'screens/login';
-import SignupScreen from './screens/signup';
+import LoginScreen from 'screens/Login';
+import SignupScreen from 'screens/Signup';
 
 const authStore = new AuthStore();
 

@@ -2,63 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afc8e5c6-2725-4144-a0b7-597b50c15a20" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.next/cache/next-babel-loader/109ddf9fd8373503df890eca54b90bf8.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/cache/next-babel-loader/16f58c429ad2a882c0cf46433dbbb573.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/cache/next-babel-loader/54680f73d9b27795173baa68f41f77e5.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/cache/next-babel-loader/9cf24f9e67c1f3f47f51b1aa911d25dd.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/cache/next-babel-loader/a41096139485a20aeae61d1a889fd6b2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/cache/next-babel-loader/b7bb0173b01cd0b6265909f34921d4eb.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/static/webpack/116ad78ba0ebae2221a4.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/static/webpack/59318c1f4a3ebdedf215.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/static/webpack/734be381f04e8a2394a1.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/static/webpack/b5979b406a971af40d9d.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/static/webpack/c484a96442933f1743fd.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/static/webpack/de5b16de37ed826bda54.hot-update.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/static/webpack/static/development/pages/_app.js.116ad78ba0ebae2221a4.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/static/webpack/static/development/pages/index.js.b5979b406a971af40d9d.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/static/webpack/static/development/pages/index.js.c484a96442933f1743fd.hot-update.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.next/static/webpack/static/development/pages/index.js.de5b16de37ed826bda54.hot-update.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../backend/elements/graphql/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../../../backend/elements/graphql/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/build-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../.next/build-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.next/server/pages-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../.next/server/pages-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/server/static/development/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../.next/server/static/development/pages/_app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/server/static/development/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../.next/server/static/development/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/server/static/development/pages/profile.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/development/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../.next/static/development/pages/_app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/development/pages/profile.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/runtime/webpack.js" beforeDir="false" afterPath="$PROJECT_DIR$/../.next/static/runtime/webpack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/001cce245f81444f42c5.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/0066ff57d4efd1fcfc18.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/01406ae8e308777999f8.hot-update.json" beforeDir="false" afterPath="$PROJECT_DIR$/../.next/static/webpack/01406ae8e308777999f8.hot-update.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/040c9da2c5e676bb382c.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/2091f3aaa07f7dea3ae0.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/23aeb4058f0ff817729f.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/2b80530172b6a57d57b6.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/34a9800d8adef867c1aa.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/386cceacec0b8491ce68.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/56e0f5a04f307067bcae.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/5abbcc93a05d312fd5ad.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/64915961bf93a8a83c7a.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/708ae276ea5739f69895.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/7e3c28ab688e3af67645.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/7eb6b42bc7b8d5fe70b9.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/b57cb9bc77bc9a671831.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/f9c41d0a1e956b027644.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/static/development/pages/_app.js.040c9da2c5e676bb382c.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/static/development/pages/_app.js.2091f3aaa07f7dea3ae0.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/static/development/pages/_app.js.34a9800d8adef867c1aa.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/static/development/pages/_app.js.7eb6b42bc7b8d5fe70b9.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/webpack/static/development/pages/profile.js.386cceacec0b8491ce68.hot-update.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.next/static/chunks/webpack.js" beforeDir="false" afterPath="$PROJECT_DIR$/../.next/static/chunks/webpack.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/stores/AuthStore/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/stores/AuthStore/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_28_x86" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_29_x86" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -308,10 +270,10 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="461" y="239" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1594974725993" />
-    <state x="360" y="200" width="1200" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1595859818420">
+    <state x="360" y="200" width="1200" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1595936223097">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="360" y="200" width="1200" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595859818420" />
+    <state x="360" y="200" width="1200" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595936223097" />
     <state x="630" y="432" key="com.intellij.ide.util.TipDialog" timestamp="1595859807688">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
