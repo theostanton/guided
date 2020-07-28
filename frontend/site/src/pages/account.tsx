@@ -5,6 +5,7 @@ import React from 'react';
 import {h1} from 'styles/text';
 import {inject, observer} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
+import LabelledText from 'components/LabelledText';
 
 type Props = {
   authStore: AuthStore;
@@ -15,19 +16,30 @@ type Props = {
 export default class AccountPage extends React.Component<Props> {
   render() {
     const user = this.props.authStore.user;
+    console.log('user', user);
     if (user) {
       return (
-        <Layout>
-          <View>
-            <LabelledTextInput label={'Username'} initialText={user.username} />
-            <LabelledTextInput label={'Email'} initialText={user.email} />
-          </View>
-        </Layout>
+        <View style={styles.root}>
+          <LabelledText label={'Email'}>{user.email}</LabelledText>
+          <LabelledText label={'Username'}>{user.username}</LabelledText>
+          <LabelledText label={'Token'}>{user.bearerToken}</LabelledText>
+        </View>
       );
     } else {
-      return <Layout />;
+      return (
+        <View style={styles.root}>
+          <LabelledText label={'User'}>None</LabelledText>
+        </View>
+      );
     }
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  root: {
+    maxWidth: 400,
+    width: '100%',
+    alignSelf: 'center',
+    flexDirection: 'column',
+  }
+});

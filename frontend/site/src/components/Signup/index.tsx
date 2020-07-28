@@ -1,10 +1,12 @@
 import React from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import AuthStore from 'stores/AuthStore';
 import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
+import {RouterProp} from '../../utils/router/RouterProp';
+import {h4} from '../../styles/text';
 
-type Props = {
+type Props =RouterProp &  {
   authStore?: AuthStore;
 };
 type State = {
@@ -26,7 +28,6 @@ export default class Signup extends React.Component<Props, State> {
   };
 
   get buttonDisabled(): boolean {
-    console.log('buttonDisabled()');
     return (
       this.state.email.length === 0 ||
       this.state.username.length === 0 ||
@@ -36,16 +37,21 @@ export default class Signup extends React.Component<Props, State> {
   }
 
   async signUp(): Promise<void> {
+    console.log('signUp')
     const {password, username, email} = this.state;
     this.setState({loading: true});
+    console.log('password',password)
+    console.log('username',username)
+    console.log('email',email)
     try {
       const result = await this.props.authStore.signUp(
         username,
         email,
         password,
       );
+      console.log('result',result)
       if (result.success) {
-        // await navigate(`/`)
+        await this.props.router.goHome()
       } else {
         this.setState({
           error: result.message || 'Something went wrong',
@@ -99,6 +105,16 @@ export default class Signup extends React.Component<Props, State> {
             }}
           />
         </View>
+        <View>
+          <Text
+            style={styles.already}
+            onPress={async () => {
+              await this.props.router.goToLogin()
+            }}
+          >
+            Already a member? Click to log in
+          </Text>
+        </View>
       </View>
     );
   }
@@ -113,4 +129,7 @@ const styles = StyleSheet.create({
   },
   textInput: {},
   button: {},
+  already: {
+    ...h4
+  },
 });

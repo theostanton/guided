@@ -1,10 +1,12 @@
 import React from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import AuthStore from 'stores/AuthStore';
 import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
+import {RouterProp} from '../../utils/router/RouterProp';
+import {h4} from '../../styles/text';
 
-type Props = {
+type Props = RouterProp & {
   authStore?: AuthStore;
 };
 type State = {
@@ -38,7 +40,7 @@ export default class Login extends React.Component<Props, State> {
     try {
       const result = await this.props.authStore.login(email, password);
       if (result.success) {
-        // await navigate(`/`)
+        await this.props.router.goHome()
       } else {
         this.setState({
           error: result.message || 'Something went wrong',
@@ -77,6 +79,9 @@ export default class Login extends React.Component<Props, State> {
             Login component
           </LabelledTextInput>
         </View>
+        {this.state.error && <Text style={styles.error}>
+          {this.state.error.toString()}
+        </Text> }
         <View style={styles.button}>
           <Button
             title={'Log in'}
@@ -85,6 +90,16 @@ export default class Login extends React.Component<Props, State> {
               await this.logIn();
             }}
           />
+        </View>
+        <View >
+          <Text
+            style={styles.already}
+            onPress={async () => {
+              await this.props.router.goToSignup()
+            }}
+          >
+            Not a member? Click to sign up
+          </Text>
         </View>
       </View>
     );
@@ -99,5 +114,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   textInput: {},
+  error: {
+    ...h4,
+    color:'red'
+  },
   button: {},
+  already: {
+    ...h4
+  },
 });

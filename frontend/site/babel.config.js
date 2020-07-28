@@ -15,6 +15,7 @@ module.exports = {
           'components': './src/components',
           'pages': './src/pages',
           'stores': './src/stores',
+          'screens': './src/screens',
           'styles': './src/styles',
           'utils': './src/utils',
         },
