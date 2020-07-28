@@ -4,7 +4,7 @@ import AuthStore from 'stores/AuthStore';
 import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
 import {h4} from 'styles/text';
-import {ScreenProps} from '../../utils/router/ScreenProps';
+import {ScreenProps} from 'utils/router/ScreenProps';
 
 type Props = ScreenProps<'Login'>
 
@@ -16,7 +16,7 @@ type State = {
 };
 
 @inject('authStore')
-export default class Login extends React.Component<Props, State> {
+export default class LoginScreen extends React.Component<Props, State> {
   state: State = {
     email: '',
     password: '',

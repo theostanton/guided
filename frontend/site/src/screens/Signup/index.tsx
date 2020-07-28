@@ -15,7 +15,7 @@ type State = {
 };
 
 @inject('authStore')
-export default class Signup extends React.Component<Props, State> {
+export default class SignupScreen extends React.Component<Props, State> {
   state: State = {
     email: '',
     username: '',

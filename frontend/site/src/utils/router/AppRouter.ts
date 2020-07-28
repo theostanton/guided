@@ -1,5 +1,4 @@
 import Router from '.';
-import {StackNavigationProp} from '@react-navigation/stack/lib/typescript/src/types';
 import {NavigationProp} from '@react-navigation/core';
 
 
