@@ -1,14 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import Layout from 'components/Layout';
 import React from 'react';
-import Signup from 'components/Signup';
 import {webRouter} from 'utils/router/WebRouter';
+import SignupScreen from 'screens/signup';
 
 export default function SignupPage(props) {
   return (
     <Layout>
       <View>
-        <Signup router={webRouter} />
+        <SignupScreen router={webRouter} />
       </View>
     </Layout>
   );

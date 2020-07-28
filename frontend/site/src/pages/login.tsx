@@ -1,14 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import Layout from 'components/Layout';
 import React from 'react';
-import Login from 'components/Login';
 import {webRouter} from 'utils/router/WebRouter';
+import LoginScreen from '../screens/login';
 
 export default function LoginPage(props) {
   return (
     <Layout>
       <View>
-        <Login router={webRouter}/>
+        <LoginScreen params={{}} router={webRouter}/>
       </View>
     </Layout>
   );

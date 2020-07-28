@@ -1,11 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Layout from 'components/Layout';
-import LabelledTextInput from 'components/LabelledTextInput';
 import React from 'react';
-import {h1} from 'styles/text';
 import {inject, observer} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
-import LabelledText from 'components/LabelledText';
+import {webRouter} from '../utils/router/WebRouter';
+import AccountScreen from 'screens/Account';
 
 type Props = {
   authStore: AuthStore;
@@ -15,23 +14,13 @@ type Props = {
 @observer
 export default class AccountPage extends React.Component<Props> {
   render() {
-    const user = this.props.authStore.user;
-    console.log('user', user);
-    if (user) {
-      return (
-        <View style={styles.root}>
-          <LabelledText label={'Email'}>{user.email}</LabelledText>
-          <LabelledText label={'Username'}>{user.username}</LabelledText>
-          <LabelledText label={'Token'}>{user.bearerToken}</LabelledText>
+    return (
+      <Layout>
+        <View>
+          <AccountScreen params={{}} router={webRouter}/>
         </View>
-      );
-    } else {
-      return (
-        <View style={styles.root}>
-          <LabelledText label={'User'}>None</LabelledText>
-        </View>
-      );
-    }
+      </Layout>
+    );
   }
 }
 
@@ -41,5 +30,5 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     flexDirection: 'column',
-  }
+  },
 });

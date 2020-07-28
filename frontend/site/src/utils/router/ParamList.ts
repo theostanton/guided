@@ -2,11 +2,9 @@
 type ParamList ={
   Login: {},
   Signup: {},
+  Account: {},
   Home: {},
-  Profile: ProfileProps,
-}
-
-type ProfileProps = {
-  username:string
-
+  Profile: {
+    username: string
+  },
 }
