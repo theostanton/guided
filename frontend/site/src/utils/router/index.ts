@@ -8,4 +8,6 @@ export default abstract class Router {
   abstract goToGuide(username: string, slug: string): Promise<void>
 
   abstract goHome(): Promise<void>
+
+  abstract goToCreate(): Promise<void>
 }

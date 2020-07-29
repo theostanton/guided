@@ -4,6 +4,6 @@ import Router from '.';
 
 export type ScreenProps<RouteName extends keyof ParamList> =  {
   params:ParamList[RouteName]
-  router:Router
+  router?:Router
   authStore?: AuthStore
 }

@@ -39,6 +39,12 @@ export default class Layout extends React.Component<Props, State> {
               await this.props.router.goToProfile(this.props.authStore.user.username);
             },
           },
+          {
+            text: 'Create',
+            onClick: async () => {
+              await this.props.router.goToCreate();
+            },
+          },
         ]
       : [];
     const rightItems: Item[] = isLoggedin

@@ -7,7 +7,7 @@ import GuideContent from "./GuideContent";
 
 type Props = ScreenProps<'Guide'>
 
-@inject('authStore')
+@inject('authStore', 'router')
 export default class GuideScreen extends React.Component<Props> {
   render() {
     const guideId = `${this.props.params.username}_${this.props.params.slug}`

@@ -13,6 +13,10 @@ export default class WebRouter implements Router {
     window.location.href = '/';
   }
 
+  async goToCreate(): Promise<void> {
+    window.location.href = '/create';
+  }
+
   async goToProfile(username: string): Promise<void> {
     window.location.href = `/${username}`
   }

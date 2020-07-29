@@ -26,6 +26,10 @@ export default class AppRouter implements Router {
     this.navigation.navigate("Home")
   }
 
+  async goToCreate(){
+    this.navigation.navigate('Create')
+  }
+
   async goToProfile(username: string) {
     this.navigation.navigate("Profile", {
       username

@@ -4515,7 +4515,7 @@ export type ProfileQueryVariables = {
 export type ProfileQuery = { readonly user?: Maybe<ProfileUserFragment>, readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideListItemFragment>> }> };
 
 export type ProfileUserFragment = (
-  Pick<User, 'created' | 'username' | 'distanceMeters' | 'durationSeconds' | 'followingStatus'>
+  Pick<User, 'created' | 'colour' | 'username' | 'countries' | 'distanceMeters' | 'durationSeconds' | 'followingStatus'>
   & { readonly guidesByOwner: Pick<GuidesConnection, 'totalCount'>, readonly followsByFollowed: Pick<FollowsConnection, 'totalCount'>, readonly followsByFollower: Pick<FollowsConnection, 'totalCount'> }
 );
 
@@ -4594,10 +4594,12 @@ export const GuideFragmentDoc = gql`
 export const ProfileUserFragmentDoc = gql`
     fragment ProfileUser on User {
   created
+  colour
   username
   guidesByOwner {
     totalCount
   }
+  countries
   distanceMeters
   durationSeconds
   followsByFollowed {

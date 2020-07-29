@@ -11,10 +11,12 @@ query Profile($username:String!){
 
 fragment ProfileUser on User {
     created
+    colour
     username
     guidesByOwner{
         totalCount
     }
+    countries
     distanceMeters
     durationSeconds
     followsByFollowed{
