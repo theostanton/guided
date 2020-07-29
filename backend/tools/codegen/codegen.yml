@@ -5,7 +5,8 @@ config:
         Datetime: 'string'
         JSON: '{ [key: string]: any }'
     noGraphQLTag: false
-    withHOC: false
+    withHOC: true
+    withMutationFn: true
     withComponent: true
     skipTypename: true
     withHooks: true

@@ -4,20 +4,19 @@
     "version": "0.0.0",
     "scripts": {
         "watch": "yarn graphql-codegen --watch",
-        "generate": "yarn graphql-codegen",
-        "test": "jest"
+        "generate": "yarn graphql-codegen"
     },
     "devDependencies": {
-        "@apollo/react-components": "^4.0.0-beta.1",
-        "@apollo/react-hooks": "4.0.0-beta.1",
-        "@graphql-codegen/add": "^1.13.2",
-        "@graphql-codegen/cli": "^1.13.2",
-        "@graphql-codegen/typescript": "^1.13.2",
-        "@graphql-codegen/typescript-graphql-files-modules": "^1.13.2",
-        "@graphql-codegen/typescript-graphql-request": "^1.13.2",
-        "@graphql-codegen/typescript-operations": "^1.13.2",
-        "@graphql-codegen/typescript-react-apollo": "^1.13.2",
-        "@graphql-codegen/typescript-resolvers": "^1.13.2",
-        "graphql-toolkit": "^0.7.1"
+        "@apollo/react-components": "^4.0.0",
+        "@apollo/react-hooks": "4.0.0",
+        "@graphql-codegen/add": "^1.17.6",
+        "@graphql-codegen/cli": "^1.17.6",
+        "@graphql-codegen/typescript": "^1.17.6",
+        "@graphql-codegen/typescript-graphql-files-modules": "^1.17.6",
+        "@graphql-codegen/typescript-graphql-request": "^1.17.6",
+        "@graphql-codegen/typescript-operations": "^1.17.6",
+        "@graphql-codegen/typescript-react-apollo": "^1.17.6",
+        "@graphql-codegen/typescript-resolvers": "^1.17.6",
+        "graphql-toolkit": "^0.7.5"
     }
 }

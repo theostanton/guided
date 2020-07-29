@@ -13,7 +13,6 @@ seed_basic:
 install:
 	make install_backend
 	make build_backend
-	make install_website
 
 backend: .env
 	docker stop db || true
