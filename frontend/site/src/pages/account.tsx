@@ -16,19 +16,8 @@ export default class AccountPage extends React.Component<Props> {
   render() {
     return (
       <Layout>
-        <View>
           <AccountScreen params={{}} router={webRouter}/>
-        </View>
       </Layout>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  root: {
-    maxWidth: 400,
-    width: '100%',
-    alignSelf: 'center',
-    flexDirection: 'column',
-  },
-});

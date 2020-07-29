@@ -1,10 +1,12 @@
-
 const path = require("path");
 const withCustomBabelConfigFile = require("next-plugin-custom-babel-config");
 
-module.exports = withCustomBabelConfigFile({
+const withTM = require('next-transpile-modules')(['react-native-vector-icons']);
+
+module.exports = withCustomBabelConfigFile(withTM({
   babelConfigFile: path.resolve("./babel.web.js"),
   webpack: (config) => {
+
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       // Transform all direct `react-native` imports to `react-native-web`
@@ -18,4 +20,4 @@ module.exports = withCustomBabelConfigFile({
     ]
     return config
   }
-})
+}))

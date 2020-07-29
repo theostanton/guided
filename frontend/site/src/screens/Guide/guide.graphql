@@ -1,0 +1,28 @@
+query Guide($guideId:String!){
+    guide(id: $guideId){
+        ...Guide
+    }
+}
+
+fragment Guide on Guide {
+    id
+    isCircular
+    distanceMeters
+    durationSeconds
+    created
+    countries
+    maxHoursPerRide
+    slug
+    owner
+    rides:ridesByGuide{
+        nodes{
+            id
+        }
+    }
+    bounds{
+        east
+        north
+        south
+        west
+    }
+}

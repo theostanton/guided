@@ -1,0 +1,10 @@
+query UsersGuides($username: String){
+    guides(filter: {owner: {
+        equalTo: $username
+    }}){
+        totalCount
+        nodes{
+            id
+        }
+    }
+}

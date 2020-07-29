@@ -6,13 +6,15 @@ import {border} from 'styles/colors';
 import Link from 'components/Link';
 import {inject, observer} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
+import Router from "utils/router";
 
 type Props = {
   authStore?: AuthStore;
+  router?:Router
 };
 type State = {};
 
-@inject('authStore')
+@inject('authStore','router')
 @observer
 export default class Layout extends React.Component<Props, State> {
   renderHeader() {
@@ -21,18 +23,21 @@ export default class Layout extends React.Component<Props, State> {
 
     type Item = {
       text: string;
-      link?: string;
       onClick?: () => Promise<void>;
     };
     const leftItems: Item[] = isLoggedin
       ? [
           {
             text: 'Home',
-            link: '/',
+            onClick: async () => {
+              await this.props.router.goHome();
+            },
           },
           {
             text: 'Profile',
-            link: '/profile',
+            onClick: async () => {
+              await this.props.router.goToProfile(this.props.authStore.user.username);
+            },
           },
         ]
       : [];
@@ -42,21 +47,28 @@ export default class Layout extends React.Component<Props, State> {
             text: 'Sign out',
             onClick: async () => {
               await this.props.authStore.logOut();
+              await this.props.router.goHome();
             },
           },
           {
             text: 'Account',
-            link: '/account',
+            onClick: async () => {
+              await this.props.router.goHome();
+            },
           },
         ]
       : [
           {
             text: 'Login',
-            link: '/login',
+            onClick: async () => {
+              await this.props.router.goToLogin();
+            },
           },
           {
             text: 'Signup',
-            link: '/signup',
+            onClick: async () => {
+              await this.props.router.goToSignup();
+            },
           },
         ];
 
@@ -69,7 +81,8 @@ export default class Layout extends React.Component<Props, State> {
                 key={item.text}
                 viewStyle={styles.headerItem}
                 textStyle={h4}
-                href={item.link}>
+                onClick={item.onClick}
+              >
                 {item.text}
               </Link>
             );
@@ -82,8 +95,7 @@ export default class Layout extends React.Component<Props, State> {
                 key={item.text}
                 viewStyle={styles.headerItem}
                 textStyle={h4}
-                onClick={item.onClick}
-                href={item.link}>
+                onClick={item.onClick}>
                 {item.text}
               </Link>
             );

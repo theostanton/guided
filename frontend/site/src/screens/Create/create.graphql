@@ -1,0 +1,7 @@
+mutation Create($input:CreateGuideInput){
+    createGuide(input: $input){
+        success
+        guideId
+        message
+    }
+}

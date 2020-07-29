@@ -4486,6 +4486,39 @@ export type Resolvers<ContextType = any> = {
  */
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
+export type GuideListItemFragment = Pick<Guide, 'id' | 'created' | 'countries' | 'distanceMeters' | 'durationSeconds' | 'maxHoursPerRide' | 'owner' | 'slug' | 'title' | 'startDate'>;
+
+export type CreateMutationVariables = {
+  input?: Maybe<CreateGuideInput>;
+};
+
+
+export type CreateMutation = { readonly createGuide: Pick<CreateGuideResult, 'success' | 'guideId' | 'message'> };
+
+export type GuideQueryVariables = {
+  guideId: Scalars['String'];
+};
+
+
+export type GuideQuery = { readonly guide?: Maybe<GuideFragment> };
+
+export type GuideFragment = (
+  Pick<Guide, 'id' | 'isCircular' | 'distanceMeters' | 'durationSeconds' | 'created' | 'countries' | 'maxHoursPerRide' | 'slug' | 'owner'>
+  & { readonly rides: { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'id'>>> }, readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>> }
+);
+
+export type ProfileQueryVariables = {
+  username: Scalars['String'];
+};
+
+
+export type ProfileQuery = { readonly user?: Maybe<ProfileUserFragment>, readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideListItemFragment>> }> };
+
+export type ProfileUserFragment = (
+  Pick<User, 'created' | 'username' | 'distanceMeters' | 'durationSeconds' | 'followingStatus'>
+  & { readonly guidesByOwner: Pick<GuidesConnection, 'totalCount'>, readonly followsByFollowed: Pick<FollowsConnection, 'totalCount'>, readonly followsByFollower: Pick<FollowsConnection, 'totalCount'> }
+);
+
 export type LoginMutationVariables = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -4510,7 +4543,196 @@ export type GetUsernameQueryVariables = {
 
 export type GetUsernameQuery = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username' | 'colour'>>> }> };
 
+export type UsersGuidesQueryVariables = {
+  username?: Maybe<Scalars['String']>;
+};
 
+
+export type UsersGuidesQuery = { readonly guides?: Maybe<(
+    Pick<GuidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id'>>> }
+  )> };
+
+export const GuideListItemFragmentDoc = gql`
+    fragment GuideListItem on Guide {
+  id
+  created
+  countries
+  distanceMeters
+  durationSeconds
+  maxHoursPerRide
+  owner
+  slug
+  title
+  startDate
+}
+    `;
+export const GuideFragmentDoc = gql`
+    fragment Guide on Guide {
+  id
+  isCircular
+  distanceMeters
+  durationSeconds
+  created
+  countries
+  maxHoursPerRide
+  slug
+  owner
+  rides: ridesByGuide {
+    nodes {
+      id
+    }
+  }
+  bounds {
+    east
+    north
+    south
+    west
+  }
+}
+    `;
+export const ProfileUserFragmentDoc = gql`
+    fragment ProfileUser on User {
+  created
+  username
+  guidesByOwner {
+    totalCount
+  }
+  distanceMeters
+  durationSeconds
+  followsByFollowed {
+    totalCount
+  }
+  followsByFollower {
+    totalCount
+  }
+  followingStatus
+}
+    `;
+export const CreateDocument = gql`
+    mutation Create($input: CreateGuideInput) {
+  createGuide(input: $input) {
+    success
+    guideId
+    message
+  }
+}
+    `;
+export type CreateMutationFn = ApolloReactCommon.MutationFunction<CreateMutation, CreateMutationVariables>;
+export type CreateComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<CreateMutation, CreateMutationVariables>, 'mutation'>;
+
+    export const CreateComponent = (props: CreateComponentProps) => (
+      <ApolloReactComponents.Mutation<CreateMutation, CreateMutationVariables> mutation={CreateDocument} {...props} />
+    );
+    
+
+/**
+ * __useCreateMutation__
+ *
+ * To run a mutation, you first call `useCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMutation, { data, loading, error }] = useCreateMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateMutation, CreateMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateMutation, CreateMutationVariables>(CreateDocument, baseOptions);
+      }
+export type CreateMutationHookResult = ReturnType<typeof useCreateMutation>;
+export type CreateMutationResult = ApolloReactCommon.MutationResult<CreateMutation>;
+export type CreateMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateMutation, CreateMutationVariables>;
+export const GuideDocument = gql`
+    query Guide($guideId: String!) {
+  guide(id: $guideId) {
+    ...Guide
+  }
+}
+    ${GuideFragmentDoc}`;
+export type GuideComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GuideQuery, GuideQueryVariables>, 'query'> & ({ variables: GuideQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const GuideComponent = (props: GuideComponentProps) => (
+      <ApolloReactComponents.Query<GuideQuery, GuideQueryVariables> query={GuideDocument} {...props} />
+    );
+    
+
+/**
+ * __useGuideQuery__
+ *
+ * To run a query within a React component, call `useGuideQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGuideQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGuideQuery({
+ *   variables: {
+ *      guideId: // value for 'guideId'
+ *   },
+ * });
+ */
+export function useGuideQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GuideQuery, GuideQueryVariables>) {
+        return ApolloReactHooks.useQuery<GuideQuery, GuideQueryVariables>(GuideDocument, baseOptions);
+      }
+export function useGuideLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GuideQuery, GuideQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GuideQuery, GuideQueryVariables>(GuideDocument, baseOptions);
+        }
+export type GuideQueryHookResult = ReturnType<typeof useGuideQuery>;
+export type GuideLazyQueryHookResult = ReturnType<typeof useGuideLazyQuery>;
+export type GuideQueryResult = ApolloReactCommon.QueryResult<GuideQuery, GuideQueryVariables>;
+export const ProfileDocument = gql`
+    query Profile($username: String!) {
+  user(username: $username) {
+    ...ProfileUser
+  }
+  guides(condition: {owner: $username}) {
+    nodes {
+      ...GuideListItem
+    }
+  }
+}
+    ${ProfileUserFragmentDoc}
+${GuideListItemFragmentDoc}`;
+export type ProfileComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<ProfileQuery, ProfileQueryVariables>, 'query'> & ({ variables: ProfileQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const ProfileComponent = (props: ProfileComponentProps) => (
+      <ApolloReactComponents.Query<ProfileQuery, ProfileQueryVariables> query={ProfileDocument} {...props} />
+    );
+    
+
+/**
+ * __useProfileQuery__
+ *
+ * To run a query within a React component, call `useProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useProfileQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+        return ApolloReactHooks.useQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, baseOptions);
+      }
+export function useProfileLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ProfileQuery, ProfileQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, baseOptions);
+        }
+export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>;
+export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
+export type ProfileQueryResult = ApolloReactCommon.QueryResult<ProfileQuery, ProfileQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   authenticate(input: {email: $email, password: $password}) {
@@ -4634,3 +4856,45 @@ export function useGetUsernameLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetUsernameQueryHookResult = ReturnType<typeof useGetUsernameQuery>;
 export type GetUsernameLazyQueryHookResult = ReturnType<typeof useGetUsernameLazyQuery>;
 export type GetUsernameQueryResult = ApolloReactCommon.QueryResult<GetUsernameQuery, GetUsernameQueryVariables>;
+export const UsersGuidesDocument = gql`
+    query UsersGuides($username: String) {
+  guides(filter: {owner: {equalTo: $username}}) {
+    totalCount
+    nodes {
+      id
+    }
+  }
+}
+    `;
+export type UsersGuidesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<UsersGuidesQuery, UsersGuidesQueryVariables>, 'query'>;
+
+    export const UsersGuidesComponent = (props: UsersGuidesComponentProps) => (
+      <ApolloReactComponents.Query<UsersGuidesQuery, UsersGuidesQueryVariables> query={UsersGuidesDocument} {...props} />
+    );
+    
+
+/**
+ * __useUsersGuidesQuery__
+ *
+ * To run a query within a React component, call `useUsersGuidesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUsersGuidesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUsersGuidesQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useUsersGuidesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<UsersGuidesQuery, UsersGuidesQueryVariables>) {
+        return ApolloReactHooks.useQuery<UsersGuidesQuery, UsersGuidesQueryVariables>(UsersGuidesDocument, baseOptions);
+      }
+export function useUsersGuidesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<UsersGuidesQuery, UsersGuidesQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<UsersGuidesQuery, UsersGuidesQueryVariables>(UsersGuidesDocument, baseOptions);
+        }
+export type UsersGuidesQueryHookResult = ReturnType<typeof useUsersGuidesQuery>;
+export type UsersGuidesLazyQueryHookResult = ReturnType<typeof useUsersGuidesLazyQuery>;
+export type UsersGuidesQueryResult = ApolloReactCommon.QueryResult<UsersGuidesQuery, UsersGuidesQueryVariables>;

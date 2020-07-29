@@ -2,43 +2,40 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {inject} from 'mobx-react';
 import {ScreenProps} from 'utils/router/ScreenProps';
-import {ProfileComponent} from "api/generated";
-import GuidesList from "components/Guides";
+import {GuideComponent} from "../../api/generated";
+import GuideContent from "./GuideContent";
 
-type Props = ScreenProps<'Profile'>
+type Props = ScreenProps<'Guide'>
 
 @inject('authStore')
-export default class ProfileScreen extends React.Component<Props> {
+export default class GuideScreen extends React.Component<Props> {
   render() {
+    const guideId = `${this.props.params.username}_${this.props.params.slug}`
     return (
-      <ProfileComponent variables={{username: this.props.params.username}}>
+      <GuideComponent variables={{guideId}}>
         {(result) => {
-
-          console.log('result',result)
+          console.log('result', result)
           if (result.loading) {
             return <View style={styles.root}>
               <Text>Loading</Text>
             </View>
           }
 
-          if(result.error){
+          if (result.error) {
             return <View style={styles.root}>
               <Text>Error: {result.error.message}</Text>
             </View>
           }
 
           const data = result.data
-          console.log('data',data)
-
+          console.log('data', data)
 
 
           return <View style={styles.root}>
-            <Text>Profile of {data.user.username}</Text>
-            <GuidesList guides={data.guides.nodes}/>
+            <GuideContent guide={result.data.guide}/>
           </View>
-        }
-        }
-      </ProfileComponent>
+        }}
+      </GuideComponent>
     );
   }
 }

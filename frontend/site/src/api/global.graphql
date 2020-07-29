@@ -1,0 +1,12 @@
+fragment GuideListItem on Guide {
+    id
+    created
+    countries
+    distanceMeters
+    durationSeconds
+    maxHoursPerRide
+    owner
+    slug
+    title
+    startDate
+}

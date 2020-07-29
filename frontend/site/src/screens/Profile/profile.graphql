@@ -1,0 +1,27 @@
+query Profile($username:String!){
+    user(username: $username){
+        ...ProfileUser
+    }
+    guides(condition: {owner: $username}){
+        nodes{
+            ...GuideListItem
+        }
+    }
+}
+
+fragment ProfileUser on User {
+    created
+    username
+    guidesByOwner{
+        totalCount
+    }
+    distanceMeters
+    durationSeconds
+    followsByFollowed{
+        totalCount
+    }
+    followsByFollower{
+        totalCount
+    }
+    followingStatus
+}
