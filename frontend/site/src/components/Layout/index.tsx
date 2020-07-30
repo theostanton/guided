@@ -7,18 +7,18 @@ import Link from 'components/Link';
 import {inject, observer} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
 import Router from "utils/router";
+import {webRouter} from "../../utils/router/WebRouter";
 
 type Props = {
   authStore?: AuthStore;
-  router?:Router
 };
 type State = {};
 
-@inject('authStore','router')
+@inject('authStore')
 @observer
 export default class Layout extends React.Component<Props, State> {
   renderHeader() {
-    const isLoggedin = this.props.authStore.isLoggedIn;
+    const isLoggedin = this.props.authStore.user!==undefined;
     console.log('renderHeader isLoggedIn=', isLoggedin);
 
     type Item = {
@@ -30,19 +30,19 @@ export default class Layout extends React.Component<Props, State> {
           {
             text: 'Home',
             onClick: async () => {
-              await this.props.router.goHome();
+              await webRouter.goHome();
             },
           },
           {
             text: 'Profile',
             onClick: async () => {
-              await this.props.router.goToProfile(this.props.authStore.user.username);
+              await webRouter.goToProfile(this.props.authStore.user.username);
             },
           },
           {
             text: 'Create',
             onClick: async () => {
-              await this.props.router.goToCreate();
+              await webRouter.goToCreate();
             },
           },
         ]
@@ -53,13 +53,13 @@ export default class Layout extends React.Component<Props, State> {
             text: 'Sign out',
             onClick: async () => {
               await this.props.authStore.logOut();
-              await this.props.router.goHome();
+              await webRouter.goHome();
             },
           },
           {
             text: 'Account',
             onClick: async () => {
-              await this.props.router.goHome();
+              await webRouter.goHome();
             },
           },
         ]
@@ -67,13 +67,13 @@ export default class Layout extends React.Component<Props, State> {
           {
             text: 'Login',
             onClick: async () => {
-              await this.props.router.goToLogin();
+              await webRouter.goToLogin();
             },
           },
           {
             text: 'Signup',
             onClick: async () => {
-              await this.props.router.goToSignup();
+              await webRouter.goToSignup();
             },
           },
         ];

@@ -1,4 +1,4 @@
-import {action, computed, observable} from 'mobx';
+import {action, observable, runInAction} from 'mobx';
 import client, {USER_KEY} from 'api/client';
 import * as storage from 'utils/storage';
 import {
@@ -21,34 +21,36 @@ export type User = {
 };
 
 export default class AuthStore extends Store<User> {
+
   @observable
   user: User | undefined;
 
   constructor() {
     super();
+    console.log('AuthStore() ')
     if (typeof window !== 'undefined') {
       storage.getObject<User>(USER_KEY).then((user) => {
-        this.user = user;
+        runInAction(() => {
+          this.user = user;
+          console.log('AuthStore() user->', this.user)
+        })
       });
     }
   }
 
-  hydrate(initialData: User | undefined) {}
-
-  @computed
-  get isLoggedIn(): boolean {
-    console.log('isLoggedIn this.user=',this.user)
-    return this.user !== undefined;
+  hydrate(initialData: User | undefined) {
   }
 
-  @action
   setUser(user: User | undefined) {
+    console.log('setUser', user)
     if (user) {
       storage.setObject(USER_KEY, user);
     } else {
       storage.remove(USER_KEY);
     }
-    this.user = user;
+    runInAction(() => {
+      this.user = user
+    })
   }
 
   async login(
@@ -104,7 +106,8 @@ export default class AuthStore extends Store<User> {
     });
 
     if (usernameResult.errors && usernameResult.errors.length > 0) {
-      usernameResult.errors.forEach((error) => {});
+      usernameResult.errors.forEach((error) => {
+      });
 
       this.setUser(undefined);
       return {
@@ -134,7 +137,7 @@ export default class AuthStore extends Store<User> {
     username: string,
     email: string,
     password: string,
-  ): Promise<{success: boolean; message?: string}> {
+  ): Promise<{ success: boolean; message?: string }> {
     const variables: SignUpMutationVariables = {
       username,
       email,

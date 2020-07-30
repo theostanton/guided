@@ -11,6 +11,7 @@ export default function GuidePage() {
     <Layout>
       <View>
         <GuideScreen
+          router={webRouter}
           params={{
             username: router.query.username as string,
             slug: router.query.slug as string

@@ -6,7 +6,7 @@ import {ScreenProps} from 'utils/router/ScreenProps';
 
 type Props = ScreenProps<'Home'>
 
-@inject('authStore')
+@inject('authStore','router')
 export default class HomeScreen extends React.Component<Props> {
 
   render() {
@@ -15,6 +15,9 @@ export default class HomeScreen extends React.Component<Props> {
         <Text>Welcome {this.props.authStore.user?.username}</Text>
         <Button title={'My Profile'} onPress={async () => {
           await this.props.router.goToProfile(this.props.authStore.user.username)
+        }}/>
+        <Button title={'Create'} onPress={async () => {
+          await this.props.router.goToCreate()
         }}/>
       </View>
     );

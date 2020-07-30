@@ -19,7 +19,6 @@ type State = {
   error: string | undefined
 }
 
-@inject("router")
 export default class CreateForm extends React.Component<Props, State> {
 
   constructor(props: Props) {

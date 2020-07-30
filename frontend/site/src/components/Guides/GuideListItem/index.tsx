@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {GuideListItemFragment} from "api/generated";
 import {h2} from "styles/text";
-import {hairline, half, whole} from "styles/dimensions";
+import {hairline, half} from "styles/dimensions";
 import {border} from "styles/colors";
 import Clickable from "components/Pressable";
 import {inject} from "mobx-react";
@@ -11,11 +11,10 @@ import Stats, {Stat} from "../../Stats";
 
 type Props = {
   guide: GuideListItemFragment,
-  router?: Router
+  router: Router
 };
 type State = {};
 
-@inject("router")
 export default class GuideListItem extends React.Component<Props, State> {
 
   render() {

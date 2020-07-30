@@ -7,7 +7,7 @@ import LabelledText from '../../components/LabelledText';
 
 type Props = ScreenProps<'Account'>
 
-@inject('authStore')
+@inject('authStore','router')
 export default class AccountScreen extends React.Component<Props> {
 
   render() {

@@ -7,14 +7,13 @@ import ProfileContent from "./ProfileContent";
 
 type Props = ScreenProps<'Profile'>
 
-@inject('authStore')
+@inject('authStore','router')
 export default class ProfileScreen extends React.Component<Props> {
   render() {
     return (
       <ProfileComponent variables={{username: this.props.params.username}}>
         {(result) => {
 
-          console.log('result', result)
           if (result.loading) {
             return <View style={styles.root}>
               <Text>Loading</Text>
@@ -27,11 +26,14 @@ export default class ProfileScreen extends React.Component<Props> {
             </View>
           }
 
-          const data = result.data
-          console.log('data', data)
+          if (result.data) {
+            return <ProfileContent user={result.data.user} guides={result.data.guides.nodes}/>
+          }
 
+          return <View style={styles.root}>
+            <Text>Error: No data</Text>
+          </View>
 
-          return <ProfileContent user={result.data.user} guides={result.data.guides.nodes} />
         }
         }
       </ProfileComponent>

@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {h4, h5} from 'styles/text';
-import {half} from 'styles/dimensions';
+import {hairline, half, quarter, whole} from 'styles/dimensions';
+import {border} from "../../styles/colors";
 
 type Props = {
   inputType?: InputType;
@@ -59,6 +60,13 @@ const styles = StyleSheet.create({
   },
   input: {
     ...h4,
-    padding: half,
+    marginTop:quarter,
+    paddingLeft: whole,
+    paddingRight: whole,
+    paddingTop: half,
+    paddingBottom: half,
+    borderRadius:whole,
+    borderColor:border,
+    borderWidth:hairline
   },
 });

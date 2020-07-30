@@ -4,29 +4,25 @@ import {NavigationProp} from '@react-navigation/core';
 
 export default class AppRouter implements Router {
 
-  static create(navigation: NavigationProp<ParamList>): AppRouter {
-    return new AppRouter(navigation)
-  }
-
   private navigation: NavigationProp<ParamList>;
 
-  constructor(navigation: NavigationProp<ParamList>) {
+  updateNavigation(navigation: NavigationProp<ParamList>) {
     this.navigation = navigation
   }
 
   async goToLogin() {
-    this.navigation.navigate("Login")
+    throw new Error(`App handles this differently`)
   }
 
   async goToSignup() {
-    this.navigation.navigate("Signup")
+    throw new Error(`App handles this differently`)
   }
 
   async goHome() {
-    this.navigation.navigate("Home")
+    this.navigation.navigate("Root")
   }
 
-  async goToCreate(){
+  async goToCreate() {
     this.navigation.navigate('Create')
   }
 

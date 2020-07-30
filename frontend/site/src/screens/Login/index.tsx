@@ -6,7 +6,9 @@ import LabelledTextInput from 'components/LabelledTextInput';
 import {h4} from 'styles/text';
 import {ScreenProps} from 'utils/router/ScreenProps';
 
-type Props = ScreenProps<'Login'>
+type Props = {
+  authStore?:AuthStore
+}
 
 type State = {
   email: string;
@@ -25,7 +27,6 @@ export default class LoginScreen extends React.Component<Props, State> {
   };
 
   get buttonDisabled(): boolean {
-    console.log('buttonDisabled()');
     return (
       this.state.email.length === 0 ||
       this.state.password.length === 0 ||
@@ -39,7 +40,7 @@ export default class LoginScreen extends React.Component<Props, State> {
     try {
       const result = await this.props.authStore.login(email, password);
       if (result.success) {
-        await this.props.router.goHome()
+        // await this.props.router.goHome()
       } else {
         this.setState({
           error: result.message || 'Something went wrong',

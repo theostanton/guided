@@ -1,9 +1,16 @@
-type ParamList = {
+type UnAuthParamList = {
   Login: {},
   Signup: {},
-  Account: {},
-  Create: {},
+}
+
+type TabParamList = {
   Home: {},
+  Account: {},
+}
+
+type ParamList = {
+  Root:{},
+  Create: {},
   Profile: {
     username: string
   },

@@ -18,7 +18,7 @@ export default class Stats extends React.Component<Props, State> {
       <View style={styles.root}>
         {this.props.stats.map(stat => {
           return (
-            <View style={styles.item}>
+            <View key={stat.label} style={styles.item}>
               <StatItem stat={stat}/>
             </View>
           )
@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
   },
   item: {
     flex: 1,
-    minWidth:'min-content',
+    // minWidth:'min-content',
   }
 });

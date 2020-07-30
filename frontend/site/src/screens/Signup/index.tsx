@@ -3,9 +3,11 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
 import {h4} from 'styles/text';
-import {ScreenProps} from 'utils/router/ScreenProps';
+import AuthStore from "stores/AuthStore";
 
-type Props =ScreenProps<'Signup'>
+type Props = {
+  authStore?: AuthStore
+}
 type State = {
   email: string;
   username: string;
@@ -37,16 +39,16 @@ export default class SignupScreen extends React.Component<Props, State> {
     console.log('signUp')
     const {password, username, email} = this.state;
     this.setState({loading: true});
-    console.log('password',password)
-    console.log('username',username)
-    console.log('email',email)
+    console.log('password', password)
+    console.log('username', username)
+    console.log('email', email)
     try {
       const result = await this.props.authStore.signUp(
         username,
         email,
         password,
       );
-      console.log('result',result)
+      console.log('result', result)
       if (result.success) {
         await this.props.router.goHome()
       } else {
