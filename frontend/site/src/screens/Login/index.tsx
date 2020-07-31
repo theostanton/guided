@@ -38,6 +38,10 @@ export default class LoginScreen extends React.Component<Props, State> {
     const {password, email} = this.state;
     this.setState({loading: true});
     try {
+
+      console.log('LoginScreen.logIn() authStore=',this.props.authStore)
+      console.log('LoginScreen.logIn() authStore.value=',this.props.authStore.value)
+      console.log('LoginScreen.logIn() authStore.login=',this.props.authStore.login)
       const result = await this.props.authStore.login(email, password);
       if (result.success) {
         // await this.props.router.goHome()
@@ -54,6 +58,8 @@ export default class LoginScreen extends React.Component<Props, State> {
   }
 
   render() {
+    console.log('LoginScreen.render() authStore=',this.props.authStore)
+    console.log('LoginScreen.render() authStore.value=',this.props.authStore.value)
     return (
       <View style={styles.root}>
         <View style={styles.textInput}>
@@ -95,7 +101,6 @@ export default class LoginScreen extends React.Component<Props, State> {
           <Text
             style={styles.already}
             onPress={async () => {
-              await this.props.router.goToSignup()
             }}
           >
             Not a member? Click to sign up

@@ -12,7 +12,6 @@ import {
   SignUpMutation,
   SignUpMutationVariables,
 } from 'api/generated';
-import {Store} from 'stores/Store';
 
 export type User = {
   bearerToken: string;
@@ -20,33 +19,33 @@ export type User = {
   email: string;
 };
 
-export default class AuthStore extends Store<User> {
+export default class AuthStore {
+
+  value: number = new Date().getTime()
+
+  static async init(): Promise<AuthStore> {
+    if (typeof window !== 'undefined') {
+      const user = await storage.getObject<User>(USER_KEY)
+      if (user) {
+        return new AuthStore(user)
+      }
+    }
+    return new AuthStore(undefined)
+  }
 
   @observable
   user: User | undefined;
 
-  constructor() {
-    super();
-    console.log('AuthStore() ')
-    if (typeof window !== 'undefined') {
-      storage.getObject<User>(USER_KEY).then((user) => {
-        runInAction(() => {
-          this.user = user;
-          console.log('AuthStore() user->', this.user)
-        })
-      });
-    }
+  constructor(user: User | undefined) {
+    this.user = user
   }
 
-  hydrate(initialData: User | undefined) {
-  }
-
-  setUser(user: User | undefined) {
+  async setUser(user: User | undefined) {
     console.log('setUser', user)
     if (user) {
-      storage.setObject(USER_KEY, user);
+      await storage.setObject(USER_KEY, user);
     } else {
-      storage.remove(USER_KEY);
+      await storage.remove(USER_KEY);
     }
     runInAction(() => {
       this.user = user
@@ -168,3 +167,4 @@ export default class AuthStore extends Store<User> {
     console.log('logOUt this.user=', this.user);
   }
 }
+

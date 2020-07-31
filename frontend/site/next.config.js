@@ -1,7 +1,7 @@
 const path = require("path");
 const withCustomBabelConfigFile = require("next-plugin-custom-babel-config");
 
-const withTM = require('next-transpile-modules')(['react-native-vector-icons']);
+const withTM = require('next-transpile-modules')(['react-native-vector-icons', '@react-native-mapbox-gl/maps']);
 
 module.exports = withCustomBabelConfigFile(withTM({
   babelConfigFile: path.resolve("./babel.web.js"),
