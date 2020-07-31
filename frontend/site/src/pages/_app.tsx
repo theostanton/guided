@@ -1,19 +1,24 @@
 import App, {Container} from 'next/app';
 
-import {Provider} from 'mobx-react';
+import {Provider, useStaticRendering} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
 import {webRouter} from "utils/router/WebRouter";
 import {ApolloProvider} from "@apollo/client";
 import client from "api/client";
 import React from "react";
 import Head from 'next/head';
+import {configure} from "mobx";
 
 type Props = {}
 type State = {
   authStore?: AuthStore
 }
 
-let authStore: AuthStore
+
+const isServer = typeof window === 'undefined'
+
+configure({enforceActions: 'observed'});
+useStaticRendering(isServer);
 
 class Wrapper extends React.Component<Props, State> {
 

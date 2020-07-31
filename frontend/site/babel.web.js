@@ -1,7 +1,6 @@
 module.exports = {
   presets: ['next/babel'],
   plugins: [
-    ['react-native-web', {commonjs: true}],
     [
       '@babel/plugin-proposal-decorators',
       {
@@ -9,5 +8,6 @@ module.exports = {
       },
     ],
     ['@babel/plugin-proposal-class-properties', {'loose': true}],
+    ['react-native-web', {commonjs: true}],
   ],
 };

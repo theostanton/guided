@@ -1,13 +1,17 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {inject} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import {ScreenProps} from 'utils/router/ScreenProps';
-import {GuideComponent} from "../../api/generated";
+import {GuideComponent} from "api/generated";
 import GuideContent from "./GuideContent";
+import GuideStore from "./store";
 
-type Props = ScreenProps<'Guide'>
+type Props = ScreenProps<'Guide'> & {
+  guideStore?: GuideStore
+}
 
-@inject('authStore')
+@inject('authStore', 'guideStore')
+@observer
 export default class GuideScreen extends React.Component<Props> {
   render() {
     const guideId = `${this.props.params.username}_${this.props.params.slug}`
@@ -30,9 +34,10 @@ export default class GuideScreen extends React.Component<Props> {
           const data = result.data
           console.log('data', data)
 
+          this.props.guideStore.updateGuide(result.data.guide)
 
           return <View style={styles.root}>
-            <GuideContent guide={result.data.guide}/>
+            <GuideContent/>
           </View>
         }}
       </GuideComponent>

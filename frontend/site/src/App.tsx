@@ -21,6 +21,7 @@ import client from "api/client";
 import CreateScreen from "./screens/Create";
 import ProfileScreen from "./screens/Profile";
 import GuideScreen from "./screens/Guide";
+import GuideStore from "./screens/Guide/store";
 
 
 type Props = {}
@@ -37,6 +38,7 @@ export default class App extends React.Component<Props, State> {
     super(props);
     this.state = {}
   }
+
 
   async componentDidMount() {
     const authStore = await AuthStore.init()
@@ -82,7 +84,10 @@ export default class App extends React.Component<Props, State> {
               <Stack.Screen name={'Guide'}>
                 {(props: Props<'Guide'>) => {
                   router.updateNavigation(props.navigation)
-                  return <GuideScreen params={props.route.params}/>
+                  let guideStore = new GuideStore();
+                  return <Provider guideStore={guideStore}>
+                    <GuideScreen params={props.route.params}/>
+                  </Provider>
                 }}
               </Stack.Screen>
             </Stack.Navigator>
