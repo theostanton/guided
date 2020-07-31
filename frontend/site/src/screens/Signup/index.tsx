@@ -4,9 +4,11 @@ import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
 import {h4} from 'styles/text';
 import AuthStore from "stores/AuthStore";
+import Router from "utils/router";
 
 type Props = {
   authStore?: AuthStore
+  router?:Router
 }
 type State = {
   email: string;
@@ -16,7 +18,7 @@ type State = {
   error: any | undefined;
 };
 
-@inject('authStore')
+@inject('authStore','router')
 export default class SignupScreen extends React.Component<Props, State> {
   state: State = {
     email: '',

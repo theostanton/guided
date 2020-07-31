@@ -21,16 +21,11 @@ export type User = {
 
 export default class AuthStore {
 
+  @observable
   value: number = new Date().getTime()
 
-  static async init(): Promise<AuthStore> {
-    if (typeof window !== 'undefined') {
-      const user = await storage.getObject<User>(USER_KEY)
-      if (user) {
-        return new AuthStore(user)
-      }
-    }
-    return new AuthStore(undefined)
+  async init(): Promise<void> {
+    this.user = await storage.getObject<User>(USER_KEY)
   }
 
   @observable
@@ -38,6 +33,12 @@ export default class AuthStore {
 
   constructor(user: User | undefined) {
     this.user = user
+  }
+
+  @action
+  increment() {
+    this.value = this.value + 1
+    console.log('this.value->', this.value)
   }
 
   async setUser(user: User | undefined) {
@@ -92,7 +93,7 @@ export default class AuthStore {
 
     const bearerToken = result.data!.authenticate!.jwtToken;
 
-    this.setUser({
+    await this.setUser({
       email,
       bearerToken,
     });
@@ -108,7 +109,7 @@ export default class AuthStore {
       usernameResult.errors.forEach((error) => {
       });
 
-      this.setUser(undefined);
+      await this.setUser(undefined);
       return {
         success: false,
         message: result.errors
@@ -121,7 +122,7 @@ export default class AuthStore {
 
     const {colour, username} = usernameResult.data!.users!.nodes[0]!;
 
-    this.setUser({
+    await this.setUser({
       username,
       email,
       bearerToken,
@@ -162,8 +163,8 @@ export default class AuthStore {
   }
 
   @action
-  logOut() {
-    this.setUser(undefined);
+  async logOut() {
+    await this.setUser(undefined);
     console.log('logOUt this.user=', this.user);
   }
 }

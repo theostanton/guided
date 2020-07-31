@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons'
 import {h4} from "styles/text";
 
 
@@ -16,11 +15,11 @@ export default class LabelledCheckBox extends React.Component<Props> {
       <TouchableOpacity style={styles.root} onPress={async () => {
         await this.props.onChange(!this.props.selected)
       }}>
-        <Icon
-          size={30}
-          color={this.props.selected ?"#00ff00":"#ff0000"}
-          name={this.props.selected === true ? 'airplane-outline' : 'airplane'}
-        />
+        {/*<Icon*/}
+        {/*  size={30}*/}
+        {/*  color={this.props.selected ?"#00ff00":"#ff0000"}*/}
+        {/*  name={this.props.selected === true ? 'airplane-outline' : 'airplane'}*/}
+        {/*/>*/}
         <Text style={styles.text}> {this.props.label} </Text>
       </TouchableOpacity>
     );

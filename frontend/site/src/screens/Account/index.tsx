@@ -1,13 +1,17 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {inject} from 'mobx-react';
 import {h4} from 'styles/text';
-import {ScreenProps} from 'utils/router/ScreenProps';
-import LabelledText from '../../components/LabelledText';
+import LabelledText from 'components/LabelledText';
+import AuthStore from "stores/AuthStore";
+import Router from "utils/router";
 
-type Props = ScreenProps<'Account'>
+type Props = {
+  authStore?: AuthStore
+  router?: Router
+}
 
-@inject('authStore','router')
+@inject('authStore', 'router')
 export default class AccountScreen extends React.Component<Props> {
 
   render() {
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
   textInput: {},
   error: {
     ...h4,
-    color:'red'
+    color: 'red'
   },
   button: {},
   already: {

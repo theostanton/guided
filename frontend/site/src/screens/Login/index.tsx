@@ -4,10 +4,11 @@ import AuthStore from 'stores/AuthStore';
 import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
 import {h4} from 'styles/text';
-import {ScreenProps} from 'utils/router/ScreenProps';
+import Router from "utils/router";
 
 type Props = {
-  authStore?:AuthStore
+  authStore?: AuthStore
+  router?: Router
 }
 
 type State = {
@@ -17,7 +18,7 @@ type State = {
   error: any | undefined;
 };
 
-@inject('authStore')
+@inject('authStore', 'router')
 export default class LoginScreen extends React.Component<Props, State> {
   state: State = {
     email: '',
@@ -39,9 +40,9 @@ export default class LoginScreen extends React.Component<Props, State> {
     this.setState({loading: true});
     try {
 
-      console.log('LoginScreen.logIn() authStore=',this.props.authStore)
-      console.log('LoginScreen.logIn() authStore.value=',this.props.authStore.value)
-      console.log('LoginScreen.logIn() authStore.login=',this.props.authStore.login)
+      console.log('LoginScreen.logIn() authStore=', this.props.authStore)
+      console.log('LoginScreen.logIn() authStore.value=', this.props.authStore.value)
+      console.log('LoginScreen.logIn() authStore.login=', this.props.authStore.login)
       const result = await this.props.authStore.login(email, password);
       if (result.success) {
         // await this.props.router.goHome()
@@ -58,8 +59,8 @@ export default class LoginScreen extends React.Component<Props, State> {
   }
 
   render() {
-    console.log('LoginScreen.render() authStore=',this.props.authStore)
-    console.log('LoginScreen.render() authStore.value=',this.props.authStore.value)
+    console.log('LoginScreen.render() authStore=', this.props.authStore)
+    console.log('LoginScreen.render() authStore.value=', this.props.authStore.value)
     return (
       <View style={styles.root}>
         <View style={styles.textInput}>
@@ -87,7 +88,7 @@ export default class LoginScreen extends React.Component<Props, State> {
         </View>
         {this.state.error && <Text style={styles.error}>
           {this.state.error.toString()}
-        </Text> }
+        </Text>}
         <View style={styles.button}>
           <Button
             title={'Log in'}
@@ -97,7 +98,7 @@ export default class LoginScreen extends React.Component<Props, State> {
             }}
           />
         </View>
-        <View >
+        <View>
           <Text
             style={styles.already}
             onPress={async () => {
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
   textInput: {},
   error: {
     ...h4,
-    color:'red'
+    color: 'red'
   },
   button: {},
   already: {

@@ -1,17 +1,20 @@
-import {StyleSheet, Text, View} from 'react-native';
+import 'react-hot-loader'
+import {hot} from 'react-hot-loader/root';
+import {View} from 'react-native';
 import Layout from 'components/Layout';
 import React from 'react';
 import HomeScreen from 'screens/Home';
 import {webRouter} from 'utils/router/WebRouter';
 
-export default function App(props) {
+
+function App(props) {
   return (
     <Layout>
       <View>
-        <HomeScreen params={{}} router={webRouter}/>
+        <HomeScreen router={webRouter}/>
       </View>
     </Layout>
   );
 }
 
-const styles = StyleSheet.create({});
+export default hot(App)

@@ -1,8 +1,7 @@
 module.exports = {
   presets: [
     'babel-preset-expo',
-    'module:metro-react-native-babel-preset',
-    "mobx"
+    'module:metro-react-native-babel-preset'
   ],
   plugins: [
     [
@@ -28,6 +27,5 @@ module.exports = {
         'legacy': true,
       },
     ],
-    // ['@babel/plugin-proposal-class-properties', {'loose': true}],
   ],
 };

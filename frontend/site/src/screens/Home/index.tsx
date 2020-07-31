@@ -20,7 +20,7 @@ export default class HomeScreen extends React.Component<Props> {
   render() {
     return (
       <View style={styles.root}>
-        <Text>Welcome {this.props.authStore.user.username}</Text>
+        <Text>Welcome {this.props.authStore.user?.username}</Text>
         <View style={styles.button}>
           <Button title={'My Profile'} onPress={async () => {
             await this.props.router.goToProfile(this.props.authStore.user.username)
