@@ -6,6 +6,8 @@ import AuthStore from "stores/AuthStore";
 import Router from "utils/router";
 import {half} from "styles/dimensions";
 import Map from 'components/Map'
+import {SEYTHENEX} from "components/Map/consts";
+import Marker from "components/Map/Marker";
 
 type Props = {
   authStore?: AuthStore
@@ -30,7 +32,17 @@ export default class HomeScreen extends React.Component<Props> {
           }}/>
         </View>
         <View style={styles.map}>
-          <Map/>
+          <Map latitude={SEYTHENEX.latitude} longitude={SEYTHENEX.longitude} zoom={10}>
+            <Marker id={'id1'} position={SEYTHENEX}>
+              <View style={{
+                width: 100,
+                height: 100,
+                display: 'flex'
+              }}>
+                <Text style={{flex: 1}}>Hello</Text>
+              </View>
+            </Marker>
+          </Map>
         </View>
       </View>
     );

@@ -4,11 +4,35 @@ import {StyleSheet, View} from "react-native";
 
 MapboxGL.setAccessToken("pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ");
 
-export default class Map extends React.Component {
+type State = {
+  latitude: number
+  longitude: number
+  zoom: number
+}
+
+export default class Map extends React.Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      latitude: this.props.latitude,
+      longitude: this.props.longitude,
+      zoom: this.props.zoom
+    }
+  }
+
   render() {
     return (
       <View style={styles.root}>
-        <MapboxGL.MapView style={styles.map}/>
+        <MapboxGL.MapView style={styles.map}>
+          <MapboxGL.Camera
+            zoomLevel={this.state.zoom}
+            centerCoordinate={
+              [this.state.longitude, this.state.latitude]
+            }
+          />
+          {this.props.children}
+        </MapboxGL.MapView>
       </View>
     );
   }
