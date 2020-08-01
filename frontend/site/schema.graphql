@@ -95,6 +95,8 @@ type CreateFeedEventPayload {
 type CreateGuideResult {
     guideId: String
     message: String
+    owner: String
+    slug: String
     success: Boolean!
 }
 

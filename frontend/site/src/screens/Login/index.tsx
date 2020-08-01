@@ -3,7 +3,8 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
 import {h4} from 'styles/text';
-import {UnauthedProps} from "utils/router/ScreenProps";
+import {UnauthedProps} from "utils/navigation/ScreenProps";
+import Link from "../../components/Link";
 
 type Props = UnauthedProps
 
@@ -33,12 +34,10 @@ export default class LoginScreen extends React.Component<Props, State> {
 
   async logIn(): Promise<void> {
     const {password, email} = this.state;
+    console.log('email',email)
+    console.log('password',password)
     this.setState({loading: true});
     try {
-
-      console.log('LoginScreen.logIn() authStore=', this.props.authStore)
-      console.log('LoginScreen.logIn() authStore.value=', this.props.authStore.value)
-      console.log('LoginScreen.logIn() authStore.login=', this.props.authStore.login)
       const result = await this.props.authStore.login(email, password);
       if (result.success) {
         // this.props.navigation.navigate('Root')
@@ -55,8 +54,6 @@ export default class LoginScreen extends React.Component<Props, State> {
   }
 
   render() {
-    console.log('LoginScreen.render() authStore=', this.props.authStore)
-    console.log('LoginScreen.render() authStore.value=', this.props.authStore.value)
     return (
       <View style={styles.root}>
         <View style={styles.textInput}>
@@ -94,16 +91,11 @@ export default class LoginScreen extends React.Component<Props, State> {
             }}
           />
         </View>
-        <View>
-          <Text
-            style={styles.already}
-            onPress={() => {
-              this.props.navigation.navigate('Signup')
-            }}
-          >
-            Not a member? Click to sign up
-          </Text>
-        </View>
+        <Link
+          textStyle={styles.already}
+          href={'signup'}>
+          Not a member? Click to sign up
+        </Link>
       </View>
     );
   }

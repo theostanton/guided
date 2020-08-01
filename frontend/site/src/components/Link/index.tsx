@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
+import {Link as NavigationLink} from '@react-navigation/native'
 
 type Props = {
   href?: string;
@@ -28,6 +29,7 @@ export default class Link extends React.Component<Props, State> {
     return (
       <View
         style={style}
+        // @ts-ignore
         onMouseEnter={() => {
           this.setState({
             hover: true,
@@ -38,17 +40,25 @@ export default class Link extends React.Component<Props, State> {
             hover: false,
           });
         }}>
-        <Text
-          accessibilityRole="link"
-          href={this.props.href}
-          onPress={
-            this.props.onClick &&
-            (async () => {
-              this.props.onClick();
-            })
-          }>
-          {this.props.children}
-        </Text>
+        {this.props.href
+          ?
+          <NavigationLink
+            style={this.props.textStyle}
+            to={this.props.href}>
+            {this.props.children}
+          </NavigationLink>
+          :
+          <Text
+            style={this.props.textStyle}
+            accessibilityRole="link"
+            onPress={
+              this.props.onClick &&
+              (async () => {
+                await this.props.onClick();
+              })
+            }>
+            {this.props.children}
+          </Text>}
       </View>
     );
   }

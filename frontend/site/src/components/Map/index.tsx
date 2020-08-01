@@ -1,6 +1,5 @@
 import React from "react";
 import ReactMapGL, {MapboxProps} from 'react-map-gl';
-import {StyleSheet} from "react-native";
 
 const TOKEN = 'pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ'
 
@@ -25,7 +24,6 @@ export default class Map extends React.Component<Props, State> {
   render() {
     return (
       <ReactMapGL
-        style={styles.map}
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxApiAccessToken={TOKEN}
         onViewportChange={(viewport) => this.setState({mapProps: viewport})}
@@ -36,8 +34,3 @@ export default class Map extends React.Component<Props, State> {
     );
   }
 }
-
-
-const styles = StyleSheet.create({
-  map: {},
-});

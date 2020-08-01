@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -361,6 +362,8 @@ export type CreateGuideResult = {
   readonly success: Scalars['Boolean'];
   readonly message?: Maybe<Scalars['String']>;
   readonly guideId?: Maybe<Scalars['String']>;
+  readonly slug?: Maybe<Scalars['String']>;
+  readonly owner?: Maybe<Scalars['String']>;
 };
 
 /** All input for the create `User` mutation. */
@@ -3548,11 +3551,16 @@ export enum UsersOrderBy {
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 
-export type StitchingResolver<TResult, TParent, TContext, TArgs> = {
+export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
   fragment: string;
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
 
+export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
+  selectionSet: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
   | ResolverFn<TResult, TParent, TContext, TArgs>
   | StitchingResolver<TResult, TParent, TContext, TArgs>;
@@ -3602,7 +3610,7 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type isTypeOfResolverFn<T = {}> = (obj: T, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}> = (obj: T, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
@@ -3616,861 +3624,847 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Query: ResolverTypeWrapper<{}>,
-  Node: ResolversTypes['Query'] | ResolversTypes['Computation'] | ResolversTypes['Stage'] | ResolversTypes['Guide'] | ResolversTypes['User'] | ResolversTypes['Spot'] | ResolversTypes['Ride'] | ResolversTypes['FeedEvent'] | ResolversTypes['Temperature'],
-  ID: ResolverTypeWrapper<Scalars['ID']>,
-  Int: ResolverTypeWrapper<Scalars['Int']>,
-  Cursor: ResolverTypeWrapper<Scalars['Cursor']>,
-  ComputationsOrderBy: ComputationsOrderBy,
-  ComputationCondition: ComputationCondition,
-  String: ResolverTypeWrapper<Scalars['String']>,
-  Datetime: ResolverTypeWrapper<Scalars['Datetime']>,
-  ComputationStatus: ComputationStatus,
-  ComputationFilter: ComputationFilter,
-  StringFilter: StringFilter,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
-  DatetimeFilter: DatetimeFilter,
-  IntFilter: IntFilter,
-  ComputationStatusFilter: ComputationStatusFilter,
-  ComputationsConnection: ResolverTypeWrapper<ComputationsConnection>,
-  Computation: ResolverTypeWrapper<Computation>,
-  Stage: ResolverTypeWrapper<Stage>,
-  StageStatus: StageStatus,
-  Guide: ResolverTypeWrapper<Guide>,
-  TransportType: TransportType,
-  User: ResolverTypeWrapper<User>,
-  Colour: Colour,
-  GuidesOrderBy: GuidesOrderBy,
-  GuideCondition: GuideCondition,
-  GuideFilter: GuideFilter,
-  BooleanFilter: BooleanFilter,
-  TransportTypeFilter: TransportTypeFilter,
-  StringListFilter: StringListFilter,
-  BigIntFilter: BigIntFilter,
-  BigInt: ResolverTypeWrapper<Scalars['BigInt']>,
-  GuidesConnection: ResolverTypeWrapper<GuidesConnection>,
-  GuidesEdge: ResolverTypeWrapper<GuidesEdge>,
-  PageInfo: ResolverTypeWrapper<PageInfo>,
-  SpotsOrderBy: SpotsOrderBy,
-  SpotCondition: SpotCondition,
-  Float: ResolverTypeWrapper<Scalars['Float']>,
-  SpotFilter: SpotFilter,
-  FloatFilter: FloatFilter,
-  SpotsConnection: ResolverTypeWrapper<SpotsConnection>,
-  Spot: ResolverTypeWrapper<Spot>,
-  StagesOrderBy: StagesOrderBy,
-  StageCondition: StageCondition,
-  StageFilter: StageFilter,
-  StageStatusFilter: StageStatusFilter,
-  StagesConnection: ResolverTypeWrapper<StagesConnection>,
-  StagesEdge: ResolverTypeWrapper<StagesEdge>,
-  RidesOrderBy: RidesOrderBy,
-  RideCondition: RideCondition,
-  RideStatus: RideStatus,
-  RideFilter: RideFilter,
-  RideStatusFilter: RideStatusFilter,
-  RidesConnection: ResolverTypeWrapper<RidesConnection>,
-  Ride: ResolverTypeWrapper<Ride>,
-  FeedEventsOrderBy: FeedEventsOrderBy,
-  FeedEventCondition: FeedEventCondition,
-  FeedEventType: FeedEventType,
-  FeedEventFilter: FeedEventFilter,
-  FeedEventTypeFilter: FeedEventTypeFilter,
-  FeedEventsConnection: ResolverTypeWrapper<FeedEventsConnection>,
-  FeedEvent: ResolverTypeWrapper<FeedEvent>,
-  FeedEventsEdge: ResolverTypeWrapper<FeedEventsEdge>,
-  RidesEdge: ResolverTypeWrapper<RidesEdge>,
-  SpotsEdge: ResolverTypeWrapper<SpotsEdge>,
-  FollowsOrderBy: FollowsOrderBy,
-  FollowCondition: FollowCondition,
-  FollowFilter: FollowFilter,
-  FollowsConnection: ResolverTypeWrapper<FollowsConnection>,
-  Follow: ResolverTypeWrapper<Follow>,
-  FollowsEdge: ResolverTypeWrapper<FollowsEdge>,
-  FollowingStatus: FollowingStatus,
-  Bound: ResolverTypeWrapper<Bound>,
-  ComputationsEdge: ResolverTypeWrapper<ComputationsEdge>,
-  TemperaturesOrderBy: TemperaturesOrderBy,
-  TemperatureCondition: TemperatureCondition,
-  TemperatureFilter: TemperatureFilter,
-  TemperaturesConnection: ResolverTypeWrapper<TemperaturesConnection>,
-  Temperature: ResolverTypeWrapper<Temperature>,
-  TemperaturesEdge: ResolverTypeWrapper<TemperaturesEdge>,
-  UsersOrderBy: UsersOrderBy,
-  UserCondition: UserCondition,
-  UserFilter: UserFilter,
-  ColourFilter: ColourFilter,
-  FollowingStatusFilter: FollowingStatusFilter,
-  UsersConnection: ResolverTypeWrapper<UsersConnection>,
-  UsersEdge: ResolverTypeWrapper<UsersEdge>,
-  JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>,
-  GeocodeResponse: ResolverTypeWrapper<GeocodeResponse>,
-  Geocode: ResolverTypeWrapper<Geocode>,
-  Mutation: ResolverTypeWrapper<{}>,
-  CreateFeedEventInput: CreateFeedEventInput,
-  FeedEventInput: FeedEventInput,
-  CreateFeedEventPayload: ResolverTypeWrapper<CreateFeedEventPayload>,
-  CreateUserInput: CreateUserInput,
-  UserInput: UserInput,
-  CreateUserPayload: ResolverTypeWrapper<CreateUserPayload>,
-  UpdateFeedEventByNodeIdInput: UpdateFeedEventByNodeIdInput,
-  FeedEventPatch: FeedEventPatch,
-  UpdateFeedEventPayload: ResolverTypeWrapper<UpdateFeedEventPayload>,
-  UpdateFeedEventInput: UpdateFeedEventInput,
-  DeleteFeedEventByNodeIdInput: DeleteFeedEventByNodeIdInput,
-  DeleteFeedEventPayload: ResolverTypeWrapper<DeleteFeedEventPayload>,
-  DeleteFeedEventInput: DeleteFeedEventInput,
-  AuthenticateInput: AuthenticateInput,
-  AuthenticatePayload: ResolverTypeWrapper<AuthenticatePayload>,
-  RegisterInput: RegisterInput,
-  RegisterPayload: ResolverTypeWrapper<RegisterPayload>,
-  CreateGuideInput: CreateGuideInput,
-  CreateGuideResult: ResolverTypeWrapper<CreateGuideResult>,
-  UpdateGuidePatch: UpdateGuidePatch,
-  UpdateGuideResult: ResolverTypeWrapper<UpdateGuideResult>,
-  DeleteGuideInput: DeleteGuideInput,
-  DeleteGuideResult: ResolverTypeWrapper<DeleteGuideResult>,
-  Result: ResolverTypeWrapper<Result>,
-  AddSpotInput: AddSpotInput,
-  AddSpotResult: ResolverTypeWrapper<AddSpotResult>,
-  UpdateSpotPatch: UpdateSpotPatch,
-  UpdateSpotLocationPatch: UpdateSpotLocationPatch,
-  UpdateSpotResult: ResolverTypeWrapper<UpdateSpotResult>,
-  RemoveSpotInput: RemoveSpotInput,
-  RemoveSpotResult: ResolverTypeWrapper<RemoveSpotResult>,
-  Subscription: ResolverTypeWrapper<{}>,
+  Query: ResolverTypeWrapper<{}>;
+  Node: ResolversTypes['Query'] | ResolversTypes['Computation'] | ResolversTypes['Stage'] | ResolversTypes['Guide'] | ResolversTypes['User'] | ResolversTypes['Spot'] | ResolversTypes['Ride'] | ResolversTypes['FeedEvent'] | ResolversTypes['Temperature'];
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Cursor: ResolverTypeWrapper<Scalars['Cursor']>;
+  ComputationsOrderBy: ComputationsOrderBy;
+  ComputationCondition: ComputationCondition;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  Datetime: ResolverTypeWrapper<Scalars['Datetime']>;
+  ComputationStatus: ComputationStatus;
+  ComputationFilter: ComputationFilter;
+  StringFilter: StringFilter;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  DatetimeFilter: DatetimeFilter;
+  IntFilter: IntFilter;
+  ComputationStatusFilter: ComputationStatusFilter;
+  ComputationsConnection: ResolverTypeWrapper<ComputationsConnection>;
+  Computation: ResolverTypeWrapper<Computation>;
+  Stage: ResolverTypeWrapper<Stage>;
+  StageStatus: StageStatus;
+  Guide: ResolverTypeWrapper<Guide>;
+  TransportType: TransportType;
+  User: ResolverTypeWrapper<User>;
+  Colour: Colour;
+  GuidesOrderBy: GuidesOrderBy;
+  GuideCondition: GuideCondition;
+  GuideFilter: GuideFilter;
+  BooleanFilter: BooleanFilter;
+  TransportTypeFilter: TransportTypeFilter;
+  StringListFilter: StringListFilter;
+  BigIntFilter: BigIntFilter;
+  BigInt: ResolverTypeWrapper<Scalars['BigInt']>;
+  GuidesConnection: ResolverTypeWrapper<GuidesConnection>;
+  GuidesEdge: ResolverTypeWrapper<GuidesEdge>;
+  PageInfo: ResolverTypeWrapper<PageInfo>;
+  SpotsOrderBy: SpotsOrderBy;
+  SpotCondition: SpotCondition;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
+  SpotFilter: SpotFilter;
+  FloatFilter: FloatFilter;
+  SpotsConnection: ResolverTypeWrapper<SpotsConnection>;
+  Spot: ResolverTypeWrapper<Spot>;
+  StagesOrderBy: StagesOrderBy;
+  StageCondition: StageCondition;
+  StageFilter: StageFilter;
+  StageStatusFilter: StageStatusFilter;
+  StagesConnection: ResolverTypeWrapper<StagesConnection>;
+  StagesEdge: ResolverTypeWrapper<StagesEdge>;
+  RidesOrderBy: RidesOrderBy;
+  RideCondition: RideCondition;
+  RideStatus: RideStatus;
+  RideFilter: RideFilter;
+  RideStatusFilter: RideStatusFilter;
+  RidesConnection: ResolverTypeWrapper<RidesConnection>;
+  Ride: ResolverTypeWrapper<Ride>;
+  FeedEventsOrderBy: FeedEventsOrderBy;
+  FeedEventCondition: FeedEventCondition;
+  FeedEventType: FeedEventType;
+  FeedEventFilter: FeedEventFilter;
+  FeedEventTypeFilter: FeedEventTypeFilter;
+  FeedEventsConnection: ResolverTypeWrapper<FeedEventsConnection>;
+  FeedEvent: ResolverTypeWrapper<FeedEvent>;
+  FeedEventsEdge: ResolverTypeWrapper<FeedEventsEdge>;
+  RidesEdge: ResolverTypeWrapper<RidesEdge>;
+  SpotsEdge: ResolverTypeWrapper<SpotsEdge>;
+  FollowsOrderBy: FollowsOrderBy;
+  FollowCondition: FollowCondition;
+  FollowFilter: FollowFilter;
+  FollowsConnection: ResolverTypeWrapper<FollowsConnection>;
+  Follow: ResolverTypeWrapper<Follow>;
+  FollowsEdge: ResolverTypeWrapper<FollowsEdge>;
+  FollowingStatus: FollowingStatus;
+  Bound: ResolverTypeWrapper<Bound>;
+  ComputationsEdge: ResolverTypeWrapper<ComputationsEdge>;
+  TemperaturesOrderBy: TemperaturesOrderBy;
+  TemperatureCondition: TemperatureCondition;
+  TemperatureFilter: TemperatureFilter;
+  TemperaturesConnection: ResolverTypeWrapper<TemperaturesConnection>;
+  Temperature: ResolverTypeWrapper<Temperature>;
+  TemperaturesEdge: ResolverTypeWrapper<TemperaturesEdge>;
+  UsersOrderBy: UsersOrderBy;
+  UserCondition: UserCondition;
+  UserFilter: UserFilter;
+  ColourFilter: ColourFilter;
+  FollowingStatusFilter: FollowingStatusFilter;
+  UsersConnection: ResolverTypeWrapper<UsersConnection>;
+  UsersEdge: ResolverTypeWrapper<UsersEdge>;
+  JwtToken: ResolverTypeWrapper<Scalars['JwtToken']>;
+  GeocodeResponse: ResolverTypeWrapper<GeocodeResponse>;
+  Geocode: ResolverTypeWrapper<Geocode>;
+  Mutation: ResolverTypeWrapper<{}>;
+  CreateFeedEventInput: CreateFeedEventInput;
+  FeedEventInput: FeedEventInput;
+  CreateFeedEventPayload: ResolverTypeWrapper<CreateFeedEventPayload>;
+  CreateUserInput: CreateUserInput;
+  UserInput: UserInput;
+  CreateUserPayload: ResolverTypeWrapper<CreateUserPayload>;
+  UpdateFeedEventByNodeIdInput: UpdateFeedEventByNodeIdInput;
+  FeedEventPatch: FeedEventPatch;
+  UpdateFeedEventPayload: ResolverTypeWrapper<UpdateFeedEventPayload>;
+  UpdateFeedEventInput: UpdateFeedEventInput;
+  DeleteFeedEventByNodeIdInput: DeleteFeedEventByNodeIdInput;
+  DeleteFeedEventPayload: ResolverTypeWrapper<DeleteFeedEventPayload>;
+  DeleteFeedEventInput: DeleteFeedEventInput;
+  AuthenticateInput: AuthenticateInput;
+  AuthenticatePayload: ResolverTypeWrapper<AuthenticatePayload>;
+  RegisterInput: RegisterInput;
+  RegisterPayload: ResolverTypeWrapper<RegisterPayload>;
+  CreateGuideInput: CreateGuideInput;
+  CreateGuideResult: ResolverTypeWrapper<CreateGuideResult>;
+  UpdateGuidePatch: UpdateGuidePatch;
+  UpdateGuideResult: ResolverTypeWrapper<UpdateGuideResult>;
+  DeleteGuideInput: DeleteGuideInput;
+  DeleteGuideResult: ResolverTypeWrapper<DeleteGuideResult>;
+  Result: ResolverTypeWrapper<Result>;
+  AddSpotInput: AddSpotInput;
+  AddSpotResult: ResolverTypeWrapper<AddSpotResult>;
+  UpdateSpotPatch: UpdateSpotPatch;
+  UpdateSpotLocationPatch: UpdateSpotLocationPatch;
+  UpdateSpotResult: ResolverTypeWrapper<UpdateSpotResult>;
+  RemoveSpotInput: RemoveSpotInput;
+  RemoveSpotResult: ResolverTypeWrapper<RemoveSpotResult>;
+  Subscription: ResolverTypeWrapper<{}>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Query: {},
-  Node: ResolversParentTypes['Query'] | ResolversParentTypes['Computation'] | ResolversParentTypes['Stage'] | ResolversParentTypes['Guide'] | ResolversParentTypes['User'] | ResolversParentTypes['Spot'] | ResolversParentTypes['Ride'] | ResolversParentTypes['FeedEvent'] | ResolversParentTypes['Temperature'],
-  ID: Scalars['ID'],
-  Int: Scalars['Int'],
-  Cursor: Scalars['Cursor'],
-  ComputationsOrderBy: ComputationsOrderBy,
-  ComputationCondition: ComputationCondition,
-  String: Scalars['String'],
-  Datetime: Scalars['Datetime'],
-  ComputationStatus: ComputationStatus,
-  ComputationFilter: ComputationFilter,
-  StringFilter: StringFilter,
-  Boolean: Scalars['Boolean'],
-  DatetimeFilter: DatetimeFilter,
-  IntFilter: IntFilter,
-  ComputationStatusFilter: ComputationStatusFilter,
-  ComputationsConnection: ComputationsConnection,
-  Computation: Computation,
-  Stage: Stage,
-  StageStatus: StageStatus,
-  Guide: Guide,
-  TransportType: TransportType,
-  User: User,
-  Colour: Colour,
-  GuidesOrderBy: GuidesOrderBy,
-  GuideCondition: GuideCondition,
-  GuideFilter: GuideFilter,
-  BooleanFilter: BooleanFilter,
-  TransportTypeFilter: TransportTypeFilter,
-  StringListFilter: StringListFilter,
-  BigIntFilter: BigIntFilter,
-  BigInt: Scalars['BigInt'],
-  GuidesConnection: GuidesConnection,
-  GuidesEdge: GuidesEdge,
-  PageInfo: PageInfo,
-  SpotsOrderBy: SpotsOrderBy,
-  SpotCondition: SpotCondition,
-  Float: Scalars['Float'],
-  SpotFilter: SpotFilter,
-  FloatFilter: FloatFilter,
-  SpotsConnection: SpotsConnection,
-  Spot: Spot,
-  StagesOrderBy: StagesOrderBy,
-  StageCondition: StageCondition,
-  StageFilter: StageFilter,
-  StageStatusFilter: StageStatusFilter,
-  StagesConnection: StagesConnection,
-  StagesEdge: StagesEdge,
-  RidesOrderBy: RidesOrderBy,
-  RideCondition: RideCondition,
-  RideStatus: RideStatus,
-  RideFilter: RideFilter,
-  RideStatusFilter: RideStatusFilter,
-  RidesConnection: RidesConnection,
-  Ride: Ride,
-  FeedEventsOrderBy: FeedEventsOrderBy,
-  FeedEventCondition: FeedEventCondition,
-  FeedEventType: FeedEventType,
-  FeedEventFilter: FeedEventFilter,
-  FeedEventTypeFilter: FeedEventTypeFilter,
-  FeedEventsConnection: FeedEventsConnection,
-  FeedEvent: FeedEvent,
-  FeedEventsEdge: FeedEventsEdge,
-  RidesEdge: RidesEdge,
-  SpotsEdge: SpotsEdge,
-  FollowsOrderBy: FollowsOrderBy,
-  FollowCondition: FollowCondition,
-  FollowFilter: FollowFilter,
-  FollowsConnection: FollowsConnection,
-  Follow: Follow,
-  FollowsEdge: FollowsEdge,
-  FollowingStatus: FollowingStatus,
-  Bound: Bound,
-  ComputationsEdge: ComputationsEdge,
-  TemperaturesOrderBy: TemperaturesOrderBy,
-  TemperatureCondition: TemperatureCondition,
-  TemperatureFilter: TemperatureFilter,
-  TemperaturesConnection: TemperaturesConnection,
-  Temperature: Temperature,
-  TemperaturesEdge: TemperaturesEdge,
-  UsersOrderBy: UsersOrderBy,
-  UserCondition: UserCondition,
-  UserFilter: UserFilter,
-  ColourFilter: ColourFilter,
-  FollowingStatusFilter: FollowingStatusFilter,
-  UsersConnection: UsersConnection,
-  UsersEdge: UsersEdge,
-  JwtToken: Scalars['JwtToken'],
-  GeocodeResponse: GeocodeResponse,
-  Geocode: Geocode,
-  Mutation: {},
-  CreateFeedEventInput: CreateFeedEventInput,
-  FeedEventInput: FeedEventInput,
-  CreateFeedEventPayload: CreateFeedEventPayload,
-  CreateUserInput: CreateUserInput,
-  UserInput: UserInput,
-  CreateUserPayload: CreateUserPayload,
-  UpdateFeedEventByNodeIdInput: UpdateFeedEventByNodeIdInput,
-  FeedEventPatch: FeedEventPatch,
-  UpdateFeedEventPayload: UpdateFeedEventPayload,
-  UpdateFeedEventInput: UpdateFeedEventInput,
-  DeleteFeedEventByNodeIdInput: DeleteFeedEventByNodeIdInput,
-  DeleteFeedEventPayload: DeleteFeedEventPayload,
-  DeleteFeedEventInput: DeleteFeedEventInput,
-  AuthenticateInput: AuthenticateInput,
-  AuthenticatePayload: AuthenticatePayload,
-  RegisterInput: RegisterInput,
-  RegisterPayload: RegisterPayload,
-  CreateGuideInput: CreateGuideInput,
-  CreateGuideResult: CreateGuideResult,
-  UpdateGuidePatch: UpdateGuidePatch,
-  UpdateGuideResult: UpdateGuideResult,
-  DeleteGuideInput: DeleteGuideInput,
-  DeleteGuideResult: DeleteGuideResult,
-  Result: Result,
-  AddSpotInput: AddSpotInput,
-  AddSpotResult: AddSpotResult,
-  UpdateSpotPatch: UpdateSpotPatch,
-  UpdateSpotLocationPatch: UpdateSpotLocationPatch,
-  UpdateSpotResult: UpdateSpotResult,
-  RemoveSpotInput: RemoveSpotInput,
-  RemoveSpotResult: RemoveSpotResult,
-  Subscription: {},
+  Query: {};
+  Node: ResolversParentTypes['Query'] | ResolversParentTypes['Computation'] | ResolversParentTypes['Stage'] | ResolversParentTypes['Guide'] | ResolversParentTypes['User'] | ResolversParentTypes['Spot'] | ResolversParentTypes['Ride'] | ResolversParentTypes['FeedEvent'] | ResolversParentTypes['Temperature'];
+  ID: Scalars['ID'];
+  Int: Scalars['Int'];
+  Cursor: Scalars['Cursor'];
+  ComputationCondition: ComputationCondition;
+  String: Scalars['String'];
+  Datetime: Scalars['Datetime'];
+  ComputationFilter: ComputationFilter;
+  StringFilter: StringFilter;
+  Boolean: Scalars['Boolean'];
+  DatetimeFilter: DatetimeFilter;
+  IntFilter: IntFilter;
+  ComputationStatusFilter: ComputationStatusFilter;
+  ComputationsConnection: ComputationsConnection;
+  Computation: Computation;
+  Stage: Stage;
+  Guide: Guide;
+  User: User;
+  GuideCondition: GuideCondition;
+  GuideFilter: GuideFilter;
+  BooleanFilter: BooleanFilter;
+  TransportTypeFilter: TransportTypeFilter;
+  StringListFilter: StringListFilter;
+  BigIntFilter: BigIntFilter;
+  BigInt: Scalars['BigInt'];
+  GuidesConnection: GuidesConnection;
+  GuidesEdge: GuidesEdge;
+  PageInfo: PageInfo;
+  SpotCondition: SpotCondition;
+  Float: Scalars['Float'];
+  SpotFilter: SpotFilter;
+  FloatFilter: FloatFilter;
+  SpotsConnection: SpotsConnection;
+  Spot: Spot;
+  StageCondition: StageCondition;
+  StageFilter: StageFilter;
+  StageStatusFilter: StageStatusFilter;
+  StagesConnection: StagesConnection;
+  StagesEdge: StagesEdge;
+  RideCondition: RideCondition;
+  RideFilter: RideFilter;
+  RideStatusFilter: RideStatusFilter;
+  RidesConnection: RidesConnection;
+  Ride: Ride;
+  FeedEventCondition: FeedEventCondition;
+  FeedEventFilter: FeedEventFilter;
+  FeedEventTypeFilter: FeedEventTypeFilter;
+  FeedEventsConnection: FeedEventsConnection;
+  FeedEvent: FeedEvent;
+  FeedEventsEdge: FeedEventsEdge;
+  RidesEdge: RidesEdge;
+  SpotsEdge: SpotsEdge;
+  FollowCondition: FollowCondition;
+  FollowFilter: FollowFilter;
+  FollowsConnection: FollowsConnection;
+  Follow: Follow;
+  FollowsEdge: FollowsEdge;
+  Bound: Bound;
+  ComputationsEdge: ComputationsEdge;
+  TemperatureCondition: TemperatureCondition;
+  TemperatureFilter: TemperatureFilter;
+  TemperaturesConnection: TemperaturesConnection;
+  Temperature: Temperature;
+  TemperaturesEdge: TemperaturesEdge;
+  UserCondition: UserCondition;
+  UserFilter: UserFilter;
+  ColourFilter: ColourFilter;
+  FollowingStatusFilter: FollowingStatusFilter;
+  UsersConnection: UsersConnection;
+  UsersEdge: UsersEdge;
+  JwtToken: Scalars['JwtToken'];
+  GeocodeResponse: GeocodeResponse;
+  Geocode: Geocode;
+  Mutation: {};
+  CreateFeedEventInput: CreateFeedEventInput;
+  FeedEventInput: FeedEventInput;
+  CreateFeedEventPayload: CreateFeedEventPayload;
+  CreateUserInput: CreateUserInput;
+  UserInput: UserInput;
+  CreateUserPayload: CreateUserPayload;
+  UpdateFeedEventByNodeIdInput: UpdateFeedEventByNodeIdInput;
+  FeedEventPatch: FeedEventPatch;
+  UpdateFeedEventPayload: UpdateFeedEventPayload;
+  UpdateFeedEventInput: UpdateFeedEventInput;
+  DeleteFeedEventByNodeIdInput: DeleteFeedEventByNodeIdInput;
+  DeleteFeedEventPayload: DeleteFeedEventPayload;
+  DeleteFeedEventInput: DeleteFeedEventInput;
+  AuthenticateInput: AuthenticateInput;
+  AuthenticatePayload: AuthenticatePayload;
+  RegisterInput: RegisterInput;
+  RegisterPayload: RegisterPayload;
+  CreateGuideInput: CreateGuideInput;
+  CreateGuideResult: CreateGuideResult;
+  UpdateGuidePatch: UpdateGuidePatch;
+  UpdateGuideResult: UpdateGuideResult;
+  DeleteGuideInput: DeleteGuideInput;
+  DeleteGuideResult: DeleteGuideResult;
+  Result: Result;
+  AddSpotInput: AddSpotInput;
+  AddSpotResult: AddSpotResult;
+  UpdateSpotPatch: UpdateSpotPatch;
+  UpdateSpotLocationPatch: UpdateSpotLocationPatch;
+  UpdateSpotResult: UpdateSpotResult;
+  RemoveSpotInput: RemoveSpotInput;
+  RemoveSpotResult: RemoveSpotResult;
+  Subscription: {};
 };
 
 export type AddSpotResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AddSpotResult'] = ResolversParentTypes['AddSpotResult']> = {
-  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  messaage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  messaage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type AuthenticatePayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthenticatePayload'] = ResolversParentTypes['AuthenticatePayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  jwtToken?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  jwtToken?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>;
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export interface BigIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['BigInt'], any> {
-  name: 'BigInt'
+  name: 'BigInt';
 }
 
 export type BoundResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bound'] = ResolversParentTypes['Bound']> = {
-  north?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  east?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  south?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  west?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  north?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  east?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  south?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  west?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type ComputationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Computation'] = ResolversParentTypes['Computation']> = {
-  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  ended?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
-  duration?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
-  status?: Resolver<ResolversTypes['ComputationStatus'], ParentType, ContextType>,
-  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
-  started?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
-  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ended?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>;
+  duration?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['ComputationStatus'], ParentType, ContextType>;
+  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  started?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>;
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>;
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type ComputationsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ComputationsConnection'] = ResolversParentTypes['ComputationsConnection']> = {
-  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Computation']>>, ParentType, ContextType>,
-  edges?: Resolver<ReadonlyArray<ResolversTypes['ComputationsEdge']>, ParentType, ContextType>,
-  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
-  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Computation']>>, ParentType, ContextType>;
+  edges?: Resolver<ReadonlyArray<ResolversTypes['ComputationsEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type ComputationsEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ComputationsEdge'] = ResolversParentTypes['ComputationsEdge']> = {
-  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  node?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type CreateFeedEventPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateFeedEventPayload'] = ResolversParentTypes['CreateFeedEventPayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  feedEvent?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  rideByRide?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  feedEventEdge?: Resolver<Maybe<ResolversTypes['FeedEventsEdge']>, ParentType, ContextType, RequireFields<CreateFeedEventPayloadFeedEventEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  feedEvent?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType>;
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
+  rideByRide?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>;
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>;
+  userByUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  feedEventEdge?: Resolver<Maybe<ResolversTypes['FeedEventsEdge']>, ParentType, ContextType, RequireFields<CreateFeedEventPayloadFeedEventEdgeArgs, 'orderBy'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type CreateGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateGuideResult'] = ResolversParentTypes['CreateGuideResult']> = {
-  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  guideId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  guideId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  owner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type CreateUserPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateUserPayload'] = ResolversParentTypes['CreateUserPayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<CreateUserPayloadUserEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
+  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<CreateUserPayloadUserEdgeArgs, 'orderBy'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export interface CursorScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Cursor'], any> {
-  name: 'Cursor'
+  name: 'Cursor';
 }
 
 export interface DatetimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Datetime'], any> {
-  name: 'Datetime'
+  name: 'Datetime';
 }
 
 export type DeleteFeedEventPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteFeedEventPayload'] = ResolversParentTypes['DeleteFeedEventPayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  feedEvent?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType>,
-  deletedFeedEventNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  rideByRide?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  feedEventEdge?: Resolver<Maybe<ResolversTypes['FeedEventsEdge']>, ParentType, ContextType, RequireFields<DeleteFeedEventPayloadFeedEventEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  feedEvent?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType>;
+  deletedFeedEventNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
+  rideByRide?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>;
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>;
+  userByUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  feedEventEdge?: Resolver<Maybe<ResolversTypes['FeedEventsEdge']>, ParentType, ContextType, RequireFields<DeleteFeedEventPayloadFeedEventEdgeArgs, 'orderBy'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type DeleteGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeleteGuideResult'] = ResolversParentTypes['DeleteGuideResult']> = {
-  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type FeedEventResolvers<ContextType = any, ParentType extends ResolversParentTypes['FeedEvent'] = ResolversParentTypes['FeedEvent']> = {
-  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  timestamp?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
-  type?: Resolver<ResolversTypes['FeedEventType'], ParentType, ContextType>,
-  ride?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  guide?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  user?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  rideByRide?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  timestamp?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['FeedEventType'], ParentType, ContextType>;
+  ride?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  guide?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  rideByRide?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>;
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>;
+  userByUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type FeedEventsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['FeedEventsConnection'] = ResolversParentTypes['FeedEventsConnection']> = {
-  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['FeedEvent']>>, ParentType, ContextType>,
-  edges?: Resolver<ReadonlyArray<ResolversTypes['FeedEventsEdge']>, ParentType, ContextType>,
-  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
-  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['FeedEvent']>>, ParentType, ContextType>;
+  edges?: Resolver<ReadonlyArray<ResolversTypes['FeedEventsEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type FeedEventsEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['FeedEventsEdge'] = ResolversParentTypes['FeedEventsEdge']> = {
-  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  node?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type FollowResolvers<ContextType = any, ParentType extends ResolversParentTypes['Follow'] = ResolversParentTypes['Follow']> = {
-  followed?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  follower?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  timestamp?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
-  userByFollowed?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  userByFollower?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  followed?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  follower?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  timestamp?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  userByFollowed?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  userByFollower?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type FollowsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['FollowsConnection'] = ResolversParentTypes['FollowsConnection']> = {
-  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Follow']>>, ParentType, ContextType>,
-  edges?: Resolver<ReadonlyArray<ResolversTypes['FollowsEdge']>, ParentType, ContextType>,
-  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
-  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Follow']>>, ParentType, ContextType>;
+  edges?: Resolver<ReadonlyArray<ResolversTypes['FollowsEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type FollowsEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['FollowsEdge'] = ResolversParentTypes['FollowsEdge']> = {
-  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  node?: Resolver<Maybe<ResolversTypes['Follow']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Follow']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type GeocodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Geocode'] = ResolversParentTypes['Geocode']> = {
-  countryCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  latitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
-  longitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
-  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  countryCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  latitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  longitude?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type GeocodeResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['GeocodeResponse'] = ResolversParentTypes['GeocodeResponse']> = {
-  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  geocodes?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['Geocode']>>>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  geocodes?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['Geocode']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type GuideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Guide'] = ResolversParentTypes['Guide']> = {
-  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  isCircular?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  transportType?: Resolver<ResolversTypes['TransportType'], ParentType, ContextType>,
-  maxHoursPerRide?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
-  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  spotsByGuide?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<GuideSpotsByGuideArgs, 'orderBy'>>,
-  stagesByGuide?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<GuideStagesByGuideArgs, 'orderBy'>>,
-  ridesByGuide?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<GuideRidesByGuideArgs, 'orderBy'>>,
-  computationsByGuide?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<GuideComputationsByGuideArgs, 'orderBy'>>,
-  feedEventsByGuide?: Resolver<ResolversTypes['FeedEventsConnection'], ParentType, ContextType, RequireFields<GuideFeedEventsByGuideArgs, 'orderBy'>>,
-  bounds?: Resolver<Maybe<ResolversTypes['Bound']>, ParentType, ContextType>,
-  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
-  distanceMeters?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
-  durationSeconds?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
-  endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  startDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  isCircular?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  transportType?: Resolver<ResolversTypes['TransportType'], ParentType, ContextType>;
+  maxHoursPerRide?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>;
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  spotsByGuide?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<GuideSpotsByGuideArgs, 'orderBy'>>;
+  stagesByGuide?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<GuideStagesByGuideArgs, 'orderBy'>>;
+  ridesByGuide?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<GuideRidesByGuideArgs, 'orderBy'>>;
+  computationsByGuide?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<GuideComputationsByGuideArgs, 'orderBy'>>;
+  feedEventsByGuide?: Resolver<ResolversTypes['FeedEventsConnection'], ParentType, ContextType, RequireFields<GuideFeedEventsByGuideArgs, 'orderBy'>>;
+  bounds?: Resolver<Maybe<ResolversTypes['Bound']>, ParentType, ContextType>;
+  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  distanceMeters?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  durationSeconds?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  endDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type GuidesConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['GuidesConnection'] = ResolversParentTypes['GuidesConnection']> = {
-  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Guide']>>, ParentType, ContextType>,
-  edges?: Resolver<ReadonlyArray<ResolversTypes['GuidesEdge']>, ParentType, ContextType>,
-  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
-  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Guide']>>, ParentType, ContextType>;
+  edges?: Resolver<ReadonlyArray<ResolversTypes['GuidesEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type GuidesEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['GuidesEdge'] = ResolversParentTypes['GuidesEdge']> = {
-  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  node?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export interface JwtTokenScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JwtToken'], any> {
-  name: 'JwtToken'
+  name: 'JwtToken';
 }
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createFeedEvent?: Resolver<Maybe<ResolversTypes['CreateFeedEventPayload']>, ParentType, ContextType, RequireFields<MutationCreateFeedEventArgs, 'input'>>,
-  createUser?: Resolver<Maybe<ResolversTypes['CreateUserPayload']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>,
-  updateFeedEventByNodeId?: Resolver<Maybe<ResolversTypes['UpdateFeedEventPayload']>, ParentType, ContextType, RequireFields<MutationUpdateFeedEventByNodeIdArgs, 'input'>>,
-  updateFeedEvent?: Resolver<Maybe<ResolversTypes['UpdateFeedEventPayload']>, ParentType, ContextType, RequireFields<MutationUpdateFeedEventArgs, 'input'>>,
-  deleteFeedEventByNodeId?: Resolver<Maybe<ResolversTypes['DeleteFeedEventPayload']>, ParentType, ContextType, RequireFields<MutationDeleteFeedEventByNodeIdArgs, 'input'>>,
-  deleteFeedEvent?: Resolver<Maybe<ResolversTypes['DeleteFeedEventPayload']>, ParentType, ContextType, RequireFields<MutationDeleteFeedEventArgs, 'input'>>,
-  authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>,
-  register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>,
-  createGuide?: Resolver<ResolversTypes['CreateGuideResult'], ParentType, ContextType, RequireFields<MutationCreateGuideArgs, never>>,
-  updateGuide?: Resolver<ResolversTypes['UpdateGuideResult'], ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, never>>,
-  deleteGuide?: Resolver<ResolversTypes['DeleteGuideResult'], ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, never>>,
-  followUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowUserArgs, 'username'>>,
-  unfollowUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'username'>>,
-  addSpot?: Resolver<ResolversTypes['AddSpotResult'], ParentType, ContextType, RequireFields<MutationAddSpotArgs, 'input'>>,
-  updateSpot?: Resolver<ResolversTypes['UpdateSpotResult'], ParentType, ContextType, RequireFields<MutationUpdateSpotArgs, 'input'>>,
-  remvoeSpot?: Resolver<ResolversTypes['RemoveSpotResult'], ParentType, ContextType, RequireFields<MutationRemvoeSpotArgs, 'input'>>,
+  createFeedEvent?: Resolver<Maybe<ResolversTypes['CreateFeedEventPayload']>, ParentType, ContextType, RequireFields<MutationCreateFeedEventArgs, 'input'>>;
+  createUser?: Resolver<Maybe<ResolversTypes['CreateUserPayload']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+  updateFeedEventByNodeId?: Resolver<Maybe<ResolversTypes['UpdateFeedEventPayload']>, ParentType, ContextType, RequireFields<MutationUpdateFeedEventByNodeIdArgs, 'input'>>;
+  updateFeedEvent?: Resolver<Maybe<ResolversTypes['UpdateFeedEventPayload']>, ParentType, ContextType, RequireFields<MutationUpdateFeedEventArgs, 'input'>>;
+  deleteFeedEventByNodeId?: Resolver<Maybe<ResolversTypes['DeleteFeedEventPayload']>, ParentType, ContextType, RequireFields<MutationDeleteFeedEventByNodeIdArgs, 'input'>>;
+  deleteFeedEvent?: Resolver<Maybe<ResolversTypes['DeleteFeedEventPayload']>, ParentType, ContextType, RequireFields<MutationDeleteFeedEventArgs, 'input'>>;
+  authenticate?: Resolver<Maybe<ResolversTypes['AuthenticatePayload']>, ParentType, ContextType, RequireFields<MutationAuthenticateArgs, 'input'>>;
+  register?: Resolver<Maybe<ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>;
+  createGuide?: Resolver<ResolversTypes['CreateGuideResult'], ParentType, ContextType, RequireFields<MutationCreateGuideArgs, never>>;
+  updateGuide?: Resolver<ResolversTypes['UpdateGuideResult'], ParentType, ContextType, RequireFields<MutationUpdateGuideArgs, never>>;
+  deleteGuide?: Resolver<ResolversTypes['DeleteGuideResult'], ParentType, ContextType, RequireFields<MutationDeleteGuideArgs, never>>;
+  followUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationFollowUserArgs, 'username'>>;
+  unfollowUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'username'>>;
+  addSpot?: Resolver<ResolversTypes['AddSpotResult'], ParentType, ContextType, RequireFields<MutationAddSpotArgs, 'input'>>;
+  updateSpot?: Resolver<ResolversTypes['UpdateSpotResult'], ParentType, ContextType, RequireFields<MutationUpdateSpotArgs, 'input'>>;
+  remvoeSpot?: Resolver<ResolversTypes['RemoveSpotResult'], ParentType, ContextType, RequireFields<MutationRemvoeSpotArgs, 'input'>>;
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Query' | 'Computation' | 'Stage' | 'Guide' | 'User' | 'Spot' | 'Ride' | 'FeedEvent' | 'Temperature', ParentType, ContextType>,
-  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  __resolveType: TypeResolveFn<'Query' | 'Computation' | 'Stage' | 'Guide' | 'User' | 'Spot' | 'Ride' | 'FeedEvent' | 'Temperature', ParentType, ContextType>;
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
 
 export type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = {
-  hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  startCursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  endCursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  startCursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  endCursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  query?: Resolver<ResolversTypes['Query'], ParentType, ContextType>,
-  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'nodeId'>>,
-  computations?: Resolver<Maybe<ResolversTypes['ComputationsConnection']>, ParentType, ContextType, RequireFields<QueryComputationsArgs, 'orderBy'>>,
-  feedEvents?: Resolver<Maybe<ResolversTypes['FeedEventsConnection']>, ParentType, ContextType, RequireFields<QueryFeedEventsArgs, 'orderBy'>>,
-  follows?: Resolver<Maybe<ResolversTypes['FollowsConnection']>, ParentType, ContextType, RequireFields<QueryFollowsArgs, 'orderBy'>>,
-  guides?: Resolver<Maybe<ResolversTypes['GuidesConnection']>, ParentType, ContextType, RequireFields<QueryGuidesArgs, 'orderBy'>>,
-  rides?: Resolver<Maybe<ResolversTypes['RidesConnection']>, ParentType, ContextType, RequireFields<QueryRidesArgs, 'orderBy'>>,
-  spots?: Resolver<Maybe<ResolversTypes['SpotsConnection']>, ParentType, ContextType, RequireFields<QuerySpotsArgs, 'orderBy'>>,
-  stages?: Resolver<Maybe<ResolversTypes['StagesConnection']>, ParentType, ContextType, RequireFields<QueryStagesArgs, 'orderBy'>>,
-  temperatures?: Resolver<Maybe<ResolversTypes['TemperaturesConnection']>, ParentType, ContextType, RequireFields<QueryTemperaturesArgs, 'orderBy'>>,
-  users?: Resolver<Maybe<ResolversTypes['UsersConnection']>, ParentType, ContextType, RequireFields<QueryUsersArgs, 'orderBy'>>,
-  computation?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType, RequireFields<QueryComputationArgs, 'id'>>,
-  feedEvent?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType, RequireFields<QueryFeedEventArgs, 'timestamp'>>,
-  guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideArgs, 'id'>>,
-  ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType, RequireFields<QueryRideArgs, 'id'>>,
-  spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotArgs, 'id'>>,
-  stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageArgs, 'id'>>,
-  temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureArgs, 'id'>>,
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'username'>>,
-  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
-  feed?: Resolver<ResolversTypes['FeedEventsConnection'], ParentType, ContextType, RequireFields<QueryFeedArgs, never>>,
-  getCurrentUser?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>,
-  computationByNodeId?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType, RequireFields<QueryComputationByNodeIdArgs, 'nodeId'>>,
-  feedEventByNodeId?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType, RequireFields<QueryFeedEventByNodeIdArgs, 'nodeId'>>,
-  guideByNodeId?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideByNodeIdArgs, 'nodeId'>>,
-  rideByNodeId?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType, RequireFields<QueryRideByNodeIdArgs, 'nodeId'>>,
-  spotByNodeId?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotByNodeIdArgs, 'nodeId'>>,
-  stageByNodeId?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageByNodeIdArgs, 'nodeId'>>,
-  temperatureByNodeId?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureByNodeIdArgs, 'nodeId'>>,
-  userByNodeId?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByNodeIdArgs, 'nodeId'>>,
-  geocode?: Resolver<ResolversTypes['GeocodeResponse'], ParentType, ContextType, RequireFields<QueryGeocodeArgs, 'query'>>,
-  appVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  query?: Resolver<ResolversTypes['Query'], ParentType, ContextType>;
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'nodeId'>>;
+  computations?: Resolver<Maybe<ResolversTypes['ComputationsConnection']>, ParentType, ContextType, RequireFields<QueryComputationsArgs, 'orderBy'>>;
+  feedEvents?: Resolver<Maybe<ResolversTypes['FeedEventsConnection']>, ParentType, ContextType, RequireFields<QueryFeedEventsArgs, 'orderBy'>>;
+  follows?: Resolver<Maybe<ResolversTypes['FollowsConnection']>, ParentType, ContextType, RequireFields<QueryFollowsArgs, 'orderBy'>>;
+  guides?: Resolver<Maybe<ResolversTypes['GuidesConnection']>, ParentType, ContextType, RequireFields<QueryGuidesArgs, 'orderBy'>>;
+  rides?: Resolver<Maybe<ResolversTypes['RidesConnection']>, ParentType, ContextType, RequireFields<QueryRidesArgs, 'orderBy'>>;
+  spots?: Resolver<Maybe<ResolversTypes['SpotsConnection']>, ParentType, ContextType, RequireFields<QuerySpotsArgs, 'orderBy'>>;
+  stages?: Resolver<Maybe<ResolversTypes['StagesConnection']>, ParentType, ContextType, RequireFields<QueryStagesArgs, 'orderBy'>>;
+  temperatures?: Resolver<Maybe<ResolversTypes['TemperaturesConnection']>, ParentType, ContextType, RequireFields<QueryTemperaturesArgs, 'orderBy'>>;
+  users?: Resolver<Maybe<ResolversTypes['UsersConnection']>, ParentType, ContextType, RequireFields<QueryUsersArgs, 'orderBy'>>;
+  computation?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType, RequireFields<QueryComputationArgs, 'id'>>;
+  feedEvent?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType, RequireFields<QueryFeedEventArgs, 'timestamp'>>;
+  guide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideArgs, 'id'>>;
+  ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType, RequireFields<QueryRideArgs, 'id'>>;
+  spot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotArgs, 'id'>>;
+  stage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageArgs, 'id'>>;
+  temperature?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureArgs, 'id'>>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'username'>>;
+  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  feed?: Resolver<ResolversTypes['FeedEventsConnection'], ParentType, ContextType, RequireFields<QueryFeedArgs, never>>;
+  getCurrentUser?: Resolver<Maybe<ResolversTypes['JwtToken']>, ParentType, ContextType>;
+  computationByNodeId?: Resolver<Maybe<ResolversTypes['Computation']>, ParentType, ContextType, RequireFields<QueryComputationByNodeIdArgs, 'nodeId'>>;
+  feedEventByNodeId?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType, RequireFields<QueryFeedEventByNodeIdArgs, 'nodeId'>>;
+  guideByNodeId?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType, RequireFields<QueryGuideByNodeIdArgs, 'nodeId'>>;
+  rideByNodeId?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType, RequireFields<QueryRideByNodeIdArgs, 'nodeId'>>;
+  spotByNodeId?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType, RequireFields<QuerySpotByNodeIdArgs, 'nodeId'>>;
+  stageByNodeId?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType, RequireFields<QueryStageByNodeIdArgs, 'nodeId'>>;
+  temperatureByNodeId?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType, RequireFields<QueryTemperatureByNodeIdArgs, 'nodeId'>>;
+  userByNodeId?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByNodeIdArgs, 'nodeId'>>;
+  geocode?: Resolver<ResolversTypes['GeocodeResponse'], ParentType, ContextType, RequireFields<QueryGeocodeArgs, 'query'>>;
+  appVersion?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type RegisterPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['RegisterPayload'] = ResolversParentTypes['RegisterPayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<RegisterPayloadUserEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
+  userEdge?: Resolver<Maybe<ResolversTypes['UsersEdge']>, ParentType, ContextType, RequireFields<RegisterPayloadUserEdgeArgs, 'orderBy'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type RemoveSpotResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['RemoveSpotResult'] = ResolversParentTypes['RemoveSpotResult']> = {
-  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = {
-  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type RideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ride'] = ResolversParentTypes['Ride']> = {
-  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  pathUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  durationSeconds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
-  distanceMeters?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
-  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  stage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  position?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  status?: Resolver<ResolversTypes['RideStatus'], ParentType, ContextType>,
-  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
-  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
-  feedEventsByRide?: Resolver<ResolversTypes['FeedEventsConnection'], ParentType, ContextType, RequireFields<RideFeedEventsByRideArgs, 'orderBy'>>,
-  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
-  hasBorder?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  pathUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  durationSeconds?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  distanceMeters?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  stage?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  position?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['RideStatus'], ParentType, ContextType>;
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>;
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>;
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>;
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>;
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>;
+  feedEventsByRide?: Resolver<ResolversTypes['FeedEventsConnection'], ParentType, ContextType, RequireFields<RideFeedEventsByRideArgs, 'orderBy'>>;
+  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  hasBorder?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type RidesConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['RidesConnection'] = ResolversParentTypes['RidesConnection']> = {
-  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Ride']>>, ParentType, ContextType>,
-  edges?: Resolver<ReadonlyArray<ResolversTypes['RidesEdge']>, ParentType, ContextType>,
-  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
-  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Ride']>>, ParentType, ContextType>;
+  edges?: Resolver<ReadonlyArray<ResolversTypes['RidesEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type RidesEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['RidesEdge'] = ResolversParentTypes['RidesEdge']> = {
-  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  node?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type SpotResolvers<ContextType = any, ParentType extends ResolversParentTypes['Spot'] = ResolversParentTypes['Spot']> = {
-  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  nights?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
-  locked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  lat?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
-  long?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
-  position?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
-  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
-  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
-  stagesByFromSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByFromSpotArgs, 'orderBy'>>,
-  stagesByToSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByToSpotArgs, 'orderBy'>>,
-  ridesByFromSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByFromSpotArgs, 'orderBy'>>,
-  ridesByToSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByToSpotArgs, 'orderBy'>>,
-  isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  temperature?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  owner?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  nights?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  locked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  lat?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  long?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  position?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>;
+  stage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>;
+  userByOwner?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  stageByStage?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>;
+  stagesByFromSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByFromSpotArgs, 'orderBy'>>;
+  stagesByToSpot?: Resolver<ResolversTypes['StagesConnection'], ParentType, ContextType, RequireFields<SpotStagesByToSpotArgs, 'orderBy'>>;
+  ridesByFromSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByFromSpotArgs, 'orderBy'>>;
+  ridesByToSpot?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<SpotRidesByToSpotArgs, 'orderBy'>>;
+  isMine?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  temperature?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type SpotsConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SpotsConnection'] = ResolversParentTypes['SpotsConnection']> = {
-  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Spot']>>, ParentType, ContextType>,
-  edges?: Resolver<ReadonlyArray<ResolversTypes['SpotsEdge']>, ParentType, ContextType>,
-  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
-  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Spot']>>, ParentType, ContextType>;
+  edges?: Resolver<ReadonlyArray<ResolversTypes['SpotsEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type SpotsEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['SpotsEdge'] = ResolversParentTypes['SpotsEdge']> = {
-  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  node?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type StageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Stage'] = ResolversParentTypes['Stage']> = {
-  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
-  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
-  status?: Resolver<ResolversTypes['StageStatus'], ParentType, ContextType>,
-  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>,
-  spotsByStage?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<StageSpotsByStageArgs, 'orderBy'>>,
-  ridesByStage?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<StageRidesByStageArgs, 'orderBy'>>,
-  computationsByStage?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<StageComputationsByStageArgs, 'orderBy'>>,
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  guide?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  fromSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  toSpot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['StageStatus'], ParentType, ContextType>;
+  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>;
+  spotByFromSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>;
+  spotByToSpot?: Resolver<Maybe<ResolversTypes['Spot']>, ParentType, ContextType>;
+  spotsByStage?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<StageSpotsByStageArgs, 'orderBy'>>;
+  ridesByStage?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<StageRidesByStageArgs, 'orderBy'>>;
+  computationsByStage?: Resolver<ResolversTypes['ComputationsConnection'], ParentType, ContextType, RequireFields<StageComputationsByStageArgs, 'orderBy'>>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type StagesConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['StagesConnection'] = ResolversParentTypes['StagesConnection']> = {
-  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Stage']>>, ParentType, ContextType>,
-  edges?: Resolver<ReadonlyArray<ResolversTypes['StagesEdge']>, ParentType, ContextType>,
-  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
-  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Stage']>>, ParentType, ContextType>;
+  edges?: Resolver<ReadonlyArray<ResolversTypes['StagesEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type StagesEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['StagesEdge'] = ResolversParentTypes['StagesEdge']> = {
-  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  node?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Stage']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  query?: SubscriptionResolver<ResolversTypes['Query'], "query", ParentType, ContextType>,
-  nodeId?: SubscriptionResolver<ResolversTypes['ID'], "nodeId", ParentType, ContextType>,
-  node?: SubscriptionResolver<Maybe<ResolversTypes['Node']>, "node", ParentType, ContextType, RequireFields<SubscriptionNodeArgs, 'nodeId'>>,
-  computations?: SubscriptionResolver<Maybe<ResolversTypes['ComputationsConnection']>, "computations", ParentType, ContextType, RequireFields<SubscriptionComputationsArgs, 'orderBy'>>,
-  feedEvents?: SubscriptionResolver<Maybe<ResolversTypes['FeedEventsConnection']>, "feedEvents", ParentType, ContextType, RequireFields<SubscriptionFeedEventsArgs, 'orderBy'>>,
-  follows?: SubscriptionResolver<Maybe<ResolversTypes['FollowsConnection']>, "follows", ParentType, ContextType, RequireFields<SubscriptionFollowsArgs, 'orderBy'>>,
-  guides?: SubscriptionResolver<Maybe<ResolversTypes['GuidesConnection']>, "guides", ParentType, ContextType, RequireFields<SubscriptionGuidesArgs, 'orderBy'>>,
-  rides?: SubscriptionResolver<Maybe<ResolversTypes['RidesConnection']>, "rides", ParentType, ContextType, RequireFields<SubscriptionRidesArgs, 'orderBy'>>,
-  spots?: SubscriptionResolver<Maybe<ResolversTypes['SpotsConnection']>, "spots", ParentType, ContextType, RequireFields<SubscriptionSpotsArgs, 'orderBy'>>,
-  stages?: SubscriptionResolver<Maybe<ResolversTypes['StagesConnection']>, "stages", ParentType, ContextType, RequireFields<SubscriptionStagesArgs, 'orderBy'>>,
-  temperatures?: SubscriptionResolver<Maybe<ResolversTypes['TemperaturesConnection']>, "temperatures", ParentType, ContextType, RequireFields<SubscriptionTemperaturesArgs, 'orderBy'>>,
-  users?: SubscriptionResolver<Maybe<ResolversTypes['UsersConnection']>, "users", ParentType, ContextType, RequireFields<SubscriptionUsersArgs, 'orderBy'>>,
-  computation?: SubscriptionResolver<Maybe<ResolversTypes['Computation']>, "computation", ParentType, ContextType, RequireFields<SubscriptionComputationArgs, 'id'>>,
-  feedEvent?: SubscriptionResolver<Maybe<ResolversTypes['FeedEvent']>, "feedEvent", ParentType, ContextType, RequireFields<SubscriptionFeedEventArgs, 'timestamp'>>,
-  guide?: SubscriptionResolver<Maybe<ResolversTypes['Guide']>, "guide", ParentType, ContextType, RequireFields<SubscriptionGuideArgs, 'id'>>,
-  ride?: SubscriptionResolver<Maybe<ResolversTypes['Ride']>, "ride", ParentType, ContextType, RequireFields<SubscriptionRideArgs, 'id'>>,
-  spot?: SubscriptionResolver<Maybe<ResolversTypes['Spot']>, "spot", ParentType, ContextType, RequireFields<SubscriptionSpotArgs, 'id'>>,
-  stage?: SubscriptionResolver<Maybe<ResolversTypes['Stage']>, "stage", ParentType, ContextType, RequireFields<SubscriptionStageArgs, 'id'>>,
-  temperature?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperature", ParentType, ContextType, RequireFields<SubscriptionTemperatureArgs, 'id'>>,
-  user?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "user", ParentType, ContextType, RequireFields<SubscriptionUserArgs, 'username'>>,
-  countries?: SubscriptionResolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, "countries", ParentType, ContextType>,
-  feed?: SubscriptionResolver<ResolversTypes['FeedEventsConnection'], "feed", ParentType, ContextType, RequireFields<SubscriptionFeedArgs, never>>,
-  getCurrentUser?: SubscriptionResolver<Maybe<ResolversTypes['JwtToken']>, "getCurrentUser", ParentType, ContextType>,
-  computationByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Computation']>, "computationByNodeId", ParentType, ContextType, RequireFields<SubscriptionComputationByNodeIdArgs, 'nodeId'>>,
-  feedEventByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['FeedEvent']>, "feedEventByNodeId", ParentType, ContextType, RequireFields<SubscriptionFeedEventByNodeIdArgs, 'nodeId'>>,
-  guideByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Guide']>, "guideByNodeId", ParentType, ContextType, RequireFields<SubscriptionGuideByNodeIdArgs, 'nodeId'>>,
-  rideByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Ride']>, "rideByNodeId", ParentType, ContextType, RequireFields<SubscriptionRideByNodeIdArgs, 'nodeId'>>,
-  spotByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Spot']>, "spotByNodeId", ParentType, ContextType, RequireFields<SubscriptionSpotByNodeIdArgs, 'nodeId'>>,
-  stageByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Stage']>, "stageByNodeId", ParentType, ContextType, RequireFields<SubscriptionStageByNodeIdArgs, 'nodeId'>>,
-  temperatureByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperatureByNodeId", ParentType, ContextType, RequireFields<SubscriptionTemperatureByNodeIdArgs, 'nodeId'>>,
-  userByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "userByNodeId", ParentType, ContextType, RequireFields<SubscriptionUserByNodeIdArgs, 'nodeId'>>,
-  geocode?: SubscriptionResolver<ResolversTypes['GeocodeResponse'], "geocode", ParentType, ContextType, RequireFields<SubscriptionGeocodeArgs, 'query'>>,
-  appVersion?: SubscriptionResolver<ResolversTypes['String'], "appVersion", ParentType, ContextType>,
+  query?: SubscriptionResolver<ResolversTypes['Query'], "query", ParentType, ContextType>;
+  nodeId?: SubscriptionResolver<ResolversTypes['ID'], "nodeId", ParentType, ContextType>;
+  node?: SubscriptionResolver<Maybe<ResolversTypes['Node']>, "node", ParentType, ContextType, RequireFields<SubscriptionNodeArgs, 'nodeId'>>;
+  computations?: SubscriptionResolver<Maybe<ResolversTypes['ComputationsConnection']>, "computations", ParentType, ContextType, RequireFields<SubscriptionComputationsArgs, 'orderBy'>>;
+  feedEvents?: SubscriptionResolver<Maybe<ResolversTypes['FeedEventsConnection']>, "feedEvents", ParentType, ContextType, RequireFields<SubscriptionFeedEventsArgs, 'orderBy'>>;
+  follows?: SubscriptionResolver<Maybe<ResolversTypes['FollowsConnection']>, "follows", ParentType, ContextType, RequireFields<SubscriptionFollowsArgs, 'orderBy'>>;
+  guides?: SubscriptionResolver<Maybe<ResolversTypes['GuidesConnection']>, "guides", ParentType, ContextType, RequireFields<SubscriptionGuidesArgs, 'orderBy'>>;
+  rides?: SubscriptionResolver<Maybe<ResolversTypes['RidesConnection']>, "rides", ParentType, ContextType, RequireFields<SubscriptionRidesArgs, 'orderBy'>>;
+  spots?: SubscriptionResolver<Maybe<ResolversTypes['SpotsConnection']>, "spots", ParentType, ContextType, RequireFields<SubscriptionSpotsArgs, 'orderBy'>>;
+  stages?: SubscriptionResolver<Maybe<ResolversTypes['StagesConnection']>, "stages", ParentType, ContextType, RequireFields<SubscriptionStagesArgs, 'orderBy'>>;
+  temperatures?: SubscriptionResolver<Maybe<ResolversTypes['TemperaturesConnection']>, "temperatures", ParentType, ContextType, RequireFields<SubscriptionTemperaturesArgs, 'orderBy'>>;
+  users?: SubscriptionResolver<Maybe<ResolversTypes['UsersConnection']>, "users", ParentType, ContextType, RequireFields<SubscriptionUsersArgs, 'orderBy'>>;
+  computation?: SubscriptionResolver<Maybe<ResolversTypes['Computation']>, "computation", ParentType, ContextType, RequireFields<SubscriptionComputationArgs, 'id'>>;
+  feedEvent?: SubscriptionResolver<Maybe<ResolversTypes['FeedEvent']>, "feedEvent", ParentType, ContextType, RequireFields<SubscriptionFeedEventArgs, 'timestamp'>>;
+  guide?: SubscriptionResolver<Maybe<ResolversTypes['Guide']>, "guide", ParentType, ContextType, RequireFields<SubscriptionGuideArgs, 'id'>>;
+  ride?: SubscriptionResolver<Maybe<ResolversTypes['Ride']>, "ride", ParentType, ContextType, RequireFields<SubscriptionRideArgs, 'id'>>;
+  spot?: SubscriptionResolver<Maybe<ResolversTypes['Spot']>, "spot", ParentType, ContextType, RequireFields<SubscriptionSpotArgs, 'id'>>;
+  stage?: SubscriptionResolver<Maybe<ResolversTypes['Stage']>, "stage", ParentType, ContextType, RequireFields<SubscriptionStageArgs, 'id'>>;
+  temperature?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperature", ParentType, ContextType, RequireFields<SubscriptionTemperatureArgs, 'id'>>;
+  user?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "user", ParentType, ContextType, RequireFields<SubscriptionUserArgs, 'username'>>;
+  countries?: SubscriptionResolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, "countries", ParentType, ContextType>;
+  feed?: SubscriptionResolver<ResolversTypes['FeedEventsConnection'], "feed", ParentType, ContextType, RequireFields<SubscriptionFeedArgs, never>>;
+  getCurrentUser?: SubscriptionResolver<Maybe<ResolversTypes['JwtToken']>, "getCurrentUser", ParentType, ContextType>;
+  computationByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Computation']>, "computationByNodeId", ParentType, ContextType, RequireFields<SubscriptionComputationByNodeIdArgs, 'nodeId'>>;
+  feedEventByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['FeedEvent']>, "feedEventByNodeId", ParentType, ContextType, RequireFields<SubscriptionFeedEventByNodeIdArgs, 'nodeId'>>;
+  guideByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Guide']>, "guideByNodeId", ParentType, ContextType, RequireFields<SubscriptionGuideByNodeIdArgs, 'nodeId'>>;
+  rideByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Ride']>, "rideByNodeId", ParentType, ContextType, RequireFields<SubscriptionRideByNodeIdArgs, 'nodeId'>>;
+  spotByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Spot']>, "spotByNodeId", ParentType, ContextType, RequireFields<SubscriptionSpotByNodeIdArgs, 'nodeId'>>;
+  stageByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Stage']>, "stageByNodeId", ParentType, ContextType, RequireFields<SubscriptionStageByNodeIdArgs, 'nodeId'>>;
+  temperatureByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['Temperature']>, "temperatureByNodeId", ParentType, ContextType, RequireFields<SubscriptionTemperatureByNodeIdArgs, 'nodeId'>>;
+  userByNodeId?: SubscriptionResolver<Maybe<ResolversTypes['User']>, "userByNodeId", ParentType, ContextType, RequireFields<SubscriptionUserByNodeIdArgs, 'nodeId'>>;
+  geocode?: SubscriptionResolver<ResolversTypes['GeocodeResponse'], "geocode", ParentType, ContextType, RequireFields<SubscriptionGeocodeArgs, 'query'>>;
+  appVersion?: SubscriptionResolver<ResolversTypes['String'], "appVersion", ParentType, ContextType>;
 };
 
 export type TemperatureResolvers<ContextType = any, ParentType extends ResolversParentTypes['Temperature'] = ResolversParentTypes['Temperature']> = {
-  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  month?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  temperature?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
-  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
-  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  month?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  temperature?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type TemperaturesConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemperaturesConnection'] = ResolversParentTypes['TemperaturesConnection']> = {
-  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Temperature']>>, ParentType, ContextType>,
-  edges?: Resolver<ReadonlyArray<ResolversTypes['TemperaturesEdge']>, ParentType, ContextType>,
-  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
-  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['Temperature']>>, ParentType, ContextType>;
+  edges?: Resolver<ReadonlyArray<ResolversTypes['TemperaturesEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type TemperaturesEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemperaturesEdge'] = ResolversParentTypes['TemperaturesEdge']> = {
-  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  node?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Temperature']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type UpdateFeedEventPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateFeedEventPayload'] = ResolversParentTypes['UpdateFeedEventPayload']> = {
-  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  feedEvent?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType>,
-  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>,
-  rideByRide?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>,
-  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>,
-  userByUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  feedEventEdge?: Resolver<Maybe<ResolversTypes['FeedEventsEdge']>, ParentType, ContextType, RequireFields<UpdateFeedEventPayloadFeedEventEdgeArgs, 'orderBy'>>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  feedEvent?: Resolver<Maybe<ResolversTypes['FeedEvent']>, ParentType, ContextType>;
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
+  rideByRide?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType>;
+  guideByGuide?: Resolver<Maybe<ResolversTypes['Guide']>, ParentType, ContextType>;
+  userByUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  feedEventEdge?: Resolver<Maybe<ResolversTypes['FeedEventsEdge']>, ParentType, ContextType, RequireFields<UpdateFeedEventPayloadFeedEventEdgeArgs, 'orderBy'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type UpdateGuideResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateGuideResult'] = ResolversParentTypes['UpdateGuideResult']> = {
-  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  triggeredDates?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  triggeredComputations?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  triggeredDates?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  triggeredComputations?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type UpdateSpotResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateSpotResult'] = ResolversParentTypes['UpdateSpotResult']> = {
-  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  triggeredComputations?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  ammendedDates?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  triggeredComputations?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  ammendedDates?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  passwordHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  colour?: Resolver<Maybe<ResolversTypes['Colour']>, ParentType, ContextType>,
-  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>,
-  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>,
-  guidesByOwner?: Resolver<ResolversTypes['GuidesConnection'], ParentType, ContextType, RequireFields<UserGuidesByOwnerArgs, 'orderBy'>>,
-  spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>,
-  ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>,
-  followsByFollowed?: Resolver<ResolversTypes['FollowsConnection'], ParentType, ContextType, RequireFields<UserFollowsByFollowedArgs, 'orderBy'>>,
-  followsByFollower?: Resolver<ResolversTypes['FollowsConnection'], ParentType, ContextType, RequireFields<UserFollowsByFollowerArgs, 'orderBy'>>,
-  feedEventsByUser?: Resolver<ResolversTypes['FeedEventsConnection'], ParentType, ContextType, RequireFields<UserFeedEventsByUserArgs, 'orderBy'>>,
-  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>,
-  distanceMeters?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
-  durationSeconds?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>,
-  followingStatus?: Resolver<Maybe<ResolversTypes['FollowingStatus']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  passwordHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  colour?: Resolver<Maybe<ResolversTypes['Colour']>, ParentType, ContextType>;
+  created?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  updated?: Resolver<Maybe<ResolversTypes['Datetime']>, ParentType, ContextType>;
+  guidesByOwner?: Resolver<ResolversTypes['GuidesConnection'], ParentType, ContextType, RequireFields<UserGuidesByOwnerArgs, 'orderBy'>>;
+  spotsByOwner?: Resolver<ResolversTypes['SpotsConnection'], ParentType, ContextType, RequireFields<UserSpotsByOwnerArgs, 'orderBy'>>;
+  ridesByOwner?: Resolver<ResolversTypes['RidesConnection'], ParentType, ContextType, RequireFields<UserRidesByOwnerArgs, 'orderBy'>>;
+  followsByFollowed?: Resolver<ResolversTypes['FollowsConnection'], ParentType, ContextType, RequireFields<UserFollowsByFollowedArgs, 'orderBy'>>;
+  followsByFollower?: Resolver<ResolversTypes['FollowsConnection'], ParentType, ContextType, RequireFields<UserFollowsByFollowerArgs, 'orderBy'>>;
+  feedEventsByUser?: Resolver<ResolversTypes['FeedEventsConnection'], ParentType, ContextType, RequireFields<UserFeedEventsByUserArgs, 'orderBy'>>;
+  countries?: Resolver<Maybe<ReadonlyArray<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  distanceMeters?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  durationSeconds?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  followingStatus?: Resolver<Maybe<ResolversTypes['FollowingStatus']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type UsersConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['UsersConnection'] = ResolversParentTypes['UsersConnection']> = {
-  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['User']>>, ParentType, ContextType>,
-  edges?: Resolver<ReadonlyArray<ResolversTypes['UsersEdge']>, ParentType, ContextType>,
-  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>,
-  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  nodes?: Resolver<ReadonlyArray<Maybe<ResolversTypes['User']>>, ParentType, ContextType>;
+  edges?: Resolver<ReadonlyArray<ResolversTypes['UsersEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type UsersEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['UsersEdge'] = ResolversParentTypes['UsersEdge']> = {
-  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>,
-  node?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
-  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type Resolvers<ContextType = any> = {
-  AddSpotResult?: AddSpotResultResolvers<ContextType>,
-  AuthenticatePayload?: AuthenticatePayloadResolvers<ContextType>,
-  BigInt?: GraphQLScalarType,
-  Bound?: BoundResolvers<ContextType>,
-  Computation?: ComputationResolvers<ContextType>,
-  ComputationsConnection?: ComputationsConnectionResolvers<ContextType>,
-  ComputationsEdge?: ComputationsEdgeResolvers<ContextType>,
-  CreateFeedEventPayload?: CreateFeedEventPayloadResolvers<ContextType>,
-  CreateGuideResult?: CreateGuideResultResolvers<ContextType>,
-  CreateUserPayload?: CreateUserPayloadResolvers<ContextType>,
-  Cursor?: GraphQLScalarType,
-  Datetime?: GraphQLScalarType,
-  DeleteFeedEventPayload?: DeleteFeedEventPayloadResolvers<ContextType>,
-  DeleteGuideResult?: DeleteGuideResultResolvers<ContextType>,
-  FeedEvent?: FeedEventResolvers<ContextType>,
-  FeedEventsConnection?: FeedEventsConnectionResolvers<ContextType>,
-  FeedEventsEdge?: FeedEventsEdgeResolvers<ContextType>,
-  Follow?: FollowResolvers<ContextType>,
-  FollowsConnection?: FollowsConnectionResolvers<ContextType>,
-  FollowsEdge?: FollowsEdgeResolvers<ContextType>,
-  Geocode?: GeocodeResolvers<ContextType>,
-  GeocodeResponse?: GeocodeResponseResolvers<ContextType>,
-  Guide?: GuideResolvers<ContextType>,
-  GuidesConnection?: GuidesConnectionResolvers<ContextType>,
-  GuidesEdge?: GuidesEdgeResolvers<ContextType>,
-  JwtToken?: GraphQLScalarType,
-  Mutation?: MutationResolvers<ContextType>,
-  Node?: NodeResolvers,
-  PageInfo?: PageInfoResolvers<ContextType>,
-  Query?: QueryResolvers<ContextType>,
-  RegisterPayload?: RegisterPayloadResolvers<ContextType>,
-  RemoveSpotResult?: RemoveSpotResultResolvers<ContextType>,
-  Result?: ResultResolvers<ContextType>,
-  Ride?: RideResolvers<ContextType>,
-  RidesConnection?: RidesConnectionResolvers<ContextType>,
-  RidesEdge?: RidesEdgeResolvers<ContextType>,
-  Spot?: SpotResolvers<ContextType>,
-  SpotsConnection?: SpotsConnectionResolvers<ContextType>,
-  SpotsEdge?: SpotsEdgeResolvers<ContextType>,
-  Stage?: StageResolvers<ContextType>,
-  StagesConnection?: StagesConnectionResolvers<ContextType>,
-  StagesEdge?: StagesEdgeResolvers<ContextType>,
-  Subscription?: SubscriptionResolvers<ContextType>,
-  Temperature?: TemperatureResolvers<ContextType>,
-  TemperaturesConnection?: TemperaturesConnectionResolvers<ContextType>,
-  TemperaturesEdge?: TemperaturesEdgeResolvers<ContextType>,
-  UpdateFeedEventPayload?: UpdateFeedEventPayloadResolvers<ContextType>,
-  UpdateGuideResult?: UpdateGuideResultResolvers<ContextType>,
-  UpdateSpotResult?: UpdateSpotResultResolvers<ContextType>,
-  User?: UserResolvers<ContextType>,
-  UsersConnection?: UsersConnectionResolvers<ContextType>,
-  UsersEdge?: UsersEdgeResolvers<ContextType>,
+  AddSpotResult?: AddSpotResultResolvers<ContextType>;
+  AuthenticatePayload?: AuthenticatePayloadResolvers<ContextType>;
+  BigInt?: GraphQLScalarType;
+  Bound?: BoundResolvers<ContextType>;
+  Computation?: ComputationResolvers<ContextType>;
+  ComputationsConnection?: ComputationsConnectionResolvers<ContextType>;
+  ComputationsEdge?: ComputationsEdgeResolvers<ContextType>;
+  CreateFeedEventPayload?: CreateFeedEventPayloadResolvers<ContextType>;
+  CreateGuideResult?: CreateGuideResultResolvers<ContextType>;
+  CreateUserPayload?: CreateUserPayloadResolvers<ContextType>;
+  Cursor?: GraphQLScalarType;
+  Datetime?: GraphQLScalarType;
+  DeleteFeedEventPayload?: DeleteFeedEventPayloadResolvers<ContextType>;
+  DeleteGuideResult?: DeleteGuideResultResolvers<ContextType>;
+  FeedEvent?: FeedEventResolvers<ContextType>;
+  FeedEventsConnection?: FeedEventsConnectionResolvers<ContextType>;
+  FeedEventsEdge?: FeedEventsEdgeResolvers<ContextType>;
+  Follow?: FollowResolvers<ContextType>;
+  FollowsConnection?: FollowsConnectionResolvers<ContextType>;
+  FollowsEdge?: FollowsEdgeResolvers<ContextType>;
+  Geocode?: GeocodeResolvers<ContextType>;
+  GeocodeResponse?: GeocodeResponseResolvers<ContextType>;
+  Guide?: GuideResolvers<ContextType>;
+  GuidesConnection?: GuidesConnectionResolvers<ContextType>;
+  GuidesEdge?: GuidesEdgeResolvers<ContextType>;
+  JwtToken?: GraphQLScalarType;
+  Mutation?: MutationResolvers<ContextType>;
+  Node?: NodeResolvers<ContextType>;
+  PageInfo?: PageInfoResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
+  RegisterPayload?: RegisterPayloadResolvers<ContextType>;
+  RemoveSpotResult?: RemoveSpotResultResolvers<ContextType>;
+  Result?: ResultResolvers<ContextType>;
+  Ride?: RideResolvers<ContextType>;
+  RidesConnection?: RidesConnectionResolvers<ContextType>;
+  RidesEdge?: RidesEdgeResolvers<ContextType>;
+  Spot?: SpotResolvers<ContextType>;
+  SpotsConnection?: SpotsConnectionResolvers<ContextType>;
+  SpotsEdge?: SpotsEdgeResolvers<ContextType>;
+  Stage?: StageResolvers<ContextType>;
+  StagesConnection?: StagesConnectionResolvers<ContextType>;
+  StagesEdge?: StagesEdgeResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
+  Temperature?: TemperatureResolvers<ContextType>;
+  TemperaturesConnection?: TemperaturesConnectionResolvers<ContextType>;
+  TemperaturesEdge?: TemperaturesEdgeResolvers<ContextType>;
+  UpdateFeedEventPayload?: UpdateFeedEventPayloadResolvers<ContextType>;
+  UpdateGuideResult?: UpdateGuideResultResolvers<ContextType>;
+  UpdateSpotResult?: UpdateSpotResultResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
+  UsersConnection?: UsersConnectionResolvers<ContextType>;
+  UsersEdge?: UsersEdgeResolvers<ContextType>;
 };
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {inject, observer, Provider} from 'mobx-react';
-import {ScreenProps} from 'utils/router/ScreenProps';
+import {ScreenProps} from 'utils/navigation/ScreenProps';
 import {GuideComponent} from "api/generated";
 import GuideContent from "./GuideContent";
 import GuideStore from "./store";

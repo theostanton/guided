@@ -38,11 +38,8 @@ export default class App extends React.Component {
     return <Provider authStore={this.authStore}>
       <DimensionsWrapper>
         {({screen, window}) => {
-          console.log('screen', screen)
-          console.log('window', window)
           const ratio = window.width / window.height
-          console.log('ratio', ratio)
-          if (ratio > 1) {
+          if (ratio > 0.85) {
             return <Desktop/>
           } else {
             return <Mobile/>

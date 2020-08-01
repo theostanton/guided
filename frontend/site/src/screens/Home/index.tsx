@@ -1,12 +1,14 @@
 import React from 'react';
-import {Button, Platform, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {inject} from 'mobx-react';
 import {h4} from 'styles/text';
 import {half} from "styles/dimensions";
 import Map from 'components/Map'
 import {SEYTHENEX} from "components/Map/consts";
 import Marker from "components/Map/Marker";
-import {ScreenProps} from "utils/router/ScreenProps";
+import {ScreenProps} from "utils/navigation/ScreenProps";
+import Link from "components/Link";
+import Button from "components/Button";
 
 type Props = ScreenProps<'Root'>
 
@@ -18,17 +20,9 @@ export default class HomeScreen extends React.Component<Props> {
       <View style={styles.root}>
         <Text>Welcome {this.props.authStore.user?.username}</Text>
         <View style={styles.button}>
-          <Button title={'My Profile'} onPress={() => {
-            this.props.navigation.navigate('Profile', {
-              username: this.props.authStore.user.username
-            })
-          }}/>
+          <Button label={'My Profile'} href={`/${this.props.authStore.user.username}`}/>
         </View>
-        <View style={styles.button}>
-          <Button title={'Create'} onPress={() => {
-            this.props.navigation.navigate('Create')
-          }}/>
-        </View>
+        <Link href={'/create'} textStyle={styles.button}>Create</Link>
         <View style={styles.map}>
           <Map latitude={SEYTHENEX.latitude} longitude={SEYTHENEX.longitude} zoom={10}>
             <Marker id={'id1'} position={SEYTHENEX}>
@@ -50,9 +44,8 @@ export default class HomeScreen extends React.Component<Props> {
 const styles = StyleSheet.create({
   root: {
     width: '100%',
-    height: Platform.OS === 'web' ? '100vh' : '100%',
-    flexDirection: 'column',
-    backgroundColor: 'pink'
+    height: '100%',
+    flexDirection: 'column'
   },
   textInput: {},
   error: {
@@ -67,7 +60,6 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    flex: 1,
-    backgroundColor: 'green'
+    flex: 1
   }
 });

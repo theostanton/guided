@@ -3,5 +3,7 @@ mutation Create($input:CreateGuideInput){
         success
         guideId
         message
+        slug
+        owner
     }
 }

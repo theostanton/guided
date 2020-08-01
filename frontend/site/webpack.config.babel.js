@@ -66,20 +66,23 @@ module.exports = {
                 }
               }
             }
-          }]
+          }
+        ]
+      },
+      {
+        test: /\.ttf$/,
+        loader: "url-loader", // or directly file-loader
+        include: path.resolve(__dirname, "node_modules/react-native-vector-icons"),
       }
     ],
   },
   devtool: 'eval-source-map',
+  devServer: {
+    port: 8000
+  },
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
     new webpack.NamedModulesPlugin(),
-    new HtmlWebpackPlugin(),
-    // [require.resolve('babel-plugin-module-resolver'), {
-    //   root: ["./src/"],
-    //   "alias": {
-    //     "^react-native$": "react-native-web"
-    //   }
-    // }]
+    new HtmlWebpackPlugin()
   ],
 };

@@ -1,16 +1,18 @@
-import {TouchableHighlight} from "react-native";
+import {TouchableHighlight, View} from "react-native";
 import React from "react";
+import {Link as NavigationLink} from '@react-navigation/native'
 
 type Props = {
-  onPress: () => Promise<void> | void
+  href?: string
+  onPress?: () => Promise<void> | void
 }
 
 type State = {
   hovering: boolean
 }
 export default class Pressable extends React.Component<Props, State> {
-  state:State = {
-    hovering:false
+  state: State = {
+    hovering: false
   }
 
   render() {
@@ -32,7 +34,9 @@ export default class Pressable extends React.Component<Props, State> {
         })
       }}
     >
-      {this.props.children}
+      <View>{this.props.href ?
+        <NavigationLink to={this.props.href}> {this.props.children}</NavigationLink> : this.props.children}
+      </View>
     </TouchableHighlight>;
   }
 }

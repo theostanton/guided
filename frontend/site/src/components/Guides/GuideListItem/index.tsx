@@ -26,11 +26,7 @@ export default class GuideListItem extends React.Component<Props, State> {
       }]
     return (
       <Clickable
-        onPress={async () => {
-          console.log('this.props.guide', this.props.guide)
-          //TODO
-          // await this.props.router.goToGuide(this.props.guide.owner, this.props.guide.slug)
-        }}>
+        href={`/${this.props.guide.owner}/${this.props.guide.slug}`}>
         <View style={styles.root}>
           <Text style={styles.header}>{this.props.guide.title}</Text>
           <Stats stats={stats}/>

@@ -1,4 +1,4 @@
-import {action, observable, runInAction} from 'mobx';
+import {action, computed, observable, runInAction} from 'mobx';
 import client, {USER_KEY} from 'api/client';
 import * as storage from 'utils/storage';
 import {
@@ -22,19 +22,19 @@ export type User = {
 export default class AuthStore {
 
   @observable
-  value: number = new Date().getTime()
+  loading:boolean=true
 
   async init(): Promise<void> {
     this.user = await storage.getObject<User>(USER_KEY)
+    this.loading=false
   }
 
   @observable
   user: User | undefined;
 
-  @action
-  increment() {
-    this.value = this.value + 1
-    console.log('this.value->', this.value)
+  @computed
+  get isLoggedIn(): boolean {
+    return !!this.user
   }
 
   async setUser(user: User | undefined) {

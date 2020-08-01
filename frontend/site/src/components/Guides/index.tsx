@@ -3,12 +3,9 @@ import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {GuideListItemFragment} from "api/generated";
 import GuideListItem from "./GuideListItem";
 import {half} from "styles/dimensions";
-import Router from "utils/router";
-import {inject} from "mobx-react";
 
 type Props = {
   guides: readonly GuideListItemFragment[]
-  router?:Router
 };
 type State = {};
 
@@ -24,8 +21,8 @@ export default class GuidesList extends React.Component<Props, State> {
             () => <View style={{height: half}}/>
           }
           renderItem={(info => {
-            console.log('info',info)
-            return <GuideListItem key={info.item.slug} guide={info.item} router={this.props.router}/>
+            console.log('info', info)
+            return <GuideListItem key={info.item.slug} guide={info.item}/>
           })}/>}
       </View>
     );

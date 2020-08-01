@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {inject} from 'mobx-react';
 import {h4} from 'styles/text';
 import LabelledText from 'components/LabelledText';
-import {TabProps} from "utils/router/ScreenProps";
+import {TabProps} from "utils/navigation/ScreenProps";
 
 type Props = TabProps
 

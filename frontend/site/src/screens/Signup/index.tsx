@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
 import {h4} from 'styles/text';
-import {UnauthedProps} from "utils/router/ScreenProps";
+import {UnauthedProps} from "utils/navigation/ScreenProps";
+import Link from "components/Link";
 
 type Props = UnauthedProps
 type State = {
@@ -34,21 +35,16 @@ export default class SignupScreen extends React.Component<Props, State> {
   }
 
   async signUp(): Promise<void> {
-    console.log('signUp')
     const {password, username, email} = this.state;
     this.setState({loading: true});
-    console.log('password', password)
-    console.log('username', username)
-    console.log('email', email)
     try {
       const result = await this.props.authStore.signUp(
         username,
         email,
         password,
       );
-      console.log('result', result)
       if (result.success) {
-        // await this.props.router.goHome()
+        //
       } else {
         this.setState({
           error: result.message || 'Something went wrong',
@@ -102,16 +98,11 @@ export default class SignupScreen extends React.Component<Props, State> {
             }}
           />
         </View>
-        <View>
-          <Text
-            style={styles.already}
-            onPress={async () => {
-              this.props.navigation.navigate('Login')
-            }}
-          >
-            Already a member? Click to log in
-          </Text>
-        </View>
+        <Link
+          textStyle={styles.already}
+          href={'login'}>
+          Already a member? Click to log in
+        </Link>
       </View>
     );
   }

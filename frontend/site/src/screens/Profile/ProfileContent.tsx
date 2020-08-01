@@ -4,7 +4,6 @@ import {GuideListItemFragment, ProfileUserFragment} from "api/generated";
 import GuidesList from "components/Guides";
 import Stats, {Stat} from "../../components/Stats";
 import {h1} from "styles/text";
-import Router from "utils/router";
 
 type Props = {
   user: ProfileUserFragment

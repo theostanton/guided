@@ -48,6 +48,8 @@ export default async function (
             return {
                 success: true,
                 guideId: result.id,
+                owner,
+                slug
             }
         } else {
             return {

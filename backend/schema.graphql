@@ -439,6 +439,8 @@ type CreateGuideResult {
   success: Boolean!
   message: String
   guideId: String
+  slug: String
+  owner: String
 }
 
 """All input for the create `User` mutation."""

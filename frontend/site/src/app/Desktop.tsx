@@ -7,14 +7,35 @@ import client from "api/client";
 import GuideScreen from "screens/Guide";
 import CreateScreen from "screens/Create";
 import ProfileScreen from "screens/Profile";
-import {ApolloProvider} from "@apollo/react-common";
 import HomeScreen from "../screens/Home";
+import Layout from "../components/Layout";
+import {StyleSheet, Text, View} from "react-native";
+import {linking, ParamList} from "../utils/navigation/ParamList";
+import {ApolloProvider} from "@apollo/client";
+import LoginScreen from "../screens/Login";
+import SignupScreen from "../screens/Signup";
 
 type Props = {
   authStore?: AuthStore
 };
 type State = {};
 
+function wrapped(WrappedComponent) {
+  // ...and returns another component...
+  return class extends React.Component {
+
+    render() {
+      console.log('wrapped props=', this.props)
+      return (
+        <Layout>
+          <View style={styles.root}>
+            <WrappedComponent {...this.props['route']}/>
+          </View>
+        </Layout>)
+    }
+
+  }
+}
 
 @inject("authStore")
 @observer
@@ -23,13 +44,33 @@ export default class Desktop extends React.Component<Props, State> {
   renderAuthed() {
     const Stack = createStackNavigator<ParamList>();
     return (
+      // @ts-ignore
       <ApolloProvider client={client}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName={'Root'}>
-            <Stack.Screen name={'Root'} component={HomeScreen}/>
-            <Stack.Screen name={'Create'} component={CreateScreen}/>
-            <Stack.Screen name={'Guide'} component={GuideScreen}/>
-            <Stack.Screen name={'Profile'} component={ProfileScreen}/>
+        <NavigationContainer linking={linking}>
+          <Stack.Navigator initialRouteName={'Root'} screenOptions={{
+            headerShown: false
+          }}>
+            <Stack.Screen name={'Root'} component={wrapped(HomeScreen)}/>
+            <Stack.Screen name={'Create'} component={wrapped(CreateScreen)}/>
+            <Stack.Screen name={'Guide'} component={wrapped(GuideScreen)}/>
+            <Stack.Screen name={'Profile'} component={wrapped(ProfileScreen)}/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ApolloProvider>
+    );
+  }
+
+  renderUnauthed() {
+    const Stack = createStackNavigator<ParamList>();
+    return (
+      // @ts-ignore
+      <ApolloProvider client={client}>
+        <NavigationContainer linking={linking}>
+          <Stack.Navigator initialRouteName={'Login'} screenOptions={{
+            headerShown: false
+          }}>
+            <Stack.Screen name={'Login'} component={wrapped(LoginScreen)}/>
+            <Stack.Screen name={'Signup'} component={wrapped(SignupScreen)}/>
           </Stack.Navigator>
         </NavigationContainer>
       </ApolloProvider>
@@ -37,6 +78,28 @@ export default class Desktop extends React.Component<Props, State> {
   }
 
   render() {
-    return this.renderAuthed();
+    if(this.props.authStore.loading){
+      return <View><Text>Loading</Text></View>
+    } else if (this.props.authStore.user) {
+      return this.renderAuthed();
+    } else {
+      return this.renderUnauthed();
+    }
   }
 }
+
+
+const styles = StyleSheet.create({
+  root: {
+    width: '100%',
+    height: '100vh',
+    flexDirection: 'column'
+  },
+  content: {
+    width: '100%',
+    flex: 1,
+    backgroundColor: 'yellow'
+  }
+})
+
+

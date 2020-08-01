@@ -369,6 +369,8 @@ export type CreateGuideResult = {
   readonly success: Scalars['Boolean'];
   readonly message?: Maybe<Scalars['String']>;
   readonly guideId?: Maybe<Scalars['String']>;
+  readonly slug?: Maybe<Scalars['String']>;
+  readonly owner?: Maybe<Scalars['String']>;
 };
 
 /** All input for the create `User` mutation. */
@@ -3935,6 +3937,8 @@ export type CreateGuideResultResolvers<ContextType = any, ParentType extends Res
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   guideId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  owner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -4484,7 +4488,7 @@ export type CreateMutationVariables = Exact<{
 }>;
 
 
-export type CreateMutation = { readonly createGuide: Pick<CreateGuideResult, 'success' | 'guideId' | 'message'> };
+export type CreateMutation = { readonly createGuide: Pick<CreateGuideResult, 'success' | 'guideId' | 'message' | 'slug' | 'owner'> };
 
 export type GuideQueryVariables = Exact<{
   guideId: Scalars['String'];
@@ -4608,6 +4612,8 @@ export const CreateDocument = gql`
     success
     guideId
     message
+    slug
+    owner
   }
 }
     `;

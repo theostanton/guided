@@ -16,65 +16,54 @@ type State = {};
 @observer
 export default class Layout extends React.Component<Props, State> {
   renderHeader() {
-    const isLoggedin = this.props.authStore.user!==undefined;
-    console.log('renderHeader isLoggedIn=', isLoggedin);
+    const isLoggedin = this.props.authStore.isLoggedIn;
+    console.log('renderHeader isLoggedin=',isLoggedin);
+    console.log('renderHeader user=',this.props.authStore.user);
 
     type Item = {
       text: string;
       onClick?: () => Promise<void>;
+      href?: string;
     };
     const leftItems: Item[] = isLoggedin
       ? [
-          {
-            text: 'Home',
-            onClick: async () => {
-              // await webRouter.goHome();
-            },
-          },
-          {
-            text: 'Profile',
-            onClick: async () => {
-              // await webRouter.goToProfile(this.props.authStore.user.username);
-            },
-          },
-          {
-            text: 'Create',
-            onClick: async () => {
-              // await webRouter.goToCreate();
-            },
-          },
-        ]
+        {
+          text: 'Home',
+          href: '/',
+        },
+        {
+          text: 'Profile',
+          href: '/1',
+        },
+        {
+          text: 'Create',
+          href: '/create',
+        },
+      ]
       : [];
     const rightItems: Item[] = isLoggedin
       ? [
-          {
-            text: 'Sign out',
-            onClick: async () => {
-              await this.props.authStore.logOut();
-              // await webRouter.goHome();
-            },
+        {
+          text: 'Sign out',
+          onClick: async () => {
+            await this.props.authStore.logOut();
           },
-          {
-            text: 'Account',
-            onClick: async () => {
-              // await webRouter.goHome();
-            },
-          },
-        ]
+        },
+        {
+          text: 'Account',
+          href: '/account',
+        },
+      ]
       : [
-          {
-            text: 'Login',
-            onClick: async () => {
-              // await webRouter.goToLogin();
-            },
-          },
-          {
-            text: 'Signup',
-            onClick: async () => {
-              // await webRouter.goToSignup();
-            },
-          },
-        ];
+        {
+          text: 'Login',
+          href: '/login',
+        },
+        {
+          text: 'Signup',
+          href: '/signup',
+        },
+      ];
 
     return (
       <View style={styles.headerRoot} accessibilityRole="header">
@@ -85,6 +74,7 @@ export default class Layout extends React.Component<Props, State> {
                 key={item.text}
                 viewStyle={styles.headerItem}
                 textStyle={h4}
+                href={item.href}
                 onClick={item.onClick}
               >
                 {item.text}
@@ -99,6 +89,7 @@ export default class Layout extends React.Component<Props, State> {
                 key={item.text}
                 viewStyle={styles.headerItem}
                 textStyle={h4}
+                href={item.href}
                 onClick={item.onClick}>
                 {item.text}
               </Link>

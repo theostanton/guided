@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {inject} from 'mobx-react';
-import {ScreenProps} from 'utils/router/ScreenProps';
+import {ScreenProps} from 'utils/navigation/ScreenProps';
 import {ProfileComponent} from "api/generated";
 import ProfileContent from "./ProfileContent";
 
@@ -10,6 +10,7 @@ type Props = ScreenProps<'Profile'>
 @inject('authStore')
 export default class ProfileScreen extends React.Component<Props> {
   render() {
+    console.log('ProfileScreen.render', this.props)
     return (
       <ProfileComponent variables={{username: this.props.params.username}}>
         {(result) => {
@@ -26,7 +27,9 @@ export default class ProfileScreen extends React.Component<Props> {
             </View>
           }
 
-          if (result.data) {
+          console.log('result.data', result.data)
+
+          if (result.data && result.data.user) {
             return <ProfileContent user={result.data.user} guides={result.data.guides.nodes}/>
           }
 

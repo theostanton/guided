@@ -2,13 +2,14 @@ import {inject, observer} from "mobx-react";
 import React from "react";
 import AuthStore from "stores/AuthStore";
 import {createStackNavigator} from "@react-navigation/stack";
-import {NavigationContainer, RouteProp} from "@react-navigation/native";
+import {NavigationContainer} from "@react-navigation/native";
 import client from "api/client";
 import GuideScreen from "screens/Guide";
 import CreateScreen from "screens/Create";
 import ProfileScreen from "screens/Profile";
 import Tabs from "./Tabs";
 import {ApolloProvider} from "@apollo/react-common";
+import {ParamList} from "utils/navigation/ParamList";
 
 type Props = {
   authStore?: AuthStore

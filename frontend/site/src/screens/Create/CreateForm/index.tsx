@@ -6,12 +6,11 @@ import {CreateDocument, CreateGuideInput, CreateMutation, MutationCreateGuideArg
 import LabelledCheckBox from "components/LabelledCheckBox";
 import LabelledText from "components/LabelledText";
 import client from "api/client";
-import {inject} from "mobx-react";
-import Router from "utils/router";
+import {WithNavigationProps} from "utils/navigation";
+import {NavigationProp, useNavigation} from "@react-navigation/core";
+import {ParamList} from "utils/navigation/ParamList";
 
-type Props = {
-  router?: Router
-};
+type Props = WithNavigationProps;
 
 type State = {
   creating: boolean
@@ -19,7 +18,7 @@ type State = {
   error: string | undefined
 }
 
-export default class CreateForm extends React.Component<Props, State> {
+class CreateForm extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
@@ -57,10 +56,10 @@ export default class CreateForm extends React.Component<Props, State> {
     this.setState({
       creating: true
     })
+
     const variables: MutationCreateGuideArgs = {
       input: this.state.input as CreateGuideInput
     }
-
 
     const result = await client.mutate<CreateMutation>({
       mutation: CreateDocument,
@@ -77,8 +76,11 @@ export default class CreateForm extends React.Component<Props, State> {
 
     if (result.data) {
       if (result.data.createGuide.success) {
-        console.log('success')
-        await this.props.router.goToProfile('1')
+        const {slug, owner} = result.data.createGuide
+        this.props.navigation.navigate('Guide', {
+          username: owner,
+          slug
+        })
         return
       } else {
         this.setState({
@@ -152,3 +154,8 @@ const styles = StyleSheet.create({
   }
 })
 
+
+export default function() {
+  const navigation = useNavigation<NavigationProp<ParamList>>();
+  return <CreateForm navigation={navigation}/>
+}
