@@ -1,21 +1,17 @@
 import React from 'react';
 import {Button as ReactNativeButton, StyleSheet} from 'react-native';
-import Link from "components/Link";
+import {NavigationProps} from "utils/navigation/ScreenProps";
 
 type Props = {
   label: string
-  href?: string
-  onPress?: () => Promise<void>
-};
+  onPress: () => Promise<void>
+} & NavigationProps
 type State = {};
 
 export default class Button extends React.Component<Props, State> {
   render() {
     return (
-      <Link href={this.props.href}>
-        <ReactNativeButton title={this.props.label} onPress={(this.props.onPress || (() => {
-        }))}/>
-      </Link>
+      <ReactNativeButton title={this.props.label} onPress={(this.props.onPress)}/>
     );
   }
 }

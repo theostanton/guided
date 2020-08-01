@@ -8,7 +8,6 @@ import {SEYTHENEX} from "components/Map/consts";
 import Marker from "components/Map/Marker";
 import {ScreenProps} from "utils/navigation/ScreenProps";
 import Link from "components/Link";
-import Button from "components/Button";
 
 type Props = ScreenProps<'Root'>
 
@@ -19,9 +18,7 @@ export default class HomeScreen extends React.Component<Props> {
     return (
       <View style={styles.root}>
         <Text>Welcome {this.props.authStore.user?.username}</Text>
-        <View style={styles.button}>
-          <Button label={'My Profile'} href={`/${this.props.authStore.user.username}`}/>
-        </View>
+        <Link href={`/${this.props.authStore.user.username}`} textStyle={styles.button}>My profile</Link>
         <Link href={'/create'} textStyle={styles.button}>Create</Link>
         <View style={styles.map}>
           <Map latitude={SEYTHENEX.latitude} longitude={SEYTHENEX.longitude} zoom={10}>

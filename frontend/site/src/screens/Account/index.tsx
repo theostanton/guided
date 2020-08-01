@@ -4,6 +4,7 @@ import {inject} from 'mobx-react';
 import {h4} from 'styles/text';
 import LabelledText from 'components/LabelledText';
 import {TabProps} from "utils/navigation/ScreenProps";
+import Link from "../../components/Link";
 
 type Props = TabProps
 
@@ -19,6 +20,9 @@ export default class AccountScreen extends React.Component<Props> {
           <LabelledText label={'Email'}>{user.email}</LabelledText>
           <LabelledText label={'Username'}>{user.username}</LabelledText>
           <LabelledText label={'Token'}>{user.bearerToken}</LabelledText>
+          <Link onClick={async () => {
+            await this.props.authStore.logOut()
+          }}>Sign out</Link>
         </View>
       );
     } else {

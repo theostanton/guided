@@ -10,10 +10,10 @@ import ProfileScreen from "screens/Profile";
 import HomeScreen from "../screens/Home";
 import Layout from "../components/Layout";
 import {StyleSheet, Text, View} from "react-native";
-import {linking, ParamList} from "../utils/navigation/ParamList";
+import {linking, ParamList, wrapParams} from "utils/navigation/ParamList";
 import {ApolloProvider} from "@apollo/client";
-import LoginScreen from "../screens/Login";
-import SignupScreen from "../screens/Signup";
+import LoginScreen from "screens/Login";
+import SignupScreen from "screens/Signup";
 
 type Props = {
   authStore?: AuthStore
@@ -21,11 +21,8 @@ type Props = {
 type State = {};
 
 function wrapped(WrappedComponent) {
-  // ...and returns another component...
   return class extends React.Component {
-
     render() {
-      console.log('wrapped props=', this.props)
       return (
         <Layout>
           <View style={styles.root}>
@@ -33,7 +30,6 @@ function wrapped(WrappedComponent) {
           </View>
         </Layout>)
     }
-
   }
 }
 
@@ -52,7 +48,7 @@ export default class Desktop extends React.Component<Props, State> {
           }}>
             <Stack.Screen name={'Root'} component={wrapped(HomeScreen)}/>
             <Stack.Screen name={'Create'} component={wrapped(CreateScreen)}/>
-            <Stack.Screen name={'Guide'} component={wrapped(GuideScreen)}/>
+            <Stack.Screen name={'Guide'} component={wrapParams(GuideScreen)}/>
             <Stack.Screen name={'Profile'} component={wrapped(ProfileScreen)}/>
           </Stack.Navigator>
         </NavigationContainer>
@@ -78,7 +74,7 @@ export default class Desktop extends React.Component<Props, State> {
   }
 
   render() {
-    if(this.props.authStore.loading){
+    if (this.props.authStore.loading) {
       return <View><Text>Loading</Text></View>
     } else if (this.props.authStore.user) {
       return this.renderAuthed();

@@ -9,7 +9,10 @@ import CreateScreen from "screens/Create";
 import ProfileScreen from "screens/Profile";
 import Tabs from "./Tabs";
 import {ApolloProvider} from "@apollo/react-common";
-import {ParamList} from "utils/navigation/ParamList";
+import {linking, ParamList, wrapParams} from "utils/navigation/ParamList";
+import LoginScreen from "../screens/Login";
+import SignupScreen from "../screens/Signup";
+import {Text, View} from "react-native";
 
 type Props = {
   authStore?: AuthStore
@@ -25,12 +28,29 @@ export default class Mobile extends React.Component<Props, State> {
     const Stack = createStackNavigator<ParamList>();
     return (
       <ApolloProvider client={client}>
-        <NavigationContainer>
+        <NavigationContainer  linking={linking}>
           <Stack.Navigator initialRouteName={'Root'}>
             <Stack.Screen name={'Root'} options={{headerShown: false}} component={Tabs}/>
-            <Stack.Screen name={'Create'} component={CreateScreen}/>
-            <Stack.Screen name={'Guide'} component={GuideScreen}/>
-            <Stack.Screen name={'Profile'} component={ProfileScreen}/>
+            <Stack.Screen name={'Create'} component={wrapParams(CreateScreen)}/>
+            <Stack.Screen name={'Guide'} component={wrapParams(GuideScreen)}/>
+            <Stack.Screen name={'Profile'} component={wrapParams(ProfileScreen)}/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ApolloProvider>
+    );
+  }
+
+  renderUnauthed() {
+    const Stack = createStackNavigator<ParamList>();
+    return (
+      // @ts-ignore
+      <ApolloProvider client={client}>
+        <NavigationContainer linking={linking}>
+          <Stack.Navigator initialRouteName={'Login'} screenOptions={{
+            headerShown: false
+          }}>
+            <Stack.Screen name={'Login'} component={LoginScreen}/>
+            <Stack.Screen name={'Signup'} component={SignupScreen}/>
           </Stack.Navigator>
         </NavigationContainer>
       </ApolloProvider>
@@ -38,6 +58,12 @@ export default class Mobile extends React.Component<Props, State> {
   }
 
   render() {
-    return this.renderAuthed();
+    if (this.props.authStore.loading) {
+      return <View><Text>Loading</Text></View>
+    } else if (this.props.authStore.user) {
+      return this.renderAuthed();
+    } else {
+      return this.renderUnauthed();
+    }
   }
 }

@@ -25,4 +25,41 @@ fragment Guide on Guide {
         south
         west
     }
+    rides:ridesByGuide{
+        nodes{
+
+        }
+    }
+}
+
+fragment Ride on Ride {
+    countries
+    created
+    date
+    distanceMeters
+    durationSeconds
+    from:spotByFromSpot{
+        ...Spot
+    }
+    to:spotByToSpot{
+        ...Spot
+    }
+    name
+    pathUrl
+    position
+    stage
+    status
+}
+
+fragment Spot on Spot {
+    country
+    created
+    date
+    id
+    label
+    lat
+    long
+    location
+    name
+    nights
 }

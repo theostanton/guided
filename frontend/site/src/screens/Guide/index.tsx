@@ -5,6 +5,7 @@ import {ScreenProps} from 'utils/navigation/ScreenProps';
 import {GuideComponent} from "api/generated";
 import GuideContent from "./GuideContent";
 import GuideStore from "./store";
+import GuideMap from "./GuideMap";
 
 type Props = ScreenProps<'Guide'>
 
@@ -39,7 +40,12 @@ export default class GuideScreen extends React.Component<Props> {
 
           return <Provider guideStore={this.guideStore}>
             <View style={styles.root}>
-              <GuideContent/>
+              <View style={styles.map}>
+                <GuideMap/>
+              </View>
+              <View style={styles.content}>
+                <GuideContent/>
+              </View>
             </View>
           </Provider>
         }}
@@ -50,10 +56,33 @@ export default class GuideScreen extends React.Component<Props> {
 
 const styles = StyleSheet.create({
   root: {
-    maxWidth: 400,
-    width: '100%',
-    alignSelf: 'center',
-    flexDirection: 'column',
+    position: "absolute",
+    width: '100vh',
+    height: '100vh',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor:'red'
+  },
+  map: {
+    position: "absolute",
+    width: '100vh',
+    height: '100vh',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor:'green'
+  },
+  content: {
+    position: "absolute",
+    width: '100vh',
+    height: '100vh',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
   textInput: {},
   button: {},
