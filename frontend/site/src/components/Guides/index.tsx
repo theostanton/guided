@@ -12,7 +12,6 @@ type Props = {
 };
 type State = {};
 
-@inject('router')
 export default class GuidesList extends React.Component<Props, State> {
   render() {
     const guides: GuideListItemFragment[] = []

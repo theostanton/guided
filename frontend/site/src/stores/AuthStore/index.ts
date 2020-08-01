@@ -31,10 +31,6 @@ export default class AuthStore {
   @observable
   user: User | undefined;
 
-  constructor(user: User | undefined) {
-    this.user = user
-  }
-
   @action
   increment() {
     this.value = this.value + 1

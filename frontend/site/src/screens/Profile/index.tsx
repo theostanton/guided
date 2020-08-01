@@ -7,7 +7,7 @@ import ProfileContent from "./ProfileContent";
 
 type Props = ScreenProps<'Profile'>
 
-@inject('authStore','router')
+@inject('authStore')
 export default class ProfileScreen extends React.Component<Props> {
   render() {
     return (

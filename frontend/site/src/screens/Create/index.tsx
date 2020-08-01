@@ -7,7 +7,7 @@ import {inject} from "mobx-react";
 type Props = ScreenProps<'Create'>
 
 
-@inject('authStore','router')
+@inject('authStore')
 export default class CreateScreen extends React.Component<Props> {
 
   render() {

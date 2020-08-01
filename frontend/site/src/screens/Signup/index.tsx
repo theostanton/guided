@@ -3,13 +3,9 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
 import {h4} from 'styles/text';
-import AuthStore from "stores/AuthStore";
-import Router from "utils/router";
+import {UnauthedProps} from "utils/router/ScreenProps";
 
-type Props = {
-  authStore?: AuthStore
-  router?:Router
-}
+type Props = UnauthedProps
 type State = {
   email: string;
   username: string;
@@ -18,7 +14,7 @@ type State = {
   error: any | undefined;
 };
 
-@inject('authStore','router')
+@inject('authStore')
 export default class SignupScreen extends React.Component<Props, State> {
   state: State = {
     email: '',
@@ -52,7 +48,7 @@ export default class SignupScreen extends React.Component<Props, State> {
       );
       console.log('result', result)
       if (result.success) {
-        await this.props.router.goHome()
+        // await this.props.router.goHome()
       } else {
         this.setState({
           error: result.message || 'Something went wrong',
@@ -110,7 +106,7 @@ export default class SignupScreen extends React.Component<Props, State> {
           <Text
             style={styles.already}
             onPress={async () => {
-              await this.props.router.goToLogin()
+              this.props.navigation.navigate('Login')
             }}
           >
             Already a member? Click to log in

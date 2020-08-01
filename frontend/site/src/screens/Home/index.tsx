@@ -2,19 +2,15 @@ import React from 'react';
 import {Button, Platform, StyleSheet, Text, View} from 'react-native';
 import {inject} from 'mobx-react';
 import {h4} from 'styles/text';
-import AuthStore from "stores/AuthStore";
-import Router from "utils/router";
 import {half} from "styles/dimensions";
 import Map from 'components/Map'
 import {SEYTHENEX} from "components/Map/consts";
 import Marker from "components/Map/Marker";
+import {ScreenProps} from "utils/router/ScreenProps";
 
-type Props = {
-  authStore?: AuthStore
-  router?: Router
-}
+type Props = ScreenProps<'Root'>
 
-@inject('authStore', 'router')
+@inject('authStore')
 export default class HomeScreen extends React.Component<Props> {
 
   render() {
@@ -22,13 +18,15 @@ export default class HomeScreen extends React.Component<Props> {
       <View style={styles.root}>
         <Text>Welcome {this.props.authStore.user?.username}</Text>
         <View style={styles.button}>
-          <Button title={'My Profile'} onPress={async () => {
-            await this.props.router.goToProfile(this.props.authStore.user.username)
+          <Button title={'My Profile'} onPress={() => {
+            this.props.navigation.navigate('Profile', {
+              username: this.props.authStore.user.username
+            })
           }}/>
         </View>
         <View style={styles.button}>
-          <Button title={'Create'} onPress={async () => {
-            await this.props.router.goToCreate()
+          <Button title={'Create'} onPress={() => {
+            this.props.navigation.navigate('Create')
           }}/>
         </View>
         <View style={styles.map}>

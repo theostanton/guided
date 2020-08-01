@@ -6,8 +6,6 @@ import {border} from 'styles/colors';
 import Link from 'components/Link';
 import {inject, observer} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
-import Router from "utils/router";
-import {webRouter} from "../../utils/router/WebRouter";
 
 type Props = {
   authStore?: AuthStore;
@@ -30,19 +28,19 @@ export default class Layout extends React.Component<Props, State> {
           {
             text: 'Home',
             onClick: async () => {
-              await webRouter.goHome();
+              // await webRouter.goHome();
             },
           },
           {
             text: 'Profile',
             onClick: async () => {
-              await webRouter.goToProfile(this.props.authStore.user.username);
+              // await webRouter.goToProfile(this.props.authStore.user.username);
             },
           },
           {
             text: 'Create',
             onClick: async () => {
-              await webRouter.goToCreate();
+              // await webRouter.goToCreate();
             },
           },
         ]
@@ -53,13 +51,13 @@ export default class Layout extends React.Component<Props, State> {
             text: 'Sign out',
             onClick: async () => {
               await this.props.authStore.logOut();
-              await webRouter.goHome();
+              // await webRouter.goHome();
             },
           },
           {
             text: 'Account',
             onClick: async () => {
-              await webRouter.goHome();
+              // await webRouter.goHome();
             },
           },
         ]
@@ -67,13 +65,13 @@ export default class Layout extends React.Component<Props, State> {
           {
             text: 'Login',
             onClick: async () => {
-              await webRouter.goToLogin();
+              // await webRouter.goToLogin();
             },
           },
           {
             text: 'Signup',
             onClick: async () => {
-              await webRouter.goToSignup();
+              // await webRouter.goToSignup();
             },
           },
         ];

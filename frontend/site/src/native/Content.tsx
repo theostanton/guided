@@ -62,7 +62,7 @@ export default class Content extends React.Component<Props, State> {
               }}
             </Stack.Screen>
             <Stack.Screen name={'Guide'}>
-              {(props: Props<'Guide'>) => {
+              {(props:string) => {
                 this.props.router.updateNavigation(props.navigation)
                 let guideStore = new GuideStore();
                 return <Provider guideStore={guideStore}>

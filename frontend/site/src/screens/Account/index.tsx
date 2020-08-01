@@ -3,15 +3,11 @@ import {StyleSheet, View} from 'react-native';
 import {inject} from 'mobx-react';
 import {h4} from 'styles/text';
 import LabelledText from 'components/LabelledText';
-import AuthStore from "stores/AuthStore";
-import Router from "utils/router";
+import {TabProps} from "utils/router/ScreenProps";
 
-type Props = {
-  authStore?: AuthStore
-  router?: Router
-}
+type Props = TabProps
 
-@inject('authStore', 'router')
+@inject('authStore')
 export default class AccountScreen extends React.Component<Props> {
 
   render() {

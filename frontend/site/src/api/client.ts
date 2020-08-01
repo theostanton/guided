@@ -1,10 +1,4 @@
-import {
-  ApolloClient,
-  ApolloLink,
-  DefaultOptions,
-  HttpLink,
-  InMemoryCache,
-} from 'apollo-boost';
+import {ApolloClient, ApolloLink, DefaultOptions, HttpLink, InMemoryCache,} from 'apollo-boost';
 
 import {setContext} from 'apollo-link-context';
 import fetch from 'node-fetch';

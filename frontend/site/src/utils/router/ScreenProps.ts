@@ -1,9 +1,18 @@
-import {NavigationProp, RouteProp} from '@react-navigation/core';
 import AuthStore from 'stores/AuthStore';
-import Router from '.';
+import {NavigationProp} from "@react-navigation/core";
 
-export type ScreenProps<RouteName extends keyof ParamList> =  {
-  params:ParamList[RouteName]
-  router?:Router
+export type UnauthedProps = {
+  navigation: NavigationProp<UnauthedParamList>
+  authStore?: AuthStore
+}
+
+export type TabProps = {
+  navigation: NavigationProp<TabParamList>
+  authStore?: AuthStore
+}
+
+export type ScreenProps<RouteName extends keyof ParamList> = {
+  params: ParamList[RouteName]
+  navigation: NavigationProp<ParamList, RouteName>
   authStore?: AuthStore
 }

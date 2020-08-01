@@ -1,15 +1,11 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import AuthStore from 'stores/AuthStore';
 import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
 import {h4} from 'styles/text';
-import Router from "utils/router";
+import {UnauthedProps} from "utils/router/ScreenProps";
 
-type Props = {
-  authStore?: AuthStore
-  router?: Router
-}
+type Props = UnauthedProps
 
 type State = {
   email: string;
@@ -18,7 +14,7 @@ type State = {
   error: any | undefined;
 };
 
-@inject('authStore', 'router')
+@inject('authStore')
 export default class LoginScreen extends React.Component<Props, State> {
   state: State = {
     email: '',
@@ -45,7 +41,7 @@ export default class LoginScreen extends React.Component<Props, State> {
       console.log('LoginScreen.logIn() authStore.login=', this.props.authStore.login)
       const result = await this.props.authStore.login(email, password);
       if (result.success) {
-        // await this.props.router.goHome()
+        // this.props.navigation.navigate('Root')
       } else {
         this.setState({
           error: result.message || 'Something went wrong',
@@ -101,7 +97,8 @@ export default class LoginScreen extends React.Component<Props, State> {
         <View>
           <Text
             style={styles.already}
-            onPress={async () => {
+            onPress={() => {
+              this.props.navigation.navigate('Signup')
             }}
           >
             Not a member? Click to sign up

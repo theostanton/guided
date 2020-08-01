@@ -1,4 +1,4 @@
-type UnAuthParamList = {
+type UnauthedParamList = {
   Login: {},
   Signup: {},
 }
