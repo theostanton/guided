@@ -4490,6 +4490,13 @@ export type CreateMutationVariables = Exact<{
 
 export type CreateMutation = { readonly createGuide: Pick<CreateGuideResult, 'success' | 'guideId' | 'message' | 'slug' | 'owner'> };
 
+export type AddSpotMutationVariables = Exact<{
+  input: AddSpotInput;
+}>;
+
+
+export type AddSpotMutation = { readonly addSpot: Pick<AddSpotResult, 'id' | 'messaage' | 'success'> };
+
 export type GuideQueryVariables = Exact<{
   guideId: Scalars['String'];
 }>;
@@ -4502,6 +4509,9 @@ export type GuideFragment = (
   & { readonly rides: (
     Pick<RidesConnection, 'totalCount'>
     & { readonly nodes: ReadonlyArray<Maybe<RideFragment>> }
+  ), readonly spots: (
+    Pick<SpotsConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<SpotFragment>> }
   ), readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>> }
 );
 
@@ -4614,6 +4624,12 @@ export const GuideFragmentDoc = gql`
       ...Ride
     }
   }
+  spots: spotsByGuide {
+    totalCount
+    nodes {
+      ...Spot
+    }
+  }
   bounds {
     east
     north
@@ -4621,7 +4637,8 @@ export const GuideFragmentDoc = gql`
     west
   }
 }
-    ${RideFragmentDoc}`;
+    ${RideFragmentDoc}
+${SpotFragmentDoc}`;
 export const ProfileUserFragmentDoc = gql`
     fragment ProfileUser on User {
   created
@@ -4697,6 +4714,59 @@ export function useCreateMutation(baseOptions?: ApolloReactHooks.MutationHookOpt
 export type CreateMutationHookResult = ReturnType<typeof useCreateMutation>;
 export type CreateMutationResult = ApolloReactCommon.MutationResult<CreateMutation>;
 export type CreateMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateMutation, CreateMutationVariables>;
+export const AddSpotDocument = gql`
+    mutation AddSpot($input: AddSpotInput!) {
+  addSpot(input: $input) {
+    id
+    messaage
+    success
+  }
+}
+    `;
+export type AddSpotMutationFn = ApolloReactCommon.MutationFunction<AddSpotMutation, AddSpotMutationVariables>;
+export type AddSpotComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<AddSpotMutation, AddSpotMutationVariables>, 'mutation'>;
+
+    export const AddSpotComponent = (props: AddSpotComponentProps) => (
+      <ApolloReactComponents.Mutation<AddSpotMutation, AddSpotMutationVariables> mutation={AddSpotDocument} {...props} />
+    );
+    
+export type AddSpotProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<AddSpotMutation, AddSpotMutationVariables>
+    } & TChildProps;
+export function withAddSpot<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  AddSpotMutation,
+  AddSpotMutationVariables,
+  AddSpotProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, AddSpotMutation, AddSpotMutationVariables, AddSpotProps<TChildProps, TDataName>>(AddSpotDocument, {
+      alias: 'addSpot',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useAddSpotMutation__
+ *
+ * To run a mutation, you first call `useAddSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddSpotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addSpotMutation, { data, loading, error }] = useAddSpotMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddSpotMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddSpotMutation, AddSpotMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddSpotMutation, AddSpotMutationVariables>(AddSpotDocument, baseOptions);
+      }
+export type AddSpotMutationHookResult = ReturnType<typeof useAddSpotMutation>;
+export type AddSpotMutationResult = ApolloReactCommon.MutationResult<AddSpotMutation>;
+export type AddSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<AddSpotMutation, AddSpotMutationVariables>;
 export const GuideDocument = gql`
     query Guide($guideId: String!) {
   guide(id: $guideId) {

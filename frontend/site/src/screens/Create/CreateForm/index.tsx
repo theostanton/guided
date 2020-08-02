@@ -81,24 +81,17 @@ class CreateForm extends React.Component<Props, State> {
           owner,
           slug,
         })
-        return
       } else {
         this.setState({
           creating: false,
           error: `No success message:${result.data.createGuide.message}`
         })
-        return
       }
     } else {
-
-
-      if (result.errors) {
-        this.setState({
-          creating: false,
-          error: 'No data'
-        })
-        return
-      }
+      this.setState({
+        creating: false,
+        error: 'No data'
+      })
     }
 
   }

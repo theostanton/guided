@@ -18,6 +18,11 @@ export function humanDuration(durationSeconds: number, long: boolean = false): s
   }
 }
 
+
+export function roundToString(value: number): string {
+  return value.toPrecision(5)
+}
+
 export type Duration = {
   value: number,
   unitLong: 'minutes' | 'hours' | 'minute' | 'hour'

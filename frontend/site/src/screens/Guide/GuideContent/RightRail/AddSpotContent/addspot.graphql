@@ -1,0 +1,7 @@
+mutation AddSpot($input: AddSpotInput!){
+    addSpot(input: $input){
+        id
+        messaage
+        success
+    }
+}

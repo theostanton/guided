@@ -1,15 +1,15 @@
 import React from "react";
 import ReactMapGL, {MapboxProps} from 'react-map-gl';
-import {Props} from "./types";
+import {MapProps} from "./types";
 
 const TOKEN = 'pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ'
 
 type State = {
   mapProps: MapboxProps
 }
-export default class Map extends React.Component<Props, State> {
+export default class Map extends React.Component<MapProps, State> {
 
-  constructor(props: Props) {
+  constructor(props: MapProps) {
     super(props);
     this.state = {
       mapProps: {

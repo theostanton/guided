@@ -1,6 +1,5 @@
 import {action, observable} from "mobx";
 import {GuideFragment} from "api/generated";
-import {MapClickEvent} from "components/Map/types";
 import {ModeList} from "./GuideMode";
 
 export default class GuideStore {
@@ -10,14 +9,7 @@ export default class GuideStore {
 
   @observable
   mode: keyof ModeList | undefined
-
-  @observable
   modeParams: ModeList[keyof ModeList]
-
-  @observable
-  click: {
-    event: MapClickEvent
-  } | undefined
 
   @action
   updateGuide(guide: GuideFragment) {
@@ -36,13 +28,10 @@ export default class GuideStore {
     this.modeParams = undefined
   }
 
-  getModeParams<Mode extends keyof ModeList>(mode: Mode): ModeList[Mode] {
+  getModeParams<Mode extends keyof ModeList>(mode: Mode): ModeList[Mode] | undefined {
+    if (this.mode !== mode) {
+      return undefined
+    }
     return this.modeParams
-  }
-
-
-  @action
-  dismissClick() {
-    this.click = undefined
   }
 }

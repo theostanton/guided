@@ -55,6 +55,10 @@ export default class LeftRail extends React.Component<Props, State> {
         label: 'rides',
       },
       {
+        value: this.guide.spots.totalCount,
+        label: 'spots',
+      },
+      {
         value: this.guide.countries.length,
         label: 'countries',
       }

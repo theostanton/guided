@@ -25,7 +25,7 @@ export default class RightRail extends React.Component<Props, State> {
 
   renderCloseIcon() {
     return <View style={styles.icon}>
-      <Icon name={'arrow-close'} size={icon} color={darkIcon} onPress={() => {
+      <Icon name={'close'} size={icon} color={darkIcon} onPress={() => {
         this.props.guideStore.clearMode()
       }}/>
     </View>
@@ -42,8 +42,6 @@ export default class RightRail extends React.Component<Props, State> {
   }
 
   render() {
-
-    console.log('render() click=', this.props.guideStore.click)
 
     if (this.props.guideStore.mode === undefined) {
       return null;

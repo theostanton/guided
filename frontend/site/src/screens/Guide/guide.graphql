@@ -21,6 +21,12 @@ fragment Guide on Guide {
             ...Ride
         }
     }
+    spots:spotsByGuide{
+        totalCount
+        nodes{
+            ...Spot
+        }
+    }
     bounds{
         east
         north
