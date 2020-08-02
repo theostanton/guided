@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import StatItem from "./StatItem";
+import * as OS from "os";
 
 
 export type Stat = {
   label: string
-  value: string|number
+  value: string | number
 }
 type Props = {
   stats: Stat[]
@@ -30,12 +31,12 @@ export default class Stats extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   root: {
-    display:'flex',
+    display: 'flex',
     flexDirection: 'row',
-    flexWrap:'wrap',
+    flexWrap: 'wrap',
   },
   item: {
     flex: 1,
-    minWidth:'min-content',
+    minWidth: Platform.OS === 'web' ? 'min-content' : undefined,
   }
 });

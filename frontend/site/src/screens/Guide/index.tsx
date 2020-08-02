@@ -1,14 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import {inject, observer, Provider} from 'mobx-react';
 import {ScreenProps} from 'utils/navigation/ScreenProps';
-import {GuideComponent} from "api/generated";
 import GuideContent from "./GuideContent";
 import GuideMap from "./GuideMap";
 import {fullHeight, fullWidth} from "styles/dimensions";
 import GuideStore from "./GuideStore";
-import {subscriptionClient} from "../../api/client";
 import {guideId} from "../../utils";
+import {subscriptionClient} from "../../api/client";
+import {GuideComponent} from "../../api/generated";
 
 type Props = ScreenProps<'Guide'>
 
@@ -95,7 +95,11 @@ const styles = StyleSheet.create({
   },
   content: {
     position: "absolute",
-    pointerEvents: 'none',
+    ...Platform.select({
+      web: {
+        pointerEvents: 'none'
+      },
+    }),
     width: '100%',
     height: '100%',
     left: 0,

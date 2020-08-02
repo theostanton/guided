@@ -4,7 +4,7 @@ import {NavigationProps} from "utils/navigation/ScreenProps";
 
 type Props = {
   label: string
-  onPress: () => Promise<void>
+  onPress: () => Promise<void> | void
 } & NavigationProps
 type State = {};
 

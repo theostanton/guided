@@ -1,0 +1,7 @@
+mutation UpdateSpot($patch:UpdateSpotPatch!){
+    updateSpot(input: $patch){
+        id
+        message
+        success
+    }
+}

@@ -1,56 +1,22 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {inject, observer} from "mobx-react";
-import LeftRail from "./LeftRail";
-import {whole} from "styles/dimensions";
-import RightRail from "./RightRail";
-import GuideStore from "../GuideStore";
+import {inject} from "mobx-react";
+import Device from "stores/Device";
+import DesktopGuideContent from "./DesktopGuideContent";
+import MobileGuideContent from "./MobileGuideContent";
 
 type Props = {
-  guideStore?: GuideStore
+  device?: Device
 };
 type State = {};
 
-@inject("guideStore")
-@observer
+@inject('device')
 export default class GuideContent extends React.Component<Props, State> {
   render() {
-    return (
-      <View style={styles.root}>
-        <View style={styles.left}>
-          <LeftRail/>
-        </View>
-        <View style={styles.right}>
-          <RightRail/>
-        </View>
-      </View>
-    );
+    console.log('isTouch', this.props.device.isTouch)
+    if (this.props.device.isTouch) {
+      return <MobileGuideContent/>
+    } else {
+      return <DesktopGuideContent/>
+    }
   }
 }
-
-const styles = StyleSheet.create({
-  root: {
-    width: '100%',
-    height: '100%',
-    pointerEvents: 'none'
-  },
-  left: {
-    position: 'absolute',
-    pointerEvents: 'auto',
-    height: '100%',
-    margin: 0,
-    padding: whole,
-    width: '25%',
-    maxWidth: 400
-  },
-  right: {
-    position: 'absolute',
-    pointerEvents: 'auto',
-    height: '100%',
-    margin: 0,
-    right: 0,
-    padding: whole,
-    width: '25%',
-    maxWidth: 400
-  },
-});

@@ -1,0 +1,6 @@
+mutation RemoveSpot($id:String!){
+    removeSpot(input: {id: $id}){
+        message
+        success
+    }
+}

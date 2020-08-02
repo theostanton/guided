@@ -4,6 +4,7 @@ import {inject} from 'mobx-react';
 import {ScreenProps} from 'utils/navigation/ScreenProps';
 import {ProfileComponent} from "api/generated";
 import ProfileContent from "./ProfileContent";
+import client from "../../api/client";
 
 type Props = ScreenProps<'Profile'>
 
@@ -12,7 +13,8 @@ export default class ProfileScreen extends React.Component<Props> {
   render() {
     console.log('ProfileScreen.render', this.props)
     return (
-      <ProfileComponent variables={{username: this.props.params.username}}>
+      // @ts-ignore
+      <ProfileComponent variables={{username: this.props.params.username}} client={client}>
         {(result) => {
 
           if (result.loading) {

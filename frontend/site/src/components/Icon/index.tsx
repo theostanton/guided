@@ -3,6 +3,8 @@ import {StyleSheet} from 'react-native';
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import {IconProps} from "react-native-vector-icons/Icon";
 import {IconName} from "./names";
+import Pressable from "../Pressable";
+import {darkIcon} from "../../styles/colors";
 
 type Props = {
   name: IconName
@@ -12,7 +14,9 @@ type State = {};
 export default class Icon extends React.Component<Props, State> {
   render() {
     return (
-      <MaterialIcon {...this.props}/>
+      <Pressable>
+        <MaterialIcon color={darkIcon} {...this.props}/>
+      </Pressable>
     );
   }
 }

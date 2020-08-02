@@ -6,7 +6,6 @@ import {SEYTHENEX} from "components/Map/consts";
 import GuideStore from "../GuideStore";
 import IconMarker from "components/Map/IconMarker";
 import {ItemState} from "../GuideStore/GuideMode";
-import RideLine from "../../../components/Map/RideLine";
 
 type Props = {
   guideStore?: GuideStore
@@ -46,11 +45,11 @@ export default class GuideMap extends React.Component<Props, State> {
     })
   }
 
-  renderRides() {
-    return this.props.guideStore.guide.rides.nodes.map(ride => {
-      return <RideLine ride={ride} state={this.props.guideStore.selectedState(ride)}/>
-    })
-  }
+  // renderRides() {
+  //   return this.props.guideStore.guide.rides.nodes.map(ride => {
+  //     return <RideLine ride={ride} state={this.props.guideStore.selectedState(ride)}/>
+  //   })
+  // }
 
   render() {
     return (
@@ -65,7 +64,7 @@ export default class GuideMap extends React.Component<Props, State> {
         {this.props.guideStore.guide && <>
           {this.renderAddSpotMarker()}
           {this.renderSpots()}
-          {this.renderRides()}
+          {/*{this.renderRides()}*/}
         </>}
       </Map>
     );

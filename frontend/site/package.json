@@ -26,6 +26,7 @@
     "date-fns": "^2.15.0",
     "graphql": "^15.3.0",
     "graphql-tag": "^2.10.4",
+    "is-touch-device": "^1.0.1",
     "mapbox-gl": "^1.11.1",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.5",

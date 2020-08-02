@@ -53,20 +53,21 @@ export default class LabelledTextInput extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
-    padding: half,
+    paddingTop: half,
+    paddingBottom: half,
   },
   label: {
     ...h5,
   },
   input: {
     ...h4,
-    marginTop:quarter,
+    marginTop: quarter,
     paddingLeft: whole,
     paddingRight: whole,
     paddingTop: half,
     paddingBottom: half,
-    borderRadius:whole,
-    borderColor:border,
-    borderWidth:hairline
+    borderRadius: whole,
+    borderColor: border,
+    borderWidth: hairline
   },
 });

@@ -32,6 +32,7 @@ returning id
     const packet = await prepare(spot.guide)
     await trigger(packet)
 
+    console.log('removeSpot success')
     return {
         success: true,
     }

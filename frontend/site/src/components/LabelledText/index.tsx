@@ -21,7 +21,8 @@ export default class LabelledText extends React.Component<Props> {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
-    padding: half,
+    paddingTop: half,
+    paddingBottom: half,
   },
   label: {
     ...h5,

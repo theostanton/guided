@@ -1025,7 +1025,7 @@ export type Mutation = {
   readonly unfollowUser: Result;
   readonly addSpot: AddSpotResult;
   readonly updateSpot: UpdateSpotResult;
-  readonly remvoeSpot: RemoveSpotResult;
+  readonly removeSpot: RemoveSpotResult;
 };
 
 
@@ -1120,7 +1120,7 @@ export type MutationUpdateSpotArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationRemvoeSpotArgs = {
+export type MutationRemoveSpotArgs = {
   input: RemoveSpotInput;
 };
 
@@ -4101,7 +4101,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   unfollowUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'username'>>;
   addSpot?: Resolver<ResolversTypes['AddSpotResult'], ParentType, ContextType, RequireFields<MutationAddSpotArgs, 'input'>>;
   updateSpot?: Resolver<ResolversTypes['UpdateSpotResult'], ParentType, ContextType, RequireFields<MutationUpdateSpotArgs, 'input'>>;
-  remvoeSpot?: Resolver<ResolversTypes['RemoveSpotResult'], ParentType, ContextType, RequireFields<MutationRemvoeSpotArgs, 'input'>>;
+  removeSpot?: Resolver<ResolversTypes['RemoveSpotResult'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'input'>>;
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
@@ -4497,6 +4497,20 @@ export type AddSpotMutationVariables = Exact<{
 
 export type AddSpotMutation = { readonly addSpot: Pick<AddSpotResult, 'id' | 'messaage' | 'success'> };
 
+export type UpdateSpotMutationVariables = Exact<{
+  patch: UpdateSpotPatch;
+}>;
+
+
+export type UpdateSpotMutation = { readonly updateSpot: Pick<UpdateSpotResult, 'id' | 'message' | 'success'> };
+
+export type RemoveSpotMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type RemoveSpotMutation = { readonly removeSpot: Pick<RemoveSpotResult, 'message' | 'success'> };
+
 export type GuideSubscriptionVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -4762,6 +4776,111 @@ export function useAddSpotMutation(baseOptions?: ApolloReactHooks.MutationHookOp
 export type AddSpotMutationHookResult = ReturnType<typeof useAddSpotMutation>;
 export type AddSpotMutationResult = ApolloReactCommon.MutationResult<AddSpotMutation>;
 export type AddSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<AddSpotMutation, AddSpotMutationVariables>;
+export const UpdateSpotDocument = gql`
+    mutation UpdateSpot($patch: UpdateSpotPatch!) {
+  updateSpot(input: $patch) {
+    id
+    message
+    success
+  }
+}
+    `;
+export type UpdateSpotMutationFn = ApolloReactCommon.MutationFunction<UpdateSpotMutation, UpdateSpotMutationVariables>;
+export type UpdateSpotComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UpdateSpotMutation, UpdateSpotMutationVariables>, 'mutation'>;
+
+    export const UpdateSpotComponent = (props: UpdateSpotComponentProps) => (
+      <ApolloReactComponents.Mutation<UpdateSpotMutation, UpdateSpotMutationVariables> mutation={UpdateSpotDocument} {...props} />
+    );
+    
+export type UpdateSpotProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<UpdateSpotMutation, UpdateSpotMutationVariables>
+    } & TChildProps;
+export function withUpdateSpot<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  UpdateSpotMutation,
+  UpdateSpotMutationVariables,
+  UpdateSpotProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, UpdateSpotMutation, UpdateSpotMutationVariables, UpdateSpotProps<TChildProps, TDataName>>(UpdateSpotDocument, {
+      alias: 'updateSpot',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useUpdateSpotMutation__
+ *
+ * To run a mutation, you first call `useUpdateSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSpotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSpotMutation, { data, loading, error }] = useUpdateSpotMutation({
+ *   variables: {
+ *      patch: // value for 'patch'
+ *   },
+ * });
+ */
+export function useUpdateSpotMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateSpotMutation, UpdateSpotMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateSpotMutation, UpdateSpotMutationVariables>(UpdateSpotDocument, baseOptions);
+      }
+export type UpdateSpotMutationHookResult = ReturnType<typeof useUpdateSpotMutation>;
+export type UpdateSpotMutationResult = ApolloReactCommon.MutationResult<UpdateSpotMutation>;
+export type UpdateSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateSpotMutation, UpdateSpotMutationVariables>;
+export const RemoveSpotDocument = gql`
+    mutation RemoveSpot($id: String!) {
+  removeSpot(input: {id: $id}) {
+    message
+    success
+  }
+}
+    `;
+export type RemoveSpotMutationFn = ApolloReactCommon.MutationFunction<RemoveSpotMutation, RemoveSpotMutationVariables>;
+export type RemoveSpotComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<RemoveSpotMutation, RemoveSpotMutationVariables>, 'mutation'>;
+
+    export const RemoveSpotComponent = (props: RemoveSpotComponentProps) => (
+      <ApolloReactComponents.Mutation<RemoveSpotMutation, RemoveSpotMutationVariables> mutation={RemoveSpotDocument} {...props} />
+    );
+    
+export type RemoveSpotProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<RemoveSpotMutation, RemoveSpotMutationVariables>
+    } & TChildProps;
+export function withRemoveSpot<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  RemoveSpotMutation,
+  RemoveSpotMutationVariables,
+  RemoveSpotProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, RemoveSpotMutation, RemoveSpotMutationVariables, RemoveSpotProps<TChildProps, TDataName>>(RemoveSpotDocument, {
+      alias: 'removeSpot',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useRemoveSpotMutation__
+ *
+ * To run a mutation, you first call `useRemoveSpotMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveSpotMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeSpotMutation, { data, loading, error }] = useRemoveSpotMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRemoveSpotMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveSpotMutation, RemoveSpotMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemoveSpotMutation, RemoveSpotMutationVariables>(RemoveSpotDocument, baseOptions);
+      }
+export type RemoveSpotMutationHookResult = ReturnType<typeof useRemoveSpotMutation>;
+export type RemoveSpotMutationResult = ApolloReactCommon.MutationResult<RemoveSpotMutation>;
+export type RemoveSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveSpotMutation, RemoveSpotMutationVariables>;
 export const GuideDocument = gql`
     subscription Guide($id: String!) {
   guide(id: $id) {

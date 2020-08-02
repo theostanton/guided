@@ -1,9 +1,10 @@
 import * as React from 'react'
 import {useEffect, useState} from 'react'
-import {Provider} from "mobx-react";
 import AuthStore from "stores/AuthStore";
 import {Dimensions, ScaledSize} from "react-native";
 import Desktop from "./Desktop";
+import Device from "../stores/Device";
+import {Provider} from "mobx-react";
 import Mobile from "./Mobile";
 
 const window = Dimensions.get("window");
@@ -35,18 +36,16 @@ export default class App extends React.Component {
   }
 
   render() {
-    console.log('render()')
-    return <Provider authStore={this.authStore}>
-      <DimensionsWrapper>
-        {({screen, window}) => {
-          const ratio = window.width / window.height
-          if (ratio > 0.85) {
-            return <Desktop/>
-          } else {
-            return <Mobile/>
-          }
-        }}
-      </DimensionsWrapper>
-    </Provider>
+    console.log('App.render()')
+    return <DimensionsWrapper>
+      {({screen, window}) => {
+        const ratio = window.width / window.height
+        if (ratio > 0.85) {
+          return <Provider authStore={this.authStore} device={new Device('landscape')}><Desktop/></Provider>
+        } else {
+          return <Provider authStore={this.authStore} device={new Device('portrait')}><Mobile/></Provider>
+        }
+      }}
+    </DimensionsWrapper>
   }
 }

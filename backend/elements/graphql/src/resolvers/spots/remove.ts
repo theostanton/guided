@@ -21,7 +21,7 @@ export default class RemoveSpotMutation extends Mutation<
         }
 
         extend type Mutation {
-            remvoeSpot(input: RemoveSpotInput!): RemoveSpotResult!
+            removeSpot(input: RemoveSpotInput!): RemoveSpotResult!
         }
     `
 

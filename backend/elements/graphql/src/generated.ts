@@ -1018,7 +1018,7 @@ export type Mutation = {
   readonly unfollowUser: Result;
   readonly addSpot: AddSpotResult;
   readonly updateSpot: UpdateSpotResult;
-  readonly remvoeSpot: RemoveSpotResult;
+  readonly removeSpot: RemoveSpotResult;
 };
 
 
@@ -1113,7 +1113,7 @@ export type MutationUpdateSpotArgs = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
-export type MutationRemvoeSpotArgs = {
+export type MutationRemoveSpotArgs = {
   input: RemoveSpotInput;
 };
 
@@ -4094,7 +4094,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   unfollowUser?: Resolver<ResolversTypes['Result'], ParentType, ContextType, RequireFields<MutationUnfollowUserArgs, 'username'>>;
   addSpot?: Resolver<ResolversTypes['AddSpotResult'], ParentType, ContextType, RequireFields<MutationAddSpotArgs, 'input'>>;
   updateSpot?: Resolver<ResolversTypes['UpdateSpotResult'], ParentType, ContextType, RequireFields<MutationUpdateSpotArgs, 'input'>>;
-  remvoeSpot?: Resolver<ResolversTypes['RemoveSpotResult'], ParentType, ContextType, RequireFields<MutationRemvoeSpotArgs, 'input'>>;
+  removeSpot?: Resolver<ResolversTypes['RemoveSpotResult'], ParentType, ContextType, RequireFields<MutationRemoveSpotArgs, 'input'>>;
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
