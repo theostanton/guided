@@ -77,7 +77,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules\/(?!(react-native-elements|react-native-vector-icons)\/).*/,
+        exclude: /node_modules\/(?!(react-native-modal|react-native-animatable|react-native-elements|react-native-vector-icons)\/).*/,
         loader: 'babel-loader'
       }
     ],

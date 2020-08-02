@@ -4548,16 +4548,6 @@ export type GetUsernameQueryVariables = Exact<{
 
 export type GetUsernameQuery = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username' | 'colour'>>> }> };
 
-export type UsersGuidesQueryVariables = Exact<{
-  username?: Maybe<Scalars['String']>;
-}>;
-
-
-export type UsersGuidesQuery = { readonly guides?: Maybe<(
-    Pick<GuidesConnection, 'totalCount'>
-    & { readonly nodes: ReadonlyArray<Maybe<Pick<Guide, 'id'>>> }
-  )> };
-
 export const GuideListItemFragmentDoc = gql`
     fragment GuideListItem on Guide {
   id
@@ -4979,58 +4969,3 @@ export function useGetUsernameLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetUsernameQueryHookResult = ReturnType<typeof useGetUsernameQuery>;
 export type GetUsernameLazyQueryHookResult = ReturnType<typeof useGetUsernameLazyQuery>;
 export type GetUsernameQueryResult = ApolloReactCommon.QueryResult<GetUsernameQuery, GetUsernameQueryVariables>;
-export const UsersGuidesDocument = gql`
-    query UsersGuides($username: String) {
-  guides(filter: {owner: {equalTo: $username}}) {
-    totalCount
-    nodes {
-      id
-    }
-  }
-}
-    `;
-export type UsersGuidesComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<UsersGuidesQuery, UsersGuidesQueryVariables>, 'query'>;
-
-    export const UsersGuidesComponent = (props: UsersGuidesComponentProps) => (
-      <ApolloReactComponents.Query<UsersGuidesQuery, UsersGuidesQueryVariables> query={UsersGuidesDocument} {...props} />
-    );
-    
-export type UsersGuidesProps<TChildProps = {}, TDataName extends string = 'data'> = {
-      [key in TDataName]: ApolloReactHoc.DataValue<UsersGuidesQuery, UsersGuidesQueryVariables>
-    } & TChildProps;
-export function withUsersGuides<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
-  TProps,
-  UsersGuidesQuery,
-  UsersGuidesQueryVariables,
-  UsersGuidesProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withQuery<TProps, UsersGuidesQuery, UsersGuidesQueryVariables, UsersGuidesProps<TChildProps, TDataName>>(UsersGuidesDocument, {
-      alias: 'usersGuides',
-      ...operationOptions
-    });
-};
-
-/**
- * __useUsersGuidesQuery__
- *
- * To run a query within a React component, call `useUsersGuidesQuery` and pass it any options that fit your needs.
- * When your component renders, `useUsersGuidesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useUsersGuidesQuery({
- *   variables: {
- *      username: // value for 'username'
- *   },
- * });
- */
-export function useUsersGuidesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<UsersGuidesQuery, UsersGuidesQueryVariables>) {
-        return ApolloReactHooks.useQuery<UsersGuidesQuery, UsersGuidesQueryVariables>(UsersGuidesDocument, baseOptions);
-      }
-export function useUsersGuidesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<UsersGuidesQuery, UsersGuidesQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<UsersGuidesQuery, UsersGuidesQueryVariables>(UsersGuidesDocument, baseOptions);
-        }
-export type UsersGuidesQueryHookResult = ReturnType<typeof useUsersGuidesQuery>;
-export type UsersGuidesLazyQueryHookResult = ReturnType<typeof useUsersGuidesLazyQuery>;
-export type UsersGuidesQueryResult = ApolloReactCommon.QueryResult<UsersGuidesQuery, UsersGuidesQueryVariables>;

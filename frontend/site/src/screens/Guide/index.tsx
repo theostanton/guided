@@ -4,18 +4,32 @@ import {inject, observer, Provider} from 'mobx-react';
 import {ScreenProps} from 'utils/navigation/ScreenProps';
 import {GuideComponent} from "api/generated";
 import GuideContent from "./GuideContent";
-import GuideStore from "./store";
 import GuideMap from "./GuideMap";
 import {fullHeight, fullWidth} from "styles/dimensions";
 import {guideId} from "utils";
+import GuideStore from "./GuideStore";
 
 type Props = ScreenProps<'Guide'>
 
+type State = {}
+
 @inject('authStore')
 @observer
-export default class GuideScreen extends React.Component<Props> {
+export default class GuideScreen extends React.Component<Props, State> {
 
   guideStore: GuideStore = new GuideStore()
+
+  renderMap() {
+    return <View style={styles.map}>
+      <GuideMap/>
+    </View>
+  }
+
+  renderContent() {
+    return <View style={styles.content}>
+      <GuideContent/>
+    </View>
+  }
 
   render() {
     return (
@@ -43,12 +57,8 @@ export default class GuideScreen extends React.Component<Props> {
 
           return <Provider guideStore={this.guideStore}>
             <View style={styles.root}>
-              <View style={styles.map}>
-                <GuideMap/>
-              </View>
-              <View style={styles.content}>
-                <GuideContent/>
-              </View>
+              {this.renderMap()}
+              {this.renderContent()}
             </View>
           </Provider>
         }}
@@ -85,6 +95,12 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
+  },
+  modal: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    backgroundColor: 'yellow',
   },
   textInput: {},
   button: {},

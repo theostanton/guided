@@ -1,8 +1,11 @@
-type Props = LatLong & {
+  export type MapProps = LatLong & {
   zoom: number
+  onClick?: (event: MapClickEvent) => Promise<void> | void
 }
 
-type LatLong = {
+export type MapClickEvent = LatLong & {}
+
+export type LatLong = {
   latitude: number
   longitude: number
 }

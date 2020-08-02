@@ -1,6 +1,7 @@
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import React from "react";
 import {StyleSheet, View} from "react-native";
+import {MapProps} from "./types";
 
 MapboxGL.setAccessToken("pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ");
 
@@ -10,9 +11,9 @@ type State = {
   zoom: number
 }
 
-export default class Map extends React.Component<Props, State> {
+export default class Map extends React.Component<MapProps, State> {
 
-  constructor(props: Props) {
+  constructor(props: MapProps) {
     super(props);
     this.state = {
       latitude: this.props.latitude,

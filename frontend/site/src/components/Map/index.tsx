@@ -1,5 +1,6 @@
 import React from "react";
 import ReactMapGL, {MapboxProps} from 'react-map-gl';
+import {Props} from "./types";
 
 const TOKEN = 'pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ'
 
@@ -24,6 +25,12 @@ export default class Map extends React.Component<Props, State> {
   render() {
     return (
       <ReactMapGL
+        onClick={this.props.onClick && (async (event) => {
+          await this.props.onClick({
+            longitude: event.lngLat[0],
+            latitude: event.lngLat[1]
+          })
+        })}
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxApiAccessToken={TOKEN}
         onViewportChange={(viewport) => this.setState({mapProps: viewport})}

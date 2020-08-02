@@ -1,15 +1,15 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {inject, observer} from "mobx-react";
-import GuideStore from "../store";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import {hairline, half, icon, quarter} from "styles/dimensions";
 import {border, darkIcon} from "styles/colors";
 import {NavigationProps} from "utils/navigation/ScreenProps";
 import {h1, h3} from "styles/text";
 import Stats, {Stat} from "components/Stats";
-import {GuideFragment} from "../../../api/generated";
-import {duration, humanDistance} from "../../../utils/human";
+import {GuideFragment} from "api/generated";
+import {duration, humanDistance} from "utils/human";
+import GuideStore from "../GuideStore";
 
 type Props = NavigationProps & {
   guideStore?: GuideStore
