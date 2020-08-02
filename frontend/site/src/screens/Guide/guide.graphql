@@ -27,7 +27,7 @@ fragment Guide on Guide {
     }
     rides:ridesByGuide{
         nodes{
-
+            ...Ride
         }
     }
 }

@@ -6,6 +6,7 @@ import {hairline, half} from "styles/dimensions";
 import {border} from "styles/colors";
 import Clickable from "components/Pressable";
 import Stats, {Stat} from "../../Stats";
+import {Route} from "../../../utils/navigation/ParamList";
 
 type Props = {
   guide: GuideListItemFragment,
@@ -26,7 +27,7 @@ export default class GuideListItem extends React.Component<Props, State> {
       }]
     return (
       <Clickable
-        href={`/${this.props.guide.owner}/${this.props.guide.slug}`}>
+        href={Route.guide(this.props.guide)}>
         <View style={styles.root}>
           <Text style={styles.header}>{this.props.guide.title}</Text>
           <Stats stats={stats}/>

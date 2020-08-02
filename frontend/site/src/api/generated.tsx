@@ -4499,8 +4499,18 @@ export type GuideQuery = { readonly guide?: Maybe<GuideFragment> };
 
 export type GuideFragment = (
   Pick<Guide, 'id' | 'isCircular' | 'distanceMeters' | 'durationSeconds' | 'created' | 'countries' | 'maxHoursPerRide' | 'slug' | 'owner'>
-  & { readonly rides: { readonly nodes: ReadonlyArray<Maybe<Pick<Ride, 'id'>>> }, readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>> }
+  & { readonly rides: { readonly nodes: ReadonlyArray<Maybe<(
+      Pick<Ride, 'id'>
+      & RideFragment
+    )>> }, readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>> }
 );
+
+export type RideFragment = (
+  Pick<Ride, 'countries' | 'created' | 'date' | 'distanceMeters' | 'durationSeconds' | 'name' | 'pathUrl' | 'position' | 'stage' | 'status'>
+  & { readonly from?: Maybe<SpotFragment>, readonly to?: Maybe<SpotFragment> }
+);
+
+export type SpotFragment = Pick<Spot, 'country' | 'created' | 'date' | 'id' | 'label' | 'lat' | 'long' | 'location' | 'name' | 'nights'>;
 
 export type ProfileQueryVariables = Exact<{
   username: Scalars['String'];
@@ -4562,6 +4572,40 @@ export const GuideListItemFragmentDoc = gql`
   startDate
 }
     `;
+export const SpotFragmentDoc = gql`
+    fragment Spot on Spot {
+  country
+  created
+  date
+  id
+  label
+  lat
+  long
+  location
+  name
+  nights
+}
+    `;
+export const RideFragmentDoc = gql`
+    fragment Ride on Ride {
+  countries
+  created
+  date
+  distanceMeters
+  durationSeconds
+  from: spotByFromSpot {
+    ...Spot
+  }
+  to: spotByToSpot {
+    ...Spot
+  }
+  name
+  pathUrl
+  position
+  stage
+  status
+}
+    ${SpotFragmentDoc}`;
 export const GuideFragmentDoc = gql`
     fragment Guide on Guide {
   id
@@ -4576,6 +4620,7 @@ export const GuideFragmentDoc = gql`
   rides: ridesByGuide {
     nodes {
       id
+      ...Ride
     }
   }
   bounds {
@@ -4584,8 +4629,13 @@ export const GuideFragmentDoc = gql`
     south
     west
   }
+  rides: ridesByGuide {
+    nodes {
+      ...Ride
+    }
+  }
 }
-    `;
+    ${RideFragmentDoc}`;
 export const ProfileUserFragmentDoc = gql`
     fragment ProfileUser on User {
   created

@@ -6,6 +6,7 @@ import {border} from 'styles/colors';
 import Link from 'components/Link';
 import {inject, observer} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
+import {Route} from "../../utils/navigation/ParamList";
 
 type Props = {
   authStore?: AuthStore;
@@ -17,8 +18,8 @@ type State = {};
 export default class Layout extends React.Component<Props, State> {
   renderHeader() {
     const isLoggedin = this.props.authStore.isLoggedIn;
-    console.log('renderHeader isLoggedin=',isLoggedin);
-    console.log('renderHeader user=',this.props.authStore.user);
+    console.log('renderHeader isLoggedin=', isLoggedin);
+    console.log('renderHeader user=', this.props.authStore.user);
 
     type Item = {
       text: string;
@@ -33,7 +34,9 @@ export default class Layout extends React.Component<Props, State> {
         },
         {
           text: 'Profile',
-          href: '/1',
+          href: Route.user({
+            username: this.props.authStore.user.username
+          }),
         },
         {
           text: 'Create',

@@ -35,6 +35,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log('render()')
     return <Provider authStore={this.authStore}>
       <DimensionsWrapper>
         {({screen, window}) => {

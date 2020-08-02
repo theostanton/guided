@@ -9,6 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/'
   },
   resolve: {
     modules: ['node_modules'],
@@ -78,7 +79,9 @@ module.exports = {
   },
   devtool: 'eval-source-map',
   devServer: {
-    port: 8000
+    port: 8000,
+    publicPath:'/',
+    historyApiFallback: true
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin(),

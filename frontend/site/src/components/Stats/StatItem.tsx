@@ -23,7 +23,8 @@ export default class StatItem extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
-    textAlign: 'center',
+    // textAlign: 'center',
+    textAlign:'center',
     flexShrink: 0,
     padding: whole
   },

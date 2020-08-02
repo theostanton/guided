@@ -37,50 +37,37 @@ function wrapped(WrappedComponent) {
 @observer
 export default class Desktop extends React.Component<Props, State> {
 
-  renderAuthed() {
-    const Stack = createStackNavigator<ParamList>();
-    return (
-      // @ts-ignore
-      <ApolloProvider client={client}>
-        <NavigationContainer linking={linking}>
-          <Stack.Navigator initialRouteName={'Root'} screenOptions={{
-            headerShown: false
-          }}>
-            <Stack.Screen name={'Root'} component={wrapped(HomeScreen)}/>
-            <Stack.Screen name={'Create'} component={wrapped(CreateScreen)}/>
-            <Stack.Screen name={'Guide'} component={wrapParams(GuideScreen)}/>
-            <Stack.Screen name={'Profile'} component={wrapped(ProfileScreen)}/>
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ApolloProvider>
-    );
-  }
-
-  renderUnauthed() {
-    const Stack = createStackNavigator<ParamList>();
-    return (
-      // @ts-ignore
-      <ApolloProvider client={client}>
-        <NavigationContainer linking={linking}>
-          <Stack.Navigator initialRouteName={'Login'} screenOptions={{
-            headerShown: false
-          }}>
-            <Stack.Screen name={'Login'} component={wrapped(LoginScreen)}/>
-            <Stack.Screen name={'Signup'} component={wrapped(SignupScreen)}/>
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ApolloProvider>
-    );
-  }
-
   render() {
     if (this.props.authStore.loading) {
       return <View><Text>Loading</Text></View>
-    } else if (this.props.authStore.user) {
-      return this.renderAuthed();
-    } else {
-      return this.renderUnauthed();
     }
+
+    const Stack = createStackNavigator<ParamList>();
+    const isLoggedIn = this.props.authStore.isLoggedIn
+    return (
+      // @ts-ignore
+      <ApolloProvider client={client}>
+        <NavigationContainer linking={linking}>
+          <Stack.Navigator initialRouteName={isLoggedIn ? 'Root' : 'Login'} screenOptions={{
+            headerShown: false
+          }}>
+            {isLoggedIn ?
+              <>
+                <Stack.Screen name={'Root'} component={wrapped(HomeScreen)}/>
+                <Stack.Screen name={'Create'} component={wrapped(CreateScreen)}/>
+                <Stack.Screen name={'Guide'} component={wrapParams(GuideScreen)}/>
+                <Stack.Screen name={'Profile'} component={wrapped(ProfileScreen)}/>
+              </>
+              :
+              <>
+                <Stack.Screen name={'Login'} component={wrapped(LoginScreen)}/>
+                <Stack.Screen name={'Signup'} component={wrapped(SignupScreen)}/>
+              </>
+            }
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ApolloProvider>
+    );
   }
 }
 

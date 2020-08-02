@@ -6,6 +6,8 @@ import {GuideComponent} from "api/generated";
 import GuideContent from "./GuideContent";
 import GuideStore from "./store";
 import GuideMap from "./GuideMap";
+import {fullHeight, fullWidth} from "../../styles/dimensions";
+import {guideId} from "../../utils";
 
 type Props = ScreenProps<'Guide'>
 
@@ -16,9 +18,10 @@ export default class GuideScreen extends React.Component<Props> {
   guideStore: GuideStore = new GuideStore()
 
   render() {
-    const guideId = `${this.props.params.username}_${this.props.params.slug}`
     return (
-      <GuideComponent variables={{guideId}}>
+      <GuideComponent variables={{
+        guideId: guideId(this.props.params)
+      }}>
         {(result) => {
           console.log('result', result)
           if (result.loading) {
@@ -57,28 +60,28 @@ export default class GuideScreen extends React.Component<Props> {
 const styles = StyleSheet.create({
   root: {
     position: "absolute",
-    width: '100vh',
-    height: '100vh',
+    width: fullWidth(),
+    height: fullHeight(),
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor:'red'
+    backgroundColor: 'red'
   },
   map: {
     position: "absolute",
-    width: '100vh',
-    height: '100vh',
+    width: '100%',
+    height: '100%',
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor:'green'
+    backgroundColor: 'green'
   },
   content: {
     position: "absolute",
-    width: '100vh',
-    height: '100vh',
+    width: '100%',
+    height: '100%',
     left: 0,
     right: 0,
     top: 0,

@@ -78,8 +78,8 @@ class CreateForm extends React.Component<Props, State> {
       if (result.data.createGuide.success) {
         const {slug, owner} = result.data.createGuide
         this.props.navigation.navigate('Guide', {
-          username: owner,
-          slug
+          owner,
+          slug,
         })
         return
       } else {
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
 })
 
 
-export default function() {
+export default function () {
   const navigation = useNavigation<NavigationProp<ParamList>>();
   return <CreateForm navigation={navigation}/>
 }
