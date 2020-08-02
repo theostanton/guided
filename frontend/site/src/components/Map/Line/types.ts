@@ -1,3 +1,0 @@
-type LineProps = {
-  id: string
-};
