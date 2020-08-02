@@ -29,7 +29,6 @@ export default class AddSpotContent extends React.Component<Props, State> {
     }
   }
 
-
   renderHeader() {
     return <Text style={styles.title}>
       Add spot

@@ -9,6 +9,7 @@ import {NavigationProps} from "utils/navigation/ScreenProps";
 import {h1, h3} from "styles/text";
 import {GuideFragment} from "api/generated";
 import AddSpotContent from "./AddSpotContent";
+import SelectSpotContent from "./SelectSpotContent";
 
 type Props = NavigationProps & {
   guideStore?: GuideStore
@@ -34,8 +35,9 @@ export default class RightRail extends React.Component<Props, State> {
   renderContent() {
     switch (this.props.guideStore.mode) {
       case "AddSpot":
-        let modeParams = this.props.guideStore.getModeParams(this.props.guideStore.mode);
-        return <AddSpotContent params={modeParams}/>
+        return <AddSpotContent params={this.props.guideStore.getModeParams(this.props.guideStore.mode)}/>
+      case "SelectSpot":
+        return <SelectSpotContent params={this.props.guideStore.getModeParams(this.props.guideStore.mode)}/>
       default:
         return <View><Text>Error</Text></View>
     }

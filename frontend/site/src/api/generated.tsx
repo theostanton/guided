@@ -4516,7 +4516,7 @@ export type GuideFragment = (
 );
 
 export type RideFragment = (
-  Pick<Ride, 'countries' | 'created' | 'date' | 'distanceMeters' | 'durationSeconds' | 'name' | 'pathUrl' | 'position' | 'stage' | 'status'>
+  Pick<Ride, 'id' | 'countries' | 'created' | 'date' | 'distanceMeters' | 'durationSeconds' | 'name' | 'pathUrl' | 'position' | 'stage' | 'status'>
   & { readonly from?: Maybe<SpotFragment>, readonly to?: Maybe<SpotFragment> }
 );
 
@@ -4588,6 +4588,7 @@ export const SpotFragmentDoc = gql`
     `;
 export const RideFragmentDoc = gql`
     fragment Ride on Ride {
+  id
   countries
   created
   date

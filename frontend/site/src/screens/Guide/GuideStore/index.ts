@@ -1,14 +1,14 @@
 import {action, observable} from "mobx";
-import {GuideFragment} from "api/generated";
-import {ModeList} from "./GuideMode";
+import {GuideFragment, RideFragment, SpotFragment} from "api/generated";
+import {ItemState, ModeList} from "./GuideMode";
 
 export default class GuideStore {
   @observable
   guide: GuideFragment | undefined
 
-
   @observable
   mode: keyof ModeList | undefined
+  @observable
   modeParams: ModeList[keyof ModeList]
 
   @action
@@ -32,6 +32,22 @@ export default class GuideStore {
     if (this.mode !== mode) {
       return undefined
     }
-    return this.modeParams
+    return this.modeParams as ModeList[Mode]
+  }
+
+  selectedState(spotOrRide: SpotFragment | RideFragment): ItemState {
+    switch (this.mode) {
+      case "SelectSpot":
+        const params = this.getModeParams('SelectSpot')
+        if (params.spot.id === spotOrRide.id) {
+          return 'selected'
+        } else {
+          return 'not_selected'
+        }
+      case "AddSpot":
+        return 'not_selected'
+    }
+
+    return 'none'
   }
 }

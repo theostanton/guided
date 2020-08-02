@@ -36,6 +36,7 @@ fragment Guide on Guide {
 }
 
 fragment Ride on Ride {
+    id
     countries
     created
     date
