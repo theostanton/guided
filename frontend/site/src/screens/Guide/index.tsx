@@ -6,8 +6,9 @@ import {GuideComponent} from "api/generated";
 import GuideContent from "./GuideContent";
 import GuideMap from "./GuideMap";
 import {fullHeight, fullWidth} from "styles/dimensions";
-import {guideId} from "utils";
 import GuideStore from "./GuideStore";
+import {subscriptionClient} from "../../api/client";
+import {guideId} from "../../utils";
 
 type Props = ScreenProps<'Guide'>
 
@@ -33,32 +34,38 @@ export default class GuideScreen extends React.Component<Props, State> {
 
   render() {
     return (
-      <GuideComponent variables={{
-        guideId: guideId(this.props.params)
-      }}>
+      <GuideComponent
+        // @ts-ignore
+        client={subscriptionClient}
+        shouldResubscribe={true}
+        variables={{
+          id: guideId(this.props.params)
+        }}
+        onSubscriptionComplete={() => {
+          console.log('onSubscriptionComplete')
+        }}
+        onSubscriptionData={(options => {
+          console.log('options', options)
+        })}>
         {(result) => {
-          console.log('result', result)
-          if (result.loading) {
-            return <View style={styles.root}>
-              <Text>Loading</Text>
-            </View>
-          }
+
 
           if (result.error) {
+            console.log('result.error', result.error)
             return <View style={styles.root}>
               <Text>Error: {result.error.message}</Text>
             </View>
           }
 
-          const data = result.data
-          console.log('data', data)
+          if (result.data) {
+            this.guideStore.updateGuide(result.data.guide)
+          }
 
-          this.guideStore.updateGuide(result.data.guide)
-
+          //TODO do this smarter
           return <Provider guideStore={this.guideStore}>
             <View style={styles.root}>
               {this.renderMap()}
-              {this.renderContent()}
+              {result.loading === false && this.renderContent()}
             </View>
           </Provider>
         }}

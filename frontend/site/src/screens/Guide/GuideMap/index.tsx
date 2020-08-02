@@ -62,9 +62,11 @@ export default class GuideMap extends React.Component<Props, State> {
                event
              })
            }}>
-        {this.renderAddSpotMarker()}
-        {this.renderSpots()}
-        {this.renderRides()}
+        {this.props.guideStore.guide && <>
+          {this.renderAddSpotMarker()}
+          {this.renderSpots()}
+          {this.renderRides()}
+        </>}
       </Map>
     );
   }

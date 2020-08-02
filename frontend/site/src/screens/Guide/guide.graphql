@@ -1,5 +1,5 @@
-query Guide($guideId:String!){
-    guide(id: $guideId){
+subscription Guide($id:String!){
+    guide(id:$id){
         ...Guide
     }
 }
@@ -26,12 +26,6 @@ fragment Guide on Guide {
         nodes{
             ...Spot
         }
-    }
-    bounds{
-        east
-        north
-        south
-        west
     }
 }
 

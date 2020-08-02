@@ -4497,12 +4497,12 @@ export type AddSpotMutationVariables = Exact<{
 
 export type AddSpotMutation = { readonly addSpot: Pick<AddSpotResult, 'id' | 'messaage' | 'success'> };
 
-export type GuideQueryVariables = Exact<{
-  guideId: Scalars['String'];
+export type GuideSubscriptionVariables = Exact<{
+  id: Scalars['String'];
 }>;
 
 
-export type GuideQuery = { readonly guide?: Maybe<GuideFragment> };
+export type GuideSubscription = { readonly guide?: Maybe<GuideFragment> };
 
 export type GuideFragment = (
   Pick<Guide, 'id' | 'title' | 'isCircular' | 'distanceMeters' | 'durationSeconds' | 'created' | 'countries' | 'maxHoursPerRide' | 'slug' | 'owner'>
@@ -4512,7 +4512,7 @@ export type GuideFragment = (
   ), readonly spots: (
     Pick<SpotsConnection, 'totalCount'>
     & { readonly nodes: ReadonlyArray<Maybe<SpotFragment>> }
-  ), readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>> }
+  ) }
 );
 
 export type RideFragment = (
@@ -4630,12 +4630,6 @@ export const GuideFragmentDoc = gql`
     nodes {
       ...Spot
     }
-  }
-  bounds {
-    east
-    north
-    south
-    west
   }
 }
     ${RideFragmentDoc}
@@ -4769,57 +4763,53 @@ export type AddSpotMutationHookResult = ReturnType<typeof useAddSpotMutation>;
 export type AddSpotMutationResult = ApolloReactCommon.MutationResult<AddSpotMutation>;
 export type AddSpotMutationOptions = ApolloReactCommon.BaseMutationOptions<AddSpotMutation, AddSpotMutationVariables>;
 export const GuideDocument = gql`
-    query Guide($guideId: String!) {
-  guide(id: $guideId) {
+    subscription Guide($id: String!) {
+  guide(id: $id) {
     ...Guide
   }
 }
     ${GuideFragmentDoc}`;
-export type GuideComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GuideQuery, GuideQueryVariables>, 'query'> & ({ variables: GuideQueryVariables; skip?: boolean; } | { skip: boolean; });
+export type GuideComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<GuideSubscription, GuideSubscriptionVariables>, 'subscription'>;
 
     export const GuideComponent = (props: GuideComponentProps) => (
-      <ApolloReactComponents.Query<GuideQuery, GuideQueryVariables> query={GuideDocument} {...props} />
+      <ApolloReactComponents.Subscription<GuideSubscription, GuideSubscriptionVariables> subscription={GuideDocument} {...props} />
     );
     
 export type GuideProps<TChildProps = {}, TDataName extends string = 'data'> = {
-      [key in TDataName]: ApolloReactHoc.DataValue<GuideQuery, GuideQueryVariables>
+      [key in TDataName]: ApolloReactHoc.DataValue<GuideSubscription, GuideSubscriptionVariables>
     } & TChildProps;
 export function withGuide<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
-  GuideQuery,
-  GuideQueryVariables,
+  GuideSubscription,
+  GuideSubscriptionVariables,
   GuideProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withQuery<TProps, GuideQuery, GuideQueryVariables, GuideProps<TChildProps, TDataName>>(GuideDocument, {
+    return ApolloReactHoc.withSubscription<TProps, GuideSubscription, GuideSubscriptionVariables, GuideProps<TChildProps, TDataName>>(GuideDocument, {
       alias: 'guide',
       ...operationOptions
     });
 };
 
 /**
- * __useGuideQuery__
+ * __useGuideSubscription__
  *
- * To run a query within a React component, call `useGuideQuery` and pass it any options that fit your needs.
- * When your component renders, `useGuideQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGuideSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useGuideSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGuideQuery({
+ * const { data, loading, error } = useGuideSubscription({
  *   variables: {
- *      guideId: // value for 'guideId'
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useGuideQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GuideQuery, GuideQueryVariables>) {
-        return ApolloReactHooks.useQuery<GuideQuery, GuideQueryVariables>(GuideDocument, baseOptions);
+export function useGuideSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<GuideSubscription, GuideSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<GuideSubscription, GuideSubscriptionVariables>(GuideDocument, baseOptions);
       }
-export function useGuideLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GuideQuery, GuideQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GuideQuery, GuideQueryVariables>(GuideDocument, baseOptions);
-        }
-export type GuideQueryHookResult = ReturnType<typeof useGuideQuery>;
-export type GuideLazyQueryHookResult = ReturnType<typeof useGuideLazyQuery>;
-export type GuideQueryResult = ApolloReactCommon.QueryResult<GuideQuery, GuideQueryVariables>;
+export type GuideSubscriptionHookResult = ReturnType<typeof useGuideSubscription>;
+export type GuideSubscriptionResult = ApolloReactCommon.SubscriptionResult<GuideSubscription>;
 export const ProfileDocument = gql`
     query Profile($username: String!) {
   user(username: $username) {
