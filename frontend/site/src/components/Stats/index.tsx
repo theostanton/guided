@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
   },
   item: {
     flex: 1,
-    // minWidth:'min-content',
+    minWidth:'min-content',
   }
 });

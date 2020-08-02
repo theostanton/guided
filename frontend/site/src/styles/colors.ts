@@ -6,5 +6,7 @@ export const secondary: Color = 'green';
 
 export const darkText: Color = '#000000bb';
 export const lightText: Color = '#ffffffbb';
+export const darkIcon: Color = darkText;
+export const lightIcon: Color = lightText;
 
 export const border: Color = '#aaaaaaee';

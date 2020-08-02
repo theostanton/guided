@@ -6,8 +6,8 @@ import {GuideComponent} from "api/generated";
 import GuideContent from "./GuideContent";
 import GuideStore from "./store";
 import GuideMap from "./GuideMap";
-import {fullHeight, fullWidth} from "../../styles/dimensions";
-import {guideId} from "../../utils";
+import {fullHeight, fullWidth} from "styles/dimensions";
+import {guideId} from "utils";
 
 type Props = ScreenProps<'Guide'>
 
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: 'red'
   },
   map: {
     position: "absolute",
@@ -76,10 +75,10 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: 'green'
   },
   content: {
     position: "absolute",
+    pointerEvents: 'none',
     width: '100%',
     height: '100%',
     left: 0,

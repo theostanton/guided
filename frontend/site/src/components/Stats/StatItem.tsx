@@ -13,8 +13,8 @@ export default class StatItem extends React.Component<Props, State> {
   render() {
     return (
       <View style={styles.root}>
-        <Text style={styles.label}>{this.props.stat.label}</Text>
         <Text style={styles.value}>{this.props.stat.value}</Text>
+        <Text style={styles.label}>{this.props.stat.label}</Text>
       </View>
     );
   }
@@ -23,8 +23,8 @@ export default class StatItem extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
-    // textAlign: 'center',
     textAlign:'center',
+    minWidth:'min-content',
     flexShrink: 0,
     padding: whole
   },

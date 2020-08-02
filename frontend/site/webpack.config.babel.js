@@ -74,13 +74,18 @@ module.exports = {
         test: /\.ttf$/,
         loader: "url-loader", // or directly file-loader
         include: path.resolve(__dirname, "node_modules/react-native-vector-icons"),
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules\/(?!(react-native-elements|react-native-vector-icons)\/).*/,
+        loader: 'babel-loader'
       }
     ],
   },
   devtool: 'eval-source-map',
   devServer: {
     port: 8000,
-    publicPath:'/',
+    publicPath: '/',
     historyApiFallback: true
   },
   plugins: [

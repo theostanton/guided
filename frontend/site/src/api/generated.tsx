@@ -4498,11 +4498,11 @@ export type GuideQueryVariables = Exact<{
 export type GuideQuery = { readonly guide?: Maybe<GuideFragment> };
 
 export type GuideFragment = (
-  Pick<Guide, 'id' | 'isCircular' | 'distanceMeters' | 'durationSeconds' | 'created' | 'countries' | 'maxHoursPerRide' | 'slug' | 'owner'>
-  & { readonly rides: { readonly nodes: ReadonlyArray<Maybe<(
-      Pick<Ride, 'id'>
-      & RideFragment
-    )>> }, readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>> }
+  Pick<Guide, 'id' | 'title' | 'isCircular' | 'distanceMeters' | 'durationSeconds' | 'created' | 'countries' | 'maxHoursPerRide' | 'slug' | 'owner'>
+  & { readonly rides: (
+    Pick<RidesConnection, 'totalCount'>
+    & { readonly nodes: ReadonlyArray<Maybe<RideFragment>> }
+  ), readonly bounds?: Maybe<Pick<Bound, 'east' | 'north' | 'south' | 'west'>> }
 );
 
 export type RideFragment = (
@@ -4609,6 +4609,7 @@ export const RideFragmentDoc = gql`
 export const GuideFragmentDoc = gql`
     fragment Guide on Guide {
   id
+  title
   isCircular
   distanceMeters
   durationSeconds
@@ -4618,8 +4619,8 @@ export const GuideFragmentDoc = gql`
   slug
   owner
   rides: ridesByGuide {
+    totalCount
     nodes {
-      id
       ...Ride
     }
   }
@@ -4628,11 +4629,6 @@ export const GuideFragmentDoc = gql`
     north
     south
     west
-  }
-  rides: ridesByGuide {
-    nodes {
-      ...Ride
-    }
   }
 }
     ${RideFragmentDoc}`;

@@ -6,6 +6,7 @@ query Guide($guideId:String!){
 
 fragment Guide on Guide {
     id
+    title
     isCircular
     distanceMeters
     durationSeconds
@@ -15,8 +16,9 @@ fragment Guide on Guide {
     slug
     owner
     rides:ridesByGuide{
+        totalCount
         nodes{
-            id
+            ...Ride
         }
     }
     bounds{
@@ -24,11 +26,6 @@ fragment Guide on Guide {
         north
         south
         west
-    }
-    rides:ridesByGuide{
-        nodes{
-            ...Ride
-        }
     }
 }
 
