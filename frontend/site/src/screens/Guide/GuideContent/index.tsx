@@ -12,11 +12,10 @@ type State = {};
 @inject('device')
 export default class GuideContent extends React.Component<Props, State> {
   render() {
-    console.log('isTouch', this.props.device.isTouch)
-    if (this.props.device.isTouch) {
-      return <MobileGuideContent/>
-    } else {
+    if (this.props.device.isLandscape()) {
       return <DesktopGuideContent/>
+    } else {
+      return <MobileGuideContent/>
     }
   }
 }

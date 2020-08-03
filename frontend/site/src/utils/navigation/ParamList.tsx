@@ -25,12 +25,12 @@ export const linking: LinkingOptions = {
   prefixes: [],
   config: {
     screens: {
+      Root: '',
+      Create: '/create',
+      Login: '/login',
+      Signup: '/signup',
       Profile: '/:username',
       Guide: '/:owner/:slug',
-      Root: '',
-      Create: 'create',
-      Login: 'login',
-      Signup: 'signup',
     },
   },
 };

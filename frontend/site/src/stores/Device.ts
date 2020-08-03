@@ -1,16 +1,23 @@
 import isTouchDevice from 'is-touch-device'
+import {action, observable} from "mobx";
 
 export type Orientation = 'landscape' | 'portrait'
 
 export default class Device {
 
-  orientation: Orientation
+  orientation: Orientation | undefined
   isTouch: boolean
 
-  constructor(orientation: Orientation) {
+  constructor() {
     this.isTouch = isTouchDevice()
-    console.log('this.isTouch',this.isTouch)
+  }
+
+  updateOrientation(orientation: Orientation) {
     this.orientation = orientation
+  }
+
+  isLandscape(): boolean {
+    return this.orientation === 'landscape'
   }
 
 }

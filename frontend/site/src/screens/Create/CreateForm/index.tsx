@@ -9,6 +9,7 @@ import client from "api/client";
 import {WithNavigationProps} from "utils/navigation";
 import {NavigationProp, useNavigation} from "@react-navigation/core";
 import {ParamList} from "utils/navigation/ParamList";
+import LabelledPicker from "../../../components/LabelledPicker";
 
 type Props = WithNavigationProps;
 
@@ -99,30 +100,42 @@ class CreateForm extends React.Component<Props, State> {
   render() {
     return (
       <View style={styles.root}>
-        <Text style={styles.header}>Create guide</Text>
-        <LabelledTextInput label={'Title'} onChange={(title) => {
-          this.updateInput({
-            title
-          })
-        }}/>
-        <LabelledCheckBox
-          selected={this.state.input.isCircular}
-          label={'Is circular'}
-          onChange={(async isCircular => {
-            this.updateInput({isCircular})
-          })}/>
-        <LabelledText label={'Max hours'}>{this.state.input.maxHoursPerRide}</LabelledText>
-        <LabelledText label={'Type'}>{this.state.input.type}</LabelledText>
-        <LabelledText label={'Start date'}>{this.state.input.startDate}</LabelledText>
+        <View style={styles.content}>
+          <Text style={styles.header}>Create guide</Text>
+          <LabelledTextInput label={'Title'} onChange={(title) => {
+            this.updateInput({
+              title
+            })
+          }}/>
+          <LabelledCheckBox
+            selected={this.state.input.isCircular}
+            label={'Is circular'}
+            onChange={(async isCircular => {
+              this.updateInput({isCircular})
+            })}/>
+          <LabelledText label={'Max hours'}>{this.state.input.maxHoursPerRide}</LabelledText>
+          <LabelledPicker label={'Type'}
+                          options={Object.keys(TransportType)}
+                          selected={this.state.input.type}
+                          onValueChange={(type) => {
+                            console.log('type', type)
+                            this.updateInput({
+                              type: type as TransportType
+                            })
+                          }}/>
+          <LabelledText label={'Start date'}>{this.state.input.startDate}</LabelledText>
 
 
-        {this.state.error && <Text style={styles.error}>{this.state.error}</Text>}
-        <Button title={'Create'}
-                onPress={async () => {
-                  await this.create()
-                }}
-                disabled={!this.isValid() || this.state.creating}
-        />
+          {this.state.error && <Text style={styles.error}>{this.state.error}</Text>}
+        </View>
+        <View style={styles.content}>
+          <Button title={'Create'}
+                  onPress={async () => {
+                    await this.create()
+                  }}
+                  disabled={!this.isValid() || this.state.creating}
+          />
+        </View>
       </View>
     );
   }
@@ -134,6 +147,13 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     flexDirection: 'column',
+  },
+  content: {
+    flexDirection: 'column',
+    overflow: 'scroll'
+  },
+  button: {
+    flex: 1
   },
   header: {
     ...h1

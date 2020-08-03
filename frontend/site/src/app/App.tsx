@@ -30,6 +30,7 @@ function DimensionsWrapper(props: { children: (dimensions: { screen: ScaledSize,
 export default class App extends React.Component {
 
   authStore: AuthStore = new AuthStore()
+  device: Device = new Device()
 
   async componentDidMount() {
     await this.authStore.init()
@@ -41,9 +42,11 @@ export default class App extends React.Component {
       {({screen, window}) => {
         const ratio = window.width / window.height
         if (ratio > 0.85) {
-          return <Provider authStore={this.authStore} device={new Device('landscape')}><Desktop/></Provider>
+          this.device.updateOrientation('landscape')
+          return <Provider authStore={this.authStore} device={this.device}><Desktop/></Provider>
         } else {
-          return <Provider authStore={this.authStore} device={new Device('portrait')}><Mobile/></Provider>
+          this.device.updateOrientation('portrait')
+          return <Provider authStore={this.authStore} device={this.device}><Mobile/></Provider>
         }
       }}
     </DimensionsWrapper>

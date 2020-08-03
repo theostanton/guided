@@ -2,6 +2,7 @@ import MapboxGL from "@react-native-mapbox-gl/maps";
 import React from "react";
 import {StyleSheet, View} from "react-native";
 import {MapProps} from "./types";
+import {Point} from "geojson";
 
 MapboxGL.setAccessToken("pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ");
 
@@ -25,7 +26,13 @@ export default class Map extends React.Component<MapProps, State> {
   render() {
     return (
       <View style={styles.root}>
-        <MapboxGL.MapView style={styles.map}>
+        <MapboxGL.MapView style={styles.map} onPress={(event,) => {
+          const geometry = (event.geometry as Point)
+          this.props.onClick({
+            latitude: geometry.coordinates[1],
+            longitude: geometry.coordinates[0],
+          })
+        }}>
           <MapboxGL.Camera
             zoomLevel={this.state.zoom}
             centerCoordinate={

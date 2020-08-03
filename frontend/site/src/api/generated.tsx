@@ -4633,7 +4633,7 @@ export const GuideFragmentDoc = gql`
   maxHoursPerRide
   slug
   owner
-  rides: ridesByGuide {
+  rides: ridesByGuide(filter: {status: {equalTo: READY}}) {
     totalCount
     nodes {
       ...Ride

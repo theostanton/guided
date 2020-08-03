@@ -15,7 +15,12 @@ fragment Guide on Guide {
     maxHoursPerRide
     slug
     owner
-    rides:ridesByGuide{
+    stages:stagesByGuide(filter: {status: {equalTo: READY}}){
+        nodes{
+
+        }
+    }
+    rides:ridesByGuide(filter: {status: {equalTo: READY}}){
         totalCount
         nodes{
             ...Ride

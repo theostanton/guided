@@ -100,7 +100,7 @@ export default class SignupScreen extends React.Component<Props, State> {
         </View>
         <Link
           textStyle={styles.already}
-          href={'login'}>
+          href={'/login'}>
           Already a member? Click to log in
         </Link>
       </View>

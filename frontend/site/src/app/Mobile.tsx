@@ -47,20 +47,18 @@ export default class Mobile extends React.Component<Props, State> {
     console.log('isLoggedIn', isLoggedIn)
     return (
       <NavigationContainer linking={linking}>
-        <Stack.Navigator initialRouteName={isLoggedIn ? 'Root' : 'Login'} screenOptions={{
-          headerShown: false
-        }}>
+        <Stack.Navigator initialRouteName={isLoggedIn ? 'Root' : 'Login'}>
           {isLoggedIn ?
             <>
-              <Stack.Screen name={'Root'} component={wrapped(Tabs)}/>
-              <Stack.Screen name={'Create'} component={wrapped(CreateScreen)}/>
-              <Stack.Screen name={'Guide'} component={wrapped(GuideScreen)}/>
-              <Stack.Screen name={'Profile'} component={wrapped(ProfileScreen)}/>
+              <Stack.Screen name={'Root'} options={{headerShown: false}} component={wrapped(Tabs)}/>
+              <Stack.Screen name={'Create'} options={{headerShown: false}} component={wrapped(CreateScreen)}/>
+              <Stack.Screen name={'Guide'} options={{headerShown: false}} component={wrapped(GuideScreen)}/>
+              <Stack.Screen name={'Profile'} options={{headerShown: true}} component={wrapped(ProfileScreen)}/>
             </>
             :
             <>
-              <Stack.Screen name={'Login'} component={wrapped(LoginScreen)}/>
-              <Stack.Screen name={'Signup'} component={wrapped(SignupScreen)}/>
+              <Stack.Screen name={'Login'} options={{headerShown: false}} component={wrapped(LoginScreen)}/>
+              <Stack.Screen name={'Signup'} options={{headerShown: false}} component={wrapped(SignupScreen)}/>
             </>}
         </Stack.Navigator>
       </NavigationContainer>

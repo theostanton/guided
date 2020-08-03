@@ -39,6 +39,7 @@ export default class GuideListItem extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   root: {
+    width: '100%',
     padding: half,
     borderColor: border,
     borderWidth: hairline

@@ -43,10 +43,7 @@ export default class GuideScreen extends React.Component<Props, State> {
         }}
         onSubscriptionComplete={() => {
           console.log('onSubscriptionComplete')
-        }}
-        onSubscriptionData={(options => {
-          console.log('options', options)
-        })}>
+        }}>
         {(result) => {
 
 

@@ -11,19 +11,17 @@ type State = {};
 
 export default class GuidesList extends React.Component<Props, State> {
   render() {
-    const guides: GuideListItemFragment[] = []
+    const guides = this.props.guides;
     return (
       <View style={styles.root}>
-        <Text>{guides.length} guides</Text>
-        {guides && <FlatList
-          data={this.props.guides}
+        <FlatList
+          data={guides}
           ItemSeparatorComponent={
             () => <View style={{height: half}}/>
           }
           renderItem={(info => {
-            console.log('info', info)
             return <GuideListItem key={info.item.slug} guide={info.item}/>
-          })}/>}
+          })}/>
       </View>
     );
   }
