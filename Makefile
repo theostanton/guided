@@ -14,7 +14,7 @@ install:
 	make install_backend
 	make build_backend
 
-backend: .env
+backend_fresh: .env
 	docker stop db || true
 	docker rm db || true
 	docker volume rm guided_db_data || true
