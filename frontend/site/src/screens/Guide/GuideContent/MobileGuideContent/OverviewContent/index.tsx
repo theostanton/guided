@@ -1,8 +1,8 @@
 import React from 'react';
-import {FlatList, ListRenderItemInfo, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import GuideStore from "screens/Guide/GuideStore";
-import {h1, h3, h4} from "styles/text";
-import {GuideFragment, SpotFragment} from "api/generated";
+import {h1, h3} from "styles/text";
+import {GuideFragment} from "api/generated";
 import {inject} from "mobx-react";
 import {hairline, half, quarter} from "styles/dimensions";
 import SpotItem from "./SpotItem";
@@ -33,7 +33,7 @@ export default class OverviewContent extends React.Component<Props, State> {
       <Text style={styles.spotsTitle}>Spots</Text>
       <View style={styles.spotList}>
         <FlatList data={this.guide.spots.nodes} renderItem={(item) => {
-          return <SpotItem item={item}/>
+          return <SpotItem key={item.item.id} item={item}/>
         }}/>
       </View>
     </View>
@@ -73,14 +73,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   spotList: {
-    flex: 1,
-    maxHeight: 200
+    flex: 1
   },
   divider: {
     height: hairline,
     width: '100%',
     backgroundColor: border,
     marginBottom: half,
-    marginTop:quarter
+    marginTop: quarter
   },
 });

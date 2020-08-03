@@ -27,8 +27,7 @@ class CreateForm extends React.Component<Props, State> {
       input: {
         isCircular: false,
         maxHoursPerRide: 6,
-        startDate: null,
-        type: TransportType.Motorcycle
+        startDate: null
       },
       creating: false,
       error: undefined
@@ -58,8 +57,14 @@ class CreateForm extends React.Component<Props, State> {
       creating: true
     })
 
+    const input = this.state.input
     const variables: MutationCreateGuideArgs = {
-      input: this.state.input as CreateGuideInput
+      input: {
+        type: TransportType[input.type],
+        title: input.title,
+        startDate: input.startDate,
+        maxHoursPerRide: input.maxHoursPerRide
+      }
     }
 
     const result = await client.mutate<CreateMutation>({
@@ -118,7 +123,7 @@ class CreateForm extends React.Component<Props, State> {
                           options={Object.keys(TransportType)}
                           selected={this.state.input.type}
                           onValueChange={(type) => {
-                            console.log('type', type)
+                            console.log('type->', type)
                             this.updateInput({
                               type: type as TransportType
                             })

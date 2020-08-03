@@ -14,6 +14,8 @@ export function get(key: VariableKey): string {
           return 'http://10.0.2.2:5000';
         case 'web':
           return 'http://localhost:5000';
+        case "ios":
+          return 'http://localhost:5000';
         default:
           return undefined;
       }
@@ -23,6 +25,8 @@ export function get(key: VariableKey): string {
           return 'ws://10.0.2.2:5000';
         case 'web':
           return 'ws://localhost:5000';
+        case "ios":
+          return 'http://localhost:5000';
         default:
           return undefined;
       }

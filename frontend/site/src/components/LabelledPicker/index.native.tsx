@@ -1,12 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View, ViewStyle} from 'react-native';
-import Dropdown from 'react-dropdown';
-// import 'react-dropdown/style.css';
+import {Picker} from '@react-native-community/picker';
 import {half} from "styles/dimensions";
 import {h4, h5} from "styles/text";
 
 
-type Props = {
+type Props<T> = {
   label: string
   options: string[]
   selected?: string
@@ -15,16 +14,20 @@ type Props = {
 };
 type State = {};
 
-export default class LabelledPicker extends React.Component<Props, State> {
+export default class LabelledPicker<T> extends React.Component<Props<T>, State> {
   render() {
     return (
       <View style={[styles.root, this.props.style]}>
         <Text style={styles.label}>{this.props.label}</Text>
-        <Dropdown options={this.props.options}
-                  value={this.props.selected}
-                  onChange={(option) => {
-                    this.props.onValueChange(option.value)
-                  }}/>
+        <Picker style={styles.picker}
+                selectedValue={this.props.selected}
+                onValueChange={async (value: string) => {
+                  await this.props.onValueChange(value)
+                }}>
+          {this.props.options.map((option) => {
+            return <Picker.Item key={option} label={option} value={option}/>
+          })}
+        </Picker>
       </View>
     );
   }

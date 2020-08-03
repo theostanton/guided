@@ -8,7 +8,7 @@ import {fullHeight, fullWidth} from "styles/dimensions";
 import GuideStore from "./GuideStore";
 import {guideId, idType} from "utils";
 import {subscriptionClient} from "api/client";
-import {GuideComponent} from "api/generated";
+import {GuideComponent, GuideFragment} from "api/generated";
 import Device from "stores/Device";
 
 type Props = ScreenProps<'Guide'> & {
@@ -29,7 +29,14 @@ export default class GuideScreen extends React.Component<Props, State> {
     })
   }
 
+  updateTitle(guide: GuideFragment) {
+    this.props.navigation.setOptions({
+      title: `${guide.title} by ${guide.owner} - Guided`
+    })
+  }
+
   onModeUpdate() {
+    this.updateTitle(this.guideStore.guide)
     switch (this.guideStore.mode) {
       case "SelectSpot":
         const params = this.guideStore.getModeParams('SelectSpot')
@@ -64,9 +71,6 @@ export default class GuideScreen extends React.Component<Props, State> {
         shouldResubscribe={true}
         variables={{
           id: guideId(this.props.params)
-        }}
-        onSubscriptionComplete={() => {
-          console.log('onSubscriptionComplete')
         }}>
         {(result) => {
 
@@ -79,6 +83,7 @@ export default class GuideScreen extends React.Component<Props, State> {
           }
 
           if (result.data) {
+            this.updateTitle(result.data.guide)
             const itemId = this.props.params.itemId
             if (this.guideStore.updateGuide(result.data.guide) && itemId) {
               switch (idType(itemId)) {

@@ -1,9 +1,11 @@
 import AuthStore from 'stores/AuthStore';
 import {NavigationProp} from "@react-navigation/core";
 import {ParamList, TabParamList} from "./ParamList";
+import {StackNavigationOptions} from "@react-navigation/stack";
+import {NavigationState} from "@react-navigation/routers";
 
 export type NavigationProps = {
-  navigation?: NavigationProp<ParamList>
+  navigation?: NavigationProp<ParamList, undefined, undefined, StackNavigationOptions>
 }
 
 export type UnauthedProps = NavigationProps & {
@@ -17,6 +19,6 @@ export type TabProps = {
 
 export type ScreenProps<RouteName extends keyof ParamList> = {
   params: ParamList[RouteName]
-  navigation: NavigationProp<ParamList, RouteName>
+  navigation: NavigationProp<ParamList, RouteName, NavigationState, StackNavigationOptions>
   authStore?: AuthStore
 }
