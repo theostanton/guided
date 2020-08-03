@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Icon from "components/Icon";
 import {inject, observer} from "mobx-react";
 import {NavigationProps} from "utils/navigation/ScreenProps";
@@ -40,25 +40,28 @@ export default class MobileGuideContent extends React.Component<Props, State> {
   }
 
   renderContent() {
+
+    let Content: React.ReactElement
+
     switch (this.props.guideStore.mode) {
       case "AddSpot":
-        return <View style={styles.content}>
-          <AddSpotContent
-            params={this.props.guideStore.getModeParams('AddSpot')}/>
-        </View>
+        Content = <AddSpotContent
+          params={this.props.guideStore.getModeParams('AddSpot')}/>
+        break
       case "SelectSpot":
-        return <View style={styles.content}>
-          <SelectSpotContent
-            params={this.props.guideStore.getModeParams('SelectSpot')}/>
-        </View>
+        Content = <SelectSpotContent
+          params={this.props.guideStore.getModeParams('SelectSpot')}/>
+        break
       default:
-        return <View style={styles.content}><OverviewContent/></View>
+        Content = <OverviewContent/>
     }
+
+    return <View style={styles.content} pointerEvents={'auto'}>{Content}</View>
   }
 
   render() {
     return (
-      <View style={styles.root}>
+      <View style={styles.root} pointerEvents={'none'}>
         {this.renderHeader()}
         <View style={styles.contentContainer}>
           {this.renderContent()}
@@ -71,11 +74,6 @@ export default class MobileGuideContent extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
-    ...Platform.select({
-      web: {
-        pointerEvents: 'none'
-      },
-    }),
     height: '100%'
   },
   header: {
@@ -93,11 +91,6 @@ const styles = StyleSheet.create({
     borderRadius: icon + half,
     justifyContent: 'center',
     alignItems: 'center',
-    ...Platform.select({
-      web: {
-        pointerEvents: 'auto'
-      },
-    }),
   },
   shareIcon: {
     width: icon + half,
@@ -109,11 +102,6 @@ const styles = StyleSheet.create({
     borderRadius: icon + half,
     justifyContent: 'center',
     alignItems: 'center',
-    ...Platform.select({
-      web: {
-        pointerEvents: 'auto'
-      },
-    }),
   },
   contentContainer: {
     flex: 1,
@@ -131,10 +119,5 @@ const styles = StyleSheet.create({
     borderRadius: half,
     borderWidth: hairline,
     borderColor: border,
-    ...Platform.select({
-      web: {
-        pointerEvents: 'auto'
-      },
-    }),
   }
 });

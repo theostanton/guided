@@ -19,7 +19,7 @@ const Colours: { [state in ItemState]: string } = {
   none: '#0000ff'
 }
 
-@inject("guideStore")
+@inject("guideStore", "device")
 @observer
 export default class GuideMap extends React.Component<Props, State> {
 

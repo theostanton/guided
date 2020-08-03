@@ -17,7 +17,8 @@ export type ParamList = {
   },
   Guide: {
     owner: string,
-    slug: string
+    slug: string,
+    itemId?: string
   }
 }
 
@@ -30,7 +31,7 @@ export const linking: LinkingOptions = {
       Login: '/login',
       Signup: '/signup',
       Profile: '/:username',
-      Guide: '/:owner/:slug',
+      Guide: '/:owner/:slug/:itemId?',
     },
   },
 };

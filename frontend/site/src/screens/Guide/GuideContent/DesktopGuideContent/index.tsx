@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {inject, observer} from "mobx-react";
 import LeftRail from "./LeftRail";
 import {whole} from "styles/dimensions";
@@ -16,11 +16,11 @@ type State = {};
 export default class DesktopGuideContent extends React.Component<Props, State> {
   render() {
     return (
-      <View style={styles.root}>
-        <View style={styles.left}>
+      <View style={styles.root} pointerEvents={'none'}>
+        <View style={styles.left} pointerEvents={'auto'}>
           <LeftRail/>
         </View>
-        <View style={styles.right}>
+        <View style={styles.right} pointerEvents={'auto'}>
           <RightRail/>
         </View>
       </View>
@@ -31,20 +31,10 @@ export default class DesktopGuideContent extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     width: '100%',
-    height: '100%',
-    ...Platform.select({
-      web: {
-        pointerEvents: 'none'
-      },
-    })
+    height: '100%'
   },
   left: {
     position: 'absolute',
-    ...Platform.select({
-      web: {
-        pointerEvents: 'auto'
-      },
-    }),
     height: '100%',
     margin: 0,
     padding: whole,
@@ -53,11 +43,6 @@ const styles = StyleSheet.create({
   },
   right: {
     position: 'absolute',
-    ...Platform.select({
-      web: {
-        pointerEvents: 'auto'
-      },
-    }),
     height: '100%',
     margin: 0,
     right: 0,

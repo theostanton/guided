@@ -1,24 +1,48 @@
 import React from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import {inject, observer, Provider} from 'mobx-react';
+import {inject, Provider} from 'mobx-react';
 import {ScreenProps} from 'utils/navigation/ScreenProps';
 import GuideContent from "./GuideContent";
 import GuideMap from "./GuideMap";
 import {fullHeight, fullWidth} from "styles/dimensions";
 import GuideStore from "./GuideStore";
-import {guideId} from "../../utils";
-import {subscriptionClient} from "../../api/client";
-import {GuideComponent} from "../../api/generated";
+import {guideId, idType} from "utils";
+import {subscriptionClient} from "api/client";
+import {GuideComponent} from "api/generated";
+import Device from "stores/Device";
 
-type Props = ScreenProps<'Guide'>
+type Props = ScreenProps<'Guide'> & {
+  device?: Device
+}
 
 type State = {}
 
-@inject('authStore')
-@observer
+@inject('authStore', 'device', 'navigation')
 export default class GuideScreen extends React.Component<Props, State> {
 
-  guideStore: GuideStore = new GuideStore()
+  guideStore: GuideStore
+
+  constructor(props: Props) {
+    super(props);
+    this.guideStore = new GuideStore(() => {
+      this.onModeUpdate()
+    })
+  }
+
+  onModeUpdate() {
+    switch (this.guideStore.mode) {
+      case "SelectSpot":
+        const params = this.guideStore.getModeParams('SelectSpot')
+        this.props.navigation.setParams({
+          itemId: params.spot.id
+        })
+        break
+      default:
+        this.props.navigation.setParams({
+          itemId: ''
+        })
+    }
+  }
 
   renderMap() {
     return <View style={styles.map}>
@@ -55,7 +79,21 @@ export default class GuideScreen extends React.Component<Props, State> {
           }
 
           if (result.data) {
-            this.guideStore.updateGuide(result.data.guide)
+            const itemId = this.props.params.itemId
+            if (this.guideStore.updateGuide(result.data.guide) && itemId) {
+              switch (idType(itemId)) {
+                case "spot":
+                  const spot = result.data.guide.spots.nodes.find(spot => {
+                    return spot.id === itemId
+                  })
+                  if (spot) {
+                    this.guideStore.updateMode('SelectSpot', {
+                      spot
+                    })
+                  }
+                  break
+              }
+            }
           }
 
           //TODO do this smarter
