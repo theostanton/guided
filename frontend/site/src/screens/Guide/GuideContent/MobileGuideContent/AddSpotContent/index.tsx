@@ -9,10 +9,10 @@ import LabelledTextInput from "components/LabelledTextInput";
 import {AddSpotDocument, AddSpotMutation, MutationAddSpotArgs} from "api/generated";
 import client from "api/client";
 import {inject} from "mobx-react";
-import Icon from "../../../../../components/Icon";
-import {icon, quarter} from "../../../../../styles/dimensions";
-import {darkIcon} from "../../../../../styles/colors";
-import LabelledPicker from "../../../../../components/LabelledPicker";
+import Icon from "components/Icon";
+import {icon, quarter, whole} from "styles/dimensions";
+import {darkIcon} from "styles/colors";
+import LabelledPicker from "components/LabelledPicker";
 
 type Props = ModeProps<'AddSpot'> & {
   guideStore?: GuideStore
@@ -45,6 +45,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
       </Text>
       <View style={styles.headerButton}>
         <Icon name={'close'} color={darkIcon} size={icon} onPress={() => {
+          console.log('close')
           this.props.guideStore.clearMode()
         }}/>
       </View>
@@ -139,7 +140,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
 
   render() {
     return (
-      <View style={styles.root}>
+      <View style={styles.root} pointerEvents={'auto'}>
         {this.renderHeader()}
         {this.renderLocation()}
         {this.renderInfo()}
@@ -152,10 +153,10 @@ export default class AddSpotContent extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
-    height: '200'
+    flex: 0,
+    padding: whole,
   },
   header: {
-    flex: 1,
     flexDirection: 'row'
   },
   headerTitle: {
@@ -167,7 +168,6 @@ const styles = StyleSheet.create({
   headerButton: {},
   location: {
     flexDirection: 'row',
-    flex: 1
   },
   locationText: {
     flex: 0,

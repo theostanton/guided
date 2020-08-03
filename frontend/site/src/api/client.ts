@@ -1,4 +1,4 @@
-import {ApolloClient, ApolloLink, DefaultOptions, HttpLink, InMemoryCache,} from 'apollo-boost';
+import {ApolloLink, DefaultOptions, HttpLink, InMemoryCache,} from 'apollo-boost';
 
 import {setContext} from 'apollo-link-context';
 import fetch from 'node-fetch';
@@ -8,6 +8,7 @@ import {WebSocketLink} from 'apollo-link-ws';
 import {User} from 'stores/AuthStore';
 import * as storage from 'utils/storage';
 import * as envs from 'utils/envs';
+import ApolloClient from "apollo-client";
 
 export const USER_KEY = 'guidedUser';
 
@@ -23,7 +24,7 @@ function authLink(): ApolloLink {
   return setContext(async (_, {headers}) => {
     try {
       const user = await storage.getObject<User>(USER_KEY);
-      console.log('user',user)
+      console.log('user', user)
       if (user !== null) {
         return {
           headers: {

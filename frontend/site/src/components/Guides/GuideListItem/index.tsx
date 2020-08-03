@@ -6,7 +6,7 @@ import {hairline, half} from "styles/dimensions";
 import {border} from "styles/colors";
 import Clickable from "components/Pressable";
 import Stats, {Stat} from "../../Stats";
-import {Route} from "../../../utils/navigation/ParamList";
+import {Route} from "utils/navigation/ParamList";
 
 type Props = {
   guide: GuideListItemFragment,

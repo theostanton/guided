@@ -1,14 +1,16 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import Icon from "components/Icon";
 import {inject, observer} from "mobx-react";
 import {NavigationProps} from "utils/navigation/ScreenProps";
-import {hairline, half, icon, whole} from "styles/dimensions";
+import {hairline, half, whole} from "styles/dimensions";
 import {border} from "styles/colors";
 import GuideStore from "screens/Guide/GuideStore";
 import AddSpotContent from "./AddSpotContent";
 import OverviewContent from "./OverviewContent";
 import SelectSpotContent from "./SelectSpotContent";
+import GuideHeader from "./GuideHeader";
+import {autoPointerEvents, noPointerEvents} from "styles/touch";
+import RouteContent from "./RouteContent";
 
 type Props = NavigationProps & {
   guideStore?: GuideStore
@@ -19,34 +21,16 @@ type State = {};
 @observer
 export default class MobileGuideContent extends React.Component<Props, State> {
 
-  renderHeader() {
-    return <View style={styles.header}>
-      <View style={styles.closeIcon}>
-        <Icon name={'close'} size={icon} onPress={() => {
-          if (this.props.navigation.canGoBack()) {
-            this.props.navigation.goBack()
-          } else {
-            this.props.navigation.navigate('Profile', {
-              username: this.props.guideStore.guide.owner
-            })
-          }
-        }}/>
-      </View>
-      <View style={styles.shareIcon}>
-        <Icon name={'share'} size={icon} onPress={() => {
-        }}/>
-      </View>
-    </View>
-  }
-
   renderContent() {
 
     let Content: React.ReactElement
-
     switch (this.props.guideStore.mode) {
       case "AddSpot":
         Content = <AddSpotContent
           params={this.props.guideStore.getModeParams('AddSpot')}/>
+        break
+      case "Route":
+        Content = <RouteContent/>
         break
       case "SelectSpot":
         Content = <SelectSpotContent
@@ -56,14 +40,16 @@ export default class MobileGuideContent extends React.Component<Props, State> {
         Content = <OverviewContent/>
     }
 
-    return <View style={styles.content} pointerEvents={'auto'}>{Content}</View>
+    return <View style={styles.content} {...autoPointerEvents()}>{Content}</View>
   }
 
   render() {
     return (
-      <View style={styles.root} pointerEvents={'none'}>
-        {this.renderHeader()}
-        <View style={styles.contentContainer}>
+      <View style={styles.root}>
+        <View style={styles.header} {...autoPointerEvents()}>
+          <GuideHeader/>
+        </View>
+        <View style={styles.contentContainer} {...noPointerEvents()}>
           {this.renderContent()}
         </View>
       </View>
@@ -77,31 +63,7 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   header: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  closeIcon: {
-    width: icon + half,
-    height: icon + half,
-    margin: whole,
-    backgroundColor: 'white',
-    borderColor: border,
-    borderWidth: hairline,
-    borderRadius: icon + half,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  shareIcon: {
-    width: icon + half,
-    height: icon + half,
-    margin: whole,
-    backgroundColor: 'white',
-    borderColor: border,
-    borderWidth: hairline,
-    borderRadius: icon + half,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 0,
   },
   contentContainer: {
     flex: 1,
@@ -115,7 +77,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     maxWidth: 400,
-    padding: whole,
     borderRadius: half,
     borderWidth: hairline,
     borderColor: border,

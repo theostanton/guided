@@ -4,9 +4,9 @@ import GuideStore from "screens/Guide/GuideStore";
 import {ModeProps} from "screens/Guide/GuideStore/GuideMode";
 import {h1} from "styles/text";
 import {inject} from "mobx-react";
-import Icon from "../../../../../components/Icon";
-import {icon, quarter} from "../../../../../styles/dimensions";
-import {darkIcon} from "../../../../../styles/colors";
+import Icon from "components/Icon";
+import {icon, quarter, whole} from "styles/dimensions";
+import {darkIcon} from "styles/colors";
 
 type Props = ModeProps<'SelectSpot'> & {
   guideStore?: GuideStore
@@ -18,17 +18,13 @@ export default class SelectSpotContent extends React.Component<Props, State> {
 
   renderHeader() {
     return <View style={styles.header}>
-      <View>
-        <Icon name={'place'} color={'#ff0000'} size={icon}/>
-      </View>
+      <Icon name={'chevron-left'} color={darkIcon} size={icon} onPress={() => {
+        this.props.guideStore.updateMode('Route')
+      }}/>
+      <Icon name={'place'} color={'#ff0000'} size={icon}/>
       <Text style={styles.headerTitle}>
         {this.props.params.spot.name}
       </Text>
-      <View>
-        <Icon name={'close'} color={darkIcon} size={icon} onPress={() => {
-          this.props.guideStore.clearMode()
-        }}/>
-      </View>
     </View>
   }
 
@@ -44,7 +40,8 @@ export default class SelectSpotContent extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
-    height: '200'
+    minHeight: 200,
+    padding: whole,
   },
   header: {
     flex: 1,

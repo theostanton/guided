@@ -24,11 +24,12 @@ export default class RideLine extends React.Component<RideLineProps> {
     if (!ride.pathUrl) {
       return null
     }
+    console.log('style',this.style)
     const layerId = `ride-layer-${ride.id}`
     const sourceId = `ride-source-${ride.id}`
     return (
       <MapboxGL.ShapeSource key={sourceId} id={sourceId} url={ride.pathUrl}>
-        <MapboxGL.LineLayer key={layerId} style={this.style}/>
+        {/*<MapboxGL.LineLayer key={layerId} style={this.style}/>*/}
       </MapboxGL.ShapeSource>
     )
   }

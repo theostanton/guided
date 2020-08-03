@@ -81,7 +81,6 @@ export default class AddSpotContent extends React.Component<Props, State> {
     }
 
     if (result.data) {
-      console.log('result.data', result.data)
       if (result.data.addSpot.success) {
         this.props.guideStore.clearMode()
       } else {

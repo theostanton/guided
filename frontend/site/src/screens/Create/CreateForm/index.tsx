@@ -9,7 +9,7 @@ import client from "api/client";
 import {WithNavigationProps} from "utils/navigation";
 import {NavigationProp, useNavigation} from "@react-navigation/core";
 import {ParamList} from "utils/navigation/ParamList";
-import LabelledPicker from "../../../components/LabelledPicker";
+import LabelledPicker from "components/LabelledPicker";
 
 type Props = WithNavigationProps;
 

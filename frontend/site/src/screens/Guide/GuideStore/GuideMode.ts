@@ -11,6 +11,7 @@ export type ModeList = {
   AddSpot: {
     event: MapClickEvent
   },
+  Route: {},
   SelectSpot: {
     spot: SpotFragment
   }

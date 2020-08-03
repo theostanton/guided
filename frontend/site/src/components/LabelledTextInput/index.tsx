@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {h4, h5} from 'styles/text';
 import {hairline, half, quarter, whole} from 'styles/dimensions';
-import {border} from "../../styles/colors";
+import {border} from "styles/colors";
 
 type Props = {
   inputType?: InputType;

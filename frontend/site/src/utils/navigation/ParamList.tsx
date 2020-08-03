@@ -1,6 +1,6 @@
 import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types";
 import React from "react";
-import {Guide, User} from "../../api/generated";
+import {Guide, User} from "api/generated";
 
 export type TabParamList = {
   Home: {},

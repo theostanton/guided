@@ -1,9 +1,9 @@
 import React from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import {TabParamList} from "../utils/navigation/ParamList";
+import {TabParamList} from "utils/navigation/ParamList";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/Home";
-import AccountScreen from "../screens/Account";
+import HomeScreen from "screens/Home";
+import AccountScreen from "screens/Account";
 
 type Props = {};
 type State = {};

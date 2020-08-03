@@ -8,11 +8,11 @@ import {SafeAreaView, Text, View} from "react-native";
 import {ApolloProvider} from "@apollo/react-common";
 import client from "api/client";
 import Tabs from "./Tabs";
-import CreateScreen from "../screens/Create";
-import GuideScreen from "../screens/Guide";
-import ProfileScreen from "../screens/Profile";
-import LoginScreen from "../screens/Login";
-import SignupScreen from "../screens/Signup";
+import CreateScreen from "screens/Create";
+import GuideScreen from "screens/Guide";
+import ProfileScreen from "screens/Profile";
+import LoginScreen from "screens/Login";
+import SignupScreen from "screens/Signup";
 
 type Props = {
   authStore?: AuthStore

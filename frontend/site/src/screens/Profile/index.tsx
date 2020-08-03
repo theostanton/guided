@@ -4,7 +4,7 @@ import {inject} from 'mobx-react';
 import {ScreenProps} from 'utils/navigation/ScreenProps';
 import {ProfileComponent} from "api/generated";
 import ProfileContent from "./ProfileContent";
-import client from "../../api/client";
+import client from "api/client";
 
 type Props = ScreenProps<'Profile'>
 

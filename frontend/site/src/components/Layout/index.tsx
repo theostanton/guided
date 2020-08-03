@@ -6,7 +6,7 @@ import {border} from 'styles/colors';
 import Link from 'components/Link';
 import {inject, observer} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
-import {Route} from "../../utils/navigation/ParamList";
+import {Route} from "utils/navigation/ParamList";
 
 type Props = {
   authStore?: AuthStore;

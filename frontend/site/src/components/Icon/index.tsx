@@ -4,7 +4,7 @@ import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import {IconProps} from "react-native-vector-icons/Icon";
 import {IconName} from "./names";
 import Pressable from "../Pressable";
-import {darkIcon} from "../../styles/colors";
+import {darkIcon} from "styles/colors";
 
 type Props = {
   name: IconName

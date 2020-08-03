@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {GuideListItemFragment, ProfileUserFragment} from "api/generated";
 import GuidesList from "components/Guides";
-import Stats, {Stat} from "../../components/Stats";
+import Stats, {Stat} from "components/Stats";
 import {h1} from "styles/text";
 import {inject} from "mobx-react";
 import Device from "stores/Device";

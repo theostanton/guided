@@ -4,7 +4,7 @@ import {inject} from 'mobx-react';
 import {h4} from 'styles/text';
 import LabelledText from 'components/LabelledText';
 import {TabProps} from "utils/navigation/ScreenProps";
-import Link from "../../components/Link";
+import Link from "components/Link";
 
 type Props = TabProps
 
@@ -13,7 +13,6 @@ export default class AccountScreen extends React.Component<Props> {
 
   render() {
     const user = this.props.authStore.user;
-    console.log('user', user);
     if (user) {
       return (
         <View style={styles.root}>

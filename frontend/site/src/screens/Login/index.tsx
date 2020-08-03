@@ -4,7 +4,7 @@ import {inject} from 'mobx-react';
 import LabelledTextInput from 'components/LabelledTextInput';
 import {h4} from 'styles/text';
 import {UnauthedProps} from "utils/navigation/ScreenProps";
-import Link from "../../components/Link";
+import Link from "components/Link";
 
 type Props = UnauthedProps
 
