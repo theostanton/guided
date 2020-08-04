@@ -7,6 +7,8 @@ import Icon from "components/Icon";
 import {eighth, hairline, half, icon, quarter, whole} from "styles/dimensions";
 import {border} from "styles/colors";
 import {h2, h5} from "styles/text";
+import TransportTypeIcon from "../../../../../components/Icon/TransportTypeIcon";
+import {TransportType} from "../../../../../api/generated";
 
 type Props = NavigationProps & {
   guideStore?: GuideStore
@@ -31,15 +33,20 @@ export default class GuideHeader extends React.Component<Props, State> {
         }}/>
       </View>
       <View style={styles.title}>
-        <Text style={styles.titleText}>
-          {guide.title}
-        </Text>
-        <Text style={styles.titleSub}>
-          by {guide.owner}
-        </Text>
+        <View style={styles.titleIcon}>
+          <TransportTypeIcon type={TransportType.Motorcycle} size={icon}/>
+        </View>
+        <View style={styles.titleText}>
+          <Text style={styles.titleTitle}>
+            {guide.title}
+          </Text>
+          <Text style={styles.titleSub}>
+            by {guide.owner}
+          </Text>
+        </View>
       </View>
       <View style={styles.shareIcon}>
-        <Icon name={'share'} size={icon-half} onPress={() => {
+        <Icon name={'share'} size={icon - half} onPress={() => {
         }}/>
       </View>
     </View>
@@ -126,16 +133,24 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: half,
     paddingRight: half,
-    flexDirection: 'column',
+    flexDirection: 'row',
+  },
+  titleIcon: {
+    paddingRight:half,
+    paddingLeft:half,
+    justifyContent: 'center'
   },
   titleText: {
+    flexDirection: 'column'
+  },
+  titleTitle: {
     ...h2,
     flex: 0,
     textAlignVertical: 'bottom',
   },
   titleSub: {
     ...h5,
-    flex: 0,
+    flex: 1,
     textAlignVertical: 'top'
   },
   selector: {

@@ -2,7 +2,7 @@ import React from 'react';
 import {Layer, Source} from 'react-map-gl';
 import {RideLineProps} from "./types";
 import {LinePaint} from "mapbox-gl";
-import {itemStateColor} from "../../../styles/colors";
+import {itemStateColor} from "styles/colors";
 
 export default class RideLine extends React.Component<RideLineProps> {
 

@@ -19,7 +19,7 @@ export function itemStateColor(itemState: ItemState): Color {
     case "none":
       return "#555555"
     case "not_selected":
-      return "#99999999"
+      return "#999999"
     case "selected":
       return "#222222"
   }
