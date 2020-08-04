@@ -31,8 +31,13 @@ export type Viewport = {
   transitionDuration?: number | "auto"
 }
 
+const TRANSITION_DURATION = 667
+
 type MapDimensions = { width: number, height: number };
 export default class CameraStore {
+
+  @observable
+  lastViewport: Viewport | undefined
 
   @observable
   camera: CameraBounds | CameraCentered | undefined
@@ -57,7 +62,7 @@ export default class CameraStore {
 
   @action
   moveViewport(viewport: Viewport) {
-    console.log('moveViewport', viewport)
+    this.lastViewport = viewport
   }
 
   @computed
@@ -67,9 +72,13 @@ export default class CameraStore {
       return {}
     }
 
+    if (this.lastViewport) {
+      return this.lastViewport
+    }
+
     switch (this.camera.mode) {
       case "bounds":
-        return generateViewport(
+        const generated = generateViewport(
           {
             north: this.camera.northEast.latitude,
             east: this.camera.northEast.longitude,
@@ -80,23 +89,29 @@ export default class CameraStore {
           this.dimensions.height,
           this.padding
         )
+        return {
+          ...generated,
+          transitionDuration: TRANSITION_DURATION,
+        }
       case "centered":
         return {
           latitude: this.camera.latLong.latitude,
           longitude: this.camera.latLong.longitude,
-          zoom: this.camera.zoom
+          zoom: this.camera.zoom,
+          transitionDuration: TRANSITION_DURATION,
         }
     }
   }
 
   @action
   guideBounds(guide: GuideFragment) {
+    this.lastViewport = undefined
     this.camera = Bounds.guide(guide)
-    console.log('guideBounds this.camera', this.camera)
   }
 
   @action
   center(latLong: LatLong, zoom: number) {
+    this.lastViewport = undefined
     this.camera = {
       mode: 'centered',
       zoom,
@@ -106,7 +121,7 @@ export default class CameraStore {
 
   @action
   updatePadding(patch: Partial<MapPadding>) {
-    console.log('updatePadding', patch)
+    this.lastViewport = undefined
     this.padding = {
       ...this.padding,
       ...patch

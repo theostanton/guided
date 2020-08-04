@@ -24,7 +24,6 @@ export default class Map extends React.Component<MapProps, State> {
 
   render() {
     let viewport = this.props.cameraStore.viewport;
-    console.log('Map.render viewport=',viewport)
     return (
       <ReactMapGL
         onClick={this.props.onClick && (async (event) => {
