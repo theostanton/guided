@@ -2,22 +2,15 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {inject, observer} from "mobx-react";
 import Map from "components/Map";
-import {SEYTHENEX} from "components/Map/consts";
 import GuideStore from "../GuideStore";
 import IconMarker from "components/Map/IconMarker";
-import {ItemState} from "../GuideStore/GuideMode";
 import RideLine from "components/Map/RideLine";
+import {itemStateColor} from "styles/colors";
 
 type Props = {
   guideStore?: GuideStore
 };
 type State = {};
-
-const Colours: { [state in ItemState]: string } = {
-  selected: '#ff0000',
-  not_selected: '#00ff00',
-  none: '#0000ff'
-}
 
 @inject("guideStore", "device")
 @observer
@@ -25,7 +18,6 @@ export default class GuideMap extends React.Component<Props, State> {
 
   renderAddSpotMarker() {
     const params = this.props.guideStore.getModeParams('AddSpot')
-    console.log('params', params)
     return params && <IconMarker id={'add_spot'} position={params.event} color={'#ff00ff'}/>
   }
 
@@ -36,7 +28,7 @@ export default class GuideMap extends React.Component<Props, State> {
         id={spot.id}
         key={spot.id}
         position={{longitude: spot.long, latitude: spot.lat}}
-        color={Colours[state]}
+        color={itemStateColor(state)}
         onPress={() => {
           this.props.guideStore.updateMode('SelectSpot', {
             spot
@@ -55,14 +47,11 @@ export default class GuideMap extends React.Component<Props, State> {
 
   render() {
     return (
-      <Map latitude={SEYTHENEX.latitude}
-           longitude={SEYTHENEX.longitude}
-           zoom={10}
-           onClick={(event) => {
-             this.props.guideStore.updateMode('AddSpot', {
-               event
-             })
-           }}>
+      <Map onClick={(event) => {
+        this.props.guideStore.updateMode('AddSpot', {
+          event
+        })
+      }}>
         {this.props.guideStore.guide && <>
           {this.renderAddSpotMarker()}
           {this.renderSpots()}

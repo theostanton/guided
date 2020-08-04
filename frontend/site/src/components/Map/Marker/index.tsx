@@ -7,7 +7,6 @@ export default class Marker extends React.Component<MarkerProps> {
     return (
       <ReactMapGLMarker
         key={this.props.id}
-        ref={this.props.id}
         latitude={this.props.position.latitude}
         longitude={this.props.position.longitude}
         offsetLeft={this.props.offsetLeft|0}

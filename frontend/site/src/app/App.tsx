@@ -39,12 +39,10 @@ export default class App extends React.Component {
   render() {
     return <DimensionsWrapper>
       {({screen, window}) => {
-        const ratio = window.width / window.height
-        if (ratio > 0.85) {
-          this.device.updateOrientation('landscape')
+        this.device.update(window)
+        if (this.device.isLandscape()) {
           return <Provider authStore={this.authStore} device={this.device}><Desktop/></Provider>
         } else {
-          this.device.updateOrientation('portrait')
           return <Provider authStore={this.authStore} device={this.device}><Mobile/></Provider>
         }
       }}

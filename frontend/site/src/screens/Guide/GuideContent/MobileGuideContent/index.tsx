@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {inject, observer} from "mobx-react";
 import {NavigationProps} from "utils/navigation/ScreenProps";
-import {hairline, half, whole} from "styles/dimensions";
+import {hairline, half, icon, whole} from "styles/dimensions";
 import {border} from "styles/colors";
 import GuideStore from "screens/Guide/GuideStore";
 import AddSpotContent from "./AddSpotContent";
@@ -10,16 +10,26 @@ import OverviewContent from "./OverviewContent";
 import SelectSpotContent from "./SelectSpotContent";
 import GuideHeader from "./GuideHeader";
 import {autoPointerEvents, noPointerEvents} from "styles/touch";
+import ReactResizeDetector from 'react-resize-detector';
 import RouteContent from "./RouteContent";
+import CameraStore from "components/Map/CameraStore";
 
 type Props = NavigationProps & {
   guideStore?: GuideStore
+  cameraStore?: CameraStore
 };
 type State = {};
 
-@inject('navigation', 'guideStore')
+@inject('navigation', 'guideStore', 'cameraStore')
 @observer
 export default class MobileGuideContent extends React.Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props);
+    props.cameraStore.updatePadding({
+      bottom: 200 + 2 * whole
+    })
+  }
 
   renderContent() {
 
@@ -40,14 +50,26 @@ export default class MobileGuideContent extends React.Component<Props, State> {
         Content = <OverviewContent/>
     }
 
-    return <View style={styles.content} {...autoPointerEvents()}>{Content}</View>
+    return <View style={styles.content} {...autoPointerEvents()}>
+      {Content}
+    </View>
   }
 
   render() {
     return (
       <View style={styles.root}>
         <View style={styles.header} {...autoPointerEvents()}>
-          <GuideHeader/>
+          <ReactResizeDetector>
+            {({_, height}) => {
+              if (height) {
+                this.props.cameraStore.updatePadding({
+                  top: height + 2 * whole + icon
+                })
+              }
+              return <GuideHeader/>
+            }}
+          </ReactResizeDetector>
+
         </View>
         <View style={styles.contentContainer} {...noPointerEvents()}>
           {this.renderContent()}
@@ -76,9 +98,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: '100%',
     alignSelf: 'center',
-    maxWidth: 400,
+    maxWidth: 800,
     borderRadius: half,
     borderWidth: hairline,
     borderColor: border,
+    overflow: 'hidden'
   }
 });

@@ -11,6 +11,7 @@ import {subscriptionClient} from "api/client";
 import {GuideDocument, GuideFragment, GuideSubscription, GuideSubscriptionVariables} from "api/generated";
 import Device from "stores/Device";
 import {autoPointerEvents, noPointerEvents} from "styles/touch";
+import CameraStore from "../../components/Map/CameraStore";
 
 type Props = ScreenProps<'Guide'> & {
   device?: Device
@@ -24,6 +25,7 @@ type State = {
 export default class GuideScreen extends React.Component<Props, State> {
 
   guideStore: GuideStore
+  cameraStore: CameraStore
   private subscription: ZenObservable.Subscription;
 
   constructor(props: Props) {
@@ -31,6 +33,7 @@ export default class GuideScreen extends React.Component<Props, State> {
     this.guideStore = new GuideStore(() => {
       this.onModeUpdate()
     })
+    this.cameraStore = new CameraStore(this.props.device.window)
     this.state = {}
   }
 
@@ -40,6 +43,20 @@ export default class GuideScreen extends React.Component<Props, State> {
     })
   }
 
+  updateCamera() {
+    switch (this.guideStore.mode) {
+      case "SelectSpot":
+        const params = this.guideStore.getModeParams('SelectSpot')
+        this.cameraStore.center({
+          latitude: params.spot.lat,
+          longitude: params.spot.long
+        }, 13)
+        break
+      default:
+        this.cameraStore.guideBounds(this.guideStore.guide)
+    }
+  }
+
   onModeUpdate() {
     switch (this.guideStore.mode) {
       case "SelectSpot":
@@ -47,12 +64,13 @@ export default class GuideScreen extends React.Component<Props, State> {
         this.props.navigation.setParams({
           itemId: params.spot.id
         })
-        break
+        break;
       default:
         this.props.navigation.setParams({
           itemId: ''
         })
     }
+    this.updateCamera()
   }
 
   renderMap() {
@@ -99,6 +117,7 @@ export default class GuideScreen extends React.Component<Props, State> {
               break
           }
         }
+        this.updateCamera()
       }
     })
   }
@@ -109,7 +128,7 @@ export default class GuideScreen extends React.Component<Props, State> {
 
   render() {
     return (
-      <Provider guideStore={this.guideStore}>
+      <Provider guideStore={this.guideStore} cameraStore={this.cameraStore}>
         <View style={styles.root} {...noPointerEvents()}>
           {this.renderMap()}
           {this.renderContent()}

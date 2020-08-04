@@ -2,20 +2,16 @@ import React from 'react';
 import {Layer, Source} from 'react-map-gl';
 import {RideLineProps} from "./types";
 import {LinePaint} from "mapbox-gl";
-import {ItemState} from "screens/Guide/GuideStore/GuideMode";
-
-const Colours: { [state in ItemState]: string } = {
-  selected: '#ff0000',
-  not_selected: '#00ff00',
-  none: '#0000ff'
-}
+import {itemStateColor} from "../../../styles/colors";
 
 export default class RideLine extends React.Component<RideLineProps> {
 
   get paint(): LinePaint {
     return {
-      "line-color": Colours[this.props.state],
-      "line-width": 5
+      "line-color": itemStateColor(this.props.state),
+      "line-width": 5,
+      "line-opacity": 0.5,
+      "line-blur": 0.5
     }
   }
 

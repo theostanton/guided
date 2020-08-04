@@ -1,12 +1,14 @@
 import React from "react";
-import ReactMapGL, {MapboxProps} from 'react-map-gl';
+import ReactMapGL from 'react-map-gl';
 import {MapProps} from "./types";
+import {inject, observer} from "mobx-react";
 
 const TOKEN = 'pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ'
 
-type State = {
-  mapProps: MapboxProps
-}
+type State = {}
+
+@inject('cameraStore')
+@observer
 export default class Map extends React.Component<MapProps, State> {
 
   constructor(props: MapProps) {
@@ -14,15 +16,15 @@ export default class Map extends React.Component<MapProps, State> {
     this.state = {
       mapProps: {
         width: '100%',
-        height: '100%',
-        latitude: props.latitude,
-        longitude: props.longitude,
-        zoom: props.zoom
-      }
+        height: '100%'
+      },
+      viewport: undefined
     }
   }
 
   render() {
+    let viewport = this.props.cameraStore.viewport;
+    console.log('Map.render viewport=',viewport)
     return (
       <ReactMapGL
         onClick={this.props.onClick && (async (event) => {
@@ -33,8 +35,12 @@ export default class Map extends React.Component<MapProps, State> {
         })}
         mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxApiAccessToken={TOKEN}
-        onViewportChange={(viewport) => this.setState({mapProps: viewport})}
-        {...this.state.mapProps}
+        onViewportChange={(viewport) => {
+          this.props.cameraStore.moveViewport(viewport)
+        }}
+        width={'100%'}
+        height={'100%'}
+        {...viewport}
       >
         {this.props.children}
       </ReactMapGL>

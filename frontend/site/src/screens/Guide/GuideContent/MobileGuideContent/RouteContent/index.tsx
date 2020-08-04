@@ -2,7 +2,7 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import GuideStore from "screens/Guide/GuideStore";
 import {GuideFragment} from "api/generated";
-import {inject} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import SpotItem from "./SpotItem";
 import {hairline} from "styles/dimensions";
 import {border} from "styles/colors";
@@ -13,6 +13,7 @@ type Props = {
 type State = {};
 
 @inject('guideStore')
+@observer
 export default class RouteContent extends React.Component<Props, State> {
 
   get guide(): GuideFragment {

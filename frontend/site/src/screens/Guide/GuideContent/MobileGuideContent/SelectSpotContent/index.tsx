@@ -6,7 +6,7 @@ import {h1} from "styles/text";
 import {inject} from "mobx-react";
 import Icon from "components/Icon";
 import {icon, quarter, whole} from "styles/dimensions";
-import {darkIcon} from "styles/colors";
+import {darkIcon, itemStateColor} from "styles/colors";
 
 type Props = ModeProps<'SelectSpot'> & {
   guideStore?: GuideStore
@@ -21,7 +21,7 @@ export default class SelectSpotContent extends React.Component<Props, State> {
       <Icon name={'chevron-left'} color={darkIcon} size={icon} onPress={() => {
         this.props.guideStore.updateMode('Route')
       }}/>
-      <Icon name={'place'} color={'#ff0000'} size={icon}/>
+      <Icon name={'place'} color={itemStateColor('selected')} size={icon}/>
       <Text style={styles.headerTitle}>
         {this.props.params.spot.name}
       </Text>
