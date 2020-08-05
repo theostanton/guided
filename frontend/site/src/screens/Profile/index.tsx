@@ -8,15 +8,13 @@ import client from "api/client";
 
 type Props = ScreenProps<'Profile'>
 
-@inject('authStore')
+@inject('authStore', 'navigation')
 export default class ProfileScreen extends React.Component<Props> {
   render() {
-    console.log('ProfileScreen.render', this.props)
     return (
       // @ts-ignore
       <ProfileComponent variables={{username: this.props.params.username}} client={client}>
         {(result) => {
-
           if (result.loading) {
             return <View style={styles.root}>
               <Text>Loading</Text>
@@ -32,6 +30,9 @@ export default class ProfileScreen extends React.Component<Props> {
           console.log('result.data', result.data)
 
           if (result.data && result.data.user) {
+            this.props.navigation.setOptions({
+              title: `${result.data.user.username} - Riders Bible`,
+            })
             return <ProfileContent user={result.data.user} guides={result.data.guides.nodes}/>
           }
 
@@ -49,6 +50,7 @@ export default class ProfileScreen extends React.Component<Props> {
 const styles = StyleSheet.create({
   root: {
     maxWidth: 400,
+    height:100,
     alignSelf: 'center',
   },
 });

@@ -7,10 +7,14 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="site/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1351233438/react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/-1351233438/react-native-community_async-storage.iml" group="site/react-native-community_async-storage" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1163911135/react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/1163911135/react-native-community_masked-view.iml" group="site/react-native-community_masked-view" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1521625578/react-native-community_picker.iml" filepath="$PROJECT_DIR$/.idea/modules/-1521625578/react-native-community_picker.iml" group="site/react-native-community_picker" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/892620918/react-native-community_viewpager.iml" filepath="$PROJECT_DIR$/.idea/modules/892620918/react-native-community_viewpager.iml" group="site/react-native-community_viewpager" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-428576296/react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/-428576296/react-native-gesture-handler.iml" group="site/react-native-gesture-handler" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1787164327/react-native-mapbox-gl_maps.iml" filepath="$PROJECT_DIR$/.idea/modules/-1787164327/react-native-mapbox-gl_maps.iml" group="site/react-native-mapbox-gl_maps" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/777413956/react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/777413956/react-native-reanimated.iml" group="site/react-native-reanimated" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1106408513/react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/1106408513/react-native-safe-area-context.iml" group="site/react-native-safe-area-context" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1522860441/react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/1522860441/react-native-screens.iml" group="site/react-native-screens" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1832209154/react-native-vector-icons.iml" filepath="$PROJECT_DIR$/.idea/modules/-1832209154/react-native-vector-icons.iml" group="site/react-native-vector-icons" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/site.iml" filepath="$PROJECT_DIR$/.idea/modules/site.iml" group="site" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/site-android-site.iml" filepath="$PROJECT_DIR$/.idea/modules/site-android-site.iml" group="site" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/site-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/site-app.iml" group="site/app" />

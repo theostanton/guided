@@ -8,8 +8,8 @@ export default class RideLine extends React.Component<RideLineProps> {
 
   get paint(): LinePaint {
     return {
-      "line-color": itemStateColor(this.props.state),
-      "line-width": 5,
+      "line-color": itemStateColor('ride', this.props.state),
+      "line-width": 3,
       "line-opacity": 0.5,
       "line-blur": 0.5
     }

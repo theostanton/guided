@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {GuideListItemFragment, ProfileUserFragment} from "api/generated";
+import {StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {GuideFragment, ProfileUserFragment} from "api/generated";
 import GuidesList from "components/Guides";
 import Stats, {Stat} from "components/Stats";
 import {h1} from "styles/text";
@@ -10,13 +10,14 @@ import Device from "stores/Device";
 type Props = {
   device?: Device
   user: ProfileUserFragment
-  guides: readonly GuideListItemFragment[]
+  guides: readonly GuideFragment[]
 };
 type State = {};
 
 @inject('device')
 export default class ProfileContent extends React.Component<Props, State> {
-  render() {
+
+  renderStats() {
     const {user, guides} = this.props
 
     const stats: Stat[] = [
@@ -37,19 +38,60 @@ export default class ProfileContent extends React.Component<Props, State> {
         value: guides.length
       },
     ]
+    return <Stats stats={stats}/>
+  }
 
-    const styles = this.props.device.isLandscape() ? landscapeStyles : portraitStyles
-    return (
-      <View style={styles.root}>
-        <View style={styles.info}>
-          <Text style={styles.username}>{user.username}</Text>
-          <Stats stats={stats}/>
-        </View>
-        <View style={styles.guides}>
-          <GuidesList guides={guides}/>
-        </View>
+  renderList(style: ViewStyle) {
+    const {guides} = this.props
+    return <View style={style}>
+      <GuidesList guides={guides}/>
+    </View>
+  }
+
+  renderPortrait() {
+    return <View style={portraitStyles.root}>
+      <View style={portraitStyles.info}>
+        <Text style={portraitStyles.username}>{this.props.user.username}</Text>
+        {this.renderStats()}
       </View>
-    );
+      {this.renderList(portraitStyles.guides)}
+    </View>
+  }
+
+  renderLandscape() {
+    const styles = StyleSheet.create({
+      root: {
+        width: '100%',
+        flex:1,
+        alignSelf: 'center',
+        flexDirection: 'row'
+      },
+      username: {
+        ...h1
+      },
+      info: {
+        flex: 1,
+        flexDirection: 'column'
+      },
+      guides: {
+        overflow:'scroll'
+      },
+    });
+    return <View style={styles.root}>
+      <View style={styles.info}>
+        <Text style={styles.username}>{this.props.user.username}</Text>
+        {this.renderStats()}
+      </View>
+      {this.renderList(styles.guides)}
+    </View>
+  }
+
+  render() {
+    if (this.props.device.isLandscape()) {
+      return this.renderLandscape()
+    } else {
+      return this.renderPortrait()
+    }
   }
 }
 
@@ -70,25 +112,7 @@ const portraitStyles = StyleSheet.create({
   guides: {
     flex: 1,
     flexDirection: 'column',
-    width: '100%'
-  },
-});
-const landscapeStyles = StyleSheet.create({
-  root: {
     width: '100%',
-    height: '100%',
-    alignSelf: 'center',
-    flexDirection: 'row'
-  },
-  username: {
-    ...h1
-  },
-  info: {
-    flex: 1,
-    flexDirection: 'column'
-  },
-  guides: {
-    flex: 1,
-    flexDirection: 'column'
+    overflow: 'scroll'
   },
 });

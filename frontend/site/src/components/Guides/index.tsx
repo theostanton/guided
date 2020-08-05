@@ -1,11 +1,11 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {GuideListItemFragment} from "api/generated";
+import {FlatList, StyleSheet, View} from 'react-native';
+import {GuideFragment} from "api/generated";
 import GuideListItem from "./GuideListItem";
-import {half} from "styles/dimensions";
+import {half, whole} from "styles/dimensions";
 
 type Props = {
-  guides: readonly GuideListItemFragment[]
+  guides: readonly GuideFragment[]
 };
 type State = {};
 
@@ -16,9 +16,6 @@ export default class GuidesList extends React.Component<Props, State> {
       <View style={styles.root}>
         <FlatList
           data={guides}
-          ItemSeparatorComponent={
-            () => <View style={{height: half}}/>
-          }
           renderItem={(info => {
             return <GuideListItem key={info.item.slug} guide={info.item}/>
           })}/>
@@ -28,5 +25,7 @@ export default class GuidesList extends React.Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  root: {},
+  root: {
+    padding: whole
+  },
 });

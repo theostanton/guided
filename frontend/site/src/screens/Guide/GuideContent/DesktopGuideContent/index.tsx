@@ -5,15 +5,31 @@ import LeftRail from "./LeftRail";
 import {whole} from "styles/dimensions";
 import RightRail from "./RightRail";
 import GuideStore from "../../GuideStore";
+import Device from "stores/Device";
+import CameraStore from "components/Map/CameraStore";
 
 type Props = {
-  guideStore?: GuideStore
+  guideStore?: GuideStore,
+  device?: Device
+  cameraStore?: CameraStore
 };
 type State = {};
 
-@inject("guideStore")
+const MAX_RAIL_WIDTH=400
+
+@inject("guideStore", "device", "cameraStore")
 @observer
 export default class DesktopGuideContent extends React.Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props);
+    const side = Math.min(this.props.device.window.width / 4, MAX_RAIL_WIDTH) + 2 * whole
+    props.cameraStore.updatePadding({
+      left: side,
+      right: side
+    })
+  }
+
   render() {
     return (
       <View style={styles.root} pointerEvents={'none'}>
@@ -39,7 +55,7 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: whole,
     width: '25%',
-    maxWidth: 400
+    maxWidth: MAX_RAIL_WIDTH
   },
   right: {
     position: 'absolute',
@@ -48,6 +64,6 @@ const styles = StyleSheet.create({
     right: 0,
     padding: whole,
     width: '25%',
-    maxWidth: 400
+    maxWidth: MAX_RAIL_WIDTH
   },
 });

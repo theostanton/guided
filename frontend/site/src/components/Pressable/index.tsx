@@ -20,6 +20,8 @@ export default class Pressable extends React.Component<Props, State> {
       onPress={this.props.onPress}
       underlayColor={"#eeeeee"}
       style={{
+        padding: 0,
+        margin: 0,
         opacity: this.state.hovering === true ? 0.8 : 1.0
       }}
       // @ts-ignore

@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="afc8e5c6-2725-4144-a0b7-597b50c15a20" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.next/server/pages-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../.next/server/pages-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.next/static/chunks/webpack.js" beforeDir="false" afterPath="$PROJECT_DIR$/../.next/static/chunks/webpack.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/components/Guides/GuideListItem/GuideListItemMap/index.native.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/components/Guides/GuideListItem/GuideListItemMap/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/components/Guides/GuideListItem/GuideListItemMap/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/android-chrome-192x192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/android-chrome-512x512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/apple-touch-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/favicon-16x16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/favicon-32x32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../web/site.webmanifest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.2/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.2/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.2/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
@@ -13,7 +40,45 @@
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_14_1_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app.json" beforeDir="false" afterPath="$PROJECT_DIR$/../app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/api/generated.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/api/generated.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/Desktop.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/Desktop.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/Mobile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/Mobile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Guides/GuideListItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Guides/GuideListItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Guides/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Guides/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Layout/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Layout/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Map/Bounds.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Map/Bounds.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Map/CameraStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Map/CameraStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Map/RideLine/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Map/RideLine/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Map/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Map/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Map/viewport.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Map/viewport.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Pressable/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Pressable/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Guide/GuideContent/DesktopGuideContent/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Guide/GuideContent/DesktopGuideContent/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Guide/guide.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Guide/guide.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Guide/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Guide/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Profile/ProfileContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Profile/ProfileContent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Profile/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Profile/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Profile/profile.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Profile/profile.graphql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/styles/colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/styles/colors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +94,52 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <projects_view />
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="site" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="site" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="site" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="site" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="site" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="install" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="site" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
@@ -37,7 +147,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="ProjectId" id="1eo4aFGZ1QXhpIaizXQnVjB9Xq3" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -45,10 +157,15 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Android App.android-app">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.android:app [installDebug]">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -251,6 +368,70 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="android:app [assembleRelease]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="assembleRelease" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="android:app [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="assemble" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="android:app [installDebug]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="installDebug" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.android:app [installDebug]" />
+        <item itemvalue="Gradle.android:app [assembleRelease]" />
+        <item itemvalue="Gradle.android:app [assemble]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -266,17 +447,37 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="461" y="239" key="SettingsEditor" timestamp="1594974725993">
+    <state width="1920" height="351" key="GridCell.Tab.0.bottom" timestamp="1596624090430">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="461" y="239" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1594974725993" />
-    <state x="360" y="200" width="1200" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1595936223097">
+    <state width="1920" height="351" key="GridCell.Tab.0.bottom/0.0.1920.1200@0.0.1920.1200" timestamp="1596624090430" />
+    <state width="1920" height="351" key="GridCell.Tab.0.center" timestamp="1596624090429">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="360" y="200" width="1200" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595936223097" />
-    <state x="630" y="432" key="com.intellij.ide.util.TipDialog" timestamp="1595859807688">
+    <state width="1920" height="351" key="GridCell.Tab.0.center/0.0.1920.1200@0.0.1920.1200" timestamp="1596624090429" />
+    <state width="1920" height="351" key="GridCell.Tab.0.left" timestamp="1596624090428">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state x="630" y="432" key="com.intellij.ide.util.TipDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1595859807688" />
+    <state width="1920" height="351" key="GridCell.Tab.0.left/0.0.1920.1200@0.0.1920.1200" timestamp="1596624090428" />
+    <state width="1920" height="351" key="GridCell.Tab.0.right" timestamp="1596624090429">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state width="1920" height="351" key="GridCell.Tab.0.right/0.0.1920.1200@0.0.1920.1200" timestamp="1596624090429" />
+    <state x="461" y="239" key="SettingsEditor" timestamp="1596623751681">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="461" y="239" key="SettingsEditor/0.0.1920.1200@0.0.1920.1200" timestamp="1596623751681" />
+    <state x="360" y="200" width="1200" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1596624314730">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="360" y="200" width="1200" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1596624314730" />
+    <state x="630" y="432" key="com.intellij.ide.util.TipDialog" timestamp="1596567562957">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="630" y="432" key="com.intellij.ide.util.TipDialog/0.0.1920.1200@0.0.1920.1200" timestamp="1596567562957" />
+    <state x="625" y="271" width="670" height="676" key="search.everywhere.popup" timestamp="1596567640285">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="625" y="271" width="670" height="676" key="search.everywhere.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1596567640285" />
   </component>
 </project>

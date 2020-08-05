@@ -4541,7 +4541,7 @@ export type ProfileQueryVariables = Exact<{
 }>;
 
 
-export type ProfileQuery = { readonly user?: Maybe<ProfileUserFragment>, readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideListItemFragment>> }> };
+export type ProfileQuery = { readonly user?: Maybe<ProfileUserFragment>, readonly guides?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<GuideFragment>> }> };
 
 export type ProfileUserFragment = (
   Pick<User, 'created' | 'colour' | 'username' | 'countries' | 'distanceMeters' | 'durationSeconds' | 'followingStatus'>
@@ -4936,12 +4936,12 @@ export const ProfileDocument = gql`
   }
   guides(condition: {owner: $username}) {
     nodes {
-      ...GuideListItem
+      ...Guide
     }
   }
 }
     ${ProfileUserFragmentDoc}
-${GuideListItemFragmentDoc}`;
+${GuideFragmentDoc}`;
 export type ProfileComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<ProfileQuery, ProfileQueryVariables>, 'query'> & ({ variables: ProfileQueryVariables; skip?: boolean; } | { skip: boolean; });
 
     export const ProfileComponent = (props: ProfileComponentProps) => (

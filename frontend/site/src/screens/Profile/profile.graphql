@@ -4,7 +4,7 @@ query Profile($username:String!){
     }
     guides(condition: {owner: $username}){
         nodes{
-            ...GuideListItem
+            ...Guide
         }
     }
 }

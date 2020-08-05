@@ -8,7 +8,7 @@ export default class RideLine extends React.Component<RideLineProps> {
 
   get style(): StyleProp<LineLayerStyle> {
     return {
-      lineColor: itemStateColor(this.props.state),
+      lineColor: itemStateColor('ride', this.props.state),
       lineWidth: 5
     }
   }

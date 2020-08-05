@@ -27,7 +27,7 @@ function wrapped(WrappedComponent, inLayout: boolean = true) {
         <Provider navigation={this.props.navigation}>
           {inLayout ?
             <Layout>
-              <View style={styles.root}>
+              <View style={styles.content}>
                 <WrappedComponent {...this.props['route']}/>
               </View>
             </Layout> :
@@ -78,11 +78,6 @@ export default class Desktop extends React.Component<Props, State> {
 
 
 const styles = StyleSheet.create({
-  root: {
-    width: '100%',
-    height: '100vh',
-    flexDirection: 'column'
-  },
   content: {
     width: '100%',
     flex: 1,

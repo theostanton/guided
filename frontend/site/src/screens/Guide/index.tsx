@@ -39,18 +39,22 @@ export default class GuideScreen extends React.Component<Props, State> {
 
   updateTitle(guide: GuideFragment) {
     this.props.navigation.setOptions({
-      title: `${guide.title} by ${guide.owner} - Guided`
+      title: `${guide.title} by ${guide.owner} | Riders Bible`
     })
   }
 
   updateCamera() {
     switch (this.guideStore.mode) {
       case "SelectSpot":
-        const params = this.guideStore.getModeParams('SelectSpot')
+        const selectSpotParams = this.guideStore.getModeParams('SelectSpot')
         this.cameraStore.center({
-          latitude: params.spot.lat,
-          longitude: params.spot.long
+          latitude: selectSpotParams.spot.lat,
+          longitude: selectSpotParams.spot.long
         }, 13)
+        break
+      case "AddSpot":
+        const addSpotParams = this.guideStore.getModeParams('AddSpot')
+        this.cameraStore.center(addSpotParams.event, 13)
         break
       default:
         this.cameraStore.guideBounds(this.guideStore.guide)

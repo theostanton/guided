@@ -27,7 +27,8 @@ export default class MobileGuideContent extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     props.cameraStore.updatePadding({
-      bottom: 200 + 2 * whole
+      bottom: 200 + 2 * whole,
+      top: 200 + 2 * whole,
     })
   }
 
@@ -59,16 +60,17 @@ export default class MobileGuideContent extends React.Component<Props, State> {
     return (
       <View style={styles.root}>
         <View style={styles.header} {...autoPointerEvents()}>
-          <ReactResizeDetector>
-            {({_, height}) => {
-              if (height) {
-                this.props.cameraStore.updatePadding({
-                  top: height + 2 * whole + icon
-                })
-              }
-              return <GuideHeader/>
-            }}
-          </ReactResizeDetector>
+          {/*<ReactResizeDetector>*/}
+          {/*  {({_, height}) => {*/}
+          {/*    if (height) {*/}
+          {/*      this.props.cameraStore.updatePadding({*/}
+          {/*        top: height + 2 * whole + icon*/}
+          {/*      })*/}
+          {/*    }*/}
+          {/*    return <GuideHeader/>*/}
+          {/*  }}*/}
+          {/*</ReactResizeDetector>*/}
+          <GuideHeader/>
 
         </View>
         <View style={styles.contentContainer} {...noPointerEvents()}>

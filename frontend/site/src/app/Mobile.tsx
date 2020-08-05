@@ -53,7 +53,7 @@ export default class Mobile extends React.Component<Props, State> {
                 <Stack.Screen name={'Root'} options={{headerShown: false}} component={wrapped(Tabs)}/>
                 <Stack.Screen name={'Create'} options={{headerShown: false}} component={wrapped(CreateScreen)}/>
                 <Stack.Screen name={'Guide'} options={{headerShown: false}} component={wrapped(GuideScreen)}/>
-                <Stack.Screen name={'Profile'} options={{headerShown: true}} component={wrapped(ProfileScreen)}/>
+                <Stack.Screen name={'Profile'} options={{headerShown: false}} component={wrapped(ProfileScreen)}/>
               </>
               :
               <>

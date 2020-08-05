@@ -21,7 +21,7 @@ export default class SelectSpotContent extends React.Component<Props, State> {
       <Icon name={'chevron-left'} color={darkIcon} size={icon} onPress={() => {
         this.props.guideStore.updateMode('Route')
       }}/>
-      <Icon name={'place'} color={itemStateColor('selected')} size={icon}/>
+      <Icon name={'place'} color={itemStateColor('spot', 'selected')} size={icon}/>
       <Text style={styles.headerTitle}>
         {this.props.params.spot.name}
       </Text>

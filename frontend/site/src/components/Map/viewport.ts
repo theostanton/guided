@@ -1,6 +1,6 @@
 import {Bound, RideFragment} from "api/generated"
 import WebMercatorViewport from "viewport-mercator-project"
-import {MapPadding, Viewport} from "./CameraStore";
+import {CameraBounds, MapPadding, Viewport} from "./CameraStore";
 
 
 const DEFAULT = {
@@ -32,15 +32,15 @@ export function generateBounds(ride: RideFragment): Bound {
   }
 }
 
-export function generateViewport(bounds: Bound, width: number, height: number, padding: MapPadding): Viewport {
+export function generateViewport(bounds: CameraBounds, width: number, height: number, padding: MapPadding): Viewport {
 
   const viewport = new WebMercatorViewport({
     height,
     width,
   }).fitBounds(
     [
-      [bounds.west!, bounds.south!], [
-      bounds.east!, bounds.north!]],
+      [bounds.southWest.longitude!, bounds.southWest.latitude!], [
+      bounds.northEast.longitude!, bounds.northEast.latitude!]],
     {
       padding,
     },

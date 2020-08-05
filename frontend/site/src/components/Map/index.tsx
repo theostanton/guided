@@ -32,7 +32,7 @@ export default class Map extends React.Component<MapProps, State> {
             latitude: event.lngLat[1]
           })
         })}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
+        mapStyle="mapbox://styles/theodev/ckdfwq5x00w1c1isc2w08ol3z"
         mapboxApiAccessToken={TOKEN}
         onViewportChange={(viewport) => {
           this.props.cameraStore.moveViewport(viewport)

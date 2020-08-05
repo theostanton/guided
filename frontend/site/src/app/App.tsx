@@ -6,6 +6,8 @@ import Desktop from "./Desktop";
 import Device from "../stores/Device";
 import {Provider} from "mobx-react";
 import Mobile from "./Mobile";
+import {Helmet} from "react-helmet";
+
 
 const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");
@@ -37,15 +39,24 @@ export default class App extends React.Component {
   }
 
   render() {
-    return <DimensionsWrapper>
-      {({screen, window}) => {
-        this.device.update(window)
-        if (this.device.isLandscape()) {
-          return <Provider authStore={this.authStore} device={this.device}><Desktop/></Provider>
-        } else {
-          return <Provider authStore={this.authStore} device={this.device}><Mobile/></Provider>
-        }
-      }}
-    </DimensionsWrapper>
+    return <>
+      <Helmet>
+        <meta charSet="utf-8"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="../../web/apple-touch-icon.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="../../web/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="../../web/favicon-16x16.png"/>
+        <link rel="manifest" href="../../web/site.webmanifest"/>
+      </Helmet>
+      <DimensionsWrapper>
+        {({screen, window}) => {
+          this.device.update(window)
+          if (this.device.isLandscape()) {
+            return <Provider authStore={this.authStore} device={this.device}><Desktop/></Provider>
+          } else {
+            return <Provider authStore={this.authStore} device={this.device}><Mobile/></Provider>
+          }
+        }}
+      </DimensionsWrapper>
+    </>
   }
 }

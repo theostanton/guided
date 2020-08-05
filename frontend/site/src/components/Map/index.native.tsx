@@ -49,7 +49,6 @@ export default class Map extends React.Component<MapProps, State> {
   }
 
   render() {
-    console.log('Map.render()')
     return (
       <View style={styles.root}>
         <MapboxGL.MapView style={styles.map}

@@ -141,7 +141,6 @@ const styles = StyleSheet.create({
     paddingRight: half,
   },
   content: {
-    flexGrow: 1,
-    marginTop: half,
+    paddingTop: half,
   },
 });

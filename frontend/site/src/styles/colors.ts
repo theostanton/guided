@@ -14,13 +14,16 @@ export const lightIcon: Color = lightText;
 
 export const border: Color = '#aaaaaaee';
 
-export function itemStateColor(itemState: ItemState): Color {
-  switch (itemState) {
-    case "none":
+export function itemStateColor(item:'ride'|'spot',state: ItemState): Color {
+  switch ([item,state]) {
+    case ['ride','none']:
+    case ['spot','none']:
       return "#555555"
-    case "not_selected":
+    case ['ride','not_selected']:
+    case ['spot','not_selected']:
       return "#999999"
-    case "selected":
-      return "#222222"
+    case ['ride','selected']:
+    case ['spot','selected']:
+      return "#a13737"
   }
 }

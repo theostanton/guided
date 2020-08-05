@@ -79,12 +79,7 @@ export default class CameraStore {
     switch (this.camera.mode) {
       case "bounds":
         const generated = generateViewport(
-          {
-            north: this.camera.northEast.latitude,
-            east: this.camera.northEast.longitude,
-            south: this.camera.southWest.latitude,
-            west: this.camera.southWest.longitude
-          },
+          this.camera,
           this.dimensions.width,
           this.dimensions.height,
           this.padding
