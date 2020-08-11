@@ -18,8 +18,6 @@ type State = {};
 export default class Layout extends React.Component<Props, State> {
   renderHeader() {
     const isLoggedin = this.props.authStore.isLoggedIn;
-    console.log('renderHeader isLoggedin=', isLoggedin);
-    console.log('renderHeader user=', this.props.authStore.user);
 
     type Item = {
       text: string;
@@ -53,7 +51,7 @@ export default class Layout extends React.Component<Props, State> {
           },
         },
         {
-          text: 'Account',
+          text: `Account - ${this.props.authStore.user.username}`,
           href: '/account',
         },
       ]
@@ -116,6 +114,7 @@ export default class Layout extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     width: '100%',
+    height:'100vh',
     flexDirection: 'column',
     maxWidth: 800,
     alignSelf: 'center',
@@ -142,5 +141,6 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingTop: half,
+    flexGrow:1
   },
 });

@@ -1,11 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {inject} from 'mobx-react';
-import {h4} from 'styles/text';
-import {half} from "styles/dimensions";
 import {ScreenProps} from "utils/navigation/ScreenProps";
 import Link from "components/Link";
-import ViewPager from "components/ViewPager";
+import AllUsersList from "components/UserList/AllUsersList";
+import {h4} from "styles/text";
+import {half} from "styles/dimensions";
 
 type Props = ScreenProps<'Root'>
 
@@ -14,24 +14,13 @@ export default class HomeScreen extends React.Component<Props> {
 
   render() {
 
-    const pages: React.ReactElement[] = [
-      <View key="1" style={{width: '100%'}}>
-        <Text>First page</Text>
-      </View>,
-      <View key="2" style={{width: '100%'}}>
-        <Text>Second page</Text>
-      </View>
-    ]
     return (
       <View style={styles.root}>
         <Text>Welcome {this.props.authStore.user?.username}</Text>
         <Link href={`/${this.props.authStore.user.username}`} textStyle={styles.button}>My profile</Link>
         <Link href={'/create'} textStyle={styles.button}>Create</Link>
-        <View style={styles.viewPager}>
-          <ViewPager pages={pages}
-                     onChange={(current) => {
-                       console.log('current->', current)
-                     }}/>
+        <View style={styles.usersList}>
+          <AllUsersList/>
         </View>
       </View>
     );
@@ -61,6 +50,10 @@ const styles = StyleSheet.create({
     ...h4
   },
   map: {
+    width: '100%',
+    flex: 1
+  },
+  usersList: {
     width: '100%',
     flex: 1
   }

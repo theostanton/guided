@@ -2,15 +2,16 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {GuideFragment} from "api/generated";
 import {h2} from "styles/text";
-import {hairline, half, whole} from "styles/dimensions";
-import {border, itemStateColor} from "styles/colors";
+import {half, whole} from "styles/dimensions";
+import {itemStateColor} from "styles/colors";
 import Pressable from "components/Pressable";
 import Stats, {Stat} from "components/Stats";
 import {Route} from "utils/navigation/ParamList";
 import GuideListItemMap from "./GuideListItemMap";
 import RideLine from "components/Map/RideLine";
 import IconMarker from "components/Map/IconMarker";
-import {duration, humanDistance} from "../../../utils/human";
+import {duration, humanDistance} from "utils/human";
+import {card} from 'styles';
 
 type Props = {
   guide: GuideFragment,
@@ -34,7 +35,7 @@ export default class GuideListItem extends React.Component<Props, State> {
         {this.props.guide.spots.nodes.map(spot => {
           return <IconMarker
             id={spot.id}
-            color={itemStateColor('spot','none')}
+            color={itemStateColor('spot', 'none')}
             position={{
               latitude: spot.lat,
               longitude: spot.long
@@ -87,11 +88,8 @@ export default class GuideListItem extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   root: {
-    width: '100%',
-    backgroundColor: 'white',
-    borderColor: border,
-    borderWidth: hairline,
-    borderRadius: half,
+    ...card,
+    width:'100%',
     flexDirection: 'column'
   },
   header: {

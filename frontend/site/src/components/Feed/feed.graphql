@@ -1,0 +1,7 @@
+query Feed($username:String!){
+    feed(_username: $username){
+        nodes{
+            type
+        }
+    }
+}

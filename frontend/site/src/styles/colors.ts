@@ -18,7 +18,7 @@ export function itemStateColor(item:'ride'|'spot',state: ItemState): Color {
   switch ([item,state]) {
     case ['ride','none']:
     case ['spot','none']:
-      return "#555555"
+      return darkIcon
     case ['ride','not_selected']:
     case ['spot','not_selected']:
       return "#999999"

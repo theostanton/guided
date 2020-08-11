@@ -1,6 +1,6 @@
 import React from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import {h2, h3} from "styles/text";
+import {h2, h3, h4} from "styles/text";
 import {whole} from "styles/dimensions";
 import {Stat} from "./index";
 
@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
     padding: whole
   },
   label: {
-    ...h3,
+    ...h4,
     flex: 1,
   },
   value: {
-    ...h2,
+    ...h3,
     flex: 1
   }
 });

@@ -1,7 +1,7 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import gql from 'graphql-tag';
-import * as ApolloReactCommon from '@apollo/react-common';
 import * as React from 'react';
+import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactComponents from '@apollo/react-components';
 import * as ApolloReactHoc from '@apollo/react-hoc';
 import * as ApolloReactHooks from '@apollo/react-hooks';
@@ -4483,6 +4483,18 @@ export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
 export type GuideListItemFragment = Pick<Guide, 'id' | 'created' | 'countries' | 'distanceMeters' | 'durationSeconds' | 'maxHoursPerRide' | 'owner' | 'slug' | 'title' | 'startDate'>;
 
+export type FeedQueryVariables = Exact<{
+  username: Scalars['String'];
+}>;
+
+
+export type FeedQuery = { readonly feed: { readonly nodes: ReadonlyArray<Maybe<Pick<FeedEvent, 'type'>>> } };
+
+export type ALlUsersSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ALlUsersSubscription = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<ProfileUserFragment>> }> };
+
 export type CreateMutationVariables = Exact<{
   input?: Maybe<CreateGuideInput>;
 }>;
@@ -4545,7 +4557,7 @@ export type ProfileQuery = { readonly user?: Maybe<ProfileUserFragment>, readonl
 
 export type ProfileUserFragment = (
   Pick<User, 'created' | 'colour' | 'username' | 'countries' | 'distanceMeters' | 'durationSeconds' | 'followingStatus'>
-  & { readonly guidesByOwner: Pick<GuidesConnection, 'totalCount'>, readonly followsByFollowed: Pick<FollowsConnection, 'totalCount'>, readonly followsByFollower: Pick<FollowsConnection, 'totalCount'> }
+  & { readonly guidesByOwner: Pick<GuidesConnection, 'totalCount'>, readonly followers: Pick<FollowsConnection, 'totalCount'>, readonly following: Pick<FollowsConnection, 'totalCount'> }
 );
 
 export type LoginMutationVariables = Exact<{
@@ -4659,15 +4671,118 @@ export const ProfileUserFragmentDoc = gql`
   countries
   distanceMeters
   durationSeconds
-  followsByFollowed {
+  followers: followsByFollowed {
     totalCount
   }
-  followsByFollower {
+  following: followsByFollower {
     totalCount
   }
   followingStatus
 }
     `;
+export const FeedDocument = gql`
+    query Feed($username: String!) {
+  feed(_username: $username) {
+    nodes {
+      type
+    }
+  }
+}
+    `;
+export type FeedComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<FeedQuery, FeedQueryVariables>, 'query'> & ({ variables: FeedQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const FeedComponent = (props: FeedComponentProps) => (
+      <ApolloReactComponents.Query<FeedQuery, FeedQueryVariables> query={FeedDocument} {...props} />
+    );
+    
+export type FeedProps<TChildProps = {}, TDataName extends string = 'data'> = {
+      [key in TDataName]: ApolloReactHoc.DataValue<FeedQuery, FeedQueryVariables>
+    } & TChildProps;
+export function withFeed<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  FeedQuery,
+  FeedQueryVariables,
+  FeedProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withQuery<TProps, FeedQuery, FeedQueryVariables, FeedProps<TChildProps, TDataName>>(FeedDocument, {
+      alias: 'feed',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useFeedQuery__
+ *
+ * To run a query within a React component, call `useFeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFeedQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useFeedQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<FeedQuery, FeedQueryVariables>) {
+        return ApolloReactHooks.useQuery<FeedQuery, FeedQueryVariables>(FeedDocument, baseOptions);
+      }
+export function useFeedLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FeedQuery, FeedQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<FeedQuery, FeedQueryVariables>(FeedDocument, baseOptions);
+        }
+export type FeedQueryHookResult = ReturnType<typeof useFeedQuery>;
+export type FeedLazyQueryHookResult = ReturnType<typeof useFeedLazyQuery>;
+export type FeedQueryResult = ApolloReactCommon.QueryResult<FeedQuery, FeedQueryVariables>;
+export const ALlUsersDocument = gql`
+    subscription ALlUsers {
+  users {
+    nodes {
+      ...ProfileUser
+    }
+  }
+}
+    ${ProfileUserFragmentDoc}`;
+export type ALlUsersComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<ALlUsersSubscription, ALlUsersSubscriptionVariables>, 'subscription'>;
+
+    export const ALlUsersComponent = (props: ALlUsersComponentProps) => (
+      <ApolloReactComponents.Subscription<ALlUsersSubscription, ALlUsersSubscriptionVariables> subscription={ALlUsersDocument} {...props} />
+    );
+    
+export type ALlUsersProps<TChildProps = {}, TDataName extends string = 'data'> = {
+      [key in TDataName]: ApolloReactHoc.DataValue<ALlUsersSubscription, ALlUsersSubscriptionVariables>
+    } & TChildProps;
+export function withALlUsers<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  ALlUsersSubscription,
+  ALlUsersSubscriptionVariables,
+  ALlUsersProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withSubscription<TProps, ALlUsersSubscription, ALlUsersSubscriptionVariables, ALlUsersProps<TChildProps, TDataName>>(ALlUsersDocument, {
+      alias: 'aLlUsers',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useALlUsersSubscription__
+ *
+ * To run a query within a React component, call `useALlUsersSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useALlUsersSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useALlUsersSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useALlUsersSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<ALlUsersSubscription, ALlUsersSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<ALlUsersSubscription, ALlUsersSubscriptionVariables>(ALlUsersDocument, baseOptions);
+      }
+export type ALlUsersSubscriptionHookResult = ReturnType<typeof useALlUsersSubscription>;
+export type ALlUsersSubscriptionResult = ApolloReactCommon.SubscriptionResult<ALlUsersSubscription>;
 export const CreateDocument = gql`
     mutation Create($input: CreateGuideInput) {
   createGuide(input: $input) {

@@ -19,10 +19,10 @@ fragment ProfileUser on User {
     countries
     distanceMeters
     durationSeconds
-    followsByFollowed{
+    followers:followsByFollowed{
         totalCount
     }
-    followsByFollower{
+    following:followsByFollower{
         totalCount
     }
     followingStatus

@@ -1,0 +1,7 @@
+subscription ALlUsers{
+    users{
+        nodes{
+            ...ProfileUser
+        }
+    }
+}

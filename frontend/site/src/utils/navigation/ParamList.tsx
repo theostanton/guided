@@ -11,6 +11,7 @@ export type ParamList = {
   Login: {},
   Signup: {},
   Root: {},
+  Account: {},
   Create: {},
   Profile: {
     username: string
@@ -27,6 +28,7 @@ export const linking: LinkingOptions = {
   config: {
     screens: {
       Root: '',
+      Account: '/account',
       Create: '/create',
       Login: '/login',
       Signup: '/signup',

@@ -1,11 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {GuideFragment, ProfileUserFragment} from "api/generated";
 import GuidesList from "components/Guides";
 import Stats, {Stat} from "components/Stats";
-import {h1} from "styles/text";
+import {h1, h2} from "styles/text";
 import {inject} from "mobx-react";
 import Device from "stores/Device";
+import {whole} from "../../styles/dimensions";
+import {humanDistance, humanDuration} from "../../utils/human";
 
 type Props = {
   device?: Device
@@ -17,7 +19,8 @@ type State = {};
 @inject('device')
 export default class ProfileContent extends React.Component<Props, State> {
 
-  renderStats() {
+  renderInfo() {
+
     const {user, guides} = this.props
 
     const stats: Stat[] = [
@@ -27,92 +30,61 @@ export default class ProfileContent extends React.Component<Props, State> {
       },
       {
         label: 'Total distance',
-        value: '50m'
+        value: humanDistance(user.distanceMeters, true, true)
       },
       {
         label: 'Total duration',
-        value: '4h'
-      },
-      {
-        label: 'Guides',
-        value: guides.length
-      },
+        value: humanDuration(user.durationSeconds, true)
+      }
     ]
-    return <Stats stats={stats}/>
+
+    return <View style={styles.info}>
+      <Text style={styles.username}>{user.username}</Text>
+      <Stats stats={stats}/>
+    </View>
   }
 
-  renderList(style: ViewStyle) {
+  renderList() {
+    const numColumns = this.props.device.isLandscape() ? 2 : 1
     const {guides} = this.props
-    return <View style={style}>
-      <GuidesList guides={guides}/>
+    return <View style={styles.guides}>
+      <Text style={styles.guideTitle}>{guides.length} guides</Text>
+      <GuidesList guides={guides} numColumns={numColumns}/>
     </View>
   }
 
-  renderPortrait() {
-    return <View style={portraitStyles.root}>
-      <View style={portraitStyles.info}>
-        <Text style={portraitStyles.username}>{this.props.user.username}</Text>
-        {this.renderStats()}
-      </View>
-      {this.renderList(portraitStyles.guides)}
-    </View>
-  }
-
-  renderLandscape() {
-    const styles = StyleSheet.create({
-      root: {
-        width: '100%',
-        flex:1,
-        alignSelf: 'center',
-        flexDirection: 'row'
-      },
-      username: {
-        ...h1
-      },
-      info: {
-        flex: 1,
-        flexDirection: 'column'
-      },
-      guides: {
-        overflow:'scroll'
-      },
-    });
-    return <View style={styles.root}>
-      <View style={styles.info}>
-        <Text style={styles.username}>{this.props.user.username}</Text>
-        {this.renderStats()}
-      </View>
-      {this.renderList(styles.guides)}
-    </View>
-  }
 
   render() {
-    if (this.props.device.isLandscape()) {
-      return this.renderLandscape()
-    } else {
-      return this.renderPortrait()
-    }
+    return <View style={styles.root}>
+      {this.renderInfo()}
+      {this.renderList()}
+    </View>
   }
 }
 
-const portraitStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   root: {
     width: '100%',
     height: '100%',
     alignSelf: 'center',
+    padding: whole,
     flexDirection: 'column'
   },
   username: {
     ...h1
   },
   info: {
-    flex: 0,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    marginBottom:whole
+  },
+  guideTitle: {
+    ...h2
   },
   guides: {
     flex: 1,
     flexDirection: 'column',
     width: '100%',
-    overflow: 'scroll'
+    overflow: 'scroll',
+    marginBottom:whole
   },
 });
