@@ -3,7 +3,7 @@ import {Property} from "csstype";
 
 type Color = Property.Color
 
-export const primary: Color = '#181b4d';
+export const primary: Color = '#343a9a';
 export const primaryLight: Color = 'orangered';
 export const secondary: Color = '#729962';
 
@@ -14,16 +14,23 @@ export const lightIcon: Color = lightText;
 
 export const border: Color = '#aaaaaaee';
 
-export function itemStateColor(item:'ride'|'spot',state: ItemState): Color {
-  switch ([item,state]) {
-    case ['ride','none']:
-    case ['spot','none']:
-      return darkIcon
-    case ['ride','not_selected']:
-    case ['spot','not_selected']:
-      return "#999999"
-    case ['ride','selected']:
-    case ['spot','selected']:
-      return "#a13737"
+const itemStateColors: { [state in ItemState]: { [itemType in ItemType]: Color } } = {
+  selected: {
+    spot: primary,
+    ride: primary
+  },
+  none: {
+    spot: secondary,
+    ride: primary
+  },
+  not_selected: {
+    spot: primaryLight,
+    ride: primaryLight
   }
+}
+
+type ItemType = 'ride' | 'spot';
+
+export function itemStateColor(item: ItemType, state: ItemState): Color {
+  return itemStateColors[state][item]
 }

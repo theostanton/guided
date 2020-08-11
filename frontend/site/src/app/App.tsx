@@ -7,6 +7,8 @@ import Device from "../stores/Device";
 import {Provider} from "mobx-react";
 import Mobile from "./Mobile";
 import {Helmet} from "react-helmet";
+import {autorun, IReactionDisposer} from "mobx";
+import FollowingStore from "../stores/FollowingStore";
 
 
 const window = Dimensions.get("window");
@@ -32,10 +34,27 @@ function DimensionsWrapper(props: { children: (dimensions: { screen: ScaledSize,
 export default class App extends React.Component {
 
   authStore: AuthStore = new AuthStore()
+  followingStore: FollowingStore = new FollowingStore()
+  disposer: IReactionDisposer | undefined
   device: Device = new Device()
 
   async componentDidMount() {
     await this.authStore.init()
+    this.disposer = autorun(() => {
+      if (this.authStore.user) {
+        this.followingStore.subscribe()
+      } else {
+        this.followingStore.unsubscribe()
+      }
+    })
+
+  }
+
+  componentWillUnmount() {
+    if (this.disposer) {
+      this.disposer()
+    }
+    this.followingStore.unsubscribe()
   }
 
   render() {
@@ -51,9 +70,19 @@ export default class App extends React.Component {
         {({screen, window}) => {
           this.device.update(window)
           if (this.device.isLandscape()) {
-            return <Provider authStore={this.authStore} device={this.device}><Desktop/></Provider>
+            return <Provider
+              authStore={this.authStore}
+              followingStore={this.followingStore}
+              device={this.device}>
+              <Desktop/>
+            </Provider>
           } else {
-            return <Provider authStore={this.authStore} device={this.device}><Mobile/></Provider>
+            return <Provider
+              authStore={this.authStore}
+              followingStore={this.followingStore}
+              device={this.device}>
+              <Mobile/>
+            </Provider>
           }
         }}
       </DimensionsWrapper>

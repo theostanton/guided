@@ -3,14 +3,16 @@ import {StyleSheet, Text, View} from 'react-native';
 import {GuideFragment, ProfileUserFragment} from "api/generated";
 import GuidesList from "components/Guides";
 import Stats, {Stat} from "components/Stats";
-import {h1, h2} from "styles/text";
+import {h1, h2, h3} from "styles/text";
 import {inject} from "mobx-react";
 import Device from "stores/Device";
-import {whole} from "../../styles/dimensions";
-import {humanDistance, humanDuration} from "../../utils/human";
+import {half, whole} from "styles/dimensions";
+import {humanDistance, humanDuration} from "utils/human";
+import FollowButton from "../../components/Button/FollowButton";
 
 type Props = {
   device?: Device
+  isSelf: boolean
   user: ProfileUserFragment
   guides: readonly GuideFragment[]
 };
@@ -40,6 +42,9 @@ export default class ProfileContent extends React.Component<Props, State> {
 
     return <View style={styles.info}>
       <Text style={styles.username}>{user.username}</Text>
+      <View style={{flex: 1}}>
+        <FollowButton username={user.username}/>
+      </View>
       <Stats stats={stats}/>
     </View>
   }
@@ -71,20 +76,21 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   username: {
-    ...h1
+    ...h1,
+    margin: half
   },
   info: {
     flexDirection: 'column',
-    marginBottom:whole
+    marginBottom: whole
   },
   guideTitle: {
-    ...h2
+    ...h3
   },
   guides: {
     flex: 1,
     flexDirection: 'column',
     width: '100%',
     overflow: 'scroll',
-    marginBottom:whole
+    marginBottom: whole
   },
 });

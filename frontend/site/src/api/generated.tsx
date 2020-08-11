@@ -1,7 +1,7 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import gql from 'graphql-tag';
-import * as React from 'react';
 import * as ApolloReactCommon from '@apollo/react-common';
+import * as React from 'react';
 import * as ApolloReactComponents from '@apollo/react-components';
 import * as ApolloReactHoc from '@apollo/react-hoc';
 import * as ApolloReactHooks from '@apollo/react-hooks';
@@ -602,7 +602,8 @@ export enum FeedEventsOrderBy {
 export enum FeedEventType {
   NewGuide = 'NEW_GUIDE',
   NewFollows = 'NEW_FOLLOWS',
-  SelfCreated = 'SELF_CREATED'
+  SelfCreated = 'SELF_CREATED',
+  Joined = 'JOINED'
 }
 
 /** A filter to be used against FeedEventType fields. All fields are combined with a logical ‘and.’ */
@@ -4483,14 +4484,35 @@ export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 
 export type GuideListItemFragment = Pick<Guide, 'id' | 'created' | 'countries' | 'distanceMeters' | 'durationSeconds' | 'maxHoursPerRide' | 'owner' | 'slug' | 'title' | 'startDate'>;
 
-export type FeedQueryVariables = Exact<{
+export type FollowMutationVariables = Exact<{
   username: Scalars['String'];
 }>;
 
 
-export type FeedQuery = { readonly feed: { readonly nodes: ReadonlyArray<Maybe<Pick<FeedEvent, 'type'>>> } };
+export type FollowMutation = { readonly followUser: Pick<Result, 'message' | 'success'> };
 
-export type ALlUsersSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type UnfollowMutationVariables = Exact<{
+  username: Scalars['String'];
+}>;
+
+
+export type UnfollowMutation = { readonly unfollowUser: Pick<Result, 'message' | 'success'> };
+
+export type HomeFeedQueryVariables = Exact<{
+  self: Scalars['String'];
+}>;
+
+
+export type HomeFeedQuery = { readonly feed: { readonly nodes: ReadonlyArray<Maybe<FeedEventFragment>> } };
+
+export type FeedEventFragment = (
+  Pick<FeedEvent, 'type' | 'timestamp'>
+  & { readonly guide?: Maybe<GuideFragment>, readonly ride?: Maybe<RideFragment>, readonly user?: Maybe<ProfileUserFragment> }
+);
+
+export type ALlUsersSubscriptionVariables = Exact<{
+  self?: Maybe<Scalars['String']>;
+}>;
 
 
 export type ALlUsersSubscription = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<ProfileUserFragment>> }> };
@@ -4583,6 +4605,11 @@ export type GetUsernameQueryVariables = Exact<{
 
 
 export type GetUsernameQuery = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<Pick<User, 'username' | 'colour'>>> }> };
+
+export type FollowingSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FollowingSubscription = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<ProfileUserFragment>> }> };
 
 export const GuideListItemFragmentDoc = gql`
     fragment GuideListItem on Guide {
@@ -4680,63 +4707,184 @@ export const ProfileUserFragmentDoc = gql`
   followingStatus
 }
     `;
-export const FeedDocument = gql`
-    query Feed($username: String!) {
-  feed(_username: $username) {
-    nodes {
-      type
-    }
+export const FeedEventFragmentDoc = gql`
+    fragment FeedEvent on FeedEvent {
+  type
+  guide: guideByGuide {
+    ...Guide
+  }
+  ride: rideByRide {
+    ...Ride
+  }
+  timestamp
+  user: userByUser {
+    ...ProfileUser
+  }
+}
+    ${GuideFragmentDoc}
+${RideFragmentDoc}
+${ProfileUserFragmentDoc}`;
+export const FollowDocument = gql`
+    mutation Follow($username: String!) {
+  followUser(username: $username) {
+    message
+    success
   }
 }
     `;
-export type FeedComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<FeedQuery, FeedQueryVariables>, 'query'> & ({ variables: FeedQueryVariables; skip?: boolean; } | { skip: boolean; });
+export type FollowMutationFn = ApolloReactCommon.MutationFunction<FollowMutation, FollowMutationVariables>;
+export type FollowComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<FollowMutation, FollowMutationVariables>, 'mutation'>;
 
-    export const FeedComponent = (props: FeedComponentProps) => (
-      <ApolloReactComponents.Query<FeedQuery, FeedQueryVariables> query={FeedDocument} {...props} />
+    export const FollowComponent = (props: FollowComponentProps) => (
+      <ApolloReactComponents.Mutation<FollowMutation, FollowMutationVariables> mutation={FollowDocument} {...props} />
     );
     
-export type FeedProps<TChildProps = {}, TDataName extends string = 'data'> = {
-      [key in TDataName]: ApolloReactHoc.DataValue<FeedQuery, FeedQueryVariables>
+export type FollowProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<FollowMutation, FollowMutationVariables>
     } & TChildProps;
-export function withFeed<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
+export function withFollow<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
-  FeedQuery,
-  FeedQueryVariables,
-  FeedProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withQuery<TProps, FeedQuery, FeedQueryVariables, FeedProps<TChildProps, TDataName>>(FeedDocument, {
-      alias: 'feed',
+  FollowMutation,
+  FollowMutationVariables,
+  FollowProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, FollowMutation, FollowMutationVariables, FollowProps<TChildProps, TDataName>>(FollowDocument, {
+      alias: 'follow',
       ...operationOptions
     });
 };
 
 /**
- * __useFeedQuery__
+ * __useFollowMutation__
  *
- * To run a query within a React component, call `useFeedQuery` and pass it any options that fit your needs.
- * When your component renders, `useFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useFollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFollowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useFeedQuery({
+ * const [followMutation, { data, loading, error }] = useFollowMutation({
  *   variables: {
  *      username: // value for 'username'
  *   },
  * });
  */
-export function useFeedQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<FeedQuery, FeedQueryVariables>) {
-        return ApolloReactHooks.useQuery<FeedQuery, FeedQueryVariables>(FeedDocument, baseOptions);
+export function useFollowMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<FollowMutation, FollowMutationVariables>) {
+        return ApolloReactHooks.useMutation<FollowMutation, FollowMutationVariables>(FollowDocument, baseOptions);
       }
-export function useFeedLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FeedQuery, FeedQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<FeedQuery, FeedQueryVariables>(FeedDocument, baseOptions);
+export type FollowMutationHookResult = ReturnType<typeof useFollowMutation>;
+export type FollowMutationResult = ApolloReactCommon.MutationResult<FollowMutation>;
+export type FollowMutationOptions = ApolloReactCommon.BaseMutationOptions<FollowMutation, FollowMutationVariables>;
+export const UnfollowDocument = gql`
+    mutation Unfollow($username: String!) {
+  unfollowUser(username: $username) {
+    message
+    success
+  }
+}
+    `;
+export type UnfollowMutationFn = ApolloReactCommon.MutationFunction<UnfollowMutation, UnfollowMutationVariables>;
+export type UnfollowComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UnfollowMutation, UnfollowMutationVariables>, 'mutation'>;
+
+    export const UnfollowComponent = (props: UnfollowComponentProps) => (
+      <ApolloReactComponents.Mutation<UnfollowMutation, UnfollowMutationVariables> mutation={UnfollowDocument} {...props} />
+    );
+    
+export type UnfollowProps<TChildProps = {}, TDataName extends string = 'mutate'> = {
+      [key in TDataName]: ApolloReactCommon.MutationFunction<UnfollowMutation, UnfollowMutationVariables>
+    } & TChildProps;
+export function withUnfollow<TProps, TChildProps = {}, TDataName extends string = 'mutate'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  UnfollowMutation,
+  UnfollowMutationVariables,
+  UnfollowProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withMutation<TProps, UnfollowMutation, UnfollowMutationVariables, UnfollowProps<TChildProps, TDataName>>(UnfollowDocument, {
+      alias: 'unfollow',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useUnfollowMutation__
+ *
+ * To run a mutation, you first call `useUnfollowMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnfollowMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unfollowMutation, { data, loading, error }] = useUnfollowMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useUnfollowMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UnfollowMutation, UnfollowMutationVariables>) {
+        return ApolloReactHooks.useMutation<UnfollowMutation, UnfollowMutationVariables>(UnfollowDocument, baseOptions);
+      }
+export type UnfollowMutationHookResult = ReturnType<typeof useUnfollowMutation>;
+export type UnfollowMutationResult = ApolloReactCommon.MutationResult<UnfollowMutation>;
+export type UnfollowMutationOptions = ApolloReactCommon.BaseMutationOptions<UnfollowMutation, UnfollowMutationVariables>;
+export const HomeFeedDocument = gql`
+    query HomeFeed($self: String!) {
+  feed(_username: $self) {
+    nodes {
+      ...FeedEvent
+    }
+  }
+}
+    ${FeedEventFragmentDoc}`;
+export type HomeFeedComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<HomeFeedQuery, HomeFeedQueryVariables>, 'query'> & ({ variables: HomeFeedQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const HomeFeedComponent = (props: HomeFeedComponentProps) => (
+      <ApolloReactComponents.Query<HomeFeedQuery, HomeFeedQueryVariables> query={HomeFeedDocument} {...props} />
+    );
+    
+export type HomeFeedProps<TChildProps = {}, TDataName extends string = 'data'> = {
+      [key in TDataName]: ApolloReactHoc.DataValue<HomeFeedQuery, HomeFeedQueryVariables>
+    } & TChildProps;
+export function withHomeFeed<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  HomeFeedQuery,
+  HomeFeedQueryVariables,
+  HomeFeedProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withQuery<TProps, HomeFeedQuery, HomeFeedQueryVariables, HomeFeedProps<TChildProps, TDataName>>(HomeFeedDocument, {
+      alias: 'homeFeed',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useHomeFeedQuery__
+ *
+ * To run a query within a React component, call `useHomeFeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHomeFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHomeFeedQuery({
+ *   variables: {
+ *      self: // value for 'self'
+ *   },
+ * });
+ */
+export function useHomeFeedQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<HomeFeedQuery, HomeFeedQueryVariables>) {
+        return ApolloReactHooks.useQuery<HomeFeedQuery, HomeFeedQueryVariables>(HomeFeedDocument, baseOptions);
+      }
+export function useHomeFeedLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<HomeFeedQuery, HomeFeedQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<HomeFeedQuery, HomeFeedQueryVariables>(HomeFeedDocument, baseOptions);
         }
-export type FeedQueryHookResult = ReturnType<typeof useFeedQuery>;
-export type FeedLazyQueryHookResult = ReturnType<typeof useFeedLazyQuery>;
-export type FeedQueryResult = ApolloReactCommon.QueryResult<FeedQuery, FeedQueryVariables>;
+export type HomeFeedQueryHookResult = ReturnType<typeof useHomeFeedQuery>;
+export type HomeFeedLazyQueryHookResult = ReturnType<typeof useHomeFeedLazyQuery>;
+export type HomeFeedQueryResult = ApolloReactCommon.QueryResult<HomeFeedQuery, HomeFeedQueryVariables>;
 export const ALlUsersDocument = gql`
-    subscription ALlUsers {
-  users {
+    subscription ALlUsers($self: String) {
+  users(filter: {username: {notEqualTo: $self}}) {
     nodes {
       ...ProfileUser
     }
@@ -4775,6 +4923,7 @@ export function withALlUsers<TProps, TChildProps = {}, TDataName extends string 
  * @example
  * const { data, loading, error } = useALlUsersSubscription({
  *   variables: {
+ *      self: // value for 'self'
  *   },
  * });
  */
@@ -5264,3 +5413,52 @@ export function useGetUsernameLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetUsernameQueryHookResult = ReturnType<typeof useGetUsernameQuery>;
 export type GetUsernameLazyQueryHookResult = ReturnType<typeof useGetUsernameLazyQuery>;
 export type GetUsernameQueryResult = ApolloReactCommon.QueryResult<GetUsernameQuery, GetUsernameQueryVariables>;
+export const FollowingDocument = gql`
+    subscription Following {
+  users(filter: {followingStatus: {equalTo: FOLLOWING}}) {
+    nodes {
+      ...ProfileUser
+    }
+  }
+}
+    ${ProfileUserFragmentDoc}`;
+export type FollowingComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<FollowingSubscription, FollowingSubscriptionVariables>, 'subscription'>;
+
+    export const FollowingComponent = (props: FollowingComponentProps) => (
+      <ApolloReactComponents.Subscription<FollowingSubscription, FollowingSubscriptionVariables> subscription={FollowingDocument} {...props} />
+    );
+    
+export type FollowingProps<TChildProps = {}, TDataName extends string = 'data'> = {
+      [key in TDataName]: ApolloReactHoc.DataValue<FollowingSubscription, FollowingSubscriptionVariables>
+    } & TChildProps;
+export function withFollowing<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  FollowingSubscription,
+  FollowingSubscriptionVariables,
+  FollowingProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withSubscription<TProps, FollowingSubscription, FollowingSubscriptionVariables, FollowingProps<TChildProps, TDataName>>(FollowingDocument, {
+      alias: 'following',
+      ...operationOptions
+    });
+};
+
+/**
+ * __useFollowingSubscription__
+ *
+ * To run a query within a React component, call `useFollowingSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useFollowingSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFollowingSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFollowingSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<FollowingSubscription, FollowingSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<FollowingSubscription, FollowingSubscriptionVariables>(FollowingDocument, baseOptions);
+      }
+export type FollowingSubscriptionHookResult = ReturnType<typeof useFollowingSubscription>;
+export type FollowingSubscriptionResult = ApolloReactCommon.SubscriptionResult<FollowingSubscription>;

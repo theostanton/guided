@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import Button from 'components/Button'
 import LabelledTextInput from "components/LabelledTextInput";
 import {h1, h5} from "styles/text";
 import {CreateDocument, CreateGuideInput, CreateMutation, MutationCreateGuideArgs, TransportType} from "api/generated";
@@ -134,7 +135,7 @@ class CreateForm extends React.Component<Props, State> {
           {this.state.error && <Text style={styles.error}>{this.state.error}</Text>}
         </View>
         <View style={styles.content}>
-          <Button title={'Create'}
+          <Button label={'Create'}
                   onPress={async () => {
                     await this.create()
                   }}

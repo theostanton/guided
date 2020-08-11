@@ -1,0 +1,6 @@
+mutation Follow($username:String!){
+    followUser(username: $username){
+        message
+        success
+    }
+}

@@ -7,6 +7,7 @@ export const card: ViewStyle = {
   borderColor: border,
   borderWidth: hairline,
   borderRadius: half,
+  overflow: 'hidden'
 };
 
 export const divider: ViewStyle = {

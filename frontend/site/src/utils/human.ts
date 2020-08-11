@@ -65,7 +65,9 @@ export function plural(word: string, count: number): string {
 }
 
 export function humanElapsed(date: Date): string {
-  return timeago.format(date)
+  return timeago.format(date, undefined, {
+    minInterval: 0
+  })
 }
 
 export const COUNTRIES = {

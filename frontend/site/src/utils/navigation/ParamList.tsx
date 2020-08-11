@@ -27,7 +27,12 @@ export const linking: LinkingOptions = {
   prefixes: [],
   config: {
     screens: {
-      Root: '',
+      Root: {
+        screens: {
+          Home: '',
+          Account: '',
+        }
+      },
       Account: '/account',
       Create: '/create',
       Login: '/login',

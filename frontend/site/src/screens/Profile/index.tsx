@@ -33,7 +33,10 @@ export default class ProfileScreen extends React.Component<Props> {
             this.props.navigation.setOptions({
               title: `${result.data.user.username} - Riders Bible`,
             })
-            return <ProfileContent user={result.data.user} guides={result.data.guides.nodes}/>
+            return <ProfileContent
+              isSelf={this.props.authStore.user.username === this.props.params.username}
+              user={result.data.user}
+              guides={result.data.guides.nodes}/>
           }
 
           return <View style={styles.root}>
@@ -50,7 +53,7 @@ export default class ProfileScreen extends React.Component<Props> {
 const styles = StyleSheet.create({
   root: {
     maxWidth: 400,
-    height:100,
+    height: 100,
     alignSelf: 'center',
   },
 });

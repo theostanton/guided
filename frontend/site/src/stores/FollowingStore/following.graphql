@@ -1,0 +1,7 @@
+subscription Following{
+    users(filter: {followingStatus: {equalTo: FOLLOWING}}){
+        nodes{
+            ...ProfileUser
+        }
+    }
+}

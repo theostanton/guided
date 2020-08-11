@@ -1,0 +1,21 @@
+query HomeFeed($self:String!){
+    feed(_username: $self){
+        nodes{
+            ...FeedEvent
+        }
+    }
+}
+
+fragment FeedEvent on FeedEvent{
+    type
+    guide:guideByGuide{
+        ...Guide
+    }
+    ride:rideByRide{
+        ...Ride
+    }
+    timestamp
+    user:userByUser{
+        ...ProfileUser
+    }
+}

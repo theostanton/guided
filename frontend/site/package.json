@@ -38,7 +38,7 @@
     "mobx-react": "^6.2.5",
     "node-fetch": "^2.6.0",
     "prop-types": "^15.7.2",
-    "react": "16.13.0",
+    "react": "next",
     "react-dom": "^16.13.0",
     "react-dropdown": "^1.7.0",
     "react-hot-loader": "^4.12.21",

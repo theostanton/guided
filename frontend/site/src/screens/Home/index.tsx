@@ -4,8 +4,9 @@ import {inject} from 'mobx-react';
 import {ScreenProps} from "utils/navigation/ScreenProps";
 import Link from "components/Link";
 import AllUsersList from "components/UserList/AllUsersList";
-import {h4} from "styles/text";
-import {half} from "styles/dimensions";
+import {h2, h4} from "styles/text";
+import {half, whole} from "styles/dimensions";
+import HomeFeed from "../../components/Feed/HomeFeed";
 
 type Props = ScreenProps<'Root'>
 
@@ -21,6 +22,10 @@ export default class HomeScreen extends React.Component<Props> {
         <Link href={'/create'} textStyle={styles.button}>Create</Link>
         <View style={styles.usersList}>
           <AllUsersList/>
+        </View>
+        <Text style={h2}>Feed</Text>
+        <View style={styles.feed}>
+          <HomeFeed/>
         </View>
       </View>
     );
@@ -55,6 +60,11 @@ const styles = StyleSheet.create({
   },
   usersList: {
     width: '100%',
+    flex: 1
+  },
+  feed: {
+    marginLeft: whole,
+    marginRight: whole,
     flex: 1
   }
 });

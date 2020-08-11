@@ -24,7 +24,6 @@ function authLink(): ApolloLink {
   return setContext(async (_, {headers}) => {
     try {
       const user = await storage.getObject<User>(USER_KEY);
-      console.log('user', user)
       if (user !== null) {
         return {
           headers: {

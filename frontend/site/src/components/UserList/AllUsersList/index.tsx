@@ -3,16 +3,24 @@ import {StyleSheet} from 'react-native';
 import {ALlUsersComponent} from "api/generated";
 import {subscriptionClient} from "api/client";
 import UserList from "../index";
+import AuthStore from "stores/AuthStore";
+import {inject} from "mobx-react";
 
-type Props = {};
+type Props = {
+  authStore?: AuthStore
+};
 type State = {};
 
+@inject('authStore')
 export default class AllUsersList extends React.Component<Props, State> {
   render() {
     return (
       <ALlUsersComponent
         // @ts-ignore
-        client={subscriptionClient}>
+        client={subscriptionClient}
+        variables={{
+          self: this.props.authStore.user.username
+        }}>
         {({loading, data, error}) => {
           if (loading) {
             return <UserList users={[]}/>

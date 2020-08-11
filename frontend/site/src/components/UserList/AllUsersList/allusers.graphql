@@ -1,5 +1,5 @@
-subscription ALlUsers{
-    users{
+subscription ALlUsers($self:String){
+    users(filter: {username: {notEqualTo: $self}}){
         nodes{
             ...ProfileUser
         }
