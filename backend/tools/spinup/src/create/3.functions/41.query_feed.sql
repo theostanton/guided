@@ -34,6 +34,15 @@ with following as (
                 u.username                      as "user"
          from users as u
          where u.username = _username
+     ),
+     joined as (
+         select u.created ::timestamp           as timestamp,
+                'joined'::feed_event_type as type,
+                null                            as ride,
+                null                            as guide,
+                u.username                      as "user"
+         from users as u
+         where u.username = _username
      )
 select *
 from new_guides

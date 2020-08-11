@@ -733,6 +733,7 @@ enum FeedEventType {
   NEW_GUIDE
   NEW_FOLLOWS
   SELF_CREATED
+  JOINED
 }
 
 """

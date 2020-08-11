@@ -56,4 +56,4 @@ create type transport_type as enum (
     'MOTORCYCLE', 'BICYCLE' ,'CAR'
     );
 
-create type feed_event_type as enum ('new_guide', 'new_follows', 'self_created');
+create type feed_event_type as enum ('new_guide', 'new_follows', 'self_created','joined');

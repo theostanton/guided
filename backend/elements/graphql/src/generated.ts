@@ -595,7 +595,8 @@ export enum FeedEventsOrderBy {
 export enum FeedEventType {
   NewGuide = 'NEW_GUIDE',
   NewFollows = 'NEW_FOLLOWS',
-  SelfCreated = 'SELF_CREATED'
+  SelfCreated = 'SELF_CREATED',
+  Joined = 'JOINED'
 }
 
 /** A filter to be used against FeedEventType fields. All fields are combined with a logical ‘and.’ */
