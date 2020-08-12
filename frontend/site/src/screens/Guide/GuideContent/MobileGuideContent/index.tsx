@@ -10,7 +10,6 @@ import OverviewContent from "./OverviewContent";
 import SelectSpotContent from "./SelectSpotContent";
 import GuideHeader from "./GuideHeader";
 import {autoPointerEvents, noPointerEvents} from "styles/touch";
-import ReactResizeDetector from 'react-resize-detector';
 import RouteContent from "./RouteContent";
 import CameraStore from "components/Map/CameraStore";
 
@@ -26,7 +25,7 @@ export default class MobileGuideContent extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    props.cameraStore.updatePadding({
+    props.cameraStore!.updatePadding({
       bottom: 200 + 2 * whole,
       top: 200 + 2 * whole,
     })
@@ -35,17 +34,17 @@ export default class MobileGuideContent extends React.Component<Props, State> {
   renderContent() {
 
     let Content: React.ReactElement
-    switch (this.props.guideStore.mode) {
+    switch (this.props.guideStore!.mode) {
       case "AddSpot":
         Content = <AddSpotContent
-          params={this.props.guideStore.getModeParams('AddSpot')}/>
+          params={this.props.guideStore!.getModeParams('AddSpot')}/>
         break
       case "Route":
         Content = <RouteContent/>
         break
       case "SelectSpot":
         Content = <SelectSpotContent
-          params={this.props.guideStore.getModeParams('SelectSpot')}/>
+          params={this.props.guideStore!.getModeParams('SelectSpot')}/>
         break
       default:
         Content = <OverviewContent/>

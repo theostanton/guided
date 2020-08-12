@@ -20,8 +20,8 @@ type Props = {
 };
 type State = {};
 
-function wrapped(WrappedComponent, inLayout: boolean = true) {
-  return class extends React.Component<{ navigation: NavigationProp<ParamList> }> {
+function wrapped(WrappedComponent: any, inLayout: boolean = true) {
+  return class extends React.Component<{ navigation: NavigationProp<ParamList>, route: unknown }> {
     render() {
       return (
         <Provider navigation={this.props.navigation}>
@@ -43,12 +43,12 @@ function wrapped(WrappedComponent, inLayout: boolean = true) {
 export default class Desktop extends React.Component<Props, State> {
 
   render() {
-    if (this.props.authStore.loading) {
+    if (this.props.authStore!.loading) {
       return <View><Text>Loading</Text></View>
     }
 
     const Stack = createStackNavigator<ParamList>();
-    const isLoggedIn = this.props.authStore.isLoggedIn
+    const isLoggedIn = this.props.authStore!.isLoggedIn
     return (
       // @ts-ignore
       <ApolloProvider client={client}>

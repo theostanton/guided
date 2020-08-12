@@ -24,13 +24,13 @@ export default class RightRailHeader extends React.Component<Props, State> {
   renderIcon() {
     return <View style={styles.icon}>
       <Icon name={'close'} size={icon} onPress={() => {
-        this.props.guideStore.clearMode()
+        this.props.guideStore!.clearMode()
       }}/>
     </View>
   }
 
   renderActions() {
-    return <View style={styles.actions}>
+    return this.props.actions && <View style={styles.actions}>
       {this.props.actions.map(action => {
         return <View key={action.name} style={styles.action}>
           <Icon name={action.name} onPress={action.onPress} size={icon}/>

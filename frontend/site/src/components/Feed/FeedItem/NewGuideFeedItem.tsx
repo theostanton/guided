@@ -1,14 +1,15 @@
 import React from 'react';
 import {NewGuideFeedEvent} from "../FeedEvent";
 import {StyleSheet, View} from "react-native";
-import GuideListItemMap from "../../Guides/GuideListItem/GuideListItemMap";
-import IconMarker from "../../Map/IconMarker";
+import GuideListItemMap from "components/Guides/GuideListItem/GuideListItemMap";
+import IconMarker from "components/Map/IconMarker";
 import {itemStateColor} from "styles/colors";
+import {assertMaybes} from "utils";
 
 export default function (event: NewGuideFeedEvent) {
   return <View style={styles.root}>
     <GuideListItemMap guide={event.guide}>
-      {event.guide.spots.nodes.map(spot => {
+      {event.guide.spots.nodes.map(assertMaybes()).map(spot => {
         return <IconMarker
           id={spot.id}
           color={itemStateColor('spot', 'none')}

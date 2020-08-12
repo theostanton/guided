@@ -1,9 +1,10 @@
 import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types";
 import React from "react";
 import {Guide, User} from "api/generated";
+import {NavigationProps} from "./ScreenProps";
 
 export type TabParamList = {
-  Home: {},
+  Feed: {},
   Account: {},
 }
 
@@ -29,8 +30,8 @@ export const linking: LinkingOptions = {
     screens: {
       Root: {
         screens: {
-          Home: '',
-          Account: '',
+          Feed: '*',
+          Account: '*',
         }
       },
       Account: '/account',
@@ -53,10 +54,10 @@ export class Route {
   }
 }
 
-export function wrapParams(WrappedComponent) {
-  return class extends React.Component {
-    render() {
-      return <WrappedComponent {...this.props['route']}/>
-    }
-  }
-}
+// export function wrapParams(WrappedComponent:any) {
+//   return class extends React.Component<NavigationProps> {
+//     render() {
+//       return <WrappedComponent {...this.props['route']}/>
+//     }
+//   }
+// }

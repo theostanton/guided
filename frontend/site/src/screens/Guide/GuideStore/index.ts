@@ -15,7 +15,7 @@ export default class GuideStore {
   @observable
   mode: keyof ModeList | undefined
   @observable
-  modeParams: ModeList[keyof ModeList]
+  modeParams: ModeList[keyof ModeList] | undefined
 
   @action
   updateGuide(guide: GuideFragment): boolean {
@@ -39,9 +39,9 @@ export default class GuideStore {
     this.onModeUpdate()
   }
 
-  getModeParams<Mode extends keyof ModeList>(mode: Mode): ModeList[Mode] | undefined {
+  getModeParams<Mode extends keyof ModeList>(mode: Mode): ModeList[Mode] {
     if (this.mode !== mode) {
-      return undefined
+      throw new Error(`Incorrect mode this.mode=${this.mode} mode=${mode}`)
     }
     return this.modeParams as ModeList[Mode]
   }

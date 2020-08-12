@@ -1,7 +1,7 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, ListRenderItemInfo, StyleSheet, View} from 'react-native';
 import GuideStore from "screens/Guide/GuideStore";
-import {GuideFragment} from "api/generated";
+import {GuideFragment, SpotFragment} from "api/generated";
 import {inject, observer} from "mobx-react";
 import SpotItem from "./SpotItem";
 import {hairline} from "styles/dimensions";
@@ -17,7 +17,7 @@ type State = {};
 export default class RouteContent extends React.Component<Props, State> {
 
   get guide(): GuideFragment {
-    return this.props.guideStore.guide
+    return this.props.guideStore!.guide!
   }
 
   render() {
@@ -36,10 +36,10 @@ export default class RouteContent extends React.Component<Props, State> {
 
     return (
       <View style={styles.root}>
-        <FlatList data={this.guide.spots.nodes}
+        <FlatList data={this.guide.spots.nodes.map(spot => spot!)}
                   ItemSeparatorComponent={FlatListItemSeparator}
-                  renderItem={(item) => {
-                    return <SpotItem key={item.item.id} item={item}/>
+                  renderItem={(info: ListRenderItemInfo<SpotFragment>) => {
+                    return <SpotItem key={info.item.id} spot={info.item}/>
                   }}/>
       </View>
     );

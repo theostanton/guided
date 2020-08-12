@@ -5,7 +5,7 @@ import Marker from "../Marker";
 
 export default class IconMarker extends React.Component<IconMarkerProps> {
   render() {
-    const size = this.props.size | 32
+    const size = this.props.size || 32
     return (
       <Marker id={`${this.props.id}_${this.props.color}`}
               position={this.props.position}

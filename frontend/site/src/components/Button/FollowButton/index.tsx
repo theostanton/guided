@@ -40,11 +40,11 @@ export default class FollowButton extends React.Component<Props, State> {
       mutation: FollowDocument,
       variables
     })
-    console.log('follow message=', response.data.followUser.message)
+    console.log('follow message=', response.data!.followUser.message)
     this.setState({
       loading: false
     })
-    this.props.followingStore.subscribe()
+    this.props.followingStore!.subscribe()
   }
 
   async unfollow(): Promise<void> {
@@ -56,19 +56,19 @@ export default class FollowButton extends React.Component<Props, State> {
       mutation: UnfollowDocument,
       variables
     })
-    console.log('unfollow message=', response.data.unfollowUser.message)
+    console.log('unfollow message=', response.data!.unfollowUser.message)
     this.setState({
       loading: false
     })
-    this.props.followingStore.subscribe()
+    this.props.followingStore!.subscribe()
   }
 
   render() {
-    if (!this.props.followingStore.following) {
+    if (!this.props.followingStore!.following) {
       return <Button label={'Loading...'} onPress={() => {
       }}/>
     }
-    const isFollowing = this.props.followingStore.following.some(value => {
+    const isFollowing = this.props.followingStore!.following.some(value => {
       return value.username === this.props.username
     })
     const label = isFollowing ? "Unfollow" : "Follow"

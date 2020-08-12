@@ -80,7 +80,7 @@ export default class AuthStore {
       };
     }
 
-    if (!result.data.authenticate?.jwtToken) {
+    if (!result.data?.authenticate?.jwtToken) {
       return {
         success: false,
         message: 'Failed to login',
@@ -108,7 +108,7 @@ export default class AuthStore {
       await this.setUser(undefined);
       return {
         success: false,
-        message: result.errors
+        message: usernameResult.errors
           .map((error) => {
             return error.message;
           })

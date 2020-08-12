@@ -23,11 +23,11 @@ export default class Map extends React.Component<MapProps, State> {
   }
 
   render() {
-    let viewport = this.props.cameraStore.viewport;
+    let viewport = this.props.cameraStore!.viewport;
     return (
       <ReactMapGL
         onClick={this.props.onClick && (async (event) => {
-          await this.props.onClick({
+          await this.props.onClick!({
             longitude: event.lngLat[0],
             latitude: event.lngLat[1]
           })
@@ -35,7 +35,7 @@ export default class Map extends React.Component<MapProps, State> {
         mapStyle="mapbox://styles/theodev/ckdfwq5x00w1c1isc2w08ol3z"
         mapboxApiAccessToken={TOKEN}
         onViewportChange={(viewport) => {
-          this.props.cameraStore.moveViewport(viewport)
+          this.props.cameraStore!.moveViewport(viewport)
         }}
         width={'100%'}
         height={'100%'}

@@ -11,13 +11,18 @@ import GuideListItemMap from "./GuideListItemMap";
 import RideLine from "components/Map/RideLine";
 import IconMarker from "components/Map/IconMarker";
 import {duration, humanDistance} from "utils/human";
-import {card} from 'styles';
+import {dynamicCard} from 'styles';
+import {inject} from "mobx-react";
+import Device from "../../../stores/Device";
+import {assertMaybes} from "../../../utils";
 
 type Props = {
   guide: GuideFragment,
+  device?: Device
 };
 type State = {};
 
+@inject('device')
 export default class GuideListItem extends React.Component<Props, State> {
 
   renderHeader() {
@@ -29,10 +34,10 @@ export default class GuideListItem extends React.Component<Props, State> {
   renderMap() {
     return <View style={styles.map}>
       <GuideListItemMap guide={this.props.guide}>
-        {this.props.guide.rides.nodes.map(ride => {
+        {this.props.guide.rides.nodes.map(ride => ride!).map(ride => {
           return <RideLine ride={ride} state={'none'}/>
         })}
-        {this.props.guide.spots.nodes.map(spot => {
+        {this.props.guide.spots.nodes.map(assertMaybes()).map(spot => {
           return <IconMarker
             id={spot.id}
             color={itemStateColor('spot', 'none')}
@@ -62,8 +67,8 @@ export default class GuideListItem extends React.Component<Props, State> {
       },
       {
         label: 'nights',
-        value: guide.spots.nodes.reduce((acc, spot) => {
-          return acc + spot.nights
+        value: guide.spots.nodes.map(assertMaybes()).reduce((acc, spot) => {
+          return acc + (spot.nights || 0)
         }, 0)
       },
     ]
@@ -75,12 +80,11 @@ export default class GuideListItem extends React.Component<Props, State> {
   render() {
     return (
       <Pressable
+        style={[dynamicCard(this.props.device!.isLandscape()), styles.root]}
         href={Route.guide(this.props.guide)}>
-        <View style={styles.root}>
-          {this.renderHeader()}
-          {this.renderMap()}
-          {this.renderStats()}
-        </View>
+        {this.renderHeader()}
+        {this.renderMap()}
+        {this.renderStats()}
       </Pressable>
     );
   }
@@ -88,8 +92,6 @@ export default class GuideListItem extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   root: {
-    ...card,
-    width:'100%',
     flexDirection: 'column'
   },
   header: {

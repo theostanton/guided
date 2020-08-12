@@ -38,7 +38,7 @@ export default class LoginScreen extends React.Component<Props, State> {
     console.log('password',password)
     this.setState({loading: true});
     try {
-      const result = await this.props.authStore.login(email, password);
+      const result = await this.props.authStore!.login(email, password);
       if (result.success) {
         // this.props.navigation.navigate('Root')
       } else {

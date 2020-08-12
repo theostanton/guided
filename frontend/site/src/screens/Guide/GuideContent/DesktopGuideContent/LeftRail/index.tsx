@@ -21,17 +21,17 @@ type State = {};
 export default class LeftRail extends React.Component<Props, State> {
 
   get guide(): GuideFragment {
-    return this.props.guideStore.guide
+    return this.props.guideStore!.guide!
   }
 
   renderBackIcon() {
     return <View style={styles.icon}>
       <Icon name={'arrow-back'} size={icon} color={darkIcon} onPress={() => {
-        if (this.props.navigation.canGoBack()) {
-          this.props.navigation.goBack()
+        if (this.props.navigation!.canGoBack()) {
+          this.props.navigation!.goBack()
         } else {
-          this.props.navigation.navigate('Profile', {
-            username: this.props.guideStore.guide.owner
+          this.props.navigation!.navigate('Profile', {
+            username: this.guide.owner
           })
         }
       }}/>
@@ -59,7 +59,7 @@ export default class LeftRail extends React.Component<Props, State> {
         label: 'spots',
       },
       {
-        value: this.guide.countries.length,
+        value: this.guide.countries!.length,
         label: 'countries',
       }
     ]
@@ -71,8 +71,8 @@ export default class LeftRail extends React.Component<Props, State> {
     return (
       <View style={styles.root}>
         {this.renderBackIcon()}
-        <Text style={styles.title}>{this.props.guideStore.guide.title}</Text>
-        <Text style={styles.owner}>by {this.props.guideStore.guide.owner}</Text>
+        <Text style={styles.title}>{this.guide.title}</Text>
+        <Text style={styles.owner}>by {this.guide.owner}</Text>
         {this.renderStats()}
       </View>
     );

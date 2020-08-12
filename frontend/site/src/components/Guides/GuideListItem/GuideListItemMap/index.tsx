@@ -18,7 +18,7 @@ export default class GuideListItemMap extends React.Component<Props> {
     if (!bounds) {
       return
     }
-    return generateViewport(bounds, this.props.device.window.width, 200, {
+    return generateViewport(bounds, this.props.device!.window!.width, 200, {
       bottom: two,
       top: two + icon,
       left: two,

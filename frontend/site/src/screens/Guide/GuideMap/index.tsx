@@ -6,6 +6,7 @@ import GuideStore from "../GuideStore";
 import IconMarker from "components/Map/IconMarker";
 import RideLine from "components/Map/RideLine";
 import {itemStateColor} from "styles/colors";
+import {GuideFragment} from "../../../api/generated";
 
 type Props = {
   guideStore?: GuideStore
@@ -16,21 +17,25 @@ type State = {};
 @observer
 export default class GuideMap extends React.Component<Props, State> {
 
+  get guide(): GuideFragment {
+    return this.props.guideStore!.guide!
+  }
+
   renderAddSpotMarker() {
-    const params = this.props.guideStore.getModeParams('AddSpot')
+    const params = this.props.guideStore!.getModeParams('AddSpot')
     return params && <IconMarker key={'add_spot'} id={'add_spot'} position={params.event} color={'#ff00ff'}/>
   }
 
   renderSpots() {
-    return this.props.guideStore.guide.spots.nodes.map(spot => {
-      const state = this.props.guideStore.selectedState(spot)
+    return this.guide.spots.nodes.map(spot => spot!).map(spot => {
+      const state = this.props.guideStore!.selectedState(spot)
       return <IconMarker
         id={spot.id}
         key={spot.id}
         position={{longitude: spot.long, latitude: spot.lat}}
-        color={itemStateColor('spot',state)}
+        color={itemStateColor('spot', state)}
         onPress={() => {
-          this.props.guideStore.updateMode('SelectSpot', {
+          this.props.guideStore!.updateMode('SelectSpot', {
             spot
           })
         }
@@ -40,19 +45,20 @@ export default class GuideMap extends React.Component<Props, State> {
   }
 
   renderRides() {
-    return this.props.guideStore.guide.rides.nodes.map(ride => {
-      return <RideLine key={ride.id} ride={ride} state={this.props.guideStore.selectedState(ride)}/>
-    })
+    return this.guide.rides.nodes.map(ride => ride!)
+      .map(ride => {
+        return <RideLine key={ride.id} ride={ride} state={this.props.guideStore!.selectedState(ride)}/>
+      })
   }
 
   render() {
     return (
       <Map onClick={(event) => {
-        this.props.guideStore.updateMode('AddSpot', {
+        this.props.guideStore!.updateMode('AddSpot', {
           event
         })
       }}>
-        {this.props.guideStore.guide && <>
+        {this.props.guideStore!.guide && <>
           {this.renderAddSpotMarker()}
           {this.renderSpots()}
           {this.renderRides()}

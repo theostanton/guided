@@ -5,6 +5,7 @@ import {subscriptionClient} from "api/client";
 import UserList from "../index";
 import AuthStore from "stores/AuthStore";
 import {inject} from "mobx-react";
+import {assertMaybes} from "../../../utils";
 
 type Props = {
   authStore?: AuthStore
@@ -19,13 +20,13 @@ export default class AllUsersList extends React.Component<Props, State> {
         // @ts-ignore
         client={subscriptionClient}
         variables={{
-          self: this.props.authStore.user.username
+          self: this.props.authStore!.user!.username
         }}>
         {({loading, data, error}) => {
           if (loading) {
             return <UserList users={[]}/>
           } else {
-            return <UserList users={data.users.nodes}/>
+            return <UserList users={data!.users!.nodes.map(assertMaybes())}/>
           }
         }}
       </ALlUsersComponent>

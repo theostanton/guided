@@ -21,15 +21,15 @@ type State = {};
 export default class RightRail extends React.Component<Props, State> {
 
   get guide(): GuideFragment {
-    return this.props.guideStore.guide
+    return this.props.guideStore!.guide!
   }
 
   renderContent() {
-    switch (this.props.guideStore.mode) {
+    switch (this.props.guideStore!.mode) {
       case "AddSpot":
-        return <AddSpotContent params={this.props.guideStore.getModeParams(this.props.guideStore.mode)}/>
+        return <AddSpotContent params={this.props.guideStore!.getModeParams(this.props.guideStore!.mode)}/>
       case "SelectSpot":
-        return <SelectSpotContent params={this.props.guideStore.getModeParams(this.props.guideStore.mode)}/>
+        return <SelectSpotContent params={this.props.guideStore!.getModeParams(this.props.guideStore!.mode)}/>
       default:
         return <View><Text>Error</Text></View>
     }
@@ -37,7 +37,7 @@ export default class RightRail extends React.Component<Props, State> {
 
   render() {
 
-    if (this.props.guideStore.mode === undefined) {
+    if (this.props.guideStore!.mode === undefined) {
       return null;
     }
 

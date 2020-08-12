@@ -54,7 +54,7 @@ export default class Link extends React.Component<Props, State> {
             onPress={
               this.props.onClick &&
               (async () => {
-                await this.props.onClick();
+                await this.props.onClick!();
               })
             }>
             {this.props.children}

@@ -8,7 +8,7 @@ import {eighth, hairline, half, icon, quarter, whole} from "styles/dimensions";
 import {border} from "styles/colors";
 import {h2, h5} from "styles/text";
 import TransportTypeIcon from "../../../../../components/Icon/TransportTypeIcon";
-import {TransportType} from "../../../../../api/generated";
+import {GuideFragment, TransportType} from "../../../../../api/generated";
 
 type Props = NavigationProps & {
   guideStore?: GuideStore
@@ -18,15 +18,19 @@ type State = {};
 @inject('guideStore', 'navigation')
 export default class GuideHeader extends React.Component<Props, State> {
 
+  get guide():GuideFragment{
+    return this.props.guideStore!.guide!
+  }
+
   renderTop() {
-    const guide = this.props.guideStore.guide
+    const guide = this.guide
     return <View style={styles.top}>
       <View style={styles.closeIcon}>
         <Icon name={'close'} size={icon} onPress={() => {
-          if (this.props.navigation.canGoBack()) {
-            this.props.navigation.goBack()
+          if (this.props.navigation!.canGoBack()) {
+            this.props.navigation!.goBack()
           } else {
-            this.props.navigation.navigate('Profile', {
+            this.props.navigation!.navigate('Profile', {
               username: guide.owner
             })
           }
@@ -53,25 +57,25 @@ export default class GuideHeader extends React.Component<Props, State> {
   }
 
   renderSelector() {
-    const mode = this.props.guideStore.mode
+    const mode = this.props.guideStore!.mode
     return <View style={styles.selector}>
       <Text style={mode === undefined ? styles.selectorItemSelected : styles.selectorItem}
             onPress={() => {
-              this.props.guideStore.clearMode()
+              this.props.guideStore!.clearMode()
             }}>
         Overview
       </Text>
       <View style={styles.selectorDivider}/>
       <Text style={mode === 'Route' ? styles.selectorItemSelected : styles.selectorItem}
             onPress={() => {
-              this.props.guideStore.updateMode('Route')
+              this.props.guideStore!.updateMode('Route',{})
             }}>Route</Text>
       <View style={styles.selectorDivider}/>
       <Text style={mode === 'SelectSpot' ? styles.selectorItemSelected : styles.selectorItem}
             onPress={() => {
-              if (this.props.guideStore.guide.spots.nodes.length > 0) {
-                const firstSpot = this.props.guideStore.guide.spots.nodes[0]
-                this.props.guideStore.updateMode('SelectSpot', {
+              if (this.guide.spots.nodes.length > 0) {
+                const firstSpot = this.guide.spots.nodes[0]!
+                this.props.guideStore!.updateMode('SelectSpot', {
                   spot: firstSpot
                 })
               }

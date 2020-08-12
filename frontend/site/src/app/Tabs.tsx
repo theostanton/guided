@@ -6,6 +6,7 @@ import HomeScreen from "screens/Home";
 import AccountScreen from "screens/Account";
 import Icon from "../components/Icon";
 import {primary, secondary} from "../styles/colors";
+import FeedScreen from "../screens/Feed";
 
 type Props = {};
 type State = {};
@@ -18,8 +19,8 @@ export default class Tabs extends React.Component<Props, State> {
         <Tab.Navigator tabBarOptions={{
           activeTintColor: primary
         }}>
-          <Tab.Screen name={'Home'}
-                      component={HomeScreen}
+          <Tab.Screen name={'Feed'}
+                      component={FeedScreen}
                       options={{
                         tabBarIcon: ({size, color}) => {
                           return <Icon name={'home'} size={size} color={color}/>
@@ -41,5 +42,6 @@ export default class Tabs extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     height: Platform.OS === 'web' ? '100vh' : '100%',
+    width:'100%'
   },
 });

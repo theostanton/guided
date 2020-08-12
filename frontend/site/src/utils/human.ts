@@ -70,7 +70,7 @@ export function humanElapsed(date: Date): string {
   })
 }
 
-export const COUNTRIES = {
+export const COUNTRIES: { [CountryCode in string]: string } = {
   "AF": "Afghanistan",
   "AX": "Aland Islands",
   "AL": "Albania",

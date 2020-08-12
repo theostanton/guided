@@ -17,8 +17,8 @@ export default class HomeScreen extends React.Component<Props> {
 
     return (
       <View style={styles.root}>
-        <Text>Welcome {this.props.authStore.user?.username}</Text>
-        <Link href={`/${this.props.authStore.user.username}`} textStyle={styles.button}>My profile</Link>
+        <Text>Welcome {this.props.authStore!.user!.username}</Text>
+        <Link href={`/${this.props.authStore!.user!.username}`} textStyle={styles.button}>My profile</Link>
         <Link href={'/create'} textStyle={styles.button}>Create</Link>
         <View style={styles.usersList}>
           <AllUsersList/>

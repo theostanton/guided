@@ -14,7 +14,7 @@ type State = {};
 export default class Feed extends React.Component<Props, State> {
 
   renderItem(info: ListRenderItemInfo<FeedEvent>) {
-    return <FeedItem event={info.item}/>
+    return <FeedItem key={`${info.item.type}-${info.item.timestamp}`} event={info.item}/>
   }
 
   render() {
@@ -33,7 +33,6 @@ export default class Feed extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   root: {
-    maxWidth: 400,
     height:'100%',
     overflow:'scroll'
   },

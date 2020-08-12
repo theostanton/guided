@@ -87,10 +87,10 @@ export default class SelectSpotContent extends React.Component<Props, State> {
       return
     }
 
-    if (result.data.removeSpot.success) {
-      this.props.guideStore.clearMode()
+    if (result.data!.removeSpot.success) {
+      this.props.guideStore!.clearMode()
     } else {
-      console.log('failed', result.data.removeSpot.message)
+      console.log('failed', result.data!.removeSpot.message)
     }
   }
 

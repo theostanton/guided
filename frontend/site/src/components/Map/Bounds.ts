@@ -8,7 +8,7 @@ export default class Bounds implements CameraBounds {
   southWest: LatLong
 
   static guide(guide: GuideFragment): Bounds | undefined {
-    const spots = guide.spots.nodes
+    const spots = guide.spots.nodes.map(spot => spot!)
     if (spots.length === 0) {
       return undefined
     }

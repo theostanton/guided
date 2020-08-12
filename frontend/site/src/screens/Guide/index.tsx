@@ -26,14 +26,14 @@ export default class GuideScreen extends React.Component<Props, State> {
 
   guideStore: GuideStore
   cameraStore: CameraStore
-  private subscription: ZenObservable.Subscription;
+  private subscription: ZenObservable.Subscription | undefined;
 
   constructor(props: Props) {
     super(props);
     this.guideStore = new GuideStore(() => {
       this.onModeUpdate()
     })
-    this.cameraStore = new CameraStore(this.props.device.window)
+    this.cameraStore = new CameraStore(this.props.device!.window!)
     this.state = {}
   }
 
@@ -57,7 +57,7 @@ export default class GuideScreen extends React.Component<Props, State> {
         this.cameraStore.center(addSpotParams.event, 13)
         break
       default:
-        this.cameraStore.guideBounds(this.guideStore.guide)
+        this.cameraStore.guideBounds(this.guideStore!.guide!)
     }
   }
 
@@ -105,14 +105,15 @@ export default class GuideScreen extends React.Component<Props, State> {
         return
       }
       if (result.data) {
-        this.updateTitle(result.data.guide)
+        this.updateTitle(result.data.guide!)
         const itemId = this.props.params.itemId
-        if (this.guideStore.updateGuide(result.data.guide) && itemId) {
+        if (this.guideStore.updateGuide(result.data.guide!) && itemId) {
           switch (idType(itemId)) {
             case "spot":
-              const spot = result.data.guide.spots.nodes.find(spot => {
-                return spot.id === itemId
-              })
+              const spot = result.data.guide!.spots.nodes
+                .find(spot => {
+                  return spot!.id === itemId
+                })
               if (spot) {
                 this.guideStore.updateMode('SelectSpot', {
                   spot
@@ -127,7 +128,7 @@ export default class GuideScreen extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
-    this.subscription.unsubscribe()
+    this.subscription?.unsubscribe()
   }
 
   render() {

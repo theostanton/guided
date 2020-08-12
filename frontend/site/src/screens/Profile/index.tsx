@@ -5,6 +5,7 @@ import {ScreenProps} from 'utils/navigation/ScreenProps';
 import {ProfileComponent} from "api/generated";
 import ProfileContent from "./ProfileContent";
 import client from "api/client";
+import {assertMaybes} from "../../utils";
 
 type Props = ScreenProps<'Profile'>
 
@@ -34,9 +35,9 @@ export default class ProfileScreen extends React.Component<Props> {
               title: `${result.data.user.username} - Riders Bible`,
             })
             return <ProfileContent
-              isSelf={this.props.authStore.user.username === this.props.params.username}
+              isSelf={this.props.authStore!.user!.username === this.props.params.username}
               user={result.data.user}
-              guides={result.data.guides.nodes}/>
+              guides={result.data!.guides!.nodes.map(assertMaybes())}/>
           }
 
           return <View style={styles.root}>

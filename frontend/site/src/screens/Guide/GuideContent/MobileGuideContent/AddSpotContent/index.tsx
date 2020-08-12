@@ -27,7 +27,7 @@ type State = {
 @inject('guideStore')
 export default class AddSpotContent extends React.Component<Props, State> {
 
-  constructor(props) {
+  constructor(props:Props) {
     super(props);
     this.state = {
       saving: false,
@@ -46,7 +46,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
       <View style={styles.headerButton}>
         <Icon name={'close'} color={darkIcon} size={icon} onPress={() => {
           console.log('close')
-          this.props.guideStore.clearMode()
+          this.props.guideStore!.clearMode()
         }}/>
       </View>
     </View>
@@ -87,7 +87,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
       input: {
         lat: this.props.params.event.latitude,
         long: this.props.params.event.longitude,
-        guideId: this.props.guideStore.guide.id,
+        guideId: this.props.guideStore!.guide!.id,
         nights: this.state.nights
       }
     }
@@ -108,7 +108,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
     if (result.data) {
       console.log('result.data', result.data)
       if (result.data.addSpot.success) {
-        this.props.guideStore.clearMode()
+        this.props.guideStore!.clearMode()
       } else {
         this.setState({
           saving: false,

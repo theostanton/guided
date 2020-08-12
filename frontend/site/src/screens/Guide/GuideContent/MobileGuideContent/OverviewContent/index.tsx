@@ -16,7 +16,7 @@ type State = {};
 export default class OverviewContent extends React.Component<Props, State> {
 
   get guide(): GuideFragment {
-    return this.props.guideStore.guide
+    return this.props.guideStore!.guide!
   }
 
   renderHeader() {

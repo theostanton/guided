@@ -6,7 +6,7 @@ import {h1} from "styles/text";
 import LabelledText from "components/LabelledText";
 import {roundToString} from "utils/human";
 import LabelledTextInput from "components/LabelledTextInput";
-import {AddSpotDocument, AddSpotMutation, MutationAddSpotArgs} from "api/generated";
+import {AddSpotDocument, AddSpotMutation, GuideFragment, MutationAddSpotArgs} from "api/generated";
 import client from "api/client";
 import {inject} from "mobx-react";
 
@@ -22,11 +22,15 @@ type State = {
 @inject('guideStore')
 export default class AddSpotContent extends React.Component<Props, State> {
 
-  constructor(props) {
+  constructor(props:Props) {
     super(props);
     this.state = {
       saving: false
     }
+  }
+
+  get guide():GuideFragment{
+    return this.props.guideStore!.guide!
   }
 
   renderHeader() {
@@ -62,7 +66,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
       input: {
         lat: this.props.params.event.latitude,
         long: this.props.params.event.longitude,
-        guideId: this.props.guideStore.guide.id,
+        guideId: this.guide.id,
         nights: 1
       }
     }
@@ -82,7 +86,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
 
     if (result.data) {
       if (result.data.addSpot.success) {
-        this.props.guideStore.clearMode()
+        this.props.guideStore!.clearMode()
       } else {
         this.setState({
           saving: false,

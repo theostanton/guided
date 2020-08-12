@@ -1,4 +1,4 @@
-import {Guide} from "api/generated";
+import {Guide, Maybe} from "api/generated";
 
 export function guideId(guide: Pick<Guide, 'owner' | 'slug'>): string {
   return `${guide.owner}_${guide.slug}`
@@ -16,10 +16,21 @@ export function extractSpotId(spotOrRideId: string | undefined): string | undefi
   }
 }
 
+export function assertMaybes<T>(): (t: Maybe<T>) => T {
+  return (t: Maybe<T>) => t!
+}
+
+export type PickRequired<T, K extends keyof T> = Required<{
+  [P in K]: NonNullable<T[P]>;
+}>;
+
+// type NonNullable<T> = T extends null | undefined ? never : T;
+
 export function idType(id: string | undefined): 'ride' | 'spot' | 'guide' | undefined {
+  if (id === undefined) {
+    return
+  }
   switch (true) {
-    case !id:
-      return
     case id.startsWith('ride_'):
       return 'ride'
     case id.startsWith('spot_'):

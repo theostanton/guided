@@ -10,15 +10,15 @@ import {Helmet} from "react-helmet";
 import {autorun, IReactionDisposer} from "mobx";
 import FollowingStore from "../stores/FollowingStore";
 
-
+type ScaledSizes = { window: ScaledSize, screen: ScaledSize }
 const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");
 
-function DimensionsWrapper(props: { children: (dimensions: { screen: ScaledSize, window: ScaledSize }) => React.ReactNode }): JSX.Element {
+function DimensionsWrapper(props: { children: (dimensions: ScaledSizes) => React.ReactNode }): JSX.Element {
   const [dimensions, setDimensions] = useState({window, screen});
 
-  const onChange = ({window, screen}) => {
-    setDimensions({window, screen});
+  const onChange = (dimensions: ScaledSizes) => {
+    setDimensions(dimensions);
   };
 
   useEffect(() => {

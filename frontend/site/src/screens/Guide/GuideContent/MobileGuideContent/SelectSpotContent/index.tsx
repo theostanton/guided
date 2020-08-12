@@ -19,7 +19,7 @@ export default class SelectSpotContent extends React.Component<Props, State> {
   renderHeader() {
     return <View style={styles.header}>
       <Icon name={'chevron-left'} color={darkIcon} size={icon} onPress={() => {
-        this.props.guideStore.updateMode('Route')
+        this.props.guideStore!.updateMode('Route',{})
       }}/>
       <Icon name={'place'} color={itemStateColor('spot', 'selected')} size={icon}/>
       <Text style={styles.headerTitle}>
