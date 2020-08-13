@@ -8,7 +8,7 @@ import {inject, observer} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
 import {Route} from "utils/navigation/ParamList";
 
-type Props = {
+export type Props = {
   authStore?: AuthStore;
 };
 type State = {};

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   item: {
-    flex: 1,
+    flexShrink:0,
     minWidth: Platform.OS === 'web' ? 'min-content' : undefined,
   }
 });

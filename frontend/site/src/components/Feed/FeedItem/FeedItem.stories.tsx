@@ -1,6 +1,7 @@
 import React from 'react';
 import FeedItem, {Props} from "./index";
 import {Story} from "@storybook/react";
+import {ANNECY, SEYTHENEX} from "../../Map/consts";
 
 export default {
   title: 'FeedItem',
@@ -8,7 +9,9 @@ export default {
   argTypes: {},
 };
 
-const Template: Story<Props> = (args: Props) => <FeedItem {...args} />;
+const Template: Story<Props> = (args: Props) => {
+  return <FeedItem {...args} />;
+}
 
 export const Joined = Template.bind({});
 
@@ -45,11 +48,11 @@ NewGuide.args = {
       title: 'A guide',
       spots: {
         nodes: [{
-          lat: 0.0,
-          long: 0.0
+          lat: SEYTHENEX.latitude,
+          long: SEYTHENEX.longitude
         }, {
-          lat: 0.1,
-          long: 0.1
+          lat: ANNECY.latitude,
+          long: ANNECY.longitude
         },
         ]
       },

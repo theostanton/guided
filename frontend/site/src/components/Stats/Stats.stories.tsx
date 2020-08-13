@@ -31,6 +31,9 @@ Triple.args = {
   }, {
     label: 'A third label',
     value: 333
+  }, {
+    label: 'A Fourther label',
+    value: 444
   },
   ]
 }
