@@ -4,7 +4,7 @@ import {ProfileUserFragment} from "api/generated";
 import {h1} from "styles/text";
 
 type Props = {
-  user:ProfileUserFragment
+  user: ProfileUserFragment
 };
 type State = {};
 
@@ -13,7 +13,6 @@ export default class User extends React.Component<Props, State> {
     return (
       <View style={styles.root}>
         <Text style={styles.username}>{this.props.user}</Text>
-
       </View>
     );
   }
@@ -21,7 +20,7 @@ export default class User extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   root: {},
-  username:{
+  username: {
     ...h1
   }
 });

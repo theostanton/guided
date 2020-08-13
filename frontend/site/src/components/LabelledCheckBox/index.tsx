@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {h4} from "styles/text";
 
 
-type Props = {
+export type Props = {
   onChange: (value: boolean) => Promise<void>
   selected: boolean,
   label: string

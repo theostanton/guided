@@ -10,7 +10,7 @@ import Icon from "components/Icon";
 
 type Props = {
   guideStore?: GuideStore
-  item: ListRenderItemInfo<SpotFragment>
+  spot: SpotFragment
 };
 type State = {};
 
@@ -18,7 +18,7 @@ type State = {};
 export default class SpotItem extends React.Component<Props, State> {
 
   renderContent() {
-    const spot = this.props.item.item
+    const spot = this.props.spot
     return <View style={styles.content}>
       <Text style={styles.title}>{spot.label ? spot.label : spot.location}</Text>
       {spot.label && <Text style={styles.location}>{spot.location}</Text>}
@@ -26,9 +26,9 @@ export default class SpotItem extends React.Component<Props, State> {
   }
 
   render() {
-    const spot = this.props.item.item
+    const spot = this.props.spot
     return <Pressable onPress={() => {
-      this.props.guideStore.updateMode('SelectSpot', {
+      this.props.guideStore!.updateMode('SelectSpot', {
         spot
       })
     }}>

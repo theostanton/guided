@@ -3,13 +3,14 @@ import {StyleSheet, Text, View, ViewStyle} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {half} from "styles/dimensions";
 import {h4, h5} from "styles/text";
+import {ItemValue} from "@react-native-community/picker/typings/Picker";
 
 
 type Props<T> = {
   label: string
   options: string[]
   selected?: string
-  onValueChange: (value: string) => Promise<void> | void
+  onValueChange: (value: string | number) => Promise<void> | void
   style?: ViewStyle
 };
 type State = {};
@@ -21,9 +22,10 @@ export default class LabelledPicker<T> extends React.Component<Props<T>, State> 
         <Text style={styles.label}>{this.props.label}</Text>
         <Picker style={styles.picker}
                 selectedValue={this.props.selected}
-                onValueChange={async (value: string) => {
-                  await this.props.onValueChange(value)
-                }}>
+                onValueChange={async (value: ItemValue) => {
+                  this.props.onValueChange(value)
+                }}
+        >
           {this.props.options.map((option) => {
             return <Picker.Item key={option} label={option} value={option}/>
           })}

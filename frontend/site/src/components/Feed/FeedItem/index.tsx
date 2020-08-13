@@ -3,17 +3,16 @@ import {StyleSheet, Text, View} from 'react-native';
 import {FeedEvent} from "../FeedEvent";
 import {h5} from "styles/text";
 import {FeedEventType} from "api/generated";
-import JoinedFeedItem from "./JoinedFeedItem";
-import SelfCreatedFeedItem from "./SelfCreatedFeedItem";
 import {humanElapsed} from "utils/human";
 import Icon from "components/Icon";
 import {eighth, half} from "styles/dimensions";
 import HeaderText from "./HeaderText";
-import {card, divider} from "../../../styles";
+import {divider, dynamicCard} from "../../../styles";
 import NewGuideFeedItem from "./NewGuideFeedItem";
 import {IconName} from "../../Icon/names";
+import {DeviceContext} from "../../../app/Context";
 
-type Props = {
+export type Props = {
   event: FeedEvent
 };
 type State = {};
@@ -26,6 +25,8 @@ const icon: { [eventType in FeedEventType]: IconName } = {
 }
 
 export default class FeedItem extends React.Component<Props, State> {
+
+  static contextType = DeviceContext;
 
   renderHeader() {
     return <View style={styles.header}>
@@ -44,10 +45,6 @@ export default class FeedItem extends React.Component<Props, State> {
   renderContent() {
     const event = this.props.event
     switch (event.type) {
-      case FeedEventType.Joined:
-        return JoinedFeedItem(event)
-      case FeedEventType.SelfCreated:
-        return SelfCreatedFeedItem(event)
       case FeedEventType.NewGuide:
         return NewGuideFeedItem(event)
       default:
@@ -57,7 +54,7 @@ export default class FeedItem extends React.Component<Props, State> {
 
   render() {
     return (
-      <View style={styles.root}>
+      <View key={this.props.event.timestamp} style={[dynamicCard(this.context?.isPortrait()), styles.root]}>
         {this.renderHeader()}
         {this.renderContent()}
       </View>
@@ -67,7 +64,6 @@ export default class FeedItem extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   root: {
-    ...card,
     flexDirection: 'column'
   },
   header: {

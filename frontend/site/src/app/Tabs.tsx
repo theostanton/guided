@@ -2,14 +2,21 @@ import React from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
 import {TabParamList} from "utils/navigation/ParamList";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import HomeScreen from "screens/Home";
 import AccountScreen from "screens/Account";
 import Icon from "../components/Icon";
-import {primary, secondary} from "../styles/colors";
+import {primary} from "../styles/colors";
+import FeedScreen from "../screens/Feed";
+import ProfileScreen from "../screens/Profile";
+import {inject} from "mobx-react";
+import AuthStore from "../stores/AuthStore";
+import {wrapped} from "./Mobile";
 
-type Props = {};
+type Props = {
+  authStore?: AuthStore
+};
 type State = {};
 
+@inject('authStore')
 export default class Tabs extends React.Component<Props, State> {
   render() {
     const Tab = createBottomTabNavigator<TabParamList>();
@@ -18,18 +25,28 @@ export default class Tabs extends React.Component<Props, State> {
         <Tab.Navigator tabBarOptions={{
           activeTintColor: primary
         }}>
-          <Tab.Screen name={'Home'}
-                      component={HomeScreen}
+          <Tab.Screen name={'Feed'}
+                      component={FeedScreen}
                       options={{
                         tabBarIcon: ({size, color}) => {
                           return <Icon name={'home'} size={size} color={color}/>
+                        }
+                      }}/>
+          <Tab.Screen name={'Profile'}
+                      component={wrapped(ProfileScreen)}
+                      initialParams={{
+                        username: this.props.authStore!.user!.username
+                      }}
+                      options={{
+                        tabBarIcon: ({size, color}) => {
+                          return <Icon name={'account-circle'} size={size} color={color}/>
                         }
                       }}/>
           <Tab.Screen name={'Account'}
                       component={AccountScreen}
                       options={{
                         tabBarIcon: ({size, color}) => {
-                          return <Icon name={'account-circle'} size={size} color={color}/>
+                          return <Icon name={'settings'} size={size} color={color}/>
                         }
                       }}/>
         </Tab.Navigator>
@@ -41,5 +58,6 @@ export default class Tabs extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     height: Platform.OS === 'web' ? '100vh' : '100%',
+    width: '100%'
   },
 });

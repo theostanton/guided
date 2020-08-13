@@ -13,7 +13,7 @@ type State = {}
 @observer
 export default class Map extends React.Component<MapProps, State> {
 
-  cameraRef: MapboxGL.Camera
+  cameraRef: MapboxGL.Camera | undefined
 
   get camera(): MapboxGL.Camera {
     return (this.cameraRef as unknown as MapboxGL.Camera)
@@ -22,12 +22,12 @@ export default class Map extends React.Component<MapProps, State> {
   updateCamera() {
 
 
-    if(!this.cameraRef){
+    if (!this.cameraRef) {
       console.log('cameraRef===undefined')
       return;
     }
 
-    let camera = this.props.cameraStore.camera;
+    let camera = this.props.cameraStore!.camera!;
     if (camera === undefined) {
       console.log('camera===undefined')
       return
@@ -37,8 +37,8 @@ export default class Map extends React.Component<MapProps, State> {
       case "bounds":
         this.camera.fitBounds(
           toPosition(camera.northEast),
-          toPosition(camera.southWest),
-          camera.padding)
+          toPosition(camera.southWest)
+        )
         break
       case "centered":
         this.camera.setCamera({
@@ -49,17 +49,20 @@ export default class Map extends React.Component<MapProps, State> {
   }
 
   render() {
+
+    const onPress = this.props.onClick && ((feature: GeoJSON.Feature) => {
+      const geometry = (feature.geometry as Point)
+      this.props.onClick!({
+        latitude: geometry.coordinates[1],
+        longitude: geometry.coordinates[0],
+      })
+    })
+
     return (
       <View style={styles.root}>
         <MapboxGL.MapView style={styles.map}
                           styleURL={MapboxGL.StyleURL.Light}
-                          onPress={(event,) => {
-                            const geometry = (event.geometry as Point)
-                            this.props.onClick({
-                              latitude: geometry.coordinates[1],
-                              longitude: geometry.coordinates[0],
-                            })
-                          }}>
+                          onPress={onPress}>
           {/*<MapboxGL.Camera*/}
           {/*  ref={ref => {*/}
           {/*    this.cameraRef = ref*/}

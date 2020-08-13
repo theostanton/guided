@@ -4,7 +4,7 @@ import AuthStore from "stores/AuthStore";
 import {createStackNavigator} from "@react-navigation/stack";
 import {NavigationContainer, NavigationProp} from "@react-navigation/native";
 import {linking, ParamList} from "utils/navigation/ParamList";
-import {SafeAreaView, Text, View} from "react-native";
+import {Platform, SafeAreaView, Text, View} from "react-native";
 import {ApolloProvider} from "@apollo/react-common";
 import client from "api/client";
 import Tabs from "./Tabs";
@@ -13,15 +13,14 @@ import GuideScreen from "screens/Guide";
 import ProfileScreen from "screens/Profile";
 import LoginScreen from "screens/Login";
 import SignupScreen from "screens/Signup";
-import AccountScreen from "screens/Account";
 
 type Props = {
   authStore?: AuthStore
 };
 type State = {};
 
-function wrapped(WrappedComponent) {
-  return class extends React.Component<{ navigation?: NavigationProp<ParamList> }> {
+export function wrapped(WrappedComponent: any) {
+  return class extends React.Component<{ navigation?: NavigationProp<ParamList>, route: unknown }> {
     render() {
       return (
         // @ts-ignore
@@ -39,23 +38,23 @@ function wrapped(WrappedComponent) {
 export default class Mobile extends React.Component<Props, State> {
 
   render() {
-    if (this.props.authStore.loading) {
+    if (this.props.authStore!.loading) {
       return <View><Text>Loading</Text></View>
     }
 
     const Stack = createStackNavigator<ParamList>();
-    const isLoggedIn = this.props.authStore.isLoggedIn
+    const isLoggedIn = this.props.authStore!.isLoggedIn
+    const isNative = Platform.OS !== 'web'
     return (
       <SafeAreaView style={{flex: 1}}>
-        <NavigationContainer linking={linking}>
+        <NavigationContainer linking={linking(false)}>
           <Stack.Navigator initialRouteName={isLoggedIn ? 'Root' : 'Login'}>
             {isLoggedIn ?
               <>
                 <Stack.Screen name={'Root'} options={{headerShown: false}} component={wrapped(Tabs)}/>
-                <Stack.Screen name={'Account'} options={{headerShown: false}} component={wrapped(AccountScreen)}/>
-                <Stack.Screen name={'Create'} options={{headerShown: false}} component={wrapped(CreateScreen)}/>
+                <Stack.Screen name={'Create'} options={{headerShown: isNative}} component={wrapped(CreateScreen)}/>
                 <Stack.Screen name={'Guide'} options={{headerShown: false}} component={wrapped(GuideScreen)}/>
-                <Stack.Screen name={'Profile'} options={{headerShown: false}} component={wrapped(ProfileScreen)}/>
+                <Stack.Screen name={'Profile'} options={{headerShown: isNative}} component={wrapped(ProfileScreen)}/>
               </>
               :
               <>

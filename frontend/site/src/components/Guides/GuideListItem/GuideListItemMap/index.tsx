@@ -1,24 +1,25 @@
 import React from "react";
 import ReactMapGL from 'react-map-gl';
-import {inject} from "mobx-react";
 import {Viewport} from "components/Map/CameraStore";
 import Bounds from "components/Map/Bounds";
 import {generateViewport} from "components/Map/viewport";
 import {icon, two} from "styles/dimensions";
 import {Props} from "./types";
 import {StyleSheet, View} from "react-native";
+import {DeviceContext} from "../../../../app/Context";
 
 const TOKEN = 'pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ'
 
-@inject('device')
 export default class GuideListItemMap extends React.Component<Props> {
+
+  static contextType = DeviceContext;
 
   get viewport(): Viewport | undefined {
     const bounds = Bounds.guide(this.props.guide)
     if (!bounds) {
       return
     }
-    return generateViewport(bounds, this.props.device.window.width, 200, {
+    return generateViewport(bounds, this.context!.window!.width, 200, {
       bottom: two,
       top: two + icon,
       left: two,

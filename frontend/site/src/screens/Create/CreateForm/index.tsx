@@ -16,7 +16,7 @@ type Props = WithNavigationProps;
 
 type State = {
   creating: boolean
-  input: Partial<CreateGuideInput>
+  input: Partial<CreateGuideInput> & Pick<CreateGuideInput, 'startDate' | 'maxHoursPerRide'>
   error: string | undefined
 }
 
@@ -61,8 +61,10 @@ class CreateForm extends React.Component<Props, State> {
     const input = this.state.input
     const variables: MutationCreateGuideArgs = {
       input: {
+        //TODO believes values are actually correct here but incorrect somewhere
+        // @ts-ignore
         type: TransportType[input.type],
-        title: input.title,
+        title: input.title!,
         startDate: input.startDate,
         maxHoursPerRide: input.maxHoursPerRide
       }
@@ -84,9 +86,9 @@ class CreateForm extends React.Component<Props, State> {
     if (result.data) {
       if (result.data.createGuide.success) {
         const {slug, owner} = result.data.createGuide
-        this.props.navigation.navigate('Guide', {
-          owner,
-          slug,
+        this.props.navigation!.navigate('Guide', {
+          owner: owner!,
+          slug: slug!,
         })
       } else {
         this.setState({
@@ -114,7 +116,7 @@ class CreateForm extends React.Component<Props, State> {
             })
           }}/>
           <LabelledCheckBox
-            selected={this.state.input.isCircular}
+            selected={this.state.input.isCircular || true}
             label={'Is circular'}
             onChange={(async isCircular => {
               this.updateInput({isCircular})

@@ -17,7 +17,7 @@ export function get(key: VariableKey): string {
         case "ios":
           return 'http://localhost:5000';
         default:
-          return undefined;
+          throw new Error(`Unhandled platform ${Platform.OS}`)
       }
     case 'GUIDED_WEBSOCKET':
       switch (Platform.OS) {
@@ -28,7 +28,7 @@ export function get(key: VariableKey): string {
         case "ios":
           return 'http://localhost:5000';
         default:
-          return undefined;
+          throw new Error(`Unhandled platform ${Platform.OS}`)
       }
   }
   throw new Error(`No env for key=${key}`);

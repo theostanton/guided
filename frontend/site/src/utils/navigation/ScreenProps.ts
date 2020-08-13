@@ -5,7 +5,7 @@ import {StackNavigationOptions} from "@react-navigation/stack";
 import {NavigationState} from "@react-navigation/routers";
 
 export type NavigationProps = {
-  navigation?: NavigationProp<ParamList, undefined, undefined, StackNavigationOptions>
+  navigation?: NavigationProp<ParamList, never, never, StackNavigationOptions>
 }
 
 export type UnauthedProps = NavigationProps & {

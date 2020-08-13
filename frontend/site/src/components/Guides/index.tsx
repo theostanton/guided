@@ -21,36 +21,35 @@ export default class GuidesList extends React.Component<Props, State> {
     } else {
       style = styles.itemRight
     }
-    return <View style={style}>
-      <GuideListItem key={info.item.slug} guide={info.item}/>
+    return <View style={style} key={info.item.slug}>
+      <GuideListItem guide={info.item}/>
     </View>
   }
 
   render() {
     const guides = this.props.guides;
     return (
-      <View style={styles.root}>
-        <FlatList
-          data={guides}
-          numColumns={this.props.numColumns}
-          renderItem={this.renderItem.bind(this)}/>
-      </View>
+      <FlatList
+        data={guides}
+        numColumns={this.props.numColumns}
+        renderItem={this.renderItem.bind(this)}/>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  root: {
-  },
   item: {
-    flex: 0.5,
+    flex: 1,
+    marginBottom: whole,
   },
   itemLeft: {
     flex: 0.5,
-    marginRight: half
+    marginRight: half,
+    marginBottom: whole,
   },
   itemRight: {
     flex: 0.5,
-    marginLeft: half
+    marginLeft: half,
+    marginBottom: whole,
   },
 });

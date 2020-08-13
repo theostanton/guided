@@ -41,7 +41,7 @@ export default class LabelledTextInput extends React.Component<Props, State> {
               this.setState({
                 text,
               });
-              this.props.onChange(text);
+              this.props.onChange!(text);
             })
           }
         />

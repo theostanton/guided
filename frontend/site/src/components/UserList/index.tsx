@@ -8,7 +8,7 @@ import {card, divider} from '../../styles';
 import {half, whole} from '../../styles/dimensions';
 import Pressable from "../Pressable";
 
-type Props = {
+export type Props = {
   users: readonly ProfileUserFragment[]
 };
 type State = {};
@@ -64,7 +64,6 @@ export default class UserList extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   root: {
-    maxWidth: 400,
   },
   item: {
     ...card,

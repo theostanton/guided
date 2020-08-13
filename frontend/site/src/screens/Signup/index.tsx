@@ -38,7 +38,7 @@ export default class SignupScreen extends React.Component<Props, State> {
     const {password, username, email} = this.state;
     this.setState({loading: true});
     try {
-      const result = await this.props.authStore.signUp(
+      const result = await this.props.authStore!.signUp(
         username,
         email,
         password,

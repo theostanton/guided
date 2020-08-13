@@ -1,20 +1,13 @@
 import React from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 
-import {
-  FeedEvent,
-  FeedEventBase,
-  JoinedFeedEvent,
-  NewFollowsFeedEvent,
-  NewGuideFeedEvent,
-  SelfCreatedFeedEvent
-} from "../FeedEvent";
+import {FeedEvent, JoinedFeedEvent, NewFollowsFeedEvent, NewGuideFeedEvent, SelfCreatedFeedEvent} from "../FeedEvent";
 import {FeedEventType} from "api/generated";
-import {h3} from "../../../styles/text";
-import {Route} from "../../../utils/navigation/ParamList";
-import Link from "../../Link";
-import {darkText} from "../../../styles/colors";
-import {hairline} from "../../../styles/dimensions";
+import {h3} from "styles/text";
+import {Route} from "utils/navigation/ParamList";
+import Link from "components/Link";
+import {darkText} from "styles/colors";
+import {hairline} from "styles/dimensions";
 
 type HeaderTextItem = HeaderTextLink | HeaderTextText
 
@@ -43,21 +36,21 @@ function text(text: string): HeaderTextText {
   }
 }
 
-function JOINED(event: JoinedFeedEvent): HeaderTextItem[] {
+function joined(event: JoinedFeedEvent): HeaderTextItem[] {
   return [
     link(event.user.username, Route.user(event.user)),
     text('joined')
   ]
 }
 
-function NEW_FOLLOWS(event: NewFollowsFeedEvent): HeaderTextItem[] {
+function newFollows(event: NewFollowsFeedEvent): HeaderTextItem[] {
   return [
     link(event.user.username, Route.user(event.user)),
     text('started following you')
   ]
 }
 
-function NEW_GUIDE(event: NewGuideFeedEvent): HeaderTextItem[] {
+function newGuide(event: NewGuideFeedEvent): HeaderTextItem[] {
   return [
     link(event.user.username, Route.user(event.user)),
     text('created'),
@@ -65,28 +58,22 @@ function NEW_GUIDE(event: NewGuideFeedEvent): HeaderTextItem[] {
   ]
 }
 
-function SELF_CREATED(event: SelfCreatedFeedEvent): HeaderTextItem[] {
+function selfCreated(event: SelfCreatedFeedEvent): HeaderTextItem[] {
   return [
     text('You joined')
   ]
 }
 
-const generators: { [Type in FeedEventType]: (event: FeedEventBase<Type>) => HeaderTextItem[] } = {
-  JOINED, NEW_FOLLOWS, NEW_GUIDE, SELF_CREATED
-}
-
 function generate(event: FeedEvent): HeaderTextItem[] {
-  //TODO can prolly avoid this
-  // generators[event.type](event) without the switches fails linting tho
   switch (event.type) {
     case FeedEventType.Joined:
-      return generators[event.type](event)
+      return joined(event)
     case FeedEventType.NewGuide:
-      return generators[event.type](event)
+      return newGuide(event)
     case FeedEventType.NewFollows:
-      return generators[event.type](event)
+      return newFollows(event)
     case FeedEventType.SelfCreated:
-      return generators[event.type](event)
+      return selfCreated(event)
   }
 }
 

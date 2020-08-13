@@ -4,7 +4,7 @@ import {observable} from "mobx";
 
 export default class FollowingStore {
 
-  subscription: ZenObservable.Subscription
+  subscription: ZenObservable.Subscription | undefined
 
   @observable
   following: readonly ProfileUserFragment[] | undefined
@@ -22,7 +22,7 @@ export default class FollowingStore {
       if (value.errors) {
         console.log('FollowingStore errors->\n', value.errors.join('\n'))
       } else if (value.data) {
-        this.following = value.data.users.nodes
+        this.following = value.data.users!.nodes.map(user => user!)
       }
     })
   }

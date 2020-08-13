@@ -1,4 +1,5 @@
 import React from 'react';
+import './load'
 import {StyleSheet} from 'react-native';
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import {IconProps} from "react-native-vector-icons/Icon";
@@ -6,7 +7,7 @@ import {IconName} from "./names";
 import Pressable from "../Pressable";
 import {darkIcon} from "styles/colors";
 
-type Props = {
+export type Props = {
   name: IconName
 } & IconProps;
 type State = {};

@@ -1,11 +1,12 @@
 import React from 'react';
 import {Button as ReactNativeButton, StyleSheet} from 'react-native';
 import {NavigationProps} from "utils/navigation/ScreenProps";
-import {secondary} from "../../styles/colors";
+import {Color, secondary} from "styles/colors";
 
-type Props = {
+export type Props = {
   label: string
   disabled?: boolean
+  color?: Color
   onPress: () => Promise<void> | void
 } & NavigationProps
 type State = {};
@@ -15,7 +16,7 @@ export default class Button extends React.Component<Props, State> {
     return (
       <ReactNativeButton
         title={this.props.label}
-        color={secondary}
+        color={this.props.color || secondary}
         disabled={this.props.disabled}
         onPress={(this.props.onPress)}/>
     );

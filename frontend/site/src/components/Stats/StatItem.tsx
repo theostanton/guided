@@ -1,6 +1,6 @@
 import React from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import {h2, h3, h4} from "styles/text";
+import {h3, h4} from "styles/text";
 import {whole} from "styles/dimensions";
 import {Stat} from "./index";
 
@@ -23,7 +23,8 @@ export default class StatItem extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
-    textAlign: 'center',
+    // textAlign: 'center',
+    alignContent: 'center',
     minWidth: Platform.OS === 'web' ? 'min-content' : undefined,
     flexShrink: 0,
     padding: whole

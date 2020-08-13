@@ -15,10 +15,10 @@ type State = {};
 @observer
 export default class GuideContent extends React.Component<Props, State> {
   render() {
-    if (this.props.guideStore.guide === undefined) {
+    if (this.props.guideStore!.guide === undefined) {
       return null
     }
-    if (this.props.device.isLandscape()) {
+    if (this.props.device!.isLandscape()) {
       return <DesktopGuideContent/>
     } else {
       return <MobileGuideContent/>

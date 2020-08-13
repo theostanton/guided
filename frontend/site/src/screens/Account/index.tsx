@@ -12,7 +12,7 @@ type Props = TabProps
 export default class AccountScreen extends React.Component<Props> {
 
   render() {
-    const user = this.props.authStore.user;
+    const user = this.props.authStore!.user;
     if (user) {
       return (
         <View style={styles.root}>
@@ -20,7 +20,7 @@ export default class AccountScreen extends React.Component<Props> {
           <LabelledText label={'Username'}>{user.username}</LabelledText>
           <LabelledText label={'Token'}>{user.bearerToken}</LabelledText>
           <Link onClick={async () => {
-            await this.props.authStore.logOut()
+            await this.props.authStore!.logOut()
           }}>Sign out</Link>
         </View>
       );

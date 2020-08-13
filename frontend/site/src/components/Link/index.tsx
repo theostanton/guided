@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
+import {Text, TextStyle, View, ViewStyle} from 'react-native';
 import {Link as NavigationLink} from '@react-navigation/native'
 
-type Props = {
+export type Props = {
   href?: string;
   onClick?: () => Promise<void>;
   viewStyle?: ViewStyle;
@@ -19,13 +19,15 @@ export default class Link extends React.Component<Props, State> {
   };
 
   render() {
-    const styles = StyleSheet.create({
-      root: {
-        opacity: this.state.hover === true ? 0.5 : 1.0,
-      },
-    });
+    const rootStyle: ViewStyle = {
+      opacity: this.state.hover === true ? 0.5 : 1.0,
+    }
 
-    const style = [styles.root, this.props.viewStyle];
+    const textStyle: TextStyle = {
+      fontWeight: this.props.selected ? 'bold' : undefined
+    }
+
+    const style = [rootStyle, this.props.viewStyle];
     return (
       <View
         style={style}
@@ -43,7 +45,7 @@ export default class Link extends React.Component<Props, State> {
         {this.props.href
           ?
           <NavigationLink
-            style={this.props.textStyle}
+            style={[textStyle, this.props.textStyle]}
             to={this.props.href}>
             {this.props.children}
           </NavigationLink>
@@ -54,7 +56,7 @@ export default class Link extends React.Component<Props, State> {
             onPress={
               this.props.onClick &&
               (async () => {
-                await this.props.onClick();
+                await this.props.onClick!();
               })
             }>
             {this.props.children}

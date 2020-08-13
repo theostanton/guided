@@ -13,19 +13,20 @@ export async function setObject(key: string, value: object) {
   return AsyncStorage.setItem(key, str);
 }
 
-export async function remove(key) {
+export async function remove(key: string) {
   return AsyncStorage.removeItem(key);
 }
 
-export async function get(key): Promise<string> {
-  return AsyncStorage.getItem(key);
+export async function get(key: string): Promise<string> {
+  const result = await AsyncStorage.getItem(key);
+  if (result) {
+    return result
+  }
+  throw new Error(`No value for key=${key}`)
 }
 
-export async function getObject<T>(key): Promise<T> {
-  const value = await AsyncStorage.getItem(key);
-  if (value === undefined) {
-    throw new Error(`No value for key=${key}`);
-  }
+export async function getObject<T>(key: string): Promise<T> {
+  const value = await get(key);
   return JSON.parse(value) as T;
 }
 

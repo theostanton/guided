@@ -28,7 +28,7 @@ export default class ProfileContent extends React.Component<Props, State> {
     const stats: Stat[] = [
       {
         label: 'Total countries',
-        value: user.countries.length
+        value: user.countries!.length
       },
       {
         label: 'Total distance',
@@ -50,7 +50,7 @@ export default class ProfileContent extends React.Component<Props, State> {
   }
 
   renderList() {
-    const numColumns = this.props.device.isLandscape() ? 2 : 1
+    const numColumns = this.props.device!.isLandscape() ? 2 : 1
     const {guides} = this.props
     return <View style={styles.guides}>
       <Text style={styles.guideTitle}>{guides.length} guides</Text>
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     alignSelf: 'center',
-    padding: whole,
     flexDirection: 'column'
   },
   username: {
@@ -80,17 +79,18 @@ const styles = StyleSheet.create({
     margin: half
   },
   info: {
+    padding:whole,
     flexDirection: 'column',
     marginBottom: whole
   },
   guideTitle: {
-    ...h3
+    ...h3,
+    paddingLeft:whole
   },
   guides: {
     flex: 1,
     flexDirection: 'column',
     width: '100%',
-    overflow: 'scroll',
-    marginBottom: whole
+    overflow: 'scroll'
   },
 });

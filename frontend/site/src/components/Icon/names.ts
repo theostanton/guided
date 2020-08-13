@@ -1,6 +1,6 @@
 export type IconName = keyof Names
 
-export type Names = {
+export const Names = {
   "3d-rotation": 59469,
   "ac-unit": 60219,
   "access-alarm": 57744,

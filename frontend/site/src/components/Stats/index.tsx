@@ -8,7 +8,7 @@ export type Stat = {
   label: string
   value: string | number
 }
-type Props = {
+export type Props = {
   stats: Stat[]
 };
 type State = {};
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   item: {
-    flex: 1,
+    flexShrink:0,
     minWidth: Platform.OS === 'web' ? 'min-content' : undefined,
   }
 });

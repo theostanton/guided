@@ -23,8 +23,8 @@ export default class DesktopGuideContent extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    const side = Math.min(this.props.device.window.width / 4, MAX_RAIL_WIDTH) + 2 * whole
-    props.cameraStore.updatePadding({
+    const side = Math.min(this.props.device!.window!.width / 4, MAX_RAIL_WIDTH) + 2 * whole
+    props.cameraStore!.updatePadding({
       left: side,
       right: side
     })

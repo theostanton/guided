@@ -8,7 +8,7 @@ import {inject, observer} from 'mobx-react';
 import AuthStore from 'stores/AuthStore';
 import {Route} from "utils/navigation/ParamList";
 
-type Props = {
+export type Props = {
   authStore?: AuthStore;
 };
 type State = {};
@@ -17,7 +17,7 @@ type State = {};
 @observer
 export default class Layout extends React.Component<Props, State> {
   renderHeader() {
-    const isLoggedin = this.props.authStore.isLoggedIn;
+    const isLoggedin = this.props.authStore!.isLoggedIn;
 
     type Item = {
       text: string;
@@ -33,7 +33,7 @@ export default class Layout extends React.Component<Props, State> {
         {
           text: 'Profile',
           href: Route.user({
-            username: this.props.authStore.user.username
+            username: this.props.authStore!.user!.username!
           }),
         },
         {
@@ -47,11 +47,11 @@ export default class Layout extends React.Component<Props, State> {
         {
           text: 'Sign out',
           onClick: async () => {
-            await this.props.authStore.logOut();
+            await this.props.authStore!.logOut();
           },
         },
         {
-          text: `Account - ${this.props.authStore.user.username}`,
+          text: `Account - ${this.props.authStore!.user!.username}`,
           href: '/account',
         },
       ]
