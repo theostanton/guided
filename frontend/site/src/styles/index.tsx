@@ -10,16 +10,8 @@ export const card: ViewStyle = {
   overflow: 'hidden'
 };
 
-export function dynamicCard(isLandscape: boolean): ViewStyle {
-  if (isLandscape) {
-    return {
-      backgroundColor: 'white',
-      borderColor: border,
-      borderWidth: hairline,
-      borderRadius: half,
-      overflow: 'hidden'
-    };
-  } else {
+export function dynamicCard(isPortrait: boolean): ViewStyle {
+  if (isPortrait) {
     return {
       backgroundColor: 'white',
       width: '100%',
@@ -27,7 +19,14 @@ export function dynamicCard(isLandscape: boolean): ViewStyle {
       borderBottomWidth: hairline,
       borderTopWidth: hairline,
     };
-
+  } else {
+    return {
+      backgroundColor: 'white',
+      borderColor: border,
+      borderWidth: hairline,
+      borderRadius: half,
+      overflow: 'hidden'
+    };
   }
 }
 

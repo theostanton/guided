@@ -1,7 +1,7 @@
 // Button.stories.ts
 
 import React from 'react';
-import Button, {Props} from '.';
+import Button, {Props} from './.';
 import {primary, secondary} from "styles/colors";
 import {Story} from "@storybook/react";
 

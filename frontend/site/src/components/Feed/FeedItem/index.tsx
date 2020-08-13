@@ -10,12 +10,10 @@ import HeaderText from "./HeaderText";
 import {divider, dynamicCard} from "../../../styles";
 import NewGuideFeedItem from "./NewGuideFeedItem";
 import {IconName} from "../../Icon/names";
-import Device from "stores/Device";
-import {inject} from "mobx-react";
+import {DeviceContext} from "../../../app/Context";
 
 export type Props = {
   event: FeedEvent
-  device?: Device
 };
 type State = {};
 
@@ -26,8 +24,9 @@ const icon: { [eventType in FeedEventType]: IconName } = {
   [FeedEventType.NewGuide]: 'book'
 }
 
-@inject('device')
 export default class FeedItem extends React.Component<Props, State> {
+
+  static contextType = DeviceContext;
 
   renderHeader() {
     return <View style={styles.header}>
@@ -55,7 +54,7 @@ export default class FeedItem extends React.Component<Props, State> {
 
   render() {
     return (
-      <View key={this.props.event.timestamp} style={[dynamicCard(this.props.device!.isLandscape()), styles.root]}>
+      <View key={this.props.event.timestamp} style={[dynamicCard(this.context?.isPortrait()), styles.root]}>
         {this.renderHeader()}
         {this.renderContent()}
       </View>

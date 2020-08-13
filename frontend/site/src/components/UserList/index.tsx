@@ -8,7 +8,7 @@ import {card, divider} from '../../styles';
 import {half, whole} from '../../styles/dimensions';
 import Pressable from "../Pressable";
 
-type Props = {
+export type Props = {
   users: readonly ProfileUserFragment[]
 };
 type State = {};

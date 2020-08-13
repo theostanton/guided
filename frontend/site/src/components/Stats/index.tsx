@@ -8,7 +8,7 @@ export type Stat = {
   label: string
   value: string | number
 }
-type Props = {
+export type Props = {
   stats: Stat[]
 };
 type State = {};

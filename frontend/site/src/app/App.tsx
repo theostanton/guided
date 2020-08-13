@@ -9,6 +9,7 @@ import Mobile from "./Mobile";
 import {Helmet} from "react-helmet";
 import {autorun, IReactionDisposer} from "mobx";
 import FollowingStore from "../stores/FollowingStore";
+import {DeviceContext} from "./Context";
 
 type ScaledSizes = { window: ScaledSize, screen: ScaledSize }
 const window = Dimensions.get("window");
@@ -70,19 +71,23 @@ export default class App extends React.Component {
         {({screen, window}) => {
           this.device.update(window)
           if (this.device.isLandscape()) {
-            return <Provider
-              authStore={this.authStore}
-              followingStore={this.followingStore}
-              device={this.device}>
-              <Desktop/>
-            </Provider>
+            return <DeviceContext.Provider value={this.device}>
+              <Provider
+                authStore={this.authStore}
+                followingStore={this.followingStore}
+                device={this.device}>
+                <Desktop/>
+              </Provider>
+            </DeviceContext.Provider>
           } else {
-            return <Provider
-              authStore={this.authStore}
-              followingStore={this.followingStore}
-              device={this.device}>
-              <Mobile/>
-            </Provider>
+            return <DeviceContext.Provider value={this.device}>
+              <Provider
+                authStore={this.authStore}
+                followingStore={this.followingStore}
+                device={this.device}>
+                <Mobile/>
+              </Provider>
+            </DeviceContext.Provider>
           }
         }}
       </DimensionsWrapper>

@@ -6,6 +6,8 @@ import {IconName} from "./names";
 import Pressable from "../Pressable";
 import {darkIcon} from "styles/colors";
 
+import './load'
+
 type Props = {
   name: IconName
 } & IconProps;

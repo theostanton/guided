@@ -80,7 +80,7 @@ export default class GuideListItem extends React.Component<Props, State> {
   render() {
     return (
       <Pressable
-        style={[dynamicCard(this.props.device!.isLandscape()), styles.root]}
+        style={[dynamicCard(this.props.device?.isPortrait()), styles.root]}
         href={Route.guide(this.props.guide)}>
         {this.renderHeader()}
         {this.renderMap()}

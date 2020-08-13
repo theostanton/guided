@@ -6,7 +6,7 @@ import {half} from "styles/dimensions";
 import {h4, h5} from "styles/text";
 
 
-type Props = {
+export type Props = {
   label: string
   options: string[]
   selected?: string
