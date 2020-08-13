@@ -1,7 +1,7 @@
 import {ItemState} from "../screens/Guide/GuideStore/GuideMode";
 import {Property} from "csstype";
 
-type Color = Property.Color
+export type Color = Property.Color
 
 export const primary: Color = '#343a9a';
 export const primaryLight: Color = 'orangered';

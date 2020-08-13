@@ -13,7 +13,7 @@ import {IconName} from "../../Icon/names";
 import Device from "stores/Device";
 import {inject} from "mobx-react";
 
-type Props = {
+export type Props = {
   event: FeedEvent
   device?: Device
 };
