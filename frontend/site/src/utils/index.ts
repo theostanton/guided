@@ -1,4 +1,5 @@
 import {Guide, Maybe} from "api/generated";
+import {Platform} from "react-native";
 
 export function guideId(guide: Pick<Guide, 'owner' | 'slug'>): string {
   return `${guide.owner}_${guide.slug}`
@@ -25,6 +26,10 @@ export type PickRequired<T, K extends keyof T> = Required<{
 }>;
 
 // type NonNullable<T> = T extends null | undefined ? never : T;
+
+export function isWeb(): boolean {
+  return Platform.OS === 'web'
+}
 
 export function idType(id: string | undefined): 'ride' | 'spot' | 'guide' | undefined {
   if (id === undefined) {

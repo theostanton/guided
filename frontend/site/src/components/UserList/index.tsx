@@ -64,7 +64,6 @@ export default class UserList extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   root: {
-    maxWidth: 400,
   },
   item: {
     ...card,

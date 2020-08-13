@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     width: '100%',
-    overflow: 'scroll',
-    marginBottom: whole
+    overflow: 'scroll'
   },
 });

@@ -1,10 +1,12 @@
 import {LinkingOptions} from "@react-navigation/native/lib/typescript/src/types";
 import React from "react";
 import {Guide, User} from "api/generated";
-import {NavigationProps} from "./ScreenProps";
 
 export type TabParamList = {
   Feed: {},
+  Profile: {
+    username: string
+  },
   Account: {},
 }
 
@@ -24,24 +26,27 @@ export type ParamList = {
   }
 }
 
-export const linking: LinkingOptions = {
-  prefixes: [],
-  config: {
-    screens: {
-      Root: {
-        screens: {
-          Feed: '*',
-          Account: '*',
-        }
+export function linking(isLandscape: boolean): LinkingOptions {
+  return {
+    prefixes: [],
+    config: {
+      screens: {
+        Root: isLandscape ? '' : {
+          screens: {
+            Feed: '',
+            Profile: '',
+            Account: '',
+          }
+        },
+        Account: '/account',
+        Create: '/create',
+        Login: '/login',
+        Signup: '/signup',
+        Profile: '/:username',
+        Guide: '/:owner/:slug/:itemId?',
       },
-      Account: '/account',
-      Create: '/create',
-      Login: '/login',
-      Signup: '/signup',
-      Profile: '/:username',
-      Guide: '/:owner/:slug/:itemId?',
     },
-  },
+  }
 };
 
 export class Route {

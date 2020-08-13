@@ -52,7 +52,7 @@ export default class Desktop extends React.Component<Props, State> {
     return (
       // @ts-ignore
       <ApolloProvider client={client}>
-        <NavigationContainer linking={linking}>
+        <NavigationContainer linking={linking(true)}>
           <Stack.Navigator initialRouteName={isLoggedIn ? 'Root' : 'Login'} screenOptions={{
             headerShown: false
           }}>

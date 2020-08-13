@@ -19,7 +19,7 @@ type Props = {
 };
 type State = {};
 
-function wrapped(WrappedComponent: any) {
+export function wrapped(WrappedComponent: any) {
   return class extends React.Component<{ navigation?: NavigationProp<ParamList>, route: unknown }> {
     render() {
       return (
@@ -47,7 +47,7 @@ export default class Mobile extends React.Component<Props, State> {
     const isNative = Platform.OS !== 'web'
     return (
       <SafeAreaView style={{flex: 1}}>
-        <NavigationContainer linking={linking}>
+        <NavigationContainer linking={linking(false)}>
           <Stack.Navigator initialRouteName={isLoggedIn ? 'Root' : 'Login'}>
             {isLoggedIn ?
               <>

@@ -13,8 +13,8 @@ import IconMarker from "components/Map/IconMarker";
 import {duration, humanDistance} from "utils/human";
 import {dynamicCard} from 'styles';
 import {inject} from "mobx-react";
-import Device from "../../../stores/Device";
-import {assertMaybes} from "../../../utils";
+import Device from "stores/Device";
+import {assertMaybes} from "utils";
 
 type Props = {
   guide: GuideFragment,

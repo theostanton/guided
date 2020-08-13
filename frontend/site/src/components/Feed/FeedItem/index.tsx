@@ -3,7 +3,6 @@ import {StyleSheet, Text, View} from 'react-native';
 import {FeedEvent} from "../FeedEvent";
 import {h5} from "styles/text";
 import {FeedEventType} from "api/generated";
-import SelfCreatedFeedItem from "./SelfCreatedFeedItem";
 import {humanElapsed} from "utils/human";
 import Icon from "components/Icon";
 import {eighth, half} from "styles/dimensions";
@@ -47,8 +46,6 @@ export default class FeedItem extends React.Component<Props, State> {
   renderContent() {
     const event = this.props.event
     switch (event.type) {
-      case FeedEventType.SelfCreated:
-        return SelfCreatedFeedItem(event)
       case FeedEventType.NewGuide:
         return NewGuideFeedItem(event)
       default:
@@ -58,7 +55,7 @@ export default class FeedItem extends React.Component<Props, State> {
 
   render() {
     return (
-      <View style={[dynamicCard(this.props.device!.isLandscape()), styles.root]}>
+      <View key={this.props.event.timestamp} style={[dynamicCard(this.props.device!.isLandscape()), styles.root]}>
         {this.renderHeader()}
         {this.renderContent()}
       </View>

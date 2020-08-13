@@ -22,8 +22,10 @@ export default class GuideMap extends React.Component<Props, State> {
   }
 
   renderAddSpotMarker() {
-    const params = this.props.guideStore!.getModeParams('AddSpot')
-    return params && <IconMarker key={'add_spot'} id={'add_spot'} position={params.event} color={'#ff00ff'}/>
+    if (this.props.guideStore?.mode === 'AddSpot') {
+      const params = this.props.guideStore!.getModeParams('AddSpot')
+      return <IconMarker key={'add_spot'} id={'add_spot'} position={params.event} color={'#ff00ff'}/>
+    }
   }
 
   renderSpots() {

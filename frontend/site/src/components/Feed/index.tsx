@@ -14,7 +14,8 @@ type State = {};
 export default class Feed extends React.Component<Props, State> {
 
   renderItem(info: ListRenderItemInfo<FeedEvent>) {
-    return <FeedItem key={`${info.item.type}-${info.item.timestamp}`} event={info.item}/>
+    let key = `${info.item.type}-${info.item.timestamp}`;
+    return <FeedItem key={key} event={info.item}/>
   }
 
   render() {
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingBottom:whole,
-    paddingTop:whole
+    paddingTop:half
   },
   header: {},
   divider: {
