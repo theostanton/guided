@@ -3,13 +3,12 @@ import {useEffect, useState} from 'react'
 import AuthStore from "stores/AuthStore";
 import {Dimensions, ScaledSize} from "react-native";
 import Desktop from "./Desktop";
-import Device from "../stores/Device";
 import {Provider} from "mobx-react";
 import Mobile from "./Mobile";
 import {Helmet} from "react-helmet";
 import {autorun, IReactionDisposer} from "mobx";
 import FollowingStore from "../stores/FollowingStore";
-import {DeviceContext} from "./Context";
+import {AppContext, Context} from "./Context";
 
 type ScaledSizes = { window: ScaledSize, screen: ScaledSize }
 const window = Dimensions.get("window");
@@ -37,7 +36,7 @@ export default class App extends React.Component {
   authStore: AuthStore = new AuthStore()
   followingStore: FollowingStore = new FollowingStore()
   disposer: IReactionDisposer | undefined
-  device: Device = new Device()
+  context:AppContext = new AppContext()
 
   async componentDidMount() {
     await this.authStore.init()
@@ -69,25 +68,23 @@ export default class App extends React.Component {
       </Helmet>
       <DimensionsWrapper>
         {({screen, window}) => {
-          this.device.update(window)
-          if (this.device.isLandscape()) {
-            return <DeviceContext.Provider value={this.device}>
+          this.context.update(window)
+          if (this.context.isLandscape()) {
+            return <Context.Provider value={this.context}>
               <Provider
                 authStore={this.authStore}
-                followingStore={this.followingStore}
-                device={this.device}>
+                followingStore={this.followingStore}>
                 <Desktop/>
               </Provider>
-            </DeviceContext.Provider>
+            </Context.Provider>
           } else {
-            return <DeviceContext.Provider value={this.device}>
+            return <Context.Provider value={this.context}>
               <Provider
                 authStore={this.authStore}
-                followingStore={this.followingStore}
-                device={this.device}>
+                followingStore={this.followingStore}>
                 <Mobile/>
               </Provider>
-            </DeviceContext.Provider>
+            </Context.Provider>
           }
         }}
       </DimensionsWrapper>

@@ -9,20 +9,20 @@ import GuideStore from "./GuideStore";
 import {guideId, idType} from "utils";
 import {subscriptionClient} from "api/client";
 import {GuideDocument, GuideFragment, GuideSubscription, GuideSubscriptionVariables} from "api/generated";
-import Device from "stores/Device";
 import {autoPointerEvents, noPointerEvents} from "styles/touch";
 import CameraStore from "../../components/Map/CameraStore";
+import {Context} from "../../app/Context";
 
-type Props = ScreenProps<'Guide'> & {
-  device?: Device
-}
+type Props = ScreenProps<'Guide'>
 
 type State = {
   error?: string
 }
 
-@inject('authStore', 'device', 'navigation')
+@inject('authStore', 'navigation')
 export default class GuideScreen extends React.Component<Props, State> {
+
+  static contextType = Context
 
   guideStore: GuideStore
   cameraStore: CameraStore
@@ -33,7 +33,7 @@ export default class GuideScreen extends React.Component<Props, State> {
     this.guideStore = new GuideStore(() => {
       this.onModeUpdate()
     })
-    this.cameraStore = new CameraStore(this.props.device!.window!)
+    this.cameraStore = new CameraStore(this.context!.window!)
     this.state = {}
   }
 

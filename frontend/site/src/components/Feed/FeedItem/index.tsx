@@ -10,7 +10,7 @@ import HeaderText from "./HeaderText";
 import {divider, dynamicCard} from "../../../styles";
 import NewGuideFeedItem from "./NewGuideFeedItem";
 import {IconName} from "../../Icon/names";
-import {DeviceContext} from "../../../app/Context";
+import {Context} from "app/Context";
 
 export type Props = {
   event: FeedEvent
@@ -26,7 +26,7 @@ const icon: { [eventType in FeedEventType]: IconName } = {
 
 export default class FeedItem extends React.Component<Props, State> {
 
-  static contextType = DeviceContext;
+  static contextType = Context;
 
   renderHeader() {
     return <View style={styles.header}>

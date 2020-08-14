@@ -12,18 +12,17 @@ import RideLine from "components/Map/RideLine";
 import IconMarker from "components/Map/IconMarker";
 import {duration, humanDistance} from "utils/human";
 import {dynamicCard} from 'styles';
-import {inject} from "mobx-react";
-import Device from "stores/Device";
 import {assertMaybes} from "utils";
+import {Context} from "app/Context";
 
 type Props = {
   guide: GuideFragment,
-  device?: Device
 };
 type State = {};
 
-@inject('device')
 export default class GuideListItem extends React.Component<Props, State> {
+
+  static contextType = Context
 
   renderHeader() {
     return <View style={styles.header}>
@@ -80,7 +79,7 @@ export default class GuideListItem extends React.Component<Props, State> {
   render() {
     return (
       <Pressable
-        style={[dynamicCard(this.props.device!.isPortrait()), styles.root]}
+        style={[dynamicCard(this.context!.isPortrait()), styles.root]}
         href={Route.guide(this.props.guide)}>
         {this.renderHeader()}
         {this.renderMap()}

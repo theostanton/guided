@@ -6,13 +6,13 @@ import {generateViewport} from "components/Map/viewport";
 import {icon, two} from "styles/dimensions";
 import {Props} from "./types";
 import {StyleSheet, View} from "react-native";
-import {DeviceContext} from "../../../../app/Context";
+import {Context} from "app/Context";
 
 const TOKEN = 'pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ'
 
 export default class GuideListItemMap extends React.Component<Props> {
 
-  static contextType = DeviceContext;
+  static contextType = Context;
 
   get viewport(): Viewport | undefined {
     const bounds = Bounds.guide(this.props.guide)

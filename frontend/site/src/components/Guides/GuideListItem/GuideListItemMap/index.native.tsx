@@ -2,12 +2,11 @@ import MapboxGL from "@react-native-mapbox-gl/maps";
 import React from "react";
 import {StyleSheet, View} from "react-native";
 import {Props} from "./types";
-import {inject} from "mobx-react";
 
 MapboxGL.setAccessToken("pk.eyJ1IjoidGhlb2RldiIsImEiOiJjazhtcjZsMjEwZTNyM2xvMnh0cmg5aWh0In0.FaVZYyNvHVkT_sx-uBP4RQ");
 
-@inject('device')
 export default class GuideListItemMap extends React.Component<Props> {
+
 
   render() {
     return (

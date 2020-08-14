@@ -3,23 +3,22 @@ import {StyleSheet, Text, View} from 'react-native';
 import {GuideFragment, ProfileUserFragment} from "api/generated";
 import GuidesList from "components/Guides";
 import Stats, {Stat} from "components/Stats";
-import {h1, h2, h3} from "styles/text";
-import {inject} from "mobx-react";
-import Device from "stores/Device";
+import {h1, h3} from "styles/text";
 import {half, whole} from "styles/dimensions";
 import {humanDistance, humanDuration} from "utils/human";
-import FollowButton from "../../components/Button/FollowButton";
+import FollowButton from "components/Button/FollowButton";
+import {Context} from "app/Context";
 
 type Props = {
-  device?: Device
   isSelf: boolean
   user: ProfileUserFragment
   guides: readonly GuideFragment[]
 };
 type State = {};
 
-@inject('device')
 export default class ProfileContent extends React.Component<Props, State> {
+
+  static contextType = Context
 
   renderInfo() {
 
@@ -50,7 +49,7 @@ export default class ProfileContent extends React.Component<Props, State> {
   }
 
   renderList() {
-    const numColumns = this.props.device!.isLandscape() ? 2 : 1
+    const numColumns = this.context!.isLandscape() ? 2 : 1
     const {guides} = this.props
     return <View style={styles.guides}>
       <Text style={styles.guideTitle}>{guides.length} guides</Text>
@@ -79,13 +78,13 @@ const styles = StyleSheet.create({
     margin: half
   },
   info: {
-    padding:whole,
+    padding: whole,
     flexDirection: 'column',
     marginBottom: whole
   },
   guideTitle: {
     ...h3,
-    paddingLeft:whole
+    paddingLeft: whole
   },
   guides: {
     flex: 1,
