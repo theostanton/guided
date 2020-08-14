@@ -6,14 +6,14 @@ import GuideStore from "../GuideStore";
 import IconMarker from "components/Map/IconMarker";
 import RideLine from "components/Map/RideLine";
 import {itemStateColor} from "styles/colors";
-import {GuideFragment} from "../../../api/generated";
+import {GuideFragment} from "api/generated";
 
 type Props = {
   guideStore?: GuideStore
 };
 type State = {};
 
-@inject("guideStore", "device")
+@inject("guideStore")
 @observer
 export default class GuideMap extends React.Component<Props, State> {
 

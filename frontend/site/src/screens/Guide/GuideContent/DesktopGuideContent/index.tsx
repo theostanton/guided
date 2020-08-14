@@ -5,25 +5,26 @@ import LeftRail from "./LeftRail";
 import {whole} from "styles/dimensions";
 import RightRail from "./RightRail";
 import GuideStore from "../../GuideStore";
-import Device from "stores/Device";
 import CameraStore from "components/Map/CameraStore";
+import {Context} from "../../../../app/Context";
 
 type Props = {
   guideStore?: GuideStore,
-  device?: Device
   cameraStore?: CameraStore
 };
 type State = {};
 
-const MAX_RAIL_WIDTH=400
+const MAX_RAIL_WIDTH = 400
 
-@inject("guideStore", "device", "cameraStore")
+@inject("guideStore", "cameraStore")
 @observer
 export default class DesktopGuideContent extends React.Component<Props, State> {
 
+  static contextType = Context
+
   constructor(props: Props) {
     super(props);
-    const side = Math.min(this.props.device!.window!.width / 4, MAX_RAIL_WIDTH) + 2 * whole
+    const side = Math.min(this.context!.window!.width / 4, MAX_RAIL_WIDTH) + 2 * whole
     props.cameraStore!.updatePadding({
       left: side,
       right: side
