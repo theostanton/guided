@@ -1,9 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {icon} from "styles/dimensions";
-import {darkIcon} from "styles/colors";
-import GuideStore from "screens/Guide/GuideStore";
-import {inject} from "mobx-react";
 import {IconName} from "components/Icon/names";
 import Icon from "components/Icon";
 
@@ -13,18 +10,17 @@ export type HeaderAction = {
 }
 
 type Props = {
-  guideStore?: GuideStore
   actions?: HeaderAction[]
+  onDismiss: () => void
 };
 type State = {};
 
-@inject('guideStore')
 export default class RightRailHeader extends React.Component<Props, State> {
 
   renderIcon() {
     return <View style={styles.icon}>
       <Icon name={'close'} size={icon} onPress={() => {
-        this.props.guideStore!.clearMode()
+        this.props.onDismiss()
       }}/>
     </View>
   }

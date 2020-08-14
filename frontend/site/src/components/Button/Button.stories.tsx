@@ -6,7 +6,7 @@ import {primary, secondary} from "styles/colors";
 import {Story} from "@storybook/react";
 
 export default {
-  title: 'Button',
+  title: 'Global/Button',
   component: Button,
   argTypes: {
     color: {control: 'color'},

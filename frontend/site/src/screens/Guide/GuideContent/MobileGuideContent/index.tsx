@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {inject, observer} from "mobx-react";
 import {NavigationProps} from "utils/navigation/ScreenProps";
-import {hairline, half, icon, whole} from "styles/dimensions";
+import {hairline, half, whole} from "styles/dimensions";
 import {border} from "styles/colors";
 import GuideStore from "screens/Guide/GuideStore";
 import AddSpotContent from "./AddSpotContent";
@@ -12,6 +12,7 @@ import GuideHeader from "./GuideHeader";
 import {autoPointerEvents, noPointerEvents} from "styles/touch";
 import RouteContent from "./RouteContent";
 import CameraStore from "components/Map/CameraStore";
+import {assertMaybes} from "../../../../utils";
 
 type Props = NavigationProps & {
   guideStore?: GuideStore
@@ -37,17 +38,25 @@ export default class MobileGuideContent extends React.Component<Props, State> {
     switch (this.props.guideStore!.mode) {
       case "AddSpot":
         Content = <AddSpotContent
-          params={this.props.guideStore!.getModeParams('AddSpot')}/>
+          onDismiss={this.props.guideStore!.clearMode}
+          params={this.props.guideStore!.getModeParams('AddSpot')}
+          guide={this.props.guideStore!.guide!}/>
         break
       case "Route":
-        Content = <RouteContent/>
+        Content = <RouteContent
+          spots={this.props.guideStore!.guide!.spots.nodes.map(assertMaybes())}
+          selectSpot={this.props.guideStore!.selectSpot}/>
         break
       case "SelectSpot":
         Content = <SelectSpotContent
-          params={this.props.guideStore!.getModeParams('SelectSpot')}/>
+          params={this.props.guideStore!.getModeParams('SelectSpot')}
+          onDismiss={() => {
+            this.props.guideStore!.updateMode('Route', {})
+          }
+          }/>
         break
       default:
-        Content = <OverviewContent/>
+        Content = <OverviewContent guide={this.props.guideStore!.guide!}/>
     }
 
     return <View style={styles.content} {...autoPointerEvents()}>

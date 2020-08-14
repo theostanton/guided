@@ -3,7 +3,7 @@ import LabelledCheckBox, {Props} from "./index";
 import {Story} from "@storybook/api";
 
 export default {
-  title: 'LabelledCheckBox',
+  title: 'Global/LabelledCheckBox',
   component: LabelledCheckBox,
   argTypes: {},
 };

@@ -1,6 +1,5 @@
 import CameraStore from "./CameraStore";
 import {GeoJSON} from "geojson";
-import GuideStore from "screens/Guide/GuideStore";
 
 export type MapProps = {
   cameraStore?: CameraStore

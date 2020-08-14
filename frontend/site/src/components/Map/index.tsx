@@ -35,7 +35,7 @@ export default class Map extends React.Component<MapProps, State> {
         mapStyle="mapbox://styles/theodev/ckdfwq5x00w1c1isc2w08ol3z"
         mapboxApiAccessToken={TOKEN}
         onViewportChange={(viewport) => {
-          this.props.cameraStore!.moveViewport(viewport)
+          this.props.cameraStore?.moveViewport(viewport)
         }}
         width={'100%'}
         height={'100%'}

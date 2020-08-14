@@ -3,7 +3,7 @@ import LabelledPicker, {Props} from "./index";
 import {Story} from "@storybook/api";
 
 export default {
-  title: 'LabelledPicker',
+  title: 'Global/LabelledPicker',
   component: LabelledPicker,
   argTypes: {},
 };

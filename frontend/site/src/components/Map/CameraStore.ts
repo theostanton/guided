@@ -99,7 +99,7 @@ export default class CameraStore {
   }
 
   @action
-  guideBounds(guide: GuideFragment) {
+  guideBounds(guide: Pick<GuideFragment, 'spots'>) {
     this.lastViewport = undefined
     this.camera = Bounds.guide(guide)
   }

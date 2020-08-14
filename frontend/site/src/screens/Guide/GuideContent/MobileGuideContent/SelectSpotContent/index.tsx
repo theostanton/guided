@@ -8,18 +8,17 @@ import Icon from "components/Icon";
 import {icon, quarter, whole} from "styles/dimensions";
 import {darkIcon, itemStateColor} from "styles/colors";
 
-type Props = ModeProps<'SelectSpot'> & {
-  guideStore?: GuideStore
+export type Props = ModeProps<'SelectSpot'> & {
+  onDismiss:()=>void
 };
 type State = {};
 
-@inject('guideStore')
 export default class SelectSpotContent extends React.Component<Props, State> {
 
   renderHeader() {
     return <View style={styles.header}>
       <Icon name={'chevron-left'} color={darkIcon} size={icon} onPress={() => {
-        this.props.guideStore!.updateMode('Route',{})
+        this.props.onDismiss()
       }}/>
       <Icon name={'place'} color={itemStateColor('spot', 'selected')} size={icon}/>
       <Text style={styles.headerTitle}>

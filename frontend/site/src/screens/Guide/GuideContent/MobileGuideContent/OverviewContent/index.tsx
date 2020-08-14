@@ -7,22 +7,17 @@ import {inject} from "mobx-react";
 import {hairline, half, quarter, whole} from "styles/dimensions";
 import {border} from "styles/colors";
 
-type Props = {
-  guideStore?: GuideStore
+export type Props = {
+  guide: Pick<GuideFragment,'title'>
 };
 type State = {};
 
-@inject('guideStore')
 export default class OverviewContent extends React.Component<Props, State> {
-
-  get guide(): GuideFragment {
-    return this.props.guideStore!.guide!
-  }
 
   renderHeader() {
     return <View style={styles.header}>
       <Text style={styles.headerTitle}>
-        {this.guide.title}
+        {this.props.guide.title}
       </Text>
     </View>
   }

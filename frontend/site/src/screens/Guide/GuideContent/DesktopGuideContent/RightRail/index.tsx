@@ -2,9 +2,8 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {inject, observer} from "mobx-react";
 import GuideStore from "screens/Guide/GuideStore";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import {hairline, half, icon, quarter} from "styles/dimensions";
-import {border, darkIcon} from "styles/colors";
+import {hairline, half, quarter} from "styles/dimensions";
+import {border} from "styles/colors";
 import {NavigationProps} from "utils/navigation/ScreenProps";
 import {h1, h3} from "styles/text";
 import {GuideFragment} from "api/generated";
@@ -27,7 +26,9 @@ export default class RightRail extends React.Component<Props, State> {
   renderContent() {
     switch (this.props.guideStore!.mode) {
       case "AddSpot":
-        return <AddSpotContent params={this.props.guideStore!.getModeParams(this.props.guideStore!.mode)}/>
+        return <AddSpotContent params={this.props.guideStore!.getModeParams(this.props.guideStore!.mode)}
+                               guide={this.props.guideStore?.guide!}
+                               onDismiss={this.props.guideStore!.clearMode}/>
       case "SelectSpot":
         return <SelectSpotContent params={this.props.guideStore!.getModeParams(this.props.guideStore!.mode)}/>
       default:

@@ -3,7 +3,7 @@ import {Story} from "@storybook/react";
 import Stats, {Props} from "./.";
 
 export default {
-  title: 'Stats',
+  title: 'Global/Stats',
   component: Stats,
   argTypes: {},
 };

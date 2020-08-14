@@ -5,7 +5,7 @@ import {secondary} from "styles/colors";
 import AuthStore from "stores/AuthStore";
 
 export default {
-  title: 'Layout',
+  title: 'Global/Layout',
   component: Layout
 }
 

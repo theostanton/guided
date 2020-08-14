@@ -1,17 +1,23 @@
-import {DeviceContext} from "../src/app/Context";
+import {AppContext, Context} from "app/Context";
 import * as React from "react";
-import Device from "../src/stores/Device";
+import viewports from "./viewports";
 
 const withDeviceContext = (Story) => {
-  let device = new Device();
-  device.update({
+  let context = new AppContext();
+  context.update({
     width: 200,
     height: 200
   })
   return (
-    <DeviceContext.Provider value={device}>
+    <Context.Provider value={context}>
       <Story/>
-    </DeviceContext.Provider>
+    </Context.Provider>
   )
 }
 export const decorators = [withDeviceContext];
+
+export const parameters = {
+  viewport: {
+    viewports,
+  },
+};

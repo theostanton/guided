@@ -4,7 +4,7 @@ import ProfilePic, {Props} from "./.";
 import {secondary} from "styles/colors";
 
 export default {
-  title: 'ProfilePic',
+  title: 'Global/ProfilePic',
   component: ProfilePic,
   argTypes: {
     color: {

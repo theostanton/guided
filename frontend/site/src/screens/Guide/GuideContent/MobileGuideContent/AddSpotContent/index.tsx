@@ -1,21 +1,20 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import GuideStore from "screens/Guide/GuideStore";
 import {ModeProps} from "screens/Guide/GuideStore/GuideMode";
 import {h1} from "styles/text";
 import LabelledText from "components/LabelledText";
 import {roundToString} from "utils/human";
 import LabelledTextInput from "components/LabelledTextInput";
-import {AddSpotDocument, AddSpotMutation, MutationAddSpotArgs} from "api/generated";
+import {AddSpotDocument, AddSpotMutation, GuideFragment, MutationAddSpotArgs} from "api/generated";
 import client from "api/client";
-import {inject} from "mobx-react";
 import Icon from "components/Icon";
 import {icon, quarter, whole} from "styles/dimensions";
 import {darkIcon} from "styles/colors";
 import LabelledPicker from "components/LabelledPicker";
 
-type Props = ModeProps<'AddSpot'> & {
-  guideStore?: GuideStore
+export type Props = ModeProps<'AddSpot'> & {
+  onDismiss: () => void,
+  guide: Pick<GuideFragment, 'id'>
 };
 type State = {
   title?: string
@@ -24,10 +23,9 @@ type State = {
   error?: string
 };
 
-@inject('guideStore')
 export default class AddSpotContent extends React.Component<Props, State> {
 
-  constructor(props:Props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       saving: false,
@@ -44,10 +42,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
         Add spot
       </Text>
       <View style={styles.headerButton}>
-        <Icon name={'close'} color={darkIcon} size={icon} onPress={() => {
-          console.log('close')
-          this.props.guideStore!.clearMode()
-        }}/>
+        <Icon name={'close'} color={darkIcon} size={icon} onPress={this.props.onDismiss}/>
       </View>
     </View>
   }
@@ -72,7 +67,8 @@ export default class AddSpotContent extends React.Component<Props, State> {
                         this.setState({
                           nights: parseInt(nights)
                         })
-                      }} selected={this.state.nights.toString()}/>
+                      }}
+                      selected={this.state.nights.toString()}/>
     </View>
   }
 
@@ -87,7 +83,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
       input: {
         lat: this.props.params.event.latitude,
         long: this.props.params.event.longitude,
-        guideId: this.props.guideStore!.guide!.id,
+        guideId: this.props.guide.id,
         nights: this.state.nights
       }
     }
@@ -108,7 +104,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
     if (result.data) {
       console.log('result.data', result.data)
       if (result.data.addSpot.success) {
-        this.props.guideStore!.clearMode()
+        this.props.onDismiss()
       } else {
         this.setState({
           saving: false,

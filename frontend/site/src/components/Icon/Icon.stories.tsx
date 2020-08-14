@@ -5,7 +5,7 @@ import {Names} from "./names";
 
 
 export default {
-  title: 'Icon',
+  title: 'Global/Icon',
   component: Icon,
   argTypes: {
     color: {
@@ -21,7 +21,6 @@ export default {
         options: Object.keys(Names)
       },
     }
-
   }
 } as Meta
 

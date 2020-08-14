@@ -79,7 +79,15 @@ export default class GuideScreen extends React.Component<Props, State> {
 
   renderMap() {
     return <View style={styles.map}  {...autoPointerEvents()}>
-      <GuideMap/>
+      <GuideMap guide={this.guideStore.guide}
+                addSpot={(event)=>{
+                  this.guideStore.updateMode('AddSpot',{
+                    event
+                  })
+                }}
+                selectSpot={(spotId) => {
+                  this.guideStore.selectSpot(spotId)
+                }}/>
     </View>
   }
 

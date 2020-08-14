@@ -1,23 +1,20 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import GuideStore from "screens/Guide/GuideStore";
 import {ModeProps} from "screens/Guide/GuideStore/GuideMode";
 import {h1} from "styles/text";
-import {inject} from "mobx-react";
 import LabelledText from "components/LabelledText";
 import RightRailHeader, {HeaderAction} from "../RightRailHeader";
 import Button from "components/Button";
 import client from "api/client";
 import {RemoveSpotDocument, RemoveSpotMutation, RemoveSpotMutationVariables} from "api/generated";
 
-type Props = ModeProps<'SelectSpot'> & {
-  guideStore?: GuideStore
+export type Props = ModeProps<'SelectSpot'> & {
+  onDismiss: () => void
 };
 type State = {
   edit: boolean
 };
 
-@inject('guideStore')
 export default class SelectSpotContent extends React.Component<Props, State> {
 
   constructor(props: Props) {
@@ -44,7 +41,7 @@ export default class SelectSpotContent extends React.Component<Props, State> {
         }
       },
     ]
-    return <RightRailHeader actions={actions}/>
+    return <RightRailHeader actions={actions} onDismiss={this.props.onDismiss}/>
   }
 
   renderTitle() {
@@ -88,7 +85,7 @@ export default class SelectSpotContent extends React.Component<Props, State> {
     }
 
     if (result.data!.removeSpot.success) {
-      this.props.guideStore!.clearMode()
+      this.props.onDismiss()
     } else {
       console.log('failed', result.data!.removeSpot.message)
     }

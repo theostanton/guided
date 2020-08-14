@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import GuideStore from "screens/Guide/GuideStore";
 import {ModeProps} from "screens/Guide/GuideStore/GuideMode";
 import {h1} from "styles/text";
 import LabelledText from "components/LabelledText";
@@ -8,10 +7,10 @@ import {roundToString} from "utils/human";
 import LabelledTextInput from "components/LabelledTextInput";
 import {AddSpotDocument, AddSpotMutation, GuideFragment, MutationAddSpotArgs} from "api/generated";
 import client from "api/client";
-import {inject} from "mobx-react";
 
-type Props = ModeProps<'AddSpot'> & {
-  guideStore?: GuideStore
+export type Props = ModeProps<'AddSpot'> & {
+  guide: Pick<GuideFragment, 'id'>
+  onDismiss: () => void
 };
 type State = {
   title?: string
@@ -19,18 +18,13 @@ type State = {
   error?: string
 };
 
-@inject('guideStore')
 export default class AddSpotContent extends React.Component<Props, State> {
 
-  constructor(props:Props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       saving: false
     }
-  }
-
-  get guide():GuideFragment{
-    return this.props.guideStore!.guide!
   }
 
   renderHeader() {
@@ -66,7 +60,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
       input: {
         lat: this.props.params.event.latitude,
         long: this.props.params.event.longitude,
-        guideId: this.guide.id,
+        guideId: this.props.guide.id,
         nights: 1
       }
     }
@@ -86,7 +80,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
 
     if (result.data) {
       if (result.data.addSpot.success) {
-        this.props.guideStore!.clearMode()
+        this.props.onDismiss()
       } else {
         this.setState({
           saving: false,

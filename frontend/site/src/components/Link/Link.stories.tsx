@@ -3,7 +3,7 @@ import Link, {Props} from "./index";
 import {Story} from "@storybook/react";
 
 export default {
-  title: 'Link',
+  title: 'Global/Link',
   component: Link,
   argTypes: {},
 };

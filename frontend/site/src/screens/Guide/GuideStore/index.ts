@@ -26,6 +26,16 @@ export default class GuideStore {
   }
 
   @action
+  selectSpot(spotId: string) {
+    const spot = this.guide?.spots.nodes.find(spot => spot!.id === spotId)
+    if (spot) {
+      this.updateMode('SelectSpot', {spot})
+    } else {
+      throw new Error(`selectSpot - No spot for spotId=${spotId}`)
+    }
+  }
+
+  @action
   updateMode<Mode extends keyof ModeList>(...args: undefined extends ModeList[Mode] ? [Mode] | [Mode, ModeList[Mode]] : [Mode, ModeList[Mode]]) {
     this.mode = args[0]
     this.modeParams = args.length > 1 ? args[1] : undefined
