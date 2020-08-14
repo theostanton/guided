@@ -36,7 +36,6 @@ export default class App extends React.Component {
   authStore: AuthStore = new AuthStore()
   followingStore: FollowingStore = new FollowingStore()
   disposer: IReactionDisposer | undefined
-  context:AppContext = new AppContext()
 
   async componentDidMount() {
     await this.authStore.init()
@@ -68,9 +67,10 @@ export default class App extends React.Component {
       </Helmet>
       <DimensionsWrapper>
         {({screen, window}) => {
-          this.context.update(window)
-          if (this.context.isLandscape()) {
-            return <Context.Provider value={this.context}>
+          const appContext = new AppContext()
+          appContext.update(window)
+          if (appContext.isLandscape()) {
+            return <Context.Provider value={appContext}>
               <Provider
                 authStore={this.authStore}
                 followingStore={this.followingStore}>
@@ -78,7 +78,7 @@ export default class App extends React.Component {
               </Provider>
             </Context.Provider>
           } else {
-            return <Context.Provider value={this.context}>
+            return <Context.Provider value={appContext}>
               <Provider
                 authStore={this.authStore}
                 followingStore={this.followingStore}>
