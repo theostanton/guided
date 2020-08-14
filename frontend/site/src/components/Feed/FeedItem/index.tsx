@@ -9,7 +9,7 @@ import {eighth, half} from "styles/dimensions";
 import HeaderText from "./HeaderText";
 import {divider, dynamicCard} from "../../../styles";
 import NewGuideFeedItem from "./NewGuideFeedItem";
-import {IconName} from "../../Icon/names";
+import {IconName} from "components/Icon/names";
 import {Context} from "app/Context";
 
 export type Props = {

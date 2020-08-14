@@ -1,4 +1,4 @@
-export type IconName = keyof Names
+export type IconName = keyof typeof Names
 
 export const Names = {
   "3d-rotation": 59469,

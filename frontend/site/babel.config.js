@@ -12,6 +12,7 @@ module.exports = {
         ],
         'alias': {
           'api': './src/api',
+          'app': './src/app',
           'components': './src/components',
           'pages': './src/pages',
           'stores': './src/stores',
