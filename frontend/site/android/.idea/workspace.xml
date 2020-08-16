@@ -10,75 +10,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afc8e5c6-2725-4144-a0b7-597b50c15a20" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../src/components/Guides/GuideListItem/GuideListItemMap/index.native.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../src/components/Guides/GuideListItem/GuideListItemMap/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../src/components/Guides/GuideListItem/GuideListItemMap/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/android-chrome-192x192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/android-chrome-512x512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/apple-touch-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/favicon-16x16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/favicon-32x32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/site.webmanifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.2/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.2/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.2/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.2/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_14_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/components/Feed/FeedStore.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/components/Feed/feed.graphql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/components/Feed/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/components/UserList/AllUsersList/allusers.graphql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/components/UserList/AllUsersList/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/components/UserList/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app.json" beforeDir="false" afterPath="$PROJECT_DIR$/../app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/api/generated.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/api/generated.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/app/Desktop.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/Desktop.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/Mobile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/Mobile.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/components/Guides/GuideListItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Guides/GuideListItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Guides/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Guides/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/components/Layout/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Layout/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Map/Bounds.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Map/Bounds.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Map/CameraStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Map/CameraStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Map/RideLine/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Map/RideLine/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Map/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Map/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Map/viewport.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Map/viewport.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/components/Pressable/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Pressable/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/screens/Guide/GuideContent/DesktopGuideContent/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Guide/GuideContent/DesktopGuideContent/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/screens/Guide/guide.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Guide/guide.graphql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/screens/Guide/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Guide/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/screens/Profile/ProfileContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Profile/ProfileContent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/screens/Profile/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Profile/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Stats/StatItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/components/Stats/StatItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/screens/Home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Home/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/screens/Profile/profile.graphql" beforeDir="false" afterPath="$PROJECT_DIR$/../src/screens/Profile/profile.graphql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/styles/colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/styles/colors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/styles/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../src/styles/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -447,22 +393,22 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1920" height="351" key="GridCell.Tab.0.bottom" timestamp="1596624090430">
+    <state width="1920" height="351" key="GridCell.Tab.0.bottom" timestamp="1597517598756">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state width="1920" height="351" key="GridCell.Tab.0.bottom/0.0.1920.1200@0.0.1920.1200" timestamp="1596624090430" />
-    <state width="1920" height="351" key="GridCell.Tab.0.center" timestamp="1596624090429">
+    <state width="1920" height="351" key="GridCell.Tab.0.bottom/0.0.1920.1200@0.0.1920.1200" timestamp="1597517598756" />
+    <state width="1920" height="351" key="GridCell.Tab.0.center" timestamp="1597517598729">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state width="1920" height="351" key="GridCell.Tab.0.center/0.0.1920.1200@0.0.1920.1200" timestamp="1596624090429" />
-    <state width="1920" height="351" key="GridCell.Tab.0.left" timestamp="1596624090428">
+    <state width="1920" height="351" key="GridCell.Tab.0.center/0.0.1920.1200@0.0.1920.1200" timestamp="1597517598729" />
+    <state width="1920" height="351" key="GridCell.Tab.0.left" timestamp="1597517598704">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state width="1920" height="351" key="GridCell.Tab.0.left/0.0.1920.1200@0.0.1920.1200" timestamp="1596624090428" />
-    <state width="1920" height="351" key="GridCell.Tab.0.right" timestamp="1596624090429">
+    <state width="1920" height="351" key="GridCell.Tab.0.left/0.0.1920.1200@0.0.1920.1200" timestamp="1597517598704" />
+    <state width="1920" height="351" key="GridCell.Tab.0.right" timestamp="1597517598734">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
-    <state width="1920" height="351" key="GridCell.Tab.0.right/0.0.1920.1200@0.0.1920.1200" timestamp="1596624090429" />
+    <state width="1920" height="351" key="GridCell.Tab.0.right/0.0.1920.1200@0.0.1920.1200" timestamp="1597517598734" />
     <state x="461" y="239" key="SettingsEditor" timestamp="1596623751681">
       <screen x="0" y="0" width="1920" height="1200" />
     </state>

@@ -6,6 +6,7 @@ import {Color, secondary} from "styles/colors";
 export type Props = {
   label: string
   disabled?: boolean
+  loading?: boolean
   color?: Color
   onPress: () => Promise<void> | void
 } & NavigationProps
@@ -15,10 +16,11 @@ export default class Button extends React.Component<Props, State> {
   render() {
     return (
       <ReactNativeButton
-        title={this.props.label}
+        title={this.props.loading === true ? 'Loading...' : this.props.label}
         color={this.props.color || secondary}
-        disabled={this.props.disabled}
-        onPress={(this.props.onPress)}/>
+        disabled={this.props.loading || this.props.disabled}
+        onPress={(this.props.onPress)}>
+      </ReactNativeButton>
     );
   }
 }

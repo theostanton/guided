@@ -8,6 +8,7 @@ type Props = {
   inputType?: InputType;
   label: string;
   initialText?: string;
+  disabled?: boolean
   onChange?: (value: string) => void;
 };
 type State = {
@@ -31,7 +32,7 @@ export default class LabelledTextInput extends React.Component<Props, State> {
         <TextInput
           style={styles.input}
           value={this.state.text}
-          editable={this.props.onChange !== undefined}
+          editable={this.props.disabled !== true && this.props.onChange !== undefined}
           textContentType={this.props.inputType}
           secureTextEntry={this.props.inputType === 'password'}
           onChange={

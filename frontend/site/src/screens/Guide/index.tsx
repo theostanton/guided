@@ -10,8 +10,8 @@ import {guideId, idType} from "utils";
 import {subscriptionClient} from "api/client";
 import {GuideDocument, GuideFragment, GuideSubscription, GuideSubscriptionVariables} from "api/generated";
 import {autoPointerEvents, noPointerEvents} from "styles/touch";
-import CameraStore from "../../components/Map/CameraStore";
-import {Context} from "../../app/Context";
+import CameraStore from "components/Map/CameraStore";
+import {Context} from "app/Context";
 
 type Props = ScreenProps<'Guide'>
 

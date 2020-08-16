@@ -10,7 +10,7 @@ import {
   UnfollowDocument,
   UnfollowMutation,
   UnfollowMutationVariables
-} from "../../../api/generated";
+} from "api/generated";
 
 type Props = {
   followingStore?: FollowingStore

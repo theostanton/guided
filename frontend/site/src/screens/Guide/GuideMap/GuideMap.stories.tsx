@@ -2,11 +2,11 @@ import React from 'react'
 
 import GuideMap, {Props} from "./index";
 import {Story} from '@storybook/react'
-import {ANNECY, SEYTHENEX} from "../../../components/Map/consts";
+import {ANNECY, SEYTHENEX} from "components/Map/consts";
 import {View} from "react-native";
 import {Provider} from "mobx-react";
 import CameraStore from "components/Map/CameraStore";
-import {SpotFragment} from "../../../api/generated";
+import {SpotFragment} from "api/generated";
 
 export default {
   title: 'Guide/Map',
@@ -36,7 +36,6 @@ const Template: Story<Args> = (args: Args) =>
 
 
 function generate(spots: Pick<SpotFragment, 'long' | 'lat'>[]): Story<Args> {
-
   let cameraStore = new CameraStore({width: 200, height: 200});
   const story = Template.bind({})
   let guideSpots = {

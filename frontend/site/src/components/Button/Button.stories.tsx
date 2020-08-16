@@ -13,23 +13,39 @@ export default {
   },
 };
 
-const Template: Story<Props> = (args: Props) => <Button {...args} />;
-export const Primary = Template.bind({});
+const onPress = () => {
+  console.log('onPress')
+}
 
+const Template: Story<Props> = (args: Props) => <Button {...args} />;
+
+export const Primary = Template.bind({});
 Primary.args = {
   color: primary,
   disabled: false,
   label: 'A button',
-  onPress: () => {
-    console.log('onPress')
-  }
+  onPress
 };
-export const Secondary = Template.bind({});
 
+export const Secondary = Template.bind({});
 Secondary.args = {
   color: secondary,
   label: 'A button',
-  onPress: () => {
-    console.log('onPress')
-  }
+  onPress
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  color: secondary,
+  label: 'A button',
+  loading: true,
+  onPress
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  color: secondary,
+  label: 'A button',
+  disabled: true,
+  onPress
 };

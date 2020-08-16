@@ -26,6 +26,7 @@ export const Basic = Template.bind({})
 
 Basic.args = {
   guide: {
-    title: 'Some guide'
+    title: 'Some guide',
+    owner: 'theo'
   }
 }

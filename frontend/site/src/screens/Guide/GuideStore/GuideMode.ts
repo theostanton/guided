@@ -13,7 +13,7 @@ export type ModeList = {
   },
   Route: {},
   SelectSpot: {
-    spot: Pick<SpotFragment, 'id' | 'nights' | 'location' | 'name' | 'country'>
+    spot: Pick<SpotFragment, 'id' | 'nights' | 'location' | 'name' | 'country'|'lat'|'long'>
   }
 }
 

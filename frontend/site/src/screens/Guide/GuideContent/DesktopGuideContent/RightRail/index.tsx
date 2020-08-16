@@ -26,11 +26,14 @@ export default class RightRail extends React.Component<Props, State> {
   renderContent() {
     switch (this.props.guideStore!.mode) {
       case "AddSpot":
-        return <AddSpotContent params={this.props.guideStore!.getModeParams(this.props.guideStore!.mode)}
-                               guide={this.props.guideStore?.guide!}
-                               onDismiss={this.props.guideStore!.clearMode}/>
+        return <AddSpotContent
+          params={this.props.guideStore!.getModeParams(this.props.guideStore!.mode)}
+          guide={this.props.guideStore?.guide!}
+          onDismiss={this.props.guideStore!.clearMode}/>
       case "SelectSpot":
-        return <SelectSpotContent params={this.props.guideStore!.getModeParams(this.props.guideStore!.mode)}/>
+        return <SelectSpotContent
+          params={this.props.guideStore!.getModeParams(this.props.guideStore!.mode)}
+          onDismiss={this.props.guideStore!.clearMode}/>
       default:
         return <View><Text>Error</Text></View>
     }

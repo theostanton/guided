@@ -1,16 +1,15 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import {ModeProps} from "screens/Guide/GuideStore/GuideMode";
-import {h1} from "styles/text";
 import LabelledText from "components/LabelledText";
 import {roundToString} from "utils/human";
 import LabelledTextInput from "components/LabelledTextInput";
 import {AddSpotDocument, AddSpotMutation, GuideFragment, MutationAddSpotArgs} from "api/generated";
 import client from "api/client";
-import Icon from "components/Icon";
-import {icon, quarter, whole} from "styles/dimensions";
-import {darkIcon} from "styles/colors";
+import {whole} from "styles/dimensions";
+import {primary} from "styles/colors";
 import LabelledPicker from "components/LabelledPicker";
+import Header from "components/Header";
 
 export type Props = ModeProps<'AddSpot'> & {
   onDismiss: () => void,
@@ -34,17 +33,16 @@ export default class AddSpotContent extends React.Component<Props, State> {
   }
 
   renderHeader() {
-    return <View style={styles.header}>
-      <View style={styles.headerIcon}>
-        <Icon name={'place'} color={'#ff00ff'} size={icon}/>
-      </View>
-      <Text style={styles.headerTitle}>
-        Add spot
-      </Text>
-      <View style={styles.headerButton}>
-        <Icon name={'close'} color={darkIcon} size={icon} onPress={this.props.onDismiss}/>
-      </View>
-    </View>
+    return <Header
+      title={'Add spot'}
+      icon={{
+        name: 'place',
+        color: primary
+      }}
+      actions={[{
+        name: 'close',
+        onPress: this.props.onDismiss
+      }]}/>
   }
 
   renderLocation() {
@@ -152,16 +150,6 @@ const styles = StyleSheet.create({
     flex: 0,
     padding: whole,
   },
-  header: {
-    flexDirection: 'row'
-  },
-  headerTitle: {
-    ...h1,
-    flex: 1,
-    marginLeft: quarter
-  },
-  headerIcon: {},
-  headerButton: {},
   location: {
     flexDirection: 'row',
   },

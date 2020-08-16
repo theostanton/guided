@@ -1,25 +1,24 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import GuideStore from "screens/Guide/GuideStore";
-import {h1, h3} from "styles/text";
+import {StyleSheet, View} from 'react-native';
+import {h3} from "styles/text";
 import {GuideFragment} from "api/generated";
-import {inject} from "mobx-react";
 import {hairline, half, quarter, whole} from "styles/dimensions";
-import {border} from "styles/colors";
+import {border, primary} from "styles/colors";
+import Header from "components/Header";
 
 export type Props = {
-  guide: Pick<GuideFragment,'title'>
+  guide: Pick<GuideFragment, 'title' | 'owner'>
 };
 type State = {};
 
 export default class OverviewContent extends React.Component<Props, State> {
 
   renderHeader() {
-    return <View style={styles.header}>
-      <Text style={styles.headerTitle}>
-        {this.props.guide.title}
-      </Text>
-    </View>
+    return <Header style={styles.header}
+                   title={this.props.guide.title}
+                   subtitle={`By ${this.props.guide.owner}`}
+                   icon={{name: 'book', color: primary}}
+    />
   }
 
   render() {
@@ -38,15 +37,7 @@ const styles = StyleSheet.create({
     height: 200,
     padding: whole,
   },
-  header: {
-    flex: 1,
-    flexDirection: 'row'
-  },
-  headerTitle: {
-    ...h1,
-    flex: 1,
-    marginLeft: quarter
-  },
+  header: {},
   spots: {
     flex: 1,
     flexDirection: 'column'

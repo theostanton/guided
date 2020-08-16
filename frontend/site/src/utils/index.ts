@@ -44,3 +44,7 @@ export function idType(id: string | undefined): 'ride' | 'spot' | 'guide' | unde
       return 'guide'
   }
 }
+
+export function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
