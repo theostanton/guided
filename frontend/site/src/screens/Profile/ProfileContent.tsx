@@ -9,7 +9,7 @@ import {humanDistance, humanDuration} from "utils/human";
 import FollowButton from "components/Button/FollowButton";
 import {Context} from "app/Context";
 
-type Props = {
+export type Props = {
   isSelf: boolean
   user: ProfileUserFragment
   guides: readonly GuideFragment[]

@@ -1,77 +1,98 @@
 import React from 'react';
-import FeedItem, {Props} from "./index";
+import FeedItem from "./index";
 import {Story} from "@storybook/react";
-import {ANNECY, SEYTHENEX} from "../../Map/consts";
+import {ANNECY, SEYTHENEX} from "components/Map/consts";
+import {FeedEvent} from "../FeedEvent";
+import {FeedEventType} from "api/generated";
 
 export default {
   title: 'FeedItem',
   component: FeedItem,
-  argTypes: {},
+  argTypes: {
+    timestamp: {
+      control: 'date'
+    }
+  },
 };
 
-const Template: Story<Props> = (args: Props) => {
-  return <FeedItem {...args} />;
+type Args = {
+  timestamp: string
+  event: Exclude<FeedEvent, 'timestamp'>,
 }
 
-export const Joined = Template.bind({});
+const Template: Story<Args> = (args: Args) => {
+  return <FeedItem event={{
+    ...args.event,
+    timestamp: args.timestamp
+  }
+  }/>;
+}
 
-Joined.args = {
+function generate(args: Args): Story<Args> {
+  const story = Template.bind({})
+  story.args = {
+    ...args,
+    timestamp: args.timestamp
+  }
+  return story
+}
+
+export const Joined = generate({
+  timestamp: new Date().toISOString(),
   event: {
-    type: 'JOINED',
-    timestamp: new Date().toISOString(),
+    type: FeedEventType.Joined,
     user: {
       username: 'theo'
     }
   }
-};
+})
 
-export const SelfCreated = Template.bind({});
-
-SelfCreated.args = {
-  event: {
-    type: 'SELF_CREATED',
-    timestamp: new Date().toISOString()
-  }
-};
-
-
-export const NewGuide = Template.bind({});
-
-NewGuide.args = {
-  event: {
-    type: 'NEW_GUIDE',
+export const SelfCreated = generate({
     timestamp: new Date().toISOString(),
-    user: {
-      username: 'theo'
-    },
+    event: {
+      type: FeedEventType.SelfCreated,
+    }
+  }
+)
+
+
+export const NewGuide = generate({
+  timestamp: new Date().toISOString(),
+  event: {
+    type: FeedEventType.NewGuide,
     guide: {
       title: 'A guide',
+      owner: 'theo',
       spots: {
+        totalCount: 2,
         nodes: [{
+          id: 'someId',
+          created: new Date().toISOString(),
           lat: SEYTHENEX.latitude,
           long: SEYTHENEX.longitude
         }, {
+          id: 'someOtherId',
+          created: new Date().toISOString(),
           lat: ANNECY.latitude,
           long: ANNECY.longitude
         },
         ]
       },
       rides: {
+        totalCount: 0,
         nodes: []
       },
     }
   }
-};
+})
 
 
-export const NewFollows = Template.bind({});
-
-NewFollows.args = {
+export const NewFollows = generate({
+  timestamp: new Date().toISOString(),
   event: {
-    type: 'NEW_FOLLOWS',
-    timestamp: new Date().toISOString(),
+    type: FeedEventType.NewFollows,
     user: {
       username: 'john'
     }
   }
-};
+});

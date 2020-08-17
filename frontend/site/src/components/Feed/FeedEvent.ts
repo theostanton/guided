@@ -33,8 +33,8 @@ export type NewFollowsFeedEvent =
 
 export type NewGuideFeedEvent =
   FeedEventBase<FeedEventType.NewGuide>
-  & PickRequired<FeedEventFragment, 'timestamp' | 'guide' | 'user'>
+  & PickRequired<FeedEventFragment, 'timestamp' | 'guide'>
 
 export type SelfCreatedFeedEvent =
   FeedEventBase<FeedEventType.SelfCreated>
-  & PickRequired<FeedEventFragment, 'timestamp' | 'guide' | 'user'>
+  & PickRequired<FeedEventFragment, 'timestamp'>
