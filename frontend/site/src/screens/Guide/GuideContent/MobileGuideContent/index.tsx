@@ -38,14 +38,17 @@ export default class MobileGuideContent extends React.Component<Props, State> {
     switch (this.props.guideStore!.mode) {
       case "AddSpot":
         Content = <AddSpotContent
-          onDismiss={this.props.guideStore!.clearMode}
+          onDismiss={() => {
+            this.props.guideStore!.clearMode()
+          }}
           params={this.props.guideStore!.getModeParams('AddSpot')}
           guide={this.props.guideStore!.guide!}/>
         break
       case "Route":
         Content = <RouteContent
           spots={this.props.guideStore!.guide!.spots.nodes.map(assertMaybes())}
-          selectSpot={this.props.guideStore!.selectSpot}/>
+          selectSpot={spotId => this.props.guideStore!.selectSpot(spotId)}
+        />
         break
       case "SelectSpot":
         Content = <SelectSpotContent

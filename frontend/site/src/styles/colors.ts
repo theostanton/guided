@@ -4,7 +4,7 @@ import {Property} from "csstype";
 export type Color = Property.Color
 
 export const primary: Color = '#343a9a';
-export const primaryLight: Color = 'orangered';
+export const primaryLight: Color = '#4b50a3';
 export const secondary: Color = '#729962';
 
 export const darkText: Color = '#181b4dbb';
@@ -16,11 +16,11 @@ export const border: Color = '#aaaaaaee';
 
 const itemStateColors: { [state in ItemState]: { [itemType in ItemType]: Color } } = {
   selected: {
-    spot: primary,
-    ride: primary
+    spot: secondary,
+    ride: secondary
   },
   none: {
-    spot: secondary,
+    spot: primary,
     ride: primary
   },
   not_selected: {

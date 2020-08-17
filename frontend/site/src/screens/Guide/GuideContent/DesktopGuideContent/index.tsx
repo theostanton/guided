@@ -6,7 +6,7 @@ import {whole} from "styles/dimensions";
 import RightRail from "./RightRail";
 import GuideStore from "../../GuideStore";
 import CameraStore from "components/Map/CameraStore";
-import {Context} from "../../../../app/Context";
+import {AppContext, Context} from "../../../../app/Context";
 
 type Props = {
   guideStore?: GuideStore,
@@ -22,9 +22,9 @@ export default class DesktopGuideContent extends React.Component<Props, State> {
 
   static contextType = Context
 
-  constructor(props: Props) {
-    super(props);
-    const side = Math.min(this.context!.window!.width / 4, MAX_RAIL_WIDTH) + 2 * whole
+  constructor(props: Props,context:AppContext) {
+    super(props,context);
+    const side = Math.min(context!.window!.width / 4, MAX_RAIL_WIDTH) + 2 * whole
     props.cameraStore!.updatePadding({
       left: side,
       right: side

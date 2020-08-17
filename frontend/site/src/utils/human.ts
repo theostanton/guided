@@ -36,7 +36,7 @@ export function duration(durationSeconds: number): Duration {
       return {
         unitLong: durationMinutes === 1 ? 'minute' : 'minutes',
         unitShort: durationMinutes === 1 ? 'min' : 'mins',
-        value: durationMinutes
+        value: Math.ceil(durationMinutes)
       }
     default:
       const durationHours = Math.ceil(durationMinutes / 60)

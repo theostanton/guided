@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {inject, Provider} from 'mobx-react';
 import {ScreenProps} from 'utils/navigation/ScreenProps';
 import GuideContent from "./GuideContent";
-import GuideMap from "./GuideMap";
+import {GuideMapObserver} from "./GuideMap";
 import {fullHeight, fullWidth} from "styles/dimensions";
 import GuideStore from "./GuideStore";
 import {guideId, idType} from "utils";
@@ -11,7 +11,7 @@ import {subscriptionClient} from "api/client";
 import {GuideDocument, GuideFragment, GuideSubscription, GuideSubscriptionVariables} from "api/generated";
 import {autoPointerEvents, noPointerEvents} from "styles/touch";
 import CameraStore from "components/Map/CameraStore";
-import {Context} from "app/Context";
+import {AppContext, Context} from "app/Context";
 
 type Props = ScreenProps<'Guide'>
 
@@ -28,12 +28,13 @@ export default class GuideScreen extends React.Component<Props, State> {
   cameraStore: CameraStore
   private subscription: ZenObservable.Subscription | undefined;
 
-  constructor(props: Props) {
-    super(props);
+  constructor(props: Props, context: AppContext) {
+    super(props, context);
+    console.log('GuideScreen()')
     this.guideStore = new GuideStore(() => {
       this.onModeUpdate()
     })
-    this.cameraStore = new CameraStore(this.context!.window!)
+    this.cameraStore = new CameraStore(context.window)
     this.state = {}
   }
 
@@ -50,11 +51,11 @@ export default class GuideScreen extends React.Component<Props, State> {
         this.cameraStore.center({
           latitude: selectSpotParams.spot.lat,
           longitude: selectSpotParams.spot.long
-        }, 13)
+        }, 10)
         break
       case "AddSpot":
         const addSpotParams = this.guideStore.getModeParams('AddSpot')
-        this.cameraStore.center(addSpotParams.event, 13)
+        this.cameraStore.center(addSpotParams.event, 10)
         break
       default:
         this.cameraStore.guideBounds(this.guideStore!.guide!)
@@ -79,15 +80,7 @@ export default class GuideScreen extends React.Component<Props, State> {
 
   renderMap() {
     return <View style={styles.map}  {...autoPointerEvents()}>
-      <GuideMap guide={this.guideStore.guide}
-                addSpot={(event)=>{
-                  this.guideStore.updateMode('AddSpot',{
-                    event
-                  })
-                }}
-                selectSpot={(spotId) => {
-                  this.guideStore.selectSpot(spotId)
-                }}/>
+      <GuideMapObserver/>
     </View>
   }
 
@@ -98,7 +91,6 @@ export default class GuideScreen extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-
     const variables: GuideSubscriptionVariables = {
       id: guideId(this.props.params)
     }

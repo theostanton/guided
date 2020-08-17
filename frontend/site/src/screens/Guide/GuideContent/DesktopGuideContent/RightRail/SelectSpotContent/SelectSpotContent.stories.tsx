@@ -1,6 +1,7 @@
 import React from 'react'
 import SelectSpotContent, {Props} from "./index";
 import {Story} from "@storybook/react";
+import {SEYTHENEX} from "components/Map/consts";
 
 
 export default {
@@ -23,6 +24,8 @@ export const Basic = Template.bind({})
 Basic.args = {
   params: {
     spot: {
+      lat: SEYTHENEX.latitude,
+      long: SEYTHENEX.longitude,
       location: 'Some location',
       nights: 2,
       country: 'UK',

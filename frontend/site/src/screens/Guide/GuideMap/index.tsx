@@ -7,9 +7,11 @@ import {itemStateColor} from "styles/colors";
 import {GuideFragment} from "api/generated";
 import {ItemState, ModeList} from "screens/Guide/GuideStore/GuideMode";
 import {MapClickEvent} from "components/Map/types";
+import GuideStore from "../GuideStore";
+import {inject, observer} from "mobx-react";
 
 export type Props = {
-  guide: Pick<GuideFragment, 'rides' | 'spots'> | undefined
+  guide: Pick<GuideFragment, 'rides' | 'spots'>
   selectedSpotId?: string
   selectedRideId?: string
   addSpotParams?: ModeList['AddSpot']
@@ -22,7 +24,9 @@ export default class GuideMap extends React.Component<Props, State> {
 
   renderAddSpotMarker() {
     if (this.props.addSpotParams) {
-      return <IconMarker key={'add_spot'} id={'add_spot'} position={this.props.addSpotParams.event} color={'#ff00ff'}/>
+      return <IconMarker key={'add_spot'} id={'add_spot'}
+                         position={this.props.addSpotParams.event}
+                         color={itemStateColor('spot', 'selected')}/>
     }
   }
 
@@ -74,11 +78,9 @@ export default class GuideMap extends React.Component<Props, State> {
   render() {
     return (
       <Map onClick={this.props.addSpot}>
-        {this.props.guide && <>
-          {this.renderAddSpotMarker()}
-          {this.renderSpots()}
-          {this.renderRides()}
-        </>}
+        {this.renderAddSpotMarker()}
+        {this.renderSpots()}
+        {this.renderRides()}
       </Map>
     );
   }
@@ -87,3 +89,35 @@ export default class GuideMap extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {},
 });
+
+
+@inject('guideStore')
+@observer
+export class GuideMapObserver extends React.Component<{ guideStore?: GuideStore }> {
+
+  get guideStore(): GuideStore {
+    return this.props.guideStore!
+  }
+
+  render() {
+    let guide = this.guideStore.guide;
+    if (guide) {
+      let selectedSpotId: string | undefined;
+      if (this.props.guideStore?.mode === 'SelectSpot') {
+        selectedSpotId = this.guideStore.getModeParams('SelectSpot')?.spot?.id
+      }
+      return <GuideMap guide={guide}
+                       addSpot={(event) => {
+                         this.guideStore.updateMode('AddSpot', {
+                           event
+                         })
+                       }}
+                       selectedSpotId={selectedSpotId}
+                       selectSpot={(spotId) => {
+                         this.guideStore.selectSpot(spotId)
+                       }}/>
+    } else {
+      return null
+    }
+  }
+}

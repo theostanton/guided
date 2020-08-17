@@ -3,9 +3,9 @@ import {StyleSheet, Text, View} from 'react-native';
 import {HomeFeedComponent} from "api/generated";
 import Feed from "../index";
 import client from "api/client";
-import {assertMaybes} from "../../../utils";
-import {mapFeedEventFragment} from "../FeedEvent";
-import Activity from "../../Activity";
+import {assertMaybes} from "utils";
+import {mapFeedEventFragment} from "components/Feed/FeedEvent";
+import Activity from "components/Activity";
 
 type Props = {
   self: string

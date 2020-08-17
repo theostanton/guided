@@ -1,18 +1,18 @@
 import React from 'react'
 
 
-import RouteContent, {Props} from "./index";
 import {Story} from "@storybook/react";
 import {View} from "react-native";
 import {card} from "styles";
+import GuideRoute, {Props} from "./index";
 
 
 export default {
-  title: 'Guide/Mobile/Route',
-  component: RouteContent,
+  title: 'Guide/Route',
+  component: GuideRoute,
   parameters: {
     viewport: {
-      defaultViewport: 'mobile'
+      defaultViewport: 'rail'
     }
   }
 }
@@ -20,8 +20,12 @@ export default {
 type Args = Pick<Props, 'spots'>
 
 const Template: Story<Args> = (args: Args) => <View style={card}>
-  <RouteContent spots={args.spots} selectSpot={() => {
-  }}/>
+  <GuideRoute
+    spots={args.spots}
+    selectSpot={() => {
+    }}
+    selectedSpotId={undefined}
+  />
 </View>
 
 export const Basic = Template.bind({})

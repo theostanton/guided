@@ -5,11 +5,12 @@ import {h3, h5} from "styles/text";
 import {icon, quarter, whole} from "styles/dimensions";
 import Pressable from "components/Pressable";
 import Icon from "components/Icon";
-import {itemStateColor} from "../../../../../styles/colors";
+import {itemStateColor} from "styles/colors";
 
 export type SpotItemSpot = Pick<SpotFragment, 'id' | 'label' | 'location'>;
 type Props = {
   spot: SpotItemSpot
+  isSelected: boolean
   selectSpot: (spotId: string) => void
 };
 type State = {};
@@ -31,7 +32,7 @@ export default class SpotItem extends React.Component<Props, State> {
     }}>
       <View style={styles.root}>
         <View style={styles.path}>
-          <Icon name={'place'} size={32} color={itemStateColor('spot', "none")}/>
+          <Icon name={'place'} size={32} color={itemStateColor('spot', this.props.isSelected ? 'selected' : 'none')}/>
         </View>
         {this.renderContent()}
         <View style={styles.arrow}>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   path: {
     flex: 1,
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems: 'center'
   },
   content: {
     flex: 4,

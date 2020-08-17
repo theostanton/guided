@@ -3,11 +3,10 @@ import * as React from "react";
 import viewports from "./viewports";
 
 const withDeviceContext = (Story) => {
-  let context = new AppContext();
-  context.update({
+  let context = new AppContext({
     width: 200,
     height: 200
-  })
+  });
   return (
     <Context.Provider value={context}>
       <Story/>

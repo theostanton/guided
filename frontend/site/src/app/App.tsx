@@ -67,8 +67,7 @@ export default class App extends React.Component {
       </Helmet>
       <DimensionsWrapper>
         {({screen, window}) => {
-          const appContext = new AppContext()
-          appContext.update(window)
+          const appContext = new AppContext(window)
           if (appContext.isLandscape()) {
             return <Context.Provider value={appContext}>
               <Provider
