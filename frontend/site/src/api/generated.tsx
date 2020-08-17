@@ -4510,12 +4510,12 @@ export type FeedEventFragment = (
   & { readonly guide?: Maybe<GuideFragment>, readonly ride?: Maybe<RideFragment>, readonly user?: Maybe<ProfileUserFragment> }
 );
 
-export type ALlUsersSubscriptionVariables = Exact<{
+export type AllUsersSubscriptionVariables = Exact<{
   self?: Maybe<Scalars['String']>;
 }>;
 
 
-export type ALlUsersSubscription = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<ProfileUserFragment>> }> };
+export type AllUsersSubscription = { readonly users?: Maybe<{ readonly nodes: ReadonlyArray<Maybe<ProfileUserFragment>> }> };
 
 export type CreateMutationVariables = Exact<{
   input?: Maybe<CreateGuideInput>;
@@ -4882,8 +4882,8 @@ export function useHomeFeedLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHoo
 export type HomeFeedQueryHookResult = ReturnType<typeof useHomeFeedQuery>;
 export type HomeFeedLazyQueryHookResult = ReturnType<typeof useHomeFeedLazyQuery>;
 export type HomeFeedQueryResult = ApolloReactCommon.QueryResult<HomeFeedQuery, HomeFeedQueryVariables>;
-export const ALlUsersDocument = gql`
-    subscription ALlUsers($self: String) {
+export const AllUsersDocument = gql`
+    subscription AllUsers($self: String) {
   users(filter: {username: {notEqualTo: $self}}) {
     nodes {
       ...ProfileUser
@@ -4891,47 +4891,47 @@ export const ALlUsersDocument = gql`
   }
 }
     ${ProfileUserFragmentDoc}`;
-export type ALlUsersComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<ALlUsersSubscription, ALlUsersSubscriptionVariables>, 'subscription'>;
+export type AllUsersComponentProps = Omit<ApolloReactComponents.SubscriptionComponentOptions<AllUsersSubscription, AllUsersSubscriptionVariables>, 'subscription'>;
 
-    export const ALlUsersComponent = (props: ALlUsersComponentProps) => (
-      <ApolloReactComponents.Subscription<ALlUsersSubscription, ALlUsersSubscriptionVariables> subscription={ALlUsersDocument} {...props} />
+    export const AllUsersComponent = (props: AllUsersComponentProps) => (
+      <ApolloReactComponents.Subscription<AllUsersSubscription, AllUsersSubscriptionVariables> subscription={AllUsersDocument} {...props} />
     );
     
-export type ALlUsersProps<TChildProps = {}, TDataName extends string = 'data'> = {
-      [key in TDataName]: ApolloReactHoc.DataValue<ALlUsersSubscription, ALlUsersSubscriptionVariables>
+export type AllUsersProps<TChildProps = {}, TDataName extends string = 'data'> = {
+      [key in TDataName]: ApolloReactHoc.DataValue<AllUsersSubscription, AllUsersSubscriptionVariables>
     } & TChildProps;
-export function withALlUsers<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
+export function withAllUsers<TProps, TChildProps = {}, TDataName extends string = 'data'>(operationOptions?: ApolloReactHoc.OperationOption<
   TProps,
-  ALlUsersSubscription,
-  ALlUsersSubscriptionVariables,
-  ALlUsersProps<TChildProps, TDataName>>) {
-    return ApolloReactHoc.withSubscription<TProps, ALlUsersSubscription, ALlUsersSubscriptionVariables, ALlUsersProps<TChildProps, TDataName>>(ALlUsersDocument, {
-      alias: 'aLlUsers',
+  AllUsersSubscription,
+  AllUsersSubscriptionVariables,
+  AllUsersProps<TChildProps, TDataName>>) {
+    return ApolloReactHoc.withSubscription<TProps, AllUsersSubscription, AllUsersSubscriptionVariables, AllUsersProps<TChildProps, TDataName>>(AllUsersDocument, {
+      alias: 'allUsers',
       ...operationOptions
     });
 };
 
 /**
- * __useALlUsersSubscription__
+ * __useAllUsersSubscription__
  *
- * To run a query within a React component, call `useALlUsersSubscription` and pass it any options that fit your needs.
- * When your component renders, `useALlUsersSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useAllUsersSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useAllUsersSubscription` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useALlUsersSubscription({
+ * const { data, loading, error } = useAllUsersSubscription({
  *   variables: {
  *      self: // value for 'self'
  *   },
  * });
  */
-export function useALlUsersSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<ALlUsersSubscription, ALlUsersSubscriptionVariables>) {
-        return ApolloReactHooks.useSubscription<ALlUsersSubscription, ALlUsersSubscriptionVariables>(ALlUsersDocument, baseOptions);
+export function useAllUsersSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<AllUsersSubscription, AllUsersSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<AllUsersSubscription, AllUsersSubscriptionVariables>(AllUsersDocument, baseOptions);
       }
-export type ALlUsersSubscriptionHookResult = ReturnType<typeof useALlUsersSubscription>;
-export type ALlUsersSubscriptionResult = ApolloReactCommon.SubscriptionResult<ALlUsersSubscription>;
+export type AllUsersSubscriptionHookResult = ReturnType<typeof useAllUsersSubscription>;
+export type AllUsersSubscriptionResult = ApolloReactCommon.SubscriptionResult<AllUsersSubscription>;
 export const CreateDocument = gql`
     mutation Create($input: CreateGuideInput) {
   createGuide(input: $input) {

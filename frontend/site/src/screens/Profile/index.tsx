@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {inject} from 'mobx-react';
 import {ScreenProps} from 'utils/navigation/ScreenProps';
 import {ProfileComponent} from "api/generated";
 import ProfileContent from "./ProfileContent";
 import client from "api/client";
 import {assertMaybes, isWeb} from "../../utils";
+import Activity from "../../components/Activity";
 
 type Props = ScreenProps<'Profile'>
 
@@ -17,9 +18,7 @@ export default class ProfileScreen extends React.Component<Props> {
       <ProfileComponent variables={{username: this.props.params.username}} client={client}>
         {(result) => {
           if (result.loading) {
-            return <View style={styles.root}>
-              <Text>Loading</Text>
-            </View>
+            return <Activity/>
           }
 
           if (result.error) {

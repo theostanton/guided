@@ -2,32 +2,28 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {HomeFeedComponent} from "api/generated";
 import Feed from "../index";
-import AuthStore from "stores/AuthStore";
-import {inject} from "mobx-react";
 import client from "api/client";
 import {assertMaybes} from "../../../utils";
 import {mapFeedEventFragment} from "../FeedEvent";
+import Activity from "../../Activity";
 
 type Props = {
-  authStore?: AuthStore
+  self: string
 };
 type State = {};
 
-@inject('authStore')
 export default class HomeFeed extends React.Component<Props, State> {
   render() {
-    console.log('HomeFeed this.props.authStore.user.username=', this.props.authStore!.user!.username)
     return (
       <HomeFeedComponent
         // @ts-ignore
         client={client}
         variables={{
-          self: this.props.authStore!.user!.username!
+          self: this.props.self
         }}>
         {({loading, data, error}) => {
           if (loading) {
-            // return <Feed feedEvents={[]}/>
-            return <View><Text>Loading..</Text></View>
+            return <Activity/>
 
           } else if (error) {
             console.log('error', error.message)

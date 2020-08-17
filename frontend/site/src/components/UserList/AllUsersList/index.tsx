@@ -1,26 +1,23 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {ALlUsersComponent} from "api/generated";
+import {AllUsersComponent} from "api/generated";
 import {subscriptionClient} from "api/client";
 import UserList from "../index";
-import AuthStore from "stores/AuthStore";
-import {inject} from "mobx-react";
-import {assertMaybes} from "../../../utils";
+import {assertMaybes} from "utils";
 
 type Props = {
-  authStore?: AuthStore
+  self: string
 };
 type State = {};
 
-@inject('authStore')
 export default class AllUsersList extends React.Component<Props, State> {
   render() {
     return (
-      <ALlUsersComponent
+      <AllUsersComponent
         // @ts-ignore
         client={subscriptionClient}
         variables={{
-          self: this.props.authStore!.user!.username
+          self: this.props.self
         }}>
         {({loading, data, error}) => {
           if (loading) {
@@ -29,7 +26,7 @@ export default class AllUsersList extends React.Component<Props, State> {
             return <UserList users={data!.users!.nodes.map(assertMaybes())}/>
           }
         }}
-      </ALlUsersComponent>
+      </AllUsersComponent>
     );
   }
 }

@@ -22,11 +22,15 @@ export type User = {
 export default class AuthStore {
 
   @observable
-  loading:boolean=true
+  loading: boolean = true
 
   async init(): Promise<void> {
-    this.user = await storage.getObject<User>(USER_KEY)
-    this.loading=false
+    try {
+      this.user = await storage.getObject<User>(USER_KEY)
+    } catch (e) {
+      console.error(e)
+    }
+    this.loading = false
   }
 
   @observable

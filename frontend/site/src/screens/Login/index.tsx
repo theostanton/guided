@@ -13,7 +13,10 @@ type State = {}
 export default class LoginScreen extends React.Component<Props, State> {
 
   render() {
-    return <Login login={this.props.authStore!.login}/>;
+    return <Login login={async (email, password) => {
+      return this.props.authStore!.login(email, password)
+    }
+    }/>;
   }
 
 }

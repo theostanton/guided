@@ -52,7 +52,9 @@ function newFollows(event: NewFollowsFeedEvent): HeaderTextItem[] {
 
 function newGuide(event: NewGuideFeedEvent): HeaderTextItem[] {
   return [
-    link(event.user.username, Route.user(event.user)),
+    link(event.guide.owner, Route.user({
+      username: event.guide.owner
+    })),
     text('created'),
     link(event.guide.title, Route.guide(event.guide))
   ]

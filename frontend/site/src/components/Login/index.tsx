@@ -3,8 +3,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import LabelledTextInput from "../LabelledTextInput";
 import Button from "../Button";
 import Link from "../Link";
-import {h4} from "../../styles/text";
-import {half} from "../../styles/dimensions";
+import {h4} from "styles/text";
+import {half} from "styles/dimensions";
 
 
 export type Props = {

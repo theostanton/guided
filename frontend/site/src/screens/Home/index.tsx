@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {inject} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import {ScreenProps} from "utils/navigation/ScreenProps";
 import Link from "components/Link";
 import AllUsersList from "components/UserList/AllUsersList";
@@ -15,17 +15,18 @@ export default class HomeScreen extends React.Component<Props> {
 
   render() {
 
+    let self = this.props.authStore?.user?.username;
     return (
       <View style={styles.root}>
         <View style={styles.left}>
-          <Text>Welcome {this.props.authStore!.user!.username}</Text>
-          <Link href={`/${this.props.authStore!.user!.username}`} textStyle={styles.button}>My profile</Link>
+          <Text>Welcome {self}</Text>
+          <Link href={`/${self}`} textStyle={styles.button}>My profile</Link>
           <Link href={'/create'} textStyle={styles.button}>Create</Link>
-          <AllUsersList/>
+          {self && <AllUsersList self={self}/>}
         </View>
         <View style={styles.right}>
           <Text style={h2}>Feed</Text>
-          <HomeFeed/>
+          {self && <HomeFeed self={self}/>}
         </View>
       </View>
     );

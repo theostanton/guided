@@ -7,7 +7,7 @@ import Icon from "../components/Icon";
 import {primary} from "../styles/colors";
 import FeedScreen from "../screens/Feed";
 import ProfileScreen from "../screens/Profile";
-import {inject} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import AuthStore from "../stores/AuthStore";
 import {wrapped} from "./Mobile";
 
@@ -17,8 +17,14 @@ type Props = {
 type State = {};
 
 @inject('authStore')
+@observer
 export default class Tabs extends React.Component<Props, State> {
   render() {
+    let isLoggedIn = this.props.authStore?.isLoggedIn;
+    console.log('Tabs.render isLoggedIn=', isLoggedIn)
+    if (!isLoggedIn) {
+      return null
+    }
     const Tab = createBottomTabNavigator<TabParamList>();
     return (
       <View style={styles.root}>
