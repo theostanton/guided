@@ -13,7 +13,7 @@ export function get(key: VariableKey): string {
         case 'android':
           return 'http://10.0.2.2:5000';
         case 'web':
-          return 'http://196.168.86.50:5000';
+          return 'http://localhost:5000';
         case "ios":
           return 'http://localhost:5000';
         default:
@@ -24,7 +24,7 @@ export function get(key: VariableKey): string {
         case 'android':
           return 'ws://10.0.2.2:5000';
         case 'web':
-          return 'ws://196.168.86.50:5000';
+          return 'ws://localhost:5000';
         case "ios":
           return 'http://localhost:5000';
         default:
