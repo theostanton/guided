@@ -47,8 +47,6 @@ make develop
 
 ###### React Native solutilon builds frontend for Web/Android/iOS, thanks to react-native-web. 
 
-Uses react-native-navigation for routing. Mobx for state management. Served by the Graphql BFF. Strict Typescript.
-
 - [frontend/site](frontend/site) holds codebae
 - **Mobx** for state management
 - **Storybook** for dev workflow
