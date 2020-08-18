@@ -45,9 +45,17 @@ make develop
 
 ### Frontend
 
-- [@guided/website](frontend/website) is main website, can be seen at [staging.ridersbible.com](https://staging.ridersbible.com). Gatsby + Typescript hosted on [S3 via Cloudfront](deploy/config.site.tf). Uses [Semantic UI](https://semantic-ui.com/) cause my CSS is weak. 
-- [@guided/mobile](frontend/mobile) is currently empty. Plans for either native Android or React Native client. For quick updates and tracking progress via location updates.
+###### React Native solutilon builds frontend for Web/Android/iOS, thanks to react-native-web. 
 
+Uses react-native-navigation for routing. Mobx for state management. Served by the Graphql BFF. Strict Typescript.
+
+- [frontend/site](frontend/site) holds codebae
+- **Mobx** for state management
+- **Storybook** for dev workflow
+- Served by **GraphQL** BFF
+- Strict **Typescript**, interfaces generated from GraphQL schemas
+- Responsive layout presents Mobile App layout when viewed on mobile browser
+- Native specific code handled via *.native.tsx file naming
 
 ### Deploy
 
