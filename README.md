@@ -61,19 +61,3 @@ Uses react-native-navigation for routing. Mobx for state management. Served by t
 
 - [/deploy](/deploy) directory holds Terraform deployment configuration handled Terraform
 - [config.yml](./.circleci/config.yml) holds CircleCI config
-
-
-### TODO
-
-- [ ] **Infra** Split Terraform environments via AWS accounts rather than workspaces
-- [ ] **Testing** Greater test coverage
-- [ ] **Infra** Lockdown VPCs
-- [ ] **Infra** Logging + monitoring solution
-- [ ] **UI** Improve map interaction
-- [ ] **UI** Improve Activity feed, follow + sharing
-- [ ] **UI** Upload image + description of routes
-- [ ] **UI** Design and overhaul UI/UX
-- [ ] **Backend** Lockdown public readonly API
-- [ ] **Infra** Load test load balancer to understand the weight of GraphQL websockets
-- [ ] **Testing** Versioned deployment paired with integration tests
-- [ ] **UI** Mobile client 
