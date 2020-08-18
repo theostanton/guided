@@ -7,6 +7,7 @@ import RightRailHeader, {HeaderAction} from "../RightRailHeader";
 import Button from "components/Button";
 import client from "api/client";
 import {RemoveSpotDocument, RemoveSpotMutation, RemoveSpotMutationVariables} from "api/generated";
+import {whole} from "../../../../../../styles/dimensions";
 
 export type Props = ModeProps<'SelectSpot'> & {
   onDismiss: () => void
@@ -52,11 +53,11 @@ export default class SelectSpotContent extends React.Component<Props, State> {
 
   renderInfo() {
     const spot = this.props.params.spot
-    return <>
+    return <View style={styles.info}>
       <LabelledText label={'Location'}>{spot.location}</LabelledText>
       <LabelledText label={'Country'}>{spot.country}</LabelledText>
       <LabelledText label={'Nights'}>{spot.nights}</LabelledText>
-    </>
+    </View>
   }
 
   renderButton() {
@@ -108,7 +109,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   title: {
+    paddingLeft: whole,
+    paddingRight: whole,
+    paddingTop: whole,
     ...h1,
     flex: 1
+  },
+  info: {
+    paddingLeft: whole,
+    paddingRight: whole
   }
 });

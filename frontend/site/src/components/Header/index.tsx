@@ -8,13 +8,14 @@ import {half, icon, quarter} from "styles/dimensions";
 
 export type Props = {
   style?: ViewStyle
-  title: string
+  title?: string
   subtitle?: string
   icon?: {
     name: IconName,
     color?: Color
   },
-  actions?: HeaderAction[]
+  actions?: HeaderAction[],
+  leftAction?: HeaderAction
 };
 type State = {};
 
@@ -24,6 +25,16 @@ export type HeaderAction = {
 }
 
 export default class Header extends React.Component<Props, State> {
+
+  renderLeftAction() {
+    const action = this.props.leftAction!
+    return <View style={styles.leftAction}>
+      <View key={action.name} style={styles.action}>
+        <Icon name={action.name} onPress={action.onPress} size={icon}/>
+      </View>
+    </View>
+
+  }
 
   renderActions() {
     return <View style={styles.actions}>
@@ -37,11 +48,12 @@ export default class Header extends React.Component<Props, State> {
 
   render() {
     return <View style={[styles.root, this.props.style]}>
+      {this.props.leftAction && this.renderLeftAction()}
       {this.props.icon && <View style={styles.icon}>
         <Icon name={this.props.icon.name} color={this.props.icon.color} size={icon}/>
       </View>}
       <View style={styles.text}>
-        <Text style={styles.title}>{this.props.title}</Text>
+        {this.props.title && <Text style={styles.title}>{this.props.title}</Text>}
         {this.props.subtitle && <Text style={styles.subtitle}>{this.props.subtitle}</Text>}
       </View>
       {this.props.actions && this.renderActions()}
@@ -57,16 +69,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: half
   },
-  icon: {
+  leftAction: {
+    flexShrink: 1,
     alignItems: 'center',
+  },
+  icon: {
+    flex: 0,
     justifyContent: 'center',
     paddingRight: quarter
   },
   text: {
     flex: 1,
+    flexGrow: 1,
     paddingRight: quarter,
     paddingLeft: quarter,
-    alignSelf:'center',
+    alignSelf: 'center',
     flexDirection: 'column',
   },
   title: {
@@ -78,8 +95,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   actions: {
-    flex: 1,
-    alignItems:'center',
+    alignItems: 'center',
     flexDirection: 'row-reverse',
   },
   action: {

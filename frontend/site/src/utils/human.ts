@@ -70,6 +70,8 @@ export function humanElapsed(date: Date): string {
   })
 }
 
+export type CountryCode = keyof typeof COUNTRIES
+
 export const COUNTRIES: { [CountryCode in string]: string } = {
   "AF": "Afghanistan",
   "AX": "Aland Islands",

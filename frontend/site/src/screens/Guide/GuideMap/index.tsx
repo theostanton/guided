@@ -112,6 +112,7 @@ export class GuideMapObserver extends React.Component<{ guideStore?: GuideStore 
                            event
                          })
                        }}
+                       addSpotParams={this.guideStore.optionalGetModeParams('AddSpot')}
                        selectedSpotId={selectedSpotId}
                        selectSpot={(spotId) => {
                          this.guideStore.selectSpot(spotId)

@@ -14,7 +14,10 @@ module.exports = {
 
     config.module.rules.push({
         test: /\.js$/,
-        include: path.resolve(__dirname, '../', "node_modules/react-native-vector-icons"),
+        include: [
+          path.resolve(__dirname, '../', "node_modules/react-native-vector-icons"),
+          path.resolve(__dirname, '../', "node_modules/react-native-svg-flagkit"),
+        ],
         loader: 'babel-loader'
       }
     );

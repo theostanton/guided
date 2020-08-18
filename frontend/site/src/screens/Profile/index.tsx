@@ -1,12 +1,12 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {inject} from 'mobx-react';
 import {ScreenProps} from 'utils/navigation/ScreenProps';
 import {ProfileComponent} from "api/generated";
 import ProfileContent from "./ProfileContent";
 import client from "api/client";
 import {assertMaybes, isWeb} from "../../utils";
-import Activity from "../../components/Activity";
+import Activity from "components/Activity";
 
 type Props = ScreenProps<'Profile'>
 

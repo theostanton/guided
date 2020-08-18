@@ -11,6 +11,8 @@ import {divider, dynamicCard} from "../../../styles";
 import NewGuideFeedItem from "./NewGuideFeedItem";
 import {IconName} from "components/Icon/names";
 import {Context} from "app/Context";
+import Flags from "../../Flags";
+import {assertMaybes} from "../../../utils";
 
 export type Props = {
   event: FeedEvent
@@ -39,7 +41,19 @@ export default class FeedItem extends React.Component<Props, State> {
         </View>
         <Text style={styles.headerSubtitle}>{humanElapsed(new Date(this.props.event.timestamp))}</Text>
       </View>
+      <View style={styles.headerRight}>
+        {this.renderHeaderRight()}
+      </View>
     </View>
+  }
+
+  renderHeaderRight() {
+    const event = this.props.event
+    switch (event.type) {
+      case FeedEventType.NewGuide:
+        console.log('renderHeaderRight event.guide.countries', event.guide.countries)
+        return <Flags countries={event.guide.countries!.map(assertMaybes())} size={18}/>
+    }
   }
 
   renderContent() {
@@ -87,6 +101,12 @@ const styles = StyleSheet.create({
     ...h5,
     paddingTop: eighth,
     flex: 1,
+  },
+  headerRight: {
+    flex: 0,
+    alignItems: 'flex-end',
+    justifyContent:'center',
+    paddingRight:half
   },
   contentDivider: {
     ...divider,

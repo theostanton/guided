@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {icon} from "styles/dimensions";
+import {StyleSheet} from 'react-native';
+import {hairline, icon, whole} from "styles/dimensions";
 import {IconName} from "components/Icon/names";
-import Icon from "components/Icon";
+import {border} from "../../../../../../styles/colors";
+import Header from "../../../../../../components/Header";
 
 export type HeaderAction = {
   name: IconName
@@ -10,6 +11,7 @@ export type HeaderAction = {
 }
 
 type Props = {
+  title?: string
   actions?: HeaderAction[]
   onDismiss: () => void
 };
@@ -17,49 +19,23 @@ type State = {};
 
 export default class RightRailHeader extends React.Component<Props, State> {
 
-  renderIcon() {
-    return <View style={styles.icon}>
-      <Icon name={'close'} size={icon} onPress={() => {
-        this.props.onDismiss()
-      }}/>
-    </View>
-  }
-
-  renderActions() {
-    return this.props.actions && <View style={styles.actions}>
-      {this.props.actions.map(action => {
-        return <View key={action.name} style={styles.action}>
-          <Icon name={action.name} onPress={action.onPress} size={icon}/>
-        </View>
-      })}
-    </View>
-  }
-
   render() {
-    return (
-      <View style={styles.root}>
-        {this.renderIcon()}
-        {this.props.actions && this.renderActions()}
-      </View>
-    );
+    return <Header
+      style={styles.root}
+      title={this.props.title}
+      leftAction={{
+        name: 'close', onPress: () => {
+          this.props.onDismiss()
+        }
+      }
+      }
+      actions={this.props.actions}/>
   }
 }
 
 const styles = StyleSheet.create({
   root: {
-    flexDirection: 'row'
+    borderBottomColor: border,
+    borderBottomWidth: hairline
   },
-  icon: {
-    width: icon,
-    height: icon,
-  },
-  actions: {
-    flex: 1,
-    height: icon,
-    flexDirection: 'row-reverse',
-  },
-  action: {
-    height: icon,
-    width: icon,
-  }
 });

@@ -72,7 +72,7 @@ export default class GuideListItem extends React.Component<Props, State> {
       },
     ]
     return <View style={styles.stats}>
-      <Stats stats={stats}/>
+      <Stats stats={stats} type={'nowrap'}/>
     </View>
   }
 

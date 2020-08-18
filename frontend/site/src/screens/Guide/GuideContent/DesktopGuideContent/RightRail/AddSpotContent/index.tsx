@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import {ModeProps} from "screens/Guide/GuideStore/GuideMode";
 import {h1} from "styles/text";
 import LabelledText from "components/LabelledText";
@@ -7,6 +7,8 @@ import {roundToString} from "utils/human";
 import LabelledTextInput from "components/LabelledTextInput";
 import {AddSpotDocument, AddSpotMutation, GuideFragment, MutationAddSpotArgs} from "api/generated";
 import client from "api/client";
+import RightRailHeader from "../RightRailHeader";
+import {whole} from "../../../../../../styles/dimensions";
 
 export type Props = ModeProps<'AddSpot'> & {
   guide: Pick<GuideFragment, 'id'>
@@ -28,9 +30,7 @@ export default class AddSpotContent extends React.Component<Props, State> {
   }
 
   renderHeader() {
-    return <Text style={styles.title}>
-      Add spot
-    </Text>
+    return <RightRailHeader onDismiss={this.props.onDismiss} title={'Add spot'}/>
   }
 
   renderLocation() {
@@ -132,6 +132,8 @@ const styles = StyleSheet.create({
   },
   location: {
     flexDirection: 'row',
+    paddingLeft:whole,
+    paddingRight:whole,
     flex: 1
   },
   locationText: {
@@ -139,6 +141,8 @@ const styles = StyleSheet.create({
     flexGrow: 1
   },
   info: {
+    paddingLeft:whole,
+    paddingRight:whole,
     flexDirection: 'column',
   }
 });

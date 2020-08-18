@@ -22,8 +22,8 @@ export default class DesktopGuideContent extends React.Component<Props, State> {
 
   static contextType = Context
 
-  constructor(props: Props,context:AppContext) {
-    super(props,context);
+  constructor(props: Props, context: AppContext) {
+    super(props, context);
     const side = Math.min(context!.window!.width / 4, MAX_RAIL_WIDTH) + 2 * whole
     props.cameraStore!.updatePadding({
       left: side,
@@ -33,11 +33,11 @@ export default class DesktopGuideContent extends React.Component<Props, State> {
 
   render() {
     return (
-      <View style={styles.root} pointerEvents={'none'}>
-        <View style={styles.left} pointerEvents={'auto'}>
+      <View style={styles.root}>
+        <View style={styles.left} pointerEvents={'none'}>
           <LeftRail/>
         </View>
-        <View style={styles.right} pointerEvents={'auto'}>
+        <View style={styles.right} pointerEvents={'none'}>
           <RightRail/>
         </View>
       </View>

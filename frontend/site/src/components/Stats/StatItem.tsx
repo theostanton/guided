@@ -23,7 +23,6 @@ export default class StatItem extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'column',
-    // textAlign: 'center',
     alignContent: 'center',
     minWidth: Platform.OS === 'web' ? 'min-content' : undefined,
     flexShrink: 0,
@@ -31,10 +30,12 @@ const styles = StyleSheet.create({
   },
   label: {
     ...h4,
+    alignSelf: 'center',
     flex: 1,
   },
   value: {
     ...h3,
+    alignSelf: 'center',
     flex: 1
   }
 });

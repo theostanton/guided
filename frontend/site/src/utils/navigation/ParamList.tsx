@@ -31,6 +31,12 @@ export function linking(isLandscape: boolean): LinkingOptions {
     prefixes: [],
     config: {
       screens: {
+        Account: '/account',
+        Create: '/create',
+        Login: '/login',
+        Signup: '/signup',
+        Profile: '/:username',
+        Guide: '/:owner/:slug/:itemId?',
         Root: isLandscape ? '' : {
           screens: {
             Feed: '',
@@ -38,12 +44,6 @@ export function linking(isLandscape: boolean): LinkingOptions {
             Account: '',
           }
         },
-        Account: '/account',
-        Create: '/create',
-        Login: '/login',
-        Signup: '/signup',
-        Profile: '/:username',
-        Guide: '/:owner/:slug/:itemId?',
       },
     },
   }

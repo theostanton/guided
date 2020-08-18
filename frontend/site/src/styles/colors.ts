@@ -12,7 +12,7 @@ export const lightText: Color = '#ffffffbb';
 export const darkIcon: Color = darkText;
 export const lightIcon: Color = lightText;
 
-export const border: Color = '#aaaaaaee';
+export const border: Color = '#aaaaaa44';
 
 const itemStateColors: { [state in ItemState]: { [itemType in ItemType]: Color } } = {
   selected: {

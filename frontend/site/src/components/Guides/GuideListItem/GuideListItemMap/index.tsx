@@ -19,6 +19,15 @@ export default class GuideListItemMap extends React.Component<Props> {
     if (!bounds) {
       return
     }
+
+    if (bounds.mode === 'centered') {
+      return {
+        zoom: bounds.zoom,
+        longitude: bounds.latLong.longitude,
+        latitude: bounds.latLong.latitude,
+      }
+    }
+
     return generateViewport(bounds, this.context!.window!.width, 200, {
       bottom: two,
       top: two + icon,

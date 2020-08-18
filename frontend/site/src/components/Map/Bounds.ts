@@ -1,16 +1,27 @@
 import {LatLong} from "./types";
 import {GuideFragment} from "api/generated";
-import {CameraBounds} from "./CameraStore";
+import {CameraBounds, CameraCentered} from "./CameraStore";
 
 export default class Bounds implements CameraBounds {
   mode: "bounds" = 'bounds';
   northEast: LatLong
   southWest: LatLong
 
-  static guide(guide: Pick<GuideFragment, 'spots'>): Bounds | undefined {
+  static guide(guide: Pick<GuideFragment, 'spots'>): Bounds | CameraCentered | undefined {
     const spots = guide.spots.nodes.map(spot => spot!)
     if (spots.length === 0) {
       return undefined
+    }
+
+    if (spots.length === 1) {
+      return {
+        mode: 'centered',
+        zoom: 10,
+        latLong: {
+          longitude: spots[0].long,
+          latitude: spots[0].lat,
+        },
+      }
     }
 
     let west = spots[0].long

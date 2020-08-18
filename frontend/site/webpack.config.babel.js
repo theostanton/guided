@@ -15,7 +15,8 @@ module.exports = {
     modules: ['node_modules'],
     alias: {
       'react-dom': '@hot-loader/react-dom',
-      'react-native$': 'react-native-web'
+      'react-native$': 'react-native-web',
+      'react-native-svg': 'react-native-svg-web'
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
@@ -77,7 +78,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules\/(?!(react-native-modal|react-native-animatable|react-native-elements|react-native-vector-icons)\/).*/,
+        exclude: /node_modules\/(?!(react-native-modal|react-native-animatable|react-native-elements|react-native-vector-icons|react-native-svg-flagkit)\/).*/,
         loader: 'babel-loader'
       },
       {

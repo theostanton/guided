@@ -17,6 +17,7 @@ Basic.args = {
   // @ts-ignore
   users: [
     {
+      countries: ['GB'],
       username: 'theo',
       guidesByOwner: {
         totalCount: 0,
@@ -30,6 +31,7 @@ Basic.args = {
       }
     },
     {
+      countries: ['FR'],
       username: 'john',
       guidesByOwner: {
         totalCount: 1,

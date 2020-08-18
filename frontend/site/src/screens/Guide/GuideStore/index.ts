@@ -56,6 +56,13 @@ export default class GuideStore {
     return this.modeParams as ModeList[Mode]
   }
 
+  optionalGetModeParams<Mode extends keyof ModeList>(mode: Mode): ModeList[Mode] | undefined {
+    if (this.mode !== mode) {
+      return
+    }
+    return this.modeParams as ModeList[Mode]
+  }
+
   selectedState(spotOrRide: SpotFragment | RideFragment): ItemState {
     switch (this.mode) {
       case "SelectSpot":

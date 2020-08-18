@@ -18,7 +18,7 @@ export interface CameraBounds {
   southWest: LatLong
 }
 
-interface CameraCentered {
+export interface CameraCentered {
   mode: 'centered'
   latLong: LatLong
   zoom: number

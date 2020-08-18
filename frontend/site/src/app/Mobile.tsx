@@ -22,6 +22,7 @@ type State = {};
 export function wrapped(WrappedComponent: any) {
   return class extends React.Component<{ navigation?: NavigationProp<ParamList>, route: unknown }> {
     render() {
+      console.log('wrapped this.props',this.props)
       return (
         // @ts-ignore
         <ApolloProvider client={client}>

@@ -63,6 +63,7 @@ export const NewGuide = generate({
     guide: {
       title: 'A guide',
       owner: 'theo',
+      countries: ['FR', 'GB', 'ES'],
       spots: {
         totalCount: 2,
         nodes: [{

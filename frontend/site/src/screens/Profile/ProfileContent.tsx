@@ -22,7 +22,7 @@ export default class ProfileContent extends React.Component<Props, State> {
 
   renderInfo() {
 
-    const {user, guides} = this.props
+    const {user} = this.props
 
     const stats: Stat[] = [
       {
@@ -40,11 +40,15 @@ export default class ProfileContent extends React.Component<Props, State> {
     ]
 
     return <View style={styles.info}>
-      <Text style={styles.username}>{user.username}</Text>
-      <View style={{flex: 1}}>
-        <FollowButton username={user.username}/>
+      <View style={styles.infoLeft}>
+        <Text style={styles.username}>{user.username}</Text>
+        <View style={{flex: 1}}>
+          <FollowButton username={user.username}/>
+        </View>
       </View>
-      <Stats stats={stats}/>
+      <View style={styles.infoRight}>
+        <Stats stats={stats} type={'nowrap'}/>
+      </View>
     </View>
   }
 
@@ -52,7 +56,6 @@ export default class ProfileContent extends React.Component<Props, State> {
     const numColumns = this.context!.isLandscape() ? 2 : 1
     const {guides} = this.props
     return <View style={styles.guides}>
-      <Text style={styles.guideTitle}>{guides.length} guides</Text>
       <GuidesList guides={guides} numColumns={numColumns}/>
     </View>
   }
@@ -79,8 +82,14 @@ const styles = StyleSheet.create({
   },
   info: {
     padding: whole,
-    flexDirection: 'column',
+    flexDirection: 'row',
     marginBottom: whole
+  },
+  infoLeft: {
+    flex: 1,
+  },
+  infoRight: {
+    flex: 1
   },
   guideTitle: {
     ...h3,
