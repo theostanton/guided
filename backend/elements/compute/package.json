@@ -21,7 +21,7 @@
     "@guided/google": "*",
     "@guided/spinup": "*",
     "@guided/utils": "*",
-    "aws-sdk": "^2.656.0",
+    "aws-sdk": "^2.814.0",
     "date-fns": "^2.9.0"
   },
   "devDependencies": {
